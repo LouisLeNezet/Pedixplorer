@@ -11,7 +11,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         id = "data_ped_import",
         label = "Select pedigree file :"
     )
-    cols_needed_ped1 <- data_col_sel_server(
+    ped_df_rename <- data_col_sel_server(
         "data_ped_col_sel1", ped_df,
         c("indId", "fatherId", "motherId", "gender"),
         "Select columns :", null = TRUE
@@ -26,82 +26,47 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         id = "data_rel_import",
         label = "Select relationship file :"
     )
-    cols_needed_rel <- data_col_sel_server(
+    rel_df_rename <- data_col_sel_server(
         "data_rel_col_sel", rel_df,
-        c("id1", "id2", "code"),
+        c("id1", "id2", "code"), c(),
         "Select columns :", null = TRUE
     )
 
-    ## Data normalisation ----------------------
+    ## Ped creation ----------------------------
     ped_df_norm <- shiny::reactive({
-        print("Bal: data management")
-        cols_ren <- c(
-            cols_needed_ped1()[cols_needed_ped1() != "NA"],
-            cols_needed_ped2()[cols_needed_ped2() != "NA"]
-        )
-        cols_needed_ped <- c("indId", "fatherId", "motherId", "gender")
-        if (any(!cols_needed_ped %in% names(cols_ren)) |
-                any(!cols_ren %in% colnames(ped_df()))) {
-            NULL
-        } else {
-            if (any(duplicated(as.vector(unlist(cols_ren))))) {
-                showNotification("You have selected twice the same column !")
-                NULL
-            } else {
-                df_rename <- data.table::copy(ped_df())
-                data.table::setnames(
-                    df_rename,
-                    old = as.vector(unlist(cols_ren)),
-                    new = names(cols_ren)
-                )
-                ped_df_norm <- print_console(norm_ped(df_rename), session)
-                if (length(ped_df_norm[!is.na(ped_df_norm$error), ]) > 0) {
-                    showNotification(paste(
-                        nrow(ped_df_norm[!is.na(ped_df_norm$error), ]),
-                        "errors as occured.",
-                        "All individuals with errors wil be discarded"
-                    ))
-                }
-                ped_df_norm
-            }
+        if (is.null(ped_df_rename())) {
+            return(NULL)
         }
+        norm_ped(ped_df_rename())
     })
     rel_df_norm <- shiny::reactive({
-        print("Bal: rel management")
-        cols_ren <- cols_needed_rel()[cols_needed_rel() != "NA"]
-        cols_needed_rel <- c("id1", "id2", "code")
-        if (any(!cols_needed_rel %in% names(cols_ren))) {
-            NULL
-        } else {
-            rel_rename <- rel_df()
-            data.table::setnames(
-                rel_rename,
-                old = as.vector(unlist(cols_ren)),
-                new = names(cols_ren)
-            )
-            rel_df_norm <- print_console(norm_rel(rel_rename), session)
-            if (length(rel_df_norm[!is.na(rel_df_norm$error)]) > 0) {
-                showNotification(paste(
-                    nrow(rel_df_norm[!is.na(rel_df_norm$error), ]),
-                    "errors as occured.",
-                    "All individuals with errors wil be discarded"
-                ))
-            }
-            rel_df_norm
+        if (is.null((rel_df_rename()))) {
+            return(NULL)
         }
+        norm_rel(rel_df_rename())
+    })
+
+    ped <- shiny::reactive({
+        if (any(is.na(ped_df_norm()$error)) |
+                any(is.na(rel_df_norm()$error))) {
+            return(NULL)
+        }
+        Pedigree(ped_df_norm(), rel_df_norm())
     })
 
     ## Errors download -------------------------
     shiny::observeEvent(ped_df_norm(), {
         data_download_server("ped_errors",
-            shiny::reactive({ped_df_norm()[!is.na(ped_df_norm()$error), ]}),
-            "Pedigree data errors"
+            shiny::reactive({
+                ped_df_norm()[!is.na(ped_df_norm()$error), ]
+            }), "Pedigree data errors"
         )
     })
     shiny::observeEvent(rel_df_norm(), {
         data_download_server("rel_errors",
-            shiny::reactive({rel_df_norm()[!is.na(rel_df_norm()$error), ]}),
-            "Relationship data errors"
+            shiny::reactive({
+                rel_df_norm()[!is.na(rel_df_norm()$error), ]
+            }), "Relationship data errors"
         )
     })
 
@@ -109,6 +74,9 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     # Families table
     families_table <- reactive({
         print("Bal: families_table")
+        if (is.null(ped_df_norm())) {
+            return(NULL)
+        }
         ped_df <- ped_df_norm()[is.na(ped_df_norm()$error)]
         if (!is.null(ped_df) & !is.null(input$families_var_sel)) {
             get_families_table(ped_df, input$families_var_sel)
@@ -118,6 +86,9 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     })
     # Family selection variable
     output$families_var_selector <- renderUI({
+        if (is.null(ped_df_norm())) {
+            return(NULL)
+        }
         print("Bal: families_var")
         dfn <- ped_df_norm()[is.na(ped_df_norm()$error)]
         if (!is.null(dfn)) {
