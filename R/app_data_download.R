@@ -20,26 +20,28 @@ data_download_server <- function(id, df, filename,
         shiny::observeEvent(df(), {
             if (nrow(df()) == 0) {
                 output$data_text <- shiny::renderUI({
-                  shiny::HTML(paste(label, "doesn't have any rows"))
+                    shiny::HTML(paste(label, "doesn't have any rows"))
                 })
                 output$btn_dwld <- shiny::renderUI({
-                  NULL
+                    NULL
                 })
             } else {
                 if (helper) {
-                  output$data_text <- shiny::renderUI({
-                    shiny::HTML(paste(label, "with", nrow(df()),
-                        "rows", "<br/>",
-                        "(Data can only be export to Download folder)"))
-                  })
+                    output$data_text <- shiny::renderUI({
+                        shiny::HTML(paste(
+                            label, "with", nrow(df()),
+                            "rows", "<br/>",
+                            "(Data can only be export to Download folder)"
+                        ))
+                    })
                 } else {
-                  output$data_text <- shiny::renderUI({
-                    NULL
-                  })
+                    output$data_text <- shiny::renderUI({
+                        NULL
+                    })
                 }
 
                 output$btn_dwld <- shiny::renderUI({
-                  shiny::downloadButton(ns("data_dwld"), label = label)
+                    shiny::downloadButton(ns("data_dwld"), label = label)
                 })
 
             }

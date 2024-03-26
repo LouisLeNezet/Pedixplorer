@@ -2,14 +2,7 @@
 # St Jude Bio-Hackathon of May 2023 by the team 13.
 # Author: Louis Le Nézet (louislenezet@gmail.com)
 
-# Documentation
-#' R Shiny module to generate pedigree graph
-#'
-#' @param id A string.
-#' @param df A dataframe containing the information about the individual to plot
-#' @returns A Shiny module.
-#' @examples
-#' Pedigree_demo()
+
 #### Library needed #### ----------
 usethis::use_package("dplyr")
 usethis::use_package("shiny")
@@ -60,6 +53,14 @@ ped_plot <- function(
 
 
 #### UI function of the module #### ----------
+# Documentation
+#' R Shiny module to generate pedigree graph
+#'
+#' @param id A string.
+#' @param df A dataframe containing the information about the individual to plot
+#' @returns A Shiny module.
+#' @examples
+#' Pedigree_demo()
 plot_ped_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(

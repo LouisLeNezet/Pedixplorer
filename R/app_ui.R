@@ -1,6 +1,11 @@
 usethis::use_package("shiny")
 usethis::use_package("bootstrap")
 
+#' @importFrom shiny tags fluidRow column titlePanel hr HTML h3 h5 pre NS
+#' @importFrom shiny strong uiOutput textOutput tableOutput dataTableOutput
+#' @importFrom shiny numericInput checkboxInput plotOutput
+NULL
+
 # Define UI for application that draws a histogram
 ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ## Configuration -------------------------------
@@ -41,10 +46,7 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
     fluidRow(title = "Navigation", class = "navigationBar",
         ## ___Data and Family selection -------------
         column(2, data_import_ui(id = "data_ped_import")),
-        column(6,
-            column(6, data_col_sel_ui(id = "data_ped_col_sel1")),
-            column(6, data_col_sel_ui(id = "data_ped_col_sel2"))
-        ),
+        column(6, data_col_sel_ui(id = "data_ped_col_sel")),
         column(2, data_import_ui(id = "data_rel_import")),
         column(2, data_col_sel_ui(id = "data_rel_col_sel"))
     ),
@@ -67,20 +69,12 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
     fluidRow(title = "Family and Health selection",
         column(
             4, align = "center",
-            h3("Family selection"),
-            uiOutput("families_var_selector"),
-            fluidRow(
-                DT::dataTableOutput("families_table", width = "500px")
-            ),
-            uiOutput("family_selector")
+            family_sel_ui("family_sel")
         ),
         column(
             4, align = "center",
-            h3("Health selection"),
-            uiOutput("health_var_selector"),
-            uiOutput("health_full_scale_box"),
-            uiOutput("health_threshold_box"),
-            uiOutput("health_aff_selector")
+            health_sel_ui("health_sel"),
+            uiOutput("health_full_scale_box")
         ),
         column(
             4, align = "center",

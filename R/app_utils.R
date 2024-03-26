@@ -26,26 +26,21 @@ print_console <- function(expr, session) {
 usethis::use_package("dplyr")
 ## Choose family to plot the name used will be the most numerous race
 get_families_table <- function(df, var) {
-    if (is.null(df[[var]]) || is.null(df$family)) {
+    if (!var %in% colnames(df) || !("famid" %in% colnames(df))) {
         return(NULL)
     }
-    df <- as.table(table(var = df[[var]], Famille = df$family))
-
-    families_table <- t(apply(df, 2, function(x) {
-        c(rownames(df)[which.max(x)], sum(x))
-    }))
-    colnames(families_table) <- c("Major mod", "Nb Ind")
-
-    families_table <- as.data.frame(families_table)
-    families_table$FamilyNum <- rownames(families_table)
-    families_table <- families_table[c(3, 1, 2)]
-    if ("0" %in% families_table$FamilyNum) {
-        families_table$"Major mod"[families_table$FamilyNum == "0"] <-
-            "Connected to none"
+    var_num <- is.numeric(df[[var]])
+    families_table <- df %>%
+        group_by(famid) %>%
+        summarise(
+            "Major mod" = names(which.max(table(!!dplyr::sym(var)))),
+            "Nb Ind" = dplyr::n()
+        )
+    if (var_num) {
+        families_table$`Major mod` <- as.numeric(families_table$`Major mod`)
     }
     return(families_table)
 }
-
 
 select_from_inf <- function(df, inf_inds, kin_max) {
     if (nrow(df) > 2) {

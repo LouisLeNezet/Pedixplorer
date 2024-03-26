@@ -795,6 +795,15 @@ setMethod("Pedigree", "data.frame",  function(
         stop("ped_df must be a data.frame")
     }
 
+    if (is.null(rel_df)) {
+        rel_df <- data.frame(
+            id1 = character(),
+            id2 = character(),
+            code = numeric(),
+            family = character()
+        )
+    }
+
     if (is.matrix(rel_df)) {
         rel_mat <- rel_df
         rel_df <- data.frame(
@@ -828,6 +837,7 @@ setMethod("Pedigree", "data.frame",  function(
     ## Set family, id, dadid and momid to character
     to_char <- c("family", "indId", "fatherId", "motherId")
     to_char <- colnames(ped_df)[colnames(ped_df) %in% to_char]
+    print(to_char)
     ped_df[to_char] <- lapply(ped_df[to_char], as.character)
 
     ## Normalise the data before creating the object
