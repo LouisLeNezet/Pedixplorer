@@ -250,6 +250,51 @@ is_disconnected <- function(id, dadid, momid) {
     apply(kin_mat == 0, 1, all)
 }
 
+#' Get parents of individuals
+#'
+#' @description Get the parents of individuals.
+#'
+#' @inheritParams Ped
+#' @param id2 A vector of individuals identifiers
+#' @return A vector of individuals identifiers corresponding to the parents
+#' of the individuals in **id2**
+#'
+#' @examples
+#' data(sampleped)
+#' ped <- Pedigree(sampleped)
+#' parent_of(ped, "1_121")
+#' @export
+setGeneric("parent_of", signature = "obj",
+    function(obj, ...) standardGeneric("parent_of")
+)
+
+#' @rdname parent_of
+#' @export
+setMethod("parent_of", "character_OR_integer",
+    function(obj, dadid, momid, id2) {
+        id <- obj
+        dadid2 <- dadid[match(id2, id)]
+        momid2 <- momid[match(id2, id)]
+        unique(c(dadid2, momid2))
+    }
+)
+
+#' @rdname parent_of
+#' @export
+setMethod("parent_of", "Ped",
+    function(obj, id2) {
+        parent_of(id(obj), dadid(obj), momid(obj), id2)
+    }
+)
+
+#' @rdname parent_of
+#' @export
+setMethod("parent_of", "Pedigree",
+    function(obj, id2) {
+        parent_of(ped(obj), id2)
+    }
+)
+
 #' @importFrom plyr revalue
 NULL
 
