@@ -85,7 +85,8 @@ NULL
 #' @seealso [Ped()], [Ped-class], [Pedigree()]
 #' @export
 norm_ped <- function(
-    ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE
+    ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
+    cols_used_del = FALSE
 ) {
     err_cols <- c(
         "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrTer", "sexNA",
@@ -103,8 +104,9 @@ norm_ped <- function(
         "available", "family", "sterilisation", "vitalStatus", "affection"
     )
     ped_df <- check_columns(
-        ped_df, cols_need, cols_used, cols_to_use,
-        others_cols = TRUE, cols_to_use_init = TRUE, cols_used_init = TRUE
+        ped_df, cols_need, cols_used, cols_to_use, others_cols = TRUE,
+        cols_to_use_init = TRUE, cols_used_init = TRUE,
+        cols_used_del = cols_used_del
     )
 
     ped_df$family[is.na(ped_df$family)] <- missid
