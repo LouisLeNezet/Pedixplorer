@@ -3,7 +3,7 @@ NULL
 
 #' NA to specific length
 #'
-#' Check if all value in a vector is `NA`.
+#' Check if all value in a vector is `NA` or `NULL`.
 #' If so set all of them to a new value matching the length
 #' of the template.
 #' If not check that the size of the vector is equal to
@@ -21,7 +21,7 @@ NULL
 #' na_to_length(c(1, 2, 3, NA), rep(0, 4), "NewValue")
 #' @export
 na_to_length <- function(x, temp, value) {
-    if (length(x) == 1 && all(is.na(x))) {
+    if (all(is.na(x)) || all(is.null(x))) {
         rep(value, length(temp))
     } else {
         if (length(x) != length(temp)) {
@@ -115,11 +115,15 @@ setMethod("Ped", "data.frame",
         df$status <- vect_to_binary(df$status, logical = TRUE)
         df$avail <- vect_to_binary(df$avail, logical = TRUE)
         df$affected <- vect_to_binary(df$affected, logical = TRUE)
+        df$isinf <- vect_to_binary(df$isinf, logical = TRUE)
+        df$useful <- vect_to_binary(df$useful, logical = TRUE)
+        df$kin <- na_to_length(df$kin, df$id, NA_real_)
         myped <- with(df, Ped(
             obj = id, sex = sex, dadid = dadid, momid = momid,
             famid = famid,
             steril = steril, status = status, avail = avail,
-            affected = affected
+            affected = affected,
+            kin = kin, isinf = isinf, useful = useful
         ))
         mcols(myped) <- df[,
             colnames(df)[!colnames(df) %in% slotNames(myped)]
@@ -144,7 +148,8 @@ setMethod("Ped", "character_OR_integer",
     function(
         obj, sex, dadid, momid, famid = NA,
         steril = NA, status = NA, avail = NA,
-        affected = NA, missid = NA_character_
+        affected = NA, missid = NA_character_,
+        useful = NA, isinf = NA, kin = NA_real_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
         id <- as.character(obj)
@@ -161,9 +166,9 @@ setMethod("Ped", "character_OR_integer",
         status <- na_to_length(status, id, NA)
         avail <- na_to_length(avail, id, NA)
         affected <- na_to_length(affected, id, NA)
-        useful <- na_to_length(NA, id, NA)
-        isinf <- na_to_length(NA, id, NA)
-        kin <- na_to_length(NA, id, NA_real_)
+        useful <- na_to_length(useful, id, NA)
+        isinf <- na_to_length(isinf, id, NA)
+        kin <- na_to_length(kin, id, NA_real_)
 
         df_child <- num_child(id, dadid, momid, rel_df = NULL)
 
@@ -837,7 +842,6 @@ setMethod("Pedigree", "data.frame",  function(
     ## Set family, id, dadid and momid to character
     to_char <- c("family", "indId", "fatherId", "motherId")
     to_char <- colnames(ped_df)[colnames(ped_df) %in% to_char]
-    print(to_char)
     ped_df[to_char] <- lapply(ped_df[to_char], as.character)
 
     ## Normalise the data before creating the object
@@ -872,12 +876,10 @@ setMethod("Pedigree", "data.frame",  function(
         )
         return(rel_df)
     }
-
     ped <- Ped(ped_df)
     rel <- Rel(rel_df)
     hints <- Hints(hints)
     scales <- Scales()
-
     ## Create the object
     ped <- new("Pedigree",
         ped = ped, rel = rel,
