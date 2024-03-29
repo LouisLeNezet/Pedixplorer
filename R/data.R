@@ -93,7 +93,7 @@
 #' summary(breastped)
 #' scales(breastped)
 #' #plot family 8, proband is solid, slash for cancers
-#' #plot(breastped[famid(breastped) == "8"])
+#' #plot(breastped[famid(ped(breastped)) == "8"])
 "minnbreast"
 
 #' Sampleped data
