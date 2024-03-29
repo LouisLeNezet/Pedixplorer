@@ -136,10 +136,8 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 is.null(lst_health()) |
                 is.null(input$health_full_scale)
         ) {
-            
             return(NULL)
         }
-        
         if (lst_health()$to_num & is.null(lst_health()$threshold)) {
             return(NULL)
         }
@@ -154,47 +152,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     })
 
     ## Family information -----------------------------------------------------
-    output$family_info_table <- DT::renderDataTable({
-        shiny::req(ped_aff())
-        
-        if (!is.null(ped_aff())) {
-            df <- base::table(
-                factor(avail(ped(ped_aff())), c(TRUE, FALSE)),
-                mcols(ped_aff())[[unique(fill(ped_aff())$column_mods)]],
-                useNA = "always",
-                dnn = c("Availability", "Affected")
-            ) %>%
-                as.data.frame() %>%
-                tidyr::spread(Availability, Freq)
-            colnames(df) <- c("Affected", "TRUE", "FALSE", "NA")
-            df$mods <- fill(ped_aff())$labels[match(
-                df$Affected, fill(ped_aff())$mods
-            )]
-            DT::datatable(
-                df[c("Affected", "mods", "TRUE", "FALSE", "NA")],
-                container = sketch(unique(fill(ped_aff())$column_values)),
-                rownames = FALSE,
-                options = list(
-                    columnDefs = list(
-                        list(targets = "_all", className = "dt-center")
-                    ), dom = "t"
-                )
-            )
-        } else {
-            NULL
-        }
-    })
-    output$family_infos_title <- renderText({
-        
-        if (!is.null(ped_aff())) {
-            paste(
-                "Health & Availability data representation for family",
-                unique(famid(ped(ped_aff())))
-            )
-        } else {
-            NULL
-        }
-    })
+    family_infos_server("family_infos", ped_aff)
 
     ## Informative selection --------------------------------------------------
     lst_inf <- inf_sel_server("inf_sel", ped_aff)
@@ -219,48 +177,9 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     })
 
     ## Sub Family information -------------------------------------------------
-    output$subfamily_info_table <- DT::renderDataTable({
-        shiny::req(lst_inf())
-        ped_inf <- ped_subfamilies()
-        if (is.null(ped_inf)) {
-            return(NULL)
-        }
-        df <- base::table(
-            factor(avail(ped(ped_inf)), c(TRUE, FALSE)),
-            mcols(ped_inf)[[unique(fill(ped_inf)$column_mods)]],
-            useNA = "always",
-            dnn = c("Availability", "Affected")
-        ) %>%
-            as.data.frame() %>%
-            tidyr::spread(Availability, Freq)
-        colnames(df) <- c("Affected", "TRUE", "FALSE", "NA")
-        df$mods <- fill(ped_inf)$labels[match(
-            df$Affected, fill(ped_inf)$mods
-        )]
-        DT::datatable(
-            df[c("Affected", "mods", "TRUE", "FALSE", "NA")],
-            container = sketch(unique(fill(ped_inf)$column_values)),
-            rownames = FALSE,
-            options = list(
-                columnDefs = list(
-                    list(targets = "_all", className = "dt-center")
-                ), dom = "t"
-            )
-        )
-    })
-    output$subfamily_infos_title <- renderText({
-        
-        if (!is.null(lst_inf())) {
-            paste(
-                "Health & Availability data representation for subfamily",
-                unique(famid(ped(ped_subfamilies())))
-            )
-        } else {
-            NULL
-        }
-    })
+    family_infos_server("subfamily_infos", ped_subfam)
 
-    ## Plotting pedigree -----------------------------------------------------
+    ## Plotting pedigree ------------------------------------------------------
     title_long <- shiny::reactive({
         shiny::req(lst_fam())
         shiny::req(lst_subfam())
@@ -296,7 +215,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     )
     plot_download_server("saveped", plot_ped, title_short)
 
-    ## End ------------------------------------
+    ## End --------------------------------------------------------------------
     if (!interactive()) {
         session$onSessionEnded(function() {
             shiny::stopApp()

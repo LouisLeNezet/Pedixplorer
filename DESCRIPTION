@@ -82,6 +82,7 @@ Collate:
     'app_data_download.R'
     'app_data_import.R'
     'app_utils.R'
+    'app_family_infos.R'
     'app_family_sel.R'
     'app_health_sel.R'
     'app_inf_sel.R'

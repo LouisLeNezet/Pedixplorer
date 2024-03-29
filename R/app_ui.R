@@ -6,7 +6,18 @@ usethis::use_package("bootstrap")
 #' @importFrom shiny numericInput checkboxInput plotOutput
 NULL
 
-# Define UI for application that draws a histogram
+#' Define UI for the Pedigree exploration application
+#' @return A shiny UI object
+#' @export
+#' @include app_data_import.R
+#' @include app_data_col_sel.R
+#' @include app_data_download.R
+#' @include app_family_infos.R
+#' @include app_family_sel.R
+#' @include app_health_sel.R
+#' @include app_inf_sel.R
+#' @include app_plot_ped.R
+#' @include app_plot_download.R
 ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ## Configuration -------------------------------
     shinyjs::useShinyjs(),
@@ -67,6 +78,7 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
     hr(),
     ## Family and Health selection ---------------------------
     fluidRow(title = "Family and Health selection",
+        h2("Family and Health selection"),
         column(
             4, align = "center",
             family_sel_ui("family_sel")
@@ -78,23 +90,23 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
         ),
         column(
             4, align = "center",
-            h3("Family information"),
-            textOutput("family_infos_title"),
-            DT::dataTableOutput("family_info_table")
+            family_infos_ui("family_infos")
         )
     ),
     hr(),
-    ## Informative individuals selection ----------------------
+    ## Informative and subfamily selection ----------------------
     fluidRow(
-        column(6, align = "center",
+        h2("Informative and subfamily selection"),
+        column(4, align = "center",
             inf_sel_ui("inf_sel")
         ),
         ## Subfamily selection -------------------------
-        column(6, align = "center",
-            family_sel_ui("subfamily_sel"),
-            h3("Family information"),
-            textOutput("subfamily_infos_title"),
-            DT::dataTableOutput("subfamily_info_table")
+        column(4, align = "center",
+            family_sel_ui("subfamily_sel")
+        ),
+        ## Subfamily information -----------------------
+        column(4, align = "center",
+            family_infos_ui("subfamily_infos")
         )
     ),
     hr(),

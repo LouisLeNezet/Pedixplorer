@@ -9,34 +9,22 @@
 inf_sel_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
-        ## Informative individuals selection ----------------------
-        column(6, align = "center",
-            h3("Informative individuals"),
-            column(6,
-                uiOutput(ns("inf_var_selector")),
-            ),
-            column(6,
-                uiOutput(ns("inf_custvar_selector")),
-                uiOutput(ns("inf_custvar_textinput"))
-            )
+        ## Informative individuals selection -----------------------------------
+        h3("Informative individuals"),
+        uiOutput(ns("inf_var_selector")),
+        uiOutput(ns("inf_custvar_selector")),
+        uiOutput(ns("inf_custvar_textinput")),
+        ## Filtering options ---------------------------------------------------
+        h3("Filtering options"),
+        numericInput(
+            ns("kin_max"),
+            label = h5(strong("Max kinship")),
+            value = 3, min = 1
         ),
-        ## Filtering options ---------------------------------------
-        column(6, align = "center",
-            h3("Filtering options"),
-            column(6,
-                numericInput(
-                    ns("kin_max"),
-                    label = h5(strong("Max kinship")),
-                    value = 3, min = 1
-                )
-            ),
-            column(6, align = "left",
-                checkboxInput(
-                    ns("keep_parents"),
-                    label = "Keep informative parents (available or affected)",
-                    value = TRUE
-                )
-            )
+        checkboxInput(
+            ns("keep_parents"),
+            label = "Keep informative parents (available or affected)",
+            value = TRUE
         )
     )
 }
