@@ -97,12 +97,6 @@ setMethod("fix_parents", "character", function(
         stop("Missing value for the id variable")
     }
 
-    if (!is.null(famid)) {
-        id <- upd_famid_id(id, famid, missid)
-        dadid <- upd_famid_id(dadid, famid, missid)
-        momid <- upd_famid_id(momid, famid, missid)
-    }
-
     addids <- paste("addin", seq_along(id), sep = "-")
     if (length(grep("^ *$", id)) > 0) {
         stop("A blank or empty string is not allowed as the id variable")
@@ -165,46 +159,60 @@ setMethod("fix_parents", "character", function(
         momid <- c(momid, rep(missid, length(nodad_idx)))
     }
     if (is.null(famid)) {
-        data.frame(id = id, momid = momid, dadid = dadid, sex = sex)
-    } else {
         famid <- make_famid(id, dadid, momid)
-        data.frame(
-            id = id, momid = momid, dadid = dadid,
-            sex = sex, famid = famid
-        )
     }
+    data.frame(
+        id = id, momid = momid, dadid = dadid,
+        sex = sex, famid = famid
+    )
 })
 
-#' @param delete Boolean defining if missing parents needs to be:
-#' - `TRUE` : added as a new row
-#' - `FALSE` : be deleted
+#' @param del_parents Boolean defining if missing parents needs to be deleted
+#' or fixed. If `one` then if one of the parent is missing, both are removed,
+#' if `both` then if both parents are missing, both are removed. If `NULL`
+#' then no parent is removed and the missing parents are added as new rows.
 #' @param filter Filtering column containing `0` or `1` for the
 #' rows to kept before proceeding.
 #' @rdname fix_parents
 #' @export
 setMethod("fix_parents", "data.frame", function(
-    obj, delete = FALSE, filter = NULL, missid = NA_character_
+    obj, del_parents = NULL, filter = NULL, missid = NA_character_
 ) {
-    cols_needed <- c("id", "dadid", "momid", "sex", filter)
+    cols_needed <- c("id", "dadid", "momid", "sex")
     df <- check_columns(obj, cols_needed, NULL, "famid", others_cols = TRUE,
         cols_to_use_init = TRUE
     )
     df_old <- df
     if (!is.null(filter)) {
-        if (is.logical(df[[filter]])) {
-            df <- df[df[[filter]], ]
+        if (is.logical(filter) & length(filter) == nrow(df)) {
+            df <- df[filter, ]
         } else {
-            stop("Filtering column must me only TRUE or FALSE")
+            stop(
+                "Filtering values must be only TRUE or FALSE",
+                " and have the same length as the dataframe."
+            )
         }
     }
     if (nrow(df) > 2) {
-        if (delete) {
-            # One of the parents doesn't not have a line in id
-            dad_present <- match(df$dadid, df$id, nomatch = missid)
-            mom_present <- match(df$momid, df$id, nomatch = missid)
-            df[dad_present %in% missid |
-                    mom_present %in% missid, c("momid", "dadid")
-            ] <- missid
+        dad_present <- match(df$dadid, df$id, nomatch = missid)
+        mom_present <- match(df$momid, df$id, nomatch = missid)
+        if (!is.null(del_parents)) {
+            if (del_parents == "one") {
+                # One of the parents doesn't not have a line in id
+                df[dad_present %in% missid |
+                        mom_present %in% missid, c("momid", "dadid")
+                ] <- missid
+            } else if (del_parents == "both") {
+                # Both parents don't have a line in id
+                df[dad_present %in% missid &
+                        mom_present %in% missid, c("momid", "dadid")
+                ] <- missid
+            } else {
+                stop(
+                    "Invalid value for 'del_parents' parameter.",
+                    " Must be 'one', 'both' or NULL."
+                )
+            }
         }
         df_fix <- fix_parents(
             df$id, df$dadid, df$momid,

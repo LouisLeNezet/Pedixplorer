@@ -88,7 +88,7 @@ setMethod("as.data.frame", "Ped", function(x) {
 #' - `subset(x, i, del_parents = FALSE, keep = TRUE)`: Subset a Ped object
 #' based on the individuals identifiers given.
 #'      - `i` : A vector of individuals identifiers to keep.
-#'      - `del_parents` : A logical value indicating if the parents
+#'      - `del_parents` : A value indicating if the parents
 #'      of the individuals should be deleted.
 #'      - `keep` : A logical value indicating if the individuals
 #'      should be kept or deleted.
@@ -96,7 +96,7 @@ setMethod("as.data.frame", "Ped", function(x) {
 #' @importFrom S4Vectors subset
 #' @export
 #' @usage NULL
-setMethod("subset", "Ped", function(x, i, del_parents = FALSE, keep = TRUE) {
+setMethod("subset", "Ped", function(x, i, del_parents = NULL, keep = TRUE) {
     if (is.factor(i)) {
         i <- as.character(i)
     }
@@ -111,14 +111,9 @@ setMethod("subset", "Ped", function(x, i, del_parents = FALSE, keep = TRUE) {
     col_computed <- c(
         "num_child_tot", "num_child_dir", "num_child_ind"
     )
-    ped_df <- as.data.frame(x)[i, ]
-    ped_df <- ped_df[, ! colnames(ped_df) %in% col_computed]
-
-    if (del_parents) {
-        ped_df$dadid[!ped_df$dadid %in% ped_df$id] <- NA_character_
-        ped_df$momid[!ped_df$momid %in% ped_df$id] <- NA_character_
-    }
-    new_ped <- Ped(ped_df)
+    ped_df <- as.data.frame(x)[, ! colnames(as.data.frame(x)) %in% col_computed]
+    ped_df_fixed <- fix_parents(ped_df, del_parents = del_parents, filter = i)
+    new_ped <- Ped(ped_df_fixed)
     validObject(new_ped)
     new_ped
 })
@@ -373,7 +368,7 @@ setMethod("as.list", "Pedigree", function(x) {
 #' @export
 #' @usage NULL
 setMethod("subset", "Pedigree",
-    function(x, i, del_parents = FALSE, keep = TRUE) {
+    function(x, i, del_parents = NULL, keep = TRUE) {
         new_ped <- subset(ped(x), i, del_parents = del_parents, keep = keep)
         all_id <- id(new_ped)
         new_rel <- subset(rel(x), all_id)
@@ -396,7 +391,7 @@ setMethod("subset", "Pedigree",
 #' @export
 #' @usage NULL
 setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing"),
-    function(x, i, j, del_parents = FALSE, keep = TRUE, drop = TRUE) {
-        subset(x, i, del_parents, keep)
+    function(x, i, j, drop = TRUE, del_parent = NULL, keep = TRUE) {
+        subset(x, i, del_parent, keep)
     }
 )
