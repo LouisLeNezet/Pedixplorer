@@ -45,7 +45,7 @@ Description: Routines to handle family data with a Pedigree object. The initial 
     with various criteria, and kinship for the X chromosome.
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 
@@ -84,6 +84,7 @@ Collate:
     'app_utils.R'
     'app_family_sel.R'
     'app_health_sel.R'
+    'app_inf_sel.R'
     'app_interface.R'
     'app_observers.R'
     'app_outputs.R'
