@@ -21,7 +21,7 @@ ped_shiny <- function(
     launch_app = TRUE, port = getOption("shiny.port"),
     host = getOption("shiny.host", "127.0.0.1")
 ) {
-    print("Bal: ped_shiny")
+    
     shiny::shinyApp(
         ped_ui, ped_server,
         options = list(host = host, port = port)

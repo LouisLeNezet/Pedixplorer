@@ -65,7 +65,6 @@ family_sel_server <- function(id, pedi) {
         families_df <- reactive({
             shiny::req(input$families_var_sel)
             if (is.null(pedi())) {
-                print("Bal: families_table null")
                 return(NULL)
             }
             get_families_table(
@@ -99,10 +98,18 @@ family_sel_server <- function(id, pedi) {
             }
             fam_nb <- as.numeric(families_df()$famid)
             if (max(fam_nb) > 0) {
+                if (max(fam_nb) == 0) {
+                    showNotification(
+                        "No family present (only unconnected individuals)"
+                    )
+                    return(NULL)
+                }
                 numericInput(
                     ns("family_sel"),
                     label = h5(strong("Select family to use")),
-                    value = min(fam_nb), min = min(fam_nb), max = max(fam_nb)
+                    value = max(min(fam_nb), 1),
+                    min = max(min(fam_nb), 1),
+                    max = max(fam_nb)
                 )
             } else {
                 textOutput(
@@ -111,18 +118,20 @@ family_sel_server <- function(id, pedi) {
             }
         })
 
-        df_fam <- reactive({
-            print("Bal: df_fam")
+        lst_fam <- reactive({
             if (is.null(input$family_sel)) {
                 return(NULL)
             }
             if (input$family_sel > 0) {
-                pedi()[famid(pedi()) == input$family_sel]
+                list(
+                    ped_fam = pedi()[famid(ped(pedi())) == input$family_sel],
+                    famid = input$family_sel
+                )
             } else {
                 NULL
             }
         })
-        return(df_fam)
+        return(lst_fam)
     })
 }
 
@@ -140,12 +149,17 @@ family_sel_demo <- function() {
         )
     )
     server <- function(input, output, session) {
-        ped_fam <- family_sel_server(
+        lst_fam <- family_sel_server(
             "familysel",
-            shiny::reactive({pedi})
+            shiny::reactive({
+                pedi
+            })
         )
         output$selected_fam <- shiny::renderTable({
-            ped(ped_fam())
+            if (is.null(ped_fam())) {
+                return(NULL)
+            }
+            ped(lst_fam$ped_fam())
         })
     }
     shiny::shinyApp(ui, server)

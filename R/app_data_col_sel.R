@@ -42,13 +42,15 @@ data_col_sel_ui <- function(id) {
 #' data_col_sel_demo()
 #' @export
 data_col_sel_server <- function(
-    id, df, cols_needed, cols_supl, title, na_omit = FALSE
+    id, df, cols_needed, cols_supl, title, na_omit = TRUE, others_cols = TRUE
 ) {
     stopifnot(shiny::is.reactive(df))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
+        new_cols <- c(cols_needed, cols_supl)
         # Set all columns as named vector -------------------------------------
         all_cols <- shiny::reactive({
+            shiny::req(df())
             all_cols <- colnames(df())
             if (na_omit) {
                 setNames(c("NA", all_cols), c("", all_cols))
@@ -60,15 +62,17 @@ data_col_sel_server <- function(
         # Creation of the columns selectors -----------------------------------
         v <- list()
         all_sel <- shiny::reactive({
-            for (col in c(cols_needed, cols_supl)) {
-                mandatory <- ifelse(col %in% cols_needed, "*", "")
+            shiny::req(all_cols())
+            for (col in names(new_cols)) {
+                mandatory <- ifelse(col %in% names(cols_needed), "*", "")
+                select <- all_cols()[all_cols() %in% new_cols[[col]]][1]
                 v[[col]] <- shiny::div(
                     id = ns("Div"), class = "div-null",
                     style = "margin-top:-1.5em",
                     shiny::selectInput(
                         ns(paste0("select_", col)),
                         label = shiny::h5(paste(title, col, mandatory)),
-                        choices = all_cols()
+                        choices = all_cols(), selected = select
                     )
                 )
             }
@@ -77,17 +81,21 @@ data_col_sel_server <- function(
 
         # Rendering of the needed columns -------------------------------------
         output$all_cols_need <- shiny::renderUI({
-            all_sel()[cols_needed]
+            shiny::req(all_sel())
+            all_sel()[names(cols_needed)]
         })
         # Rendering of the optional columns -----------------------------------
         output$all_cols_supl <- shiny::renderUI({
-            all_sel()[cols_supl]
+            shiny::req(all_sel())
+            all_sel()[names(cols_supl)]
         })
 
         # Obtain all selected columns -----------------------------------------
         r <- list()
         col_select_list <- shiny::reactive({
-            for (col in c(cols_needed, cols_supl)) {
+            shiny::req(df())
+            shiny::req(all_sel())
+            for (col in names(new_cols)) {
                 input_select_cols <- input[[paste0("select_", col)]]
                 r[[col]] <- input_select_cols
             }
@@ -96,26 +104,42 @@ data_col_sel_server <- function(
 
         # Rename the columns of the dataframe ---------------------------------
         df_rename <- shiny::reactive({
+            if (is.null(df())) {
+                return(NULL)
+            }
             cols_ren <- col_select_list()[col_select_list() != "NA"]
-            if (any(!cols_needed %in% names(cols_ren))) {
-                NULL
+            if (any(!names(cols_needed) %in% names(cols_ren))) {
+                return(NULL)
             } else {
                 if (any(duplicated(as.vector(unlist(cols_ren))))) {
                     shiny::showNotification(
                         "You have selected twice the same column !"
                     )
-                    NULL
+                    return(NULL)
                 } else {
+                    if (any(!cols_ren %in% all_cols())) {
+                        shiny::showNotification(
+                            "You have selected a column that is not in the list !"
+                        )
+                        return(NULL)
+                    }
                     df_rename <- data.table::copy(df())
                     data.table::setnames(
                         df_rename,
                         old = as.vector(unlist(cols_ren)),
                         new = names(cols_ren)
                     )
-                    # Select only setted columns
-                    df_rename[, c(
-                        cols_needed, cols_supl[cols_supl %in% names(cols_ren)]
-                    )]
+                    if (others_cols) {
+                        df_rename
+                    } else {
+                        # Select only setted columns
+                        df_rename[, c(
+                            names(cols_needed),
+                            names(cols_supl)[
+                                names(cols_supl) %in% cols_ren
+                            ]
+                        )]
+                    }
                 }
             }
         })
@@ -137,8 +161,8 @@ data_col_sel_demo <- function() {
             shiny::reactive({
                 mtcars
             }),
-            c("Need1", "Need2"),
-            c("Supl1", "Supl2"),
+            list("Need1" = c("mpg", "cyl"), "Need2" = c()),
+            list("Supl1" = c("other"), "Supl2" = c("disp")),
             "Select column"
         )
         output$selected_cols <- shiny::renderTable({

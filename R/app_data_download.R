@@ -52,8 +52,13 @@ data_download_server <- function(id, df, filename,
 data_download_demo <- function() {
     ui <- shiny::fluidPage(data_download_ui("datafile"))
     server <- function(input, output, session) {
-        data_download_server("datafile", shiny::reactive({mtcars}),
-          "mtcars_data_file", "mtcars")
+        data_download_server(
+            "datafile",
+            shiny::reactive({
+                mtcars
+            }),
+            "mtcars_data_file", "mtcars"
+        )
     }
     shiny::shinyApp(ui, server)
 }

@@ -80,59 +80,30 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
             4, align = "center",
             h3("Family information"),
             textOutput("family_infos_title"),
-            tableOutput("family_info_table")
+            DT::dataTableOutput("family_info_table")
         )
     ),
     hr(),
     ## Informative individuals selection ----------------------
     fluidRow(
-        column(4, align = "center",
-            h3("Informative individuals"),
-            column(6,
-                uiOutput("inf_var_selector"),
-            ),
-            column(6,
-                uiOutput("inf_custvar_selector"),
-                uiOutput("inf_custvar_textinput")
-            )
-        ),
-        ## Filtering options ------------------------
-        column(4, align = "center",
-            h3("Filtering options"),
-            column(6,
-                numericInput(
-                    "kin_max",
-                    label = h5(strong("Max kinship")),
-                    value = 3, min = 1
-                )
-            ),
-            column(6, align = "left",
-                checkboxInput(
-                    "trim_ped",
-                    label = "Trim non informative parents",
-                    value = TRUE
-                ),
-                checkboxInput(
-                    "keep_infos",
-                    label = "When trimmed, keep individuals with infos",
-                    value = TRUE
-                )
-            )
+        column(6, align = "center",
+            inf_sel_ui("inf_sel")
         ),
         ## Subfamily selection -------------------------
-        column(4, align = "center",
-            h3("Subfamily selection"),
-            fluidRow(DT::dataTableOutput("subfamilies_table", width = "500px")),
-            uiOutput("subfamily_selector")
+        column(6, align = "center",
+            family_sel_ui("subfamily_sel"),
+            h3("Family information"),
+            textOutput("subfamily_infos_title"),
+            DT::dataTableOutput("subfamily_info_table")
         )
     ),
     hr(),
     ## Plotting pedigree ----------------------------
     fluidRow(
-        plot_ped_ui("plot_ped"),
+        plot_ped_ui("ped"),
+        plot_download_ui("saveped"),
         plotOutput("legend_plot", height = "50px"),
-        data_download_ui("plot_data_dwnl"),
-        plot_download_ui("plot_ped_dwnl")
+        data_download_ui("plot_data_dwnl")
     ),
 
     ## Console ------------------------------------------------

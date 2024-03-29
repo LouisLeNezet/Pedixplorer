@@ -35,7 +35,6 @@ read_data <- function(
     file, sep = ";", quote = "'", header = TRUE, df_name = NA,
     stringsAsFactors = FALSE, to_char = TRUE
 ) {
-    print("Bal: read_data")
     shiny::req(file)
     if (!is.null(file)) {
         ext <- tools::file_ext(file)
@@ -113,7 +112,6 @@ read_data <- function(
 #' @keywords dataframe
 #' @export
 get_dataframe <- function(file) {
-    print("Bal: get_dataframe")
     shiny::req(file)
     ext <- tools::file_ext(file)
     if (ext %in% c("xls", "xlsx")) {
@@ -194,7 +192,6 @@ data_import_server <- function(
 ) {
     options(shiny.maxRequestSize = max_request_size * 1024^2)
     shiny::moduleServer(id, function(input, output, session) {
-        print("Bal: data_import_server")
         ## File rendering selection ------------------------
         output$file <- shiny::renderUI({
             shiny::fileInput(ns("file"), label)
@@ -202,7 +199,7 @@ data_import_server <- function(
 
         # The selected file, if any
         user_file <- shiny::reactive({
-            # If no file is selected, don't do anything
+            # If no file is selected, do nothing
             shiny::validate(shiny::need(input$file, message = FALSE))
             input$file
         })
@@ -251,6 +248,9 @@ data_import_server <- function(
 
         ## Data selection ------------------------
         df <- shiny::reactive({
+            if (is.null(input$file)) {
+                return(NULL)
+            }
             file <- user_file()$datapath
             read_data(
                 file, input$sep, opt$quote, opt$heading,

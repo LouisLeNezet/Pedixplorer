@@ -145,12 +145,24 @@ health_sel_server <- function(id, pedi) {
 
         # Return the selected health variable ---------------------------------
         lst_health <- shiny::reactive({
+            if (is.null(input$health_var_sel) | is.null(input$health_num)) {
+                return(NULL)
+            }
+            if (input$health_num) {
+                threshold <- input$health_threshold_val
+                threshold_sup <- input$health_threshold_sup
+                mods_aff <- NULL
+            } else {
+                threshold <- NULL
+                threshold_sup <- NULL
+                mods_aff <- input$health_aff_mods
+            }
             list(
                 health_var = input$health_var_sel,
                 to_num = input$health_num,
-                mods_aff = input$health_aff_mods,
-                threshold = input$health_threshold_val,
-                threshold_sup = input$health_threshold_sup
+                mods_aff = mods_aff,
+                threshold = threshold,
+                threshold_sup = threshold_sup
             )
         })
 
@@ -181,6 +193,9 @@ health_sel_demo <- function() {
         )
 
         output$text <- renderUI({
+            if (is.null(lst_health())) {
+                return(NULL)
+            }
             str1 <- paste("Selected health variable:", lst_health()$health_var)
             str2 <- paste("Is numeric:", lst_health()$to_num)
             str3 <- paste(

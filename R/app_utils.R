@@ -1,3 +1,26 @@
+#' Sketch of the family information table
+sketch <- function(var_name) {
+    htmltools::withTags({
+        table(
+            class = "display",
+            thead(
+                tr(
+                    th(class = 'dt-center', colspan = 2, var_name),
+                    th(class = 'dt-center', colspan = 3, "Availability")
+                ),
+                tr(
+                    th("Affected"),
+                    th("Modalities"),
+                    th("Available"),
+                    th("Unavailable"),
+                    th("NA")
+                )
+            )
+        )
+    })
+}
+
+
 #' Print to console
 #'
 #' This function prints the result of an expression to the console.
@@ -30,6 +53,7 @@ get_families_table <- function(df, var) {
         return(NULL)
     }
     var_num <- is.numeric(df[[var]])
+
     families_table <- df %>%
         group_by(famid) %>%
         summarise(
@@ -42,42 +66,11 @@ get_families_table <- function(df, var) {
     return(families_table)
 }
 
-select_from_inf <- function(df, inf_inds, kin_max) {
-    if (nrow(df) > 2) {
-        print("Bal: select_from_inf")
-
-        col_used <- c("to_use")
-        df <- check_columns(df, cols_used = col_used, others_cols = TRUE)
-
-        df_kin <- min_dist_inf(df, inf_inds)
-        df_kin$to_use <- df_kin$kin <= kin_max & !is.na(df_kin$kin)
-
-        df_kin_trim <- fix_parents.data.frame(
-            df = df_kin,
-            delete = FALSE, filter = "to_use"
-        )
-        df_kin_trim <- fix_parents.data.frame(df = df_kin_trim, delete = TRUE)
-        if (nrow(df_kin_trim) > 2) {
-            df_kin_trim$family <- with(
-                df_kin_trim, make_famid(id, momid, dadid)
-            )
-        } else {
-            message("Not Enough individuals")
-            NULL
-        }
-        df_kin_trim
-    } else {
-        message("Not Enough individuals")
-        NULL
-    }
-}
-
 create_legend <- function(lgd_list, nb_col_many = 2, size = 1) {
     legend <- list()
     it1 <- 1
     for (it1 in seq_along(lgd_list)) {
         i <- names(lgd_list)[[it1]]
-        print(lgd_list[[i]])
         legend_labels <- names(lgd_list[[i]])
         nb_mod <- length(lgd_list[[i]])
         if (i == "Availability") {
@@ -124,23 +117,23 @@ create_legend <- function(lgd_list, nb_col_many = 2, size = 1) {
 
 get_title <- function(
     family_sel, subfamily_sel, family_var, mod, inf_selected,
-    kin_max, trim_ped, keep_infos, nb_rows, short_title = FALSE
+    kin_max, keep_parents, nb_rows, short_title = FALSE
 ) {
     if (subfamily_sel == "0") {
         "Subfamily containing individuals not linked to any"
     } else {
         if (short_title) {
-            trim_text <- ifelse(trim_ped, ifelse(keep_infos, "11", "10"), "00")
+            keep_text <- ifelse(keep_parents, "-T", "")
             title <- paste0(c(
                 "Ped", family_var, mod, "-K", kin_max,
-                "-T", trim_text, "-I", inf_selected, "_SF", subfamily_sel
+                keep_text, "-I", inf_selected, "_SF", subfamily_sel
             ), collapse = "")
             title <- stringr::str_replace(title, "/", "-")
             stringr::str_replace(title, " ", "-")
         } else {
-            trim_text <- ifelse(trim_ped, "trimmed", "")
+            keep_text <- ifelse(keep_parents, "trimmed", "")
             paste0(c(
-                "Pedigree", trim_text, "of", family_var, mod, "family N°",
+                "Pedigree", keep_text, "of", family_var, mod, "family N°",
                 family_sel, "sub-family N°", subfamily_sel,
                 "( N=", nb_rows, ") from",
                 inf_selected, "individuals"

@@ -10,25 +10,22 @@ usethis::use_package("shiny")
 #### Function to plot pedigree #### ----------
 ped_plot <- function(
     ped, cex_plot = 1, mar = rep(0.5, 4), psize = par("pin"),
-    tips_names = NA, to_plotly = FALSE, mark = df$affected, fill = df$fill,
-    border = df$border, label = NA, title = NULL
+    tips_names = NA, to_plotly = FALSE,
+    aff_mark = TRUE, label = NULL, title = NULL
 ) {
+    
     if (class(ped) != "Pedigree") {
         return(NULL)
     }
-    print(ped)
-    print(class(ped))
-    ped_plot <- plot(
-        ped, symbolsize = 1, cex = cex_plot,
-        mark = mark, label = label,
-        mar = mar, psize = psize,
-        tips_names = tips_names,
-        fill = fill, border = border,
-        ggplot_gen = to_plotly, title = title
+    ped_plot_lst <- plot(
+        ped,
+        aff_mark = aff_mark, label = label, ggplot_gen = to_plotly,
+        cex = cex_plot, symbolsize = 1,
+        mar = mar, title = title
     ) # General Pedigree
-    print("Bal: ped_plot, Plot Done")
+    
     if (to_plotly) {
-        ggp <- ped_plot$ggplot + ggplot2::scale_y_reverse() +
+        ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
             ggplot2::theme(
                 panel.grid.major =  ggplot2::element_blank(),
                 panel.grid.minor =  ggplot2::element_blank(),
@@ -40,14 +37,15 @@ ped_plot <- function(
                 axis.text.y =  ggplot2::element_blank()
             )
         ## To make it interactive
-        print("Bal: ped_plot, Converting to plotly")
-        plotly::ggplotly(
+        
+        p <- plotly::ggplotly(
             ggp +
                 ggplot2::theme(legend.position = "none"),
             tooltip = "text"
         )
+        return(p)
     } else {
-        ped_plot$plot
+        return(ped)
     }
 }
 
@@ -64,7 +62,7 @@ ped_plot <- function(
 plot_ped_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
-        shiny::uiOutput(ns("plot")),
+        shiny::uiOutput(ns("plotpedi")),
         shiny::checkboxInput(
             ns("interactive"),
             label = "Make the pedigree interactive", value = FALSE
@@ -75,33 +73,37 @@ plot_ped_ui <- function(id) {
 #### Server function of the module #### ----------
 plot_ped_server <- function(id, ped, title) {
     stopifnot(shiny::is.reactive(ped))
+    stopifnot(shiny::is.reactive(title))
     shiny::moduleServer(id, function(input, output, session) {
-        print("Bal: plot_ped_server")
+        
         ns <- shiny::NS(id)
         plot_ped <- shiny::reactive({
-            ped_plot(ped(), to_plotly = input$interactive, title = title)
+            if (is.null(ped()) | is.null(input$interactive)) {
+                return(NULL)
+            }
+            return(
+                ped_plot(ped(), to_plotly = input$interactive, title = title())
+            )
         })
-        output$plot <- shiny::renderUI({
+        output$plotpedi <- shiny::renderUI({
+            if (is.null(input$interactive)) {
+                return(NULL)
+            }
             if (input$interactive) {
-                print("Bal: plot_ped_server, interactive")
+                
                 output$ped_plotly <- plotly::renderPlotly({
-                    if (!"plotly" %in% class(plot_ped())) {
-                        return(NULL)
-                    }
-                    plot_ped()
+                    ped_plot(ped(), to_plotly = TRUE, title = title())
                 })
                 plotly::plotlyOutput(ns("ped_plotly"))
             } else {
-                print("Bal: plot_ped_server, not interactive")
+                
                 output$ped_plot <- shiny::renderPlot({
-                    if (!"grob" %in% class(plot_ped())) {
-                        return(NULL)
-                    }
-                    gridExtra::grid.arrange(plot_ped())
+                    ped_plot(ped(), to_plotly = FALSE, title = title())
                 })
                 shiny::plotOutput(ns("ped_plot"))
             }
         })
+
         return(plot_ped)
     })
 }
@@ -109,18 +111,15 @@ plot_ped_server <- function(id, ped, title) {
 #### Demo function of the module #### ----------
 plot_ped_demo <- function() {
     data(sampleped)
-    colnames(sampleped) <- c(
-        "family", "id", "dadid", "momid",
-        "sex", "affected", "avail"
+    pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
+    ui <- shiny::fluidPage(
+        plot_ped_ui("ped"),
+        plot_download_ui("saveped")
     )
-    df <- sampleped[sampleped$family == 1, ]
-    df <- generate_aff_inds(df, "affected", threshold = 0, sup_thres_aff = TRUE)
-    df <- generate_colors(df, "affected")$df
-    ui <- shiny::fluidPage(plot_ped_ui("ped"), plot_download_ui("saveped"))
     server <- function(input, output, session) {
         plot_ped <- plot_ped_server("ped", shiny::reactive({
-            df
-        }))
+            pedi
+        }), "My Pedigree")
         plot_download_server("saveped", plot_ped)
     }
     shiny::shinyApp(ui, server)
