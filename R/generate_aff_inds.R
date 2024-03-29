@@ -46,9 +46,16 @@ NULL
 #' @keywords generate_scales
 #' @export
 generate_aff_inds <- function(values, mods_aff = NULL,
-    threshold = NULL, sup_thres_aff = NULL
+    threshold = NULL, sup_thres_aff = NULL, is_num = NULL
 ) {
     mods <- rep(NA, length(values))
+    if (!is.null(is_num)) {
+        if (is_num) {
+            values <- as.numeric(values)
+        } else {
+            values <- as.character(values)
+        }
+    }
     if (is.numeric(values)) {
         if (is.null(threshold) || is.na(threshold)) {
             stop("Variable is numeric but threshold not correctly defined")
@@ -83,8 +90,14 @@ generate_aff_inds <- function(values, mods_aff = NULL,
             mods_aff <- "None"
         }
 
-        aff_lab <- paste("Affected are", paste(mods_aff, collapse = "/"))
-        healthy_lab <- paste("Healthy are", paste(mods_non_aff, collapse = "/"))
+        aff_lab <- paste(
+            "Affected are",
+            paste(mods_aff, collapse = " / ")
+        )
+        healthy_lab <- paste(
+            "Healthy are",
+            paste(mods_non_aff, collapse = " / ")
+        )
 
         mods[!is.na(values)] <- 0
         mods[values %in% mods_aff & !is.na(values)] <- 1

@@ -56,13 +56,21 @@ NULL
 #' @keywords generate_scales
 #' @export
 generate_fill <- function(
-    values, affected, labels,
+    values, affected, labels, is_num = NULL,
     keep_full_scale = FALSE, breaks = 3,
     colors_aff = c("yellow2", "red"),
     colors_unaff = c("white", "steelblue4")
 ) {
 
     n <- length(values)
+
+    if (!is.null(is_num)) {
+        if (is_num) {
+            values <- as.numeric(values)
+        } else {
+            values <- as.character(values)
+        }
+    }
 
     if (length(affected) != n) {
         stop("The length of `affected` need to be the same as `values`")
@@ -99,7 +107,9 @@ generate_fill <- function(
         fct_scale_aff <- grDevices::colorRampPalette(colors_aff)
 
         if (!is.numeric(values)) {
-            levs_aff <- as.factor(values[affected == TRUE & !is.na(affected)])
+            levs_aff <- as.factor(
+                values[affected == TRUE & !is.na(affected)]
+            )
             levs_unaff <- as.factor(
                 values[affected == FALSE & !is.na(affected)]
             )
@@ -334,7 +344,7 @@ setMethod("generate_colors", "numeric",
 setMethod("generate_colors", "Pedigree",
     function(obj,
         col_aff = "affected", add_to_scale = TRUE,
-        col_avail = "avail",
+        col_avail = "avail", is_num = NULL,
         mods_aff = NULL, threshold = 0.5, sup_thres_aff = TRUE,
         keep_full_scale = FALSE, breaks = 3,
         colors_aff = c("yellow2", "red"),
@@ -366,7 +376,7 @@ setMethod("generate_colors", "Pedigree",
 
         ## Generate affected individuals
         lst_inds <- generate_aff_inds(df[[col_aff]],
-            mods_aff, threshold, sup_thres_aff
+            mods_aff, threshold, sup_thres_aff, is_num
         )
 
         ## Create border and fill scales
@@ -375,7 +385,8 @@ setMethod("generate_colors", "Pedigree",
         )
         lst_fill <- generate_fill(
             df[[col_aff]], lst_inds$affected, lst_inds$labels,
-            keep_full_scale, breaks, colors_aff, colors_unaff
+            is_num, keep_full_scale, breaks,
+            colors_aff, colors_unaff
         )
 
         lst_sc <- list(
