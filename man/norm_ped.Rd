@@ -8,7 +8,8 @@ norm_ped(
   ped_df,
   na_strings = c("NA", ""),
   missid = NA_character_,
-  try_num = FALSE
+  try_num = FALSE,
+  cols_used_del = FALSE
 )
 }
 \arguments{
@@ -44,6 +45,9 @@ to \code{NA_character_}.}
 
 \item{try_num}{Boolean defining if the function should try to convert
 all the columns to numeric.}
+
+\item{cols_used_del}{Boolean defining if the columns that will be used
+should be deleted.}
 }
 \value{
 A dataframe with different variable correctly standardized

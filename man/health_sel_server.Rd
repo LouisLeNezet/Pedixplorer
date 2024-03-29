@@ -4,7 +4,7 @@
 \alias{health_sel_server}
 \title{Server function of selecting health module}
 \usage{
-health_sel_server(id, df)
+health_sel_server(id, pedi)
 }
 \arguments{
 \item{id}{A string to identify the module.}

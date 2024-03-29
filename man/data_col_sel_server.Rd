@@ -4,7 +4,15 @@
 \alias{data_col_sel_server}
 \title{Server function of selecting columns module}
 \usage{
-data_col_sel_server(id, df, cols_needed, cols_supl, title, na_omit = FALSE)
+data_col_sel_server(
+  id,
+  df,
+  cols_needed,
+  cols_supl,
+  title,
+  na_omit = TRUE,
+  others_cols = TRUE
+)
 }
 \arguments{
 \item{id}{A string to identify the module.}

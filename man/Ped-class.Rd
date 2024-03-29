@@ -73,7 +73,10 @@
   status = NA,
   avail = NA,
   affected = NA,
-  missid = NA_character_
+  missid = NA_character_,
+  useful = NA,
+  isinf = NA,
+  kin = NA_real_
 )
 }
 \arguments{
@@ -307,7 +310,7 @@ the metadata columns at the end.
 based on the individuals identifiers given.
 \itemize{
 \item \code{i} : A vector of individuals identifiers to keep.
-\item \code{del_parents} : A logical value indicating if the parents
+\item \code{del_parents} : A value indicating if the parents
 of the individuals should be deleted.
 \item \code{keep} : A logical value indicating if the individuals
 should be kept or deleted.

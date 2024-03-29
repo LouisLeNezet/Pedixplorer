@@ -17,7 +17,7 @@ na_to_length(x, temp, value)
 A vector with the same length as temp.
 }
 \description{
-Check if all value in a vector is \code{NA}.
+Check if all value in a vector is \code{NA} or \code{NULL}.
 If so set all of them to a new value matching the length
 of the template.
 If not check that the size of the vector is equal to

@@ -34,6 +34,7 @@
   col_aff = "affected",
   add_to_scale = TRUE,
   col_avail = "avail",
+  is_num = NULL,
   mods_aff = NULL,
   threshold = 0.5,
   sup_thres_aff = TRUE,

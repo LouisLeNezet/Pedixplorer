@@ -9,9 +9,9 @@
 \usage{
 \S4method{min_dist_inf}{character}(obj, dadid, momid, sex, id_inf)
 
-\S4method{min_dist_inf}{Pedigree}(obj, col_aff = NULL, informative = "AvAf", reset = FALSE, ...)
+\S4method{min_dist_inf}{Pedigree}(obj, reset = FALSE, ...)
 
-\S4method{min_dist_inf}{Ped}(obj, informative = "AvAf", reset = FALSE)
+\S4method{min_dist_inf}{Ped}(obj, reset = FALSE)
 }
 \arguments{
 \item{obj}{A character vector with the id of the individuals or a
@@ -36,20 +36,6 @@ The following values are recognized:
 }}
 
 \item{id_inf}{An identifiers vector of informative individuals.}
-
-\item{col_aff}{A character vector with the name of the column to be used
-for the affection status.}
-
-\item{informative}{Informative individuals selection can take 5 values:
-\itemize{
-\item 'AvAf' (available and affected),
-\item 'AvOrAf' (available or affected),
-\item 'Av' (available only),
-\item 'Af' (affected only),
-\item 'All' (all individuals)
-\item A numeric/character vector of individuals id
-\item A boolean
-}}
 
 \item{reset}{If TRUE, the \code{kin} and if \code{isinf} columns is reset}
 }

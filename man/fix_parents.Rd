@@ -8,7 +8,7 @@
 \usage{
 \S4method{fix_parents}{character}(obj, dadid, momid, sex, famid = NULL, missid = NA_character_)
 
-\S4method{fix_parents}{data.frame}(obj, delete = FALSE, filter = NULL, missid = NA_character_)
+\S4method{fix_parents}{data.frame}(obj, del_parents = NULL, filter = NULL, missid = NA_character_)
 }
 \arguments{
 \item{obj}{A data.frame or a vector of the individuals identifiers. If a
@@ -39,11 +39,10 @@ identifiers separated by an underscore.}
 All the id, dadid and momid corresponding to those values will be set
 to \code{NA_character_}.}
 
-\item{delete}{Boolean defining if missing parents needs to be:
-\itemize{
-\item \code{TRUE} : added as a new row
-\item \code{FALSE} : be deleted
-}}
+\item{del_parents}{Boolean defining if missing parents needs to be deleted
+or fixed. If \code{one} then if one of the parent is missing, both are removed,
+if \code{both} then if both parents are missing, both are removed. If \code{NULL}
+then no parent is removed and the missing parents are added as new rows.}
 
 \item{filter}{Filtering column containing \code{0} or \code{1} for the
 rows to kept before proceeding.}

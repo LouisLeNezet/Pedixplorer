@@ -8,7 +8,6 @@
 \alias{Pedigree,character_OR_integer-method}
 \alias{Pedigree,data.frame-method}
 \alias{Pedigree,missing-method}
-\alias{famid,Pedigree-method}
 \alias{ped}
 \alias{ped,Pedigree,ANY-method}
 \alias{ped,Pedigree,missing-method}
@@ -253,17 +252,6 @@ individuals in the plot. See \code{\link[=Hints]{Hints()}} for more informations
 }}
 
 \section{Accessors}{
-
-For all the following accessors, the \code{x} parameters is a Pedigree object.
-Each getters return a vector of the same length as \code{x} with the values
-of the corresponding slot.
-
-
-\itemize{
-\item \code{famid(x)} : Get the family identifiers of a Pedigree object. This
-function is a wrapper around \code{famid(ped(x))}.
-}
-
 
 \itemize{
 \item \code{ped(x, slot)} : Get the value of a specific slot of the Ped object
