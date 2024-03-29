@@ -100,7 +100,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, ...
     ) {
-        famlist <- unique(famid(x))
+        famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
             message("Multiple families present, only plotting family ",
                 fam_to_plot
@@ -108,13 +108,15 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             if (is.numeric(fam_to_plot)) {
                 fam_to_plot <- famlist[fam_to_plot]
             }
-            x <- x[famid(x) == fam_to_plot]
+            x <- x[famid(ped(x)) == fam_to_plot]
         }
-
         lst <- ped_to_plotdf(x, packed, width, align, subreg,
             cex, symbolsize, pconnect, branch, aff_mark, label, ...
         )
 
+        if (is.null(lst)) {
+            return(NULL)
+        }
         p <- plot_fromdf(lst$df, usr = lst$par_usr$usr,
             title = title, ggplot_gen = ggplot_gen,
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
@@ -140,7 +142,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 c(leg_loc[3], leg_loc[4])
             )
             clip(leg_loc[1] - 1, leg_loc[2] + 1, leg_loc[3] - 1, leg_loc[4] + 1)
-            plot_fromdf(leg$df, add_to_existing = TRUE,
+            plot_fromdf(
+                leg$df, add_to_existing = TRUE,
                 boxw = lst$par_usr$boxw * leg_symbolsize,
                 boxh = lst$par_usr$boxh * leg_symbolsize
             )

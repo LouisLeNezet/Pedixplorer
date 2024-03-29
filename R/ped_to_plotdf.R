@@ -71,12 +71,12 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     aff_mark = TRUE, label = NULL, ...
 ) {
 
-    famlist <- unique(famid(obj))
+    famlist <- unique(famid(ped(obj)))
     if (length(famlist) > 1) {
-        nfam <- length(famlist)
-        all_df <- vector("list", nfam)
+        print("Multiple families present, computing each family separately")
+        all_df <- list()
         for (i_fam in famlist) {
-            ped_fam <- obj[famid(obj) == i_fam]
+            ped_fam <- obj[famid(ped(obj)) == i_fam]
             all_df[[i_fam]] <- ped_to_plotdf(ped_fam, packed, width, align,
                 subreg, cex, symbolsize, ...
             )
@@ -92,6 +92,11 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         label = character(), tips = character(),
         adjx = numeric(), adjy = numeric()
     )
+
+    if (all(famid(ped(obj)) == 0)) {
+        return(list(df = plot_df, par_usr = list()))
+    }
+
     plist <- align(obj, packed = packed, width = width, align = align)
 
     if (!is.null(subreg)) {

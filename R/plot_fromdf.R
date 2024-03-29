@@ -8,7 +8,7 @@ NULL
 #' @description
 #' This function is used to create a plot from a data.frame.
 #'
-#' If `ggplot_gen = TRUE`, the plot will be generated with ggplot2 and 
+#' If `ggplot_gen = TRUE`, the plot will be generated with ggplot2 and
 #' will be returned invisibly.
 #'
 #' @param df A data.frame with the following columns:
@@ -82,7 +82,6 @@ plot_fromdf <- function(
         title(title)
         p <- p + ggtitle(title)
     }
-
     max_aff <- max(as.numeric(str_split_i(df$type, "_", 2)), na.rm = TRUE)
 
     ## Add boxes
