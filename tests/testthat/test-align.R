@@ -1,11 +1,11 @@
 test_that("align works", {
     data("sampleped")
     pedi <- Pedigree(sampleped)
-    ped1 <- pedi[famid(pedi) == "1"]
+    ped1 <- pedi[famid(ped(pedi)) == "1"]
     plist1 <- align(ped1)
     expect_equal(plist1$n, c(2, 10, 16, 14))
 
-    ped2 <- pedi[famid(pedi) == 2]
+    ped2 <- pedi[famid(ped(pedi)) == 2]
     plist2 <- align(ped2)
     expect_equal(plist2$n, c(2, 7, 5))
 

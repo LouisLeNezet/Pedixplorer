@@ -659,17 +659,7 @@ setMethod("famid<-",
 #' For all the following accessors, the `x` parameters is a Pedigree object.
 #' Each getters return a vector of the same length as `x` with the values
 #' of the corresponding slot.
-
-#' @section Accessors:
-#' - `famid(x)` : Get the family identifiers of a Pedigree object. This
-#' function is a wrapper around `famid(ped(x))`.
-#'
-#' @rdname Pedigree-class
-#' @usage NULL
-#' @export
-setMethod("famid", signature(x = "Pedigree"), function(x) {
-    famid(ped(x))
-})
+NULL
 
 ##### S4 ped Accessors #####
 

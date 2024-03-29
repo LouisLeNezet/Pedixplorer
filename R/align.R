@@ -127,12 +127,12 @@ setMethod("align", "Pedigree",
         obj, packed = TRUE, width = 10,
         align = TRUE, hints = NULL, missid = "NA_character_"
     ) {
-        famlist <- unique(famid(obj))
+        famlist <- unique(famid(ped(obj)))
         if (length(famlist) > 1) {
             nfam <- length(famlist)
             alignment <- vector("list", nfam)
             for (i_fam in famlist) {
-                ped_fam <- obj[famid(obj) == i_fam]
+                ped_fam <- obj[famid(ped(obj)) == i_fam]
                 alignment[[i_fam]] <- align(ped_fam, packed, width, align)
             }
             return(alignment)

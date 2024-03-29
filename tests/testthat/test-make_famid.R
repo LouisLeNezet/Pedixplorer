@@ -21,9 +21,9 @@ test_that("upd_famid_id works", {
 
     pedi <- Pedigree(sampleped[-1], rel_df[c(1:3)])
     pedi <- make_famid(pedi)
-    ids_all <- paste(famid(pedi), c(101:141, 201:214), sep = "_")
+    ids_all <- paste(famid(ped(pedi)), c(101:141, 201:214), sep = "_")
     expect_equal(
-        id(upd_famid_id(ped(pedi), famid(pedi))),
+        id(upd_famid_id(ped(pedi), famid(ped(pedi)))),
         ids_all
     )
     expect_equal(
@@ -31,7 +31,7 @@ test_that("upd_famid_id works", {
         ids_all
     )
     expect_equal(
-        id(ped(upd_famid_id(pedi, famid(pedi)))),
+        id(ped(upd_famid_id(pedi, famid(ped(pedi))))),
         ids_all
     )
     expect_equal(

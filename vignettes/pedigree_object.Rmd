@@ -230,7 +230,7 @@ correponding slot of the object
 ## For the Pedigree object
 
 - Get/Set slots : ped(), rel(), scales(), hints()
-- Wrapper to the Ped object: famid(), mcols()
+- Wrapper to the Ped object: mcols()
 - Wrapper of the Scales object: fill(), border()
 - Wrapper of the Hints object: horder(), spouse()
 
@@ -295,7 +295,7 @@ With this new S4 object comes multiple methods to ease the use of it:
 ped <- upd_famid_id(ped, mcols(ped)$idth)
 
 ## We can substract a given family
-pedA <- ped[famid(ped) == "A"]
+pedA <- ped[famid(ped(ped)) == "A"]
 
 ## Plot it
 plot(pedA, cex = 0.5)

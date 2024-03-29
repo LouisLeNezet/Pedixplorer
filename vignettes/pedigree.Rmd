@@ -123,8 +123,8 @@ Finally the plot method displays the pedigree.
 
 ```{r, ped1}
 ped <- Pedigree(sampleped)
-print(famid(ped))
-ped1 <- ped[famid(ped) == "1"]
+print(famid(ped(ped)))
+ped1 <- ped[famid(ped(ped)) == "1"]
 summary(ped1)
 plot(ped1)
 ```
