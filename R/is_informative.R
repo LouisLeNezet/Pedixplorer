@@ -99,6 +99,39 @@ setMethod("is_informative", "character_OR_integer", function(
     unique(id_inf)
 })
 
+
+#' @rdname is_informative
+#' @param reset If `TRUE`, the `isinf` slot is reset
+#' @examples
+#'
+#' data("sampleped")
+#' ped <- Pedigree(sampleped)
+#' ped <- is_informative(ped, col_aff = "affection_mods")
+#' isinf(ped(ped))
+#' @export
+setMethod("is_informative", "Ped", function(
+    obj, informative = "AvAf", reset = FALSE
+) {
+    if (!reset & any(!is.na(isinf(obj)))) {
+        warning(
+            "The isinf slot already has values in the Ped object",
+            " and reset is set to FALSE"
+        )
+        return(obj)
+    }
+
+    id_inf <- is_informative(id(obj), avail(obj), affected(obj),
+        informative = informative
+    )
+
+    isinf(obj) <- vect_to_binary(
+        ifelse(id(obj) %in% id_inf, 1, 0), logical = TRUE
+    )
+    obj
+})
+
+
+
 #' @rdname is_informative
 #' @param reset If `TRUE`, the `isinf` slot is reset
 #' @examples
