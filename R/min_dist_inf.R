@@ -69,7 +69,6 @@ setMethod("min_dist_inf", "character", function(obj,
         as.data.frame()
 
     kin <- log2(1 / apply(sub, 1, max))
-    kin[is.infinite(kin)] <- NA
 
     kin
 })
@@ -81,28 +80,23 @@ setMethod("min_dist_inf", "character", function(obj,
 #' ped <- Pedigree(sampleped)
 #' kin(ped(min_dist_inf(ped, col_aff = "affection_mods")))
 #' @export
-setMethod("min_dist_inf", "Pedigree", function(obj,
-    col_aff = NULL, informative = "AvAf", reset = FALSE, ...
+setMethod("min_dist_inf", "Pedigree", function(
+    obj, reset = FALSE, ...
 ) {
-    obj_aff <- is_informative(obj, col_aff, informative = informative,
-        reset = reset
-    )
-
     new_ped <- min_dist_inf(
-        ped(obj_aff),
-        informative = informative, reset = reset
+        ped(obj), reset = reset
     )
 
-    ped(obj_aff) <- new_ped
-    validObject(obj_aff)
-    obj_aff
+    ped(obj) <- new_ped
+    validObject(obj)
+    obj
 })
 
 #' @rdname min_dist_inf
 #' @param reset If TRUE, the `kin` and if `isinf` columns is reset
 #' @export
 setMethod("min_dist_inf", "Ped", function(
-    obj, informative = "AvAf", reset = FALSE
+    obj, reset = FALSE
 ) {
 
     if (!reset & any(!is.na(kin(obj)))) {
