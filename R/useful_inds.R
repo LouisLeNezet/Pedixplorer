@@ -86,7 +86,7 @@ setMethod("useful_inds", "Ped", function(obj,
     informative = "AvAf", keep_infos = FALSE,
     reset = FALSE, max_dist = NULL
 ) {
-    ped <- is_informative(obj, informative)
+    ped <- is_informative(obj, informative, reset = reset)
     min_dist <- min_dist_inf(ped, reset)
     if (!is.null(max_dist)) {
         id_in_dist <- id(min_dist)[kin(min_dist) <= max_dist]
