@@ -1,7 +1,7 @@
 usethis::use_package("shiny")
 usethis::use_package("bootstrap")
 
-#' @importFrom shiny tags fluidRow column titlePanel hr HTML h3 h5 pre NS
+#' @importFrom shiny tags fluidRow column titlePanel hr HTML h3 h2 h4 h5 pre NS
 #' @importFrom shiny strong uiOutput textOutput tableOutput dataTableOutput
 #' @importFrom shiny numericInput checkboxInput plotOutput
 NULL
