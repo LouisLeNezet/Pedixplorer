@@ -123,7 +123,6 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(1, length(dadnotfound)))
         dadid <- c(dadid, rep(missid, length(dadnotfound)))
         momid <- c(momid, rep(missid, length(dadnotfound)))
-        famid <- c(famid, str_split_i(dadnotfound, "_", 1))
     }
     if (any(mindex == 0 & !nomother)) {
         momnotfound <- unique(momid[which(mindex == 0 & !nomother)])
@@ -131,7 +130,6 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(2, length(momnotfound)))
         dadid <- c(dadid, rep(missid, length(momnotfound)))
         momid <- c(momid, rep(missid, length(momnotfound)))
-        famid <- c(famid, str_split_i(momnotfound, "_", 1))
     }
     if (any(sex[mindex] != 1)) {
         dadnotmale <- unique((id[findex])[sex[findex] != 1])
@@ -153,7 +151,6 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(1, length(nodad_idx)))
         dadid <- c(dadid, rep(missid, length(nodad_idx)))
         momid <- c(momid, rep(missid, length(nodad_idx)))
-        famid <- c(famid, str_split_i(addids[seq_along(nodad_idx)], "_", 1))
     }
     ## children with dad in ped, mom missing
     addids <- addids[!(addids %in% id)]
@@ -164,8 +161,8 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(2, length(nomom_idx)))
         dadid <- c(dadid, rep(missid, length(nomom_idx)))
         momid <- c(momid, rep(missid, length(nomom_idx)))
-        famid <- c(famid, str_split_i(addids[seq_along(nomom_idx)], "_", 1))
     }
+    famid <- make_famid(id, dadid, momid)
     data.frame(
         id = id, momid = momid, dadid = dadid,
         sex = sex, famid = famid
@@ -198,39 +195,37 @@ setMethod("fix_parents", "data.frame", function(
             )
         }
     }
-    if (nrow(df) > 2) {
-        dad_present <- match(df$dadid, df$id, nomatch = missid)
-        mom_present <- match(df$momid, df$id, nomatch = missid)
-        if (!is.null(del_parents)) {
-            if (del_parents == "one") {
-                # One of the parents doesn't not have a line in id
-                df[dad_present %in% missid |
-                        mom_present %in% missid, c("momid", "dadid")
-                ] <- missid
-            } else if (del_parents == "both") {
-                # Both parents don't have a line in id
-                df[dad_present %in% missid &
-                        mom_present %in% missid, c("momid", "dadid")
-                ] <- missid
-            } else {
-                stop(
-                    "Invalid value for 'del_parents' parameter.",
-                    " Must be 'one', 'both' or NULL."
-                )
-            }
+    dad_present <- match(df$dadid, df$id, nomatch = missid)
+    mom_present <- match(df$momid, df$id, nomatch = missid)
+    if (!is.null(del_parents)) {
+        if (del_parents == "one") {
+            # One of the parents doesn't not have a line in id
+            df[dad_present %in% missid |
+                    mom_present %in% missid, c("momid", "dadid")
+            ] <- missid
+        } else if (del_parents == "both") {
+            # Both parents don't have a line in id
+            df[dad_present %in% missid &
+                    mom_present %in% missid, c("momid", "dadid")
+            ] <- missid
+        } else {
+            stop(
+                "Invalid value for 'del_parents' parameter.",
+                " Must be 'one', 'both' or NULL."
+            )
         }
-        df_fix <- fix_parents(
-            df$id, df$dadid, df$momid,
-            df$sex, missid = missid, famid = df$famid
-        )
-        col_used <- which(names(df_old) == "momid" |
-                names(df_old) == "dadid" |
-                names(df_old) == "sex" |
-                names(df_old) == "famid"
-        )
-        df <- merge(df_old[, -col_used], df_fix, by = "id",
-            all.y = TRUE, all.x = FALSE
-        )
     }
+    df_fix <- fix_parents(
+        df$id, df$dadid, df$momid,
+        df$sex, missid = missid, famid = df$famid
+    )
+    col_used <- which(names(df_old) == "momid" |
+            names(df_old) == "dadid" |
+            names(df_old) == "sex" |
+            names(df_old) == "famid"
+    )
+    df <- merge(df_old[, -col_used], df_fix, by = "id",
+        all.y = TRUE, all.x = FALSE
+    )
     df
 })

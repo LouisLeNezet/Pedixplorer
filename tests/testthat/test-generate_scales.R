@@ -32,7 +32,7 @@ test_that("generate aff inds works", {
     )
     expect_equal(aff_fact$mods, c(NA, 0, 1, 0, 1, 1, 0, 1, 0, 0))
     expect_equal(levels(as.factor(aff_fact$labels)),
-        c("Affected are D/E", "Healthy are A/B")
+        c("Affected are D / E", "Healthy are A / B")
     )
 })
 

@@ -76,9 +76,9 @@ test_that("Class ped work", {
     expect_equal(dim(as.data.frame(ped3)), c(3, 18))
 
     df <- data.frame(
-        id = c("ID1", "ID2", "ID3"),
-        momid = c("ID2", NA, NA),
-        dadid = c("ID3", NA, NA),
+        id = c("F1_ID1", "F1_ID2", "F2_ID3"),
+        momid = c("F1_ID2", NA, NA),
+        dadid = c("F2_ID3", NA, NA),
         sex = c("male", "female", "male"),
         famid = c("F1", "F1", "F2"),
         test = c("test", 1, 3),
@@ -86,8 +86,8 @@ test_that("Class ped work", {
     )
     ped3 <- Ped(df)
 
-    expect_equal(ped3[1]@id, "ID1")
-    expect_equal(ped3[1:2]@id, c("ID1", "ID2"))
+    expect_equal(ped3[1]@id, "F1_ID1")
+    expect_equal(ped3[1:2]@id, c("F1_ID1", "F1_ID2"))
 
     expect_equal(dim(as.data.frame(ped3)), c(3, 17))
     expect_equal(dim(mcols(ped3)), c(3, 2))
@@ -98,11 +98,12 @@ test_that("Class ped work", {
     expect_equal(dim(as.data.frame(ped5)), c(5, 17))
 
     ## Subsetting
-    expect_error(subset(ped3, "ID1"))
-    ped1_char <- subset(ped3, "ID1", del_parents = TRUE)
-    ped1_num <- subset(ped3, 1, del_parents = TRUE)
-    ped1_log <- subset(ped3, c(TRUE, FALSE, FALSE), del_parents = TRUE)
+    ped1fix <- subset(ped3, "F1_ID1")
+    ped1_char <- subset(ped3, "F1_ID1", del_parents = "both")
+    ped1_num <- subset(ped3, 1, del_parents = "both")
+    ped1_log <- subset(ped3, c(TRUE, FALSE, FALSE), del_parents = "both")
 
+    expect_equal(id(ped1fix), id(ped3))
     expect_equal(ped1_char, ped1_num)
     expect_equal(ped1_char, ped1_log)
 })

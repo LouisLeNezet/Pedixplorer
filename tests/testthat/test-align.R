@@ -3,7 +3,7 @@ test_that("align works", {
     pedi <- Pedigree(sampleped)
     ped1 <- pedi[famid(ped(pedi)) == "1"]
     plist1 <- align(ped1)
-    expect_equal(plist1$n, c(2, 10, 16, 14))
+    expect_equal(plist1[["1"]]$n, c(2, 10, 17, 14))
 
     ped2 <- pedi[famid(ped(pedi)) == 2]
     plist2 <- align(ped2)

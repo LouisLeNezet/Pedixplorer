@@ -47,8 +47,10 @@ test_that("Pedigree old usage compatibility", {
     ped2df$status <- c(1, 1, 1, 0, 1, 0, 0, 0, 0, 0)
 
     ## With vectors
-    ped2 <- with(ped2df, Pedigree(id, dadid, momid, sex, famid,
-        available, status, affected = cbind(disease, smoker, available),
+    ped2 <- with(ped2df, Pedigree(
+        id, dadid, momid, sex, famid,
+        available, affected = cbind(disease, smoker, available),
+        status = status,
         rel_df = matrix(c(8, 9, 1, 1), ncol = 4), missid = "0"
     ))
 
