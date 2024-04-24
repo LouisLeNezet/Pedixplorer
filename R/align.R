@@ -130,7 +130,7 @@ setMethod("align", "Pedigree",
         famlist <- unique(famid(ped(obj)))
         if (length(famlist) > 1) {
             nfam <- length(famlist)
-            alignment <- vector("list", nfam)
+            alignment <- vector("list")
             for (i_fam in famlist) {
                 ped_fam <- obj[famid(ped(obj)) == i_fam]
                 alignment[[i_fam]] <- align(ped_fam, packed, width, align)
