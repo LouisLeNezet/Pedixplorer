@@ -128,6 +128,7 @@ setMethod("align", "Pedigree",
         align = TRUE, hints = NULL, missid = "NA_character_"
     ) {
         famlist <- unique(famid(ped(obj)))
+        famlist <- famlist[!is.na(famlist)]
         if (length(famlist) > 1) {
             nfam <- length(famlist)
             alignment <- vector("list")

@@ -72,6 +72,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
 ) {
 
     famlist <- unique(famid(ped(obj)))
+    famlist <- famlist[!is.na(famlist)]
     if (length(famlist) > 1) {
         print("Multiple families present, computing each family separately")
         all_df <- list()
@@ -92,13 +93,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         label = character(), tips = character(),
         adjx = numeric(), adjy = numeric()
     )
-
-    if (!all(is.na(famid(ped(obj))))) {
-        return(list(df = plot_df, par_usr = list()))
-    }
-
     plist <- align(obj, packed = packed, width = width, align = align)
-
     if (!is.null(subreg)) {
         plist <- subregion(plist, subreg)
     }
