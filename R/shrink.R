@@ -63,7 +63,7 @@ setMethod("shrink", "Pedigree",
         )
         all_ids <- id(lst_trim$pedObj)
         lst_trim$pedObj <- subset(
-            obj, id(ped(obj)) %in% all_ids, del_parents = TRUE
+            obj, id(ped(obj)) %in% all_ids, del_parents = "both"
         )
         lst_trim
     }
@@ -92,10 +92,9 @@ setMethod("shrink", "Ped",
         ## first find unavailable subjects to remove anyone who is not available
         ## and does not have an available descendant
         id_trim_unav <- find_unavailable(obj, avail)
-
         if (length(id_trim_unav)) {
             ped_trim <- subset(
-                obj, id_trim_unav, keep = FALSE, del_parents = TRUE
+                obj, id_trim_unav, keep = FALSE, del_parents = "both"
             )
             avail <- avail[match(id(ped_trim), id(obj))]
             id_trim <- c(id_trim, id_trim_unav)
@@ -140,7 +139,6 @@ setMethod("shrink", "Ped",
         bit_size <- bit_size(ped_trim)$bit_size
 
         ## Now sequentially shrink to fit bit_size <= max_bits
-
         bitsize_vec <- c(bitsize_old, bit_size)
 
         is_trim <- TRUE

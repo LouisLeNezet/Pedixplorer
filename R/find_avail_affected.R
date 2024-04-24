@@ -74,7 +74,7 @@ setMethod("find_avail_affected", "Ped",
             tmp_avail <- avail
             tmp_avail[id(obj) == id_trim] <- FALSE
             id_rm <- find_unavailable(obj, tmp_avail)
-            new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = TRUE)
+            new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = "both")
             trim_dat <- rbind(trim_dat, c(id = id_trim,
                 bit_size = bit_size(new_ped)$bit_size
             ))
@@ -94,7 +94,7 @@ setMethod("find_avail_affected", "Ped",
 
         avail[id(obj) == id_trim] <- FALSE
         id_rm <- find_unavailable(obj, avail)
-        new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = TRUE)
+        new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = "both")
         new_size <- bit_size(new_ped)$bit_size
         avail <- avail[!(id(obj) %in% id_rm)]
 
