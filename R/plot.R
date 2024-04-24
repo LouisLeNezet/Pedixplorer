@@ -106,7 +106,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 fam_to_plot
             )
             if (is.numeric(fam_to_plot)) {
-                fam_to_plot <- famlist[fam_to_plot]
+                fam_to_plot <- famlist[!is.na(famlist)][fam_to_plot]
             }
             x <- x[famid(ped(x)) == fam_to_plot]
         }
@@ -117,6 +117,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         if (is.null(lst)) {
             return(NULL)
         }
+
         p <- plot_fromdf(lst$df, usr = lst$par_usr$usr,
             title = title, ggplot_gen = ggplot_gen,
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
