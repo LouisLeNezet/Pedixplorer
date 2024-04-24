@@ -82,8 +82,9 @@ setMethod("make_famid", "character",
             xx <- table(famid)
             if (any(xx == 1)) {
                 singles <- as.integer(names(xx[xx == 1]))  # famid of singletons
-                famid[!is.na(match(famid, singles))] <- 0  # set singletons to 0
-                as.character(match(famid, sort(unique(famid))) - 1) # renumber
+                # set singletons to 0
+                famid[!is.na(match(famid, singles))] <- NA_character_
+                as.character(match(famid, sort(unique(famid)))) # renumber
             } else {
                 as.character(match(famid, sort(unique(famid))))
             }  # renumber, no zeros
