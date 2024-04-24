@@ -138,7 +138,8 @@ norm_ped <- function(
         ped_df$dadid <- upd_famid_id(ped_df$fatherId, ped_df$famid, missid)
         ped_df$momid <- upd_famid_id(ped_df$motherId, ped_df$famid, missid)
 
-        ped_df <- mutate_at(ped_df, c("id", "dadid", "momid"),
+        ## Set all missid to NA
+        ped_df <- mutate_at(ped_df, c("id", "dadid", "momid", "famid"),
             ~replace(., . %in% c(na_strings, missid), NA_character_)
         )
 
