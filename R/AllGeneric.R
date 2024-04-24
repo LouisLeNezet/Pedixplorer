@@ -102,11 +102,16 @@ setMethod("subset", "Ped", function(x, i, del_parents = NULL, keep = TRUE) {
     }
     if (is.character(i)) {
         i <- x@id %in% i
-    } else if (!is.numeric(i) & !is.logical(i)) {
+    } else if (is.numeric(i)) {
+        i <- seq_along(x@id) %in% i
+    } else if (!is.logical(i)) {
         stop("i must be a character, an integer or a logical vector")
     }
     if (!keep) {
         i <- !i
+    }
+    if (all(i == FALSE)) {
+        stop("No individual selected")
     }
     col_computed <- c(
         "num_child_tot", "num_child_dir", "num_child_ind"
