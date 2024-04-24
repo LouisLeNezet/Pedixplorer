@@ -93,7 +93,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         adjx = numeric(), adjy = numeric()
     )
 
-    if (all(famid(ped(obj)) == 0)) {
+    if (!all(is.na(famid(ped(obj))))) {
         return(list(df = plot_df, par_usr = list()))
     }
 
