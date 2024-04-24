@@ -742,7 +742,8 @@ setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
         )
     }
     Pedigree(ped_df, rel_df = rel_df,
-        missid = missid, col_aff = col_aff, ...
+        missid = missid, col_aff = col_aff,
+        normalize = normalize, ...
     )
 })
 
@@ -881,11 +882,11 @@ setMethod("Pedigree", "data.frame",  function(
     hints <- Hints(hints)
     scales <- Scales()
     ## Create the object
-    ped <- new("Pedigree",
+    pedi <- new("Pedigree",
         ped = ped, rel = rel,
         hints = hints, scales = scales
     )
-    generate_colors(ped, col_aff = col_aff, ...)
+    generate_colors(pedi, col_aff = col_aff, ...)
 }
 )
 
