@@ -107,15 +107,26 @@ setMethod("subset", "Ped", function(x, i, del_parents = NULL, keep = TRUE) {
     } else if (!is.logical(i)) {
         stop("i must be a character, an integer or a logical vector")
     }
+
+    if (any(is.na(i))) {
+        warning("NA found while subsetting, removing them")
+        i[is.na(i)] <- FALSE
+    }
+
     if (!keep) {
         i <- !i
-    }
-    if (all(i == FALSE)) {
-        stop("No individual selected")
     }
     col_computed <- c(
         "num_child_tot", "num_child_dir", "num_child_ind"
     )
+    if (all(i == FALSE)) {
+        return(Ped(
+            as.data.frame(x)[
+                NULL, ! colnames(as.data.frame(x)) %in% col_computed
+            ]
+        ))
+    }
+
     ped_df <- as.data.frame(x)[, ! colnames(as.data.frame(x)) %in% col_computed]
     ped_df_fixed <- fix_parents(ped_df, del_parents = del_parents, filter = i)
     new_ped <- Ped(ped_df_fixed)
