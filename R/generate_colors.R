@@ -358,8 +358,9 @@ setMethod("generate_colors", "Pedigree",
 
         if (length(col_aff) > 1) {
             for (col in col_aff) {
-                obj <- generate_colors(obj, col, add_to_scale,
-                    col_avail, mods_aff, threshold, sup_thres_aff,
+                obj <- generate_colors(
+                    obj, col, add_to_scale, col_avail,
+                    is_num, mods_aff, threshold, sup_thres_aff,
                     keep_full_scale, breaks,
                     colors_aff, colors_unaff, colors_avail,
                     reset
