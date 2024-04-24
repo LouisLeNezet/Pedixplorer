@@ -18,6 +18,21 @@ test_that("Pedigree legend works", {
     sampleped$val_num <- as.numeric(sampleped$id)
     ped <- Pedigree(sampleped)
     ped <- ped[ped(ped, "famid") == "1"]
+    famid(ped(ped))[13] <- "1"
+
+    ped3 <- ped[ped(ped, "id") != "1_113"]
+    p1 <- align(ped)
+    p3 <- align(ped3)
+    p1
+    p3
+
+    plot(ped)
+    plot(ped3)
+
+    expect_equal(p1, p2[["1"]])
+    expect_equal(p1, p3)
+    expect_equal(p2[["1"]], p3)
+
     ped <- generate_colors(ped, add_to_scale = TRUE, "avail", mods_aff = TRUE)
     ped <- generate_colors(ped,
         add_to_scale = TRUE, "val_num", threshold = 115,
