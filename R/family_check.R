@@ -77,22 +77,23 @@ setMethod("family_check", "character_OR_integer",
             stop("Invalid length for newfam")
         }
 
-        xtab <- table(famid, newfam)
-        if (any(newfam == 0)) {
-            unrelated <- xtab[, 1]
-            xtab <- xtab[, -1, drop = FALSE]
-            ## bug fix suggested by Amanda Blackford 6/2011
+        xtab <- table(famid, newfam, useNA = "ifany")
+        if (any(is.na(newfam))) {
+            unrelated <- xtab[, is.na(colnames(xtab))]
         } else {
             unrelated <- rep(0, nfam)
         }
 
-        splits <- apply(xtab > 0, 1, sum)
+        splits <- apply(
+            xtab[, !is.na(colnames(xtab)), drop = FALSE] > 0,
+            1, sum
+        )
         joins <- apply(xtab > 0, 2, sum)
-
         temp <- apply((xtab > 0) * outer(rep(1, nfam), joins - 1), 1, sum)
 
         out <- data.frame(famid = dimnames(xtab)[[1]],
-            n = as.vector(table(famid)), unrelated = as.vector(unrelated),
+            n = as.vector(table(famid, useNA = "ifany")),
+            unrelated = as.vector(unrelated),
             split = as.vector(splits), join = temp, row.names = seq_len(nfam)
         )
         if (any(joins > 1)) {
