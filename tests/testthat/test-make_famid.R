@@ -22,6 +22,7 @@ test_that("upd_famid_id works", {
     pedi <- Pedigree(sampleped[-1], rel_df[c(1:3)])
     pedi <- make_famid(pedi)
     ids_all <- paste(famid(ped(pedi)), c(101:141, 201:214), sep = "_")
+    ids_all[ids_all == "NA_113"] <- "113"
     expect_equal(
         id(upd_famid_id(ped(pedi), famid(ped(pedi)))),
         ids_all
@@ -49,7 +50,7 @@ test_that("make_famid works", {
         0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 3, 3, 0, 3, 0, 3, 8, 8, 10, 13
     ))
     famid <- as.character(
-        c(1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1)
+        c(1, 1, 1, 1, 1, 1, 1, 1, NA, 1, 1, 1, 1, 1, NA, 1, 1, 1, 1, 1)
     )
     temp <- make_famid(id, mom, dad)
     expect_equal(temp, famid)
@@ -63,8 +64,9 @@ test_that("make_famid works with Pedigree", {
 
     ## Expected values
     fam <- sampleped$famid
-    fam[sampleped$id == "113"] <- 0 # singleton
+    fam[sampleped$id == "113"] <- NA # singleton
     id <- paste(fam, c(101:141, 201:214), sep = "_")
+    id[id == "NA_113"] <- "113"
     expect_equal(id(ped(ped)), id)
     expect_equal(id1(rel(ped)), c("2_213", "2_210", "1_140", "1_133"))
 
@@ -73,7 +75,7 @@ test_that("make_famid works with Pedigree", {
     sampleped$famid[sampleped$famid == "2"] <- 3
     rel_df[c(1:3)]
     ped <- Pedigree(sampleped, rel_df)
-    ped
+
     ped <- make_famid(ped)
     expect_equal(id(ped(ped)), id)
     expect_equal(id1(rel(ped)), c("2_213", "2_210", "1_140", "1_133"))
@@ -109,13 +111,12 @@ test_that("Family check works", {
     ped <- make_famid(ped)
     fcheck_ped_corrected <- family_check(ped)
     expect_equal(as.numeric(as.vector(fcheck_ped_corrected[1, ])),
-        c(0, 1, 1, 0, 0)
-    )
-    expect_equal(as.numeric(as.vector(fcheck_ped_corrected[2, ])),
         c(1, 40, 0, 1, 0)
     )
-    expect_equal(as.numeric(as.vector(fcheck_ped_corrected[3, ])),
+    expect_equal(as.numeric(as.vector(fcheck_ped_corrected[2, ])),
         c(2, 14, 0, 1, 0)
     )
-
+    expect_equal(as.numeric(as.vector(fcheck_ped_corrected[3, ])),
+        c(NA, 1, 1, 0, 0)
+    )
 })
