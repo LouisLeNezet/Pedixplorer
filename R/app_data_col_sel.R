@@ -2,13 +2,7 @@
 
 usethis::use_package("shiny")
 
-#' User interface of selecting columns module
-#'
-#' @param id A string to identify the module.
-#' @return A Shiny module UI.
-#' @examples
-#' data_col_sel_demo()
-#' @export
+#' @rdname data_col_sel
 data_col_sel_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
@@ -28,7 +22,14 @@ data_col_sel_ui <- function(id) {
     )
 }
 
-#' Server function of selecting columns module
+#' Shiny modules to select columns from a dataframe
+#'
+#' This function allows to select columns from a dataframe
+#' and rename them to the names of cols_needed and cols_supl.
+#' This generate a Shiny module that can be used in a Shiny app.
+#' The function is composed of two parts: the UI and the server.
+#' The UI is called with the function `data_col_sel_ui()` and the server
+#' with the function `data_col_sel_server()`.
 #'
 #' @param id A string to identify the module.
 #' @param df A reactive dataframe.
@@ -36,11 +37,13 @@ data_col_sel_ui <- function(id) {
 #' @param cols_supl A character vector of the optional columns.
 #' @param title A string to display in the selectInput.
 #' @param na_omit A boolean to allow or not the selection of NA.
+#'
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
 #' data_col_sel_demo()
 #' @export
+#' @rdname data_col_sel
 data_col_sel_server <- function(
     id, df, cols_needed, cols_supl, title, na_omit = TRUE, others_cols = TRUE
 ) {
@@ -147,9 +150,7 @@ data_col_sel_server <- function(
     })
 }
 
-#' Demo function of selecting columns module
-#' @examples
-#' data_col_sel_demo()
+#' @rdname data_col_sel
 data_col_sel_demo <- function() {
     ui <- shiny::fluidPage(
         data_col_sel_ui("datafile"),

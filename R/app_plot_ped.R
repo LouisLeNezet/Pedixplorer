@@ -13,7 +13,7 @@ ped_plot <- function(
     tips_names = NA, to_plotly = FALSE,
     aff_mark = TRUE, label = NULL, title = NULL
 ) {
-    
+
     if (class(ped) != "Pedigree") {
         return(NULL)
     }
@@ -23,7 +23,7 @@ ped_plot <- function(
         cex = cex_plot, symbolsize = 1,
         mar = mar, title = title
     ) # General Pedigree
-    
+
     if (to_plotly) {
         ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
             ggplot2::theme(
@@ -37,7 +37,6 @@ ped_plot <- function(
                 axis.text.y =  ggplot2::element_blank()
             )
         ## To make it interactive
-        
         p <- plotly::ggplotly(
             ggp +
                 ggplot2::theme(legend.position = "none"),
@@ -75,14 +74,17 @@ plot_ped_server <- function(id, ped, title) {
     stopifnot(shiny::is.reactive(ped))
     stopifnot(shiny::is.reactive(title))
     shiny::moduleServer(id, function(input, output, session) {
-        
+
         ns <- shiny::NS(id)
         plot_ped <- shiny::reactive({
             if (is.null(ped()) | is.null(input$interactive)) {
                 return(NULL)
             }
             return(
-                ped_plot(ped(), to_plotly = input$interactive, title = title())
+                ped_plot(
+                    ped(), to_plotly = input$interactive, title = title(),
+                    mar = c(0.5, 1, 0.5, 0.5)
+                )
             )
         })
         output$plotpedi <- shiny::renderUI({
@@ -90,15 +92,13 @@ plot_ped_server <- function(id, ped, title) {
                 return(NULL)
             }
             if (input$interactive) {
-                
                 output$ped_plotly <- plotly::renderPlotly({
-                    ped_plot(ped(), to_plotly = TRUE, title = title())
+                    plot_ped()
                 })
                 plotly::plotlyOutput(ns("ped_plotly"))
             } else {
-                
                 output$ped_plot <- shiny::renderPlot({
-                    ped_plot(ped(), to_plotly = FALSE, title = title())
+                    plot_ped()
                 })
                 shiny::plotOutput(ns("ped_plot"))
             }

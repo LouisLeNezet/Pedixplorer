@@ -4,7 +4,7 @@
 \alias{family_infos_server}
 \title{Server function of selecting columns module}
 \usage{
-family_infos_server(id, ped)
+family_infos_server(id, pedi)
 }
 \arguments{
 \item{id}{A string to identify the module.}

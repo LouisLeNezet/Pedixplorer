@@ -97,19 +97,17 @@ family_sel_server <- function(id, pedi) {
                 return(NULL)
             }
             fam_nb <- as.numeric(families_df()$famid)
-            if (max(fam_nb) > 0) {
-                if (max(fam_nb) == 0) {
-                    showNotification(
-                        "No family present (only unconnected individuals)"
-                    )
-                    return(NULL)
-                }
+            if (all(is.na(fam_nb))) {
+                showNotification("No family present (only unconnected individuals)")
+                return(NULL)
+            }
+            if (max(fam_nb, na.rm = TRUE) > 0) {
                 numericInput(
                     ns("family_sel"),
                     label = h5(strong("Select family to use")),
-                    value = max(min(fam_nb), 1),
-                    min = max(min(fam_nb), 1),
-                    max = max(fam_nb)
+                    value = max(min(fam_nb, na.rm = TRUE), 1),
+                    min = max(min(fam_nb, na.rm = TRUE), 1),
+                    max = max(fam_nb, na.rm = TRUE)
                 )
             } else {
                 textOutput(
@@ -124,8 +122,9 @@ family_sel_server <- function(id, pedi) {
             }
             if (input$family_sel > 0) {
                 list(
-                    ped_fam = pedi()[famid(ped(pedi())) == input$family_sel],
-                    famid = input$family_sel
+                    ped_fam = suppressWarnings(
+                        pedi()[famid(ped(pedi())) == input$family_sel]
+                    ), famid = input$family_sel
                 )
             } else {
                 NULL
@@ -156,10 +155,10 @@ family_sel_demo <- function() {
             })
         )
         output$selected_fam <- shiny::renderTable({
-            if (is.null(ped_fam())) {
+            if (is.null(lst_fam())) {
                 return(NULL)
             }
-            ped(lst_fam$ped_fam())
+            ped(lst_fam()$ped_fam)
         })
     }
     shiny::shinyApp(ui, server)
