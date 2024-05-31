@@ -2,7 +2,7 @@
 % Please edit documentation in R/app_data_import.R
 \name{read_data}
 \alias{read_data}
-\title{Read data}
+\title{Read data from file path}
 \usage{
 read_data(
   file,
@@ -46,4 +46,5 @@ the according function to read it with the parameters given by the user.
     read_data('path/to/my/file.txt', sep=',', header=FALSE)
 }
 }
-\keyword{data}
+\keyword{data_import,}
+\keyword{internal}

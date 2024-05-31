@@ -1,15 +1,10 @@
 #' @importFrom shiny NS column div h5 uiOutput tagList renderUI selectInput
 #' @importFrom shiny selectInput textOutput renderTable renderText tableOutput
-NULL
+#' @importFrom shiny numericInput showNotification reactive
+
 usethis::use_package("shiny")
 
-#' User interface of selecting family module
-#'
-#' @param id A string to identify the module.
-#' @return A Shiny module UI.
-#' @examples
-#' family_sel_demo()
-#' @export
+#' @rdname family_sel
 family_sel_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
@@ -22,7 +17,12 @@ family_sel_ui <- function(id) {
     )
 }
 
-#' Server function of selecting columns module
+#' Shiny module to select a family in a pedigree
+#'
+#' This module allows to select a family in a pedigree object.
+#' The function is composed of two parts: the UI and the server.
+#' The UI is called with the function `family_sel_ui()` and the server
+#' with the function `family_sel_server()`.
 #'
 #' @param id A string to identify the module.
 #' @param df A reactive dataframe.
@@ -36,6 +36,7 @@ family_sel_ui <- function(id) {
 #' family_sel_demo()
 #' @export
 #' @include app_utils.R
+#' @rdname family_sel
 family_sel_server <- function(id, pedi) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
@@ -89,9 +90,11 @@ family_sel_server <- function(id, pedi) {
         }, options = list(
             paging = FALSE, scrollX = TRUE,
             scrollY = "200px", scrollCollapse = TRUE
-        ), rownames = FALSE, filter = "top")
+        ), rownames = FALSE, filter = "top",
+        selection = "single", server = TRUE)
 
         # Family selector -----------------------------------------------------
+        #TODO : Set selection as DT row selection
         output$family_selector <- renderUI({
             if (is.null(families_df())) {
                 return(NULL)
@@ -117,6 +120,7 @@ family_sel_server <- function(id, pedi) {
         })
 
         lst_fam <- reactive({
+            print(input$families_table_rows_selected)
             if (is.null(input$family_sel)) {
                 return(NULL)
             }
@@ -134,9 +138,7 @@ family_sel_server <- function(id, pedi) {
     })
 }
 
-#' Demo function of selecting columns module
-#' @examples
-#' family_sel_demo()
+#' @rdname family_sel
 family_sel_demo <- function() {
     data("sampleped")
     pedi <- Pedigree(sampleped)

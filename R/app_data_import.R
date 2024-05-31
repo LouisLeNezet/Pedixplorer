@@ -9,12 +9,13 @@ usethis::use_package("readxl")
 usethis::use_package("shinyWidgets")
 
 #### Function needed to work #### ----------
-#' Read data
+#' Read data from file path
 #'
 #' @description Read dataframe based on the extension of the file
 #'
 #' @details This function detect the extension of the file and proceed to use
 #' the according function to read it with the parameters given by the user.
+#'
 #' @param file The file path
 #' @param sep A string defining the separator to use for the file
 #' @param quote A string defining the quote to use
@@ -29,8 +30,7 @@ usethis::use_package("shinyWidgets")
 #' \\dontrun{
 #'     read_data('path/to/my/file.txt', sep=',', header=FALSE)
 #' }
-#' @keywords data
-#' @export
+#' @keywords data_import, internal
 read_data <- function(
     file, sep = ";", quote = "'", header = TRUE, df_name = NA,
     stringsAsFactors = FALSE, to_char = TRUE
@@ -109,8 +109,7 @@ read_data <- function(
 #' \\dontrun{
 #'     get_dataframe('path/to/my/file.txt')
 #' }
-#' @keywords dataframe
-#' @export
+#' @keywords data_import, internal
 get_dataframe <- function(file) {
     shiny::req(file)
     ext <- tools::file_ext(file)
@@ -131,26 +130,8 @@ get_dataframe <- function(file) {
 }
 
 #### UI function of the module #### ----------
-#' Data import ui
-#'
-#' @description R Shiny module UI to import data files
-#'
-#' @details This module allow to import multiple type of data.
-#' The file type currently supported are csv, txt, xls, xslx, rda.
-#' The UI ask the user for the file localisation, the separator,
-#' the needs to format to character, the quote format, the presence
-#' of heading, the conversion of string to factor, and the dataframe
-#' selection if multiple dataframe are present in one file (xlsx, rda).
-#'
-#' @param id A string.
-#' @param label A string use to prompt the user
-#' @returns A Shiny UI.
-#' @examples
-#' \\dontrun{
-#'     data_import_demo()
-#' }
-#' @keywords data
-#' @export
+
+#' @rdname data_import
 data_import_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
@@ -168,24 +149,29 @@ data_import_ui <- function(id) {
     )
 }
 
-#### Server function of the module #### ----------
-#' Data import server
+
+#' Shiny modules to import data files
 #'
-#' @description R Shiny module server to import data files
-#'
-#' @details This module allow to import multiple type of data.
-#' The file type currently supported are csv, txt, xls, xslx, rda.
+#' This module allow to import multiple type of data.
+#' The file type currently supported are csv, txt, xls, xslx, rda and tab.
 #' The server dynamically create a selection input if multiple
 #' dataframe are present in the file selected.
+#' This module is composed of two parts: the UI and the server.
+#' The UI is called with the function `data_import_ui()` and the server
+#' with the function `data_import_server()`.
+#' Different options are available to the user to import the data.
 #'
 #' @param id A string.
-#' @returns A Shiny server.
+#' @param label A string use to prompt the user
+#' @param max_request_size A number to define the maximum size of the file
+#' @returns A reactive dataframe selected by the user.
 #' @examples
 #' \\dontrun{
 #'     data_import_demo()
 #' }
 #' @keywords data
 #' @export
+#' @rdname data_import
 data_import_server <- function(
     id, label = "Select data file",
     max_request_size = 30
@@ -199,7 +185,10 @@ data_import_server <- function(
 
         # The selected file, if any
         user_file <- shiny::reactive({
-            # If no file is selected, do nothing
+            if (is.null(input$file)) {
+                return(NULL)
+            }
+            # If no file is selected, return NULL
             shiny::validate(shiny::need(input$file, message = FALSE))
             input$file
         })
@@ -248,7 +237,7 @@ data_import_server <- function(
 
         ## Data selection ------------------------
         df <- shiny::reactive({
-            if (is.null(input$file)) {
+            if (is.null(user_file())) {
                 return(NULL)
             }
             file <- user_file()$datapath
@@ -282,4 +271,22 @@ data_import_server <- function(
         # Return the reactive that yields the data frame
         return(df)
     })
+}
+
+#' @rdname data_import
+data_import_demo <- function() {
+    ui <- shiny::fluidPage(
+        data_import_ui("data_import"),
+        shiny::tableOutput("data")
+    )
+    server <- function(input, output, session) {
+        df_import <- data_import_server("data_import")
+        output$data <- shiny::renderTable({
+            if (is.null(df_import())) {
+                return(NULL)
+            }
+            df_import()
+        })
+    }
+    shiny::shinyApp(ui, server)
 }

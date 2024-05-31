@@ -69,7 +69,6 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
 
     ped_all <- shiny::reactive({
         shiny::req(ped_df_norm())
-
         if (is.null(ped_df_norm())) {
             return(NULL)
         }
@@ -81,7 +80,6 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
             ))
             return(NULL)
         }
-
         Pedigree(
             ped_df_norm(), rel_df_norm(),
             cols_ren_ped = list(),
@@ -152,7 +150,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     })
 
     ## Family information -----------------------------------------------------
-    family_infos_server("family_infos", ped_aff)
+    ped_avaf_infos_server("ped_avaf_infos", ped_aff)
 
     ## Informative selection --------------------------------------------------
     lst_inf <- inf_sel_server("inf_sel", ped_aff)
@@ -177,7 +175,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     })
 
     ## Sub Family information -------------------------------------------------
-    family_infos_server("subfamily_infos", ped_subfam)
+    ped_avaf_infos_server("subped_avaf_infos", ped_subfam)
 
     ## Plotting pedigree ------------------------------------------------------
     title_long <- shiny::reactive({

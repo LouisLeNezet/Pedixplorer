@@ -24,4 +24,5 @@ necessary the different dataframe / sheet names available.
     get_dataframe('path/to/my/file.txt')
 }
 }
-\keyword{dataframe}
+\keyword{data_import,}
+\keyword{internal}

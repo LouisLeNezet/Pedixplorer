@@ -1,25 +1,26 @@
 #' @importFrom shiny NS column div h5 uiOutput tagList renderUI selectInput
 #' @importFrom shiny selectInput textOutput renderTable renderText tableOutput
-NULL
+
 usethis::use_package("shiny")
 
-#' User interface of selecting family module
-#'
-#' @param id A string to identify the module.
-#' @return A Shiny module UI.
-#' @examples
-#' family_sel_demo()
-#' @export
-family_infos_ui <- function(id) {
+#' @rdname family_sel
+ped_avaf_infos_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
         h3("Family information"),
-        textOutput(ns("family_infos_title")),
+        textOutput(ns("ped_avaf_infos_title")),
         DT::dataTableOutput(ns("family_info_table"))
     )
 }
 
-#' Server function of selecting columns module
+#' Shiny modules to display family information
+#'
+#' This module allows to display the health and availability data
+#' for all individuals in a pedigree object.
+#' The output is a datatable.
+#' The function is composed of two parts: the UI and the server.
+#' The UI is called with the function `ped_avaf_infos_ui()` and the server
+#' with the function `ped_avaf_infos_server()`.
 #'
 #' @param id A string to identify the module.
 #' @param df A reactive dataframe.
@@ -33,9 +34,9 @@ family_infos_ui <- function(id) {
 #' family_sel_demo()
 #' @export
 #' @include app_utils.R
-family_infos_server <- function(id, pedi) {
+#' @rdname ped_avaf_infos
+ped_avaf_infos_server <- function(id, pedi) {
     stopifnot(shiny::is.reactive(pedi))
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
         output$family_info_table <- DT::renderDataTable({
             shiny::req(pedi())
@@ -68,7 +69,7 @@ family_infos_server <- function(id, pedi) {
                 NULL
             }
         })
-        output$family_infos_title <- renderText({
+        output$ped_avaf_infos_title <- renderText({
             if (!is.null(pedi())) {
                 paste(
                     "Health & Availability data representation for family",
@@ -81,21 +82,15 @@ family_infos_server <- function(id, pedi) {
     })
 }
 
-#' Demo function of selecting columns module
-#' @examples
-#' family_sel_demo()
-family_infos_demo <- function() {
+#' @rdname ped_avaf_infos
+ped_avaf_infos_demo <- function() {
     data("sampleped")
     pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
     ui <- shiny::fluidPage(
-        column(6,
-            family_infos_ui("familysel")
-        ), column(6,
-            shiny::tableOutput("selected_fam")
-        )
+        ped_avaf_infos_ui("familysel")
     )
     server <- function(input, output, session) {
-        family_infos_server(
+        ped_avaf_infos_server(
             "familysel",
             shiny::reactive({
                 pedi

@@ -12,7 +12,7 @@ NULL
 #' @include app_data_import.R
 #' @include app_data_col_sel.R
 #' @include app_data_download.R
-#' @include app_family_infos.R
+#' @include app_ped_avaf_infos.R
 #' @include app_family_sel.R
 #' @include app_health_sel.R
 #' @include app_inf_sel.R
@@ -90,7 +90,7 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
         ),
         column(
             4, align = "center",
-            family_infos_ui("family_infos")
+            ped_avaf_infos_ui("ped_avaf_infos")
         )
     ),
     hr(),
@@ -106,7 +106,7 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
         ),
         ## Subfamily information -----------------------
         column(4, align = "center",
-            family_infos_ui("subfamily_infos")
+            ped_avaf_infos_ui("subped_avaf_infos")
         )
     ),
     hr(),

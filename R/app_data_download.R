@@ -1,14 +1,40 @@
+#' @importFrom shiny NS uiOutput tagList
+
 usethis::use_package("shiny")
 
+#' @rdname data_download
 data_download_ui <- function(id) {
     ns <- shiny::NS(id)
-    shiny::tagList(
-        shiny::uiOutput(ns("data_text")),
-        shiny::uiOutput(ns("btn_dwld")))
+    tagList(
+        uiOutput(ns("data_text")),
+        uiOutput(ns("btn_dwld"))
+    )
 }
 
-data_download_server <- function(id, df, filename,
-    label = NULL, helper = TRUE) {
+#' Shiny modules to download a dataframe
+#'
+#' This function allows to download a dataframe as a csv file.
+#' This generate a Shiny module that can be used in a Shiny app.
+#' The function is composed of two parts: the UI and the server.
+#' The UI is called with the function `data_download_ui()` and the server
+#' with the function `data_download_server()`.
+#'
+#' @param id A string to identify the module.
+#' @param df A reactive dataframe.
+#' @param filename A string to name the file.
+#' @param label A string to display in the download button.
+#' @param helper A boolean to display a helper message.
+#'
+#' @examples
+#' \\dontrun{
+#'   data_download_demo()
+#' }
+#' @export
+#' @rdname data_download
+data_download_server <- function(
+    id, df, filename,
+    label = NULL, helper = TRUE
+) {
     stopifnot(shiny::is.reactive(df))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
@@ -49,6 +75,7 @@ data_download_server <- function(id, df, filename,
     })
 }
 
+#' @rdname data_download
 data_download_demo <- function() {
     ui <- shiny::fluidPage(data_download_ui("datafile"))
     server <- function(input, output, session) {

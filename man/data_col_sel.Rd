@@ -46,5 +46,7 @@ The UI is called with the function \code{data_col_sel_ui()} and the server
 with the function \code{data_col_sel_server()}.
 }
 \examples{
-data_col_sel_demo()
+\\dontrun{
+    data_col_sel_demo()
+}
 }

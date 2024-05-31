@@ -41,7 +41,9 @@ data_col_sel_ui <- function(id) {
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
-#' data_col_sel_demo()
+#' \\dontrun{
+#'     data_col_sel_demo()
+#' }
 #' @export
 #' @rdname data_col_sel
 data_col_sel_server <- function(
