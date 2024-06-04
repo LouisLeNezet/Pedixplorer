@@ -15,14 +15,15 @@ new_par <- list(
 
 test_that("Pedigree legend works", {
     data("sampleped")
-    sampleped$val_num <- as.numeric(sampleped$id)
     ped <- Pedigree(sampleped)
     ped <- ped[ped(ped, "famid") == "1"]
     famid(ped(ped))[13] <- "1"
-
     ped2 <- ped[ped(ped, "id") != "1_113"]
     p1 <- align(ped)
     p2 <- align(ped2)
+
+    #plot(ped)
+    #plot(ped2)
 
     # TODO expect_equal(p1, p2)
 
