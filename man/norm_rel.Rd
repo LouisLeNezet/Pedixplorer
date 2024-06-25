@@ -40,7 +40,7 @@ to be able to use it as an input to create a Ped object.
 }
 \details{
 The \code{famid} column, if provided, will be merged to the \emph{ids} field
-separated by an underscore using the \code{\link[=upd_famid_id]{upd_famid_id()}} function.
+separated by an underscore using the \code{\link[=upd_famid]{upd_famid()}} function.
 The \code{code} column will be transformed with the \code{\link[=rel_code_to_factor]{rel_code_to_factor()}}.
 Multiple test are done and errors are checked.
 

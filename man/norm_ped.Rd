@@ -24,7 +24,7 @@ The minimum columns required are:
 }\if{html}{\out{</div>}}
 
 The \code{family} column, if provided, will be merged to the \emph{ids} field
-separated by an underscore using the \code{\link[=upd_famid_id]{upd_famid_id()}} function.
+separated by an underscore using the \code{\link[=upd_famid]{upd_famid()}} function.
 
 The following columns are also recognize and will be transformed with the
 \code{\link[=vect_to_binary]{vect_to_binary()}} function:

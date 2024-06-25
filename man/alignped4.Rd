@@ -43,13 +43,13 @@ There are two important parameters for the function:
 \enumerate{
 \item The maximum width specified.
 The smallest possible width is the maximum number of subjects on a
-line, if the user suggestion is too low it is increased to that
-1 + that amount (to give just a little wiggle room).
+line. If the user suggestion is too low it is increased to that
+amount plus one (to give just a little wiggle room).
 \item The align vector of 2 alignment parameters \code{a} and \code{b}.
 For each set of siblings \code{x} with parents at \code{p_1} and \code{p_2}
-the alignment penalty is :
+the alignment penalty is:
 
-\deqn{(1/k^a)\sum{i=1}{k} (x_i - (p_1 + p_2)^2}
+\deqn{(1/k^a)\sum_{i=1}^{k} (x_i - (p_1 + p_2)/2)^2}
 
 where \code{k} is the number of siblings in the set.
 }
@@ -63,12 +63,13 @@ right of optimal will incur the same cost as moving one with only 1 or
 two sibs out of place.
 
 If \code{a = 0} then large sibships are harder to move
-than small ones, with the default value \code{a = 1.5} they are slightly easier
+than small ones.
+With the default value \code{a = 1.5}, they are slightly easier
 to move than small ones.
 The rationale for the default is as long as the
 parents are somewhere between the first and last siblings the result looks
 fairly good, so we are more flexible with the spacing of a large family.
-By tethering all the sibs to a single spot they tend are kept close to
+By tethering all the sibs to a single spot they tend to be kept close to
 each other.
 
 The alignment penalty for spouses is \eqn{b(x_1 - x_2)^2}, which tends to
@@ -78,15 +79,15 @@ sib-parent and spouse-spouse closeness.
 \item We start by adding in these penalties.
 The total number of parameters in the alignment problem
 (what we hand to quadprog) is the set of \code{sum(n)} positions.
-A work array myid keeps track of the parameter number for each position so
-that it is easy to find. There is one extra penalty added at the end.
+A work array myid keeps track of the parameter number for each position
+so that it is easy to find. There is one extra penalty added at the end.
 Because the penalty amount would be the same if all the final positions
 were shifted by a constant, the penalty matrix will not be positive
 definite; \code{solve.QP()} does not like this.
 We add a tiny amount of leftward pull to the widest line.
 \item If there are \code{k} subjects on a line there will
 be \code{k+1} constraints for that line.  The first point must be
-\eqn{\ge 0}, each subesquent one must be at least 1 unit to the right,
+\eqn{\ge 0}, each subsequent one must be at least 1 unit to the right,
 and the final point must be \eqn{\le} the max width.
 }
 }
