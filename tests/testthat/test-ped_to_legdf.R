@@ -15,10 +15,12 @@ new_par <- list(
 
 test_that("Pedigree legend works", {
     data("sampleped")
+    sampleped$val_num <- as.numeric(sampleped$id)
     ped <- Pedigree(sampleped)
     ped <- ped[ped(ped, "famid") == "1"]
     famid(ped(ped))[13] <- "1"
     ped2 <- ped[ped(ped, "id") != "1_113"]
+
     p1 <- align(ped)
     p2 <- align(ped2)
 
@@ -37,10 +39,10 @@ test_that("Pedigree legend works", {
 
     vdiffr::expect_doppelganger("Legend alone",
         function() {
-            plot_fromdf(lst$df,
+            suppressWarnings(plot_fromdf(lst$df,
                 usr = c(-1, max(lst$df$x0) + 1, -1, max(lst$df$y0) + 1),
                 add_to_existing = FALSE
-            )
+            ))
         }
     )
 

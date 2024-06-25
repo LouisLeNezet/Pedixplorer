@@ -67,12 +67,10 @@ setMethod("ped_to_legdf", "Pedigree", function(obj,
     })
 
     all_lab <- c(all_lab, all_aff)
-
     max_lab <- lapply(lapply(
         all_lab, strwidth,
         units = "inches", cex = cex
     ), max)
-
     posx <- unlist(lapply(max_lab, function(x) {
         c(c(boxw, boxw, boxw / 5), x * 3)
     }))

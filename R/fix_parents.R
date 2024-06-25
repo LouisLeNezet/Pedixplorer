@@ -123,6 +123,7 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(1, length(dadnotfound)))
         dadid <- c(dadid, rep(missid, length(dadnotfound)))
         momid <- c(momid, rep(missid, length(dadnotfound)))
+        famid <- get_famid(id)
     }
     if (any(mindex == 0 & !nomother)) {
         momnotfound <- unique(momid[which(mindex == 0 & !nomother)])
@@ -130,6 +131,7 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(2, length(momnotfound)))
         dadid <- c(dadid, rep(missid, length(momnotfound)))
         momid <- c(momid, rep(missid, length(momnotfound)))
+        famid <- get_famid(id)
     }
     if (any(sex[mindex] != 1)) {
         dadnotmale <- unique((id[findex])[sex[findex] != 1])
@@ -151,6 +153,7 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(1, length(nodad_idx)))
         dadid <- c(dadid, rep(missid, length(nodad_idx)))
         momid <- c(momid, rep(missid, length(nodad_idx)))
+        famid <- get_famid(id)
     }
     ## children with dad in ped, mom missing
     addids <- addids[!(addids %in% id)]
@@ -161,8 +164,12 @@ setMethod("fix_parents", "character", function(
         sex <- c(sex, rep(2, length(nomom_idx)))
         dadid <- c(dadid, rep(missid, length(nomom_idx)))
         momid <- c(momid, rep(missid, length(nomom_idx)))
+        famid <- get_famid(id)
     }
-    famid <- make_famid(id, dadid, momid)
+
+    if (all(is.na(famid))) {
+        famid <- make_famid(id, dadid, momid)
+    }
     data.frame(
         id = id, momid = momid, dadid = dadid,
         sex = sex, famid = famid

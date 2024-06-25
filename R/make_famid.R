@@ -264,3 +264,20 @@ setMethod("upd_famid",
         obj
     }
 )
+
+#' Get family id
+#' 
+#'
+setGeneric("get_famid",
+    function(obj, ...) standardGeneric("get_famid")
+)
+
+setMethod("get_famid",
+    signature(obj = "character"),
+    function(obj) {
+        obj[!str_detect(obj, "_")] <- paste0("_", obj[!str_detect(obj, "_")])
+        ids <- str_split_fixed(obj, "_", 2)
+        ids[ids[, 1] == "", 1] <- NA
+        return(ids[, 1])
+    }
+)
