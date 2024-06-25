@@ -339,7 +339,7 @@ rel_df <- data.frame(
     code = c(1, 3),
     family = c("2", "2")
 )
-rel(ped2) <- upd_famid_id(with(rel_df, Rel(indId1, indId2, code, family)))
+rel(ped2) <- upd_famid(with(rel_df, Rel(indId1, indId2, code, family)))
 plot(ped2)
 ```
 
@@ -389,7 +389,7 @@ rel_df2 <- data.frame(
     famid = "2"
 )
 new_rel <- c(rel(ped2), with(rel_df2, Rel(id1, id2, code, famid)))
-rel(ped2) <- upd_famid_id(new_rel)
+rel(ped2) <- upd_famid(new_rel)
 plot(ped2)
 ```
 

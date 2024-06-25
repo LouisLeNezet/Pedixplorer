@@ -193,7 +193,7 @@ setMethod("famid<-",
             )
         }
         x@famid <- as.character(value)
-        x <- upd_famid_id(x)
+        x <- upd_famid(x)
         validObject(x)
         x
     }
@@ -647,7 +647,7 @@ setMethod("famid<-",
             )
         }
         x@famid <- as.character(value)
-        x <- upd_famid_id(x)
+        x <- upd_famid(x)
         validObject(x)
         x
     }

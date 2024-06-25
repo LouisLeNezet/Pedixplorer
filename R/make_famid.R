@@ -117,7 +117,7 @@ setMethod("make_famid", "Pedigree",
         }
 
         obj@rel@famid <- fam_id1
-        obj <- upd_famid_id(obj)
+        obj <- upd_famid(obj)
         validObject(obj)
         obj
     }
@@ -141,17 +141,17 @@ setMethod("make_famid", "Pedigree",
 #'
 #' @export
 #' @usage NULL
-setGeneric("upd_famid_id",
-    function(obj, famid, ...) standardGeneric("upd_famid_id")
+setGeneric("upd_famid",
+    function(obj, famid, ...) standardGeneric("upd_famid")
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @examples
 #'
-#' upd_famid_id(c("1", "2", "B_3"), c("A", "B", "A"))
-#' upd_famid_id(c("1", "B_2", "C_3", "4"), c("A", NA, "A", NA))
+#' upd_famid(c("1", "2", "B_3"), c("A", "B", "A"))
+#' upd_famid(c("1", "B_2", "C_3", "4"), c("A", NA, "A", NA))
 #' @export
-setMethod("upd_famid_id", "character",
+setMethod("upd_famid", "character",
     function(obj, famid, missid = NA_character_) {
         if (length(obj) != length(famid)) {
             stop("id and famid must have the same length")
@@ -174,68 +174,68 @@ setMethod("upd_famid_id", "character",
     }
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @export
-setMethod("upd_famid_id",
+setMethod("upd_famid",
     signature(obj = "Ped", famid = "character_OR_integer"),
     function(obj, famid) {
-        obj@id <- upd_famid_id(id(obj), famid)
-        obj@dadid <- upd_famid_id(dadid(obj), famid)
-        obj@momid <- upd_famid_id(momid(obj), famid)
+        obj@id <- upd_famid(id(obj), famid)
+        obj@dadid <- upd_famid(dadid(obj), famid)
+        obj@momid <- upd_famid(momid(obj), famid)
         obj@famid <- famid
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
-setMethod("upd_famid_id",
+#' @rdname upd_famid
+setMethod("upd_famid",
     signature(obj = "Ped", famid = "missing"),
     function(obj) {
-        obj@id <- upd_famid_id(id(obj), famid(obj))
-        obj@dadid <- upd_famid_id(dadid(obj), famid(obj))
-        obj@momid <- upd_famid_id(momid(obj), famid(obj))
+        obj@id <- upd_famid(id(obj), famid(obj))
+        obj@dadid <- upd_famid(dadid(obj), famid(obj))
+        obj@momid <- upd_famid(momid(obj), famid(obj))
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
-setMethod("upd_famid_id",
+#' @rdname upd_famid
+setMethod("upd_famid",
     signature(obj = "Rel", famid = "character_OR_integer"),
     function(obj, famid) {
-        obj@id1 <- upd_famid_id(id1(obj), famid)
-        obj@id2 <- upd_famid_id(id2(obj), famid)
+        obj@id1 <- upd_famid(id1(obj), famid)
+        obj@id2 <- upd_famid(id2(obj), famid)
         obj@famid <- famid
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
-setMethod("upd_famid_id",
+#' @rdname upd_famid
+setMethod("upd_famid",
     signature(obj = "Rel", famid = "missing"),
     function(obj) {
-        obj@id1 <- upd_famid_id(id1(obj), famid(obj))
-        obj@id2 <- upd_famid_id(id2(obj), famid(obj))
+        obj@id1 <- upd_famid(id1(obj), famid(obj))
+        obj@id2 <- upd_famid(id2(obj), famid(obj))
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @examples
 #'
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[,-1])
 #' id(ped(ped1))
 #' new_fam <- make_famid(id(ped(ped1)), dadid(ped(ped1)), momid(ped(ped1)))
-#' id(ped(upd_famid_id(ped1, new_fam)))
-setMethod("upd_famid_id",
+#' id(ped(upd_famid(ped1, new_fam)))
+setMethod("upd_famid",
     signature(obj = "Pedigree", famid = "character_OR_integer"),
     function(obj, famid) {
         old_id <- id(ped(obj))
-        obj@ped <- upd_famid_id(ped(obj), famid)
+        obj@ped <- upd_famid(ped(obj), famid)
         fid1 <- famid[match(id1(rel(obj)), old_id)]
         fid2 <- famid[match(id2(rel(obj)), old_id)]
         if (any(fid1 != fid2)) {
@@ -243,23 +243,23 @@ setMethod("upd_famid_id",
                 "are not in the same family"
             )
         }
-        obj@rel <- upd_famid_id(rel(obj), fid1)
+        obj@rel <- upd_famid(rel(obj), fid1)
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @examples
 #'
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[,-1])
 #' make_famid(ped1)
-setMethod("upd_famid_id",
+setMethod("upd_famid",
     signature(obj = "Pedigree", famid = "missing"),
     function(obj) {
-        obj@ped <- upd_famid_id(ped(obj))
-        obj@rel <- upd_famid_id(rel(obj))
+        obj@ped <- upd_famid(ped(obj))
+        obj@rel <- upd_famid(rel(obj))
         validObject(obj)
         obj
     }

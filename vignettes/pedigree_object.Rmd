@@ -285,14 +285,14 @@ With this new S4 object comes multiple methods to ease the use of it:
 - kindepth()
 - kinship()
 - make_famid()
-- upd_famid_id()
+- upd_famid()
 - num_child()
 - unrelated()
 - useful_inds()
 
 ```{r, pedigree methods}
 ## We can change the family name based on an other column
-ped <- upd_famid_id(ped, mcols(ped)$idth)
+ped <- upd_famid(ped, mcols(ped)$idth)
 
 ## We can substract a given family
 pedA <- ped[famid(ped(ped)) == "A"]

@@ -45,7 +45,7 @@ NULL
 #'     - `family` family identifiers -> `famid`
 #'
 #' The `family` column, if provided, will be merged to the *ids* field
-#' separated by an underscore using the [upd_famid_id()] function.
+#' separated by an underscore using the [upd_famid()] function.
 #'
 #' The following columns are also recognize and will be transformed with the
 #' [vect_to_binary()] function:
@@ -134,9 +134,9 @@ norm_ped <- function(
         )
         ## Make a new id from the family and subject pair
         ped_df$famid <- ped_df$family
-        ped_df$id <- upd_famid_id(ped_df$indId, ped_df$famid, missid)
-        ped_df$dadid <- upd_famid_id(ped_df$fatherId, ped_df$famid, missid)
-        ped_df$momid <- upd_famid_id(ped_df$motherId, ped_df$famid, missid)
+        ped_df$id <- upd_famid(ped_df$indId, ped_df$famid, missid)
+        ped_df$dadid <- upd_famid(ped_df$fatherId, ped_df$famid, missid)
+        ped_df$momid <- upd_famid(ped_df$motherId, ped_df$famid, missid)
 
         ## Set all missid to NA
         ped_df <- mutate_at(ped_df, c("id", "dadid", "momid", "famid"),
@@ -270,7 +270,7 @@ norm_ped <- function(
 #'
 #' @details
 #' The `famid` column, if provided, will be merged to the *ids* field
-#' separated by an underscore using the [upd_famid_id()] function.
+#' separated by an underscore using the [upd_famid()] function.
 #' The `code` column will be transformed with the [rel_code_to_factor()].
 #' Multiple test are done and errors are checked.
 #'
@@ -343,8 +343,8 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         err$id2Err[is.na(len2) | len2 %in% missid] <- "indId2length0"
 
         ## Compute id with family id
-        rel_df$id1 <- upd_famid_id(rel_df$id1, rel_df$famid, missid)
-        rel_df$id2 <- upd_famid_id(rel_df$id2, rel_df$famid, missid)
+        rel_df$id1 <- upd_famid(rel_df$id1, rel_df$famid, missid)
+        rel_df$id2 <- upd_famid(rel_df$id2, rel_df$famid, missid)
 
         rel_df <- mutate_at(rel_df, c("id1", "id2", "famid"),
             ~replace(., . %in% c(na_strings, missid), NA_character_)
