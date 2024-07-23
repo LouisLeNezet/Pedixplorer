@@ -236,9 +236,9 @@ $125$ and $126$ in $ped1$. We check it by looking at the kinship matrix
 for these pairs, which are correctly at $0.5$.
 
 ```{r, kin_twins}
-reltwins <- as.data.frame(rbind(c(206, 207, 1, 2), c(125, 126, 1, 1)))
-colnames(reltwins) <- c("indId1", "indId2", "code", "family")
-ped <- Pedigree(sampleped, reltwins)
+data("relped")
+relped
+ped <- Pedigree(sampleped, relped)
 
 kin_all <- kinship(ped)
 kin_all[24:27, 24:27]
@@ -324,22 +324,17 @@ marry-in when a couple does not have children together.
 
 ### Twins
 
-Below, we create a matrix of relationships for monozygotic and
-unknown-zygosity twins in the most recent generation of $ped2$. The
-twin relationships are both represented with diverging lines from a
+Below, we use the relationship dataset.
+We can specify in the code column if the individuals are
+monozygotic '1', dizygotic '2' or of unknown-zygosity '3' twins.
+The twin relationships are both represented with diverging lines from a
 single point. The monozygotic twins have an additional line connecting
-the diverging lines, while the other twins have a question mark to
-indicate unknown zygosity.
+the diverging lines, while twins of unknown zygosity have a question mark.
 
 ```{r, twins}
 ## create twin relationships
-rel_df <- data.frame(
-    indId1 = c("210", "212"),
-    indId2 = c("211", "213"),
-    code = c(1, 3),
-    family = c("2", "2")
-)
-rel(ped2) <- upd_famid(with(rel_df, Rel(indId1, indId2, code, family)))
+data("relped")
+rel(ped2) <- Rel(relped[relped$famid == 2, ])
 plot(ped2)
 ```
 
@@ -560,8 +555,9 @@ the kinship matrix for Pedigree 2 subset to those with availability
 status of 1.
 
 ```{r, unrelkin}
-df2
-is_avail <- df2$id[df2$avail == 1]
+kin2 <- kinship(ped2)
+is_avail <- id(ped(ped2))[avail(ped(ped2))]
+kin2
 kin2[is_avail, is_avail]
 ```
 

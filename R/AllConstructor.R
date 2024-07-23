@@ -281,7 +281,7 @@ setMethod("Rel", "character_OR_integer",
             "Rel",
             id1 = id1o, id2 = id2o, code = code, famid = famid
         )
-        rel
+        upd_famid(rel)
     }
 )
 
