@@ -1,14 +1,8 @@
-usethis::use_package("shiny")
-usethis::use_package("bootstrap")
-
 #' @importFrom shiny tags fluidRow column titlePanel hr HTML h3 h2 h4 h5 pre NS
 #' @importFrom shiny strong uiOutput textOutput tableOutput dataTableOutput
 #' @importFrom shiny numericInput checkboxInput plotOutput
-NULL
+usethis::use_package("shiny")
 
-#' Define UI for the Pedigree exploration application
-#' @return A shiny UI object
-#' @export
 #' @include app_data_import.R
 #' @include app_data_col_sel.R
 #' @include app_data_download.R
@@ -18,6 +12,9 @@ NULL
 #' @include app_inf_sel.R
 #' @include app_plot_ped.R
 #' @include app_plot_download.R
+#' @include app_utils.R
+#' @include app_server.R
+#' @rdname ped_shiny
 ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ## Configuration -------------------------------
     shinyjs::useShinyjs(),

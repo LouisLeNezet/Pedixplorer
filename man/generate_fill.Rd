@@ -24,6 +24,9 @@ individuals
 
 \item{labels}{The vector containing the labels to use for the affection.}
 
+\item{is_num}{Boolean defining if the values need to be considered as
+numeric.}
+
 \item{keep_full_scale}{Boolean defining if the affection values need to
 be set as a scale. If \code{values} is numeric the filling scale will be
 calculated based on the values and the number of breaks given.

@@ -33,7 +33,7 @@ with the function \code{data_import_server()}.
 Different options are available to the user to import the data.
 }
 \examples{
-\\dontrun{
+\dontrun{
     data_import_demo()
 }
 }

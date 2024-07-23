@@ -81,7 +81,7 @@ breastped <- Pedigree(minnbreast,
 summary(breastped)
 scales(breastped)
 #plot family 8, proband is solid, slash for cancers
-#plot(breastped[famid(ped(breastped)) == "8"])
+\dontrun{ plot(breastped[famid(ped(breastped)) == "8"])}
 }
 \references{
 Epidemiologic and genetic follow-up study of 544 Minnesota breast cancer

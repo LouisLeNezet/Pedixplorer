@@ -1,6 +1,8 @@
 #' @importFrom shiny NS column div h5 uiOutput tagList
+#' @importFrom data.table copy setnames
 
 usethis::use_package("shiny")
+usethis::use_package("data.table")
 
 #' @rdname data_col_sel
 data_col_sel_ui <- function(id) {
@@ -37,14 +39,15 @@ data_col_sel_ui <- function(id) {
 #' @param cols_supl A character vector of the optional columns.
 #' @param title A string to display in the selectInput.
 #' @param na_omit A boolean to allow or not the selection of NA.
+#' @param others_cols A boolean to authorize other columns to be
+#' present in the output datatable.
 #'
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
-#' \\dontrun{
+#' \dontrun{
 #'     data_col_sel_demo()
 #' }
-#' @export
 #' @rdname data_col_sel
 data_col_sel_server <- function(
     id, df, cols_needed, cols_supl, title, na_omit = TRUE, others_cols = TRUE
@@ -153,6 +156,7 @@ data_col_sel_server <- function(
 }
 
 #' @rdname data_col_sel
+#' @export
 data_col_sel_demo <- function() {
     ui <- shiny::fluidPage(
         data_col_sel_ui("datafile"),
@@ -162,7 +166,7 @@ data_col_sel_demo <- function() {
         df <- data_col_sel_server(
             "datafile",
             shiny::reactive({
-                mtcars
+                datasets::mtcars
             }),
             list("Need1" = c("mpg", "cyl"), "Need2" = c()),
             list("Supl1" = c("other"), "Supl2" = c("disp")),

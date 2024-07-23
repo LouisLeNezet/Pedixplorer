@@ -1,15 +1,9 @@
 #' @importFrom shiny NS column div h5 uiOutput tagList renderUI selectInput
 #' @importFrom shiny selectInput textOutput renderTable renderText tableOutput
-NULL
+#' @importFrom shiny htmlOutput sliderInput
 usethis::use_package("shiny")
 
-#' User interface of selecting health module
-#'
-#' @param id A string to identify the module.
-#' @return A Shiny module UI.
-#' @examples
-#' health_sel_demo()
-#' @export
+#' @rdname health_sel
 health_sel_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
@@ -21,15 +15,29 @@ health_sel_ui <- function(id) {
     )
 }
 
-#' Server function of selecting health module
+#' Shiny module to select a health variable in a pedigree
+#'
+#' This module allows to select health variables in a pedigree object.
+#' The function is composed of two parts: the UI and the server.
+#' The UI is called with the function `health_sel_ui()` and the server
+#' with the function `health_sel_server()`.
 #'
 #' @param id A string to identify the module.
-#' @param df A reactive dataframe.
-#' @return A reactive dataframe with the selected affection
+#' @param pedi A reactive pedigree object.
+#' @return A reactive list with the following informations:`actions-box`
+#' - health_var: the selected health variable,
+#' - to_num: a boolean to know if the health variable needs to be considered as
+#' numeric,
+#' - mods_aff: a character vector of the affected modalities,
+#' - threshold: a numeric threshold to determine affected individuals,
+#' - threshold_sup: a boolean to know if the affected individuals are strickly
+#' superior to the threshold.
 #' @examples
-#' health_sel_demo()
-#' @export
+#' \dontrun{
+#'     health_sel_demo()
+#' }
 #' @include app_utils.R
+#' @rdname health_sel
 health_sel_server <- function(id, pedi) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
@@ -110,7 +118,7 @@ health_sel_server <- function(id, pedi) {
                         "No value found for", input$health_var_sel
                     ))
                 } else {
-                    sliderInput(
+                    shiny::sliderInput(
                         ns("health_threshold_val"),
                         label = h5(paste(
                             "Threshold of",
@@ -170,18 +178,16 @@ health_sel_server <- function(id, pedi) {
     })
 }
 
-#' Demo function of selecting health module
-#' @examples
-#' health_sel_demo()
+#' @rdname health_sel
+#' @export
 health_sel_demo <- function() {
-    data("sampleped")
-    pedi <- Pedigree(sampleped)
+    pedi <- Pedigree(Pedixplorer::sampleped)
     ui <- shiny::fluidPage(
         column(6,
             health_sel_ui("healthsel")
         ),
         column(6,
-            htmlOutput("text")
+            shiny::htmlOutput("text")
         )
     )
     server <- function(input, output, session) {
@@ -204,7 +210,7 @@ health_sel_demo <- function() {
             )
             str4 <- paste("Threshold:", lst_health()$threshold)
             str5 <- paste("Threshold strict:", lst_health()$threshold_sup)
-            HTML(paste(str1, str2, str3, str4, str5, sep = '<br/>'))
+            HTML(paste(str1, str2, str3, str4, str5, sep = "<br/>"))
 
         })
     }

@@ -76,6 +76,12 @@ na_to_length <- function(x, temp, value) {
 #' @param missid A character vector with the missing values identifiers.
 #' All the id, dadid and momid corresponding to those values will be set
 #' to `NA_character_`.
+#' @param useful A logical vector with the usefulness status of the
+#' individuals (i.e. `FALSE` = not useful, `TRUE` = useful).
+#' @param isinf A logical vector indicating if the individual is informative
+#' or not (i.e. `FALSE` = not informative, `TRUE` = informative).
+#' @param kin A numeric vector with minimal kinship value between the
+#' individuals and the informative individuals.
 #' @inheritParams check_columns
 #' @return A Ped object.
 #' @rdname Ped-class

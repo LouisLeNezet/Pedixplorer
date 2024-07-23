@@ -18,19 +18,11 @@ ped_avaf_infos_ui(id)
 \arguments{
 \item{id}{A string to identify the module.}
 
-\item{df}{A reactive dataframe.}
-
-\item{cols_needed}{A character vector of the mandatory columns.}
-
-\item{cols_supl}{A character vector of the optional columns.}
-
-\item{title}{A string to display in the selectInput.}
-
-\item{na_omit}{A boolean to allow or not the selection of NA.}
+\item{pedi}{A reactive pedigree object.}
 }
 \value{
-A reactive dataframe with the selected columns renamed
-to the names of cols_needed and cols_supl.
+A reactive list with the subselected pedigree object and the
+selected family id.
 }
 \description{
 This module allows to select a family in a pedigree object.
@@ -39,5 +31,7 @@ The UI is called with the function \code{family_sel_ui()} and the server
 with the function \code{family_sel_server()}.
 }
 \examples{
-family_sel_demo()
+\dontrun{
+    family_sel_demo()
+}
 }

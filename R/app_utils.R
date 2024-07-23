@@ -1,23 +1,30 @@
+#' @importFrom shiny tags
+usethis::use_package("shiny")
+
 #' Sketch of the family information table
+#'
+#' Simple function to create a sketch of the family information table.
+#'
+#' @param var_name the name of the health variable
+#' @return an html sketch of the family information table
+#' @keywords internal
 sketch <- function(var_name) {
-    htmltools::withTags({
-        table(
-            class = "display",
-            thead(
-                tr(
-                    th(class = 'dt-center', colspan = 2, var_name),
-                    th(class = 'dt-center', colspan = 3, "Availability")
-                ),
-                tr(
-                    th("Affected"),
-                    th("Modalities"),
-                    th("Available"),
-                    th("Unavailable"),
-                    th("NA")
-                )
+    tags$table(
+        class = "display",
+        tags$thead(
+            tags$tr(
+                tags$th(class = 'dt-center', colspan = 2, var_name),
+                tags$th(class = 'dt-center', colspan = 3, "Availability")
+            ),
+            tags$tr(
+                tags$th("Affected"),
+                tags$th("Modalities"),
+                tags$th("Available"),
+                tags$th("Unavailable"),
+                tags$th("NA")
             )
         )
-    })
+    )
 }
 
 
@@ -45,9 +52,24 @@ print_console <- function(expr, session) {
     results
 }
 
-
 usethis::use_package("dplyr")
-## Choose family to plot the name used will be the most numerous race
+
+#' Summarise the families information for a given variable in a data frame
+#'
+#' This function summarises the families information for a given variable in a
+#' data frame. It returns the most numerous modality for each family and the
+#' number of individuals in the family.
+#'
+#' @param df a data frame
+#' @param var the variable to summarise
+#' @return a data frame with the family information
+#' @examples
+#' df <- data.frame(
+#'    famid = c(1, 1, 2, 2, 3, 3),
+#'    health = c("A", "B", "A", "A", "B", "B")
+#' )
+#' get_families_table(df, "health")
+#' @export
 get_families_table <- function(df, var) {
     if (!var %in% colnames(df) || !("famid" %in% colnames(df))) {
         return(NULL)
@@ -66,55 +88,29 @@ get_families_table <- function(df, var) {
     return(families_table)
 }
 
-create_legend <- function(lgd_list, nb_col_many = 2, size = 1) {
-    legend <- list()
-    it1 <- 1
-    for (it1 in seq_along(lgd_list)) {
-        i <- names(lgd_list)[[it1]]
-        legend_labels <- names(lgd_list[[i]])
-        nb_mod <- length(lgd_list[[i]])
-        if (i == "Availability") {
-            fill_color <- rep("white", length(lgd_list[[i]]))
-            border_color <- lgd_list[[i]]
-        } else {
-            fill_color <- lgd_list[[i]]
-            border_color <- rep("black", length(lgd_list[[i]]))
-        }
+#' @importFrom ggpubr get_legend
+usethis::use_package("ggpubr")
 
-        data <- data.frame(
-            X = rep(1, nb_mod), Y = 1:nb_mod,
-            Aff = as.character(1:nb_mod)
-        )
-        if (nb_mod > 5) {
-            nbcol <- nb_col_many
-        } else {
-            nbcol <- 1
-        }
-
-        grob <- ggplot(data, aes(X, Y)) +
-            geom_point(aes(fill = Aff), shape = 21, size = 10, stroke = 1.5) +
-            scale_fill_manual(
-                values = setNames(fill_color, 1:nb_mod), name = i,
-                labels = setNames(legend_labels, 1:nb_mod),
-                drop = FALSE, guide = TRUE
-            ) +
-            guides(fill = guide_legend(override.aes = list(
-                col = border_color,
-                fill = fill_color, size = size * 10
-            ), ncol = nbcol)) +
-            theme(
-                legend.margin = margin(0, 0, 0, 0, "in"),
-                legend.title = element_text(size = 20 * size),
-                legend.text = element_text(size = 18 * size),
-                legend.justification = "top",
-                plot.background = element_rect(fill = "red"),
-            )
-
-        legend[[LETTERS[it1]]] <- ggpubr::get_legend(grob)
-    }
-    return(legend)
-}
-
+#' Get the title of the family information table
+#'
+#' This function generates the title of the family information table
+#' depending on the selected family and subfamily and other parameters.
+#'
+#' @param family_sel the selected family
+#' @param subfamily_sel the selected subfamily
+#' @param family_var the selected family variable
+#' @param mod the selected affected modality
+#' @param inf_selected the selected informative individuals
+#' @param kin_max the maximum kinship
+#' @param keep_parents the keep parents option
+#' @param nb_rows the number of individuals
+#' @param short_title a boolean to generate a short title
+#' @return a string with the title
+#' @examples
+#' get_title(1, 1, "health", "A", "All", 3, TRUE, 10, FALSE)
+#' get_title(1, 1, "health", "A", "All", 3, TRUE, 10, TRUE)
+#' get_title(1, 1, "health", "A", "All", 3, FALSE, 10, FALSE)
+#' @export
 get_title <- function(
     family_sel, subfamily_sel, family_var, mod, inf_selected,
     kin_max, keep_parents, nb_rows, short_title = FALSE
@@ -133,8 +129,8 @@ get_title <- function(
         } else {
             keep_text <- ifelse(keep_parents, "trimmed", "")
             paste0(c(
-                "Pedigree", keep_text, "of", family_var, mod, "family N°",
-                family_sel, "sub-family N°", subfamily_sel,
+                "Pedigree", keep_text, "of", family_var, mod, "family N\u176",
+                family_sel, "sub-family N\u176", subfamily_sel,
                 "( N=", nb_rows, ") from",
                 inf_selected, "individuals"
             ), collapse = " ")

@@ -2,10 +2,28 @@
 % Please edit documentation in R/make_famid.R
 \name{get_famid}
 \alias{get_famid}
+\alias{get_famid,character-method}
 \title{Get family id}
 \usage{
-get_famid(obj, ...)
+get_famid(obj)
+
+\S4method{get_famid}{character}(obj)
+}
+\arguments{
+\item{obj}{A character vector of individual ids}
+}
+\value{
+A character vector of family ids
 }
 \description{
-Get family id
+Get the family id ftom the individuals identifiers.
+}
+\details{
+The family id is the first part of the individual id, separated by an
+underscore.
+If the individual id does not contain an underscore, then the family id is
+set to NA.
+}
+\examples{
+get_famid(c("A", "1_B", "C_2", "D_", "_E", "F"))
 }

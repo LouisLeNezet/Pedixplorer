@@ -32,8 +32,8 @@ The aim was to create a data set with a variety of pedigree structures.
 }
 \examples{
 data("sampleped")
-ped <- Pedigree(sampleped)
-summary(ped)
-#plot(ped)
+pedi <- Pedigree(sampleped)
+summary(pedi)
+\dontrun{ plot(pedi) }
 }
 \keyword{datasets}

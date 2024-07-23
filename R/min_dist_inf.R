@@ -19,9 +19,9 @@ NULL
 #'
 #'
 #' @param ... Additional arguments
-#' @param id_inf An identifiers vector of informative individuals.
 #' @inheritParams Ped
 #' @inheritParams is_informative
+#' @inheritParams useful_inds
 #'
 #' @return
 #' ## When obj is a vector
@@ -77,7 +77,10 @@ setMethod("min_dist_inf", "character", function(obj,
 #' @examples
 #'
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
+#' ped <- is_informative(
+#'  Pedigree(sampleped),
+#'  informative = "AvAf", col_aff = "affection_mods"
+#' )
 #' kin(ped(min_dist_inf(ped, col_aff = "affection_mods")))
 #' @export
 setMethod("min_dist_inf", "Pedigree", function(

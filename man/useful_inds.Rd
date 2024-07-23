@@ -55,6 +55,8 @@ individuals
 \item{num_child_tot}{A numeric vector of the number of children of each
 individuals}
 
+\item{id_inf}{An identifiers vector of informative individuals.}
+
 \item{keep_infos}{Boolean to indicate if parents with unknown status
 but available or reverse should be kept}
 
@@ -70,6 +72,8 @@ but available or reverse should be kept}
 }}
 
 \item{reset}{Boolean to indicate if the \code{useful} column should be reset}
+
+\item{max_dist}{The maximum distance to informative individuals}
 }
 \value{
 \subsection{When obj is a vector}{

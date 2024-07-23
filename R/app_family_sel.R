@@ -25,16 +25,13 @@ family_sel_ui <- function(id) {
 #' with the function `family_sel_server()`.
 #'
 #' @param id A string to identify the module.
-#' @param df A reactive dataframe.
-#' @param cols_needed A character vector of the mandatory columns.
-#' @param cols_supl A character vector of the optional columns.
-#' @param title A string to display in the selectInput.
-#' @param na_omit A boolean to allow or not the selection of NA.
-#' @return A reactive dataframe with the selected columns renamed
-#' to the names of cols_needed and cols_supl.
+#' @param pedi A reactive pedigree object.
+#' @return A reactive list with the subselected pedigree object and the
+#' selected family id.
 #' @examples
-#' family_sel_demo()
-#' @export
+#' \dontrun{
+#'     family_sel_demo()
+#' }
 #' @include app_utils.R
 #' @rdname family_sel
 family_sel_server <- function(id, pedi) {
@@ -139,9 +136,9 @@ family_sel_server <- function(id, pedi) {
 }
 
 #' @rdname family_sel
+#' @export
 family_sel_demo <- function() {
-    data("sampleped")
-    pedi <- Pedigree(sampleped)
+    pedi <- Pedigree(Pedixplorer::sampleped)
     ui <- shiny::fluidPage(
         column(6,
             family_sel_ui("familysel")

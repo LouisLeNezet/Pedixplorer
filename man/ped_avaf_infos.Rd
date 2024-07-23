@@ -12,15 +12,7 @@ ped_avaf_infos_demo()
 \arguments{
 \item{id}{A string to identify the module.}
 
-\item{df}{A reactive dataframe.}
-
-\item{cols_needed}{A character vector of the mandatory columns.}
-
-\item{cols_supl}{A character vector of the optional columns.}
-
-\item{title}{A string to display in the selectInput.}
-
-\item{na_omit}{A boolean to allow or not the selection of NA.}
+\item{pedi}{A reactive pedigree object.}
 }
 \value{
 A reactive dataframe with the selected columns renamed
@@ -35,5 +27,7 @@ The UI is called with the function \code{ped_avaf_infos_ui()} and the server
 with the function \code{ped_avaf_infos_server()}.
 }
 \examples{
-family_sel_demo()
+\dontrun{
+    ped_avaf_infos_demo()
+}
 }

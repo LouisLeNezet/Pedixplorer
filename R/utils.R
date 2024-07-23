@@ -255,7 +255,7 @@ is_disconnected <- function(id, dadid, momid) {
 #' @description Get the parents of individuals.
 #'
 #' @inheritParams Ped
-#' @param id2 A vector of individuals identifiers
+#' @param id2 A vector of individuals identifiers to get the parents from
 #' @return A vector of individuals identifiers corresponding to the parents
 #' of the individuals in **id2**
 #'
@@ -264,6 +264,8 @@ is_disconnected <- function(id, dadid, momid) {
 #' ped <- Pedigree(sampleped)
 #' parent_of(ped, "1_121")
 #' @export
+#' @rdname parent_of
+#' @usage NULL
 setGeneric("parent_of", signature = "obj",
     function(obj, ...) standardGeneric("parent_of")
 )

@@ -266,12 +266,24 @@ setMethod("upd_famid",
 )
 
 #' Get family id
-#' 
 #'
+#' Get the family id ftom the individuals identifiers.
+#'
+#' The family id is the first part of the individual id, separated by an
+#' underscore.
+#' If the individual id does not contain an underscore, then the family id is
+#' set to NA.
+#'
+#' @param obj A character vector of individual ids
+#' @return A character vector of family ids
+#' @export
 setGeneric("get_famid",
-    function(obj, ...) standardGeneric("get_famid")
+    function(obj) standardGeneric("get_famid")
 )
 
+#' @rdname get_famid
+#' @examples
+#' get_famid(c("A", "1_B", "C_2", "D_", "_E", "F"))
 setMethod("get_famid",
     signature(obj = "character"),
     function(obj) {

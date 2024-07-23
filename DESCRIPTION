@@ -31,12 +31,13 @@ Imports:
     readxl,
     shinyWidgets,
     htmlwidgets,
-    R3port,
     shinyjs,
     DT,
     gridExtra,
-    bootstrap,
-    usethis
+    usethis,
+    data.table,
+    ggpubr,
+    plotly
 Description: Routines to handle family data with a Pedigree object. The initial
     purpose was to create correlation structures that describe family
     relationships such as kinship and identity-by-descent, which can be used to
@@ -87,9 +88,7 @@ Collate:
     'app_family_sel.R'
     'app_health_sel.R'
     'app_inf_sel.R'
-    'app_interface.R'
     'app_observers.R'
-    'app_outputs.R'
     'app_ped_avaf_infos.R'
     'app_plot_download.R'
     'app_plot_ped.R'
@@ -120,4 +119,4 @@ Collate:
     'shrink.R'
     'unrelated.R'
     'useful_inds.R'
-LazyData: false
+LazyData: true

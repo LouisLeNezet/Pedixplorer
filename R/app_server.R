@@ -7,6 +7,18 @@ usethis::use_package("gridExtra")
 
 #' @include app_health_sel.R
 #' @include app_family_sel.R
+#' @include app_inf_sel.R
+#' @include app_ped_avaf_infos.R
+#' @include app_plot_ped.R
+#' @include app_data_import.R
+#' @include app_data_col_sel.R
+#' @include app_data_download.R
+#' @include app_utils.R
+#' @include app_plot_download.R
+#' @rdname ped_shiny
+#' @param input The input object from a Shiny app.
+#' @param output The output object from a Shiny app.
+#' @param session The session object from a Shiny app.
 ped_server <- shiny::shinyServer(function(input, output, session) {
     ## Ped data import --------------------------------------------------------
     ped_df <- data_import_server(

@@ -128,6 +128,15 @@ individuals
 \item{missid}{A character vector with the missing values identifiers.
 All the id, dadid and momid corresponding to those values will be set
 to \code{NA_character_}.}
+
+\item{useful}{A logical vector with the usefulness status of the
+individuals (i.e. \code{FALSE} = not useful, \code{TRUE} = useful).}
+
+\item{isinf}{A logical vector indicating if the individual is informative
+or not (i.e. \code{FALSE} = not informative, \code{TRUE} = informative).}
+
+\item{kin}{A numeric vector with minimal kinship value between the
+individuals and the informative individuals.}
 }
 \value{
 A Ped object.

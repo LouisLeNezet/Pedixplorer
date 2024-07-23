@@ -26,10 +26,9 @@ data_download_ui <- function(id) {
 #' @param helper A boolean to display a helper message.
 #'
 #' @examples
-#' \\dontrun{
+#' \dontrun{
 #'   data_download_demo()
 #' }
-#' @export
 #' @rdname data_download
 data_download_server <- function(
     id, df, filename,
@@ -41,7 +40,7 @@ data_download_server <- function(
         output$data_dwld <- shiny::downloadHandler(filename = function() {
             paste(filename, ".csv", sep = "")
         }, content = function(file) {
-            write.csv2(df(), file)
+            utils::write.csv2(df(), file)
         })
         shiny::observeEvent(df(), {
             if (nrow(df()) == 0) {
@@ -76,13 +75,14 @@ data_download_server <- function(
 }
 
 #' @rdname data_download
+#' @export
 data_download_demo <- function() {
     ui <- shiny::fluidPage(data_download_ui("datafile"))
     server <- function(input, output, session) {
         data_download_server(
             "datafile",
             shiny::reactive({
-                mtcars
+                datasets::mtcars
             }),
             "mtcars_data_file", "mtcars"
         )

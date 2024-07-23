@@ -29,6 +29,8 @@ NULL
 #'
 #' @param values The vector containing the values to process as affection.
 #' @param labels The vector containing the labels to use for the affection.
+#' @param is_num Boolean defining if the values need to be considered as
+#' numeric.
 #' @param keep_full_scale Boolean defining if the affection values need to
 #' be set as a scale. If `values` is numeric the filling scale will be
 #' calculated based on the values and the number of breaks given.
@@ -260,13 +262,13 @@ setGeneric("generate_colors", signature = "obj",
 #' generate_colors(
 #'     c("A", "B", "A", "B", NA, "A", "B", "A", "B", NA),
 #'     c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA),
-#'     mods_aff = "A",
+#'     mods_aff = "A"
 #' )
 #' @export
 setMethod("generate_colors", "character",
     function(
         obj, avail,
-        mods_aff = NULL,
+        mods_aff = NULL, is_num = FALSE,
         keep_full_scale = FALSE,
         colors_aff = c("yellow2", "red"),
         colors_unaff = c("white", "steelblue4"),
@@ -279,7 +281,8 @@ setMethod("generate_colors", "character",
         lst_bord <- generate_border(avail, colors_avail)
         lst_aff <- generate_fill(
             affected_val, affected$affected, affected$labels,
-            keep_full_scale, NULL, colors_aff, colors_unaff
+            is_num, keep_full_scale, NULL,
+            colors_aff, colors_unaff
         )
 
         list(
@@ -301,7 +304,7 @@ setMethod("generate_colors", "character",
 setMethod("generate_colors", "numeric",
     function(
         obj, avail, threshold = 0.5, sup_thres_aff = TRUE,
-        keep_full_scale = FALSE, breaks = 3,
+        is_num = TRUE, keep_full_scale = FALSE, breaks = 3,
         colors_aff = c("yellow2", "red"),
         colors_unaff = c("white", "steelblue4"),
         colors_avail = c("green", "black")
@@ -314,7 +317,8 @@ setMethod("generate_colors", "numeric",
         lst_bord <- generate_border(avail, colors_avail)
         lst_aff <- generate_fill(
             affected_val, affected$affected, affected$labels,
-            keep_full_scale, breaks, colors_aff, colors_unaff
+            is_num, keep_full_scale, breaks,
+            colors_aff, colors_unaff
         )
 
         list(

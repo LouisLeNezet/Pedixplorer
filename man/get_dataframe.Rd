@@ -20,7 +20,7 @@ This function detect the extension of the file and extract if
 necessary the different dataframe / sheet names available.
 }
 \examples{
-\\dontrun{
+\dontrun{
     get_dataframe('path/to/my/file.txt')
 }
 }

@@ -32,7 +32,7 @@ NULL
 #' if the value of `values` is stricly above the `threshold`.
 #' If `FALSE`, the individuals will be considered affected if the
 #' value is stricly under the `threshold`.
-#'
+#' @inheritParams generate_fill
 #' @return A dataframe with the `affected` column processed accordingly.
 #' The different columns are:
 #' - `mods`: The different modalities of the column

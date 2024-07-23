@@ -23,16 +23,13 @@ ped_avaf_infos_ui <- function(id) {
 #' with the function `ped_avaf_infos_server()`.
 #'
 #' @param id A string to identify the module.
-#' @param df A reactive dataframe.
-#' @param cols_needed A character vector of the mandatory columns.
-#' @param cols_supl A character vector of the optional columns.
-#' @param title A string to display in the selectInput.
-#' @param na_omit A boolean to allow or not the selection of NA.
+#' @param pedi A reactive pedigree object.
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
-#' family_sel_demo()
-#' @export
+#' \dontrun{
+#'     ped_avaf_infos_demo()
+#' }
 #' @include app_utils.R
 #' @rdname ped_avaf_infos
 ped_avaf_infos_server <- function(id, pedi) {
@@ -48,7 +45,7 @@ ped_avaf_infos_server <- function(id, pedi) {
                     dnn = c("Availability", "Affected")
                 ) %>%
                     as.data.frame() %>%
-                    tidyr::spread(Availability, Freq)
+                    tidyr::spread("Availability", "Freq")
                 colnames(df) <- c("Affected", "TRUE", "FALSE", "NA")
                 df$mods <- fill(pedi())$labels[match(
                     df$Affected, fill(pedi())$mods
@@ -56,7 +53,7 @@ ped_avaf_infos_server <- function(id, pedi) {
                 df$Affected <- as.character(df$Affected)
                 DT::datatable(
                     df[c("Affected", "mods", "TRUE", "FALSE", "NA")] %>%
-                        replace(is.na(.), "NA"),
+                        replace(is.na(plyr::.), "NA"),
                     container = sketch(unique(fill(pedi())$column_values)),
                     rownames = FALSE,
                     options = list(
@@ -83,9 +80,11 @@ ped_avaf_infos_server <- function(id, pedi) {
 }
 
 #' @rdname ped_avaf_infos
+#' @export
 ped_avaf_infos_demo <- function() {
-    data("sampleped")
-    pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
+    pedi <- Pedigree(
+        Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
+    )
     ui <- shiny::fluidPage(
         ped_avaf_infos_ui("familysel")
     )

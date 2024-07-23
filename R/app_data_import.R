@@ -9,6 +9,7 @@ usethis::use_package("readxl")
 usethis::use_package("shinyWidgets")
 
 #### Function needed to work #### ----------
+
 #' Read data from file path
 #'
 #' @description Read dataframe based on the extension of the file
@@ -27,7 +28,7 @@ usethis::use_package("shinyWidgets")
 #' character.
 #' @returns A dataframe.
 #' @examples
-#' \\dontrun{
+#' \dontrun{
 #'     read_data('path/to/my/file.txt', sep=',', header=FALSE)
 #' }
 #' @keywords data_import, internal
@@ -106,7 +107,7 @@ read_data <- function(
 #' @param file The file path
 #' @returns A vector of all the dataframe name present.
 #' @examples
-#' \\dontrun{
+#' \dontrun{
 #'     get_dataframe('path/to/my/file.txt')
 #' }
 #' @keywords data_import, internal
@@ -166,11 +167,10 @@ data_import_ui <- function(id) {
 #' @param max_request_size A number to define the maximum size of the file
 #' @returns A reactive dataframe selected by the user.
 #' @examples
-#' \\dontrun{
+#' \dontrun{
 #'     data_import_demo()
 #' }
 #' @keywords data
-#' @export
 #' @rdname data_import
 data_import_server <- function(
     id, label = "Select data file",
@@ -274,6 +274,7 @@ data_import_server <- function(
 }
 
 #' @rdname data_import
+#' @export
 data_import_demo <- function() {
     ui <- shiny::fluidPage(
         data_import_ui("data_import"),

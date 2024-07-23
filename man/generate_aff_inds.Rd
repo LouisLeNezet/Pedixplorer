@@ -27,6 +27,9 @@ If \code{TRUE}, the individuals will be considered affected
 if the value of \code{values} is stricly above the \code{threshold}.
 If \code{FALSE}, the individuals will be considered affected if the
 value is stricly under the \code{threshold}.}
+
+\item{is_num}{Boolean defining if the values need to be considered as
+numeric.}
 }
 \value{
 A dataframe with the \code{affected} column processed accordingly.

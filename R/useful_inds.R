@@ -11,6 +11,8 @@
 #' individuals
 #' @param keep_infos Boolean to indicate if parents with unknown status
 #' but available or reverse should be kept
+#' @param id_inf An identifiers vector of informative individuals.
+#' @param max_dist The maximum distance to informative individuals
 #' @inheritParams Ped
 #' @inheritParams is_informative
 #'

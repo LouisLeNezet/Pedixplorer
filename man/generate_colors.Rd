@@ -11,6 +11,7 @@
   obj,
   avail,
   mods_aff = NULL,
+  is_num = FALSE,
   keep_full_scale = FALSE,
   colors_aff = c("yellow2", "red"),
   colors_unaff = c("white", "steelblue4"),
@@ -22,6 +23,7 @@
   avail,
   threshold = 0.5,
   sup_thres_aff = TRUE,
+  is_num = TRUE,
   keep_full_scale = FALSE,
   breaks = 3,
   colors_aff = c("yellow2", "red"),
@@ -56,6 +58,9 @@ individuals
 
 \item{mods_aff}{Vector of modality to consider as affected in the case
 where the \code{values} is a factor.}
+
+\item{is_num}{Boolean defining if the values need to be considered as
+numeric.}
 
 \item{keep_full_scale}{Boolean defining if the affection values need to
 be set as a scale. If \code{values} is numeric the filling scale will be
@@ -129,7 +134,7 @@ The colors will be set using the \code{\link[=generate_fill]{generate_fill()}} a
 generate_colors(
     c("A", "B", "A", "B", NA, "A", "B", "A", "B", NA),
     c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA),
-    mods_aff = "A",
+    mods_aff = "A"
 )
 
 generate_colors(

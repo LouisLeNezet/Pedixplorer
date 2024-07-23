@@ -32,6 +32,9 @@ data_col_sel_demo()
 \item{title}{A string to display in the selectInput.}
 
 \item{na_omit}{A boolean to allow or not the selection of NA.}
+
+\item{others_cols}{A boolean to authorize other columns to be
+present in the output datatable.}
 }
 \value{
 A reactive dataframe with the selected columns renamed
@@ -46,7 +49,7 @@ The UI is called with the function \code{data_col_sel_ui()} and the server
 with the function \code{data_col_sel_server()}.
 }
 \examples{
-\\dontrun{
+\dontrun{
     data_col_sel_demo()
 }
 }

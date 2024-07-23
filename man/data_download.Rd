@@ -31,7 +31,7 @@ The UI is called with the function \code{data_download_ui()} and the server
 with the function \code{data_download_server()}.
 }
 \examples{
-\\dontrun{
+\dontrun{
   data_download_demo()
 }
 }

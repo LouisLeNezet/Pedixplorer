@@ -4,60 +4,13 @@
 
 
 #### Library needed #### ----------
+#' @importFrom plotly ggplotly
 usethis::use_package("dplyr")
 usethis::use_package("shiny")
-
-#### Function to plot pedigree #### ----------
-ped_plot <- function(
-    ped, cex_plot = 1, mar = rep(0.5, 4), psize = par("pin"),
-    tips_names = NA, to_plotly = FALSE,
-    aff_mark = TRUE, label = NULL, title = NULL
-) {
-
-    if (class(ped) != "Pedigree") {
-        return(NULL)
-    }
-    ped_plot_lst <- plot(
-        ped,
-        aff_mark = aff_mark, label = label, ggplot_gen = to_plotly,
-        cex = cex_plot, symbolsize = 1,
-        mar = mar, title = title
-    ) # General Pedigree
-
-    if (to_plotly) {
-        ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
-            ggplot2::theme(
-                panel.grid.major =  ggplot2::element_blank(),
-                panel.grid.minor =  ggplot2::element_blank(),
-                axis.title.x =  ggplot2::element_blank(),
-                axis.text.x =  ggplot2::element_blank(),
-                axis.ticks.x =  ggplot2::element_blank(),
-                axis.ticks.y =  ggplot2::element_blank(),
-                axis.title.y =  ggplot2::element_blank(),
-                axis.text.y =  ggplot2::element_blank()
-            )
-        ## To make it interactive
-        p <- plotly::ggplotly(
-            ggp +
-                ggplot2::theme(legend.position = "none"),
-            tooltip = "text"
-        )
-        return(p)
-    } else {
-        return(ped)
-    }
-}
-
+usethis::use_package("plotly")
 
 #### UI function of the module #### ----------
-# Documentation
-#' R Shiny module to generate pedigree graph
-#'
-#' @param id A string.
-#' @param df A dataframe containing the information about the individual to plot
-#' @returns A Shiny module.
-#' @examples
-#' Pedigree_demo()
+#' @rdname plot_ped
 plot_ped_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
@@ -70,22 +23,61 @@ plot_ped_ui <- function(id) {
 }
 
 #### Server function of the module #### ----------
-plot_ped_server <- function(id, ped, title) {
-    stopifnot(shiny::is.reactive(ped))
+#' Shiny module to generate pedigree graph.
+#'
+#' This module allows to plot a pedigree object. The plot can be interactive.
+#' The function is composed of two parts: the UI and the server.
+#' The UI is called with the function `plot_ped_ui()` and the server
+#' with the function `plot_ped_server()`.
+#'
+#' @param id A string.
+#' @param pedi A reactive pedigree object.
+#' @param title A string to name the plot.
+#' @returns A reactive ggplot or the pedigree object.
+#' @examples
+#' \dontrun{
+#'     plot_ped_demo()
+#' }
+#' @rdname plot_ped
+plot_ped_server <- function(id, pedi, title) {
+    stopifnot(shiny::is.reactive(pedi))
     stopifnot(shiny::is.reactive(title))
     shiny::moduleServer(id, function(input, output, session) {
 
         ns <- shiny::NS(id)
         plot_ped <- shiny::reactive({
-            if (is.null(ped()) | is.null(input$interactive)) {
+            if (is.null(pedi()) | is.null(input$interactive)) {
                 return(NULL)
             }
-            return(
-                ped_plot(
-                    ped(), to_plotly = input$interactive, title = title(),
-                    mar = c(0.5, 1, 0.5, 0.5)
-                )
+            ped_plot_lst <- plot(
+                pedi(),
+                aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
+                cex = 1, symbolsize = 1,
+                mar = c(0.5, 1, 0.5, 0.5), title = title()
             )
+
+            if (input$interactive) {
+                ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
+                    ggplot2::theme(
+                        panel.grid.major =  ggplot2::element_blank(),
+                        panel.grid.minor =  ggplot2::element_blank(),
+                        axis.title.x =  ggplot2::element_blank(),
+                        axis.text.x =  ggplot2::element_blank(),
+                        axis.ticks.x =  ggplot2::element_blank(),
+                        axis.ticks.y =  ggplot2::element_blank(),
+                        axis.title.y =  ggplot2::element_blank(),
+                        axis.text.y =  ggplot2::element_blank()
+                    )
+                ## To make it interactive
+                p <- plotly::ggplotly(
+                    ggp +
+                        ggplot2::theme(legend.position = "none"),
+                    tooltip = "text"
+                )
+                return(p)
+            } else {
+                return(pedi)
+            }
         })
         output$plotpedi <- shiny::renderUI({
             if (is.null(input$interactive)) {
@@ -103,15 +95,17 @@ plot_ped_server <- function(id, ped, title) {
                 shiny::plotOutput(ns("ped_plot"))
             }
         })
-
         return(plot_ped)
     })
 }
 
 #### Demo function of the module #### ----------
+#' @rdname plot_ped
+#' @export
 plot_ped_demo <- function() {
-    data(sampleped)
-    pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
+    pedi <- Pedigree(
+        Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
+    )
     ui <- shiny::fluidPage(
         plot_ped_ui("ped"),
         plot_download_ui("saveped")

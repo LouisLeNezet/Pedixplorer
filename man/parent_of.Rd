@@ -7,8 +7,6 @@
 \alias{parent_of,Pedigree-method}
 \title{Get parents of individuals}
 \usage{
-parent_of(obj, ...)
-
 \S4method{parent_of}{character_OR_integer}(obj, dadid, momid, id2)
 
 \S4method{parent_of}{Ped}(obj, id2)
@@ -25,7 +23,7 @@ biologicals fathers.}
 \item{momid}{A vector containing for each subject, the identifiers of the
 biologicals mothers.}
 
-\item{id2}{A vector of individuals identifiers}
+\item{id2}{A vector of individuals identifiers to get the parents from}
 }
 \value{
 A vector of individuals identifiers corresponding to the parents

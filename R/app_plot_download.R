@@ -4,47 +4,43 @@
 # author: Louis Le Nézet (louislenezet@gmail.com)
 
 #### Library needed #### ----------
+#' @importFrom shiny NS icon
+#' @importFrom plotly ggplotly
 usethis::use_package("ggplot2")
 usethis::use_package("shiny")
+usethis::use_package("plotly")
 usethis::use_package("htmlwidgets")
-usethis::use_package("R3port")
+usethis::use_package("gridExtra")
+usethis::use_package("grDevices")
 
 #### UI function of the module #### ----------
-#' Export plot ui module
-#'
-#' @description R Shiny module UI to export plot
-#'
-#' @details This module allow to export multiple type of plot.
-#' The file type currently supported are png, pdf and html.
-#' The UI ask the user for the file type to export to, the
-#' width and the height of the plot to generate.
-#' When the plot is generated with plotly, set is_plotly to TRUE
-#' and export it to html.
-#'
-#' @param id A string.
-#' @returns A Shiny UI.
-#' @export
+#' @rdname plot_download
 plot_download_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(shiny::uiOutput(ns("btn_dwld")))
 }
 
 #### Server function of the module #### ----------
-#' Export plot server module
+#' Shiny module to export plot
 #'
-#' @description R Shiny module server to export plot
-#'
-#' @details This module allow to export multiple type of plot.
+#' This module allow to export multiple type of plot from a reactive object.
 #' The file type currently supported are png, pdf and html.
-#' The UI ask the user for the file type to export to, the
-#' width and the height of the plot to generate.
-#' When the plot is generated with plotly, set is_plotly to TRUE
-#' and export it to html.
+#' The function is composed of two parts: the UI and the server.
+#' The UI is called with the function `plot_download_ui()` and the server
+#' with the function `plot_download_server()`.
 #'
 #' @param id A string.
 #' @param my_plot Reactive object containing the plot.
-#' @returns A Shiny UI.
-#' @export
+#' @param filename A string to name the file.
+#' @param label A string to name the download button.
+#' @param width A numeric to set the width of the plot.
+#' @param height A numeric to set the height of the plot.
+#' @param ext A string to set the extension of the file.
+#' @examples
+#' \dontrun{
+#'     plot_download_demo()
+#' }
+#' @rdname plot_download
 plot_download_server <- function(
     id, my_plot, filename = "saveplot",
     label = "Download", width = 500, height = 500, ext = "png"
@@ -108,7 +104,8 @@ plot_download_server <- function(
         }, content = function(file) {
             if (input$ext == "html") {
                 if ("ggplot" %in% class(my_plot())) {
-                    plot_html <- ggplotly(my_plot())
+                    plot_html <- plotly::ggplotly(my_plot())
+                    htmlwidgets::saveWidget(file = file, plot_html)
                 } else if ("htmlwidget" %in% class(my_plot())) {
                     htmlwidgets::saveWidget(file = file, my_plot())
                 } else {
@@ -119,15 +116,16 @@ plot_download_server <- function(
                     NULL
                 }
             } else {
-                
                 if ("ggplot" %in% class(my_plot())) {
-                    
                     ggplot2::ggsave(
                         filename = file, plot = my_plot(),
                         device = input$ext,
                         width = input$width, height = input$height
                     )
-                } else if ("htmlwidget" %in% class(my_plot()) | "plotly" %in% class(my_plot())) {
+                } else if (
+                    "htmlwidget" %in% class(my_plot()) |
+                        "plotly" %in% class(my_plot())
+                ) {
                     showNotification(
                         "htmlwidgets should be exported as html",
                         session = session
@@ -135,11 +133,13 @@ plot_download_server <- function(
                     NULL
                 } else {
                     if (input$ext == "png") {
-                        png(filename = file, width = input$width,
-                            height = input$height)
+                        grDevices::png(filename = file, width = input$width,
+                            height = input$height
+                        )
                     } else if (input$ext == "pdf") {
-                        pdf(file = file, width = input$width / 96,
-                            height = input$height / 96)
+                        grDevices::pdf(file = file, width = input$width / 96,
+                            height = input$height / 96
+                        )
                     } else {
                         showNotification(paste(
                             "Other type of plot should be",
@@ -152,17 +152,18 @@ plot_download_server <- function(
                     } else {
                         plot(my_plot())
                     }
-                    dev.off()
+                    grDevices::dev.off()
                 }
             }
         })
     })
 }
 
+#' @rdname plot_download
+#' @export
 plot_download_demo <- function() {
     plot_fct <- function() {
-        data("sampleped")
-        Pedigree(sampleped)
+        Pedigree(Pedixplorer::sampleped)
     }
     ui <- shiny::fluidPage(plotOutput("plt"), plot_download_ui("dwld"), )
     server <- function(input, output, session) {

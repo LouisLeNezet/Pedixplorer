@@ -93,7 +93,7 @@
 #' summary(breastped)
 #' scales(breastped)
 #' #plot family 8, proband is solid, slash for cancers
-#' #plot(breastped[famid(ped(breastped)) == "8"])
+#' \dontrun{ plot(breastped[famid(ped(breastped)) == "8"])}
 "minnbreast"
 
 #' Sampleped data
@@ -121,7 +121,37 @@
 #'
 #' @examples
 #' data("sampleped")
-#' ped <- Pedigree(sampleped)
-#' summary(ped)
-#' #plot(ped)
+#' pedi <- Pedigree(sampleped)
+#' summary(pedi)
+#' \dontrun{ plot(pedi) }
 "sampleped"
+
+#' Relped data
+#'
+#' @description Small set of related individuals for testing purposes.
+#'
+#' @details This is a small fictive data set of relation that accompanies
+#' the sampleped data set.
+#' The aim was to create a data set with a variety of relationships.
+#' There is 8 relations with 4 different types of relationships.
+#'
+#' @format The dataframe is composed of 4 columns:
+#' - `id1` : the first individual identifier,
+#' - `id2` : the second individual identifier,
+#' - `code` : the relationship between the two individuals,
+#' - `famid` : the family identifier.
+#' The relationship codes are:
+#' - `1` for Monozygotic twin
+#' - `2` for Dizygotic twin
+#' - `3` for Twin of unknown zygosity
+#' - `4` for Spouse relationship
+#' @usage
+#' data("relped")
+#'
+#' @examples
+#' data("relped")
+#' data("sampleped")
+#' pedi <- Pedigree(sampleped, relped)
+#' summary(pedi)
+#' #plot(pedi)
+"relped"
