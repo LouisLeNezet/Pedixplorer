@@ -1,5 +1,5 @@
 Package: Pedixplorer
-Version: 0.99.7
+Version: 1.0.0
 Date: 2023-11-15
 Title: Pedigree Functions
 Authors@R: c(
@@ -26,7 +26,6 @@ Imports:
     quadprog,
     Matrix,
     S4Vectors,
-    testthat,
     shiny,
     readxl,
     shinyWidgets,
@@ -34,9 +33,7 @@ Imports:
     shinyjs,
     DT,
     gridExtra,
-    usethis,
     data.table,
-    ggpubr,
     plotly
 Description: Routines to handle family data with a Pedigree object. The initial
     purpose was to create correlation structures that describe family
@@ -48,17 +45,19 @@ Description: Routines to handle family data with a Pedigree object. The initial
     chromosome.
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 
     diffviewer,
+    testthat,
+    usethis,
     vdiffr,
     rmarkdown,
     BiocStyle,
     knitr,
     withr,
-    magick
+    qpdf
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, Alignment
 BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues

@@ -1,5 +1,4 @@
 #### Libraries needed ####
-usethis::use_package("magick")
 usethis::use_package("dplyr")
 usethis::use_package("hexSticker")
 
