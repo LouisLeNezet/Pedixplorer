@@ -88,9 +88,6 @@ get_families_table <- function(df, var) {
     return(families_table)
 }
 
-#' @importFrom ggpubr get_legend
-usethis::use_package("ggpubr")
-
 #' Get the title of the family information table
 #'
 #' This function generates the title of the family information table
