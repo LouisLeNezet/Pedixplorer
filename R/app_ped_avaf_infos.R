@@ -51,9 +51,14 @@ ped_avaf_infos_server <- function(id, pedi) {
                     df$Affected, fill(pedi())$mods
                 )]
                 df$Affected <- as.character(df$Affected)
+                cols <- c("Affected", "mods", "TRUE", "FALSE", "NA")
+                df[cols] <- lapply(df[cols],
+                    function(x) {
+                        x <- replace(x, is.na(x), "NA")
+                    }
+                )
                 DT::datatable(
-                    df[c("Affected", "mods", "TRUE", "FALSE", "NA")] %>%
-                        replace(is.na(plyr::.), "NA"),
+                    df[cols],
                     container = sketch(unique(fill(pedi())$column_values)),
                     rownames = FALSE,
                     options = list(

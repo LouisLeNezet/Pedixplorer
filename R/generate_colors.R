@@ -42,6 +42,7 @@ NULL
 #' affected individuls.
 #' @param colors_unaff Set of increasing colors to use for the filling of the
 #' unaffected individuls.
+#' @param colors_na Color to use for individuals with no informations.
 #' @inheritParams Ped
 #'
 #' @return A list of three elements
@@ -61,7 +62,8 @@ generate_fill <- function(
     values, affected, labels, is_num = NULL,
     keep_full_scale = FALSE, breaks = 3,
     colors_aff = c("yellow2", "red"),
-    colors_unaff = c("white", "steelblue4")
+    colors_unaff = c("white", "steelblue4"),
+    colors_na = "grey"
 ) {
 
     n <- length(values)
@@ -95,7 +97,7 @@ generate_fill <- function(
     if (!keep_full_scale) {
         # If the scale is binary just keep the first color of unaff and the
         # last of aff
-        fill_to_use <- c(colors_unaff[1], colors_aff[-1], "grey")
+        fill_to_use <- c(colors_unaff[1], colors_aff[-1], colors_na)
         names(fill_to_use) <- c("FALSE", "TRUE", NA)
         fill <- revalue(
             as.character(affected), fill_to_use, warn_missing = FALSE
@@ -166,7 +168,7 @@ generate_fill <- function(
         )
     }
     # Set to grey color individual with no informations
-    fill[is.na(fill)] <- "grey"
+    fill[is.na(fill)] <- colors_na
     mods <- as.numeric(mods)
 
     sc_fill <- unique(as.data.frame(
@@ -190,6 +192,7 @@ generate_fill <- function(
 #' individual. The first color will be used for available individual
 #' (`avail == 1`) and the second for the unavailable individual
 #' (`avail == 0`).
+#' @param colors_na Color to use for individuals with no informations.
 #'
 #' @return A list of three elements
 #' - `mods` : The processed values column as a numeric factor
@@ -202,19 +205,17 @@ generate_fill <- function(
 #'
 #' @keywords generate_scales
 #' @export
-generate_border <- function(values, colors_avail = c("green", "black")) {
+generate_border <- function(values, colors_avail = c("green", "black"), colors_na = "grey") {
     # Set border colors
     if (length(colors_avail) != 2) {
         stop("Variable `colors_avail` need to be a vector of 2 colors")
     }
-
     mods <- vect_to_binary(values)
     avail <- vect_to_binary(values, logical = TRUE)
-
     sc_bord <- data.frame(
         column = "avail",
         mods = c(NA, 1, 0),
-        border = c("grey", colors_avail[1], colors_avail[2]),
+        border = c(colors_na, colors_avail[1], colors_avail[2]),
         labels = c("NA", "Available", "Non Available")
     )
 
@@ -272,17 +273,18 @@ setMethod("generate_colors", "character",
         keep_full_scale = FALSE,
         colors_aff = c("yellow2", "red"),
         colors_unaff = c("white", "steelblue4"),
-        colors_avail = c("green", "black")
+        colors_avail = c("green", "black"),
+        colors_na = "grey"
     ) {
         affected_val <- obj
         affected <- generate_aff_inds(affected_val,
             mods_aff = mods_aff
         )
-        lst_bord <- generate_border(avail, colors_avail)
+        lst_bord <- generate_border(avail, colors_avail, colors_na)
         lst_aff <- generate_fill(
             affected_val, affected$affected, affected$labels,
             is_num, keep_full_scale, NULL,
-            colors_aff, colors_unaff
+            colors_aff, colors_unaff, colors_na
         )
 
         list(
@@ -307,18 +309,19 @@ setMethod("generate_colors", "numeric",
         is_num = TRUE, keep_full_scale = FALSE, breaks = 3,
         colors_aff = c("yellow2", "red"),
         colors_unaff = c("white", "steelblue4"),
-        colors_avail = c("green", "black")
+        colors_avail = c("green", "black"),
+        colors_na = "grey"
     ) {
         affected_val <- obj
         affected <- generate_aff_inds(affected_val,
             mods_aff = NULL, threshold, sup_thres_aff
         )
 
-        lst_bord <- generate_border(avail, colors_avail)
+        lst_bord <- generate_border(avail, colors_avail, colors_na)
         lst_aff <- generate_fill(
             affected_val, affected$affected, affected$labels,
             is_num, keep_full_scale, breaks,
-            colors_aff, colors_unaff
+            colors_aff, colors_unaff, colors_na
         )
 
         list(
@@ -354,6 +357,7 @@ setMethod("generate_colors", "Pedigree",
         colors_aff = c("yellow2", "red"),
         colors_unaff = c("white", "steelblue4"),
         colors_avail = c("green", "black"),
+        colors_na = "grey",
         reset = TRUE
     ) {
         if (length(obj) == 0) {
@@ -366,7 +370,7 @@ setMethod("generate_colors", "Pedigree",
                     obj, col, add_to_scale, col_avail,
                     is_num, mods_aff, threshold, sup_thres_aff,
                     keep_full_scale, breaks,
-                    colors_aff, colors_unaff, colors_avail,
+                    colors_aff, colors_unaff, colors_avail, colors_na,
                     reset
                 )
             }
@@ -386,14 +390,13 @@ setMethod("generate_colors", "Pedigree",
 
         ## Create border and fill scales
         lst_bord <- generate_border(
-            df[[col_avail]], colors_avail
+            df[[col_avail]], colors_avail, colors_na
         )
         lst_fill <- generate_fill(
             df[[col_aff]], lst_inds$affected, lst_inds$labels,
             is_num, keep_full_scale, breaks,
-            colors_aff, colors_unaff
+            colors_aff, colors_unaff, colors_na
         )
-
         lst_sc <- list(
             fill = lst_fill$sc_fill,
             border = lst_bord$sc_bord

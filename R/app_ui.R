@@ -9,6 +9,7 @@ usethis::use_package("shiny")
 #' @include app_ped_avaf_infos.R
 #' @include app_family_sel.R
 #' @include app_health_sel.R
+#' @include app_color_picker.R
 #' @include app_inf_sel.R
 #' @include app_plot_ped.R
 #' @include app_plot_download.R
@@ -83,7 +84,10 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
         column(
             4, align = "center",
             health_sel_ui("health_sel"),
-            uiOutput("health_full_scale_box")
+            uiOutput("health_full_scale_box"),
+            color_picker_ui("col_aff"),
+            color_picker_ui("col_unaff"),
+            color_picker_ui("col_avail")
         ),
         column(
             4, align = "center",

@@ -17,3 +17,16 @@ error_observer <- function(id, df, title) {
         }
     )
 }
+
+#' @param input The Shiny input object from the server function.
+#' @param session The Shiny session object from the server function.
+#' @param r_objects A reactive list of values generated in the
+#' \code{\link{ped_shiny}} app.
+.create_app_observer <- function(opt, r_objects, input, session) {
+    shiny::observeEvent(opt, {
+        for (i in r_objects()) {
+            val[[i]] <- opt[[i]]
+        }
+    })
+    invisible(NULL)
+}

@@ -137,6 +137,7 @@ data_import_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
         shiny::uiOutput(ns("file")),
+        shiny::actionButton(ns("testdf"), "Use test data", style = "simple"),
         shiny::actionButton(
             ns("options"),
             "Options", style = "simple", size = "sm", color = "warning"
@@ -164,7 +165,9 @@ data_import_ui <- function(id) {
 #'
 #' @param id A string.
 #' @param label A string use to prompt the user
+#' @param dftest A dataframe to test the function
 #' @param max_request_size A number to define the maximum size of the file
+#' that can be uploaded.
 #' @returns A reactive dataframe selected by the user.
 #' @examples
 #' \dontrun{
@@ -174,6 +177,7 @@ data_import_ui <- function(id) {
 #' @rdname data_import
 data_import_server <- function(
     id, label = "Select data file",
+    dftest = NULL,
     max_request_size = 30
 ) {
     options(shiny.maxRequestSize = max_request_size * 1024^2)
@@ -196,7 +200,8 @@ data_import_server <- function(
         ## Options rendering selection --------------------
         opt <- shiny::reactiveValues(
             heading = TRUE, to_char = FALSE,
-            stringsAsFactors = FALSE, quote = "\""
+            stringsAsFactors = FALSE, quote = "\"",
+            testdf = FALSE
         )
         shiny::observeEvent(input$options, {
             # display a modal dialog with a header, textinput and action buttons
@@ -235,8 +240,19 @@ data_import_server <- function(
             opt$quote <- input$quote
         })
 
+        shiny::observeEvent(input$testdf, {
+            if (!is.null(dftest)) {
+                opt$testdf <- !opt$testdf
+            } else {
+                message("No test data available")
+            }
+        })
+
         ## Data selection ------------------------
         df <- shiny::reactive({
+            if (opt$testdf) {
+                return(dftest)
+            }
             if (is.null(user_file())) {
                 return(NULL)
             }
@@ -281,7 +297,9 @@ data_import_demo <- function() {
         shiny::tableOutput("data")
     )
     server <- function(input, output, session) {
-        df_import <- data_import_server("data_import")
+        df_import <- data_import_server(
+            "data_import", dftest = datasets::mtcars
+        )
         output$data <- shiny::renderTable({
             if (is.null(df_import())) {
                 return(NULL)

@@ -23,7 +23,8 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     ## Ped data import --------------------------------------------------------
     ped_df <- data_import_server(
         id = "data_ped_import",
-        label = "Select pedigree file :"
+        label = "Select pedigree file :",
+        dftest = Pedixplorer::sampleped
     )
     ped_df_rename <- data_col_sel_server(
         "data_ped_col_sel", ped_df,
@@ -44,7 +45,8 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     ## Rel data import --------------------------------------------------------
     rel_df <- data_import_server(
         id = "data_rel_import",
-        label = "Select relationship file :"
+        label = "Select relationship file :",
+        dftest = Pedixplorer::relped
     )
     rel_df_rename <- data_col_sel_server(
         "data_rel_col_sel", rel_df,
@@ -117,8 +119,38 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         )
     })
 
+    ## Reactives values -------------------------------------------------------
+    r_objects <- shiny::reactiveValues(
+        fam_var = NULL,
+        fam_sel = NULL,
+        health_var = NULL,
+        health_as_num = NULL,
+        health_mods = NULL,
+        health_threshold = NULL,
+        health_sup_threshold = NULL,
+        health_full_scale = NULL,
+        col_aff = NULL,
+        col_aff_least = NULL,
+        col_unaff = NULL,
+        col_dubious = NULL,
+        col_unavail = NULL,
+        col_avail = NULL,
+        col_na = NULL,
+        inf_sel = NULL,
+        inf_cust_var = NULL,
+        inf_cust_val = NULL,
+        inf_max_kin = NULL,
+        inf_keep_parents = NULL,
+        sub_fam_var = NULL,
+        sub_fam_sel = NULL
+    )
     ## Families selection -----------------------------------------------------
-    lst_fam <- family_sel_server("family_sel", ped_all)
+    lst_fam <- family_sel_server(
+        "family_sel", ped_all, r_objects$fam_var, r_objects$fam_sel
+    )
+
+    #.create_app_observer(lst_fam, c("fam_var", "fam_sel"), input, session)
+
     ped_fam <- shiny::reactive({
         shiny::req(lst_fam())
         if (is.null(lst_fam())) {
@@ -139,9 +171,53 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         )
     })
 
+    lst_cols_all <- shiny::reactive({
+        shiny::req(lst_health())
+        if (input$health_full_scale) {
+            cols_aff <- color_picker_server("col_aff",
+                shiny::reactive({list(
+                    "LeastAffected" = "yellow",
+                    "Affected" = "red"
+                )})
+            )
+            cols_unaff <- color_picker_server("col_unaff",
+                shiny::reactive({list(
+                    "Unaffected" = "white",
+                    "Dubious" = "steelblue4"
+                )})
+            )
+            cols_other <- list()
+        } else {
+            cols_aff <- color_picker_server(
+                "col_aff", shiny::reactive({
+                    list("Affected" = "red")
+                })
+            )
+            cols_other <- c(
+                "LeastAffected" = "yellow",
+                "Dubious" = "steelblue4"
+            )
+
+            cols_unaff <- color_picker_server(
+                "col_unaff", shiny::reactive({
+                    list("Unaffected" = "white")
+                })
+            )
+        }
+        cols_avail <- color_picker_server("col_avail",
+            shiny::reactive({list(
+                "Avail" = "green",
+                "Unavail" = "black"
+            )})
+        )
+        shiny::req(cols_aff(), cols_unaff(), cols_avail())
+        return(c(cols_aff(), cols_unaff(), cols_avail(), cols_other))
+    })
+
     ped_aff <- shiny::reactive({
         shiny::req(lst_fam())
         shiny::req(lst_health())
+        shiny::req(lst_cols_all())
         if (is.null(lst_fam()) |
                 is.null(lst_health()) |
                 is.null(input$health_full_scale)
@@ -151,12 +227,30 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         if (lst_health()$to_num & is.null(lst_health()$threshold)) {
             return(NULL)
         }
+        cols_needed <- c(
+            "Affected", "LeastAffected", "Unaffected", "Dubious",
+            "Avail", "Unavail"
+        )
+        if (any(!cols_needed %in% names(lst_cols_all()))) {
+            return(NULL)
+        }
+
         generate_colors(
             lst_fam()$ped_fam, col_aff = lst_health()$health_var,
             add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
             threshold = lst_health()$threshold, is_num = lst_health()$to_num,
             sup_thres_aff = lst_health()$threshold_sup,
             keep_full_scale = input$health_full_scale,
+            colors_aff = unname(unlist(
+                lst_cols_all()[c("LeastAffected", "Affected")]
+            )),
+            colors_unaff = unname(unlist(
+                lst_cols_all()[c("Unaffected", "Dubious")]
+            )),
+            colors_na = "grey",
+            colors_avail = unname(unlist(
+                lst_cols_all()[c("Avail", "Unavail")]
+            )),
             breaks = 3
         )
     })

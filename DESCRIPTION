@@ -37,7 +37,9 @@ Imports:
     usethis,
     data.table,
     ggpubr,
-    plotly
+    plotly,
+    colourpicker,
+    bslib
 Description: Routines to handle family data with a Pedigree object. The initial
     purpose was to create correlation structures that describe family
     relationships such as kinship and identity-by-descent, which can be used to
@@ -81,6 +83,7 @@ Collate:
     'auto_hint.R'
     'align.R'
     'app.R'
+    'app_color_picker.R'
     'app_data_col_sel.R'
     'app_data_download.R'
     'app_data_import.R'

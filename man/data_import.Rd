@@ -8,7 +8,12 @@
 \usage{
 data_import_ui(id)
 
-data_import_server(id, label = "Select data file", max_request_size = 30)
+data_import_server(
+  id,
+  label = "Select data file",
+  dftest = NULL,
+  max_request_size = 30
+)
 
 data_import_demo()
 }
@@ -17,7 +22,10 @@ data_import_demo()
 
 \item{label}{A string use to prompt the user}
 
-\item{max_request_size}{A number to define the maximum size of the file}
+\item{dftest}{A dataframe to test the function}
+
+\item{max_request_size}{A number to define the maximum size of the file
+that can be uploaded.}
 }
 \value{
 A reactive dataframe selected by the user.

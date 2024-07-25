@@ -26,6 +26,8 @@ family_sel_ui <- function(id) {
 #'
 #' @param id A string to identify the module.
 #' @param pedi A reactive pedigree object.
+#' @param fam_var The default family variable to use as family indicator.
+#' @param fam_sel The default family to select.
 #' @return A reactive list with the subselected pedigree object and the
 #' selected family id.
 #' @examples
@@ -34,7 +36,7 @@ family_sel_ui <- function(id) {
 #' }
 #' @include app_utils.R
 #' @rdname family_sel
-family_sel_server <- function(id, pedi) {
+family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
@@ -74,10 +76,11 @@ family_sel_server <- function(id, pedi) {
         # Output section ------------------------------------------------------
         # Family variable mod selection ---------------------------------------
         output$families_var_selector <- renderUI({
+            shiny::req(all_cols())
             selectInput(ns("families_var_sel"),
                 label = h5("Select Variable to use as families indicator"),
                 choices = all_cols(),
-                selected = all_cols()[1]
+                selected = ifelse(is.null(fam_var), all_cols()[1], fam_var)
             )
         })
 
@@ -88,44 +91,27 @@ family_sel_server <- function(id, pedi) {
             paging = FALSE, scrollX = TRUE,
             scrollY = "200px", scrollCollapse = TRUE
         ), rownames = FALSE, filter = "top",
-        selection = "single", server = TRUE)
-
-        # Family selector -----------------------------------------------------
-        #TODO : Set selection as DT row selection
-        output$family_selector <- renderUI({
-            if (is.null(families_df())) {
-                return(NULL)
-            }
-            fam_nb <- as.numeric(families_df()$famid)
-            if (all(is.na(fam_nb))) {
-                showNotification("No family present (only unconnected individuals)")
-                return(NULL)
-            }
-            if (max(fam_nb, na.rm = TRUE) > 0) {
-                numericInput(
-                    ns("family_sel"),
-                    label = h5(strong("Select family to use")),
-                    value = max(min(fam_nb, na.rm = TRUE), 1),
-                    min = max(min(fam_nb, na.rm = TRUE), 1),
-                    max = max(fam_nb, na.rm = TRUE)
-                )
-            } else {
-                textOutput(
-                    "No family present (only unconnected individuals)"
-                )
-            }
-        })
+        selection = list(
+            mode = "single",
+            selected = fam_sel
+        ), server = TRUE
+        )
 
         lst_fam <- reactive({
-            print(input$families_table_rows_selected)
-            if (is.null(input$family_sel)) {
+            shiny::req(input$families_var_sel)
+            shiny::req(input$families_table_rows_selected)
+            if (is.null(input$families_table_rows_selected)) {
                 return(NULL)
             }
-            if (input$family_sel > 0) {
+            if (input$families_table_rows_selected > 0) {
+                family_sel = families_df()$famid[input$families_table_rows_selected]
                 list(
                     ped_fam = suppressWarnings(
-                        pedi()[famid(ped(pedi())) == input$family_sel]
-                    ), famid = input$family_sel
+                        pedi()[famid(ped(pedi())) == family_sel]
+                    ),
+                    famid = family_sel,
+                    fam_sel = input$families_table_rows_selected,
+                    fam_var = input$families_var_sel
                 )
             } else {
                 NULL
@@ -137,7 +123,7 @@ family_sel_server <- function(id, pedi) {
 
 #' @rdname family_sel
 #' @export
-family_sel_demo <- function() {
+family_sel_demo <- function(fam_var = NULL, fam_sel = NULL) {
     pedi <- Pedigree(Pedixplorer::sampleped)
     ui <- shiny::fluidPage(
         column(6,
@@ -147,17 +133,18 @@ family_sel_demo <- function() {
         )
     )
     server <- function(input, output, session) {
-        lst_fam <- family_sel_server(
+        lst_fam1 <- family_sel_server(
             "familysel",
             shiny::reactive({
                 pedi
-            })
+            }),
+            fam_var, fam_sel
         )
         output$selected_fam <- shiny::renderTable({
-            if (is.null(lst_fam())) {
+            if (is.null(lst_fam1())) {
                 return(NULL)
             }
-            ped(lst_fam()$ped_fam)
+            ped(lst_fam1()$ped_fam)
         })
     }
     shiny::shinyApp(ui, server)

@@ -9,9 +9,9 @@
 \usage{
 family_sel_ui(id)
 
-family_sel_server(id, pedi)
+family_sel_server(id, pedi, fam_var = NULL, fam_sel = NULL)
 
-family_sel_demo()
+family_sel_demo(fam_var = NULL, fam_sel = NULL)
 
 ped_avaf_infos_ui(id)
 }
@@ -19,6 +19,10 @@ ped_avaf_infos_ui(id)
 \item{id}{A string to identify the module.}
 
 \item{pedi}{A reactive pedigree object.}
+
+\item{fam_var}{The default family variable to use as family indicator.}
+
+\item{fam_sel}{The default family to select.}
 }
 \value{
 A reactive list with the subselected pedigree object and the

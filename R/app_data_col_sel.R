@@ -104,8 +104,7 @@ data_col_sel_server <- function(
             shiny::req(df())
             shiny::req(all_sel())
             for (col in names(new_cols)) {
-                input_select_cols <- input[[paste0("select_", col)]]
-                r[[col]] <- input_select_cols
+                r[[col]] <- input[[paste0("select_", col)]]
             }
             r
         })

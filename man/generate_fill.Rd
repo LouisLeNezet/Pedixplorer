@@ -12,7 +12,8 @@ generate_fill(
   keep_full_scale = FALSE,
   breaks = 3,
   colors_aff = c("yellow2", "red"),
-  colors_unaff = c("white", "steelblue4")
+  colors_unaff = c("white", "steelblue4"),
+  colors_na = "grey"
 )
 }
 \arguments{
@@ -41,6 +42,8 @@ affected individuls.}
 
 \item{colors_unaff}{Set of increasing colors to use for the filling of the
 unaffected individuls.}
+
+\item{colors_na}{Color to use for individuals with no informations.}
 }
 \value{
 A list of three elements

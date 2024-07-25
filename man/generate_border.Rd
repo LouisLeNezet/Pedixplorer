@@ -4,7 +4,7 @@
 \alias{generate_border}
 \title{Process the border colors based on availability}
 \usage{
-generate_border(values, colors_avail = c("green", "black"))
+generate_border(values, colors_avail = c("green", "black"), colors_na = "grey")
 }
 \arguments{
 \item{values}{The vector containing the values to process as available.}
@@ -13,6 +13,8 @@ generate_border(values, colors_avail = c("green", "black"))
 individual. The first color will be used for available individual
 (\code{avail == 1}) and the second for the unavailable individual
 (\code{avail == 0}).}
+
+\item{colors_na}{Color to use for individuals with no informations.}
 }
 \value{
 A list of three elements

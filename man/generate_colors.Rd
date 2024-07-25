@@ -15,7 +15,8 @@
   keep_full_scale = FALSE,
   colors_aff = c("yellow2", "red"),
   colors_unaff = c("white", "steelblue4"),
-  colors_avail = c("green", "black")
+  colors_avail = c("green", "black"),
+  colors_na = "grey"
 )
 
 \S4method{generate_colors}{numeric}(
@@ -28,7 +29,8 @@
   breaks = 3,
   colors_aff = c("yellow2", "red"),
   colors_unaff = c("white", "steelblue4"),
-  colors_avail = c("green", "black")
+  colors_avail = c("green", "black"),
+  colors_na = "grey"
 )
 
 \S4method{generate_colors}{Pedigree}(
@@ -45,6 +47,7 @@
   colors_aff = c("yellow2", "red"),
   colors_unaff = c("white", "steelblue4"),
   colors_avail = c("green", "black"),
+  colors_na = "grey",
   reset = TRUE
 )
 }
@@ -77,6 +80,8 @@ unaffected individuls.}
 individual. The first color will be used for available individual
 (\code{avail == 1}) and the second for the unavailable individual
 (\code{avail == 0}).}
+
+\item{colors_na}{Color to use for individuals with no informations.}
 
 \item{threshold}{Numeric value separating the affected and healthy subject
 in the case where the \code{values} is numeric.}
