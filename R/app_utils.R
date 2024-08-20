@@ -126,8 +126,8 @@ get_title <- function(
         } else {
             keep_text <- ifelse(keep_parents, "trimmed", "")
             paste0(c(
-                "Pedigree", keep_text, "of", family_var, mod, "family N\u176",
-                family_sel, "sub-family N\u176", subfamily_sel,
+                "Pedigree", keep_text, "of", family_var, mod, "family N*",
+                family_sel, "sub-family N*", subfamily_sel,
                 "( N=", nb_rows, ") from",
                 inf_selected, "individuals"
             ), collapse = " ")

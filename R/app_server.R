@@ -119,14 +119,6 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         )
     })
 
-    ## Reactives values -------------------------------------------------------
-    r_objects <- shiny::reactiveValues(
-        fam_var = "family",
-        fam_sel = 1,
-        sub_fam_var = "family",
-        sub_fam_sel = 1
-    )
-
     ## Health selection -------------------------------------------------------
     lst_health <- health_sel_server(
         "health_sel", ped_all, var = "affection"
@@ -161,7 +153,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
 
     ## Families selection -----------------------------------------------------
     lst_fam <- family_sel_server(
-        "family_sel", ped_all, r_objects$fam_var, r_objects$fam_sel
+        "family_sel", ped_all, "family", 1
     )
 
     ## Pedigree affected ------------------------------------------------------
@@ -252,7 +244,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 inf_selected = lst_inf()$inf_sel,
                 kin_max = lst_inf()$kin_max,
                 keep_parents = lst_inf()$keep_parents,
-                nb_rows = length(lst_inf()$ped_inf), short_title = short
+                nb_rows = length(lst_subfam()$ped_fam), short_title = short
             )
         })
     }
