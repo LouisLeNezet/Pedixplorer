@@ -407,7 +407,7 @@ setMethod("subset", "Pedigree",
 #' @export
 #' @usage NULL
 setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing"),
-    function(x, i, j, del_parent = NULL, keep = TRUE, drop = TRUE) {
-        subset(x, i, del_parent, keep)
+    function(x, i, j, drop = TRUE, del_parents = NULL, keep = TRUE) {
+        subset(x, i, del_parents, keep)
     }
 )

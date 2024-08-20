@@ -122,25 +122,45 @@ generate_fill <- function(
             fill_scale <- c(fill_scale_unaff, fill_scale_aff)
             names(fill_scale) <- c(levels(levs_unaff), levels(levs_aff))
         } else {
-            mean_aff <- mean(values[affected == TRUE], na.rm = TRUE)
-            mean_unaff <- mean(values[affected == FALSE], na.rm = TRUE)
-            levs_aff <- cut(values[affected == TRUE & !is.na(affected)],
-                breaks = breaks, include.lowest = TRUE
-            )
-            levs_unaff <- cut(values[affected == FALSE & !is.na(affected)],
-                breaks = breaks, include.lowest = TRUE
-            )
-            fill_scale_aff <- fct_scale_aff(breaks)
-            fill_scale_unaff <- fct_scale_unaff(breaks)
-            if (mean_aff > mean_unaff) {
-                fill_scale <- c(fill_scale_unaff, fill_scale_aff)
-                names(fill_scale) <- c(levels(levs_unaff), levels(levs_aff))
-            } else {
-                fill_scale <- c(fill_scale_aff, fill_scale_unaff)
-                names(fill_scale) <- c(
-                    rev(levels(levs_aff)),
-                    rev(levels(levs_unaff))
+            val_aff <- values[affected == TRUE & !is.na(affected)]
+            val_unaff <- values[affected == FALSE & !is.na(affected)]
+            # Initialise variables
+            mean_aff <- mean_unaff <- NA
+            fill_scale_aff <- fill_scale_unaff <- NA
+            levs_aff <- levs_unaff <- factor(NA, levels = "NA")
+
+            if(length(val_aff) > 0) {
+                mean_aff <- mean(val_aff, na.rm = TRUE)
+                levs_aff <- cut(
+                    val_aff, breaks = breaks, include.lowest = TRUE
                 )
+                fill_scale_aff <- fct_scale_aff(breaks)
+            }
+
+            if(length(val_unaff) > 0) {
+                mean_unaff <- mean(val_unaff, na.rm = TRUE)
+                levs_unaff <- cut(
+                    val_unaff, breaks = breaks, include.lowest = TRUE
+                )
+                fill_scale_unaff <- fct_scale_unaff(breaks)
+            }
+
+            if (is.na(mean_aff) || is.na(mean_unaff)) {
+                fill_scale <- c(fill_scale_unaff, fill_scale_aff)
+                names(fill_scale) <- c(
+                    rev(levels(levs_unaff)), rev(levels(levs_aff))
+                )
+            } else {
+                if (mean_aff > mean_unaff) {
+                    fill_scale <- c(fill_scale_unaff, fill_scale_aff)
+                    names(fill_scale) <- c(levels(levs_unaff), levels(levs_aff))
+                } else {
+                    fill_scale <- c(fill_scale_aff, fill_scale_unaff)
+                    names(fill_scale) <- c(
+                        rev(levels(levs_aff)),
+                        rev(levels(levs_unaff))
+                    )
+                }
             }
         }
 
