@@ -75,12 +75,12 @@ get_families_table <- function(df, var) {
         return(NULL)
     }
     var_num <- is.numeric(df[[var]])
-
     families_table <- df %>%
         group_by(famid) %>%
         summarise(
-            "Major mod" = names(which.max(table(!!dplyr::sym(var)))),
-            "Nb Ind" = dplyr::n()
+            "Major mod" = names(which.max(table(
+                !!dplyr::sym(var), useNA = "always"
+            ))), "Nb Ind" = dplyr::n()
         )
     if (var_num) {
         families_table$`Major mod` <- as.numeric(families_table$`Major mod`)

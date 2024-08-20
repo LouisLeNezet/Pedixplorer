@@ -75,19 +75,22 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ),
     hr(),
     ## Family and Health selection ---------------------------
-    fluidRow(title = "Family and Health selection",
-        h2("Family and Health selection"),
+    fluidRow(title = "Health and Family selection",
+        h2("Health and Family selection"),
         column(
-            4, align = "center",
-            family_sel_ui("family_sel")
-        ),
-        column(
-            4, align = "center",
-            health_sel_ui("health_sel"),
+            2, align = "center",
             uiOutput("health_full_scale_box"),
             color_picker_ui("col_aff"),
             color_picker_ui("col_unaff"),
             color_picker_ui("col_avail")
+        ),
+        column(
+            2, align = "center",
+            health_sel_ui("health_sel")
+        ),
+        column(
+            4, align = "center",
+            family_sel_ui("family_sel")
         ),
         column(
             4, align = "center",

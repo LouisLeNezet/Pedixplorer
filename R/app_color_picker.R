@@ -28,21 +28,20 @@ color_picker_ui <- function(id) {
 color_picker_server <- function(
     id, colors = NULL
 ) {
-    stopifnot(shiny::is.reactive(colors))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
 
         output$colors_pickers <- shiny::renderUI({
             shiny::req(colors)
             lapply(
-                names(colors()),
+                names(colors),
                 function(col) {
                     shiny::column(
-                        width = as.integer(12 / length(colors())),
+                        width = as.integer(12 / length(colors)),
                         colourpicker::colourInput(
                             ns(paste0("select_", col)),
                             label = col,
-                            value = colors()[[col]],
+                            value = colors[[col]],
                             showColour = "background",
                             closeOnClick = TRUE,
                             width = "50px"
@@ -55,7 +54,7 @@ color_picker_server <- function(
         lst_cols <- list()
         col_select_list <- shiny::reactive({
             shiny::req(colors)
-            for (col in names(colors())) {
+            for (col in names(colors)) {
                 lst_cols[[col]] <- input[[paste0("select_", col)]]
             }
             return(lst_cols)
@@ -75,7 +74,7 @@ color_picker_demo <- function() {
     server <- function(input, output, session) {
         col_sel <- color_picker_server(
             "colors",
-            shiny::reactive(list("Val1" = "red", "Val2" = "blue"))
+            list("Val1" = "red", "Val2" = "blue")
         )
         output$selected_colors <- shiny::renderText({
             paste0(col_sel())

@@ -60,7 +60,7 @@ ped_avaf_infos_server <- function(id, pedi) {
                 DT::datatable(
                     df[cols],
                     container = sketch(unique(fill(pedi())$column_values)),
-                    rownames = FALSE,
+                    rownames = FALSE, selection = "none",
                     options = list(
                         columnDefs = list(
                             list(targets = "_all", className = "dt-center")

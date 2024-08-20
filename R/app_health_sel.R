@@ -30,7 +30,7 @@ health_sel_ui <- function(id) {
 #' numeric,
 #' - mods_aff: a character vector of the affected modalities,
 #' - threshold: a numeric threshold to determine affected individuals,
-#' - threshold_sup: a boolean to know if the affected individuals are strickly
+#' - sup_threshold: a boolean to know if the affected individuals are strickly
 #' superior to the threshold.
 #' @examples
 #' \dontrun{
@@ -38,7 +38,10 @@ health_sel_ui <- function(id) {
 #' }
 #' @include app_utils.R
 #' @rdname health_sel
-health_sel_server <- function(id, pedi) {
+health_sel_server <- function(
+    id, pedi, var = NULL, as_num = NULL, mods_aff = NULL,
+    threshold = NULL, sup_threshold = NULL
+) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
@@ -49,10 +52,12 @@ health_sel_server <- function(id, pedi) {
                 return(NULL)
             }
             cols_all <- colnames(mcols(pedi()))
+            cols_all <- as.list(setNames(cols_all, cols_all))
             selectInput(
                 ns("health_var_sel"),
                 label = h5("Select Variable to use as health indicator"),
-                choices = as.list(setNames(cols_all, cols_all))
+                choices = cols_all,
+                selected = var
             )
         })
 
@@ -68,9 +73,9 @@ health_sel_server <- function(id, pedi) {
                 TRUE, FALSE
             )
             checkboxInput(
-                ns("health_num"),
+                ns("health_as_num"),
                 label = "Should the health variable be treated as numeric?",
-                value = val_num
+                value = ifelse(is.null(as_num), val_num, as_num)
             )
         })
 
@@ -78,11 +83,11 @@ health_sel_server <- function(id, pedi) {
         val_aff <- shiny::reactive({
             shiny::req(pedi())
             shiny::req(input$health_var_sel)
-            if (is.null(input$health_var_sel) | is.null(input$health_num)) {
+            if (is.null(input$health_var_sel) | is.null(input$health_as_num)) {
                 return(NULL)
             }
             health_df <- mcols(pedi())[[input$health_var_sel]]
-            if (input$health_num) {
+            if (input$health_as_num) {
                 health_df <- as.numeric(health_df)
             } else {
                 health_df <- as.character(health_df)
@@ -92,12 +97,12 @@ health_sel_server <- function(id, pedi) {
 
         # Threshold selection for numeric values ------------------------------
         output$health_threshold_box <- renderUI({
-            shiny::req(input$health_num)
-            if (input$health_num) {
+            shiny::req(input$health_as_num)
+            if (input$health_as_num) {
                 checkboxInput(
                     ns("health_threshold_sup"),
                     label = "Affected are strickly superior to threshold",
-                    value = TRUE
+                    value = ifelse(is.null(sup_threshold), TRUE, sup_threshold)
                 )
             } else {
                 NULL
@@ -106,10 +111,10 @@ health_sel_server <- function(id, pedi) {
 
         # Affected individuals selection --------------------------------------
         output$health_aff_selector <- renderUI({
-            if (is.null(input$health_num)) {
+            if (is.null(input$health_as_num)) {
                 return(NULL)
             }
-            if (input$health_num) {
+            if (input$health_as_num) {
                 min_h <- min(val_aff(), na.rm = TRUE)
                 max_h <- max(val_aff(), na.rm = TRUE)
                 if (any(is.na(c(min_h, max_h))) |
@@ -128,7 +133,11 @@ health_sel_server <- function(id, pedi) {
                         sep = "'",
                         min = min_h,
                         max = max_h,
-                        value = (max_h + min_h) / 2
+                        value = ifelse(
+                            is.null(threshold),
+                            (max_h + min_h) / 2,
+                            threshold
+                        )
                     )
                 }
             } else {
@@ -141,36 +150,40 @@ health_sel_server <- function(id, pedi) {
                 var_to_use <- as.list(setNames(
                     health_var_lev, health_var_lev
                 ))
+                print("Health aff selector")
+                print(mods_aff)
                 shinyWidgets::pickerInput(
                     ns("health_aff_mods"),
                     label = "Selection of affected modalities",
                     choices = var_to_use,
                     options = list(`actions-box` = TRUE),
-                    multiple = TRUE, selected = health_var_lev
+                    multiple = TRUE, selected = ifelse(
+                        is.null(mods_aff), health_var_lev, mods_aff
+                    )
                 )
             }
         })
 
         # Return the selected health variable ---------------------------------
         lst_health <- shiny::reactive({
-            if (is.null(input$health_var_sel) | is.null(input$health_num)) {
+            if (is.null(input$health_var_sel) | is.null(input$health_as_num)) {
                 return(NULL)
             }
-            if (input$health_num) {
+            if (input$health_as_num) {
                 threshold <- input$health_threshold_val
-                threshold_sup <- input$health_threshold_sup
+                sup_threshold <- input$health_threshold_sup
                 mods_aff <- NULL
             } else {
                 threshold <- NULL
-                threshold_sup <- NULL
+                sup_threshold <- NULL
                 mods_aff <- input$health_aff_mods
             }
             list(
                 health_var = input$health_var_sel,
-                to_num = input$health_num,
-                mods_aff = mods_aff,
-                threshold = threshold,
-                threshold_sup = threshold_sup
+                health_as_num = input$health_as_num,
+                health_mods_aff = mods_aff,
+                health_threshold = threshold,
+                health_sup_threshold = sup_threshold
             )
         })
 
@@ -209,7 +222,7 @@ health_sel_demo <- function() {
                 paste0(lst_health()$mods_aff, collapse = ", ")
             )
             str4 <- paste("Threshold:", lst_health()$threshold)
-            str5 <- paste("Threshold strict:", lst_health()$threshold_sup)
+            str5 <- paste("Threshold strict:", lst_health()$sup_threshold)
             HTML(paste(str1, str2, str3, str4, str5, sep = "<br/>"))
 
         })

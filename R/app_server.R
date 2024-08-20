@@ -121,46 +121,16 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
 
     ## Reactives values -------------------------------------------------------
     r_objects <- shiny::reactiveValues(
-        fam_var = NULL,
-        fam_sel = NULL,
-        health_var = NULL,
-        health_as_num = NULL,
-        health_mods = NULL,
-        health_threshold = NULL,
-        health_sup_threshold = NULL,
-        health_full_scale = NULL,
-        col_aff = NULL,
-        col_aff_least = NULL,
-        col_unaff = NULL,
-        col_dubious = NULL,
-        col_unavail = NULL,
-        col_avail = NULL,
-        col_na = NULL,
-        inf_sel = NULL,
-        inf_cust_var = NULL,
-        inf_cust_val = NULL,
-        inf_max_kin = NULL,
-        inf_keep_parents = NULL,
-        sub_fam_var = NULL,
-        sub_fam_sel = NULL
+        fam_var = "family",
+        fam_sel = 1,
+        sub_fam_var = "family",
+        sub_fam_sel = 1
     )
-    ## Families selection -----------------------------------------------------
-    lst_fam <- family_sel_server(
-        "family_sel", ped_all, r_objects$fam_var, r_objects$fam_sel
-    )
-
-    #.create_app_observer(lst_fam, c("fam_var", "fam_sel"), input, session)
-
-    ped_fam <- shiny::reactive({
-        shiny::req(lst_fam())
-        if (is.null(lst_fam())) {
-            return(NULL)
-        }
-        lst_fam()[["ped_fam"]]
-    })
 
     ## Health selection -------------------------------------------------------
-    lst_health <- health_sel_server("health_sel", ped_fam)
+    lst_health <- health_sel_server(
+        "health_sel", ped_all, var = "affection"
+    )
 
     ## Generate colors creation -----------------------------------------------
     output$health_full_scale_box <- renderUI({
@@ -171,85 +141,60 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         )
     })
 
-    lst_cols_all <- shiny::reactive({
-        shiny::req(lst_health())
-        if (input$health_full_scale) {
-            cols_aff <- color_picker_server("col_aff",
-                shiny::reactive({list(
-                    "LeastAffected" = "yellow",
-                    "Affected" = "red"
-                )})
-            )
-            cols_unaff <- color_picker_server("col_unaff",
-                shiny::reactive({list(
-                    "Unaffected" = "white",
-                    "Dubious" = "steelblue4"
-                )})
-            )
-            cols_other <- list()
-        } else {
-            cols_aff <- color_picker_server(
-                "col_aff", shiny::reactive({
-                    list("Affected" = "red")
-                })
-            )
-            cols_other <- c(
-                "LeastAffected" = "yellow",
-                "Dubious" = "steelblue4"
-            )
-
-            cols_unaff <- color_picker_server(
-                "col_unaff", shiny::reactive({
-                    list("Unaffected" = "white")
-                })
-            )
-        }
-        cols_avail <- color_picker_server("col_avail",
-            shiny::reactive({list(
-                "Avail" = "green",
-                "Unavail" = "black"
-            )})
+    cols_aff <- color_picker_server("col_aff",
+        list(
+            "LeastAffected" = "yellow",
+            "Affected" = "red"
         )
-        shiny::req(cols_aff(), cols_unaff(), cols_avail())
-        return(c(cols_aff(), cols_unaff(), cols_avail(), cols_other))
-    })
+    )
 
+    cols_unaff <- color_picker_server("col_unaff",
+        list(
+            "Unaffected" = "white",
+            "Dubious" = "steelblue4"
+        )
+    )
+
+    cols_avail <- color_picker_server("col_avail",
+        list("Avail" = "green", "Unavail" = "black")
+    )
+
+    ## Families selection -----------------------------------------------------
+    lst_fam <- family_sel_server(
+        "family_sel", ped_all, r_objects$fam_var, r_objects$fam_sel
+    )
+
+    ## Pedigree affected ------------------------------------------------------
     ped_aff <- shiny::reactive({
         shiny::req(lst_fam())
         shiny::req(lst_health())
-        shiny::req(lst_cols_all())
         if (is.null(lst_fam()) |
                 is.null(lst_health()) |
                 is.null(input$health_full_scale)
         ) {
             return(NULL)
         }
-        if (lst_health()$to_num & is.null(lst_health()$threshold)) {
+        if (lst_health()$health_as_num &
+                is.null(lst_health()$health_threshold)
+        ) {
             return(NULL)
         }
-        cols_needed <- c(
-            "Affected", "LeastAffected", "Unaffected", "Dubious",
-            "Avail", "Unavail"
-        )
-        if (any(!cols_needed %in% names(lst_cols_all()))) {
-            return(NULL)
-        }
-
         generate_colors(
             lst_fam()$ped_fam, col_aff = lst_health()$health_var,
-            add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
-            threshold = lst_health()$threshold, is_num = lst_health()$to_num,
-            sup_thres_aff = lst_health()$threshold_sup,
+            add_to_scale = FALSE, mods_aff = lst_health()$health_mods_aff,
+            threshold = lst_health()$health_threshold,
+            is_num = lst_health()$health_as_num,
+            sup_thres_aff = lst_health()$health_sup_threshold,
             keep_full_scale = input$health_full_scale,
             colors_aff = unname(unlist(
-                lst_cols_all()[c("LeastAffected", "Affected")]
+                cols_aff()[c("LeastAffected", "Affected")]
             )),
             colors_unaff = unname(unlist(
-                lst_cols_all()[c("Unaffected", "Dubious")]
+                cols_unaff()[c("Unaffected", "Dubious")]
             )),
             colors_na = "grey",
             colors_avail = unname(unlist(
-                lst_cols_all()[c("Avail", "Unavail")]
+                cols_avail()[c("Avail", "Unavail")]
             )),
             breaks = 3
         )
@@ -259,65 +204,63 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     ped_avaf_infos_server("ped_avaf_infos", ped_aff)
 
     ## Informative selection --------------------------------------------------
-    lst_inf <- inf_sel_server("inf_sel", ped_aff)
+    lst_inf <- inf_sel_server("inf_sel", ped_all)
 
     ## Subfamily selection ----------------------------------------------------
     ped_subfamilies <- shiny::reactive({
         shiny::req(lst_inf())
-        ped_inf <- lst_inf()[["ped_inf"]]
-        if (is.null(lst_inf())) {
-            return(NULL)
-        }
-        make_famid(lst_inf()[["ped_inf"]])
+        shiny::req(ped_aff())
+        pedi_inf <- useful_inds(
+            ped_aff(), lst_inf()$inf_sel,
+            keep_infos = lst_inf()$keep_parents,
+            max_dist = lst_inf()$kin_max, reset = TRUE
+        )
+        pedi_inf <- subset(
+            pedi_inf, useful(ped(pedi_inf)),
+            del_parents = "both"
+        )
+        make_famid(pedi_inf)
     })
-    lst_subfam <- family_sel_server("subfamily_sel", ped_subfamilies)
+
+    lst_subfam <- family_sel_server(
+        "subfamily_sel", ped_subfamilies,
+        fam_var="family", fam_sel = 1
+    )
 
     ped_subfam <- shiny::reactive({
         shiny::req(lst_subfam())
         if (is.null(lst_subfam())) {
             return(NULL)
         }
-        lst_subfam()[["ped_fam"]]
+        lst_subfam()$ped_fam
     })
 
     ## Sub Family information -------------------------------------------------
     ped_avaf_infos_server("subped_avaf_infos", ped_subfam)
 
     ## Plotting pedigree ------------------------------------------------------
-    title_long <- shiny::reactive({
-        shiny::req(lst_fam())
-        shiny::req(lst_subfam())
-        shiny::req(lst_inf())
-        get_title(
-            family_sel = lst_fam()$famid,
-            subfamily_sel = lst_subfam()$famid,
-            family_var = lst_health()$health_var,
-            mod = lst_health()$mods_aff,
-            inf_selected = lst_inf()$inf_sel,
-            kin_max = lst_inf()$kin_max,
-            keep_parents = lst_inf()$keep_parents,
-            nb_rows = length(lst_inf()$ped_inf), short_title = FALSE
-        )
-    })
-    title_short <- shiny::reactive({
-        shiny::req(lst_fam())
-        shiny::req(lst_subfam())
-        shiny::req(lst_inf())
-        get_title(
-            family_sel = lst_fam()$famid,
-            subfamily_sel = lst_subfam()$famid,
-            family_var = lst_health()$health_var,
-            mod = lst_health()$mods_aff,
-            inf_selected = lst_inf()$inf_sel,
-            kin_max = lst_inf()$kin_max,
-            keep_parents = lst_inf()$keep_parents,
-            nb_rows = length(lst_inf()$ped_inf), short_title = TRUE
-        )
-    })
+    title <- function(short = TRUE) {
+        shiny::reactive({
+            shiny::req(lst_fam())
+            shiny::req(lst_subfam())
+            shiny::req(lst_inf())
+            get_title(
+                family_sel = lst_fam()$famid,
+                subfamily_sel = lst_subfam()$famid,
+                family_var = lst_health()$health_var,
+                mod = lst_health()$health_mods_aff,
+                inf_selected = lst_inf()$inf_sel,
+                kin_max = lst_inf()$kin_max,
+                keep_parents = lst_inf()$keep_parents,
+                nb_rows = length(lst_inf()$ped_inf), short_title = short
+            )
+        })
+    }
+    
     plot_ped <- plot_ped_server(
-        "ped", ped_subfam, title_long
+        "ped", ped_subfam, title(FALSE)
     )
-    plot_download_server("saveped", plot_ped, title_short)
+    plot_download_server("saveped", plot_ped, title())
 
     ## End --------------------------------------------------------------------
     if (!interactive()) {

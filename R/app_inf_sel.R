@@ -149,32 +149,12 @@ inf_sel_server <- function(id, pedi) {
         # Informative individuals pedigree selection --------------------------
         ped_inf <- reactive({
             shiny::req(inf_inds_selected())
-            shiny::req(pedi())
-            if (is.null(pedi()) | is.null(inf_inds_selected())) {
-                return(NULL)
-            }
-
-            tryCatch({
-                pedi_inf <- useful_inds(
-                    pedi(), inf_inds_selected(),
-                    input$keep_parents, reset = TRUE,
-                    input$kin_max
-                )
-                list(
-                    ped_inf = subset(
-                        pedi_inf, useful(ped(pedi_inf)), del_parents = "both"
-                    ),
-                    inf_sel = inf_inds_sel_txt(),
-                    kin_max = input$kin_max,
-                    keep_parents = input$keep_parents
-                )
-            },
-            error = function(e) {
-                message(paste(
-                    "Error when computing the filtered pedigree", e
-                ))
-                NULL
-            })
+            list(
+                inf_txt = inf_inds_sel_txt(),
+                inf_sel = inf_inds_selected(),
+                kin_max = input$kin_max,
+                keep_parents = input$keep_parents
+            )
         })
 
         return(ped_inf)

@@ -89,7 +89,8 @@ family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL) {
             families_df()
         }, options = list(
             paging = FALSE, scrollX = TRUE,
-            scrollY = "200px", scrollCollapse = TRUE
+            scrollY = "200px", scrollCollapse = TRUE,
+            dom = "t"
         ), rownames = FALSE, filter = "top",
         selection = list(
             mode = "single",
@@ -104,7 +105,9 @@ family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL) {
                 return(NULL)
             }
             if (input$families_table_rows_selected > 0) {
-                family_sel = families_df()$famid[input$families_table_rows_selected]
+                family_sel <- families_df()$famid[
+                    input$families_table_rows_selected
+                ]
                 list(
                     ped_fam = suppressWarnings(
                         pedi()[famid(ped(pedi())) == family_sel]
