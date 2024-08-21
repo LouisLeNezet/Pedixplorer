@@ -29,7 +29,8 @@ The UI is called with the function \code{plot_ped_ui()} and the server
 with the function \code{plot_ped_server()}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
     plot_ped_demo()
 }
 }
+\keyword{internal}

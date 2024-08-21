@@ -31,7 +31,8 @@ The UI is called with the function \code{inf_sel_ui()} and the server
 with the function \code{inf_sel_server()}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
     inf_sel_demo()
 }
 }
+\keyword{internal}

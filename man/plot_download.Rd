@@ -43,7 +43,8 @@ The UI is called with the function \code{plot_download_ui()} and the server
 with the function \code{plot_download_server()}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
     plot_download_demo()
 }
 }
+\keyword{internal}

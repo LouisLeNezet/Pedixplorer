@@ -11,7 +11,6 @@ An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 4
 }
 \usage{
 ped_shiny(
-  launch_app = TRUE,
   port = getOption("shiny.port"),
   host = getOption("shiny.host", "127.0.0.1")
 )
@@ -21,9 +20,6 @@ ped_server(input, output, session)
 ped_ui
 }
 \arguments{
-\item{launch_app}{One of TRUE or FALSE indicating whether or not to run
-application. Default is TRUE.}
-
 \item{port}{(optional) Specify port the application should list to.}
 
 \item{host}{(optional) The IPv4 address that the application should
@@ -57,9 +53,8 @@ The application is composed of several modules:
 }
 }
 \examples{
-\dontrun{
-## To run app set launch_app=TRUE
-ped_shiny(launch_app=FALSE)
+if (interactive()) {
+    ped_shiny()
 }
 }
 \keyword{datasets}

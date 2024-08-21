@@ -49,7 +49,8 @@ The UI is called with the function \code{data_col_sel_ui()} and the server
 with the function \code{data_col_sel_server()}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
     data_col_sel_demo()
 }
 }
+\keyword{internal}

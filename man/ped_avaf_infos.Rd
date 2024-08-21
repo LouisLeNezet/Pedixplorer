@@ -5,7 +5,7 @@
 \alias{ped_avaf_infos_demo}
 \title{Shiny modules to display family information}
 \usage{
-ped_avaf_infos_server(id, pedi)
+ped_avaf_infos_server(id, pedi, title = "Family informations")
 
 ped_avaf_infos_demo()
 }
@@ -13,6 +13,8 @@ ped_avaf_infos_demo()
 \item{id}{A string to identify the module.}
 
 \item{pedi}{A reactive pedigree object.}
+
+\item{title}{The title of the module.}
 }
 \value{
 A reactive dataframe with the selected columns renamed
@@ -27,7 +29,8 @@ The UI is called with the function \code{ped_avaf_infos_ui()} and the server
 with the function \code{ped_avaf_infos_server()}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
     ped_avaf_infos_demo()
 }
 }
+\keyword{internal}

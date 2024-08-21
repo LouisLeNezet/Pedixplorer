@@ -8,7 +8,14 @@
 \usage{
 data_download_ui(id)
 
-data_download_server(id, df, filename, label = NULL, helper = TRUE)
+data_download_server(
+  id,
+  df,
+  filename,
+  label = NULL,
+  helper = TRUE,
+  title = "Data download"
+)
 
 data_download_demo()
 }
@@ -31,7 +38,8 @@ The UI is called with the function \code{data_download_ui()} and the server
 with the function \code{data_download_server()}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
   data_download_demo()
 }
 }
+\keyword{internal}

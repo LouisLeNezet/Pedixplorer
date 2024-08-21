@@ -8,7 +8,7 @@ Authors@R: c(
 	person("Jason", "Sinnwell", email="sinnwell.jason@mayo.edu", role="aut"),
 	person("Terry", "Therneau", role="aut"),
 	person("Daniel", "Schaid", role="ctb"),
-	person("Elizabeth", "Atkinson", role="ctb")
+	person("Elizabeth", "Atkinson", role="ctb"))
 Depends: 
 	R (>= 4.3.0)
 Imports: 

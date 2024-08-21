@@ -25,7 +25,8 @@ This function allows to select different colours for an
 array of variables.
 }
 \examples{
-\dontrun{
+if (interactive()) {
     color_picker_demo()
 }
 }
+\keyword{internal}

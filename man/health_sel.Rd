@@ -8,7 +8,15 @@
 \usage{
 health_sel_ui(id)
 
-health_sel_server(id, pedi)
+health_sel_server(
+  id,
+  pedi,
+  var = NULL,
+  as_num = NULL,
+  mods_aff = NULL,
+  threshold = NULL,
+  sup_threshold = NULL
+)
 
 health_sel_demo()
 }
@@ -25,7 +33,7 @@ A reactive list with the following informations:\code{actions-box}
 numeric,
 \item mods_aff: a character vector of the affected modalities,
 \item threshold: a numeric threshold to determine affected individuals,
-\item threshold_sup: a boolean to know if the affected individuals are strickly
+\item sup_threshold: a boolean to know if the affected individuals are strickly
 superior to the threshold.
 }
 }
@@ -36,7 +44,8 @@ The UI is called with the function \code{health_sel_ui()} and the server
 with the function \code{health_sel_server()}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
     health_sel_demo()
 }
 }
+\keyword{internal}
