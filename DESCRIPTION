@@ -4,12 +4,11 @@ Date: 2023-11-15
 Title: Pedigree Functions
 Authors@R: c(
     person("Louis", "Le Nézet", email="louislenezet@gmail.com",
-        role=c("aut","cre"), comment = c(ORCID = "0009-0000-0202-2703")),
+        role=c("aut","cre","ctb"), comment = c(ORCID = "0009-0000-0202-2703")),
 	person("Jason", "Sinnwell", email="sinnwell.jason@mayo.edu", role="aut"),
 	person("Terry", "Therneau", role="aut"),
 	person("Daniel", "Schaid", role="ctb"),
-	person("Elizabeth", "Atkinson", role="ctb"),
-	person("Louis", "Le Nezet", role='ctb'))
+	person("Elizabeth", "Atkinson", role="ctb")
 Depends: 
 	R (>= 4.3.0)
 Imports: 

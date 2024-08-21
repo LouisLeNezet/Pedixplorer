@@ -38,7 +38,10 @@ family_sel_ui <- function(id) {
 #' @include app_utils.R
 #' @rdname family_sel
 #' @keywords internal
-family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL, title = "Family selection") {
+family_sel_server <- function(
+    id, pedi,
+    fam_var = NULL, fam_sel = NULL, title = "Family selection"
+) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
@@ -46,7 +49,7 @@ family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL, title = 
         output$title_fam <- renderUI({
             h3(title)
         })
-        
+
         # Get all columns for family identification ---------------------------
         all_cols <- reactive({
             if (is.null(pedi())) {
@@ -133,7 +136,10 @@ family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL, title = 
 
 #' @rdname family_sel
 #' @export
-family_sel_demo <- function(fam_var = NULL, fam_sel = NULL, title = "Family selection") {
+family_sel_demo <- function(
+    fam_var = NULL, fam_sel = NULL,
+    title = "Family selection"
+) {
     pedi <- Pedigree(Pedixplorer::sampleped)
     ui <- shiny::fluidPage(
         column(6,
@@ -143,7 +149,7 @@ family_sel_demo <- function(fam_var = NULL, fam_sel = NULL, title = "Family sele
         )
     )
     server <- function(input, output, session) {
-        lst_fam1 <- family_sel_server(
+        lst_fam <- family_sel_server(
             "familysel",
             shiny::reactive({
                 pedi
@@ -151,10 +157,13 @@ family_sel_demo <- function(fam_var = NULL, fam_sel = NULL, title = "Family sele
             fam_var, fam_sel, title
         )
         output$selected_fam <- shiny::renderTable({
-            if (is.null(lst_fam1())) {
+            if (is.null(lst_fam())) {
                 return(NULL)
             }
-            ped(lst_fam1()$ped_fam)
+            ped(lst_fam()$ped_fam)
+        })
+        shiny::exportTestValues(lst_fam = {
+            lst_fam()
         })
     }
     shiny::shinyApp(ui, server)
