@@ -32,11 +32,12 @@ family_sel_ui <- function(id) {
 #' @return A reactive list with the subselected pedigree object and the
 #' selected family id.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     family_sel_demo()
 #' }
 #' @include app_utils.R
 #' @rdname family_sel
+#' @keywords internal
 family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL, title = "Family selection") {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)

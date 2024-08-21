@@ -136,18 +136,18 @@ get_dataframe <- function(file) {
 data_import_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
-        shiny::uiOutput(ns("file")),
+        shiny::uiOutput(ns("fileselection")),
         shiny::actionButton(ns("testdf"), "Use test data", style = "simple"),
         shiny::actionButton(
             ns("options"),
-            "Options", style = "simple", size = "sm", color = "warning"
+            "Options", style = "simple", size = "sm"
         ),
         shiny::selectInput(
             ns("sep"), "Separator",
             c(Comma = ",", `Semi-colon` = ";", Tabulation = "\t", Space = " "),
             selected = "\t"
         ),
-        shiny::uiOutput(ns("dfSelection"))
+        shiny::uiOutput(ns("dfselection"))
     )
 }
 
@@ -170,31 +170,32 @@ data_import_ui <- function(id) {
 #' that can be uploaded.
 #' @returns A reactive dataframe selected by the user.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     data_import_demo()
 #' }
 #' @keywords data
 #' @rdname data_import
+#' @keywords internal
 data_import_server <- function(
     id, label = "Select data file",
-    dftest = NULL,
-    max_request_size = 30
+    dftest = datasets::mtcars, max_request_size = 30
 ) {
     options(shiny.maxRequestSize = max_request_size * 1024^2)
     shiny::moduleServer(id, function(input, output, session) {
+        ns <- shiny::NS(id)
         ## File rendering selection ------------------------
-        output$file <- shiny::renderUI({
-            shiny::fileInput(ns("file"), label)
+        output$fileselection <- shiny::renderUI({
+            shiny::fileInput(ns("fileinput"), label)
         })
 
         # The selected file, if any
         user_file <- shiny::reactive({
-            if (is.null(input$file)) {
+            if (is.null(input$fileinput)) {
                 return(NULL)
             }
             # If no file is selected, return NULL
-            shiny::validate(shiny::need(input$file, message = FALSE))
-            input$file
+            shiny::validate(shiny::need(input$fileinput, message = FALSE))
+            input$fileinput
         })
 
         ## Options rendering selection --------------------
@@ -256,9 +257,9 @@ data_import_server <- function(
             if (is.null(user_file())) {
                 return(NULL)
             }
-            file <- user_file()$datapath
+            file_path <- user_file()$datapath
             read_data(
-                file, input$sep, opt$quote, opt$heading,
+                file_path, input$sep, opt$quote, opt$heading,
                 input$dfSelected, opt$stringsAsFactors, opt$to_char
             )
         })
@@ -269,11 +270,9 @@ data_import_server <- function(
             message(msg, "\n")
         })
 
-        ns <- shiny::NS(id)
-
-        output$dfSelection <- shiny::renderUI({
-            file <- user_file()$datapath
-            df_name <- get_dataframe(file)
+        output$dfselection <- shiny::renderUI({
+            file_path <- user_file()$datapath
+            df_name <- get_dataframe(file_path)
             if (!is.null(df_name)) {
                 shiny::selectInput(
                     ns("dfSelected"), label = label,
@@ -293,17 +292,20 @@ data_import_server <- function(
 #' @export
 data_import_demo <- function() {
     ui <- shiny::fluidPage(
-        data_import_ui("data_import"),
+        data_import_ui("my_data_import"),
         shiny::tableOutput("data")
     )
     server <- function(input, output, session) {
         df_import <- data_import_server(
-            "data_import", dftest = datasets::mtcars
+            id = "my_data_import", label = "Select data file"
         )
         output$data <- shiny::renderTable({
             if (is.null(df_import())) {
                 return(NULL)
             }
+            df_import()
+        })
+        shiny::exportTestValues(df_import = {
             df_import()
         })
     }

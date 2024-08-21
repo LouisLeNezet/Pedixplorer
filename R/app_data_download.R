@@ -27,10 +27,11 @@ data_download_ui <- function(id) {
 #' @param helper A boolean to display a helper message.
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'   data_download_demo()
 #' }
 #' @rdname data_download
+#' @keywords internal
 data_download_server <- function(
     id, df, filename,
     label = NULL, helper = TRUE, title = "Data download"

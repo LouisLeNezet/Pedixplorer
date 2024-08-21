@@ -21,10 +21,11 @@ color_picker_ui <- function(id) {
 #' @param colors A list of variables and their default colours.
 #' @return A reactive list with the selected colours.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     color_picker_demo()
 #' }
 #' @rdname color_picker
+#' @keywords internal
 color_picker_server <- function(
     id, colors = NULL
 ) {
@@ -78,6 +79,9 @@ color_picker_demo <- function() {
         )
         output$selected_colors <- shiny::renderText({
             paste0(col_sel())
+        })
+        shiny::exportTestValues(col_sel = {
+            col_sel()
         })
     }
     shiny::shinyApp(ui, server)

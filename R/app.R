@@ -18,28 +18,20 @@ usethis::use_package("shiny")
 #'
 #' @return Running Shiny Application
 #'
-#' @param launch_app One of TRUE or FALSE indicating whether or not to run
-#' application. Default is TRUE.
 #' @param port (optional) Specify port the application should list to.
 #' @param host (optional) The IPv4 address that the application should
 #' listen on.
 #' @examples
-#' \dontrun{
-#' ## To run app set launch_app=TRUE
-#' ped_shiny(launch_app=FALSE)
+#' if (interactive()) {
+#'     ped_shiny()
 #' }
 #' @export
 ped_shiny <- function(
-    launch_app = TRUE, port = getOption("shiny.port"),
+    port = getOption("shiny.port"),
     host = getOption("shiny.host", "127.0.0.1")
 ) {
-    if (launch_app) {
-        shiny::shinyApp(
-            ped_ui, ped_server,
-            options = list(host = host, port = port)
-        )
-    } else {
-        warning("App not launched. Set launch_app=TRUE to run app.")
-        return(NULL)
-    }
+    shiny::shinyApp(
+        ped_ui, ped_server,
+        options = list(host = host, port = port)
+    )
 }

@@ -27,31 +27,6 @@ sketch <- function(var_name) {
     )
 }
 
-
-#' Print to console
-#'
-#' This function prints the result of an expression to the console.
-#' Allow easy debugging of the application.
-#'
-#' @param expr expression to evaluate
-#' @param session the shiny session
-#' @return the result of the expression
-#' @export
-print_console <- function(expr, session) {
-    withCallingHandlers(
-        results <- expr,
-        message = function(m) {
-            shinyjs::html("console", m$message, TRUE)
-        }, error = function(e) {
-            shinyjs::html("console", e$message, TRUE)
-        }, warning = function(w) {
-            shinyjs::html("console", w$message, TRUE)
-        }
-    )
-    session$sendCustomMessage(type = "scrollCallback", 1)
-    results
-}
-
 usethis::use_package("dplyr")
 
 #' Summarise the families information for a given variable in a data frame

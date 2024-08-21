@@ -35,10 +35,11 @@ plot_ped_ui <- function(id) {
 #' @param title A string to name the plot.
 #' @returns A reactive ggplot or the pedigree object.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     plot_ped_demo()
 #' }
 #' @rdname plot_ped
+#' @keywords internal
 plot_ped_server <- function(id, pedi, title) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
@@ -66,7 +67,7 @@ plot_ped_server <- function(id, pedi, title) {
                     axis.text.y =  ggplot2::element_blank()
                 )
             ## To make it interactive
-            p <- plotly::ggplotly(
+            plotly::ggplotly(
                 ggp +
                     ggplot2::theme(legend.position = "none"),
                 tooltip = "text"
@@ -82,7 +83,7 @@ plot_ped_server <- function(id, pedi, title) {
                 })
                 plotly::plotlyOutput(ns("ped_plotly"))
             } else {
-                req(pedi())
+                shiny::req(pedi())
                 output$ped_plot <- shiny::renderPlot({
                     plot(
                         pedi(),
@@ -110,9 +111,11 @@ plot_ped_server <- function(id, pedi, title) {
 #' @rdname plot_ped
 #' @export
 plot_ped_demo <- function() {
-    pedi <- shiny::reactive({Pedigree(
-        Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
-    )})
+    pedi <- shiny::reactive({
+        Pedigree(
+            Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
+        )
+    })
     ui <- shiny::fluidPage(
         plot_ped_ui("ped"),
         plot_download_ui("saveped")

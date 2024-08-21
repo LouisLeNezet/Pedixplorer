@@ -42,10 +42,11 @@ inf_sel_ui <- function(id) {
 #' @return A reactive pedigree object subselected from the
 #' informative individuals.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     inf_sel_demo()
 #' }
 #' @rdname inf_sel
+#' @keywords internal
 inf_sel_server <- function(id, pedi) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)

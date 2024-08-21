@@ -45,10 +45,11 @@ data_col_sel_ui <- function(id) {
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     data_col_sel_demo()
 #' }
 #' @rdname data_col_sel
+#' @keywords internal
 data_col_sel_server <- function(
     id, df, cols_needed, cols_supl, title, na_omit = TRUE, others_cols = TRUE
 ) {
@@ -162,7 +163,7 @@ data_col_sel_demo <- function() {
         shiny::tableOutput("selected_cols")
     )
     server <- function(input, output, session) {
-        df <- data_col_sel_server(
+        my_df <- data_col_sel_server(
             "datafile",
             shiny::reactive({
                 datasets::mtcars
@@ -172,7 +173,10 @@ data_col_sel_demo <- function() {
             "Select column"
         )
         output$selected_cols <- shiny::renderTable({
-            df()
+            my_df()
+        })
+        shiny::exportTestValues(my_df = {
+            my_df()
         })
     }
     shiny::shinyApp(ui, server)

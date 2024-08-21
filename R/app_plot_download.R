@@ -37,10 +37,11 @@ plot_download_ui <- function(id) {
 #' @param height A numeric to set the height of the plot.
 #' @param ext A string to set the extension of the file.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     plot_download_demo()
 #' }
 #' @rdname plot_download
+#' @keywords internal
 plot_download_server <- function(
     id, my_plot, filename = "saveplot",
     label = "Download", width = 500, height = 500, ext = "png"

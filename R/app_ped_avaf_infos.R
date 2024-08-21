@@ -28,11 +28,12 @@ ped_avaf_infos_ui <- function(id) {
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     ped_avaf_infos_demo()
 #' }
 #' @include app_utils.R
 #' @rdname ped_avaf_infos
+#' @keywords internal
 ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {

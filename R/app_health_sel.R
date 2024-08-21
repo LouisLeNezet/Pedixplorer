@@ -33,11 +33,12 @@ health_sel_ui <- function(id) {
 #' - sup_threshold: a boolean to know if the affected individuals are strickly
 #' superior to the threshold.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'     health_sel_demo()
 #' }
 #' @include app_utils.R
 #' @rdname health_sel
+#' @keywords internal
 health_sel_server <- function(
     id, pedi, var = NULL, as_num = NULL, mods_aff = NULL,
     threshold = NULL, sup_threshold = NULL

@@ -59,7 +59,8 @@ Suggests:
     BiocStyle,
     knitr,
     withr,
-    qpdf
+    qpdf,
+    shinytest2
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, Alignment
 BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues
@@ -90,7 +91,6 @@ Collate:
     'app_family_sel.R'
     'app_health_sel.R'
     'app_inf_sel.R'
-    'app_observers.R'
     'app_ped_avaf_infos.R'
     'app_plot_download.R'
     'app_plot_ped.R'
