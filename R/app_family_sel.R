@@ -8,7 +8,7 @@ usethis::use_package("shiny")
 family_sel_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
-        h3("Family selection"),
+        uiOutput(ns("title_fam")),
         uiOutput(ns("families_var_selector")),
         fluidRow(
             DT::dataTableOutput(ns("families_table"), width = "500px")
@@ -28,6 +28,7 @@ family_sel_ui <- function(id) {
 #' @param pedi A reactive pedigree object.
 #' @param fam_var The default family variable to use as family indicator.
 #' @param fam_sel The default family to select.
+#' @param title The title of the module.
 #' @return A reactive list with the subselected pedigree object and the
 #' selected family id.
 #' @examples
@@ -36,10 +37,15 @@ family_sel_ui <- function(id) {
 #' }
 #' @include app_utils.R
 #' @rdname family_sel
-family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL) {
+family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL, title = "Family selection") {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
+        # Create the title ----------------------------------------------------
+        output$title_fam <- renderUI({
+            h3(title)
+        })
+        
         # Get all columns for family identification ---------------------------
         all_cols <- reactive({
             if (is.null(pedi())) {
@@ -126,7 +132,7 @@ family_sel_server <- function(id, pedi, fam_var = NULL, fam_sel = NULL) {
 
 #' @rdname family_sel
 #' @export
-family_sel_demo <- function(fam_var = NULL, fam_sel = NULL) {
+family_sel_demo <- function(fam_var = NULL, fam_sel = NULL, title = "Family selection") {
     pedi <- Pedigree(Pedixplorer::sampleped)
     ui <- shiny::fluidPage(
         column(6,
@@ -141,7 +147,7 @@ family_sel_demo <- function(fam_var = NULL, fam_sel = NULL) {
             shiny::reactive({
                 pedi
             }),
-            fam_var, fam_sel
+            fam_var, fam_sel, title
         )
         output$selected_fam <- shiny::renderTable({
             if (is.null(lst_fam1())) {

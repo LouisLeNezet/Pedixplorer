@@ -6,6 +6,7 @@ usethis::use_package("shiny")
 data_download_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
+        uiOutput(ns("title_data")),
         uiOutput(ns("data_text")),
         uiOutput(ns("btn_dwld"))
     )
@@ -32,16 +33,23 @@ data_download_ui <- function(id) {
 #' @rdname data_download
 data_download_server <- function(
     id, df, filename,
-    label = NULL, helper = TRUE
+    label = NULL, helper = TRUE, title = "Data download"
 ) {
     stopifnot(shiny::is.reactive(df))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
+        ## Create title
+        output$title_data <- shiny::renderUI({
+            h3(title)
+        })
+
+        ## Create download button
         output$data_dwld <- shiny::downloadHandler(filename = function() {
             paste(filename, ".csv", sep = "")
         }, content = function(file) {
             utils::write.csv2(df(), file)
         })
+
         shiny::observeEvent(df(), {
             if (nrow(df()) == 0) {
                 output$data_text <- shiny::renderUI({

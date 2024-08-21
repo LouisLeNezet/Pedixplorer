@@ -49,14 +49,6 @@ plot_download_server <- function(
     shiny::moduleServer(id, function(input, output, session) {
         ns <- shiny::NS(id)
 
-        filename <- shiny::reactive({
-            if (shiny::is.reactive(filename)) {
-                filename()
-            } else {
-                filename
-            }
-        })
-
         ## Options rendering selection --------------------
         opt <- shiny::reactiveValues(width = width, height = height, ext = ext)
 
@@ -65,6 +57,14 @@ plot_download_server <- function(
                 ns("download"), label = label, icon("download"),
                 style = "simple", size = "sm"
             )
+        })
+
+        # Store the information if the user clicks close
+        shiny::observeEvent(input$close, {
+            shiny::removeModal()
+            opt$width <- input$width
+            opt$height <- input$height
+            opt$ext <- input$ext
         })
 
         shiny::observeEvent(input$download, {
@@ -85,99 +85,125 @@ plot_download_server <- function(
                 ),
                 footer = shiny::tagList(
                     shiny::downloadButton(ns("plot_dwld"), label = label),
-                    shiny::actionButton(ns("close"), "Close", icon("close")),
+                    shiny::actionButton(ns("close"), "Close", icon("close"))
                 )
             ))
         })
 
-        # Store the information if the user clicks close
-        shiny::observeEvent(input$close, {
-            shiny::removeModal()
-            opt$width <- input$width
-            opt$height <- input$height
-            opt$ext <- input$ext
-        })
-
-
-        output$plot_dwld <- shiny::downloadHandler(filename = function() {
-            paste(filename(), input$ext, sep = ".")
-        }, content = function(file) {
-            if (input$ext == "html") {
-                if ("ggplot" %in% class(my_plot())) {
-                    plot_html <- plotly::ggplotly(my_plot())
-                    htmlwidgets::saveWidget(file = file, plot_html)
-                } else if ("htmlwidget" %in% class(my_plot())) {
-                    htmlwidgets::saveWidget(file = file, my_plot())
-                } else {
-                    showNotification(
-                        "HTML file should be exported from ggplot or htmlwidget",
-                        session = session
-                    )
-                    NULL
-                }
-            } else {
-                if ("ggplot" %in% class(my_plot())) {
-                    ggplot2::ggsave(
-                        filename = file, plot = my_plot(),
-                        device = input$ext,
-                        width = input$width, height = input$height
-                    )
-                } else if (
-                    "htmlwidget" %in% class(my_plot()) |
-                        "plotly" %in% class(my_plot())
-                ) {
-                    showNotification(
-                        "htmlwidgets should be exported as html",
-                        session = session
-                    )
-                    NULL
-                } else {
-                    if (input$ext == "png") {
-                        grDevices::png(filename = file, width = input$width,
-                            height = input$height
-                        )
-                    } else if (input$ext == "pdf") {
-                        grDevices::pdf(file = file, width = input$width / 96,
-                            height = input$height / 96
-                        )
+        output$plot_dwld <- shiny::downloadHandler(
+            filename = function(){
+                paste(filename, input$ext, sep = ".")
+            }, content = function(file) {
+                if (input$ext == "html") {
+                    if ("ggplot" %in% class(my_plot())) {
+                        plot_html <- plotly::ggplotly(my_plot())
+                        htmlwidgets::saveWidget(file = file, plot_html)
+                    } else if ("htmlwidget" %in% class(my_plot())) {
+                        htmlwidgets::saveWidget(file = file, my_plot())
                     } else {
-                        showNotification(paste(
-                            "Other type of plot should be",
-                            "exported as pdf or png", session = session
-                        ))
+                        showNotification(
+                            "HTML file should be exported from ggplot or htmlwidget",
+                            session = session
+                        )
+                        
+                    }
+                } else {
+                    if ("ggplot" %in% class(my_plot())) {
+                        ggplot2::ggsave(
+                            filename = file, plot = my_plot(),
+                            device = input$ext, units = "px",
+                            width = input$width, height = input$height
+                        )
+                    } else if (
+                        "htmlwidget" %in% class(my_plot()) |
+                            "plotly" %in% class(my_plot())
+                    ) {
+                        showNotification(
+                            "htmlwidgets should be exported as html",
+                            session = session
+                        )
                         NULL
-                    }
-                    if ("grob" %in% class(my_plot())) {
-                        gridExtra::grid.arrange(my_plot())
                     } else {
-                        plot(my_plot())
+                        if (input$ext == "png") {
+                            grDevices::png(filename = file, width = input$width,
+                                height = input$height, units = "px"
+                            )
+                        } else if (input$ext == "pdf") {
+                            grDevices::pdf(file = file, width = input$width / 96,
+                                height = input$height / 96
+                            )
+                        } else {
+                            showNotification(paste(
+                                "Other type of plot should be",
+                                "exported as pdf or png", session = session
+                            ))
+                            NULL
+                        }
+                        if ("grob" %in% class(my_plot())) {
+                            gridExtra::grid.arrange(my_plot())
+                        } else {
+                            plot(my_plot())
+                        }
+                        grDevices::dev.off()
                     }
-                    grDevices::dev.off()
                 }
             }
-        })
+        )
     })
 }
 
 #' @rdname plot_download
 #' @export
 plot_download_demo <- function() {
-    plot_fct <- function() {
+    plot_fct_sp <- function() {
+        c(1, 2, 3, 4, 5)
+    }
+    plot_fct_ped <- function() {
         Pedigree(Pedixplorer::sampleped)
     }
-    ui <- shiny::fluidPage(plotOutput("plt"), plot_download_ui("dwld"), )
+    ui <- shiny::fluidPage(
+        fluidRow(
+            plotOutput("plt_sp"),
+            plot_download_ui("dwld_sp")
+        ),
+        fluidRow(
+            plotOutput("plt_ped"),
+            plot_download_ui("dwld_ped")
+        ),
+        fluidRow(
+            plotOutput("plt_ggplot"),
+            plot_download_ui("dwld_ggplot")
+        )
+    )
     server <- function(input, output, session) {
 
-        my_plot <- shiny::reactive({
-            plot_fct()
+        plot_sp <- shiny::reactive({
+            plot_fct_sp()
         })
 
-        plot_download_server("dwld", shiny::reactive({
-            my_plot()
-        }))
-        output$plt <- shiny::renderPlot({
-            plot(my_plot())
+        plot_ped <- shiny::reactive({
+            plot_fct_ped()
         })
+
+        plot_ggplot <- shiny::reactive({
+            plot(plot_fct_ped(), ggplot_gen = TRUE)$ggplot
+        })
+
+        output$plt_sp <- shiny::renderPlot({
+            plot(plot_sp())
+        })
+
+        output$plt_ped <- shiny::renderPlot({
+            plot(plot_ped())
+        })
+
+        output$plt_ggplot <- shiny::renderPlot({
+            plot(plot_ggplot())
+        })
+
+        plot_download_server("dwld_sp", plot_sp)
+        plot_download_server("dwld_ped", plot_ped)
+        plot_download_server("dwld_ggplot", plot_ggplot)
     }
     shiny::shinyApp(ui, server)
 }

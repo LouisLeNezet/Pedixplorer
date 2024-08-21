@@ -59,19 +59,10 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
         column(2, data_import_ui(id = "data_rel_import")),
         column(2, data_col_sel_ui(id = "data_rel_col_sel"))
     ),
-    hr(),
     ## Errors download ----------------------------
     fluidRow(title = "Errors download",
         align = "center",
-        h3("Download errors"),
-        column(6,
-            h5(strong("Pedigree data errors")),
-            data_download_ui(id = "ped_errors")
-        ),
-        column(6, align = "center",
-            h5(strong("Relationship data errors")),
-            data_download_ui(id = "rel_errors")
-        )
+        uiOutput("download_errors")
     ),
     hr(),
     ## Family and Health selection ---------------------------
@@ -121,10 +112,5 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
         plotOutput("legend_plot", height = "50px"),
         data_download_ui("plot_data_dwnl")
     ),
-
-    ## Console ------------------------------------------------
-    fluidRow(
-        pre(id = "console")
-    )
 
 ))

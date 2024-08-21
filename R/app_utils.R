@@ -116,21 +116,20 @@ get_title <- function(
         "Subfamily containing individuals not linked to any"
     } else {
         if (short_title) {
-            keep_text <- ifelse(keep_parents, "-T", "")
+            keep_text <- ifelse(keep_parents, "_T", "")
             title <- paste0(c(
-                "Ped", family_var, mod, "-K", kin_max,
-                keep_text, "-I", inf_selected, "_SF", subfamily_sel
+                "Ped_F", family_sel, "_K", kin_max,
+                keep_text, "_I", inf_selected, "_SF", subfamily_sel
             ), collapse = "")
-            title <- stringr::str_replace(title, "/", "-")
-            stringr::str_replace(title, " ", "-")
+            stringr::str_replace_all(title, "[ /]", "")
         } else {
-            keep_text <- ifelse(keep_parents, "trimmed", "")
+            keep_text <- ifelse(keep_parents, "trimmed ", "")
             paste0(c(
-                "Pedigree", keep_text, "of", family_var, mod, "family N*",
-                family_sel, "sub-family N*", subfamily_sel,
-                "( N=", nb_rows, ") from",
-                inf_selected, "individuals"
-            ), collapse = " ")
+                "Pedigree ", keep_text, "of family N*",
+                family_sel, " sub-family N*", subfamily_sel,
+                " (N=", nb_rows, ") from ",
+                inf_selected, " individuals."
+            ), collapse = "")
         }
     }
 }

@@ -72,7 +72,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 as.character(ped_df$motherId)
             )
         }
-        return(norm_ped(ped_df, cols_used_del = TRUE, missid = c(NA, "0", 0)))
+        norm_ped(ped_df, cols_used_del = TRUE, missid = c(NA, "0", 0))
     })
     rel_df_norm <- shiny::reactive({
         if (is.null(rel_df_rename())) {
@@ -104,18 +104,47 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
 
     ## Errors download --------------------------------------------------------
     shiny::observeEvent(ped_df_norm(), {
-        data_download_server("ped_df_norm",
+        data_download_server("ped_norm_errors",
             shiny::reactive({
                 ped_df_norm()[!is.na(ped_df_norm()$error), ]
-            }), "Pedigree data errors"
+            }), "Pedigree data errors", title = "Pedigree data errors"
         )
     })
 
     shiny::observeEvent(rel_df_norm(), {
-        data_download_server("rel_errors",
+        data_download_server("rel_norm_errors",
             shiny::reactive({
                 rel_df_norm()[!is.na(rel_df_norm()$error), ]
-            }), "Relationship data errors"
+            }), "Relationship data errors", title = "Relationship data errors"
+        )
+    })
+    output$ped_errors <- renderUI ({
+        req(ped_df_norm()[!is.na(ped_df_norm()$error), ])
+        data_download_ui(id = "ped_norm_errors")
+    })
+    output$rel_errors <- renderUI ({
+        print(rel_df_norm()[!is.na(rel_df_norm()$error), ])
+        req(rel_df_norm()[!is.na(rel_df_norm()$error), ])
+        data_download_ui(id = "rel_norm_errors")
+    })
+
+    output$download_errors <- renderUI({
+        req(ped_df_norm())
+        if (nrow(ped_df_norm()[!is.na(ped_df_norm()$error), ]) == 0) {
+            if (is.null(rel_df_norm())) {
+                return(NULL)
+            } else if (nrow(rel_df_norm()[!is.na(rel_df_norm()$error), ]) == 0) {
+                return(NULL)
+            }
+        }
+        fluidRow(
+            h3("Download errors"),
+            column(6, align = "center",
+                uiOutput("ped_errors")
+            ),
+            column(6, align = "center",
+                uiOutput("rel_errors")
+            )
         )
     })
 
@@ -216,7 +245,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
 
     lst_subfam <- family_sel_server(
         "subfamily_sel", ped_subfamilies,
-        fam_var="family", fam_sel = 1
+        fam_var="family", fam_sel = 1, title = "Subfamily selection"
     )
 
     ped_subfam <- shiny::reactive({
@@ -228,31 +257,31 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     })
 
     ## Sub Family information -------------------------------------------------
-    ped_avaf_infos_server("subped_avaf_infos", ped_subfam)
+    ped_avaf_infos_server("subped_avaf_infos", ped_subfam, "Subfamily informations")
 
     ## Plotting pedigree ------------------------------------------------------
-    title <- function(short = TRUE) {
-        shiny::reactive({
+    cust_title <- function(short = TRUE) {
+        my_title <- shiny::reactive({
             shiny::req(lst_fam())
             shiny::req(lst_subfam())
             shiny::req(lst_inf())
-            get_title(
+            test <- get_title(
                 family_sel = lst_fam()$famid,
                 subfamily_sel = lst_subfam()$famid,
-                family_var = lst_health()$health_var,
-                mod = lst_health()$health_mods_aff,
                 inf_selected = lst_inf()$inf_sel,
                 kin_max = lst_inf()$kin_max,
                 keep_parents = lst_inf()$keep_parents,
                 nb_rows = length(lst_subfam()$ped_fam), short_title = short
             )
         })
+        print(my_title())
+        return(my_title())
     }
     
     plot_ped <- plot_ped_server(
-        "ped", ped_subfam, title(FALSE)
+        "ped", ped_subfam, cust_title(short = FALSE)
     )
-    plot_download_server("saveped", plot_ped, title())
+    plot_download_server("saveped", plot_ped, cust_title(short = TRUE))
 
     ## End --------------------------------------------------------------------
     if (!interactive()) {

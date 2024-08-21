@@ -7,7 +7,7 @@ usethis::use_package("shiny")
 ped_avaf_infos_ui <- function(id) {
     ns <- shiny::NS(id)
     tagList(
-        h3("Family information"),
+        uiOutput(ns("title_infos")),
         textOutput(ns("ped_avaf_infos_title")),
         DT::dataTableOutput(ns("family_info_table"))
     )
@@ -24,6 +24,7 @@ ped_avaf_infos_ui <- function(id) {
 #'
 #' @param id A string to identify the module.
 #' @param pedi A reactive pedigree object.
+#' @param title The title of the module.
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
@@ -32,9 +33,15 @@ ped_avaf_infos_ui <- function(id) {
 #' }
 #' @include app_utils.R
 #' @rdname ped_avaf_infos
-ped_avaf_infos_server <- function(id, pedi) {
+ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
+        # Create the title ----------------------------------------------------
+        output$title_infos <- renderUI({
+            h3(title)
+        })
+
+        # Display the family information table --------------------------------
         output$family_info_table <- DT::renderDataTable({
             shiny::req(pedi())
             if (!is.null(pedi())) {
@@ -71,6 +78,7 @@ ped_avaf_infos_server <- function(id, pedi) {
                 NULL
             }
         })
+        # Display the title ----------------------------------------------------
         output$ped_avaf_infos_title <- renderText({
             if (!is.null(pedi())) {
                 paste(

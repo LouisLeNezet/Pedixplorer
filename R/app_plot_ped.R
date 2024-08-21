@@ -41,43 +41,36 @@ plot_ped_ui <- function(id) {
 #' @rdname plot_ped
 plot_ped_server <- function(id, pedi, title) {
     stopifnot(shiny::is.reactive(pedi))
-    stopifnot(shiny::is.reactive(title))
     shiny::moduleServer(id, function(input, output, session) {
 
         ns <- shiny::NS(id)
-        plot_ped <- shiny::reactive({
-            if (is.null(pedi()) | is.null(input$interactive)) {
-                return(NULL)
-            }
+        plotly_ped <- shiny::reactive({
+            req(input$interactive)
+            req(pedi())
             ped_plot_lst <- plot(
                 pedi(),
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1,
-                mar = c(0.5, 0.5, 1.5, 0.5), title = title()
+                mar = c(0.5, 0.5, 1.5, 0.5), title = title
             )
 
-            if (input$interactive) {
-                ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
-                    ggplot2::theme(
-                        panel.grid.major =  ggplot2::element_blank(),
-                        panel.grid.minor =  ggplot2::element_blank(),
-                        axis.title.x =  ggplot2::element_blank(),
-                        axis.text.x =  ggplot2::element_blank(),
-                        axis.ticks.x =  ggplot2::element_blank(),
-                        axis.ticks.y =  ggplot2::element_blank(),
-                        axis.title.y =  ggplot2::element_blank(),
-                        axis.text.y =  ggplot2::element_blank()
-                    )
-                ## To make it interactive
-                p <- plotly::ggplotly(
-                    ggp +
-                        ggplot2::theme(legend.position = "none"),
-                    tooltip = "text"
+            ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
+                ggplot2::theme(
+                    panel.grid.major =  ggplot2::element_blank(),
+                    panel.grid.minor =  ggplot2::element_blank(),
+                    axis.title.x =  ggplot2::element_blank(),
+                    axis.text.x =  ggplot2::element_blank(),
+                    axis.ticks.x =  ggplot2::element_blank(),
+                    axis.ticks.y =  ggplot2::element_blank(),
+                    axis.title.y =  ggplot2::element_blank(),
+                    axis.text.y =  ggplot2::element_blank()
                 )
-                return(p)
-            } else {
-                return(pedi)
-            }
+            ## To make it interactive
+            p <- plotly::ggplotly(
+                ggp +
+                    ggplot2::theme(legend.position = "none"),
+                tooltip = "text"
+            )
         })
         output$plotpedi <- shiny::renderUI({
             if (is.null(input$interactive)) {
@@ -85,14 +78,28 @@ plot_ped_server <- function(id, pedi, title) {
             }
             if (input$interactive) {
                 output$ped_plotly <- plotly::renderPlotly({
-                    plot_ped()
+                    plotly_ped()
                 })
                 plotly::plotlyOutput(ns("ped_plotly"))
             } else {
+                req(pedi())
                 output$ped_plot <- shiny::renderPlot({
-                    plot_ped()
+                    plot(
+                        pedi(),
+                        aff_mark = TRUE, label = NULL,
+                        cex = 1, symbolsize = 1,
+                        mar = c(0.5, 0.5, 1.5, 0.5), title = title
+                    )
                 })
                 shiny::plotOutput(ns("ped_plot"))
+            }
+        })
+
+        plot_ped <- shiny::reactive({
+            if (input$interactive) {
+                return(plotly_ped())
+            } else {
+                return(pedi())
             }
         })
         return(plot_ped)
@@ -103,18 +110,16 @@ plot_ped_server <- function(id, pedi, title) {
 #' @rdname plot_ped
 #' @export
 plot_ped_demo <- function() {
-    pedi <- Pedigree(
+    pedi <- shiny::reactive({Pedigree(
         Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
-    )
+    )})
     ui <- shiny::fluidPage(
         plot_ped_ui("ped"),
         plot_download_ui("saveped")
     )
     server <- function(input, output, session) {
-        plot_ped <- plot_ped_server("ped", shiny::reactive({
-            pedi
-        }), "My Pedigree")
-        plot_download_server("saveped", plot_ped)
+        ped_plot <- plot_ped_server("ped", pedi, "My Pedigree")
+        plot_download_server("saveped", ped_plot)
     }
     shiny::shinyApp(ui, server)
 }
