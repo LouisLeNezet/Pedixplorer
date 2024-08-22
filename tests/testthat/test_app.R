@@ -1,0 +1,51 @@
+test_that("ped_shiny works", {
+    app <- AppDriver$new(
+        ped_shiny(), name = "ped_shiny",
+        variant = platform_variant()
+    )
+    app$set_window_size(width = 1611, height = 956)
+
+    # Import data
+    app$click("data_ped_import-testdf")
+    app$click("data_rel_import-testdf")
+
+    # Set affection and color
+    app$wait_for_idle(500)
+    app$set_inputs(`health_sel-health_as_num` = FALSE)
+    app$wait_for_idle(500)
+    app$set_inputs(`health_sel-health_aff_mods` = "1")
+    app$set_inputs(`col_aff-select_Affected` = "#63005B")
+    app$set_inputs(`col_avail-select_Avail` = "#00FFFF")
+    app$wait_for_idle(500)
+    app$set_inputs(`family_sel-families_table_rows_selected` = 2, allow_no_input_binding_ = TRUE)
+    app$set_inputs(`family_sel-families_table_row_last_clicked` = 2, allow_no_input_binding_ = TRUE, priority_ = "event")
+    app$set_inputs(`family_sel-families_table_cell_clicked` = c(2, 2, 14), allow_no_input_binding_ = TRUE, priority_ = "event")
+    app$wait_for_idle(500)
+
+    # Download plot ped
+    app$click("saveped-download")
+    app$wait_for_idle(500)
+    app$set_inputs(`saveped-width` = 1000)
+    app$wait_for_idle(500)
+    app$expect_download("saveped-plot_dwld")
+    app$wait_for_idle(500)
+    app$click("saveped-close")
+    
+    # Select family
+    app$set_inputs(`family_sel-families_table_rows_selected` = 1, allow_no_input_binding_ = TRUE)
+    app$wait_for_idle(500)
+    app$set_inputs(`inf_sel-inf_selected` = "Cust")
+    app$wait_for_idle(500)
+    app$set_inputs(`inf_sel-inf_custvar_val` = "1_121,1_131")
+    app$wait_for_idle(500)
+    app$set_inputs(`inf_sel-kin_max` = 2)
+    app$wait_for_idle(500)
+    app$set_inputs(`inf_sel-keep_parents` = FALSE)
+    app$wait_for_idle(500)
+    app$set_inputs(`subfamily_sel-families_table_rows_selected` = 2, allow_no_input_binding_ = TRUE)
+    app$wait_for_idle(500)
+    # Download plot ped
+    app$click("saveped-download")
+    app$wait_for_idle(500)
+    app$expect_download("saveped-plot_dwld")
+})
