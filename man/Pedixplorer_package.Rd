@@ -71,7 +71,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Louis Le Nézet \email{louislenezet@gmail.com} (\href{https://orcid.org/0009-0000-0202-2703}{ORCID})
+\strong{Maintainer}: Louis Le Nézet \email{louislenezet@gmail.com} (\href{https://orcid.org/0009-0000-0202-2703}{ORCID}) [contributor]
 
 Authors:
 \itemize{
@@ -83,7 +83,6 @@ Other contributors:
 \itemize{
   \item Daniel Schaid [contributor]
   \item Elizabeth Atkinson [contributor]
-  \item Louis Le Nezet [contributor]
 }
 
 }
