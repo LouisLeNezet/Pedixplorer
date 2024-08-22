@@ -104,28 +104,24 @@ inf_sel_server <- function(id, pedi) {
             if (input$inf_selected != "Cust") {
                 return(input$inf_selected)
             }
+            shiny::req(input$inf_custvar_sel)
             shiny::req(input$inf_custvar_val)
-
-            if (!identical(input$inf_custvar_val, "")) {
-                inf_custvar_sel <- input$inf_custvar_sel
-                inf_custvar_val <- unlist(strsplit(input$inf_custvar_val, ","))
-
-                df <- as.data.frame(ped(pedi()))
-                index <- which(df[, inf_custvar_sel] %in% inf_custvar_val)
-                if (any(is.na(index))) {
-                    showNotification(paste(
-                        "Values", inf_custvar_val[is.na(index)],
-                        "not present in", inf_custvar_sel
-                    ))
-                    NULL
-                } else {
-                    df$id[index[!is.na(index)]]
-                }
-            } else {
-                showNotification(
-                    "Custom option selected but no individual id given"
-                )
+            inf_custvar_sel <- input$inf_custvar_sel
+            inf_custvar_val <- unlist(strsplit(input$inf_custvar_val, ","))
+            df <- as.data.frame(ped(pedi()))
+            val_sel <- as.character(df[, inf_custvar_sel])
+            val_sel[is.na(val_sel)] <- "NA"
+            val_pres <- match(inf_custvar_val, val_sel)
+            index <- which(val_sel %in% inf_custvar_val)
+            if (any(is.na(val_pres))) {
+                showNotification(paste(
+                    "Values",
+                    paste0(inf_custvar_val[is.na(val_pres)], collapse=", "),
+                    "not present in", inf_custvar_sel
+                ))
                 NULL
+            } else {
+                df$id[index[!is.na(index)]]
             }
         })
 
@@ -137,9 +133,9 @@ inf_sel_server <- function(id, pedi) {
                 }
                 if (input$inf_selected == "Cust") {
                     paste(
-                        input$InfCustVariable, "(id ",
-                        paste(inf_inds_selected(), collapse = ","),
-                        ")"
+                        "(id ",
+                        paste(inf_inds_selected(), collapse = ", "),
+                        ")", sep=""
                     )
                 } else {
                     inf_inds_selected()
@@ -148,7 +144,7 @@ inf_sel_server <- function(id, pedi) {
         }
 
         # Informative individuals pedigree selection --------------------------
-        ped_inf <- reactive({
+        lst_inf <- reactive({
             shiny::req(inf_inds_selected())
             list(
                 inf_txt = inf_inds_sel_txt(),
@@ -158,7 +154,7 @@ inf_sel_server <- function(id, pedi) {
             )
         })
 
-        return(ped_inf)
+        return(lst_inf)
     })
 }
 
@@ -166,50 +162,34 @@ inf_sel_server <- function(id, pedi) {
 #' @rdname inf_sel
 #' @export
 inf_sel_demo <- function() {
-    pedi <- Pedigree(
+    pedi <- shiny::reactive({Pedigree(
         Pedixplorer::sampleped[Pedixplorer::sampleped$famid == "1", ]
-    )
+    )})
     ui <- shiny::fluidPage(
         column(6,
             inf_sel_ui("infsel")
         ),
         column(6,
-            textOutput("inf"),
-            tableOutput("ped_inf")
+            uiOutput("inf")
         )
     )
     server <- function(input, output, session) {
-        ped_inf <- inf_sel_server(
-            "infsel",
-            shiny::reactive({
-                pedi
-            })
-        )
-        output$inf <- renderText({
-            if (is.null(ped_inf())) {
+        lst_inf <- inf_sel_server("infsel", pedi)
+        output$inf <- renderUI({
+            if (is.null(lst_inf())) {
                 return(NULL)
             }
-            paste(
-                "Informative individuals are:",
-                ped_inf()[["inf_sel"]]
-            )
+            txt <- ""
+            for (i in names(lst_inf())) {
+                txt <- paste(
+                    txt, "<br/>", i, ":",
+                    paste(lst_inf()[[i]], collapse = ",")
+                )
+            }
+            HTML(txt)
         })
-
-        output$ped_inf <- renderTable({
-            if (is.null(ped_inf())) {
-                return(NULL)
-            }
-            pedi2 <- ped(ped_inf()[["ped_inf"]])
-            pedi2 <- subset(pedi2, useful(pedi2), del_parents = "both")
-            cols <- c(
-                "id", "dadid", "momid",
-                "avail", "affected",
-                "kin", "isinf", "num_child_tot",
-                "useful"
-            )
-            df <- as.data.frame(pedi2)[cols]
-            df[order(-df$useful, df$kin), ]
-
+        shiny::exportTestValues(lst_inf = {
+            lst_inf()
         })
     }
     shiny::shinyApp(ui, server)

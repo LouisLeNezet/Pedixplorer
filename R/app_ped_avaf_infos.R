@@ -3,6 +3,80 @@
 
 usethis::use_package("shiny")
 
+
+#' Sketch of the family information table
+#'
+#' Simple function to create a sketch of the family information table.
+#'
+#' @param var_name the name of the health variable
+#' @return an html sketch of the family information table
+#' @keywords internal, ped_avaf_infos
+sketch <- function(var_name) {
+    tags$table(
+        class = "display",
+        tags$style(HTML(".cell-border-right{border-right: 1px solid #000}")),
+        tags$thead(
+            tags$tr(
+                tags$th(class = 'dt-center cell-border-right', colspan = 2, var_name),
+                tags$th(class = 'dt-center', colspan = 3, "Availability")
+            ),
+            tags$tr(
+                tags$th("Affected"),
+                tags$th("Modalities"),
+                tags$th("Available"),
+                tags$th("Unavailable"),
+                tags$th("NA")
+            )
+        )
+    )
+}
+
+
+#' Affection and availability information table
+#' 
+#' This function creates a table with the affection and availability
+#' information for all individuals in a pedigree object.
+#' 
+#' @param pedi A pedigree object.
+#' @return A cross table dataframe with the affection and availability
+#' information.
+#' @examples
+#' pedi <- Pedigree(Pedixplorer::sampleped)
+#' pedi <- generate_colors(pedi, "num_child_tot", threshold = 2)
+#' family_infos_table(pedi, "num_child_tot")
+#' family_infos_table(pedi, "affection")
+#' @keywords internal, ped_avaf_infos
+family_infos_table <- function(pedi, col_val=NA) {
+    if(!col_val %in% fill(pedi)$column_values) {
+        error <- paste(
+            "The column value", col_val,
+            "is not in the available column values"
+        )
+    }
+    aff <- fill(pedi)[fill(pedi)$column_values == col_val,]
+    df <- base::table(
+        factor(avail(ped(pedi)), c(TRUE, FALSE)),
+        mcols(pedi)[[unique(aff$column_mods)]],
+        useNA = "always",
+        dnn = c("Availability", "Affected")
+    ) %>%
+        as.data.frame() %>%
+        tidyr::spread("Availability", "Freq")
+    colnames(df) <- c("Affected", "TRUE", "FALSE", "NA")
+    df$mods <- aff$labels[match(
+        df$Affected, aff$mods
+    )]
+    df$Affected <- as.character(df$Affected)
+    cols <- c("Affected", "mods", "TRUE", "FALSE", "NA")
+    df[cols] <- lapply(df[cols],
+        function(x) {
+            x <- replace(x, is.na(x), "NA")
+        }
+    )
+    return(df[cols])
+}
+
+
 #' @rdname family_sel
 ped_avaf_infos_ui <- function(id) {
     ns <- shiny::NS(id)
@@ -42,35 +116,24 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
             h3(title)
         })
 
+        df <- shiny::reactive({
+            shiny::req(pedi())
+            col_val <- unique(fill(pedi())$column_values)[1]
+            family_infos_table(pedi(), col_val)
+        })
+
         # Display the family information table --------------------------------
         output$family_info_table <- DT::renderDataTable({
             shiny::req(pedi())
             if (!is.null(pedi())) {
-                df <- base::table(
-                    factor(avail(ped(pedi())), c(TRUE, FALSE)),
-                    mcols(pedi())[[unique(fill(pedi())$column_mods)]],
-                    useNA = "always",
-                    dnn = c("Availability", "Affected")
-                ) %>%
-                    as.data.frame() %>%
-                    tidyr::spread("Availability", "Freq")
-                colnames(df) <- c("Affected", "TRUE", "FALSE", "NA")
-                df$mods <- fill(pedi())$labels[match(
-                    df$Affected, fill(pedi())$mods
-                )]
-                df$Affected <- as.character(df$Affected)
-                cols <- c("Affected", "mods", "TRUE", "FALSE", "NA")
-                df[cols] <- lapply(df[cols],
-                    function(x) {
-                        x <- replace(x, is.na(x), "NA")
-                    }
-                )
                 DT::datatable(
-                    df[cols],
-                    container = sketch(unique(fill(pedi())$column_values)),
-                    rownames = FALSE, selection = "none",
+                    df(),
+                    container = sketch(stringr::str_to_title(
+                        colnames(df())[1]
+                    )), rownames = FALSE, selection = "none",
                     options = list(
                         columnDefs = list(
+                            list(targets = 1, className = "cell-border-right"),
                             list(targets = "_all", className = "dt-center")
                         ), dom = "t"
                     )
@@ -79,7 +142,7 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
                 NULL
             }
         })
-        # Display the title ----------------------------------------------------
+        # Display the title ---------------------------------------------------
         output$ped_avaf_infos_title <- renderText({
             if (!is.null(pedi())) {
                 paste(
@@ -90,6 +153,8 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
                 NULL
             }
         })
+
+        return(df)
     })
 }
 
@@ -103,12 +168,15 @@ ped_avaf_infos_demo <- function() {
         ped_avaf_infos_ui("familysel")
     )
     server <- function(input, output, session) {
-        ped_avaf_infos_server(
+        df <- ped_avaf_infos_server(
             "familysel",
             shiny::reactive({
                 pedi
             })
         )
+        shiny::exportTestValues(df = {
+            df()
+        })
     }
     shiny::shinyApp(ui, server)
 }

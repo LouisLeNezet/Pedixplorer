@@ -1,32 +1,5 @@
 #' @importFrom shiny tags
 usethis::use_package("shiny")
-
-#' Sketch of the family information table
-#'
-#' Simple function to create a sketch of the family information table.
-#'
-#' @param var_name the name of the health variable
-#' @return an html sketch of the family information table
-#' @keywords internal
-sketch <- function(var_name) {
-    tags$table(
-        class = "display",
-        tags$thead(
-            tags$tr(
-                tags$th(class = 'dt-center', colspan = 2, var_name),
-                tags$th(class = 'dt-center', colspan = 3, "Availability")
-            ),
-            tags$tr(
-                tags$th("Affected"),
-                tags$th("Modalities"),
-                tags$th("Available"),
-                tags$th("Unavailable"),
-                tags$th("NA")
-            )
-        )
-    )
-}
-
 usethis::use_package("dplyr")
 
 #' Summarise the families information for a given variable in a data frame
@@ -94,7 +67,7 @@ get_title <- function(
             keep_text <- ifelse(keep_parents, "_T", "")
             title <- paste0(c(
                 "Ped_F", family_sel, "_K", kin_max,
-                keep_text, "_I", inf_selected, "_SF", subfamily_sel
+                keep_text, "_I", paste0(inf_selected,collaspe="-"), "_SF", subfamily_sel
             ), collapse = "")
             stringr::str_replace_all(title, "[ /]", "")
         } else {
@@ -103,7 +76,7 @@ get_title <- function(
                 "Pedigree ", keep_text, "of family N*",
                 family_sel, " sub-family N*", subfamily_sel,
                 " (N=", nb_rows, ") from ",
-                inf_selected, " individuals."
+                paste0(inf_selected, collapse=", "), " individuals."
             ), collapse = "")
         }
     }

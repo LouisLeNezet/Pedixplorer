@@ -180,11 +180,11 @@ health_sel_server <- function(
                 mods_aff <- input$health_aff_mods
             }
             list(
-                health_var = input$health_var_sel,
-                health_as_num = input$health_as_num,
-                health_mods_aff = mods_aff,
-                health_threshold = threshold,
-                health_sup_threshold = sup_threshold
+                var = input$health_var_sel,
+                as_num = input$health_as_num,
+                mods_aff = mods_aff,
+                threshold = threshold,
+                sup_threshold = sup_threshold
             )
         })
 
@@ -216,8 +216,8 @@ health_sel_demo <- function() {
             if (is.null(lst_health())) {
                 return(NULL)
             }
-            str1 <- paste("Selected health variable:", lst_health()$health_var)
-            str2 <- paste("Is numeric:", lst_health()$to_num)
+            str1 <- paste("Selected health variable:", lst_health()$var)
+            str2 <- paste("As numeric:", lst_health()$as_num)
             str3 <- paste(
                 "Affected modalities:",
                 paste0(lst_health()$mods_aff, collapse = ", ")
@@ -225,7 +225,10 @@ health_sel_demo <- function() {
             str4 <- paste("Threshold:", lst_health()$threshold)
             str5 <- paste("Threshold strict:", lst_health()$sup_threshold)
             HTML(paste(str1, str2, str3, str4, str5, sep = "<br/>"))
+        })
 
+        shiny::exportTestValues(lst_health = {
+            lst_health()
         })
     }
     shiny::shinyApp(ui, server)

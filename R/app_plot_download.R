@@ -50,6 +50,13 @@ plot_download_server <- function(
     shiny::moduleServer(id, function(input, output, session) {
         ns <- shiny::NS(id)
 
+        myfilename <- shiny::reactive({
+            if (is.reactive(filename)) {
+                filename <- filename()
+            }
+            filename
+        })
+
         ## Options rendering selection --------------------
         opt <- shiny::reactiveValues(width = width, height = height, ext = ext)
 
@@ -92,8 +99,8 @@ plot_download_server <- function(
         })
 
         output$plot_dwld <- shiny::downloadHandler(
-            filename = function(){
-                paste(filename, input$ext, sep = ".")
+            filename = function() {
+                paste(myfilename(), input$ext, sep = ".")
             }, content = function(file) {
                 if (input$ext == "html") {
                     if ("ggplot" %in% class(my_plot())) {
@@ -106,7 +113,6 @@ plot_download_server <- function(
                             "HTML file should be exported from ggplot or htmlwidget",
                             session = session
                         )
-                        
                     }
                 } else {
                     if ("ggplot" %in% class(my_plot())) {

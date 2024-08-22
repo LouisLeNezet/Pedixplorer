@@ -45,14 +45,22 @@ plot_ped_server <- function(id, pedi, title) {
     shiny::moduleServer(id, function(input, output, session) {
 
         ns <- shiny::NS(id)
+
+        mytitle <- shiny::reactive({
+            if (is.reactive(title)) {
+                title <- title()
+            }
+            title
+        })
+
         plotly_ped <- shiny::reactive({
-            req(input$interactive)
-            req(pedi())
+            shiny::req(input$interactive)
+            shiny::req(pedi())
             ped_plot_lst <- plot(
                 pedi(),
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1,
-                mar = c(0.5, 0.5, 1.5, 0.5), title = title
+                mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle()
             )
 
             ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
@@ -83,13 +91,13 @@ plot_ped_server <- function(id, pedi, title) {
                 })
                 plotly::plotlyOutput(ns("ped_plotly"))
             } else {
-                shiny::req(pedi())
                 output$ped_plot <- shiny::renderPlot({
+                    shiny::req(pedi())
                     plot(
                         pedi(),
                         aff_mark = TRUE, label = NULL,
                         cex = 1, symbolsize = 1,
-                        mar = c(0.5, 0.5, 1.5, 0.5), title = title
+                        mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle()
                     )
                 })
                 shiny::plotOutput(ns("ped_plot"))

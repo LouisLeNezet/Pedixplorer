@@ -119,17 +119,16 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         )
     })
     output$ped_errors <- renderUI ({
-        req(ped_df_norm()[!is.na(ped_df_norm()$error), ])
+        shiny::req(ped_df_norm()[!is.na(ped_df_norm()$error), ])
         data_download_ui(id = "ped_norm_errors")
     })
     output$rel_errors <- renderUI ({
-        print(rel_df_norm()[!is.na(rel_df_norm()$error), ])
-        req(rel_df_norm()[!is.na(rel_df_norm()$error), ])
+        shiny::req(rel_df_norm()[!is.na(rel_df_norm()$error), ])
         data_download_ui(id = "rel_norm_errors")
     })
 
     output$download_errors <- renderUI({
-        req(ped_df_norm())
+        shiny::req(ped_df_norm())
         if (nrow(ped_df_norm()[!is.na(ped_df_norm()$error), ]) == 0) {
             if (is.null(rel_df_norm())) {
                 return(NULL)
@@ -195,17 +194,17 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         ) {
             return(NULL)
         }
-        if (lst_health()$health_as_num &
-                is.null(lst_health()$health_threshold)
+        if (lst_health()$as_num &
+                is.null(lst_health()$threshold)
         ) {
             return(NULL)
         }
         generate_colors(
-            lst_fam()$ped_fam, col_aff = lst_health()$health_var,
-            add_to_scale = FALSE, mods_aff = lst_health()$health_mods_aff,
-            threshold = lst_health()$health_threshold,
-            is_num = lst_health()$health_as_num,
-            sup_thres_aff = lst_health()$health_sup_threshold,
+            lst_fam()$ped_fam, col_aff = lst_health()$var,
+            add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
+            threshold = lst_health()$threshold,
+            is_num = lst_health()$as_num,
+            sup_thres_aff = lst_health()$sup_threshold,
             keep_full_scale = input$health_full_scale,
             colors_aff = unname(unlist(
                 cols_aff()[c("LeastAffected", "Affected")]
@@ -260,12 +259,13 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     ped_avaf_infos_server("subped_avaf_infos", ped_subfam, "Subfamily informations")
 
     ## Plotting pedigree ------------------------------------------------------
-    cust_title <- function(short = TRUE) {
-        my_title <- shiny::reactive({
+
+    cust_title <- function(short) {
+        shiny::reactive({
             shiny::req(lst_fam())
             shiny::req(lst_subfam())
             shiny::req(lst_inf())
-            test <- get_title(
+            get_title(
                 family_sel = lst_fam()$famid,
                 subfamily_sel = lst_subfam()$famid,
                 inf_selected = lst_inf()$inf_sel,
@@ -274,14 +274,12 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 nb_rows = length(lst_subfam()$ped_fam), short_title = short
             )
         })
-        print(my_title())
-        return(my_title())
     }
     
     plot_ped <- plot_ped_server(
-        "ped", ped_subfam, cust_title(short = FALSE)
+        "ped", ped_subfam, cust_title(short=FALSE)
     )
-    plot_download_server("saveped", plot_ped, cust_title(short = TRUE))
+    plot_download_server("saveped", plot_ped, cust_title(short=TRUE))
 
     ## End --------------------------------------------------------------------
     if (!interactive()) {
