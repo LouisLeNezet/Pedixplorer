@@ -21,8 +21,8 @@ number of individuals in the family.
 }
 \examples{
 df <- data.frame(
-   famid = c(1, 1, 2, 2, 3, 3),
-   health = c("A", "B", "A", "A", "B", "B")
+    famid = c(1, 1, 2, 2, 3, 3),
+    health = c("A", "B", "A", "A", "B", "B")
 )
 get_families_table(df, "health")
 }

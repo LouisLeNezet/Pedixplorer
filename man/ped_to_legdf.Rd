@@ -45,7 +45,8 @@ The data frame contains the following columns:
 \item \code{adjy}: vertical text adjustment of the labels
 }
 
-All those columns are used by \code{\link[=plot_fromdf]{plot_fromdf()}} to plot the graph.
+All those columns are used by
+\code{\link[=plot_fromdf]{plot_fromdf()}} to plot the graph.
 }
 \examples{
 data("sampleped")

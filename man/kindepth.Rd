@@ -49,9 +49,9 @@ In the case of an inbred Pedigree a perfect alignment may not exist.
 }
 \examples{
 kindepth(
-     c("A", "B", "C", "D", "E"),
-     c("C", "D", "0", "0", "0"),
-     c("E", "E", "0", "0", "0")
+    c("A", "B", "C", "D", "E"),
+    c("C", "D", "0", "0", "0"),
+    c("E", "E", "0", "0", "0")
 )
 data(sampleped)
 ped1 <- Pedigree(sampleped[sampleped$famid == "1",])

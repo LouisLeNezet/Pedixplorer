@@ -79,7 +79,7 @@ setMethod("kinship", "Ped",
 #'     c("E", "E", "0", "0", "0"), sex = c(1, 2, 1, 2, 1))
 #' kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
 #'     c("E", "E", "0", "0", "0"), sex = c(1, 2, 1, 2, 1),
-#'    chrtype = "x"
+#'     chrtype = "x"
 #' )
 #' @export
 setMethod("kinship", "character",

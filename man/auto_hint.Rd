@@ -10,8 +10,9 @@
 \arguments{
 \item{obj}{A Pedigree object}
 
-\item{hints}{A Hints object or a named list containing \code{horder} and
-\code{spouse}. If \code{NULL} then the Hints stored in \strong{obj} will be used.}
+\item{hints}{A Hints object or a named list containing
+\code{horder} and \code{spouse}.
+If \code{NULL} then the Hints stored in \strong{obj} will be used.}
 
 \item{packed}{Should the Pedigree be compressed.
 (i.e. allow diagonal lines connecting parents to children in order
@@ -46,9 +47,9 @@ closest to the spouse. For pedigrees that have only a single connection
 between two families this simple-minded approach works surprisingly well.
 For more complex structures hand-tuning of the hints may be required.
 
-When \code{auto_hint()} is called with a a vector of numbers as the \strong{hints}
-argument, the values for the founder females are used to order the founder
-families left to right across the plot.
+When \code{auto_hint()} is called with a a vector of numbers as the
+\strong{hints} argument, the values for the founder females are used to
+order the founder families left to right across the plot.
 The values within a sibship are used as the preliminary order of
 siblings within a family; this may be changed to move one of them to the
 edge so as to match up with a spouse. The actual values in the vector are
@@ -60,7 +61,9 @@ ped <- Pedigree(sampleped[sampleped$famid == 1, ])
 auto_hint(ped)
 }
 \seealso{
-\code{\link[=align]{align()}}, \code{\link[=best_hint]{best_hint()}}, \linkS4class{Hints}
+\code{\link[=align]{align()}}, \code{\link[=best_hint]{best_hint()}}
+
+\linkS4class{Hints}
 }
 \keyword{alignment,}
 \keyword{auto_hint}

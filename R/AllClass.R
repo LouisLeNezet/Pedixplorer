@@ -14,36 +14,49 @@ setClassUnion("missing_OR_NULL", c("missing", "NULL"))
 #' S4 class to represent the identity informations of the individuals
 #' in a pedigree.
 #'
-#' The minimal needed informations are `id`, `dadid`, `momid` and `sex`.
+#' The minimal needed informations are `id`, `dadid`,
+#' `momid` and `sex`.
 #' The other slots are used to store recognized informations.
 #' Additional columns can be added to the Ped object and will be
 #' stored in the `elementMetadata` slot of the Ped object.
 #'
 #' @slot id A character vector with the id of the individuals.
-#' @slot dadid A character vector with the id of the father of the individuals.
-#' @slot momid A character vector with the id of the mother of the individuals.
+#' @slot dadid A character vector with the id of the father of
+#' the individuals.
+#' @slot momid A character vector with the id of the mother of
+#' the individuals.
 #' @slot sex An ordered factor vector for the sex of the individuals
 #' (i.e. `male` < `female` < `unknown` < `terminated`).
 #' @slot famid A character vector with the family identifiers of the
 #' individuals (optional).
 #' @slot steril A logical vector with the sterilisation status of the
 #' individuals
-#' (i.e. `FALSE` = not sterilised, `TRUE` = sterilised, `NA` = unknown).
+#' (i.e. `FALSE` = not sterilised,
+#' `TRUE` = sterilised,
+#' `NA` = unknown).
 #' @slot status A logical vector with the affection status of the
 #' individuals
-#' (i.e. `FALSE` = alive, `TRUE` = dead, `NA` = unknown).
+#' (i.e. `FALSE` = alive,
+#' `TRUE` = dead,
+#' `NA` = unknown).
 #' @slot avail A logical vector with the availability status of the
 #' individuals
-#' (i.e. `FALSE` = not available, `TRUE` = available, `NA` = unknown).
+#' (i.e. `FALSE` = not available,
+#' `TRUE` = available,
+#' `NA` = unknown).
 #' @slot affected A logical vector with the affection status of the
 #' individuals
-#' (i.e. `FALSE` = not affected, `TRUE` = affected, `NA` = unknown).
+#' (i.e. `FALSE` = not affected,
+#' `TRUE` = affected,
+#' `NA` = unknown).
 #' @slot useful A logical vector with the usefulness status of the
 #' individuals
-#' (i.e. `FALSE` = not useful, `TRUE` = useful).
+#' (i.e. `FALSE` = not useful,
+#' `TRUE` = useful).
 #' @slot isinf A logical vector indicating if the individual is informative
 #' or not
-#' (i.e. `FALSE` = not informative, `TRUE` = informative).
+#' (i.e. `FALSE` = not informative,
+#' `TRUE` = informative).
 #' @slot kin A numeric vector with minimal kinship value between the
 #' individuals and the useful individuals.
 #' @slot num_child_tot A numeric vector with the total number of children
@@ -104,7 +117,8 @@ setValidity("Ped", is_valid_ped)
 #' A Rel object is a list of special relationships
 #' between individuals in the pedigree.
 #' It is used to create a Pedigree object.
-#' The minimal needed informations are `id1`, `id2` and `code`.
+#' The minimal needed informations are `id1`, `id2`
+#' and `code`.
 #'
 #' If a `famid` is provided, the individuals `id` will be aggregated
 #' to the `famid` character to ensure the uniqueness of the `id`.
@@ -191,12 +205,13 @@ setValidity("Hints", is_valid_hints)
 #' values in the Ped object
 #' - 'mods': all the different mods
 #' - 'labels': the corresponding labels of each mods
-#' - 'affected': a logical value indicating if the mod correspond to an affected
-#' individuals
+#' - 'affected': a logical value indicating if the mod
+#' correspond to an affected individuals
 #' - 'fill': the color to use for this mods
 #' - 'density': the density of the shading
 #' - 'angle': the angle of the shading
-#' @slot border A data.frame with the informations for the availability status.
+#' @slot border A data.frame with the informations for the availability
+#' status.
 #' The columns needed are:
 #' - 'column_values': name of the column containing the raw values in the
 #' Ped object
@@ -228,16 +243,23 @@ setValidity("Scales", is_valid_scales)
 #' special relationships between them. It also permit to store the
 #' informations needed to plot the pedigree (i.e. scales and hints).
 #'
-#' @slot ped A Ped object for the identity informations. See [Ped()] for
-#' more informations.
-#' @slot rel A Rel object for the special relationships. See [Rel()] for
-#' more informations.
+#' @slot ped A Ped object for the identity informations.
+#' See [Ped()] for more informations.
+#' @slot rel A Rel object for the special relationships.
+#' See [Rel()] for more informations.
 #' @slot scales A Scales object for the filling and bordering
-#' colors used in the plot. See [Scales()] for more informations.
+#' colors used in the plot.
+#' See [Scales()] for more informations.
 #' @slot hints A Hints object for the ordering of the
-#' individuals in the plot. See [Hints()] for more informations.
+#' individuals in the plot.
+#' See [Hints()] for more informations.
 #'
-#' @seealso [Pedigree()], [Ped()], [Rel()], [Scales()], [Hints()]
+#' @seealso
+#' [Pedigree()]
+#' [Ped()]
+#' [Rel()]
+#' [Scales()]
+#' [Hints()]
 #' @rdname Pedigree-class
 #' @include AllValidity.R
 #' @export

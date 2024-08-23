@@ -17,8 +17,14 @@ sketch <- function(var_name) {
         tags$style(HTML(".cell-border-right{border-right: 1px solid #000}")),
         tags$thead(
             tags$tr(
-                tags$th(class = 'dt-center cell-border-right', colspan = 2, var_name),
-                tags$th(class = 'dt-center', colspan = 3, "Availability")
+                tags$th(
+                    class = "dt-center cell-border-right",
+                    colspan = 2, var_name
+                ),
+                tags$th(
+                    class = "dt-center",
+                    colspan = 3, "Availability"
+                )
             ),
             tags$tr(
                 tags$th("Affected"),
@@ -33,27 +39,30 @@ sketch <- function(var_name) {
 
 
 #' Affection and availability information table
-#' 
+#'
 #' This function creates a table with the affection and availability
 #' information for all individuals in a pedigree object.
-#' 
+#'
 #' @param pedi A pedigree object.
+#' @param col_val The column name in the `fill` slot
+#' of the pedigree object to use for the table.
 #' @return A cross table dataframe with the affection and availability
 #' information.
 #' @examples
 #' pedi <- Pedigree(Pedixplorer::sampleped)
 #' pedi <- generate_colors(pedi, "num_child_tot", threshold = 2)
-#' family_infos_table(pedi, "num_child_tot")
-#' family_infos_table(pedi, "affection")
+#' Pedixplorer:::family_infos_table(pedi, "num_child_tot")
+#' Pedixplorer:::family_infos_table(pedi, "affection")
 #' @keywords internal, ped_avaf_infos
-family_infos_table <- function(pedi, col_val=NA) {
-    if(!col_val %in% fill(pedi)$column_values) {
+family_infos_table <- function(pedi, col_val = NA) {
+    if (!col_val %in% fill(pedi)$column_values) {
         error <- paste(
             "The column value", col_val,
             "is not in the available column values"
         )
+        stop(error)
     }
-    aff <- fill(pedi)[fill(pedi)$column_values == col_val,]
+    aff <- fill(pedi)[fill(pedi)$column_values == col_val, ]
     df <- base::table(
         factor(avail(ped(pedi)), c(TRUE, FALSE)),
         mcols(pedi)[[unique(aff$column_mods)]],

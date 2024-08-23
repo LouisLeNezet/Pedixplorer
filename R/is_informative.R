@@ -38,16 +38,15 @@ setGeneric("is_informative", signature = "obj",
 
 #' @rdname is_informative
 #' @examples
-#'
 #' is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 #' is_informative(c("A", "B", "C", "D", "E"), informative = c(1, 2))
 #' is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 #' is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-#'   affected = c(0, 1, 0, 1, 1), informative = "AvAf")
+#'     affected = c(0, 1, 0, 1, 1), informative = "AvAf")
 #' is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-#'   affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
+#'     affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
 #' is_informative(c("A", "B", "C", "D", "E"),
-#'      informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
+#'     informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
 #' @export
 setMethod("is_informative", "character_OR_integer", function(
     obj, avail, affected, informative = "AvAf"

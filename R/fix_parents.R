@@ -12,15 +12,16 @@ NULL
 #' First look to add parents whose ids are given in momid/dadid. Second, fix
 #' sex of parents. Last look to add second parent for children for whom only
 #' one parent id is given.
-#' If a **famid** vector is given the family id will be added to the ids of all
-#' individuals (`id`, `dadid`, `momid`)
+#' If a **famid** vector is given the family id will be added to the
+#' ids of all individuals (`id`, `dadid`, `momid`)
 #' separated by an underscore before proceeding.
 #'
 #' ## Special case for dataframe
 #' Check for presence of both parents id in the **id** field.
 #' If not both presence behaviour depend of **delete** parameter
-#' - If `TRUE` then use fix_parents function and merge back the other fields
-#' in the dataframe then set availability to O for non available parents.
+#' - If `TRUE` then use fix_parents function and merge back the
+#' other fields in the dataframe then set availability to
+#' `O` for non available parents.
 #' - If `FALSE` then delete the id of missing parents
 #'
 #' @inheritParams Ped
@@ -34,20 +35,20 @@ NULL
 #' @examples
 #'
 #' test1char <- data.frame(
-#'   id = paste('fam', 101:111, sep = ''),
-#'   sex = c('male', 'female')[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1)],
-#'   father = c(
-#'     0, 0, 'fam101', 'fam101', 'fam101', 0, 0,
-#'     'fam106', 'fam106', 'fam106', 'fam109'
-#'   ),
-#'   mother = c(
-#'     0, 0, 'fam102', 'fam102', 'fam102', 0, 0,
-#'     'fam107', 'fam107', 'fam107', 'fam112'
-#'   )
+#'     id = paste('fam', 101:111, sep = ''),
+#'     sex = c('male', 'female')[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1)],
+#'     father = c(
+#'         0, 0, 'fam101', 'fam101', 'fam101', 0, 0,
+#'         'fam106', 'fam106', 'fam106', 'fam109'
+#'     ),
+#'     mother = c(
+#'         0, 0, 'fam102', 'fam102', 'fam102', 0, 0,
+#'         'fam107', 'fam107', 'fam107', 'fam112'
+#'     )
 #' )
 #' test1newmom <- with(test1char, fix_parents(id, father, mother,
-#'   sex,
-#'   missid = NA_character_
+#'     sex,
+#'     missid = NA_character_
 #' ))
 #' Pedigree(test1newmom)
 #'
@@ -178,8 +179,9 @@ setMethod("fix_parents", "character", function(
 
 #' @param del_parents Boolean defining if missing parents needs to be deleted
 #' or fixed. If `one` then if one of the parent is missing, both are removed,
-#' if `both` then if both parents are missing, both are removed. If `NULL`
-#' then no parent is removed and the missing parents are added as new rows.
+#' if `both` then if both parents are missing, both are removed.
+#' If `NULL` then no parent is removed and the missing parents
+#' are added as new rows.
 #' @param filter Filtering column containing `0` or `1` for the
 #' rows to kept before proceeding.
 #' @rdname fix_parents

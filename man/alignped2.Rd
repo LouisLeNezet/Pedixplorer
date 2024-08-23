@@ -39,10 +39,10 @@ A list containing the elements to plot the Pedigree.
 It contains a set of matrices along with the spouselist matrix.
 The latter has marriages removed as they are processed.
 \itemize{
-\item \code{n} : A vector giving the number of subjects on each horizonal level of the
-plot
-\item \code{nid} : A matrix with one row for each level, giving the numeric id of
-each subject plotted.
+\item \code{n} : A vector giving the number of subjects on each horizonal
+level of the plot
+\item \code{nid} : A matrix with one row for each level, giving the numeric
+id of each subject plotted.
 (A value of \code{17} means the 17th subject in the Pedigree).
 \item \code{pos} : A matrix giving the horizontal position of each plot point
 \item \code{fam} : A matrix giving the family id of each plot point.
@@ -65,8 +65,9 @@ The code below has one non-obvious special case. Suppose that two sibs marry.
 When the first sib is processed by \code{alignped1} then both partners
 (and any children) will be added to the rval structure below.
 When the second sib is processed they will come back as a 1 element tree
-(the marriage will no longer be on the \strong{spouselist}), which should be added
-onto rval. The rule thus is to not add any 1 element tree whose value
+(the marriage will no longer be on the \strong{spouselist}),
+which should be added onto rval.
+The rule thus is to not add any 1 element tree whose value
 (which must be \code{idx[i]} is already in the rval structure for this level.
 }
 \examples{

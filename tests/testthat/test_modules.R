@@ -1,5 +1,5 @@
 test_that("color_picker works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         color_picker_demo(), name = "color_picker",
         variant = platform_variant()
     )
@@ -15,7 +15,7 @@ test_that("color_picker works", {
 })
 
 test_that("data_col_sel works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         data_col_sel_demo(), name = "data_col_sel",
         variant = platform_variant()
     )
@@ -31,7 +31,7 @@ test_that("data_col_sel works", {
 })
 
 test_that("data_download works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         data_download_demo(), name = "data_download",
         variant = platform_variant()
     )
@@ -41,7 +41,7 @@ test_that("data_download works", {
 })
 
 test_that("data_import with default data", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         data_import_demo(), name = "data_import",
         variant = platform_variant()
     )
@@ -65,7 +65,7 @@ test_that("data_import with default data", {
 })
 
 test_that("health_sel works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         health_sel_demo(), name = "health_sel",
         variant = platform_variant()
     )
@@ -87,39 +87,39 @@ test_that("health_sel works", {
 })
 
 test_that("inf_sel works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         inf_sel_demo(), name = "inf_sel",
         variant = platform_variant()
     )
     # Update output value
     app$set_window_size(width = 1611, height = 956)
-    app$expect_values(export=TRUE)
+    app$expect_values(export = TRUE)
     app$set_inputs(`infsel-inf_selected` = "Af")
     # Update output value
     app$set_inputs(`infsel-kin_max` = 2)
     # Update output value
     app$set_inputs(`infsel-keep_parents` = FALSE)
     # Update output value
-    app$expect_values(export=TRUE)
+    app$expect_values(export = TRUE)
     app$set_inputs(`infsel-inf_selected` = "Cust")
     # Update output value
     app$set_inputs(`infsel-inf_custvar_sel` = "affected")
     app$set_inputs(`infsel-inf_custvar_val` = "TRUE")
     # Update output value
-    app$expect_values(export=TRUE)
+    app$expect_values(export = TRUE)
 })
 
 test_that("ped_avaf_infos works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         ped_avaf_infos_demo(), name = "ped_avaf_infos",
         variant = platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
-    app$expect_values(export=TRUE)
+    app$expect_values(export = TRUE)
 })
 
 test_that("plot_download works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         plot_download_demo(), name = "plot_download",
         variant = platform_variant()
     )
@@ -127,7 +127,9 @@ test_that("plot_download works", {
     # Download plot sp
     app$click("dwld_sp-download")
     app$wait_for_idle(500)
-    app$expect_download("dwld_sp-plot_dwld")
+    path <- app$get_download("dwld_sp-plot_dwld")
+    expect_true(file.exists(path))
+    expect_equal(tools::file_ext(path), "png")
     app$click("dwld_sp-close")
     app$wait_for_idle(500)
     # Download plot ped
@@ -136,19 +138,23 @@ test_that("plot_download works", {
     # Update output value
     app$set_inputs(`dwld_ped-width` = 1500)
     app$set_inputs(`dwld_ped-ext` = "pdf")
-    app$expect_download("dwld_ped-plot_dwld")
+    path <- app$get_download("dwld_ped-plot_dwld")
+    expect_true(file.exists(path))
+    expect_equal(tools::file_ext(path), "pdf")
     app$click("dwld_ped-close")
     app$wait_for_idle(500)
     # Download plot ggplot
     app$click("dwld_ggplot-download")
     app$wait_for_idle(500)
     app$set_inputs(`dwld_ggplot-ext` = "html")
-    app$expect_download("dwld_ggplot-plot_dwld")
+    path <- app$get_download("dwld_ggplot-plot_dwld")
+    expect_true(file.exists(path))
+    expect_equal(tools::file_ext(path), "html")
     app$click("dwld_ggplot-close")
 })
 
 test_that("plot_ped works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         plot_ped_demo(), name = "plot_ped",
         variant = platform_variant()
     )
@@ -160,6 +166,8 @@ test_that("plot_ped works", {
     app$click("saveped-download")
     app$wait_for_idle(500)
     app$set_inputs(`saveped-ext` = "html")
-    app$expect_download("saveped-plot_dwld")
+    path <- app$get_download("saveped-plot_dwld")
+    expect_true(file.exists(path))
+    expect_equal(tools::file_ext(path), "html")
     app$click("saveped-close")
 })

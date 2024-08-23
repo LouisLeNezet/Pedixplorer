@@ -36,6 +36,7 @@ plot_download_ui <- function(id) {
 #' @param width A numeric to set the width of the plot.
 #' @param height A numeric to set the height of the plot.
 #' @param ext A string to set the extension of the file.
+#' @return A shiny module to export a plot.
 #' @examples
 #' if (interactive()) {
 #'     plot_download_demo()
@@ -51,7 +52,7 @@ plot_download_server <- function(
         ns <- shiny::NS(id)
 
         myfilename <- shiny::reactive({
-            if (is.reactive(filename)) {
+            if (shiny::is.reactive(filename)) {
                 filename <- filename()
             }
             filename
@@ -109,10 +110,10 @@ plot_download_server <- function(
                     } else if ("htmlwidget" %in% class(my_plot())) {
                         htmlwidgets::saveWidget(file = file, my_plot())
                     } else {
-                        showNotification(
-                            "HTML file should be exported from ggplot or htmlwidget",
-                            session = session
-                        )
+                        showNotification(paste(
+                            "HTML file should be exported",
+                            "from ggplot or htmlwidget"
+                        ), session = session)
                     }
                 } else {
                     if ("ggplot" %in% class(my_plot())) {
@@ -136,7 +137,8 @@ plot_download_server <- function(
                                 height = input$height, units = "px"
                             )
                         } else if (input$ext == "pdf") {
-                            grDevices::pdf(file = file, width = input$width / 96,
+                            grDevices::pdf(
+                                file = file, width = input$width / 96,
                                 height = input$height / 96
                             )
                         } else {

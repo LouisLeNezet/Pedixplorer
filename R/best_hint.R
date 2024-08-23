@@ -34,10 +34,10 @@ permute <- function(x) {
 #' with the least **stress**.
 #'
 #' @details
-#' The [auto_hint()] routine will rearrange sibling order, but not
-#' founder order.
-#' This calls [auto_hint()] with every possible founder order, and finds that
-#' plot with the least "stress".
+#' The [auto_hint()] routine will rearrange sibling order,
+#' but not founder order.
+#' This calls [auto_hint()] with every possible founder
+#' order, and finds that plot with the least "stress".
 #' The stress is computed as a weighted sum of three error measures:
 #'
 #' - nbArcs The number of duplicate individuals in the plot
@@ -47,9 +47,9 @@ permute <- function(x) {
 #'   the center of the children and the parents
 #'
 #' \deqn{stress =
-#'      wt[1] * nbArcs +
-#'      wt[2] * lgArcs +
-#'      wt[3] * lgParentsChilds
+#'     wt[1] * nbArcs +
+#'     wt[2] * lgArcs +
+#'     wt[3] * lgParentsChilds
 #'}
 #'
 #' If during the search, a plot is found with a stress level less than

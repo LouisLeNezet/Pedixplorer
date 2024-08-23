@@ -30,9 +30,9 @@ setGeneric("make_famid", signature = "obj",
 #' @examples
 #'
 #' make_famid(
-#'      c("A", "B", "C", "D", "E", "F"),
-#'      c("C", "D", "0", "0", "0", "0"),
-#'      c("E", "E", "0", "0", "0", "0")
+#'     c("A", "B", "C", "D", "E", "F"),
+#'     c("C", "D", "0", "0", "0", "0"),
+#'     c("E", "E", "0", "0", "0", "0")
 #' )
 setMethod("make_famid", "character",
     function(obj, dadid, momid) {
@@ -130,8 +130,8 @@ setMethod("make_famid", "Pedigree",
 #' Therefore to update their family prefix the ids are split by the
 #' first underscore and the first part is overwritten by **famid**.
 #'
-#' If famid is *missing*, then the `famid()` function will be called on the
-#' object.
+#' If famid is *missing*, then the `famid()` function will be called
+#' on the object.
 #'
 #' @param obj Ped or Pedigree object or a character vector of individual ids
 #' @inheritParams Ped

@@ -5,8 +5,9 @@
 #' status.
 #'
 #' @details
-#' When used within [shrink()], this function is called with the first
-#' affected indicator, if the affected item in the Pedigree is a matrix of
+#' When used within [shrink()], this function is called
+#' with the first affected indicator,
+#' if the affected item in the Pedigree is a matrix of
 #' multiple affected indicators.
 #'
 #' If **avail** or **affected** is null, then the function will use the

@@ -269,9 +269,9 @@ get_twin_rel <- function(obj) {
 #' between two families this simple-minded approach works surprisingly well.
 #' For more complex structures hand-tuning of the hints may be required.
 #'
-#' When `auto_hint()` is called with a a vector of numbers as the **hints**
-#' argument, the values for the founder females are used to order the founder
-#' families left to right across the plot.
+#' When `auto_hint()` is called with a a vector of numbers as the
+#' **hints** argument, the values for the founder females are used to
+#' order the founder families left to right across the plot.
 #' The values within a sibship are used as the preliminary order of
 #' siblings within a family; this may be changed to move one of them to the
 #' edge so as to match up with a spouse. The actual values in the vector are
@@ -283,7 +283,8 @@ get_twin_rel <- function(obj) {
 #'
 #' @return The initial [Hints-class] object.
 #'
-#' @seealso [align()], [best_hint()], [Hints-class]
+#' @seealso [align()], [best_hint()]
+#' @seealso [Hints-class]
 #' @examples
 #' data(sampleped)
 #' ped <- Pedigree(sampleped[sampleped$famid == 1, ])

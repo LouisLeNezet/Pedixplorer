@@ -1,5 +1,5 @@
 test_that("ped_shiny works", {
-    app <- AppDriver$new(
+    app <- shinytest2::AppDriver$new(
         ped_shiny(), name = "ped_shiny",
         variant = platform_variant()
     )
@@ -17,9 +17,18 @@ test_that("ped_shiny works", {
     app$set_inputs(`col_aff-select_Affected` = "#63005B")
     app$set_inputs(`col_avail-select_Avail` = "#00FFFF")
     app$wait_for_idle(500)
-    app$set_inputs(`family_sel-families_table_rows_selected` = 2, allow_no_input_binding_ = TRUE)
-    app$set_inputs(`family_sel-families_table_row_last_clicked` = 2, allow_no_input_binding_ = TRUE, priority_ = "event")
-    app$set_inputs(`family_sel-families_table_cell_clicked` = c(2, 2, 14), allow_no_input_binding_ = TRUE, priority_ = "event")
+    app$set_inputs(
+        `family_sel-families_table_rows_selected` = 2,
+        allow_no_input_binding_ = TRUE
+    )
+    app$set_inputs(
+        `family_sel-families_table_row_last_clicked` = 2,
+        allow_no_input_binding_ = TRUE, priority_ = "event"
+    )
+    app$set_inputs(
+        `family_sel-families_table_cell_clicked` = c(2, 2, 14),
+        allow_no_input_binding_ = TRUE, priority_ = "event"
+    )
     app$wait_for_idle(500)
 
     # Download plot ped
@@ -30,9 +39,12 @@ test_that("ped_shiny works", {
     app$expect_download("saveped-plot_dwld")
     app$wait_for_idle(500)
     app$click("saveped-close")
-    
+
     # Select family
-    app$set_inputs(`family_sel-families_table_rows_selected` = 1, allow_no_input_binding_ = TRUE)
+    app$set_inputs(
+        `family_sel-families_table_rows_selected` = 1,
+        allow_no_input_binding_ = TRUE
+    )
     app$wait_for_idle(500)
     app$set_inputs(`inf_sel-inf_selected` = "Cust")
     app$wait_for_idle(500)
@@ -42,7 +54,10 @@ test_that("ped_shiny works", {
     app$wait_for_idle(500)
     app$set_inputs(`inf_sel-keep_parents` = FALSE)
     app$wait_for_idle(500)
-    app$set_inputs(`subfamily_sel-families_table_rows_selected` = 2, allow_no_input_binding_ = TRUE)
+    app$set_inputs(
+        `subfamily_sel-families_table_rows_selected` = 2,
+        allow_no_input_binding_ = TRUE
+    )
     app$wait_for_idle(500)
     # Download plot ped
     app$click("saveped-download")

@@ -39,9 +39,11 @@ Normalise a dataframe and check for columns correspondance
 to be able to use it as an input to create a Ped object.
 }
 \details{
-The \code{famid} column, if provided, will be merged to the \emph{ids} field
-separated by an underscore using the \code{\link[=upd_famid]{upd_famid()}} function.
-The \code{code} column will be transformed with the \code{\link[=rel_code_to_factor]{rel_code_to_factor()}}.
+The \code{famid} column, if provided, will be merged to the
+\emph{ids} field separated by an underscore using the
+\code{\link[=upd_famid]{upd_famid()}} function.
+The \code{code} column will be transformed with the
+\code{\link[=rel_code_to_factor]{rel_code_to_factor()}}.
 Multiple test are done and errors are checked.
 
 A number of checks are done to ensure the dataframe is correct:
@@ -61,11 +63,11 @@ A number of checks are done to ensure the dataframe is correct:
 }
 \examples{
 df <- data.frame(
-   id1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-   id2 = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 1),
-   code = c("MZ twin", "DZ twin", "UZ twin", "Spouse", 1, 2,
-      3, 4, "MzTwin", "sp oUse"),
-   famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2)
+    id1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+    id2 = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 1),
+    code = c("MZ twin", "DZ twin", "UZ twin", "Spouse",
+        1, 2, 3, 4, "MzTwin", "sp oUse"),
+    famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2)
 )
 norm_rel(df)
 

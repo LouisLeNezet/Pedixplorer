@@ -15,11 +15,15 @@
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = unaffected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 
 \item{affstatus}{Affection status to search for.}
 }
@@ -38,8 +42,9 @@ Finds one subject from among available non-parents with indicated affection
 status.
 }
 \details{
-When used within \code{\link[=shrink]{shrink()}}, this function is called with the first
-affected indicator, if the affected item in the Pedigree is a matrix of
+When used within \code{\link[=shrink]{shrink()}}, this function is called
+with the first affected indicator,
+if the affected item in the Pedigree is a matrix of
 multiple affected indicators.
 
 If \strong{avail} or \strong{affected} is null, then the function will use the

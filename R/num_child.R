@@ -35,14 +35,14 @@ setGeneric("num_child", signature = "obj",
 #' @examples
 #'
 #' num_child(
-#'   obj = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"),
-#'   dadid = c("3", "3", "6", "8", "0", "0", "0", "0", "0", "0"),
-#'   momid = c("4", "5", "7", "9", "0", "0", "0", "0", "0", "0"),
-#'   rel_df = data.frame(
-#'       id1 = "10",
-#'       id2 = "3",
-#'       code = "Spouse"
-#'   )
+#'     obj = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"),
+#'     dadid = c("3", "3", "6", "8", "0", "0", "0", "0", "0", "0"),
+#'     momid = c("4", "5", "7", "9", "0", "0", "0", "0", "0", "0"),
+#'     rel_df = data.frame(
+#'         id1 = "10",
+#'         id2 = "3",
+#'         code = "Spouse"
+#'     )
 #' )
 #' @export
 setMethod("num_child", "character_OR_integer", function(obj, dadid, momid,

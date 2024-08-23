@@ -112,7 +112,8 @@ an invisible list containing
 \description{
 This function is used to plot a Pedigree object.
 
-It is a wrapper for \code{\link[=plot_fromdf]{plot_fromdf()}} and \code{\link[=ped_to_plotdf]{ped_to_plotdf()}} as well as
+It is a wrapper for \code{\link[=plot_fromdf]{plot_fromdf()}}
+and \code{\link[=ped_to_plotdf]{ped_to_plotdf()}} as well as
 \code{\link[=ped_to_legdf]{ped_to_legdf()}} if \code{legend = TRUE}.
 }
 \details{
@@ -150,13 +151,14 @@ which tends to keep them together. The size of \code{b} controls the relative
 importance of sib-parent and spouse-spouse closeness.
 }
 \section{Side Effects}{
- Creates plot on current plotting device.
+
+Creates plot on current plotting device.
 }
 
 \examples{
 data(sampleped)
 pedAll <- Pedigree(sampleped)
-#plot(pedAll)
+if (interactive()) { plot(pedAll) }
 
 }
 \seealso{

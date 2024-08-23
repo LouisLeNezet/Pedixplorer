@@ -1,5 +1,4 @@
 usethis::use_package("shiny")
-usethis::use_package("shinyjs")
 usethis::use_package("shinyWidgets")
 usethis::use_package("dplyr")
 usethis::use_package("DT")
@@ -118,11 +117,11 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
             }), "Relationship data errors", title = "Relationship data errors"
         )
     })
-    output$ped_errors <- renderUI ({
+    output$ped_errors <- renderUI({
         shiny::req(ped_df_norm()[!is.na(ped_df_norm()$error), ])
         data_download_ui(id = "ped_norm_errors")
     })
-    output$rel_errors <- renderUI ({
+    output$rel_errors <- renderUI({
         shiny::req(rel_df_norm()[!is.na(rel_df_norm()$error), ])
         data_download_ui(id = "rel_norm_errors")
     })
@@ -132,7 +131,9 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         if (nrow(ped_df_norm()[!is.na(ped_df_norm()$error), ]) == 0) {
             if (is.null(rel_df_norm())) {
                 return(NULL)
-            } else if (nrow(rel_df_norm()[!is.na(rel_df_norm()$error), ]) == 0) {
+            } else if (
+                nrow(rel_df_norm()[!is.na(rel_df_norm()$error), ]) == 0
+            ) {
                 return(NULL)
             }
         }
@@ -235,7 +236,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
             keep_infos = lst_inf()$keep_parents,
             max_dist = lst_inf()$kin_max, reset = TRUE
         )
-        pedi_inf <- subset(
+        pedi_inf <- Pedixplorer::subset(
             pedi_inf, useful(ped(pedi_inf)),
             del_parents = "both"
         )
@@ -244,7 +245,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
 
     lst_subfam <- family_sel_server(
         "subfamily_sel", ped_subfamilies,
-        fam_var="family", fam_sel = 1, title = "Subfamily selection"
+        fam_var = "family", fam_sel = 1, title = "Subfamily selection"
     )
 
     ped_subfam <- shiny::reactive({
@@ -256,7 +257,10 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     })
 
     ## Sub Family information -------------------------------------------------
-    ped_avaf_infos_server("subped_avaf_infos", ped_subfam, "Subfamily informations")
+    ped_avaf_infos_server(
+        "subped_avaf_infos", ped_subfam,
+        "Subfamily informations"
+    )
 
     ## Plotting pedigree ------------------------------------------------------
 
@@ -275,11 +279,11 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
             )
         })
     }
-    
+
     plot_ped <- plot_ped_server(
-        "ped", ped_subfam, cust_title(short=FALSE)
+        "ped", ped_subfam, cust_title(short = FALSE)
     )
-    plot_download_server("saveped", plot_ped, cust_title(short=TRUE))
+    plot_download_server("saveped", plot_ped, cust_title(short = TRUE))
 
     ## End --------------------------------------------------------------------
     if (!interactive()) {

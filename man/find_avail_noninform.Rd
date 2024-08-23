@@ -15,11 +15,15 @@
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = unaffected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 }
 \value{
 Vector of subject ids who can be removed by having lowest
@@ -31,8 +35,10 @@ equal to \code{0}.
 }
 \details{
 Identify subjects to remove from a Pedigree who are available but
-non-informative (unaffected).  This is the second step to remove subjects in
-\code{\link[=shrink]{shrink()}} if the Pedigree does not meet the desired bit size.
+non-informative (unaffected).
+This is the second step to remove subjects in
+\code{\link[=shrink]{shrink()}} if the Pedigree does not meet
+the desired bit size.
 
 If \strong{avail} or \strong{affected} is null, then the function will use the
 corresponding Ped accessor.

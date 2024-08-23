@@ -47,7 +47,7 @@ plot_ped_server <- function(id, pedi, title) {
         ns <- shiny::NS(id)
 
         mytitle <- shiny::reactive({
-            if (is.reactive(title)) {
+            if (shiny::s.reactive(title)) {
                 title <- title()
             }
             title

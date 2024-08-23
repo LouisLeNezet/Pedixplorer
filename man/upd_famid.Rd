@@ -47,8 +47,8 @@ Therefore to update their family prefix the ids are split by the
 first underscore and the first part is overwritten by \strong{famid}.
 }
 \details{
-If famid is \emph{missing}, then the \code{famid()} function will be called on the
-object.
+If famid is \emph{missing}, then the \code{famid()} function will be called
+on the object.
 }
 \examples{
 

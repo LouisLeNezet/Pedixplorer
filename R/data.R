@@ -40,7 +40,8 @@
 #' the data set; zero otherwise
 #' - `famid` : Family identifier
 #' - `endage` : Age at last follow-up or incident cancer
-#' - `cancer` : `1` = breast cancer (females) or prostate cancer (males),
+#' - `cancer` : `1` = breast cancer (females) or
+#' prostate cancer (males),
 #' `0` = censored
 #' - `yob` : Year of birth
 #' - `education` : Amount of education: 1-8 years, 9-12 years, high
@@ -85,15 +86,17 @@
 #' @examples
 #' data(minnbreast)
 #' breastped <- Pedigree(minnbreast,
-#'    cols_ren_ped = list(
-#'        "indId" = "id", "fatherId" = "fatherid",
-#'        "motherId" = "motherid", "gender" = "sex", "family" = "famid"
-#'    ), missid = "0", col_aff = "cancer"
+#'     cols_ren_ped = list(
+#'         "indId" = "id", "fatherId" = "fatherid",
+#'         "motherId" = "motherid", "gender" = "sex", "family" = "famid"
+#'     ), missid = "0", col_aff = "cancer"
 #' )
 #' summary(breastped)
 #' scales(breastped)
 #' #plot family 8, proband is solid, slash for cancers
-#' \dontrun{ plot(breastped[famid(ped(breastped)) == "8"])}
+#' if (interactive()) {
+#'     plot(breastped[famid(ped(breastped)) == "8"], aff_mark = TRUE)
+#' }
 "minnbreast"
 
 #' Sampleped data
@@ -123,7 +126,7 @@
 #' data("sampleped")
 #' pedi <- Pedigree(sampleped)
 #' summary(pedi)
-#' \dontrun{ plot(pedi) }
+#' if (interactive()) { plot(pedi) }
 "sampleped"
 
 #' Relped data
@@ -153,5 +156,5 @@
 #' data("sampleped")
 #' pedi <- Pedigree(sampleped, relped)
 #' summary(pedi)
-#' #plot(pedi)
+#' if (interactive()) { plot(pedi) }
 "relped"

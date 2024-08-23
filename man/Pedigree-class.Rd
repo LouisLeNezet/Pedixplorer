@@ -85,7 +85,8 @@ Pedigree(obj, ...)
 }
 \arguments{
 \item{obj}{A vector of the individuals identifiers or a data.frame
-with the individuals informations. See \code{\link[=Ped]{Ped()}} for more informations.}
+with the individuals informations.
+See \code{\link[=Ped]{Ped()}} for more informations.}
 
 \item{...}{
   Arguments passed on to \code{\link[=generate_colors]{generate_colors}}
@@ -101,7 +102,9 @@ biologicals mothers.}
 
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
-with the following levels: \code{male} < \code{female} < \code{unknown} < `terminated
+with the following levels:
+\code{male} < \code{female} <
+\code{unknown} < \code{terminated}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
@@ -115,7 +118,9 @@ identifiers separated by an underscore.}
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
@@ -126,11 +131,15 @@ named after the \code{col_aff} argument.}
 
 \item{status}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = alive, \code{TRUE} = dead, \code{NA} = unknown).}
+(i.e. \code{FALSE} = alive,
+\code{TRUE} = dead,
+\code{NA} = unknown).}
 
 \item{steril}{A logical vector with the sterilisation status of the
 individuals
-(i.e. \code{FALSE} = not sterilised, \code{TRUE} = sterilised, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not sterilised,
+\code{TRUE} = sterilised,
+\code{NA} = unknown).}
 
 \item{rel_df}{A data.frame with the special relationships between
 individuals. See \code{\link[=Rel]{Rel()}} for more informations.
@@ -208,11 +217,13 @@ needed are in parenthesis:
 \item \code{motherId}: the identifier of the biological mother (\code{momid})
 \item \code{gender}: the sex of the individual (\code{sex})
 \item \code{family}: the family identifier of the individual (\code{famid})
-\item \code{sterilisation}: the sterilisation status of the individual (\code{steril})
+\item \code{sterilisation}: the sterilisation status of the individual
+(\code{steril})
 \item \code{available}: the availability status of the individual (\code{avail})
 \item \code{vitalStatus}: the death status of the individual (\code{status})
 \item \code{affection}: the affection status of the individual (\code{affected})
-\item \code{...}: other columns that will be stored in the \code{elementMetadata} slot
+\item \code{...}: other columns that will be stored in the
+\code{elementMetadata} slot
 }
 
 The minimum columns required are :
@@ -223,32 +234,35 @@ The minimum columns required are :
 \item \code{gender} / \code{sex}
 }
 
-The \code{family} / \code{famid} column can also be used to specify the family of the
-individuals and will be merge to the \code{indId} / \code{id} field separated by an
-underscore.
-The columns \code{sterilisation}, \code{available}, \code{vitalStatus}, \code{affection}
-will be transformed with the \code{\link[=vect_to_binary]{vect_to_binary()}} function when the
-normalisation is selected.
+The \code{family} / \code{famid} column can also be used to specify the
+family of the individuals and will be merge to the
+\code{indId} / \code{id} field separated by an underscore.
+The columns \code{sterilisation}, \code{available},
+\code{vitalStatus}, \code{affection}
+will be transformed with the \code{\link[=vect_to_binary]{vect_to_binary()}}
+function when the normalisation is selected.
 If you do not use the normalisation, the columns will be checked to
 be \code{0} or \code{1}.
 
-If \code{affected} is a data.frame, \strong{col_aff} will be overwritten by the column
-names of the data.frame.
+If \code{affected} is a data.frame, \strong{col_aff} will be
+overwritten by the column names of the data.frame.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{ped}}{A Ped object for the identity informations. See \code{\link[=Ped]{Ped()}} for
-more informations.}
+\item{\code{ped}}{A Ped object for the identity informations.
+See \code{\link[=Ped]{Ped()}} for more informations.}
 
-\item{\code{rel}}{A Rel object for the special relationships. See \code{\link[=Rel]{Rel()}} for
-more informations.}
+\item{\code{rel}}{A Rel object for the special relationships.
+See \code{\link[=Rel]{Rel()}} for more informations.}
 
 \item{\code{scales}}{A Scales object for the filling and bordering
-colors used in the plot. See \code{\link[=Scales]{Scales()}} for more informations.}
+colors used in the plot.
+See \code{\link[=Scales]{Scales()}} for more informations.}
 
 \item{\code{hints}}{A Hints object for the ordering of the
-individuals in the plot. See \code{\link[=Hints]{Hints()}} for more informations.}
+individuals in the plot.
+See \code{\link[=Hints]{Hints()}} for more informations.}
 }}
 
 \section{Accessors}{
@@ -338,7 +352,8 @@ Wrapper of \code{border(scales(x))}
 
 
 \itemize{
-\item \code{border(x) <- value} : Set the border data.frame from the Scales object.
+\item \code{border(x) <- value} : Set the border data.frame
+from the Scales object.
 Wrapper of \code{border(scales(x)) <- value}
 }
 
@@ -372,7 +387,8 @@ Wrapper of \code{spouse(hints(x))}.
 
 
 \itemize{
-\item \code{spouse(x) <- value} : Set the spouse data.frame from the Hints object.
+\item \code{spouse(x) <- value} : Set the spouse data.frame
+from the Hints object.
 Wrapper of \code{spouse(hints(x)) <- value}.
 }
 }
@@ -424,27 +440,33 @@ based on the individuals identifiers given.
 \examples{
 
 Pedigree(
-   obj = c("1", "2", "3", "4", "5", "6"),
-   dadid = c("4", "4", "6", "0", "0", "0"),
-   momid = c("5", "5", "5", "0", "0", "0"),
-   sex = c(1, 2, 3, 1, 2, 1),
-   avail = c(0, 1, 0, 1, 0, 1),
-   affected = matrix(c(
-       0, 1, 0, 1, 0, 1,
-       1, 1, 1, 1, 1, 1
-   ), ncol = 2),
-   col_aff = c("aff1", "aff2"),
-   missid = "0",
-   rel_df = matrix(c(
-      "1", "2", 2
-   ), ncol = 3, byrow = TRUE),
+    obj = c("1", "2", "3", "4", "5", "6"),
+    dadid = c("4", "4", "6", "0", "0", "0"),
+    momid = c("5", "5", "5", "0", "0", "0"),
+    sex = c(1, 2, 3, 1, 2, 1),
+    avail = c(0, 1, 0, 1, 0, 1),
+    affected = matrix(c(
+        0, 1, 0, 1, 0, 1,
+        1, 1, 1, 1, 1, 1
+    ), ncol = 2),
+    col_aff = c("aff1", "aff2"),
+    missid = "0",
+    rel_df = matrix(c(
+        "1", "2", 2
+    ), ncol = 3, byrow = TRUE),
 )
 
 data(sampleped)
 Pedigree(sampleped)
 }
 \seealso{
-\code{\link[=Pedigree]{Pedigree()}}, \code{\link[=Ped]{Ped()}}, \code{\link[=Rel]{Rel()}}, \code{\link[=Scales]{Scales()}}, \code{\link[=Hints]{Hints()}}
+\code{\link[=Pedigree]{Pedigree()}}
+\code{\link[=Ped]{Ped()}}
+\code{\link[=Rel]{Rel()}}
+\code{\link[=Scales]{Scales()}}
+\code{\link[=Hints]{Hints()}}
 
-\code{\link[=Ped]{Ped()}}, \code{\link[=Rel]{Rel()}}, \code{\link[=Scales]{Scales()}}
+\code{\link[=Ped]{Ped()}}
+\code{\link[=Rel]{Rel()}}
+\code{\link[=Scales]{Scales()}}
 }

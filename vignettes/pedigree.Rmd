@@ -134,6 +134,28 @@ You can add a title and a legend to the plot with the following command:
 ```{r, ped1_title}
 plot(ped1, title = "Pedigree 1", legend = TRUE, leg_loc = c(5, 15, 4.5, 5))
 ```
+# Pedigree Shiny application
+
+A shiny application is available to create, interact and plot pedigrees.
+To launch the application, use the following command:
+
+```{r, shiny_app}
+ped_shiny()
+```
+
+The use is simple:
+
+- You first need to import a dataset and select the columns to use.
+- You can then select the affection informations and the colors associated
+to them.
+- If different families are present in the dataset, you can select which
+one to plot.
+- Before the plot is displayed, you can filter the pedigree by selecting the 
+informatives subjects to keep and their relatives. If the pedigree is then
+splited in multiple families, you can select which to plot.
+- Finally the plot is displayed and you can make it interactive and download
+the resulting image.
+
 
 # Fixing Pedigree Issues
 

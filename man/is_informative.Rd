@@ -20,11 +20,15 @@
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = unaffected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 
 \item{informative}{Informative individuals selection can take 5 values:
 \itemize{
@@ -67,16 +71,15 @@ corresponding informative individuals based on the avail and affected
 columns.
 }
 \examples{
-
 is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 is_informative(c("A", "B", "C", "D", "E"), informative = c(1, 2))
 is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-  affected = c(0, 1, 0, 1, 1), informative = "AvAf")
+    affected = c(0, 1, 0, 1, 1), informative = "AvAf")
 is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-  affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
+    affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
 is_informative(c("A", "B", "C", "D", "E"),
-     informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
+    informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
 
 data("sampleped")
 ped <- Pedigree(sampleped)

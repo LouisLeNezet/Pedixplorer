@@ -190,7 +190,7 @@ $S4$ object containing a specific type of information used for the Pedigree
 construction.
 
 - $ped$ a Ped object for the Pedigree information with at least the following
-  slots:
+slots:
     - $id$ the identifiers of the individuals
     - $dadid$ the identifiers of the fathers
     - $momid$ the identifiers of the mothers

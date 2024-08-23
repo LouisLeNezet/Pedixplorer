@@ -30,6 +30,9 @@ data_download_demo()
 
 \item{helper}{A boolean to display a helper message.}
 }
+\value{
+A shiny module to export a dataframe.
+}
 \description{
 This function allows to download a dataframe as a csv file.
 This generate a Shiny module that can be used in a Shiny app.
@@ -39,7 +42,7 @@ with the function \code{data_download_server()}.
 }
 \examples{
 if (interactive()) {
-  data_download_demo()
+    data_download_demo()
 }
 }
 \keyword{internal}

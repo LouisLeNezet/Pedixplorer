@@ -18,7 +18,6 @@ usethis::use_package("shiny")
 #' @rdname ped_shiny
 ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ## Configuration -------------------------------
-    shinyjs::useShinyjs(),
     tags$head(
         tags$style(HTML("hr {border-top: 1px solid #000000;}
                         .navigationBar{background-color:#0001;height:300px}

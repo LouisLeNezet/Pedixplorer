@@ -35,6 +35,9 @@ plot_download_demo()
 
 \item{ext}{A string to set the extension of the file.}
 }
+\value{
+A shiny module to export a plot.
+}
 \description{
 This module allow to export multiple type of plot from a reactive object.
 The file type currently supported are png, pdf and html.

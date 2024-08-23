@@ -39,7 +39,7 @@ to calculate the bit size of a Pedigree.
 The bit size of a Pedigree is defined as :
 
 \deqn{
-  2 \times NbNonFounders - NbFounders
+    2 \times NbNonFounders - NbFounders
 }
 
 Where \code{NbNonFounders} is the number of non founders in the Pedigree

@@ -47,11 +47,11 @@ setGeneric("min_dist_inf", signature = "obj",
 #' @examples
 #'
 #' min_dist_inf(
-#'      c("A", "B", "C", "D", "E"),
-#'      c("C", "D", "0", "0", "0"),
-#'      c("E", "E", "0", "0", "0"),
-#'      sex = c(1, 2, 1, 2, 1),
-#'      id_inf = c("D", "E")
+#'     c("A", "B", "C", "D", "E"),
+#'     c("C", "D", "0", "0", "0"),
+#'     c("E", "E", "0", "0", "0"),
+#'     sex = c(1, 2, 1, 2, 1),
+#'     id_inf = c("D", "E")
 #' )
 #' @export
 setMethod("min_dist_inf", "character", function(obj,
@@ -78,8 +78,8 @@ setMethod("min_dist_inf", "character", function(obj,
 #'
 #' data(sampleped)
 #' ped <- is_informative(
-#'  Pedigree(sampleped),
-#'  informative = "AvAf", col_aff = "affection_mods"
+#'     Pedigree(sampleped),
+#'     informative = "AvAf", col_aff = "affection_mods"
 #' )
 #' kin(ped(min_dist_inf(ped, col_aff = "affection_mods")))
 #' @export

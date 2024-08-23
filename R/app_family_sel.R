@@ -119,9 +119,7 @@ family_sel_server <- function(
                     input$families_table_rows_selected
                 ]
                 list(
-                    ped_fam = suppressWarnings(
-                        pedi()[famid(ped(pedi())) == family_sel]
-                    ),
+                    ped_fam = pedi()[famid(ped(pedi())) == family_sel],
                     famid = family_sel,
                     fam_sel = input$families_table_rows_selected,
                     fam_var = input$families_var_sel

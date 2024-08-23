@@ -23,39 +23,45 @@ NULL
 #' A number of checks are done to ensure the dataframe is correct:
 #'
 #' ## On identifiers:
-#'    - All ids (id, dadid, momid, famid) are not empty (`!= ""`)
-#'    - All `id` are unique (no duplicated)
-#'    - All `dadid` and `momid` are unique in the id column (no duplicated)
-#'    - id is not the same as dadid or momid
-#'    - Either have both parents or none
 #'
-#' ## On sex
-#'    - All sex code are either `male`, `female`, `terminated` or `unknown`.
-#'    - No parents are steril
-#'    - All fathers are male
-#'    - All mothers are female
+#' - All ids (id, dadid, momid, famid) are not empty (`!= ""`)
+#' - All `id` are unique (no duplicated)
+#' - All `dadid` and `momid` are unique in the id column
+#' (no duplicated)
+#' - id is not the same as dadid or momid
+#' - Either have both parents or none
+#'
+#' ## On sex:
+#'
+#' - All sex code are either `male`, `female`,
+#' `terminated` or `unknown`.
+#' - No parents are steril
+#' - All fathers are male
+#' - All mothers are female
 #'
 #' @param ped_df A data.frame with the individuals informations.
 #' The minimum columns required are:
 #'
-#'     - `indID` individual identifiers -> `id`
-#'     - `fatherId` biological fathers identifiers -> `dadid`
-#'     - `motherId` biological mothers identifiers -> `momdid`
-#'     - `gender` sex of the individual -> `sex`
-#'     - `family` family identifiers -> `famid`
+#' - `indID` individual identifiers -> `id`
+#' - `fatherId` biological fathers identifiers -> `dadid`
+#' - `motherId` biological mothers identifiers -> `momdid`
+#' - `gender` sex of the individual -> `sex`
+#' - `family` family identifiers -> `famid`
 #'
-#' The `family` column, if provided, will be merged to the *ids* field
-#' separated by an underscore using the [upd_famid()] function.
+#' The `family` column, if provided, will be merged to
+#' the *ids* field separated by an underscore using the
+#' [upd_famid()] function.
 #'
 #' The following columns are also recognize and will be transformed with the
 #' [vect_to_binary()] function:
 #'
-#'     - `sterilisation` status -> `steril`
-#'     - `available` status -> `avail`
-#'     - `vitalStatus`, is the individual dead -> `status`
-#'     - `affection` status -> `affected`
+#' - `sterilisation` status -> `steril`
+#' - `available` status -> `avail`
+#' - `vitalStatus`, is the individual dead -> `status`
+#' - `affection` status -> `affected`
 #'
-#' The values recognized for those columns are `1` or `0`, `TRUE` or `FALSE`.
+#' The values recognized for those columns are `1` or `0`,
+#' `TRUE` or `FALSE`.
 #' @param na_strings Vector of strings to be considered as NA values.
 #' @param try_num Boolean defining if the function should try to convert
 #' all the columns to numeric.
@@ -78,11 +84,14 @@ NULL
 #'     affection = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
 #' )
 #' tryCatch(
-#'      norm_ped(df),
-#'      error = function(e) print(e)
+#'     norm_ped(df),
+#'     error = function(e) print(e)
 #' )
 #'
-#' @seealso [Ped()], [Ped-class], [Pedigree()]
+#' @seealso
+#' [Ped()]
+#' [Ped-class]
+#' [Pedigree()]
 #' @export
 norm_ped <- function(
     ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
@@ -269,9 +278,11 @@ norm_ped <- function(
 #' to be able to use it as an input to create a Ped object.
 #'
 #' @details
-#' The `famid` column, if provided, will be merged to the *ids* field
-#' separated by an underscore using the [upd_famid()] function.
-#' The `code` column will be transformed with the [rel_code_to_factor()].
+#' The `famid` column, if provided, will be merged to the
+#' *ids* field separated by an underscore using the
+#' [upd_famid()] function.
+#' The `code` column will be transformed with the
+#' [rel_code_to_factor()].
 #' Multiple test are done and errors are checked.
 #'
 #' A number of checks are done to ensure the dataframe is correct:
@@ -289,11 +300,11 @@ norm_ped <- function(
 #'
 #' @examples
 #' df <- data.frame(
-#'    id1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-#'    id2 = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 1),
-#'    code = c("MZ twin", "DZ twin", "UZ twin", "Spouse", 1, 2,
-#'       3, 4, "MzTwin", "sp oUse"),
-#'    famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2)
+#'     id1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+#'     id2 = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 1),
+#'     code = c("MZ twin", "DZ twin", "UZ twin", "Spouse",
+#'         1, 2, 3, 4, "MzTwin", "sp oUse"),
+#'     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2)
 #' )
 #' norm_rel(df)
 #'

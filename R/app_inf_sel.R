@@ -77,8 +77,10 @@ inf_sel_server <- function(id, pedi) {
                 col_present <- colnames(df)
                 selectInput(
                     ns("inf_custvar_sel"),
-                    label = "Select Variable to use to select informative individuals",
-                    choices = as.list(setNames(col_present, col_present))
+                    label = paste(
+                        "Select Variable to use",
+                        "to select informative individuals"
+                    ), choices = as.list(setNames(col_present, col_present))
                 )
             } else {
                 NULL
@@ -91,7 +93,10 @@ inf_sel_server <- function(id, pedi) {
             if (input$inf_selected == "Cust") {
                 shiny::textAreaInput(
                     ns("inf_custvar_val"), label = h5("Custom selection"),
-                    placeholder = "Please enter individuals values separate by a comma"
+                    placeholder = paste(
+                        "Please enter individuals",
+                        "values separate by a comma"
+                    )
                 )
             } else {
                 NULL
@@ -116,7 +121,7 @@ inf_sel_server <- function(id, pedi) {
             if (any(is.na(val_pres))) {
                 showNotification(paste(
                     "Values",
-                    paste0(inf_custvar_val[is.na(val_pres)], collapse=", "),
+                    paste0(inf_custvar_val[is.na(val_pres)], collapse = ", "),
                     "not present in", inf_custvar_sel
                 ))
                 NULL
@@ -135,7 +140,7 @@ inf_sel_server <- function(id, pedi) {
                     paste(
                         "(id ",
                         paste(inf_inds_selected(), collapse = ", "),
-                        ")", sep=""
+                        ")", sep = ""
                     )
                 } else {
                     inf_inds_selected()
@@ -162,9 +167,11 @@ inf_sel_server <- function(id, pedi) {
 #' @rdname inf_sel
 #' @export
 inf_sel_demo <- function() {
-    pedi <- shiny::reactive({Pedigree(
-        Pedixplorer::sampleped[Pedixplorer::sampleped$famid == "1", ]
-    )})
+    pedi <- shiny::reactive({
+        Pedigree(
+            Pedixplorer::sampleped[Pedixplorer::sampleped$famid == "1", ]
+        )
+    })
     ui <- shiny::fluidPage(
         column(6,
             inf_sel_ui("infsel")

@@ -29,13 +29,11 @@ Imports:
     readxl,
     shinyWidgets,
     htmlwidgets,
-    shinyjs,
     DT,
     gridExtra,
     data.table,
     plotly,
-    colourpicker,
-    bslib
+    colourpicker
 Description: Routines to handle family data with a Pedigree object. The initial
     purpose was to create correlation structures that describe family
     relationships such as kinship and identity-by-descent, which can be used to
@@ -52,14 +50,14 @@ VignetteBuilder: knitr
 Suggests: 
     diffviewer,
     testthat,
-    usethis,
     vdiffr,
     rmarkdown,
     BiocStyle,
     knitr,
     withr,
     qpdf,
-    shinytest2
+    shinytest2,
+    usethis
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, Alignment
 BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues
@@ -120,4 +118,4 @@ Collate:
     'shrink.R'
     'unrelated.R'
     'useful_inds.R'
-LazyData: true
+LazyData: false

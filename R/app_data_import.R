@@ -72,7 +72,7 @@ read_data <- function(
                         col_names = header, col_types = col_types
                     ))
                 } else {
-                    message("Error: Sheet selected isn't in file")
+                    message("Sheet selected isn't in file")
                     df <- NULL
                 }
             }
@@ -86,14 +86,14 @@ read_data <- function(
                 if (df_name %in% all_data) {
                     df <- get(df_name)
                 } else {
-                    message("Error: dataframe selected isn't in file")
+                    message("Dataframe selected isn't in file")
                     df <- NULL
                 }
             }
         }
         as.data.frame(unclass(df), stringsAsFactors = stringsAsFactors)
     } else {
-        message("Error: data selected is null")
+        message("Data selected is null")
         NULL
     }
 }

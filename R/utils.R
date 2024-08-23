@@ -34,14 +34,17 @@ NULL
 #'
 #' @examples
 #' data.frame
-#' df <- data.frame(ColN1 = c(1, 2), ColN2 = 4,
-#'          ColU1 = 'B', ColU2 = '1',
-#'          ColTU1 = 'A', ColTU2 = 3,
-#'          ColNR1 = 4, ColNR2 = 5)
+#' df <- data.frame(
+#'     ColN1 = c(1, 2), ColN2 = 4,
+#'     ColU1 = 'B', ColU2 = '1',
+#'     ColTU1 = 'A', ColTU2 = 3,
+#'     ColNR1 = 4, ColNR2 = 5
+#' )
 #' tryCatch(
-#'      check_columns(df,
-#'          c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
-#'          c('ColTU1', 'ColTU2')
+#'     check_columns(
+#'         df,
+#'         c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
+#'         c('ColTU1', 'ColTU2')
 #' ), error = function(e) print(e))
 #'
 #' @keywords internal
@@ -237,9 +240,9 @@ is_founder <- function(momid, dadid, missid = NA_character_) {
 #' @keywords internal
 #' @examples
 #' is_disconnected(
-#'      c("1", "2", "3", "4", "5"),
-#'      c("3", "3", NA, NA, NA),
-#'      c("4", "4", NA, NA, NA)
+#'     c("1", "2", "3", "4", "5"),
+#'     c("3", "3", NA, NA, NA),
+#'     c("4", "4", NA, NA, NA)
 #' )
 #' @export
 is_disconnected <- function(id, dadid, momid) {
@@ -365,8 +368,8 @@ rel_code_to_factor <- function(code) {
 #' Vector variable to binary vector
 #'
 #' @description Transform a vector to a binary vector.
-#' All values that are not `0`, `1`, `TRUE`, `FALSE`, or `NA`
-#' are transformed to `NA`.
+#' All values that are not `0`, `1`, `TRUE`,
+#' `FALSE`, or `NA` are transformed to `NA`.
 #'
 #' @param vect A character, factor, logical or numeric vector corresponding to
 #' a binary variable (i.e. `0` or `1`).
@@ -375,15 +378,19 @@ rel_code_to_factor <- function(code) {
 #' respectively transformed to `1`, `0`, `0`, `1`, `NA`.
 #' Spaces and case are ignored.
 #' All other values will be transformed to NA.
-#' - numeric() : `0` and `1` are kept, all other values are transformed to NA.
-#' - logical() : `TRUE` and `FALSE` are tansformed to `1` and `0`.
+#' - numeric() : `0` and `1` are kept, all other values
+#' are transformed to NA.
+#' - logical() : `TRUE` and `FALSE` are tansformed to
+#' `1` and`0`.
 #' @param logical Boolean defining if the output should be a logical vector
-#' instead of a numeric vector (i.e. `0` and `1` becomes `FALSE` and `TRUE).
+#' instead of a numeric vector
+#' (i.e. `0` and `1` becomes
+#' `FALSE` and `TRUE).
 #' @return numeric binary vector of the same size as **vect**
 #' with `0` and `1`
 #' @examples
 #' vect_to_binary(
-#'    c(0, 1, 2, 3.6, "TRUE", "FALSE", "0", "1", "NA", "B", TRUE, FALSE, NA)
+#'     c(0, 1, 2, 3.6, "TRUE", "FALSE", "0", "1", "NA", "B", TRUE, FALSE, NA)
 #' )
 #' @export
 vect_to_binary <- function(vect, logical = FALSE) {

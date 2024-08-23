@@ -21,15 +21,15 @@ A list of three elements
 \itemize{
 \item \code{mods} : The processed values column as a numeric factor
 \item \code{avail} : A logical vector indicating if the individual is available
-\item \code{sc_bord} : A dataframe containing the description of each modality of the
-scale
+\item \code{sc_bord} : A dataframe containing the description of each
+modality of the scale
 }
 }
 \description{
 Perform transformation uppon a vector given as the one
 containing the availability status to compute the border color.
-The vector given will be transformed using the \code{\link[=vect_to_binary]{vect_to_binary()}}
-function.
+The vector given will be transformed using the
+\code{\link[=vect_to_binary]{vect_to_binary()}} function.
 }
 \examples{
 generate_border(c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA))

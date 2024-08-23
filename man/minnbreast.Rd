@@ -17,7 +17,8 @@ the data set; zero otherwise
 the data set; zero otherwise
 \item \code{famid} : Family identifier
 \item \code{endage} : Age at last follow-up or incident cancer
-\item \code{cancer} : \code{1} = breast cancer (females) or prostate cancer (males),
+\item \code{cancer} : \code{1} = breast cancer (females) or
+prostate cancer (males),
 \code{0} = censored
 \item \code{yob} : Year of birth
 \item \code{education} : Amount of education: 1-8 years, 9-12 years, high
@@ -73,15 +74,17 @@ gathered by questionnaire.
 \examples{
 data(minnbreast)
 breastped <- Pedigree(minnbreast,
-   cols_ren_ped = list(
-       "indId" = "id", "fatherId" = "fatherid",
-       "motherId" = "motherid", "gender" = "sex", "family" = "famid"
-   ), missid = "0", col_aff = "cancer"
+    cols_ren_ped = list(
+        "indId" = "id", "fatherId" = "fatherid",
+        "motherId" = "motherid", "gender" = "sex", "family" = "famid"
+    ), missid = "0", col_aff = "cancer"
 )
 summary(breastped)
 scales(breastped)
 #plot family 8, proband is solid, slash for cancers
-\dontrun{ plot(breastped[famid(ped(breastped)) == "8"])}
+if (interactive()) {
+    plot(breastped[famid(ped(breastped)) == "8"], aff_mark = TRUE)
+}
 }
 \references{
 Epidemiologic and genetic follow-up study of 544 Minnesota breast cancer

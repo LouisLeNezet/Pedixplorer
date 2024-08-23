@@ -8,6 +8,9 @@ family_infos_table(pedi, col_val = NA)
 }
 \arguments{
 \item{pedi}{A pedigree object.}
+
+\item{col_val}{The column name in the \code{fill} slot
+of the pedigree object to use for the table.}
 }
 \value{
 A cross table dataframe with the affection and availability
@@ -20,8 +23,8 @@ information for all individuals in a pedigree object.
 \examples{
 pedi <- Pedigree(Pedixplorer::sampleped)
 pedi <- generate_colors(pedi, "num_child_tot", threshold = 2)
-family_infos_table(pedi, "num_child_tot")
-family_infos_table(pedi, "affection")
+Pedixplorer:::family_infos_table(pedi, "num_child_tot")
+Pedixplorer:::family_infos_table(pedi, "affection")
 }
 \keyword{internal,}
 \keyword{ped_avaf_infos}

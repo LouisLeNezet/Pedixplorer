@@ -32,9 +32,9 @@ setGeneric("kindepth", signature = "obj",
 #' @rdname kindepth
 #' @examples
 #' kindepth(
-#'      c("A", "B", "C", "D", "E"),
-#'      c("C", "D", "0", "0", "0"),
-#'      c("E", "E", "0", "0", "0")
+#'     c("A", "B", "C", "D", "E"),
+#'     c("C", "D", "0", "0", "0"),
+#'     c("E", "E", "0", "0", "0")
 #' )
 setMethod("kindepth", "character_OR_integer", function(obj, dadid, momid,
     align_parents = FALSE

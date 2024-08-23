@@ -15,27 +15,29 @@ norm_ped(
 \arguments{
 \item{ped_df}{A data.frame with the individuals informations.
 The minimum columns required are:
+\itemize{
+\item \code{indID} individual identifiers -> \code{id}
+\item \code{fatherId} biological fathers identifiers -> \code{dadid}
+\item \code{motherId} biological mothers identifiers -> \code{momdid}
+\item \code{gender} sex of the individual -> \code{sex}
+\item \code{family} family identifiers -> \code{famid}
+}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{- `indID` individual identifiers -> `id`
-- `fatherId` biological fathers identifiers -> `dadid`
-- `motherId` biological mothers identifiers -> `momdid`
-- `gender` sex of the individual -> `sex`
-- `family` family identifiers -> `famid`
-}\if{html}{\out{</div>}}
-
-The \code{family} column, if provided, will be merged to the \emph{ids} field
-separated by an underscore using the \code{\link[=upd_famid]{upd_famid()}} function.
+The \code{family} column, if provided, will be merged to
+the \emph{ids} field separated by an underscore using the
+\code{\link[=upd_famid]{upd_famid()}} function.
 
 The following columns are also recognize and will be transformed with the
 \code{\link[=vect_to_binary]{vect_to_binary()}} function:
+\itemize{
+\item \code{sterilisation} status -> \code{steril}
+\item \code{available} status -> \code{avail}
+\item \code{vitalStatus}, is the individual dead -> \code{status}
+\item \code{affection} status -> \code{affected}
+}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{- `sterilisation` status -> `steril`
-- `available` status -> `avail`
-- `vitalStatus`, is the individual dead -> `status`
-- `affection` status -> `affected`
-}\if{html}{\out{</div>}}
-
-The values recognized for those columns are \code{1} or \code{0}, \code{TRUE} or \code{FALSE}.}
+The values recognized for those columns are \code{1} or \code{0},
+\code{TRUE} or \code{FALSE}.}
 
 \item{na_strings}{Vector of strings to be considered as NA values.}
 
@@ -74,15 +76,17 @@ A number of checks are done to ensure the dataframe is correct:
 \itemize{
 \item All ids (id, dadid, momid, famid) are not empty (\verb{!= ""})
 \item All \code{id} are unique (no duplicated)
-\item All \code{dadid} and \code{momid} are unique in the id column (no duplicated)
+\item All \code{dadid} and \code{momid} are unique in the id column
+(no duplicated)
 \item id is not the same as dadid or momid
 \item Either have both parents or none
 }
 }
 
-\subsection{On sex}{
+\subsection{On sex:}{
 \itemize{
-\item All sex code are either \code{male}, \code{female}, \code{terminated} or \code{unknown}.
+\item All sex code are either \code{male}, \code{female},
+\code{terminated} or \code{unknown}.
 \item No parents are steril
 \item All fathers are male
 \item All mothers are female
@@ -102,11 +106,13 @@ df <- data.frame(
     affection = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
 )
 tryCatch(
-     norm_ped(df),
-     error = function(e) print(e)
+    norm_ped(df),
+    error = function(e) print(e)
 )
 
 }
 \seealso{
-\code{\link[=Ped]{Ped()}}, \linkS4class{Ped}, \code{\link[=Pedigree]{Pedigree()}}
+\code{\link[=Ped]{Ped()}}
+\linkS4class{Ped}
+\code{\link[=Pedigree]{Pedigree()}}
 }

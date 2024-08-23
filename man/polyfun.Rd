@@ -22,9 +22,9 @@ for the polygon.
 }
 \examples{
 polyfun(2, list(
-     x = c(-0.5, -0.5, 0.5, 0.5),
-     y = c(-0.5, 0.5, 0.5, -0.5),
-     theta = -c(3, 5, 7, 9) * pi / 4
+    x = c(-0.5, -0.5, 0.5, 0.5),
+    y = c(-0.5, 0.5, 0.5, -0.5),
+    theta = -c(3, 5, 7, 9) * pi / 4
 ))
 }
 \keyword{Pedigree-plot}

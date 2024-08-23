@@ -117,27 +117,27 @@ should be kept or deleted.
 \examples{
 
 Hints(
-  list(
-      horder = c("1" = 1, "2" = 2, "3" = 3),
-      spouse = data.frame(
-          idl = c("1", "2"),
-          idr = c("2", "3"),
-          anchor = c(1, 2)
-     )
-  )
+    list(
+        horder = c("1" = 1, "2" = 2, "3" = 3),
+        spouse = data.frame(
+            idl = c("1", "2"),
+            idr = c("2", "3"),
+            anchor = c(1, 2)
+        )
+    )
 )
 
 Hints(
-  horder = c("1" = 1, "2" = 2, "3" = 3),
-  spouse = data.frame(
-      idl = c("1", "2"),
-      idr = c("2", "3"),
-      anchor = c(1, 2)
-  )
+    horder = c("1" = 1, "2" = 2, "3" = 3),
+    spouse = data.frame(
+        idl = c("1", "2"),
+        idr = c("2", "3"),
+        anchor = c(1, 2)
+    )
 )
 
 Hints(
-  horder = c("1" = 1, "2" = 2, "3" = 3)
+    horder = c("1" = 1, "2" = 2, "3" = 3)
 )
 }
 \seealso{

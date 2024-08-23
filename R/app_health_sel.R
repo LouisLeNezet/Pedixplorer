@@ -151,8 +151,6 @@ health_sel_server <- function(
                 var_to_use <- as.list(setNames(
                     health_var_lev, health_var_lev
                 ))
-                print("Health aff selector")
-                print(mods_aff)
                 shinyWidgets::pickerInput(
                     ns("health_aff_mods"),
                     label = "Selection of affected modalities",

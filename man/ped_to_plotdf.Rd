@@ -69,7 +69,8 @@ A list containing the data frame and the user coordinates.
 }
 \description{
 Convert a Pedigree to a data frame with all the elements and their
-characteristic for them to be plotted afterwards with \code{\link[=plot_fromdf]{plot_fromdf()}}.
+characteristic for them to be plotted afterwards with
+\code{\link[=plot_fromdf]{plot_fromdf()}}.
 }
 \details{
 The data frame contains the following columns:
@@ -87,7 +88,8 @@ The data frame contains the following columns:
 \item \code{adjy}: vertical text adjustment of the labels
 }
 
-All those columns are used by \code{\link[=plot_fromdf]{plot_fromdf()}} to plot the graph.
+All those columns are used by
+\code{\link[=plot_fromdf]{plot_fromdf()}} to plot the graph.
 }
 \examples{
 

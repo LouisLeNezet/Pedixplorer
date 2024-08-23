@@ -34,6 +34,6 @@ The aim was to create a data set with a variety of pedigree structures.
 data("sampleped")
 pedi <- Pedigree(sampleped)
 summary(pedi)
-\dontrun{ plot(pedi) }
+if (interactive()) { plot(pedi) }
 }
 \keyword{datasets}

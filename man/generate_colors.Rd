@@ -5,7 +5,8 @@
 \alias{generate_colors,character-method}
 \alias{generate_colors,numeric-method}
 \alias{generate_colors,Pedigree-method}
-\title{Process the filling and border colors based on affection and availability}
+\title{Process the filling and border colors based on affection and
+availability}
 \usage{
 \S4method{generate_colors}{character}(
   obj,
@@ -57,7 +58,9 @@ each individuals. The affection status can be numeric or a character.}
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{mods_aff}{Vector of modality to consider as affected in the case
 where the \code{values} is a factor.}
@@ -131,8 +134,10 @@ the colors for the filling and the border of the individuals based
 on the affection and availability status.
 }
 \details{
-The colors will be set using the \code{\link[=generate_fill]{generate_fill()}} and the
-\code{\link[=generate_border]{generate_border()}} functions respectively for the filling and the border.
+The colors will be set using the
+generate_fill()] and the
+\code{\link[=generate_border]{generate_border()}} functions respectively for
+the filling and the border.
 }
 \examples{
 

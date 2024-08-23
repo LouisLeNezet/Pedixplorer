@@ -94,16 +94,16 @@ check_values <- function(val, ref, name = NULL, present = TRUE) {
 #' Check if horder and spouse slots are valid:
 #' - horder is named numeric vector
 #' - spouse is a data.frame
-#'      - Has the three `idr`, `idl`, `anchor` columns
-#'      - `idr` and `idl` are different and doesn't contains `NA`
-#'      - `idr` and `idl` couple are unique
-#'      - `anchor` column only have `right`, `left`, `either` values
+#'     - Has the three `idr`, `idl`, `anchor` columns
+#'     - `idr` and `idl` are different and doesn't contains `NA`
+#'     - `idr` and `idl` couple are unique
+#'     - `anchor` column only have `right`, `left`
+#'         or `either` values
 #' - all ids in spouse needs to be in the names of the horder vector
 #' @param object A Hints object.
 #'
 #' @return A character vector with the errors or `TRUE` if no errors.
 #' @keywords internal
-#'
 is_valid_hints <- function(object) {
     errors <- c()
 
@@ -201,8 +201,6 @@ is_valid_hints <- function(object) {
 #'
 #' @return A character vector with the errors or `TRUE` if no errors.
 #' @keywords internal
-#'
-#' @export
 is_valid_scales <- function(object) {
     errors <- c()
 

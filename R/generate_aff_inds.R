@@ -17,9 +17,9 @@ NULL
 #'
 #' ## If the variable is `numeric`:
 #'
-#' In this case the affected state will be `TRUE` if the value of the individual
-#' is above the **threshold** if **sup_thres_aff** is `TRUE` and `FALSE`
-#' otherwise.
+#' In this case the affected state will be `TRUE` if the value of
+#' the individual is above the **threshold** if **sup_thres_aff**
+#' is `TRUE` and `FALSE` otherwise.
 #'
 #' @param values Vector containing the values of the column to process.
 #' @param mods_aff Vector of modality to consider as affected in the case

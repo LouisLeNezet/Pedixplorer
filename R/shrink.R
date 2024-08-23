@@ -6,8 +6,8 @@
 #' Pedigree condensed to a minimally informative size for algorithms or testing
 #' that are limited by size of the Pedigree.
 #'
-#' If **avail** or **affected** are `NULL`, they are extracted with their
-#' corresponding accessors from the Ped object.
+#' If **avail** or **affected** are `NULL`, they are extracted
+#' with their corresponding accessors from the Ped object.
 #'
 #' @details
 #' Iteratively remove subjects from the Pedigree. The random removal of members

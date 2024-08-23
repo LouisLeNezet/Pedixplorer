@@ -66,10 +66,11 @@ will be returned invisibly.
 data(sampleped)
 ped1 <- Pedigree(sampleped[sampleped$famid == 1,])
 lst <- ped_to_plotdf(ped1)
-#plot_fromdf(lst$df, lst$par_usr$usr,
-#     boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
-#)
-
+if (interactive()) {
+    plot_fromdf(lst$df, lst$par_usr$usr,
+        boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
+    )
+}
 }
 \keyword{Pedigree-plot}
 \keyword{internal,}

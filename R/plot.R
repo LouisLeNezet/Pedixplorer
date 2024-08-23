@@ -10,7 +10,8 @@ NULL
 #' @description
 #' This function is used to plot a Pedigree object.
 #'
-#' It is a wrapper for [plot_fromdf()] and [ped_to_plotdf()] as well as
+#' It is a wrapper for [plot_fromdf()]
+#' and [ped_to_plotdf()] as well as
 #' [ped_to_legdf()] if `legend = TRUE`.
 #'
 #' @details
@@ -78,9 +79,10 @@ NULL
 #' @examples
 #' data(sampleped)
 #' pedAll <- Pedigree(sampleped)
-#' #plot(pedAll)
+#' if (interactive()) { plot(pedAll) }
 #'
-#' @section Side Effects: Creates plot on current plotting device.
+#' @section Side Effects:
+#' Creates plot on current plotting device.
 #' @seealso [Pedigree()]
 #' @include align.R
 #' @include plot_fct.R

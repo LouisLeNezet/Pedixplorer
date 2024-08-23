@@ -35,6 +35,6 @@ data("relped")
 data("sampleped")
 pedi <- Pedigree(sampleped, relped)
 summary(pedi)
-#plot(pedi)
+if (interactive()) { plot(pedi) }
 }
 \keyword{datasets}

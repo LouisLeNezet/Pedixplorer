@@ -17,15 +17,16 @@ NULL
 #' **colors_aff** vector and the unaffected individuals will get the
 #' first color of the **colors_unaff** vector.
 #' - If **keep_full_scale** is `TRUE`:
-#'   - If **values** isn't numeric:
-#'   Each levels of the affected **values** vector will get it's own color from
-#'   the **colors_aff** vector using the [grDevices::colorRampPalette()] and
-#'   the same will be done for the unaffected individuals using the
-#'   **colors_unaff**.
-#'   - If **values** is numeric:
-#'   The mean of the affected individuals will be compared to the mean of the
-#'   unaffected individuals and the colors will be set up such as the color
-#'   gradient follow the direction of the affection.
+#'     - If **values** isn't numeric:
+#'     Each levels of the affected **values** vector will get
+#'     it's own color from the **colors_aff** vector using the
+#'     [grDevices::colorRampPalette()] and
+#'     the same will be done for the unaffected individuals using the
+#'     **colors_unaff**.
+#'     - If **values** is numeric:
+#'     The mean of the affected individuals will be compared to the mean of the
+#'     unaffected individuals and the colors will be set up such as the color
+#'     gradient follow the direction of the affection.
 #'
 #' @param values The vector containing the values to process as affection.
 #' @param labels The vector containing the labels to use for the affection.
@@ -47,9 +48,10 @@ NULL
 #'
 #' @return A list of three elements
 #' - `mods` : The processed values column as a numeric factor
-#' - `affected` : A logical vector indicating if the individual is affected
-#' - `sc_fill` : A dataframe containing the description of each modality of the
-#' scale
+#' - `affected` : A logical vector indicating if the individual
+#'     is affected
+#' - `sc_fill` : A dataframe containing the description of each
+#'     modality of the scale
 #'
 #' @examples
 #' aff <- generate_aff_inds(seq_len(5), threshold = 3, sup_thres_aff = TRUE)
@@ -204,8 +206,8 @@ generate_fill <- function(
 #'
 #' @description Perform transformation uppon a vector given as the one
 #' containing the availability status to compute the border color.
-#' The vector given will be transformed using the [vect_to_binary()]
-#' function.
+#' The vector given will be transformed using the
+#' [vect_to_binary()] function.
 #'
 #' @param values The vector containing the values to process as available.
 #' @param colors_avail Set of 2 colors to use for the box's border of an
@@ -217,15 +219,19 @@ generate_fill <- function(
 #' @return A list of three elements
 #' - `mods` : The processed values column as a numeric factor
 #' - `avail` : A logical vector indicating if the individual is available
-#' - `sc_bord` : A dataframe containing the description of each modality of the
-#' scale
+#' - `sc_bord` : A dataframe containing the description of each
+#' modality of the scale
 #'
 #' @examples
 #' generate_border(c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA))
 #'
 #' @keywords generate_scales
 #' @export
-generate_border <- function(values, colors_avail = c("green", "black"), colors_na = "grey") {
+generate_border <- function(
+    values,
+    colors_avail = c("green", "black"),
+    colors_na = "grey"
+) {
     # Set border colors
     if (length(colors_avail) != 2) {
         stop("Variable `colors_avail` need to be a vector of 2 colors")
@@ -242,14 +248,17 @@ generate_border <- function(values, colors_avail = c("green", "black"), colors_n
     list(mods = mods, avail = avail, sc_bord = sc_bord)
 }
 
-#' Process the filling and border colors based on affection and availability
+#' Process the filling and border colors based on affection and
+#' availability
 #'
 #' @description Perform transformation uppon a dataframe given to compute
 #' the colors for the filling and the border of the individuals based
 #' on the affection and availability status.
 #'
-#' @details The colors will be set using the [generate_fill()] and the
-#' [generate_border()] functions respectively for the filling and the border.
+#' @details The colors will be set using the
+#' generate_fill()] and the
+#' [generate_border()] functions respectively for
+#' the filling and the border.
 #'
 #' @param obj A Pedigree object or a vector containing the affection status for
 #' each individuals. The affection status can be numeric or a character.

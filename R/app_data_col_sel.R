@@ -126,9 +126,10 @@ data_col_sel_server <- function(
                     return(NULL)
                 } else {
                     if (any(!cols_ren %in% all_cols())) {
-                        shiny::showNotification(
-                            "You have selected a column that is not in the list !"
-                        )
+                        shiny::showNotification(paste(
+                            "You have selected a column",
+                            "that is not in the list !"
+                        ))
                         return(NULL)
                     }
                     df_rename <- data.table::copy(df())

@@ -5,7 +5,8 @@ NULL
 #'
 #' @description
 #' Convert a Pedigree to a data frame with all the elements and their
-#' characteristic for them to be plotted afterwards with [plot_fromdf()].
+#' characteristic for them to be plotted afterwards with
+#' [plot_fromdf()].
 #'
 #' @details The data frame contains the following columns:
 #' - `x0`, `y0`, `x1`, `y1`: coordinates of the elements
@@ -20,7 +21,8 @@ NULL
 #' - `adjx`: horizontal text adjustment of the labels
 #' - `adjy`: vertical text adjustment of the labels
 #'
-#' All those columns are used by [plot_fromdf()] to plot the graph.
+#' All those columns are used by
+#' [plot_fromdf()] to plot the graph.
 #'
 #' @inheritParams align
 #' @param pconnect When connecting parent to children the program will try to

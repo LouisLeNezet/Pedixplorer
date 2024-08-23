@@ -10,6 +10,7 @@ library(withr)
 library(testthat)
 library(Pedixplorer)
 library(vdiffr)
+library(shinytest2)
 
 withr::local_options(width = 150)
 test_check("Pedixplorer")

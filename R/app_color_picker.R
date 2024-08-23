@@ -2,7 +2,6 @@
 
 usethis::use_package("shiny")
 usethis::use_package("colourpicker")
-usethis::use_package("bslib")
 
 #' @rdname color_picker
 color_picker_ui <- function(id) {

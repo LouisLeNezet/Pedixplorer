@@ -33,8 +33,9 @@ parameters, or a logical value.
 If \code{TRUE}, the default is \code{c(1.5, 2)}, or if numeric the routine
 \code{alignped4()} will be called.}
 
-\item{hints}{A Hints object or a named list containing \code{horder} and
-\code{spouse}. If \code{NULL} then the Hints stored in \strong{obj} will be used.}
+\item{hints}{A Hints object or a named list containing
+\code{horder} and \code{spouse}.
+If \code{NULL} then the Hints stored in \strong{obj} will be used.}
 
 \item{missid}{A character vector with the missing values identifiers.
 All the id, dadid and momid corresponding to those values will be set
@@ -43,15 +44,15 @@ to \code{NA_character_}.}
 \value{
 A list with components
 \itemize{
-\item \code{n}: A vector giving the number of subjects on each horizonal level of the
-plot
-\item \code{nid}: A matrix with one row for each level, giving the numeric id of
-each subject plotted.
+\item \code{n}: A vector giving the number of subjects on each
+horizonal level of the plot
+\item \code{nid}: A matrix with one row for each level, giving
+the numeric id of each subject plotted.
 (A value of \code{17} means the 17th subject in the Pedigree).
 \item \code{pos}: A matrix giving the horizontal position of each plot point
 \item \code{fam}: A matrix giving the family id of each plot point.
-A value of \code{3} would mean that the two subjects in positions 3 and 4,
-in the row above, are this subject's parents.
+A value of \code{3} would mean that the two subjects in positions
+3 and 4, in the row above, are this subject's parents.
 \item \code{spouse}: A matrix with values
 \itemize{
 \item \code{0} = not a spouse
@@ -81,7 +82,8 @@ The subservient functions \code{\link[=auto_hint]{auto_hint()}},
 \code{\link[=alignped3]{alignped3()}}, and \code{\link[=alignped4]{alignped4()}}
 contain the bulk of the computation.
 
-If the \strong{hints} are missing the \code{\link[=auto_hint]{auto_hint()}} routine is called to
+If the \strong{hints} are missing the
+\code{\link[=auto_hint]{auto_hint()}} routine is called to
 supply an initial guess.
 
 If multiple families are present in the \strong{obj} Pedigree, this routine

@@ -25,10 +25,10 @@ data_download_ui <- function(id) {
 #' @param filename A string to name the file.
 #' @param label A string to display in the download button.
 #' @param helper A boolean to display a helper message.
-#'
+#' @return A shiny module to export a dataframe.
 #' @examples
 #' if (interactive()) {
-#'   data_download_demo()
+#'     data_download_demo()
 #' }
 #' @rdname data_download
 #' @keywords internal

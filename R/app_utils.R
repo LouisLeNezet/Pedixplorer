@@ -13,8 +13,8 @@ usethis::use_package("dplyr")
 #' @return a data frame with the family information
 #' @examples
 #' df <- data.frame(
-#'    famid = c(1, 1, 2, 2, 3, 3),
-#'    health = c("A", "B", "A", "A", "B", "B")
+#'     famid = c(1, 1, 2, 2, 3, 3),
+#'     health = c("A", "B", "A", "A", "B", "B")
 #' )
 #' get_families_table(df, "health")
 #' @export
@@ -67,7 +67,8 @@ get_title <- function(
             keep_text <- ifelse(keep_parents, "_T", "")
             title <- paste0(c(
                 "Ped_F", family_sel, "_K", kin_max,
-                keep_text, "_I", paste0(inf_selected,collaspe="-"), "_SF", subfamily_sel
+                keep_text, "_I", paste0(inf_selected, collaspe = "-"),
+                "_SF", subfamily_sel
             ), collapse = "")
             stringr::str_replace_all(title, "[ /]", "")
         } else {
@@ -76,7 +77,7 @@ get_title <- function(
                 "Pedigree ", keep_text, "of family N*",
                 family_sel, " sub-family N*", subfamily_sel,
                 " (N=", nb_rows, ") from ",
-                paste0(inf_selected, collapse=", "), " individuals."
+                paste0(inf_selected, collapse = ", "), " individuals."
             ), collapse = "")
         }
     }

@@ -35,10 +35,12 @@ be the same via IBD.
 object into a graphical plot.
 Allows extra information to be included in the id under the
 plot symbol.
-This method use the \code{\link[=plot_fromdf]{plot_fromdf()}} function to transform the Pedigree
-object into a data frame of graphical elements, the same is done for the
+This method use the \code{\link[=plot_fromdf]{plot_fromdf()}} function to
+transform the Pedigree object into a data frame
+of graphical elements, the same is done for the
 legend with the \code{\link[=ped_to_legdf]{ped_to_legdf()}} function.
-When done, the data frames are plotted with the \code{\link[=plot_fromdf]{plot_fromdf()}} function.
+When done, the data frames are plotted with the
+\code{\link[=plot_fromdf]{plot_fromdf()}} function.
 
 \code{\link[=shrink]{shrink()}}: Shrink a Pedigree to a specific bit size,
 removing non-informative members first.

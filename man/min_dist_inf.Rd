@@ -27,7 +27,9 @@ biologicals mothers.}
 
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
-with the following levels: \code{male} < \code{female} < \code{unknown} < `terminated
+with the following levels:
+\code{male} < \code{female} <
+\code{unknown} < \code{terminated}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
@@ -72,17 +74,17 @@ by 2, the minimum distance is increased by 1.
 \examples{
 
 min_dist_inf(
-     c("A", "B", "C", "D", "E"),
-     c("C", "D", "0", "0", "0"),
-     c("E", "E", "0", "0", "0"),
-     sex = c(1, 2, 1, 2, 1),
-     id_inf = c("D", "E")
+    c("A", "B", "C", "D", "E"),
+    c("C", "D", "0", "0", "0"),
+    c("E", "E", "0", "0", "0"),
+    sex = c(1, 2, 1, 2, 1),
+    id_inf = c("D", "E")
 )
 
 data(sampleped)
 ped <- is_informative(
- Pedigree(sampleped),
- informative = "AvAf", col_aff = "affection_mods"
+    Pedigree(sampleped),
+    informative = "AvAf", col_aff = "affection_mods"
 )
 kin(ped(min_dist_inf(ped, col_aff = "affection_mods")))
 }

@@ -47,10 +47,11 @@ NULL
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[sampleped$famid == 1,])
 #' lst <- ped_to_plotdf(ped1)
-#' #plot_fromdf(lst$df, lst$par_usr$usr,
-#' #     boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
-#' #)
-#'
+#' if (interactive()) {
+#'     plot_fromdf(lst$df, lst$par_usr$usr,
+#'         boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
+#'     )
+#' }
 #' @return an invisible ggplot object and a plot on the current plotting device
 #' @keywords internal, Pedigree-plot
 #' @export

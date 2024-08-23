@@ -15,11 +15,15 @@
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = unaffected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 
 \item{max_bits}{Optional, the bit size for which to shrink the Pedigree}
 }
@@ -42,8 +46,8 @@ trimming uninformative subjects. The algorithm is useful for getting a
 Pedigree condensed to a minimally informative size for algorithms or testing
 that are limited by size of the Pedigree.
 
-If \strong{avail} or \strong{affected} are \code{NULL}, they are extracted with their
-corresponding accessors from the Ped object.
+If \strong{avail} or \strong{affected} are \code{NULL}, they are extracted
+with their corresponding accessors from the Ped object.
 }
 \details{
 Iteratively remove subjects from the Pedigree. The random removal of members
