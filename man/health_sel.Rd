@@ -9,13 +9,13 @@
 health_sel_ui(id)
 
 health_sel_server(
-  id,
-  pedi,
-  var = NULL,
-  as_num = NULL,
-  mods_aff = NULL,
-  threshold = NULL,
-  sup_threshold = NULL
+    id,
+    pedi,
+    var = NULL,
+    as_num = NULL,
+    mods_aff = NULL,
+    threshold = NULL,
+    sup_threshold = NULL
 )
 
 health_sel_demo()

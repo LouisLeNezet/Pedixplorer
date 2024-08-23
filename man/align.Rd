@@ -7,12 +7,12 @@
 \title{Align a Pedigree object}
 \usage{
 \S4method{align}{Pedigree}(
-  obj,
-  packed = TRUE,
-  width = 10,
-  align = TRUE,
-  hints = NULL,
-  missid = "NA_character_"
+    obj,
+    packed = TRUE,
+    width = 10,
+    align = TRUE,
+    hints = NULL,
+    missid = "NA_character_"
 )
 }
 \arguments{

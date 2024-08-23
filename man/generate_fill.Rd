@@ -5,15 +5,15 @@
 \title{Process the filling colors based on affection}
 \usage{
 generate_fill(
-  values,
-  affected,
-  labels,
-  is_num = NULL,
-  keep_full_scale = FALSE,
-  breaks = 3,
-  colors_aff = c("yellow2", "red"),
-  colors_unaff = c("white", "steelblue4"),
-  colors_na = "grey"
+    values,
+    affected,
+    labels,
+    is_num = NULL,
+    keep_full_scale = FALSE,
+    breaks = 3,
+    colors_aff = c("yellow2", "red"),
+    colors_unaff = c("white", "steelblue4"),
+    colors_na = "grey"
 )
 }
 \arguments{

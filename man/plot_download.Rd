@@ -9,13 +9,13 @@
 plot_download_ui(id)
 
 plot_download_server(
-  id,
-  my_plot,
-  filename = "saveplot",
-  label = "Download",
-  width = 500,
-  height = 500,
-  ext = "png"
+    id,
+    my_plot,
+    filename = "saveplot",
+    label = "Download",
+    width = 500,
+    height = 500,
+    ext = "png"
 )
 
 plot_download_demo()

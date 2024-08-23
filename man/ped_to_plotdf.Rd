@@ -6,18 +6,18 @@
 \title{Create plotting data frame from a Pedigree}
 \usage{
 \S4method{ped_to_plotdf}{Pedigree}(
-  obj,
-  packed = TRUE,
-  width = 6,
-  align = c(1.5, 2),
-  subreg = NULL,
-  cex = 1,
-  symbolsize = cex,
-  pconnect = 0.5,
-  branch = 0.6,
-  aff_mark = TRUE,
-  label = NULL,
-  ...
+    obj,
+    packed = TRUE,
+    width = 6,
+    align = c(1.5, 2),
+    subreg = NULL,
+    cex = 1,
+    symbolsize = cex,
+    pconnect = 0.5,
+    branch = 0.6,
+    aff_mark = TRUE,
+    label = NULL,
+    ...
 )
 }
 \arguments{

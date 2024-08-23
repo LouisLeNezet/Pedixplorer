@@ -10,11 +10,11 @@
 family_sel_ui(id)
 
 family_sel_server(
-  id,
-  pedi,
-  fam_var = NULL,
-  fam_sel = NULL,
-  title = "Family selection"
+    id,
+    pedi,
+    fam_var = NULL,
+    fam_sel = NULL,
+    title = "Family selection"
 )
 
 family_sel_demo(fam_var = NULL, fam_sel = NULL, title = "Family selection")

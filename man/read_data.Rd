@@ -5,13 +5,13 @@
 \title{Read data from file path}
 \usage{
 read_data(
-  file,
-  sep = ";",
-  quote = "'",
-  header = TRUE,
-  df_name = NA,
-  stringsAsFactors = FALSE,
-  to_char = TRUE
+    file,
+    sep = ";",
+    quote = "'",
+    header = TRUE,
+    df_name = NA,
+    stringsAsFactors = FALSE,
+    to_char = TRUE
 )
 }
 \arguments{

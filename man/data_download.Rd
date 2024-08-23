@@ -9,12 +9,12 @@
 data_download_ui(id)
 
 data_download_server(
-  id,
-  df,
-  filename,
-  label = NULL,
-  helper = TRUE,
-  title = "Data download"
+    id,
+    df,
+    filename,
+    label = NULL,
+    helper = TRUE,
+    title = "Data download"
 )
 
 data_download_demo()

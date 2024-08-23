@@ -8,27 +8,27 @@
 \title{Plot Pedigrees}
 \usage{
 \S4method{plot}{Pedigree,missing}(
-  x,
-  aff_mark = TRUE,
-  label = NULL,
-  ggplot_gen = FALSE,
-  cex = 1,
-  symbolsize = 1,
-  branch = 0.6,
-  packed = TRUE,
-  align = c(1.5, 2),
-  width = 6,
-  title = NULL,
-  subreg = NULL,
-  pconnect = 0.5,
-  fam_to_plot = 1,
-  legend = FALSE,
-  leg_cex = 0.8,
-  leg_symbolsize = 0.5,
-  leg_loc = NULL,
-  leg_adjx = 0,
-  leg_adjy = 0,
-  ...
+    x,
+    aff_mark = TRUE,
+    label = NULL,
+    ggplot_gen = FALSE,
+    cex = 1,
+    symbolsize = 1,
+    branch = 0.6,
+    packed = TRUE,
+    align = c(1.5, 2),
+    width = 6,
+    title = NULL,
+    subreg = NULL,
+    pconnect = 0.5,
+    fam_to_plot = 1,
+    legend = FALSE,
+    leg_cex = 0.8,
+    leg_symbolsize = 0.5,
+    leg_loc = NULL,
+    leg_adjx = 0,
+    leg_adjy = 0,
+    ...
 )
 }
 \arguments{

@@ -5,15 +5,15 @@
 \title{Draw segments}
 \usage{
 draw_segment(
-  x0,
-  y0,
-  x1,
-  y1,
-  p,
-  ggplot_gen,
-  col = par("fg"),
-  lwd = par("lwd"),
-  lty = par("lty")
+    x0,
+    y0,
+    x1,
+    y1,
+    p,
+    ggplot_gen,
+    col = par("fg"),
+    lwd = par("lwd"),
+    lty = par("lty")
 )
 }
 \arguments{

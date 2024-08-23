@@ -64,19 +64,19 @@
 \S4method{Ped}{data.frame}(obj, cols_used_init = FALSE, cols_used_del = FALSE)
 
 \S4method{Ped}{character_OR_integer}(
-  obj,
-  sex,
-  dadid,
-  momid,
-  famid = NA,
-  steril = NA,
-  status = NA,
-  avail = NA,
-  affected = NA,
-  missid = NA_character_,
-  useful = NA,
-  isinf = NA,
-  kin = NA_real_
+    obj,
+    sex,
+    dadid,
+    momid,
+    famid = NA,
+    steril = NA,
+    status = NA,
+    avail = NA,
+    affected = NA,
+    missid = NA_character_,
+    useful = NA,
+    isinf = NA,
+    kin = NA_real_
 )
 }
 \arguments{

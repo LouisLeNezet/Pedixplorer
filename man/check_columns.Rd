@@ -5,15 +5,15 @@
 \title{Check columns presence in a dataframe}
 \usage{
 check_columns(
-  df,
-  cols_needed = NULL,
-  cols_used = NULL,
-  cols_to_use = NULL,
-  others_cols = FALSE,
-  cols_used_init = FALSE,
-  cols_to_use_init = FALSE,
-  cols_used_del = FALSE,
-  verbose = FALSE
+    df,
+    cols_needed = NULL,
+    cols_used = NULL,
+    cols_to_use = NULL,
+    others_cols = FALSE,
+    cols_used_init = FALSE,
+    cols_to_use_init = FALSE,
+    cols_used_del = FALSE,
+    verbose = FALSE
 )
 }
 \arguments{

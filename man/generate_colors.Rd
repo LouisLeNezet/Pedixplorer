@@ -9,47 +9,47 @@
 availability}
 \usage{
 \S4method{generate_colors}{character}(
-  obj,
-  avail,
-  mods_aff = NULL,
-  is_num = FALSE,
-  keep_full_scale = FALSE,
-  colors_aff = c("yellow2", "red"),
-  colors_unaff = c("white", "steelblue4"),
-  colors_avail = c("green", "black"),
-  colors_na = "grey"
+    obj,
+    avail,
+    mods_aff = NULL,
+    is_num = FALSE,
+    keep_full_scale = FALSE,
+    colors_aff = c("yellow2", "red"),
+    colors_unaff = c("white", "steelblue4"),
+    colors_avail = c("green", "black"),
+    colors_na = "grey"
 )
 
 \S4method{generate_colors}{numeric}(
-  obj,
-  avail,
-  threshold = 0.5,
-  sup_thres_aff = TRUE,
-  is_num = TRUE,
-  keep_full_scale = FALSE,
-  breaks = 3,
-  colors_aff = c("yellow2", "red"),
-  colors_unaff = c("white", "steelblue4"),
-  colors_avail = c("green", "black"),
-  colors_na = "grey"
+    obj,
+    avail,
+    threshold = 0.5,
+    sup_thres_aff = TRUE,
+    is_num = TRUE,
+    keep_full_scale = FALSE,
+    breaks = 3,
+    colors_aff = c("yellow2", "red"),
+    colors_unaff = c("white", "steelblue4"),
+    colors_avail = c("green", "black"),
+    colors_na = "grey"
 )
 
 \S4method{generate_colors}{Pedigree}(
-  obj,
-  col_aff = "affected",
-  add_to_scale = TRUE,
-  col_avail = "avail",
-  is_num = NULL,
-  mods_aff = NULL,
-  threshold = 0.5,
-  sup_thres_aff = TRUE,
-  keep_full_scale = FALSE,
-  breaks = 3,
-  colors_aff = c("yellow2", "red"),
-  colors_unaff = c("white", "steelblue4"),
-  colors_avail = c("green", "black"),
-  colors_na = "grey",
-  reset = TRUE
+    obj,
+    col_aff = "affected",
+    add_to_scale = TRUE,
+    col_avail = "avail",
+    is_num = NULL,
+    mods_aff = NULL,
+    threshold = 0.5,
+    sup_thres_aff = TRUE,
+    keep_full_scale = FALSE,
+    breaks = 3,
+    colors_aff = c("yellow2", "red"),
+    colors_unaff = c("white", "steelblue4"),
+    colors_avail = c("green", "black"),
+    colors_na = "grey",
+    reset = TRUE
 )
 }
 \arguments{

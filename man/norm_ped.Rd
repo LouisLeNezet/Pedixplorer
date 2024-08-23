@@ -5,11 +5,11 @@
 \title{Normalise a Ped object dataframe}
 \usage{
 norm_ped(
-  ped_df,
-  na_strings = c("NA", ""),
-  missid = NA_character_,
-  try_num = FALSE,
-  cols_used_del = FALSE
+    ped_df,
+    na_strings = c("NA", ""),
+    missid = NA_character_,
+    try_num = FALSE,
+    cols_used_del = FALSE
 )
 }
 \arguments{
