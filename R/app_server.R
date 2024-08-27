@@ -28,10 +28,10 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     ped_df_rename <- data_col_sel_server(
         "data_ped_col_sel", ped_df,
         list(
-            "indId" = c("indid", "indId", "id"),
-            "fatherId" = c("dadid", "fatherid", "fatherId"),
-            "motherId" = c("momid", "motherid", "motherId"),
-            "gender" = c("gender", "sex")
+            "indId" = c("indid", "indId", "id", "IndId"),
+            "fatherId" = c("dadid", "fatherid", "fatherId", "FatherId"),
+            "motherId" = c("momid", "motherid", "motherId", "MotherId"),
+            "gender" = c("gender", "sex", "Gender")
         ),
         list(
             "family" = c("family", "famid"),
@@ -71,7 +71,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 as.character(ped_df$motherId)
             )
         }
-        norm_ped(ped_df, cols_used_del = TRUE, missid = c(NA, "0", 0))
+        norm_ped(ped_df, cols_used_del = TRUE, na_strings = c(NA, "0", 0))
     })
     rel_df_norm <- shiny::reactive({
         if (is.null(rel_df_rename())) {
@@ -85,20 +85,34 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         if (is.null(ped_df_norm())) {
             return(NULL)
         }
+        ped_df <- ped_df_norm()
         if (any(!is.na(ped_df_norm()$error)) |
                 any(!is.na(rel_df_norm()$error))) {
             showNotification(paste(
                 "An error is present in the data given.",
-                "Please check the data and try again."
+                "Please check the data and try again.",
+                "Only the data without errors will be used."
+            ))
+            ped_df <- ped_df_norm()[is.na(ped_df_norm()$error), ]
+            #return(NULL)
+        }
+        tryCatch({
+            ped_df <- fix_parents(ped_df)
+            Pedigree(
+                ped_df, rel_df_norm(),
+                cols_ren_ped = list(),
+                cols_ren_rel = list(),
+                normalize = FALSE
+            )
+        }, error = function(e) {
+            print(e$message)
+            showNotification(paste(
+                "An error is present in the data given.",
+                "Please check the data and try again.",
+                e$message
             ))
             return(NULL)
-        }
-        Pedigree(
-            ped_df_norm(), rel_df_norm(),
-            cols_ren_ped = list(),
-            cols_ren_rel = list(),
-            normalize = FALSE
-        )
+        })
     })
 
     ## Errors download --------------------------------------------------------

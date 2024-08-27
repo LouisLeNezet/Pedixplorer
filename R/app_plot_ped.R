@@ -47,7 +47,7 @@ plot_ped_server <- function(id, pedi, title) {
         ns <- shiny::NS(id)
 
         mytitle <- shiny::reactive({
-            if (shiny::s.reactive(title)) {
+            if (shiny::is.reactive(title)) {
                 title <- title()
             }
             title
@@ -89,7 +89,7 @@ plot_ped_server <- function(id, pedi, title) {
                 output$ped_plotly <- plotly::renderPlotly({
                     plotly_ped()
                 })
-                plotly::plotlyOutput(ns("ped_plotly"))
+                plotly::plotlyOutput(ns("ped_plotly"), height = "700px")
             } else {
                 output$ped_plot <- shiny::renderPlot({
                     shiny::req(pedi())
@@ -100,7 +100,7 @@ plot_ped_server <- function(id, pedi, title) {
                         mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle()
                     )
                 })
-                shiny::plotOutput(ns("ped_plot"))
+                shiny::plotOutput(ns("ped_plot"), height = "700px")
             }
         })
 
