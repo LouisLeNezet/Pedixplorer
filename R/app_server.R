@@ -105,7 +105,6 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 normalize = FALSE
             )
         }, error = function(e) {
-            print(e$message)
             showNotification(paste(
                 "An error is present in the data given.",
                 "Please check the data and try again.",

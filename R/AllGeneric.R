@@ -65,32 +65,6 @@ setMethod("show", "Ped",
     }
 )
 
-.show_DataFrame <- function(x)
-{
-    nhead <- S4Vectors:::get_showHeadLines()
-    ntail <- S4Vectors:::get_showTailLines()
-    x_nrow <- nrow(x)
-    x_ncol <- ncol(x)
-    if (x_nrow != 0L && x_ncol != 0L) {
-        x_rownames <- rownames(x)
-        if (x_nrow <= nhead + ntail + 1L) {
-            m <- makeNakedCharacterMatrixForDisplay(x)
-            if (!is.null(x_rownames))
-                rownames(m) <- x_rownames
-        } else {
-            m <- rbind(makeNakedCharacterMatrixForDisplay(head(x, nhead)),
-                       rbind(rep.int("...", x_ncol)),
-                       makeNakedCharacterMatrixForDisplay(tail(x, ntail)))
-            rownames(m) <- make_rownames_for_RectangularData_display(
-                                             x_rownames, x_nrow,
-                                             nhead, ntail)
-        }
-        m <- rbind(make_class_info_for_DataFrame_display(x), m)
-        print(m, quote=FALSE, right=TRUE)
-    }
-    invisible(NULL)
-}
-
 #' @section Generics:
 #' - `as.list(x)`: Convert a Ped object to a list with
 #' the metadata columns at the end.
