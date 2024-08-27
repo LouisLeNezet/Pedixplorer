@@ -35,16 +35,61 @@ setMethod("show", "Ped",
         cat(summary(object), ":\n", sep = "")
         df <- as.data.frame(object)
         df <- df[, !colnames(df) %in% colnames(mcols(object))]
-        out <- S4Vectors::cbind_mcols_for_display(df, object)
-        class_df <- lapply(df, class)
-        classinfo <- S4Vectors::makeClassinfoRowForCompactPrinting(
-            object, class_df
-        )
-        stopifnot(identical(colnames(classinfo), colnames(out)))
-        out <- rbind(classinfo, out)
-        print(out, quote = FALSE, right = TRUE)
+        df <- S4Vectors::cbind_mcols_for_display(df, object)
+        nhead <- S4Vectors:::get_showHeadLines()
+        ntail <- S4Vectors:::get_showTailLines()
+        x_nrow <- nrow(df)
+        x_ncol <- ncol(df)
+        if (x_nrow != 0L && x_ncol != 0L) {
+            x_rownames <- rownames(df)
+            if (x_nrow <= nhead + ntail + 1L) {
+                m <- S4Vectors:::makeNakedCharacterMatrixForDisplay(df)
+                if (!is.null(x_rownames))
+                    rownames(m) <- x_rownames
+            } else {
+                m <- rbind(
+                    S4Vectors:::makeNakedCharacterMatrixForDisplay(head(df, nhead)),
+                    rbind(rep.int("...", x_ncol)),
+                    S4Vectors:::makeNakedCharacterMatrixForDisplay(tail(df, ntail))
+                )
+                rownames(m) <- S4Vectors:::make_rownames_for_RectangularData_display(
+                    x_rownames, x_nrow, nhead, ntail
+                )
+            }
+            col_class <- S4Vectors:::make_class_info_for_DataFrame_display(df)
+            m <- rbind(col_class, m)
+            m[, "|"] <- "|"
+        }
+        print(m, quote = FALSE, right = TRUE)
+        invisible(NULL)
     }
 )
+
+.show_DataFrame <- function(x)
+{
+    nhead <- S4Vectors:::get_showHeadLines()
+    ntail <- S4Vectors:::get_showTailLines()
+    x_nrow <- nrow(x)
+    x_ncol <- ncol(x)
+    if (x_nrow != 0L && x_ncol != 0L) {
+        x_rownames <- rownames(x)
+        if (x_nrow <= nhead + ntail + 1L) {
+            m <- makeNakedCharacterMatrixForDisplay(x)
+            if (!is.null(x_rownames))
+                rownames(m) <- x_rownames
+        } else {
+            m <- rbind(makeNakedCharacterMatrixForDisplay(head(x, nhead)),
+                       rbind(rep.int("...", x_ncol)),
+                       makeNakedCharacterMatrixForDisplay(tail(x, ntail)))
+            rownames(m) <- make_rownames_for_RectangularData_display(
+                                             x_rownames, x_nrow,
+                                             nhead, ntail)
+        }
+        m <- rbind(make_class_info_for_DataFrame_display(x), m)
+        print(m, quote=FALSE, right=TRUE)
+    }
+    invisible(NULL)
+}
 
 #' @section Generics:
 #' - `as.list(x)`: Convert a Ped object to a list with
