@@ -34,7 +34,8 @@ usethis::use_package("shinyWidgets")
 #' @keywords data_import, internal
 read_data <- function(
     file, sep = ";", quote = "'", header = TRUE, df_name = NA,
-    stringsAsFactors = FALSE, to_char = TRUE
+    stringsAsFactors = FALSE, to_char = TRUE,
+    na_values = c("", "NA", "NULL", "None")
 ) {
     shiny::req(file)
     if (!is.null(file)) {
@@ -53,12 +54,14 @@ read_data <- function(
         if (ext %in% c("csv", "txt")) {
             df <- utils::read.csv(
                 file, sep = sep, quote = quote,
-                header = header, colClasses = col_classes
+                header = header, colClasses = col_classes,
+                na.strings = na_values
             )
         } else if (ext %in% c("tab")) {
             df <- utils::read.table(
                 file, quote = quote, header = header,
-                sep = sep, fill = TRUE, colClasses = col_classes
+                sep = sep, fill = TRUE, colClasses = col_classes,
+                na.strings = na_values
             )
         } else if (ext %in% c("xls", "xlsx")) {
             sheets_present <- readxl::excel_sheets(file)
@@ -69,7 +72,8 @@ read_data <- function(
                 if (df_name %in% sheets_present) {
                     df <- as.data.frame(readxl::read_excel(
                         file, sheet = df_name,
-                        col_names = header, col_types = col_types
+                        col_names = header, col_types = col_types,
+                        na = na_values
                     ))
                 } else {
                     message("Sheet selected isn't in file")
@@ -202,7 +206,7 @@ data_import_server <- function(
         opt <- shiny::reactiveValues(
             heading = TRUE, to_char = FALSE,
             stringsAsFactors = FALSE, quote = "\"",
-            testdf = FALSE
+            testdf = FALSE, na_values = c("", "NA", "NULL", "None")
         )
         shiny::observeEvent(input$options, {
             # display a modal dialog with a header, textinput and action buttons
@@ -226,6 +230,11 @@ data_import_server <- function(
                     "Single quote" = "'",
                     "Both" = "\"'"
                 ), selected = opt$quote, multiple = FALSE),
+                shiny::textAreaInput(
+                    ns("na_string"), "NA values",
+                    value = paste0(opt$na_values, collapse = ","),
+                    placeholder = "Enter the NA values separated by a comma"
+                ),
                 footer = shiny::tagList(
                     shiny::actionButton(ns("close"), "Close"),
                 )
@@ -239,6 +248,9 @@ data_import_server <- function(
             opt$to_char <- input$to_char
             opt$stringsAsFactors <- input$stringsAsFactors
             opt$quote <- input$quote
+            opt$na_values <- strsplit(
+                input$na_values, ",", useBytes = TRUE
+            )[[1]]
         })
 
         shiny::observeEvent(input$testdf, {
@@ -259,8 +271,10 @@ data_import_server <- function(
             }
             file_path <- user_file()$datapath
             read_data(
-                file_path, input$sep, opt$quote, opt$heading,
-                input$dfSelected, opt$stringsAsFactors, opt$to_char
+                file_path, sep = input$sep, quote = opt$quote,
+                header = opt$heading, df_name = input$dfSelected,
+                stringsAsFactors = opt$stringsAsFactors, to_char = opt$to_char,
+                na_values = opt$na_values
             )
         })
 
