@@ -677,6 +677,7 @@ setGeneric("Pedigree", signature = "obj",
 #' If `affected` is a data.frame, **col_aff** will be
 #' overwritten by the column names of the data.frame.
 #' @inheritParams generate_colors
+#' @inheritParams norm_ped
 #' @examples
 #'
 #' Pedigree(
@@ -823,6 +824,7 @@ setMethod("Pedigree", "data.frame",  function(
     normalize = TRUE,
     missid = NA_character_,
     col_aff = "affection",
+    na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),
     ...
 ) {
     ped_df <- obj
@@ -876,8 +878,8 @@ setMethod("Pedigree", "data.frame",  function(
 
     ## Normalise the data before creating the object
     if (normalize) {
-        ped_df <- norm_ped(ped_df, missid = missid)
-        rel_df <- norm_rel(rel_df, missid = missid)
+        ped_df <- norm_ped(ped_df, missid = missid, na_strings = na_strings)
+        rel_df <- norm_rel(rel_df, missid = missid, na_strings = na_strings)
     } else {
         cols_need <- c("id", "dadid", "momid", "sex")
         cols_to_use <- c("steril", "avail", "famid", "status", "affected")
