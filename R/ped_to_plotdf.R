@@ -70,7 +70,7 @@ setGeneric(
 setMethod("ped_to_plotdf", "Pedigree", function(
     obj, packed = TRUE, width = 6, align = c(1.5, 2),
     subreg = NULL, cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
-    aff_mark = TRUE, label = NULL, ...
+    aff_mark = TRUE, label = NULL, id_lab = "id", ...
 ) {
 
     famlist <- unique(famid(ped(obj)))
@@ -192,7 +192,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     ## Add ids
     id_df <- data.frame(
         x0 = pos[idx], y0 = i[idx] + boxh + labh * 1.2,
-        label = ped_df[id[idx], "id"], fill = "black",
+        label = ped_df[id[idx], id_lab], fill = "black",
         type = "text", cex = cex,
         id = "id"
     )

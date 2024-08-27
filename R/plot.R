@@ -69,7 +69,8 @@ NULL
 #' the legend.
 #' @param leg_adjy default=0.  Controls the vertical labels adjustment
 #' of the legend.
-#' @param ... Extra options that feed into the plot function.
+#' @param ... Extra options that feed into the
+#' [ped_to_plot()] function.
 #'
 #' @return an invisible list containing
 #' - df : the data.frame used to plot the Pedigree
