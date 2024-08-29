@@ -39,6 +39,7 @@ NULL
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams subregion
 #' @inheritParams set_plot_area
+#' @inheritParams kindepth
 #'
 #' @return A list containing the data frame and the user coordinates.
 #'
@@ -69,6 +70,7 @@ setGeneric(
 #' @export
 setMethod("ped_to_plotdf", "Pedigree", function(
     obj, packed = TRUE, width = 6, align = c(1.5, 2),
+    align_parents = TRUE, force = FALSE,
     subreg = NULL, cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
     aff_mark = TRUE, label = NULL, id_lab = "id", ...
 ) {
@@ -81,6 +83,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         for (i_fam in famlist) {
             ped_fam <- obj[famid(ped(obj)) == i_fam]
             all_df[[i_fam]] <- ped_to_plotdf(ped_fam, packed, width, align,
+                align_parents, force,
                 subreg, cex, symbolsize, ...
             )
         }
@@ -95,7 +98,11 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         label = character(), tips = character(),
         adjx = numeric(), adjy = numeric()
     )
-    plist <- align(obj, packed = packed, width = width, align = align)
+    plist <- align(
+        obj, packed = packed, width = width,
+        align = align, align_parents = align_parents,
+        force = force
+    )
     if (!is.null(subreg)) {
         plist <- subregion(plist, subreg)
     }

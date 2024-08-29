@@ -54,6 +54,7 @@ NULL
 #' @inheritParams set_plot_area
 #' @inheritParams subregion
 #' @inheritParams align
+#' @inheritParams kindepth
 #' @param fam_to_plot default=1.  If the Pedigree contains multiple families,
 #' this parameter can be used to select which family to plot.
 #' It can be a numeric value or a character value. If numeric, it is the
@@ -97,8 +98,9 @@ NULL
 #' @docType methods
 setMethod("plot", c(x = "Pedigree", y = "missing"),
     function(x, aff_mark = TRUE,
-        label = NULL, ggplot_gen = FALSE, cex = 1, symbolsize = 1, branch = 0.6,
-        packed = TRUE, align = c(1.5, 2), width = 6,
+        label = NULL, ggplot_gen = FALSE, cex = 1, symbolsize = 1,
+        branch = 0.6, packed = TRUE, align = c(1.5, 2),
+        align_parents = TRUE, force = FALSE, width = 6,
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, ...
@@ -113,7 +115,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             }
             x <- x[famid(ped(x)) == fam_to_plot]
         }
-        lst <- ped_to_plotdf(x, packed, width, align, subreg,
+        lst <- ped_to_plotdf(
+            x, packed, width, align, align_parents, force, subreg,
             cex, symbolsize, pconnect, branch, aff_mark, label, ...
         )
 

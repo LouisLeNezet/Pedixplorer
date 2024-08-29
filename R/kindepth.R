@@ -18,7 +18,8 @@
 #' (This is not always possible).
 #' It helps the drawing program by lining up pedigrees that
 #' 'join in the middle' via a marriage.
-#'
+#' @param force If `force = TRUE`, the function will return the depth minus
+#' `min(depth)` if `depth` reach a state with no founders is not possible.
 #' @return An integer vector containing the depth for each subject
 #'
 #' @author Terry Therneau, updated by Louis Le Nézet
@@ -37,7 +38,7 @@ setGeneric("kindepth", signature = "obj",
 #'     c("E", "E", "0", "0", "0")
 #' )
 setMethod("kindepth", "character_OR_integer", function(obj, dadid, momid,
-    align_parents = FALSE
+    align_parents = FALSE, force = FALSE
 ) {
     id <- obj
     n <- length(id)
@@ -236,10 +237,22 @@ setMethod("kindepth", "character_OR_integer", function(obj, dadid, momid,
         ## bug: done[dads == bad | moms == bad] <- TRUE
     }
     if (all(depth > 0)) {
-        stop(
-            "You found a bug in kindepth's alignment code!",
-            "Depth found:", depth
-        )
+        if (force == FALSE) {
+            stop(
+                "You found a bug in kindepth's alignment code! ",
+                "Depth found: ", paste0(depth, collapse = ", "),
+                " You may want to try with `force = TRUE` or",
+                "`align_parents = FALSE`."
+            )
+        } else {
+            warning(
+                "You found a bug in kindepth's alignment code! ",
+                "Depth found: ", paste0(depth, collapse = ", "),
+                " Returning depth minus `min(depth)`.",
+                " You may want to try with `align_parents = FALSE`."
+            )
+            depth <- depth - min(depth)
+        }
     }
     depth
 }
@@ -251,14 +264,17 @@ setMethod("kindepth", "character_OR_integer", function(obj, dadid, momid,
 #' ped1 <- Pedigree(sampleped[sampleped$famid == "1",])
 #' kindepth(ped1)
 setMethod("kindepth", "Pedigree",
-    function(obj, align_parents = FALSE) {
-        kindepth(ped(obj), align_parents)
+    function(obj, align_parents = FALSE, force = FALSE) {
+        kindepth(ped(obj), align_parents, force)
     }
 )
 
 #' @rdname kindepth
 setMethod("kindepth", "Ped",
-    function(obj, align_parents = FALSE) {
-        kindepth(id(obj), dadid(obj), momid(obj), align_parents)
+    function(obj, align_parents = FALSE, force = FALSE) {
+        kindepth(
+            id(obj), dadid(obj), momid(obj),
+            align_parents, force
+        )
     }
 )

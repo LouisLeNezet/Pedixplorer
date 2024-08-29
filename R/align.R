@@ -76,6 +76,7 @@ ancestors <- function(idx, momx, dadx) {
 #' `horder` and `spouse`.
 #' If `NULL` then the Hints stored in **obj** will be used.
 #' @inheritParams Ped
+#' @inheritParams kindepth
 #'
 #' @return A list with components
 #' - `n`: A vector giving the number of subjects on each
@@ -127,7 +128,8 @@ setGeneric("align", signature = "obj",
 setMethod("align", "Pedigree",
     function(
         obj, packed = TRUE, width = 10,
-        align = TRUE, hints = NULL, missid = "NA_character_"
+        align = TRUE, hints = NULL, missid = "NA_character_",
+        align_parents = TRUE, force = FALSE
     ) {
         famlist <- unique(famid(ped(obj)))
         famlist <- famlist[!is.na(famlist)]
@@ -162,7 +164,9 @@ setMethod("align", "Pedigree",
         ## Doc: Setup-align
         n <- length(obj)
 
-        level <- 1 + kindepth(obj, align_parents = TRUE)
+        level <- 1 + kindepth(
+            obj, align_parents = align_parents, force = force
+        )
         ## relative order of siblings within a family
         horder <- horder(hints)
 
