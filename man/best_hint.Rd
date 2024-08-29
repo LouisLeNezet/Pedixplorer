@@ -10,6 +10,8 @@
 \arguments{
 \item{obj}{A Pedigree object}
 
+\item{...}{Additional arguments}
+
 \item{wt}{A vector of three weights for the three error measures.
 Default is \code{c(1000, 10, 1)}.
 \enumerate{

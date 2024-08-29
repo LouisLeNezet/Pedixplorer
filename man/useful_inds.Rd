@@ -8,30 +8,30 @@
 \title{Usefulness of individuals}
 \usage{
 \S4method{useful_inds}{character}(
-    obj,
-    dadid,
-    momid,
-    avail,
-    affected,
-    num_child_tot,
-    id_inf,
-    keep_infos = FALSE
+  obj,
+  dadid,
+  momid,
+  avail,
+  affected,
+  num_child_tot,
+  id_inf,
+  keep_infos = FALSE
 )
 
 \S4method{useful_inds}{Pedigree}(
-    obj,
-    informative = "AvAf",
-    keep_infos = FALSE,
-    reset = FALSE,
-    max_dist = NULL
+  obj,
+  informative = "AvAf",
+  keep_infos = FALSE,
+  reset = FALSE,
+  max_dist = NULL
 )
 
 \S4method{useful_inds}{Ped}(
-    obj,
-    informative = "AvAf",
-    keep_infos = FALSE,
-    reset = FALSE,
-    max_dist = NULL
+  obj,
+  informative = "AvAf",
+  keep_infos = FALSE,
+  reset = FALSE,
+  max_dist = NULL
 )
 }
 \arguments{

@@ -6,18 +6,21 @@
 \title{Create plotting data frame from a Pedigree}
 \usage{
 \S4method{ped_to_plotdf}{Pedigree}(
-    obj,
-    packed = TRUE,
-    width = 6,
-    align = c(1.5, 2),
-    subreg = NULL,
-    cex = 1,
-    symbolsize = cex,
-    pconnect = 0.5,
-    branch = 0.6,
-    aff_mark = TRUE,
-    label = NULL,
-    ...
+  obj,
+  packed = TRUE,
+  width = 6,
+  align = c(1.5, 2),
+  align_parents = TRUE,
+  force = FALSE,
+  subreg = NULL,
+  cex = 1,
+  symbolsize = cex,
+  pconnect = 0.5,
+  branch = 0.6,
+  aff_mark = TRUE,
+  label = NULL,
+  id_lab = "id",
+  ...
 )
 }
 \arguments{
@@ -39,6 +42,15 @@ This argument can be a two element vector, giving the alignment
 parameters, or a logical value.
 If \code{TRUE}, the default is \code{c(1.5, 2)}, or if numeric the routine
 \code{alignped4()} will be called.}
+
+\item{align_parents}{If \code{align_parents = TRUE}, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
 
 \item{subreg}{A 4-element vector for (min x, max x, min depth, max depth),
 used to edit away portions of the plot coordinates returned by

@@ -8,27 +8,29 @@
 \title{Plot Pedigrees}
 \usage{
 \S4method{plot}{Pedigree,missing}(
-    x,
-    aff_mark = TRUE,
-    label = NULL,
-    ggplot_gen = FALSE,
-    cex = 1,
-    symbolsize = 1,
-    branch = 0.6,
-    packed = TRUE,
-    align = c(1.5, 2),
-    width = 6,
-    title = NULL,
-    subreg = NULL,
-    pconnect = 0.5,
-    fam_to_plot = 1,
-    legend = FALSE,
-    leg_cex = 0.8,
-    leg_symbolsize = 0.5,
-    leg_loc = NULL,
-    leg_adjx = 0,
-    leg_adjy = 0,
-    ...
+  x,
+  aff_mark = TRUE,
+  label = NULL,
+  ggplot_gen = FALSE,
+  cex = 1,
+  symbolsize = 1,
+  branch = 0.6,
+  packed = TRUE,
+  align = c(1.5, 2),
+  align_parents = TRUE,
+  force = FALSE,
+  width = 6,
+  title = NULL,
+  subreg = NULL,
+  pconnect = 0.5,
+  fam_to_plot = 1,
+  legend = FALSE,
+  leg_cex = 0.8,
+  leg_symbolsize = 0.5,
+  leg_loc = NULL,
+  leg_adjx = 0,
+  leg_adjy = 0,
+  ...
 )
 }
 \arguments{
@@ -60,6 +62,15 @@ This argument can be a two element vector, giving the alignment
 parameters, or a logical value.
 If \code{TRUE}, the default is \code{c(1.5, 2)}, or if numeric the routine
 \code{alignped4()} will be called.}
+
+\item{align_parents}{If \code{align_parents = TRUE}, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
 
 \item{width}{For a packed output, the minimum width of the plot, in
 inches.}
@@ -99,7 +110,8 @@ the legend.}
 \item{leg_adjy}{default=0.  Controls the vertical labels adjustment
 of the legend.}
 
-\item{...}{Extra options that feed into the plot function.}
+\item{...}{Extra options that feed into the
+\code{\link[=ped_to_plot]{ped_to_plot()}} function.}
 }
 \value{
 an invisible list containing

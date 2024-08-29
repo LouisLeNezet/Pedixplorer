@@ -9,13 +9,13 @@
 data_col_sel_ui(id)
 
 data_col_sel_server(
-    id,
-    df,
-    cols_needed,
-    cols_supl,
-    title,
-    na_omit = TRUE,
-    others_cols = TRUE
+  id,
+  df,
+  cols_needed,
+  cols_supl,
+  title,
+  na_omit = TRUE,
+  others_cols = TRUE
 )
 
 data_col_sel_demo()

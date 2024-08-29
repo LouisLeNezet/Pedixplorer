@@ -9,10 +9,10 @@
 data_import_ui(id)
 
 data_import_server(
-    id,
-    label = "Select data file",
-    dftest = datasets::mtcars,
-    max_request_size = 30
+  id,
+  label = "Select data file",
+  dftest = datasets::mtcars,
+  max_request_size = 30
 )
 
 data_import_demo()

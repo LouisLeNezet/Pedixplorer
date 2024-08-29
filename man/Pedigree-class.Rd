@@ -50,37 +50,38 @@
 Pedigree(obj, ...)
 
 \S4method{Pedigree}{character_OR_integer}(
-    obj,
-    dadid,
-    momid,
-    sex,
-    famid = NA,
-    avail = NULL,
-    affected = NULL,
-    status = NULL,
-    steril = NULL,
-    rel_df = NULL,
-    missid = NA_character_,
-    col_aff = "affection",
-    normalize = TRUE,
-    ...
+  obj,
+  dadid,
+  momid,
+  sex,
+  famid = NA,
+  avail = NULL,
+  affected = NULL,
+  status = NULL,
+  steril = NULL,
+  rel_df = NULL,
+  missid = NA_character_,
+  col_aff = "affection",
+  normalize = TRUE,
+  ...
 )
 
 \S4method{Pedigree}{data.frame}(
-    obj = data.frame(indId = character(), fatherId = character(), motherId = character(),
-        gender = numeric(), family = character(), available = numeric(), vitalStatus =
-        numeric(), affection = numeric(), sterilisation = numeric()),
-    rel_df = data.frame(id1 = character(), id2 = character(), code = numeric(), famid =
-        character()),
-    cols_ren_ped = list(indId = "id", fatherId = "dadid", motherId = "momid", family =
-        "famid", gender = "sex", sterilisation = "steril", affection = "affected", available
-        = "avail", vitalStatus = "status"),
-    cols_ren_rel = list(id1 = "indId1", id2 = "indId2", famid = "family"),
-    hints = list(horder = NULL, spouse = NULL),
-    normalize = TRUE,
-    missid = NA_character_,
-    col_aff = "affection",
-    ...
+  obj = data.frame(indId = character(), fatherId = character(), motherId = character(),
+    gender = numeric(), family = character(), available = numeric(), vitalStatus =
+    numeric(), affection = numeric(), sterilisation = numeric()),
+  rel_df = data.frame(id1 = character(), id2 = character(), code = numeric(), famid =
+    character()),
+  cols_ren_ped = list(indId = "id", fatherId = "dadid", motherId = "momid", family =
+    "famid", gender = "sex", sterilisation = "steril", affection = "affected", available
+    = "avail", vitalStatus = "status"),
+  cols_ren_rel = list(id1 = "indId1", id2 = "indId2", famid = "family"),
+  hints = list(horder = NULL, spouse = NULL),
+  normalize = TRUE,
+  missid = NA_character_,
+  col_aff = "affection",
+  na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),
+  ...
 )
 }
 \arguments{
@@ -181,6 +182,8 @@ names and the values should be the old column names.}
 
 \item{hints}{A Hints object or a named list containing \code{horder} and
 \code{spouse}.}
+
+\item{na_strings}{Vector of strings to be considered as NA values.}
 }
 \value{
 A Pedigree object.

@@ -8,9 +8,9 @@
 \usage{
 plot_ped_ui(id)
 
-plot_ped_server(id, pedi, title)
+plot_ped_server(id, pedi, title, max_ind = 500)
 
-plot_ped_demo()
+plot_ped_demo(max_ind = 500)
 }
 \arguments{
 \item{id}{A string.}

@@ -10,6 +10,8 @@
 \arguments{
 \item{obj}{A Pedigree object}
 
+\item{...}{Additional arguments}
+
 \item{hints}{A Hints object or a named list containing
 \code{horder} and \code{spouse}.
 If \code{NULL} then the Hints stored in \strong{obj} will be used.}

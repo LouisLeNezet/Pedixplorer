@@ -5,14 +5,14 @@
 \title{Draw a polygon}
 \usage{
 draw_polygon(
-    x,
-    y,
-    p,
-    ggplot_gen = FALSE,
-    fill = "grey",
-    border = NULL,
-    density = NULL,
-    angle = 45
+  x,
+  y,
+  p,
+  ggplot_gen = FALSE,
+  fill = "grey",
+  border = NULL,
+  density = NULL,
+  angle = 45
 )
 }
 \arguments{

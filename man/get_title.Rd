@@ -5,15 +5,15 @@
 \title{Get the title of the family information table}
 \usage{
 get_title(
-    family_sel,
-    subfamily_sel,
-    family_var,
-    mod,
-    inf_selected,
-    kin_max,
-    keep_parents,
-    nb_rows,
-    short_title = FALSE
+  family_sel,
+  subfamily_sel,
+  family_var,
+  mod,
+  inf_selected,
+  kin_max,
+  keep_parents,
+  nb_rows,
+  short_title = FALSE
 )
 }
 \arguments{

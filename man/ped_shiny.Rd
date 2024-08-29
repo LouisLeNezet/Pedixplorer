@@ -11,8 +11,8 @@ An object of class \code{shiny.tag.list} (inherits from \code{list}) of length 4
 }
 \usage{
 ped_shiny(
-    port = getOption("shiny.port"),
-    host = getOption("shiny.host", "127.0.0.1")
+  port = getOption("shiny.port"),
+  host = getOption("shiny.host", "127.0.0.1")
 )
 
 ped_server(input, output, session)

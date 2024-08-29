@@ -7,16 +7,20 @@
 \title{Align a Pedigree object}
 \usage{
 \S4method{align}{Pedigree}(
-    obj,
-    packed = TRUE,
-    width = 10,
-    align = TRUE,
-    hints = NULL,
-    missid = "NA_character_"
+  obj,
+  packed = TRUE,
+  width = 10,
+  align = TRUE,
+  hints = NULL,
+  missid = "NA_character_",
+  align_parents = TRUE,
+  force = FALSE
 )
 }
 \arguments{
 \item{obj}{A Pedigree object}
+
+\item{...}{Additional arguments}
 
 \item{packed}{Should the Pedigree be compressed.
 (i.e. allow diagonal lines connecting parents to children in order
@@ -40,6 +44,15 @@ If \code{NULL} then the Hints stored in \strong{obj} will be used.}
 \item{missid}{A character vector with the missing values identifiers.
 All the id, dadid and momid corresponding to those values will be set
 to \code{NA_character_}.}
+
+\item{align_parents}{If \code{align_parents = TRUE}, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
 }
 \value{
 A list with components

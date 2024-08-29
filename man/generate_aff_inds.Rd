@@ -5,11 +5,11 @@
 \title{Process the affection informations}
 \usage{
 generate_aff_inds(
-    values,
-    mods_aff = NULL,
-    threshold = NULL,
-    sup_thres_aff = NULL,
-    is_num = NULL
+  values,
+  mods_aff = NULL,
+  threshold = NULL,
+  sup_thres_aff = NULL,
+  is_num = NULL
 )
 }
 \arguments{

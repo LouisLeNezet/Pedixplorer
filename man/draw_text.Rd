@@ -5,15 +5,15 @@
 \title{Draw texts}
 \usage{
 draw_text(
-    x,
-    y,
-    label,
-    p,
-    ggplot_gen = FALSE,
-    cex = 1,
-    col = NULL,
-    adjx = 0,
-    adjy = 0
+  x,
+  y,
+  label,
+  p,
+  ggplot_gen = FALSE,
+  cex = 1,
+  col = NULL,
+  adjx = 0,
+  adjy = 0
 )
 }
 \arguments{

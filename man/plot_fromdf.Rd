@@ -5,13 +5,13 @@
 \title{Create a plot from a data.frame}
 \usage{
 plot_fromdf(
-    df,
-    usr = NULL,
-    title = NULL,
-    ggplot_gen = FALSE,
-    boxw = 1,
-    boxh = 1,
-    add_to_existing = FALSE
+  df,
+  usr = NULL,
+  title = NULL,
+  ggplot_gen = FALSE,
+  boxw = 1,
+  boxh = 1,
+  add_to_existing = FALSE
 )
 }
 \arguments{

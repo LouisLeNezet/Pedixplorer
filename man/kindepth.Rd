@@ -9,11 +9,11 @@
 \usage{
 kindepth(obj, ...)
 
-\S4method{kindepth}{character_OR_integer}(obj, dadid, momid, align_parents = FALSE)
+\S4method{kindepth}{character_OR_integer}(obj, dadid, momid, align_parents = FALSE, force = FALSE)
 
-\S4method{kindepth}{Pedigree}(obj, align_parents = FALSE)
+\S4method{kindepth}{Pedigree}(obj, align_parents = FALSE, force = FALSE)
 
-\S4method{kindepth}{Ped}(obj, align_parents = FALSE)
+\S4method{kindepth}{Ped}(obj, align_parents = FALSE, force = FALSE)
 }
 \arguments{
 \item{obj}{A character vector with the id of the individuals or a
@@ -32,6 +32,9 @@ and try to make both parents of each child have the same depth.
 (This is not always possible).
 It helps the drawing program by lining up pedigrees that
 'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
 }
 \value{
 An integer vector containing the depth for each subject
