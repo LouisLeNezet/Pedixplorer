@@ -119,11 +119,14 @@ inf_sel_server <- function(id, pedi) {
             val_pres <- match(inf_custvar_val, val_sel)
             index <- which(val_sel %in% inf_custvar_val)
             if (any(is.na(val_pres))) {
-                showNotification(paste(
-                    "Values",
-                    paste0(inf_custvar_val[is.na(val_pres)], collapse = ", "),
-                    "not present in", inf_custvar_sel
-                ))
+                shinytoastr::toastr_error(
+                    title = "Error while selecting informative individuals",
+                    paste(
+                        "Values",
+                        paste0(inf_custvar_val[is.na(val_pres)], collapse = ", "),
+                        "not present in", inf_custvar_sel
+                    )
+                )
                 NULL
             } else {
                 df$id[index[!is.na(index)]]

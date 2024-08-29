@@ -1,6 +1,6 @@
 #' @importFrom shiny NS column div h5 uiOutput tagList renderUI selectInput
 #' @importFrom shiny selectInput textOutput renderTable renderText tableOutput
-#' @importFrom shiny numericInput showNotification reactive
+#' @importFrom shiny numericInput reactive
 
 usethis::use_package("shiny")
 

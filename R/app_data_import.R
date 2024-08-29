@@ -7,6 +7,7 @@
 usethis::use_package("shiny")
 usethis::use_package("readxl")
 usethis::use_package("shinyWidgets")
+usethis::use_package("shinytoastr")
 
 #### Function needed to work #### ----------
 
@@ -39,65 +40,68 @@ read_data <- function(
 ) {
     shiny::req(file)
     if (!is.null(file)) {
-        ext <- tools::file_ext(file)
-        shiny::validate(shiny::need(
-            ext %in% c("csv", "txt", "xls", "xlsx", "rda", "tab"),
-            "Please upload a (csv, txt, xls, xlsx, rda, tab) file"
-        ))
-        if (to_char) {
-            col_classes <- "character"
-            col_types <- "text"
-        } else {
-            col_classes <- NA
-            col_types <- NULL
-        }
-        if (ext %in% c("csv", "txt")) {
-            df <- utils::read.csv(
-                file, sep = sep, quote = quote,
-                header = header, colClasses = col_classes,
-                na.strings = na_values
-            )
-        } else if (ext %in% c("tab")) {
-            df <- utils::read.table(
-                file, quote = quote, header = header,
-                sep = sep, fill = TRUE, colClasses = col_classes,
-                na.strings = na_values
-            )
-        } else if (ext %in% c("xls", "xlsx")) {
-            sheets_present <- readxl::excel_sheets(file)
-            if (is.null(df_name)) {
-                message("Needs the name of the sheet to use 'df_name'")
-                df <- NULL
+        tryCatch({
+            ext <- tools::file_ext(file)
+            if (!ext %in% c("csv", "txt", "xls", "xlsx", "rda", "tab")) {
+                stop("Please upload a (csv, txt, xls, xlsx, rda, tab) file")
+            }
+
+            if (to_char) {
+                col_classes <- "character"
+                col_types <- "text"
             } else {
-                if (df_name %in% sheets_present) {
-                    df <- as.data.frame(readxl::read_excel(
-                        file, sheet = df_name,
-                        col_names = header, col_types = col_types,
-                        na = na_values
-                    ))
+                col_classes <- NA
+                col_types <- NULL
+            }
+
+            if (ext %in% c("csv", "txt")) {
+                df <- utils::read.csv(
+                    file, sep = sep, quote = quote,
+                    header = header, colClasses = col_classes,
+                    na.strings = na_values
+                )
+            } else if (ext %in% c("tab")) {
+                df <- utils::read.table(
+                    file, quote = quote, header = header,
+                    sep = sep, fill = TRUE, colClasses = col_classes,
+                    na.strings = na_values
+                )
+            } else if (ext %in% c("xls", "xlsx")) {
+                sheets_present <- readxl::excel_sheets(file)
+                if (is.null(df_name)) {
+                    stop("Please select a sheet")
                 } else {
-                    message("Sheet selected isn't in file")
-                    df <- NULL
+                    if (df_name %in% sheets_present) {
+                        df <- as.data.frame(readxl::read_excel(
+                            file, sheet = df_name,
+                            col_names = header, col_types = col_types,
+                            na = na_values
+                        ))
+                    } else {
+                        stop("Sheet selected isn't in file")
+                    }
+                }
+            } else if (ext %in% c("rda")) {
+                shiny::req(df_name)
+                all_data <- base::load(file)
+                if (is.na(df_name)) {
+                    stop("Please select a dataframe")
+                } else {
+                    if (df_name %in% all_data) {
+                        df <- get(df_name)
+                    } else {
+                        stop("Dataframe selected isn't in file")
+                    }
                 }
             }
-        } else if (ext %in% c("rda")) {
-            shiny::req(df_name)
-            all_data <- base::load(file)
-            if (is.na(df_name)) {
-                message("Needs the name of the dataframe to use 'df_name'")
-                df <- NULL
-            } else {
-                if (df_name %in% all_data) {
-                    df <- get(df_name)
-                } else {
-                    message("Dataframe selected isn't in file")
-                    df <- NULL
-                }
-            }
-        }
+        }, error = function(e) {
+            shinytoastr::toastr_error(
+                title = "Error while reading the file", conditionMessage(e)
+            )
+            return(NULL)
+        })
         as.data.frame(unclass(df), stringsAsFactors = stringsAsFactors)
     } else {
-        message("Data selected is null")
         NULL
     }
 }
@@ -123,7 +127,7 @@ get_dataframe <- function(file) {
         if (!is.null(sheets_present)) {
             sheets_present
         } else {
-            message("No sheets find in file")
+            shinytoastr::toastr_info(title = "No sheets find in file")
             NULL
         }
     } else if (ext == "rda") {
@@ -140,11 +144,23 @@ get_dataframe <- function(file) {
 data_import_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
+        shinytoastr::useToastr(),
         shiny::uiOutput(ns("fileselection")),
-        shiny::actionButton(ns("testdf"), "Use test data", style = "simple"),
-        shiny::actionButton(
-            ns("options"),
-            "Options", style = "simple", size = "sm"
+        shiny::fluidRow(
+            shiny::h5("Use test data"),
+            shiny::column(
+                width = 6,
+                shinyWidgets::switchInput(
+                    ns("testdf"), value = FALSE, size = "small"
+                )
+            ),
+            shiny::column(
+                width = 6,
+                shiny::actionButton(
+                    ns("options"),
+                    "Options", style = "simple", size = "sm"
+                )
+            )
         ),
         shiny::selectInput(
             ns("sep"), "Separator",
@@ -192,21 +208,11 @@ data_import_server <- function(
             shiny::fileInput(ns("fileinput"), label)
         })
 
-        # The selected file, if any
-        user_file <- shiny::reactive({
-            if (is.null(input$fileinput)) {
-                return(NULL)
-            }
-            # If no file is selected, return NULL
-            shiny::validate(shiny::need(input$fileinput, message = FALSE))
-            input$fileinput
-        })
-
         ## Options rendering selection --------------------
         opt <- shiny::reactiveValues(
             heading = TRUE, to_char = FALSE,
             stringsAsFactors = FALSE, quote = "\"",
-            testdf = FALSE, na_values = c("", "NA", "NULL", "None")
+            na_values = c("", "NA", "NULL", "None")
         )
         shiny::observeEvent(input$options, {
             # display a modal dialog with a header, textinput and action buttons
@@ -253,23 +259,36 @@ data_import_server <- function(
             )[[1]]
         })
 
-        shiny::observeEvent(input$testdf, {
-            if (!is.null(dftest)) {
-                opt$testdf <- !opt$testdf
-            } else {
-                message("No test data available")
-            }
+        # Set switch to FALSE if the user upload a file
+        shiny::observeEvent(input$fileinput, {
+            print("File uploaded")
+            shinyWidgets::updateSwitchInput(
+                session = session,
+                inputId = "testdf", value = FALSE
+            )
         })
 
         ## Data selection ------------------------
         df <- shiny::reactive({
-            if (opt$testdf) {
-                return(dftest)
-            }
-            if (is.null(user_file())) {
+            if (is.null(input$testdf)) {
                 return(NULL)
             }
-            file_path <- user_file()$datapath
+            if (input$testdf) {
+                if (!is.null(dftest)) {
+                    return(dftest)
+                } else {
+                    shinytoastr::toastr_error(
+                        title = "Error in data import",
+                        "No test data available"
+                    )
+                    return(NULL)
+                }
+            }
+            if (is.null(input$fileinput)) {
+                return(NULL)
+            }
+
+            file_path <- input$fileinput$datapath
             read_data(
                 file_path, sep = input$sep, quote = opt$quote,
                 header = opt$heading, df_name = input$dfSelected,
@@ -280,12 +299,15 @@ data_import_server <- function(
 
         # We can run observers in here if we want to
         shiny::observe({
-            msg <- sprintf("File %s was uploaded", user_file()$name)
-            message(msg, "\n")
+            shiny::req(input$fileinput)
+            shinytoastr::toastr_success(
+                title = "File uploaded",
+                sprintf("File %s was uploaded", input$fileinput$name)
+            )
         })
 
         output$dfselection <- shiny::renderUI({
-            file_path <- user_file()$datapath
+            file_path <- input$fileinput$datapath
             df_name <- get_dataframe(file_path)
             if (!is.null(df_name)) {
                 shiny::selectInput(

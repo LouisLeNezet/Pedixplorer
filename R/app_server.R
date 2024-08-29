@@ -71,7 +71,17 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 as.character(ped_df$motherId)
             )
         }
-        norm_ped(ped_df, cols_used_del = TRUE, na_strings = c(NA, "0", 0))
+        withCallingHandlers({
+            norm_ped(
+                ped_df, cols_used_del = TRUE, na_strings = c(NA, "0", 0)
+            )
+        }, warning = function(w) {
+            shinytoastr::toastr_warning(
+                title = "Warnings during pedigree normalization",
+                conditionMessage(w)
+            )
+            invokeRestart("muffleWarning")
+        })
     })
     rel_df_norm <- shiny::reactive({
         if (is.null(rel_df_rename())) {
@@ -82,19 +92,16 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
 
     ped_all <- shiny::reactive({
         shiny::req(ped_df_norm())
-        if (is.null(ped_df_norm())) {
-            return(NULL)
-        }
         ped_df <- ped_df_norm()
-        if (any(!is.na(ped_df_norm()$error)) |
-                any(!is.na(rel_df_norm()$error))) {
-            showNotification(paste(
-                "An error is present in the data given.",
-                "Please check the data and try again.",
-                "Only the data without errors will be used."
-            ))
+        if (any(!is.na(ped_df_norm()$error))) {
+            shinytoastr::toastr_warning(
+                title = "Errors are present in the data given.",
+                paste(
+                    "Please check the data and try again.",
+                    "Only the data without errors will be used."
+                )
+            )
             ped_df <- ped_df_norm()[is.na(ped_df_norm()$error), ]
-            #return(NULL)
         }
         tryCatch({
             ped_df <- fix_parents(ped_df)
@@ -105,11 +112,10 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
                 normalize = FALSE
             )
         }, error = function(e) {
-            showNotification(paste(
-                "An error is present in the data given.",
-                "Please check the data and try again.",
-                e$message
-            ))
+            shinytoastr::toastr_error(
+                title = "Couldn't create pedigree object",
+                conditionMessage(e)
+            )
             return(NULL)
         })
     })

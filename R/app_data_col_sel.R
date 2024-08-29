@@ -120,16 +120,20 @@ data_col_sel_server <- function(
                 return(NULL)
             } else {
                 if (any(duplicated(as.vector(unlist(cols_ren))))) {
-                    shiny::showNotification(
-                        "You have selected twice the same column !"
+                    shinytoastr::toastr_error(
+                        title = "Error in column selected",
+                        "You have selected twice the same column."
                     )
                     return(NULL)
                 } else {
                     if (any(!cols_ren %in% all_cols())) {
-                        shiny::showNotification(paste(
-                            "You have selected a column",
-                            "that is not in the list !"
-                        ))
+                        shinytoastr::toastr_error(
+                            title = "Error in column selected",
+                            paste(
+                                "You have selected a column",
+                                "that is not in the list !"
+                            )
+                        )
                         return(NULL)
                     }
                     df_rename <- data.table::copy(df())

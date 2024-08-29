@@ -110,10 +110,13 @@ plot_download_server <- function(
                     } else if ("htmlwidget" %in% class(my_plot())) {
                         htmlwidgets::saveWidget(file = file, my_plot())
                     } else {
-                        showNotification(paste(
-                            "HTML file should be exported",
-                            "from ggplot or htmlwidget"
-                        ), session = session)
+                        shinytoastr::toastr_error(
+                            title = "Error in plot type selected",
+                            paste(
+                                "HTML file should be exported",
+                                "from ggplot or htmlwidget"
+                            )
+                        )
                     }
                 } else {
                     if ("ggplot" %in% class(my_plot())) {
@@ -126,9 +129,9 @@ plot_download_server <- function(
                         "htmlwidget" %in% class(my_plot()) |
                             "plotly" %in% class(my_plot())
                     ) {
-                        showNotification(
-                            "htmlwidgets should be exported as html",
-                            session = session
+                        shinytoastr::toastr_error(
+                            title = "Error in plot type selected",
+                            "htmlwidgets should be exported as html"
                         )
                         NULL
                     } else {
@@ -142,10 +145,13 @@ plot_download_server <- function(
                                 height = input$height / 96
                             )
                         } else {
-                            showNotification(paste(
-                                "Other type of plot should be",
-                                "exported as pdf or png", session = session
-                            ))
+                            shinytoastr::toastr_error(
+                                title = "Error in plot type selected",
+                                paste(
+                                    "Other type of plot should be",
+                                    "exported as pdf or png"
+                                )
+                            )
                             NULL
                         }
                         if ("grob" %in% class(my_plot())) {
