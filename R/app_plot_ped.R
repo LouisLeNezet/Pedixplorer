@@ -14,6 +14,7 @@ usethis::use_package("plotly")
 plot_ped_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
+        shiny::uiOutput(ns("computebig")),
         shiny::uiOutput(ns("plotpedi")),
         shiny::checkboxInput(
             ns("interactive"),
@@ -40,7 +41,7 @@ plot_ped_ui <- function(id) {
 #' }
 #' @rdname plot_ped
 #' @keywords internal
-plot_ped_server <- function(id, pedi, title) {
+plot_ped_server <- function(id, pedi, title, max_ind = 500) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
 
@@ -53,13 +54,36 @@ plot_ped_server <- function(id, pedi, title) {
             title
         })
 
+        output$computebig <- shiny::renderUI({
+            shiny::req(pedi())
+            if (length(pedi()) > max_ind) {
+                shiny::tagList(
+                    shiny::checkboxInput(
+                        ns("computebig"),
+                        label = "There are too many individuals to compute the plot. Do you want to continue?",
+                        value = FALSE
+                    )
+                )
+            }
+        })
+
+        pedi_val <- shiny::reactive({
+            shiny::req(pedi())
+            if (length(pedi()) > max_ind) {
+                if (is.null(input$computebig) || input$computebig == FALSE) {
+                    return(NULL)
+                }
+            }
+            pedi()
+        })
+
         plotly_ped <- shiny::reactive({
             shiny::req(input$interactive)
-            shiny::req(pedi())
+            shiny::req(pedi_val())
             ped_plot_lst <- plot(
-                pedi(),
+                pedi_val(),
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
-                cex = 1, symbolsize = 1,
+                cex = 1, symbolsize = 1, force = TRUE,
                 mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle()
             )
 
@@ -92,11 +116,11 @@ plot_ped_server <- function(id, pedi, title) {
                 plotly::plotlyOutput(ns("ped_plotly"), height = "700px")
             } else {
                 output$ped_plot <- shiny::renderPlot({
-                    shiny::req(pedi())
+                    shiny::req(pedi_val())
                     plot(
-                        pedi(),
+                        pedi_val(),
                         aff_mark = TRUE, label = NULL,
-                        cex = 1, symbolsize = 1,
+                        cex = 1, symbolsize = 1, force = TRUE,
                         mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle()
                     )
                 })
@@ -108,7 +132,7 @@ plot_ped_server <- function(id, pedi, title) {
             if (input$interactive) {
                 return(plotly_ped())
             } else {
-                return(pedi())
+                return(pedi_val())
             }
         })
         return(plot_ped)
@@ -118,7 +142,7 @@ plot_ped_server <- function(id, pedi, title) {
 #### Demo function of the module #### ----------
 #' @rdname plot_ped
 #' @export
-plot_ped_demo <- function() {
+plot_ped_demo <- function(max_ind = 500) {
     pedi <- shiny::reactive({
         Pedigree(
             Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
@@ -129,7 +153,7 @@ plot_ped_demo <- function() {
         plot_download_ui("saveped")
     )
     server <- function(input, output, session) {
-        ped_plot <- plot_ped_server("ped", pedi, "My Pedigree")
+        ped_plot <- plot_ped_server("ped", pedi, "My Pedigree", max_ind)
         plot_download_server("saveped", ped_plot)
     }
     shiny::shinyApp(ui, server)
