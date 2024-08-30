@@ -425,7 +425,7 @@ setMethod("subset", "Pedigree",
 #' @importFrom S4Vectors subset
 #' @export
 #' @usage NULL
-setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing"),
+setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing", drop = "ANY"),
     function(x, i, j, drop = TRUE, del_parents = NULL, keep = TRUE) {
         subset(x, i, del_parents, keep)
     }
