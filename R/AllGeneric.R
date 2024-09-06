@@ -48,9 +48,12 @@ setMethod("show", "Ped",
                     rownames(m) <- x_rownames
             } else {
                 m <- rbind(
-                    S4Vectors:::makeNakedCharacterMatrixForDisplay(head(df, nhead)),
-                    rbind(rep.int("...", x_ncol)),
-                    S4Vectors:::makeNakedCharacterMatrixForDisplay(tail(df, ntail))
+                    S4Vectors:::makeNakedCharacterMatrixForDisplay(
+                        head(df, nhead)
+                    ), rbind(rep.int("...", x_ncol)),
+                    S4Vectors:::makeNakedCharacterMatrixForDisplay(
+                        tail(df, ntail)
+                    )
                 )
                 rownames(m) <- S4Vectors:::make_rownames_for_RectangularData_display(
                     x_rownames, x_nrow, nhead, ntail
