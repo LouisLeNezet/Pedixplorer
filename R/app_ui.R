@@ -20,29 +20,8 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ## Configuration -------------------------------
     tags$head(
         tags$style(HTML("hr {border-top: 1px solid #000000;}
-                        .navigationBar{background-color:#0001;height:300px}
-                        #console{max-height: 500px;overflow-y:auto;}
-                        #legendToPlot{max-height:150px};")),
-        tags$script(
-            'Shiny.addCustomMessageHandler("scrollCallback",
-                function(color) {
-                var objDiv = document.getElementById("console");
-                objDiv.scrollTop = objDiv.scrollHeight;
-                }
-        );
-        var dimension = [0, 0];
-        $(document).on("shiny:connected", function(e) {
-            dimension[0] = window.innerWidth;
-            dimension[1] = window.innerHeight;
-            Shiny.onInputChange("dimension", dimension);
-        });
-        $(window).resize(function(e) {
-            dimension[0] = window.innerWidth;
-            dimension[1] = window.innerHeight;
-            Shiny.onInputChange("dimension", dimension);
-        });
-        '
-        )
+                        .navigationBar{background-color:#0001}"
+        ))
     ),
     ## Application title --------------------------
     fluidRow(
