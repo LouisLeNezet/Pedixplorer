@@ -7,11 +7,11 @@ usethis::use_package("shiny")
 #' @rdname family_sel
 family_sel_ui <- function(id) {
     ns <- shiny::NS(id)
-    tagList(
+    shiny::column(12,
         uiOutput(ns("title_fam")),
         uiOutput(ns("families_var_selector")),
         fluidRow(
-            DT::dataTableOutput(ns("families_table"), width = "500px")
+            DT::dataTableOutput(ns("families_table"))
         ),
         uiOutput(ns("family_selector"))
     )

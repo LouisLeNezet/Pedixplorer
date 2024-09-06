@@ -89,7 +89,7 @@ family_infos_table <- function(pedi, col_val = NA) {
 #' @rdname family_sel
 ped_avaf_infos_ui <- function(id) {
     ns <- shiny::NS(id)
-    tagList(
+    shiny::column(12,
         uiOutput(ns("title_infos")),
         textOutput(ns("ped_avaf_infos_title")),
         DT::dataTableOutput(ns("family_info_table"))
@@ -145,7 +145,8 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
                             list(targets = 1, className = "cell-border-right"),
                             list(targets = "_all", className = "dt-center")
                         ), dom = "t"
-                    )
+                    ),
+                    fillContainer = TRUE
                 )
             } else {
                 NULL
