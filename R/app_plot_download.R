@@ -17,7 +17,12 @@ usethis::use_package("grDevices")
 #' @rdname plot_download
 plot_download_ui <- function(id) {
     ns <- shiny::NS(id)
-    shiny::tagList(shiny::uiOutput(ns("btn_dwld")))
+    shiny::fluidPage(
+        column(4,
+            style = "background-color:#4d3a7d;",
+            shiny::uiOutput(ns("btn_dwld"))
+        )
+    )
 }
 
 #### Server function of the module #### ----------

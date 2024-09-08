@@ -15,6 +15,7 @@ usethis::use_package("shiny")
 #' @include app_plot_download.R
 #' @include app_utils.R
 #' @include app_server.R
+#' @include app_plot_legend.R
 #' @rdname ped_shiny
 ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ## Configuration -------------------------------
@@ -88,7 +89,10 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
         plot_ped_ui("ped"),
         plot_download_ui("saveped"),
         plotOutput("legend_plot", height = "50px"),
-        data_download_ui("plot_data_dwnl")
     ),
+    fluidRow(
+        column(4, style = "background-color:#1f4a7d;", data_download_ui("plot_data_dwnl")),
+        column(6, plot_legend_ui("legend", "300px"))
+    )
 
 ))

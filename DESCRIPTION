@@ -91,6 +91,7 @@ Collate:
     'app_inf_sel.R'
     'app_ped_avaf_infos.R'
     'app_plot_download.R'
+    'app_plot_legend.R'
     'app_plot_ped.R'
     'app_server.R'
     'app_ui.R'

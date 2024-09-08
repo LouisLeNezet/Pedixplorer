@@ -5,6 +5,34 @@
 #' @importFrom graphics clip
 NULL
 
+#' Plot legend
+#'
+#' Small internal function to be used for plotting a Pedigree
+#' object legend
+#'
+#' @keywords internal, plot_legend
+plot_legend <- function(
+    pedi, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
+    leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL
+) {
+    leg <- ped_to_legdf(
+        pedi, cex = cex,
+        boxw = boxw, boxh = boxh,
+        adjx = adjx, adjy = adjy
+    )
+    leg$df$x0 <- scales::rescale(leg$df$x0,
+        c(leg_loc[1], leg_loc[2])
+    )
+    leg$df$y0 <- scales::rescale(leg$df$y0,
+        c(leg_loc[3], leg_loc[4])
+    )
+    plot_fromdf(
+        leg$df, add_to_existing = add_to_existing,
+        boxw = boxw, boxh = boxh, usr = usr
+    )
+}
+
+
 #' Plot Pedigrees
 #'
 #' @description
@@ -130,29 +158,17 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         )
 
         if (legend) {
-            leg <- ped_to_legdf(x, cex = leg_cex,
-                boxw = lst$par_usr$boxw * leg_symbolsize,
-                boxh = lst$par_usr$boxh * leg_symbolsize,
-                adjx = leg_adjx, adjy = leg_adjy
-            )
             if (is.null(leg_loc)) {
-                wh_fr <- lst$par_usr$usr
                 leg_loc <- c(
-                    wh_fr[1] + 1, wh_fr[2],
-                    wh_fr[3] + 0.1, wh_fr[3] + 0.4
+                    lst$par_usr$usr[1] + 1, lst$par_usr$usr[2],
+                    lst$par_usr$usr[3] + 0.1, lst$par_usr$usr[3] + 0.4
                 )
             }
-            leg$df$x0 <- scales::rescale(leg$df$x0,
-                c(leg_loc[1], leg_loc[2])
-            )
-            leg$df$y0 <- scales::rescale(leg$df$y0,
-                c(leg_loc[3], leg_loc[4])
-            )
-            clip(leg_loc[1] - 1, leg_loc[2] + 1, leg_loc[3] - 1, leg_loc[4] + 1)
-            plot_fromdf(
-                leg$df, add_to_existing = TRUE,
+            plot_legend(x, cex = leg_cex,
                 boxw = lst$par_usr$boxw * leg_symbolsize,
-                boxh = lst$par_usr$boxh * leg_symbolsize
+                boxh = lst$par_usr$boxh * leg_symbolsize,
+                adjx = leg_adjx, adjy = leg_adjy,
+                leg_loc = leg_loc, add_to_existing = TRUE
             )
         }
 

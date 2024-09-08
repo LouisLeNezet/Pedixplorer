@@ -14,6 +14,7 @@ usethis::use_package("gridExtra")
 #' @include app_data_download.R
 #' @include app_utils.R
 #' @include app_plot_download.R
+#' @include app_plot_legend.R
 #' @rdname ped_shiny
 #' @param input The input object from a Shiny app.
 #' @param output The output object from a Shiny app.
@@ -303,6 +304,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         "ped", ped_subfam, cust_title(short = FALSE)
     )
     plot_download_server("saveped", plot_ped, cust_title(short = TRUE))
+    plot_legend_server("legend", ped_subfam)
 
     ## End --------------------------------------------------------------------
     if (!interactive()) {
