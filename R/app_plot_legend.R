@@ -7,7 +7,6 @@ usethis::use_package("shiny")
 plot_legend_ui <- function(id, height = "200px") {
     ns <- shiny::NS(id)
     column(12,
-        style = "background-color:#4d3a7d;",
         shiny::plotOutput(ns("plotlegend"), height = height)
     )
 }

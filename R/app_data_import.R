@@ -261,7 +261,6 @@ data_import_server <- function(
 
         # Set switch to FALSE if the user upload a file
         shiny::observeEvent(input$fileinput, {
-            print("File uploaded")
             shinyWidgets::updateSwitchInput(
                 session = session,
                 inputId = "testdf", value = FALSE
