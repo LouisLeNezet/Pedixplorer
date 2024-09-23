@@ -17,6 +17,7 @@ data set; zero otherwise
 \item \code{sex} : \code{1} for male or \code{2} for female
 \item \code{affected} : \code{1} or \code{0}
 \item \code{avail} : \code{1} or \code{0}
+\item \code{num} : Numerical test variable from 0 to 6 randomly distributed
 }
 }
 \usage{
