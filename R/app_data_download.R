@@ -37,6 +37,14 @@ data_download_server <- function(
     label = NULL, helper = TRUE, title = "Data download"
 ) {
     stopifnot(shiny::is.reactive(df))
+
+    myfilename <- shiny::reactive({
+        if (shiny::is.reactive(filename)) {
+            filename <- filename()
+        }
+        filename
+    })
+
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
         ## Create title
@@ -46,7 +54,7 @@ data_download_server <- function(
 
         ## Create download button
         output$data_dwld <- shiny::downloadHandler(filename = function() {
-            paste(filename, ".csv", sep = "")
+            paste(myfilename(), ".csv", sep = "")
         }, content = function(file) {
             utils::write.csv2(df(), file)
         })
@@ -86,14 +94,25 @@ data_download_server <- function(
 #' @rdname data_download
 #' @export
 data_download_demo <- function() {
-    ui <- shiny::fluidPage(data_download_ui("datafile"))
+    pedi <- Pedigree(sampleped)
+    ui <- shiny::fluidPage(
+        data_download_ui("mtcars"),
+        data_download_ui("pedi")
+    )
     server <- function(input, output, session) {
         data_download_server(
-            "datafile",
+            "mtcars",
             shiny::reactive({
                 datasets::mtcars
             }),
             "mtcars_data_file", "mtcars"
+        )
+        data_download_server(
+            "pedi",
+            shiny::reactive({
+                as.data.frame(ped(pedi))
+            }),
+            "sampleped", "Pedigree"
         )
     }
     shiny::shinyApp(ui, server)
