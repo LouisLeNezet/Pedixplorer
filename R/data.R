@@ -118,6 +118,7 @@
 #' - `sex` : `1` for male or `2` for female
 #' - `affected` : `1` or `0`
 #' - `avail` : `1` or `0`
+#' - `num` : Numerical test variable from 0 to 6 randomly distributed
 #'
 #' @usage
 #' data("sampleped")
