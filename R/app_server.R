@@ -303,8 +303,23 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     plot_ped <- plot_ped_server(
         "ped", ped_subfam, cust_title(short = FALSE)
     )
-    plot_download_server("saveped", plot_ped, cust_title(short = TRUE))
+
     plot_legend_server("legend", ped_subfam)
+
+    ## Download data and plot -------------------------------------------------
+    plot_download_server("saveped",
+        plot_ped, label = "Download plot",
+        cust_title(short = TRUE)
+    )
+    data_subfam <- shiny::reactive({
+        shiny::req(ped_subfam())
+        as.data.frame(ped(ped_subfam()))
+    })
+    data_download_server("plot_data_dwnl",
+        data_subfam, label = "Download data",
+        filename = cust_title(short = TRUE),
+        helper = FALSE, title = NULL
+    )
 
     ## End --------------------------------------------------------------------
     if (!interactive()) {

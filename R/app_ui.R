@@ -87,12 +87,15 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
     ## Plotting pedigree ----------------------------
     fluidRow(
         plot_ped_ui("ped"),
-        plot_download_ui("saveped"),
-        plotOutput("legend_plot", height = "50px"),
     ),
     fluidRow(
-        column(4, style = "background-color:#1f4a7d;", data_download_ui("plot_data_dwnl")),
-        column(6, plot_legend_ui("legend", "300px"))
+        column(4,
+            plot_download_ui("saveped"),
+            data_download_ui("plot_data_dwnl")
+        ),
+        column(8,
+            plot_legend_ui("legend", "300px")
+        )
     )
 
 ))

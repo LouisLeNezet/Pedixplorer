@@ -78,7 +78,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     famlist <- unique(famid(ped(obj)))
     famlist <- famlist[!is.na(famlist)]
     if (length(famlist) > 1) {
-        print("Multiple families present, computing each family separately")
+        message("Multiple families present, computing each family separately")
         all_df <- list()
         for (i_fam in famlist) {
             ped_fam <- obj[famid(ped(obj)) == i_fam]
