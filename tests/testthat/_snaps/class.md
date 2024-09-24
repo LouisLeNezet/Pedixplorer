@@ -4,18 +4,18 @@
       ped2
     Output
       Ped object with 2 individuals and 0 metadata columns:
-                   id       dadid       momid                      sex       famid
-          <character> <character> <character> <c("ordered", "factor")> <character>
-      ID5         ID5        <NA>        <NA>                   female        <NA>
-      ID4         ID4        <NA>        <NA>                     male        <NA>
-             steril    status     avail  affected    useful       kin     isinf
-          <logical> <logical> <logical> <logical> <logical> <numeric> <logical>
-      ID5      <NA>      <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
-      ID4      <NA>      <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
-          num_child_tot num_child_dir num_child_ind
-              <numeric>     <numeric>     <numeric>
-      ID5             0             0             0
-      ID4             0             0             0
+                         id       dadid       momid       sex       famid    steril
+      col_class <character> <character> <character> <ordered> <character> <logical>
+      ID5               ID5        <NA>        <NA>    female        <NA>      <NA>
+      ID4               ID4        <NA>        <NA>      male        <NA>      <NA>
+                   status     avail  affected    useful       kin     isinf
+      col_class <logical> <logical> <logical> <logical> <numeric> <logical>
+      ID5            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
+      ID4            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
+                num_child_tot num_child_dir num_child_ind
+      col_class     <numeric>     <numeric>     <numeric>
+      ID5                   0             0             0
+      ID4                   0             0             0
 
 # Rel class works
 
