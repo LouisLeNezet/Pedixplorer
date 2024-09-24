@@ -1,7 +1,9 @@
+use_package("shinytest2", type = "suggests")
+
 test_that("color_picker works", {
     app <- shinytest2::AppDriver$new(
         color_picker_demo(), name = "color_picker",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     # Check the initial values
@@ -17,7 +19,7 @@ test_that("color_picker works", {
 test_that("data_col_sel works", {
     app <- shinytest2::AppDriver$new(
         data_col_sel_demo(), name = "data_col_sel",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     # Check the initial values
@@ -33,7 +35,7 @@ test_that("data_col_sel works", {
 test_that("data_download works", {
     app <- shinytest2::AppDriver$new(
         data_download_demo(), name = "data_download",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     # Check download
@@ -43,7 +45,7 @@ test_that("data_download works", {
 test_that("data_import with default data", {
     app <- shinytest2::AppDriver$new(
         data_import_demo(), name = "data_import",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     # Uploaded file outside of: ./tests/testthat
@@ -67,7 +69,7 @@ test_that("data_import with default data", {
 test_that("health_sel works", {
     app <- shinytest2::AppDriver$new(
         health_sel_demo(), name = "health_sel",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     # Check initial values
     app$set_window_size(width = 1611, height = 956)
@@ -89,7 +91,7 @@ test_that("health_sel works", {
 test_that("inf_sel works", {
     app <- shinytest2::AppDriver$new(
         inf_sel_demo(), name = "inf_sel",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     # Update output value
     app$set_window_size(width = 1611, height = 956)
@@ -112,7 +114,7 @@ test_that("inf_sel works", {
 test_that("ped_avaf_infos works", {
     app <- shinytest2::AppDriver$new(
         ped_avaf_infos_demo(), name = "ped_avaf_infos",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     app$expect_values(export = TRUE)
@@ -121,7 +123,7 @@ test_that("ped_avaf_infos works", {
 test_that("plot_download works", {
     app <- shinytest2::AppDriver$new(
         plot_download_demo(), name = "plot_download",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     # Download plot sp
@@ -156,7 +158,7 @@ test_that("plot_download works", {
 test_that("plot_ped works", {
     app <- shinytest2::AppDriver$new(
         plot_ped_demo(), name = "plot_ped",
-        variant = platform_variant()
+        variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     app$set_inputs(`ped-interactive` = TRUE)

@@ -22,7 +22,7 @@ test_that("Pedigree old usage compatibility", {
     ped1 <- with(sampleped,
         Pedigree(id, dadid, momid, sex, famid, avail, affection)
     )
-    expect_equal(ped1, Pedigree(sampleped))
+    expect_equal(ped1, Pedigree(sampleped[colnames(sampleped) != "num"]))
 
     ped2mat <- matrix(c(
         1, 1, 0, 0, 1,
@@ -77,7 +77,7 @@ test_that("Pedigree from sampleped and affectation", {
         "family" = "famid"
     ))
 
-    expect_equal(dim(as.data.frame(ped(ped1))), c(41, 27))
+    expect_equal(dim(as.data.frame(ped(ped1))), c(41, 28))
     expect_equal(dim(as.data.frame(rel(ped1))), c(0, 4))
 
     expect_error(id(ped(ped1)) <- "1")
@@ -132,7 +132,7 @@ test_that("Pedigree subscripting", {
 test_that("Pedigree generic", {
     data("sampleped")
     pedi <- Pedigree(sampleped)
-    expect_equal(dim(as.data.frame(ped(pedi))), c(55, 27))
+    expect_equal(dim(as.data.frame(ped(pedi))), c(55, 28))
     expect_equal(names(as.list(pedi)), c("ped", "rel", "scales", "hints"))
     expect_equal(length(pedi), 55)
 })
