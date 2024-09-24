@@ -7,11 +7,11 @@
 \alias{plot_legend}
 \title{Shiny module to generate pedigree graph legend.}
 \usage{
-plot_legend_ui(id)
+plot_legend_ui(id, height = "200px")
 
-plot_legend_server(id, pedi)
+plot_legend_server(id, pedi, leg_loc = c(0.2, 1, 0, 1))
 
-plot_legend_demo(max_ind = 500)
+plot_legend_demo(height = "200px", leg_loc = c(0.2, 1, 0, 1))
 
 plot_legend(
   pedi,
@@ -21,7 +21,8 @@ plot_legend(
   adjx = 0,
   adjy = 0,
   leg_loc = c(0, 1, 0, 1),
-  add_to_existing = FALSE
+  add_to_existing = FALSE,
+  usr = NULL
 )
 }
 \arguments{
