@@ -61,7 +61,9 @@ setMethod("show", "Ped",
             }
             col_class <- S4Vectors:::make_class_info_for_DataFrame_display(df)
             m <- rbind(col_class, m)
-            m[, "|"] <- "|"
+            if("|" %in% colnames(m)) {
+                m[, "|"] <- ""
+            }
         }
         print(m, quote = FALSE, right = TRUE)
         invisible(NULL)
@@ -429,7 +431,7 @@ setMethod("subset", "Pedigree",
 #' @export
 #' @usage NULL
 setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing", drop = "ANY"),
-    function(x, i, j, drop = TRUE, del_parents = NULL, keep = TRUE) {
-        subset(x, i, del_parents, keep)
+    function(x, i, j, ..., drop = TRUE) {
+        subset(x, i, ...)
     }
 )
