@@ -450,3 +450,51 @@ anchor_to_factor <- function(anchor) {
 
     factor(anchor, anchor_codes, ordered = TRUE)
 }
+
+
+#' Make rownames for rectangular data display
+#' @param x_rownames The rownames of the data
+#' @param nrow The number of rows in the data
+#' @param nhead The number of rownames to display at the beginning
+#' @param ntail The number of rownames to display at the end
+#' @return A character vector of rownames
+#' @keywords internal
+#' @examples
+#' Pedixplorer::make_rownames(rownames(mtcars), nrow(mtcars), 3, 3)
+#' @export
+make_rownames <- function(
+    x_rownames, nrow, nhead, ntail
+) {
+    p1 <- ifelse(nhead == 0L, 0L, 1L)
+    p2 <- ifelse(ntail == 0L, 0L, ntail - 1L)
+    s1 <- s2 <- character(0)
+    if (is.null(x_rownames)) {
+        if (nhead > 0L)
+            s1 <- paste0(as.character(p1:nhead))
+        if (ntail > 0L)
+            s2 <- paste0(as.character((nrow - p2):nrow))
+    } else {
+        if (nhead > 0L)
+            s1 <- paste0(head(x_rownames, nhead))
+        if (ntail > 0L)
+            s2 <- paste0(tail(x_rownames, ntail))
+    }
+    c(s1, "...", s2)
+}
+
+#' Make class information
+#' @param x A list of class
+#' @return A character vector of class information
+#' @keywords internal
+#' @examples
+#' Pedixplorer::make_class_info(list(1, "a", 1:3, list(1, 2)))
+#' @export
+make_class_info <- function(x) {
+    vapply(
+        x,
+        function(xi) {
+            paste0("<", S4Vectors::classNameForDisplay(xi), ">")
+        },
+        character(1), USE.NAMES = FALSE
+    )
+}

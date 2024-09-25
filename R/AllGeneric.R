@@ -25,43 +25,46 @@ setMethod("summary", "Ped",
 #' - `show(x)`: Convert the Ped object to a data.frame
 #' and print it with its summary.
 #' @export
-#' @importFrom S4Vectors cbind_mcols_for_display
 #' @importFrom methods show
-#' @importFrom S4Vectors makeClassinfoRowForCompactPrinting
+#' @importFrom S4Vectors cbind_mcols_for_display
+#' @importFrom S4Vectors get_showHeadLines get_showHeadLines
+#' @importFrom S4Vectors makeNakedCharacterMatrixForDisplay
+#' @importFrom utils head tail
 #' @rdname Ped-class
 #' @usage NULL
+#' @include utils.R
 setMethod("show", "Ped",
     function(object) {
         cat(summary(object), ":\n", sep = "")
         df <- as.data.frame(object)
         df <- df[, !colnames(df) %in% colnames(mcols(object))]
         df <- S4Vectors::cbind_mcols_for_display(df, object)
-        nhead <- S4Vectors:::get_showHeadLines()
-        ntail <- S4Vectors:::get_showTailLines()
+        nhead <- S4Vectors::get_showHeadLines()
+        ntail <- S4Vectors::get_showTailLines()
         x_nrow <- nrow(df)
         x_ncol <- ncol(df)
         if (x_nrow != 0L && x_ncol != 0L) {
             x_rownames <- rownames(df)
             if (x_nrow <= nhead + ntail + 1L) {
-                m <- S4Vectors:::makeNakedCharacterMatrixForDisplay(df)
+                m <- S4Vectors::makeNakedCharacterMatrixForDisplay(df)
                 if (!is.null(x_rownames))
                     rownames(m) <- x_rownames
             } else {
                 m <- rbind(
-                    S4Vectors:::makeNakedCharacterMatrixForDisplay(
-                        head(df, nhead)
+                    S4Vectors::makeNakedCharacterMatrixForDisplay(
+                        utils::head(df, nhead)
                     ), rbind(rep.int("...", x_ncol)),
-                    S4Vectors:::makeNakedCharacterMatrixForDisplay(
-                        tail(df, ntail)
+                    S4Vectors::makeNakedCharacterMatrixForDisplay(
+                        utils::tail(df, ntail)
                     )
                 )
-                rownames(m) <- S4Vectors:::make_rownames_for_RectangularData_display(
+                rownames(m) <- make_rownames(
                     x_rownames, x_nrow, nhead, ntail
                 )
             }
-            col_class <- S4Vectors:::make_class_info_for_DataFrame_display(df)
+            col_class <- make_class_info(df)
             m <- rbind(col_class, m)
-            if("|" %in% colnames(m)) {
+            if ("|" %in% colnames(m)) {
                 m[, "|"] <- ""
             }
         }
