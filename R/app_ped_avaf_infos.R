@@ -49,7 +49,8 @@ sketch <- function(var_name) {
 #' @return A cross table dataframe with the affection and availability
 #' information.
 #' @examples
-#' pedi <- Pedigree(Pedixplorer::sampleped)
+#' data(sampleped)
+#' pedi <- Pedigree(sampleped)
 #' pedi <- generate_colors(pedi, "num_child_tot", threshold = 2)
 #' Pedixplorer:::family_infos_table(pedi, "num_child_tot")
 #' Pedixplorer:::family_infos_table(pedi, "affection")
@@ -171,8 +172,10 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
 #' @rdname ped_avaf_infos
 #' @export
 ped_avaf_infos_demo <- function() {
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     pedi <- Pedigree(
-        Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
+        data_env[["sampleped"]][data_env[["sampleped"]]$famid == "1", ]
     )
     ui <- shiny::fluidPage(
         ped_avaf_infos_ui("familysel")

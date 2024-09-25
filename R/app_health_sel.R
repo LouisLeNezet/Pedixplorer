@@ -193,7 +193,9 @@ health_sel_server <- function(
 #' @rdname health_sel
 #' @export
 health_sel_demo <- function() {
-    pedi <- Pedigree(Pedixplorer::sampleped)
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
+    pedi <- Pedigree(data_env[["sampleped"]])
     ui <- shiny::fluidPage(
         column(6,
             health_sel_ui("healthsel")

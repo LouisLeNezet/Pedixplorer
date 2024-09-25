@@ -1,4 +1,5 @@
 #' @importFrom shiny NS div uiOutput tagList
+#' @importFrom usethis use_package
 
 usethis::use_package("shiny")
 usethis::use_package("colourpicker")

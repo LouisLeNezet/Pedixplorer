@@ -138,7 +138,9 @@ family_sel_demo <- function(
     fam_var = NULL, fam_sel = NULL,
     title = "Family selection"
 ) {
-    pedi <- Pedigree(Pedixplorer::sampleped)
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
+    pedi <- Pedigree(data_env[["sampleped"]])
     ui <- shiny::fluidPage(
         column(6,
             family_sel_ui("familysel")

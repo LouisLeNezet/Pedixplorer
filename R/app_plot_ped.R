@@ -143,17 +143,20 @@ plot_ped_server <- function(id, pedi, title, max_ind = 500) {
 #' @rdname plot_ped
 #' @export
 plot_ped_demo <- function(max_ind = 500) {
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
+    sampleped <- data_env[["sampleped"]]
     pedi <- shiny::reactive({
         Pedigree(
-            Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
+            sampleped[sampleped$famid == "1", ]
         )
     })
     ui <- shiny::fluidPage(
-        plot_ped_ui("ped"),
+        plot_ped_ui("plot_ped"),
         plot_download_ui("saveped")
     )
     server <- function(input, output, session) {
-        ped_plot <- plot_ped_server("ped", pedi, "My Pedigree", max_ind)
+        ped_plot <- plot_ped_server("plot_ped", pedi, "My Pedigree", max_ind)
         plot_download_server("saveped", ped_plot)
     }
     shiny::shinyApp(ui, server)

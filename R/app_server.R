@@ -1,6 +1,5 @@
 usethis::use_package("shiny")
 usethis::use_package("shinyWidgets")
-usethis::use_package("dplyr")
 usethis::use_package("DT")
 usethis::use_package("gridExtra")
 
@@ -20,11 +19,16 @@ usethis::use_package("gridExtra")
 #' @param output The output object from a Shiny app.
 #' @param session The session object from a Shiny app.
 ped_server <- shiny::shinyServer(function(input, output, session) {
+
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
+    utils::data("relped", envir = data_env, package = "Pedixplorer")
+
     ## Ped data import --------------------------------------------------------
     ped_df <- data_import_server(
         id = "data_ped_import",
         label = "Select pedigree file :",
-        dftest = Pedixplorer::sampleped
+        dftest = data_env[["sampleped"]]
     )
     ped_df_rename <- data_col_sel_server(
         "data_ped_col_sel", ped_df,
@@ -46,7 +50,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     rel_df <- data_import_server(
         id = "data_rel_import",
         label = "Select relationship file :",
-        dftest = Pedixplorer::relped
+        dftest = data_env[["relped"]]
     )
     rel_df_rename <- data_col_sel_server(
         "data_rel_col_sel", rel_df,
@@ -307,25 +311,29 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     plot_legend_server("legend", ped_subfam)
 
     ## Download data and plot -------------------------------------------------
-    plot_download_server("saveped",
+    plot_download_server(
+        "saveped",
         plot_ped, label = "Download plot",
         cust_title(short = TRUE)
     )
     data_subfam <- shiny::reactive({
-        shiny::req(ped_subfam())
-        as.data.frame(ped(ped_subfam()))
+      shiny::req(ped_subfam())
+      if (is.null(ped_subfam())) {
+          return(NULL)
+      } else {
+          Pedixplorer::as.data.frame(ped(ped_subfam())) 
+      }
     })
     data_download_server("plot_data_dwnl",
-        data_subfam, label = "Download data",
-        filename = cust_title(short = TRUE),
-        helper = FALSE, title = NULL
+                         data_subfam, label = "Download data",
+                         filename = cust_title(short = TRUE),
+                         helper = FALSE, title = NULL
     )
-
     ## End --------------------------------------------------------------------
     if (!interactive()) {
-        session$onSessionEnded(function() {
-            shiny::stopApp()
-            q("no")
-        })
+      session$onSessionEnded(function() {
+        shiny::stopApp()
+        q("no")
+      })
     }
 })

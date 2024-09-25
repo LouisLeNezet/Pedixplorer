@@ -52,9 +52,11 @@ plot_legend_server <- function(id, pedi, leg_loc = c(0.2, 1, 0, 1)) {
 #' @rdname plot_legend
 #' @export
 plot_legend_demo <- function(height = "200px", leg_loc = c(0.2, 1, 0, 1)) {
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     pedi <- shiny::reactive({
         Pedigree(
-            Pedixplorer::sampleped[Pedixplorer::sampleped$famid == 1, ]
+            data_env[["sampleped"]][data_env[["sampleped"]]$famid == "1", ]
         )
     })
     ui <- shiny::fluidPage(

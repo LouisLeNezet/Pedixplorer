@@ -253,9 +253,8 @@ data_import_server <- function(
             opt$heading <- input$heading
             opt$to_char <- input$to_char
             opt$stringsAsFactors <- input$stringsAsFactors
-            opt$quote <- input$quote
             opt$na_values <- strsplit(
-                input$na_values, ",", useBytes = TRUE
+                input$na_string, ",", useBytes = TRUE
             )[[1]]
         })
 
@@ -325,7 +324,7 @@ data_import_server <- function(
 
 #' @rdname data_import
 #' @export
-data_import_demo <- function() {
+data_import_demo <- function(options = list()) {
     ui <- shiny::fluidPage(
         data_import_ui("my_data_import"),
         shiny::tableOutput("data")
@@ -344,5 +343,5 @@ data_import_demo <- function() {
             df_import()
         })
     }
-    shiny::shinyApp(ui, server)
+    shiny::shinyApp(ui, server, options = options)
 }

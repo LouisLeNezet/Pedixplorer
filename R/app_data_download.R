@@ -94,10 +94,8 @@ data_download_server <- function(
 #' @rdname data_download
 #' @export
 data_download_demo <- function() {
-    pedi <- Pedigree(sampleped)
     ui <- shiny::fluidPage(
-        data_download_ui("mtcars"),
-        data_download_ui("pedi")
+        data_download_ui("mtcars")
     )
     server <- function(input, output, session) {
         data_download_server(
@@ -106,13 +104,6 @@ data_download_demo <- function() {
                 datasets::mtcars
             }),
             "mtcars_data_file", "mtcars"
-        )
-        data_download_server(
-            "pedi",
-            shiny::reactive({
-                as.data.frame(ped(pedi))
-            }),
-            "sampleped", "Pedigree"
         )
     }
     shiny::shinyApp(ui, server)

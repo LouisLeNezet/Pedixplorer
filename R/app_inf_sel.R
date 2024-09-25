@@ -170,9 +170,12 @@ inf_sel_server <- function(id, pedi) {
 #' @rdname inf_sel
 #' @export
 inf_sel_demo <- function() {
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
+    sampleped <- data_env[["sampleped"]]
     pedi <- shiny::reactive({
         Pedigree(
-            Pedixplorer::sampleped[Pedixplorer::sampleped$famid == "1", ]
+            sampleped[sampleped$famid == "1", ]
         )
     })
     ui <- shiny::fluidPage(

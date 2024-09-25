@@ -170,11 +170,13 @@ plot_download_server <- function(
 #' @rdname plot_download
 #' @export
 plot_download_demo <- function() {
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     plot_fct_sp <- function() {
         c(1, 2, 3, 4, 5)
     }
     plot_fct_ped <- function() {
-        Pedigree(Pedixplorer::sampleped)
+        Pedigree(data_env[["sampleped"]])
     }
     ui <- shiny::fluidPage(
         fluidRow(
