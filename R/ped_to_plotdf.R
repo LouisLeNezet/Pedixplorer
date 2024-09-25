@@ -34,8 +34,9 @@ NULL
 #' nuclear families.
 #' @param aff_mark If `TRUE`, add a aff_mark to each box corresponding to the
 #' value of the affection column for each filling scale.
-#' @param label If not `NULL`, add a label to each box corresponding to the
-#' value of the column given.
+#' @param id_lab The column name of the id for each individuals.
+#' @param label If not `NULL`, add a label to each box under the id
+#' corresponding to the value of the column given.
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams subregion
 #' @inheritParams set_plot_area
@@ -72,7 +73,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     obj, packed = TRUE, width = 6, align = c(1.5, 2),
     align_parents = TRUE, force = FALSE,
     subreg = NULL, cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
-    aff_mark = TRUE, label = NULL, id_lab = "id", ...
+    aff_mark = TRUE, id_lab = "id", label = NULL, ...
 ) {
 
     famlist <- unique(famid(ped(obj)))

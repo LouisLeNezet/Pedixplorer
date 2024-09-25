@@ -11,6 +11,7 @@ NULL
 #' object legend
 #'
 #' @keywords internal, plot_legend
+#' @importFrom scales rescale
 plot_legend <- function(
     pedi, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL
@@ -99,7 +100,7 @@ plot_legend <- function(
 #' @param leg_adjy default=0.  Controls the vertical labels adjustment
 #' of the legend.
 #' @param ... Extra options that feed into the
-#' [ped_to_plot()] function.
+#' [ped_to_plotdf()] function.
 #'
 #' @return an invisible list containing
 #' - df : the data.frame used to plot the Pedigree
@@ -125,8 +126,8 @@ plot_legend <- function(
 #' @export
 #' @docType methods
 setMethod("plot", c(x = "Pedigree", y = "missing"),
-    function(x, aff_mark = TRUE,
-        label = NULL, ggplot_gen = FALSE, cex = 1, symbolsize = 1,
+    function(x, aff_mark = TRUE, id_lab = "id", label = NULL,
+        ggplot_gen = FALSE, cex = 1, symbolsize = 1,
         branch = 0.6, packed = TRUE, align = c(1.5, 2),
         align_parents = TRUE, force = FALSE, width = 6,
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
@@ -145,7 +146,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         }
         lst <- ped_to_plotdf(
             x, packed, width, align, align_parents, force, subreg,
-            cex, symbolsize, pconnect, branch, aff_mark, label, ...
+            cex, symbolsize, pconnect, branch, aff_mark, id_lab, label, ...
         )
 
         if (is.null(lst)) {
