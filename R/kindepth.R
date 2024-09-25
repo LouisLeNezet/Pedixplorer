@@ -11,7 +11,6 @@
 #'
 #' In the case of an inbred Pedigree a perfect alignment may not exist.
 #'
-#' @param ... Additional arguments
 #' @inheritParams Ped
 #' @param align_parents If `align_parents = TRUE`, go one step further
 #' and try to make both parents of each child have the same depth.
@@ -26,6 +25,7 @@
 #' @seealso [align()]
 #' @include AllClass.R
 #' @export
+#' @usage NULL
 setGeneric("kindepth", signature = "obj",
     function(obj, ...) standardGeneric("kindepth")
 )
