@@ -7,3 +7,4 @@ noweb
 ^idea$
 LICENSE
 _\.new\.png$
+^codecov\.yml$

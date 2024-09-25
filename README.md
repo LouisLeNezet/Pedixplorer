@@ -1,8 +1,11 @@
 # The `Pedixplorer` Package <img src="./inst/figures/icon_Pedixplorer.png" align="right" height="139" />
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/kinship2)](https://CRAN.R-project.org/package=kinship2)
-[![Downloads](http://cranlogs.r-pkg.org/badges/kinship2)](https://CRAN.R-project.org/package=kinship2)
-[![Total-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/kinship2)](https://CRAN.R-project.org/package=kinship2)
+<!-- badges: start -->
+  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/kinship2)](https://CRAN.R-project.org/package=kinship2)
+  [![Downloads](http://cranlogs.r-pkg.org/badges/kinship2)](https://CRAN.R-project.org/package=kinship2)
+  [![Total-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/kinship2)](https://CRAN.R-project.org/package=kinship2)
+  [![Codecov test coverage](https://codecov.io/gh/LouisLeNezet/Pedixplorer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/LouisLeNezet/Pedixplorer?branch=main)     
+<!-- badges: end -->
 
 This is a fork and the new version of the [**kinship2**](https://github.com/mayoverse/kinship2) package.
 

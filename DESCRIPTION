@@ -35,7 +35,8 @@ Imports:
     plotly,
     colourpicker,
     shinytoastr,
-    usethis
+    usethis,
+    scales
 Description: Routines to handle family data with a Pedigree object. The initial
     purpose was to create correlation structures that describe family
     relationships such as kinship and identity-by-descent, which can be used to
@@ -51,14 +52,16 @@ Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 
     diffviewer,
-    testthat,
+    testthat (>= 3.0.0),
     vdiffr,
     rmarkdown,
     BiocStyle,
     knitr,
     withr,
     qpdf,
-    shinytest2
+    shinytest2,
+    covr,
+    devtools
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, Alignment
 BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues
