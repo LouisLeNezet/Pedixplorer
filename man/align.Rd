@@ -20,8 +20,6 @@
 \arguments{
 \item{obj}{A Pedigree object}
 
-\item{...}{Additional arguments}
-
 \item{packed}{Should the Pedigree be compressed.
 (i.e. allow diagonal lines connecting parents to children in order
 to have a smaller overall width for the plot.)}

@@ -18,8 +18,8 @@
   pconnect = 0.5,
   branch = 0.6,
   aff_mark = TRUE,
-  label = NULL,
   id_lab = "id",
+  label = NULL,
   ...
 )
 }
@@ -73,8 +73,10 @@ nuclear families.}
 \item{aff_mark}{If \code{TRUE}, add a aff_mark to each box corresponding to the
 value of the affection column for each filling scale.}
 
-\item{label}{If not \code{NULL}, add a label to each box corresponding to the
-value of the column given.}
+\item{id_lab}{The column name of the id for each individuals.}
+
+\item{label}{If not \code{NULL}, add a label to each box under the id
+corresponding to the value of the column given.}
 }
 \value{
 A list containing the data frame and the user coordinates.

@@ -15,7 +15,7 @@ data_import_server(
   max_request_size = 30
 )
 
-data_import_demo()
+data_import_demo(options = list())
 }
 \arguments{
 \item{id}{A string.}

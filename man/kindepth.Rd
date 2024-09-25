@@ -7,8 +7,6 @@
 \alias{kindepth,Ped-method}
 \title{Individual's depth in a pedigree}
 \usage{
-kindepth(obj, ...)
-
 \S4method{kindepth}{character_OR_integer}(obj, dadid, momid, align_parents = FALSE, force = FALSE)
 
 \S4method{kindepth}{Pedigree}(obj, align_parents = FALSE, force = FALSE)
@@ -18,8 +16,6 @@ kindepth(obj, ...)
 \arguments{
 \item{obj}{A character vector with the id of the individuals or a
 \code{data.frame} with all the informations in corresponding columns.}
-
-\item{...}{Additional arguments}
 
 \item{dadid}{A vector containing for each subject, the identifiers of the
 biologicals fathers.}

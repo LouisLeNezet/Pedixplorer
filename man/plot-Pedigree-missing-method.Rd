@@ -10,6 +10,7 @@
 \S4method{plot}{Pedigree,missing}(
   x,
   aff_mark = TRUE,
+  id_lab = "id",
   label = NULL,
   ggplot_gen = FALSE,
   cex = 1,
@@ -39,8 +40,10 @@
 \item{aff_mark}{If \code{TRUE}, add a aff_mark to each box corresponding to the
 value of the affection column for each filling scale.}
 
-\item{label}{If not \code{NULL}, add a label to each box corresponding to the
-value of the column given.}
+\item{id_lab}{The column name of the id for each individuals.}
+
+\item{label}{If not \code{NULL}, add a label to each box under the id
+corresponding to the value of the column given.}
 
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 
@@ -111,7 +114,7 @@ the legend.}
 of the legend.}
 
 \item{...}{Extra options that feed into the
-\code{\link[=ped_to_plot]{ped_to_plot()}} function.}
+\code{\link[=ped_to_plotdf]{ped_to_plotdf()}} function.}
 }
 \value{
 an invisible list containing
