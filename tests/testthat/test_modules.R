@@ -54,7 +54,7 @@ test_that("data_import with default data", {
     app$set_inputs(`my_data_import-sep` = " ")
     # Update output value
     app$click("my_data_import-options")
-    app$set_inputs(`my_data_import-stringsAsFactors` = TRUE)
+    app$set_inputs(`my_data_import-strings_as_factors` = TRUE)
     app$set_inputs(`my_data_import-heading` = FALSE)
     app$set_inputs(`my_data_import-to_char` = TRUE)
     app$set_inputs(`my_data_import-quote` = "'")
@@ -167,6 +167,7 @@ test_that("plot_ped works", {
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
+    app$wait_for_idle(500)
     app$set_inputs(`ped-interactive` = TRUE)
     app$wait_for_idle(500)
     app$wait_for_value(output = "ped-plotpedi", ignore = list(NULL))
