@@ -290,7 +290,8 @@ data_import_server <- function(
             read_data(
                 file_path, sep = input$sep, quote = opt$quote,
                 header = opt$heading, df_name = input$dfSelected,
-                strings_as_factors = opt$strings_as_factors, to_char = opt$to_char,
+                strings_as_factors = opt$strings_as_factors,
+                to_char = opt$to_char,
                 na_values = opt$na_values
             )
         })

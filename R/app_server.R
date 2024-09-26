@@ -321,7 +321,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         if (is.null(ped_subfam())) {
             return(NULL)
         } else {
-            Pedixplorer::as.data.frame(ped(ped_subfam())) 
+            Pedixplorer::as.data.frame(ped(ped_subfam()))
         }
     })
     data_download_server("plot_data_dwnl",

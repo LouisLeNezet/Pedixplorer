@@ -149,7 +149,6 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         # mean range of each box for each polygon for each subreg
         poly_aff <- lapply(polylist, "[[", aff)
         poly_aff_x <- lapply(poly_aff, "[[", "x")
-        poly_aff_y <- lapply(poly_aff, "[[", "y")
 
         poly_aff_x_mr <- vapply(poly_aff_x,
             function(x) mean(range(x * boxw)),
