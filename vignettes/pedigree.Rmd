@@ -451,20 +451,39 @@ ped1reord <- Pedigree(df1reord, relate1)
 plot(ped1reord)
 ```
 
-## Modify the scales
+## Plot colors and scales
 
-You can modify the colors of each modality used for the filling as well
-as for the bordering by modifying the $Scales$ data.frame.
+The `Pedigree` object contains a $Scales$ object that can be modified to
+change the colors and patterns used in the plot.
+To make it easy for the user to modify it a function `generate_colors()`
+is available. This function will generate a color palette for the
+filling and the bordering of the plot. This function transform a given
+column of the dataframe into a factor and generate a color palette for
+each level of the factor. The user can then modify the colors and the
+patterns used for the filling and the bordering of the plot.
 
 To do so you can do as follow:
 
-```{r, scales modif}
+```{r, generate_colors}
 scales(ped1)
-fill(ped1)$fill <- c("green", "blue", "purple")
-fill(ped1)$density <- c(30, 15, NA)
-fill(ped1)$angle <- c(45, 0, NA)
+ped1 <- generate_colors(
+    ped1, col_aff = "num",
+    add_to_scale = TRUE, is_num = TRUE,
+    keep_full_scale = TRUE, breaks = 2,
+    colors_aff = c("blue", "green"),
+    colors_unaff = c("yellow", "brown"),
+    threshold = 3, sup_thres_aff = FALSE
+)
+
+plot(ped1)
+
+# To modify a given scale you can do as follow
+fill(ped1)
+fill(ped1)$fill[4] <- "#970b6d"
+fill(ped1)$density[5] <- 30
+fill(ped1)$angle[5] <- 45
 border(ped1)$border <- c("red", "black", "orange")
-plot(ped1, legend = TRUE)
+plot(ped1, legend = TRUE, leg_loc = c(7, 18, 1, 1.5))
 ```
 
 # Pedigree Utility Functions
