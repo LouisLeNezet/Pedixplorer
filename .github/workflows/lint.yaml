@@ -6,7 +6,9 @@ on:
   pull_request:
     branches: [main, master, devel]
 
-name: lint
+name: lint.yaml
+
+permissions: read-all
 
 jobs:
   lint:
