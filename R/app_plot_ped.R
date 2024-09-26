@@ -145,11 +145,9 @@ plot_ped_server <- function(id, pedi, title, max_ind = 500) {
 plot_ped_demo <- function(max_ind = 500) {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")
-    sampleped <- data_env[["sampleped"]]
     pedi <- shiny::reactive({
-        Pedigree(
-            sampleped[sampleped$famid == "1", ]
-        )
+        ped1 <- Pedigree(data_env[["sampleped"]])
+        ped1[famid(ped(ped1)) == "1"]
     })
     ui <- shiny::fluidPage(
         plot_ped_ui("plot_ped"),
