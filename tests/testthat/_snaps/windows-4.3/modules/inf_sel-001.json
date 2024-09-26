@@ -1,0 +1,10 @@
+{
+  "export": {
+    "lst_inf": {
+      "inf_txt": "All",
+      "inf_sel": "All",
+      "kin_max": 3,
+      "keep_parents": true
+    }
+  }
+}

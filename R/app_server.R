@@ -329,6 +329,12 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         filename = cust_title(short = TRUE),
         helper = FALSE, title = NULL
     )
+    ## Test exported values ---------------------------------------------------
+    shiny::exportTestValues(
+        df = {data_subfam()}
+    )
+
+
     ## End --------------------------------------------------------------------
     if (!interactive()) {
         session$onSessionEnded(function() {

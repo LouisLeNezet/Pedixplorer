@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <script type="application/shiny-singletons"></script>
+  <script type="application/html-dependencies">jquery[3.6.0];shiny-css[1.9.1];shiny-busy-indicators[1.9.1];shiny-javascript[1.9.1];shiny-testmode[1.9.1];shinyWidgets[0.8.7];bootstrap-switch-css[3.3.4];bootstrap-switch-js[3.3.4];selectize[0.15.2];htmltools-fill[0.5.8.1];htmlwidgets[1.6.4];datatables-css[0.0.0];datatables-binding[0.33];crosstalk[1.2.1];bootstrap[3.4.1]</script>
+<script src="jquery-3.6.0/jquery.min.js"></script>
+<link href="shiny-css-1.9.1/shiny.min.css" rel="stylesheet" />
+<link href="shiny-busy-indicators-1.9.1/busy-indicators.css" rel="stylesheet" />
+<script src="shiny-javascript-1.9.1/shiny.min.js"></script>
+<script src="shiny-testmode-1.9.1/shiny-testmode.js"></script>
+<link href="shinyWidgets/shinyWidgets.min.css" rel="stylesheet" />
+<script src="shinyWidgets/shinyWidgets-bindings.min.js"></script>
+<link href="shinyWidgets/bootstrap-switch/bootstrap-switch-3.4/bootstrap-switch.min.css" rel="stylesheet" />
+<script src="shinyWidgets/bootstrap-switch/bootstrap-switch-3.3.4/bootstrap-switch.min.js"></script>
+<script src="shinyWidgets/bootstrap-switch/bootstrap-switch-3.3.4/bootstrap-switch.min.js"></script>
+<link href="selectize-0.15.2/css/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="selectize-0.15.2/js/selectize.min.js"></script>
+<script src="selectize-0.15.2/accessibility/js/selectize-plugin-a11y.min.js"></script>
+<link href="htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="datatables-binding-0.33/datatables.js"></script>
+<link href="crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="bootstrap-3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+<link href="bootstrap-3.4.1/accessibility/css/bootstrap-accessibility.min.css" rel="stylesheet" />
+<script src="bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script src="bootstrap-3.4.1/accessibility/js/bootstrap-accessibility.min.js"></script>  <style>hr {border-top: 1px solid #000000;}
+                        .navigationBar{background-color:#0001}</style>
+  <title>Pedigree creation</title>
+  <link rel="stylesheet" type="text/css" href="toastr/toastr.min.css"/>
+  <script src="toastr/toastr.min.js"></script>
+  <script src="toastr/shinytoastr.js"></script>
+  <link rel="stylesheet" type="text/css" href="toastr/toastr.min.css"/>
+  <script src="toastr/toastr.min.js"></script>
+  <script src="toastr/shinytoastr.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12" align="center">
+        <h2>Pedigree creation</h2>
+      </div>
+    </div>
+    <div class="row navigationBar" title="Navigation">
+      <div class="col-sm-2">
+        <div id="data_ped_import-fileselection" class="shiny-html-output"></div>
+        <div class="row">
+          <h5>Use test data</h5>
+          <div class="col-sm-6">
+            <div class="form-group shiny-input-container">
+              <input id="data_ped_import-testdf" type="checkbox" class="sw-switchInput" data-input-id="data_ped_import-testdf" data-on-text="ON" data-off-text="OFF" data-label-width="auto" data-handle-width="auto" data-size="small"/>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <button id="data_ped_import-options" type="button" class="btn btn-default action-button" style="simple" size="sm">Options</button>
+          </div>
+        </div>
+        <div class="form-group shiny-input-container">
+          <label class="control-label" id="data_ped_import-sep-label" for="data_ped_import-sep">Separator</label>
+          <div>
+            <select id="data_ped_import-sep" class="shiny-input-select"><option value=",">Comma</option>
+<option value=";">Semi-colon</option>
+<option value="	" selected>Tabulation</option>
+<option value=" ">Space</option></select>
+            <script type="application/json" data-for="data_ped_import-sep" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+          </div>
+        </div>
+        <div id="data_ped_import-dfselection" class="shiny-html-output"></div>
+      </div>
+      <div class="col-sm-6">
+        <div class="col-sm-6">
+          <div id="data_ped_col_sel-Div" class="div-global" style="margin-top:1.5em">
+            <div id="data_ped_col_sel-all_cols_need" class="shiny-html-output"></div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div id="data_ped_col_sel-Div" class="div-global" style="margin-top:1.5em">
+            <div id="data_ped_col_sel-all_cols_supl" class="shiny-html-output"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div id="data_rel_import-fileselection" class="shiny-html-output"></div>
+        <div class="row">
+          <h5>Use test data</h5>
+          <div class="col-sm-6">
+            <div class="form-group shiny-input-container">
+              <input id="data_rel_import-testdf" type="checkbox" class="sw-switchInput" data-input-id="data_rel_import-testdf" data-on-text="ON" data-off-text="OFF" data-label-width="auto" data-handle-width="auto" data-size="small"/>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <button id="data_rel_import-options" type="button" class="btn btn-default action-button" style="simple" size="sm">Options</button>
+          </div>
+        </div>
+        <div class="form-group shiny-input-container">
+          <label class="control-label" id="data_rel_import-sep-label" for="data_rel_import-sep">Separator</label>
+          <div>
+            <select id="data_rel_import-sep" class="shiny-input-select"><option value=",">Comma</option>
+<option value=";">Semi-colon</option>
+<option value="	" selected>Tabulation</option>
+<option value=" ">Space</option></select>
+            <script type="application/json" data-for="data_rel_import-sep" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+          </div>
+        </div>
+        <div id="data_rel_import-dfselection" class="shiny-html-output"></div>
+      </div>
+      <div class="col-sm-2">
+        <div class="col-sm-6">
+          <div id="data_rel_col_sel-Div" class="div-global" style="margin-top:1.5em">
+            <div id="data_rel_col_sel-all_cols_need" class="shiny-html-output"></div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div id="data_rel_col_sel-Div" class="div-global" style="margin-top:1.5em">
+            <div id="data_rel_col_sel-all_cols_supl" class="shiny-html-output"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" title="Errors download" align="center">
+      <div id="download_errors" class="shiny-html-output"></div>
+    </div>
+    <hr/>
+    <div class="row" title="Health and Family selection">
+      <h2>Health and Family selection</h2>
+      <div class="col-sm-2" align="center">
+        <div id="health_full_scale_box" class="shiny-html-output"></div>
+        <div class="row">
+          <div id="col_aff-colors_pickers" class="shiny-html-output"></div>
+        </div>
+        <div class="row">
+          <div id="col_unaff-colors_pickers" class="shiny-html-output"></div>
+        </div>
+        <div class="row">
+          <div id="col_avail-colors_pickers" class="shiny-html-output"></div>
+        </div>
+      </div>
+      <div class="col-sm-2" align="center">
+        <h3>Health selection</h3>
+        <div id="health_sel-health_var_selector" class="shiny-html-output"></div>
+        <div id="health_sel-health_num_box" class="shiny-html-output"></div>
+        <div id="health_sel-health_threshold_box" class="shiny-html-output"></div>
+        <div id="health_sel-health_aff_selector" class="shiny-html-output"></div>
+      </div>
+      <div class="col-sm-4" align="center">
+        <div class="col-sm-12">
+          <div id="family_sel-title_fam" class="shiny-html-output"></div>
+          <div id="family_sel-families_var_selector" class="shiny-html-output"></div>
+          <div class="row">
+            <div class="datatables html-widget html-widget-output shiny-report-size html-fill-item" id="family_sel-families_table" style="width:100%;height:auto;"></div>
+          </div>
+          <div id="family_sel-family_selector" class="shiny-html-output"></div>
+        </div>
+      </div>
+      <div class="col-sm-4" align="center">
+        <div class="col-sm-12">
+          <div id="ped_avaf_infos-title_infos" class="shiny-html-output"></div>
+          <div id="ped_avaf_infos-ped_avaf_infos_title" class="shiny-text-output"></div>
+          <div class="datatables html-widget html-widget-output shiny-report-size html-fill-item" id="ped_avaf_infos-family_info_table" style="width:100%;height:auto;"></div>
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <h2>Informative and subfamily selection</h2>
+      <div class="col-sm-4" align="center">
+        <h3>Informative individuals</h3>
+        <div id="inf_sel-inf_var_selector" class="shiny-html-output"></div>
+        <div id="inf_sel-inf_custvar_selector" class="shiny-html-output"></div>
+        <div id="inf_sel-inf_custvar_textinput" class="shiny-html-output"></div>
+        <h3>Filtering options</h3>
+        <div class="form-group shiny-input-container">
+          <label class="control-label" id="inf_sel-kin_max-label" for="inf_sel-kin_max">
+            <h5>
+              <strong>Max kinship</strong>
+            </h5>
+          </label>
+          <input id="inf_sel-kin_max" type="number" class="shiny-input-number form-control" value="3" min="1"/>
+        </div>
+        <div class="form-group shiny-input-container">
+          <div class="checkbox">
+            <label>
+              <input id="inf_sel-keep_parents" type="checkbox" class="shiny-input-checkbox" checked="checked"/>
+              <span>Keep informative parents (available or affected)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4" align="center">
+        <div class="col-sm-12">
+          <div id="subfamily_sel-title_fam" class="shiny-html-output"></div>
+          <div id="subfamily_sel-families_var_selector" class="shiny-html-output"></div>
+          <div class="row">
+            <div class="datatables html-widget html-widget-output shiny-report-size html-fill-item" id="subfamily_sel-families_table" style="width:100%;height:auto;"></div>
+          </div>
+          <div id="subfamily_sel-family_selector" class="shiny-html-output"></div>
+        </div>
+      </div>
+      <div class="col-sm-4" align="center">
+        <div class="col-sm-12">
+          <div id="subped_avaf_infos-title_infos" class="shiny-html-output"></div>
+          <div id="subped_avaf_infos-ped_avaf_infos_title" class="shiny-text-output"></div>
+          <div class="datatables html-widget html-widget-output shiny-report-size html-fill-item" id="subped_avaf_infos-family_info_table" style="width:100%;height:auto;"></div>
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div id="ped-computebig" class="shiny-html-output"></div>
+      <div id="ped-plotpedi" class="shiny-html-output"></div>
+      <div class="form-group shiny-input-container">
+        <div class="checkbox">
+          <label>
+            <input id="ped-interactive" type="checkbox" class="shiny-input-checkbox"/>
+            <span>Make the pedigree interactive</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div id="saveped-btn_dwld" class="shiny-html-output"></div>
+        <div id="plot_data_dwnl-title_data" class="shiny-html-output"></div>
+        <div id="plot_data_dwnl-data_text" class="shiny-html-output"></div>
+        <div id="plot_data_dwnl-btn_dwld" class="shiny-html-output"></div>
+      </div>
+      <div class="col-sm-8">
+        <div class="col-sm-12">
+          <div class="shiny-plot-output html-fill-item" id="legend-plotlegend" style="width:100%;height:300px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
