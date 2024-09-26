@@ -6,12 +6,12 @@ on:
   pull_request:
     branches: [main, master, devel]
 
-name: test-coverage.yaml
+name: coverage
 
 permissions: read-all
 
 jobs:
-  test-coverage:
+  coverage:
     runs-on: ${{ matrix.config.os }}
 
     name: Test app ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -39,7 +39,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr, any::xml2, local::.
+          extra-packages: any::covr, any::xml2
           needs: coverage
 
       - name: Test coverage

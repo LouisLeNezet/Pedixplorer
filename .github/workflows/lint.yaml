@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [main, master, devel]
 
-name: test-lint
+name: lint
 
 jobs:
-  test-lint:
+  lint:
     runs-on: ${{ matrix.config.os }}
 
     name: Test linting ${{ matrix.config.os }} (${{ matrix.config.r }})
