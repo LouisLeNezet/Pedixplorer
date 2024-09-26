@@ -26,7 +26,11 @@ jobs:
           needs: lint
 
       - name: Lint
-        run: lintr::lint_package()
+        run: lintr::lint_package(
+          linters = linters_with_defaults(
+            indentation_linter(indent = 4L)
+          )
+        )
         shell: Rscript {0}
         env:
           LINTR_ERROR_ON_LINT: true
