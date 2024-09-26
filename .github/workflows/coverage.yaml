@@ -14,7 +14,7 @@ jobs:
   coverage:
     runs-on: ${{ matrix.config.os }}
 
-    name: Test app ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: Test coverage ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
       fail-fast: false
