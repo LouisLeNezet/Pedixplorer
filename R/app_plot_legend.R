@@ -32,9 +32,6 @@ plot_legend_ui <- function(id, height = "200px") {
 plot_legend_server <- function(id, pedi, leg_loc = c(0.2, 1, 0, 1)) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
-
-        ns <- shiny::NS(id)
-
         output$plotlegend <- shiny::renderPlot({
             shiny::req(pedi())
             old_mai <- par()$mai

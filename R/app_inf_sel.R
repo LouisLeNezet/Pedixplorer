@@ -123,8 +123,10 @@ inf_sel_server <- function(id, pedi) {
                     title = "Error while selecting informative individuals",
                     paste(
                         "Values",
-                        paste0(inf_custvar_val[is.na(val_pres)], collapse = ", "),
-                        "not present in", inf_custvar_sel
+                        paste0(
+                            inf_custvar_val[is.na(val_pres)],
+                            collapse = ", "
+                        ), "not present in", inf_custvar_sel
                     )
                 )
                 NULL

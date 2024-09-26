@@ -23,7 +23,7 @@ usethis::use_package("shinytoastr")
 #' @param quote A string defining the quote to use
 #' @param header A boolean defining if the dataframe contain a header or not
 #' @param df_name A string defining the name of the dataframe / sheet to use
-#' @param stringsAsFactors A boolean defining if all the strings should be
+#' @param strings_as_factors A boolean defining if all the strings should be
 #' interpreted ad factor
 #' @param to_char A boolean defining if all the dataset should be read as
 #' character.
@@ -35,7 +35,7 @@ usethis::use_package("shinytoastr")
 #' @keywords data_import, internal
 read_data <- function(
     file, sep = ";", quote = "'", header = TRUE, df_name = NA,
-    stringsAsFactors = FALSE, to_char = TRUE,
+    strings_as_factors = FALSE, to_char = TRUE,
     na_values = c("", "NA", "NULL", "None")
 ) {
     shiny::req(file)
@@ -100,7 +100,7 @@ read_data <- function(
             )
             return(NULL)
         })
-        as.data.frame(unclass(df), stringsAsFactors = stringsAsFactors)
+        as.data.frame(unclass(df), stringsAsFactors = strings_as_factors)
     } else {
         NULL
     }
@@ -211,7 +211,7 @@ data_import_server <- function(
         ## Options rendering selection --------------------
         opt <- shiny::reactiveValues(
             heading = TRUE, to_char = FALSE,
-            stringsAsFactors = FALSE, quote = "\"",
+            strings_as_factors = FALSE, quote = "\"",
             na_values = c("", "NA", "NULL", "None")
         )
         shiny::observeEvent(input$options, {
@@ -227,8 +227,8 @@ data_import_server <- function(
                     value = opt$to_char
                 ),
                 shiny::checkboxInput(
-                    ns("stringsAsFactors"),
-                    "Strings as factors", value = opt$stringsAsFactors
+                    ns("strings_as_factors"),
+                    "Strings as factors", value = opt$strings_as_factors
                 ),
                 shinyWidgets::pickerInput(ns("quote"), "Quote", c(
                     "None" = "",
@@ -252,7 +252,7 @@ data_import_server <- function(
             shiny::removeModal()
             opt$heading <- input$heading
             opt$to_char <- input$to_char
-            opt$stringsAsFactors <- input$stringsAsFactors
+            opt$strings_as_factors <- input$strings_as_factors
             opt$na_values <- strsplit(
                 input$na_string, ",", useBytes = TRUE
             )[[1]]
@@ -290,7 +290,7 @@ data_import_server <- function(
             read_data(
                 file_path, sep = input$sep, quote = opt$quote,
                 header = opt$heading, df_name = input$dfSelected,
-                stringsAsFactors = opt$stringsAsFactors, to_char = opt$to_char,
+                strings_as_factors = opt$strings_as_factors, to_char = opt$to_char,
                 na_values = opt$na_values
             )
         })

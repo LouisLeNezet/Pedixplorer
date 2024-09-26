@@ -97,5 +97,4 @@ ped_ui <- shiny::shinyUI(shiny::fluidPage(
             plot_legend_ui("legend", "300px")
         )
     )
-
 ))

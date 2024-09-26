@@ -13,5 +13,6 @@ library(vdiffr)
 library(shinytest2)
 
 withr::local_options(width = 150)
+Sys.setenv("R_TESTS" = "")
 test_check("Pedixplorer")
 TRUE

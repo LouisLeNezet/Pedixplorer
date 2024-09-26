@@ -43,7 +43,8 @@ jobs:
         run: |
           lintr::lint_package(
             linters = lintr::linters_with_defaults(
-              lintr::indentation_linter(indent = 4L)
+              lintr::indentation_linter(indent = 4L),
+              lintr::cyclocomp_linter(complexity_limit = 50L)
             )
           )
         shell: Rscript {0}

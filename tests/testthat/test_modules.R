@@ -82,9 +82,15 @@ test_that("health_sel works", {
     app$expect_values(export = TRUE)
     # Update output value
     app$set_inputs(`healthsel-health_as_num` = FALSE)
-    app$set_inputs(`healthsel-health_aff_mods_open` = TRUE, allow_no_input_binding_ = TRUE)
+    app$set_inputs(
+        `healthsel-health_aff_mods_open` = TRUE,
+        allow_no_input_binding_ = TRUE
+    )
     app$set_inputs(`healthsel-health_aff_mods` = "2")
-    app$set_inputs(`healthsel-health_aff_mods_open` = FALSE, allow_no_input_binding_ = TRUE)
+    app$set_inputs(
+        `healthsel-health_aff_mods_open` = FALSE,
+        allow_no_input_binding_ = TRUE
+    )
     app$expect_values(export = TRUE)
 })
 

@@ -295,27 +295,27 @@ With this new S4 object comes multiple methods to ease the use of it:
 ped <- upd_famid(ped, mcols(ped)$idth)
 
 ## We can substract a given family
-pedA <- ped[famid(ped(ped)) == "A"]
+ped_a <- ped[famid(ped(ped)) == "A"]
 
 ## Plot it
-plot(pedA, cex = 0.5)
+plot(ped_a, cex = 0.5)
 
 ## Do a summary
-summary(pedA)
+summary(ped_a)
 
 ## Coerce it to a list
-as.list(pedA)[[1]][1:3]
+as.list(ped_a)[[1]][1:3]
 
 ## Shrink it to keep only the necessary information
-lst1_s <- shrink(pedA, max_bits = 10)
+lst1_s <- shrink(ped_a, max_bits = 10)
 plot(lst1_s$pedObj, cex = 0.5)
 
 ## Compute the kinship individuals matrix
-kinship(pedA)[1:10, 1:10]
+kinship(ped_a)[1:10, 1:10]
 
 ## Get the useful individuals
-pedA <- useful_inds(pedA, informative = "AvAf")
-as.data.frame(ped(pedA))["useful"][1:10,]
+ped_a <- useful_inds(ped_a, informative = "AvAf")
+as.data.frame(ped(ped_a))["useful"][1:10, ]
 ```
 
 Session information

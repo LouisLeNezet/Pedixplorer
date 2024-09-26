@@ -60,8 +60,11 @@ plot_ped_server <- function(id, pedi, title, max_ind = 500) {
                 shiny::tagList(
                     shiny::checkboxInput(
                         ns("computebig"),
-                        label = "There are too many individuals to compute the plot. Do you want to continue?",
-                        value = FALSE
+                        label = paste(
+                            "There are too many individuals",
+                            "to compute the plot.",
+                            "Do you want to continue?"
+                        ), value = FALSE
                     )
                 )
             }

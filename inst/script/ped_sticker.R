@@ -18,10 +18,13 @@ output_dir <- "inst/figures/graph.png"
 png(output_dir,
     width = 1300, height = 900,
     units = "px", bg = "#FFFFFF00", pointsize = 36)
-op <- par(mar = c(5.5, 0.5, 0.5, 0.5), lwd = 3,
-    oma = c(0,0,0,0))
+op <- par(
+    mar = c(5.5, 0.5, 0.5, 0.5), lwd = 3,
+    oma = c(0, 0, 0, 0)
+)
 
-lst <- ped_to_plotdf(ped1trim$pedObj, cex = 1.2, symbolsize = 1, aff_mark = FALSE
+lst <- ped_to_plotdf(
+    ped1trim$pedObj, cex = 1.2, symbolsize = 1, aff_mark = FALSE
 )
 lst$par_usr$usr[3] <- 3.6
 p <- plot_fromdf(lst$df, usr = lst$par_usr$usr,
@@ -45,10 +48,7 @@ plot_fromdf(leg$leg_df, add_to_existing = TRUE,
     boxw = lst$par_usr$boxw * leg_symbolsize,
     boxh = lst$par_usr$boxh * leg_symbolsize
 )
-#box("figure", col = "#000000", lwd = 2)
-#box("plot", col = "#ff0000", lwd = 2)
-#box("inner", col = "#001aff", lwd = 2)
-#box("outer", col = "#00ff00", lwd = 2)
+
 dev.off()
 dev.off()
 par(op)

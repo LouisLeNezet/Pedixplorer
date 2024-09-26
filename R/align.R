@@ -113,6 +113,7 @@ ancestors <- function(idx, momx, dadx) {
 #' @include auto_hint.R
 #' @include kindepth.R
 #' @include AllClass.R
+#' @include AllAccessors.R
 #' @include alignped1.R
 #' @include alignped2.R
 #' @include alignped3.R
@@ -134,7 +135,6 @@ setMethod("align", "Pedigree",
         famlist <- unique(famid(ped(obj)))
         famlist <- famlist[!is.na(famlist)]
         if (length(famlist) > 1) {
-            nfam <- length(famlist)
             alignment <- vector("list")
             for (i_fam in famlist) {
                 ped_fam <- obj[famid(ped(obj)) == i_fam]

@@ -131,7 +131,7 @@ generate_fill <- function(
             fill_scale_aff <- fill_scale_unaff <- NA
             levs_aff <- levs_unaff <- factor(NA, levels = "NA")
 
-            if(length(val_aff) > 0) {
+            if (length(val_aff) > 0) {
                 mean_aff <- mean(val_aff, na.rm = TRUE)
                 levs_aff <- cut(
                     val_aff, breaks = breaks, include.lowest = TRUE
@@ -139,7 +139,7 @@ generate_fill <- function(
                 fill_scale_aff <- fct_scale_aff(breaks)
             }
 
-            if(length(val_unaff) > 0) {
+            if (length(val_unaff) > 0) {
                 mean_unaff <- mean(val_unaff, na.rm = TRUE)
                 levs_unaff <- cut(
                     val_unaff, breaks = breaks, include.lowest = TRUE
