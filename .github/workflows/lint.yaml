@@ -27,8 +27,8 @@ jobs:
 
       - name: Lint
         run: lintr::lint_package(
-          linters = linters_with_defaults(
-            indentation_linter(indent = 4L)
+          linters = lintr::linters_with_defaults(
+            lintr::indentation_linter(indent = 4L)
           )
         )
         shell: Rscript {0}
