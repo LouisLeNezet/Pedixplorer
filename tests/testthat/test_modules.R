@@ -95,8 +95,13 @@ test_that("health_sel works", {
 })
 
 test_that("inf_sel works", {
+    data_env <- new.env(parent = emptyenv())
+    data("sampleped")
+    pedi <- shiny::reactive({
+        Pedigree(sampleped[sampleped$famid == "1", ])
+    })
     app <- shinytest2::AppDriver$new(
-        inf_sel_demo(), name = "inf_sel",
+        inf_sel_demo(pedi), name = "inf_sel",
         variant = shinytest2::platform_variant()
     )
     # Update output value
@@ -162,16 +167,18 @@ test_that("plot_download works", {
 })
 
 test_that("plot_ped works", {
+    data("sampleped")
+    pedi <- shiny::reactive({
+        Pedigree(sampleped[sampleped$famid == "1", ])
+    })
     app <- shinytest2::AppDriver$new(
-        plot_ped_demo(), name = "plot_ped",
+        plot_ped_demo(pedi = pedi), name = "plot_ped",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
-    app$wait_for_idle(500)
-    app$set_inputs(`ped-interactive` = TRUE)
-    app$wait_for_idle(500)
-    app$wait_for_value(output = "ped-plotpedi", ignore = list(NULL))
-    # Update output value
+    app$wait_for_idle(1500)
+    app$set_inputs(`plot_ped-interactive` = TRUE)
+    app$wait_for_idle(1500)
     app$click("saveped-download")
     app$wait_for_idle(500)
     app$set_inputs(`saveped-ext` = "html")

@@ -1,4 +1,4 @@
-use_package("shinytest2", type = "suggests")
+usethis::use_package("shinytest2", type = "suggests")
 
 test_that("ped_shiny works", {
     app <- shinytest2::AppDriver$new(

@@ -43,7 +43,11 @@ inf_sel_ui <- function(id) {
 #' informative individuals.
 #' @examples
 #' if (interactive()) {
-#'     inf_sel_demo()
+#'     data("sampleped")
+#'     pedi <- shiny::reactive({
+#'         Pedigree(sampleped[sampleped$famid == "1", ])
+#'     })
+#'     inf_sel_demo(pedi)
 #' }
 #' @rdname inf_sel
 #' @keywords internal
@@ -171,13 +175,7 @@ inf_sel_server <- function(id, pedi) {
 
 #' @rdname inf_sel
 #' @export
-inf_sel_demo <- function() {
-    data_env <- new.env(parent = emptyenv())
-    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
-    pedi <- shiny::reactive({
-        ped1 <- Pedigree(data_env[["sampleped"]])
-        ped1[famid(ped(ped1)) == "1"]
-    })
+inf_sel_demo <- function(pedi) {
     ui <- shiny::fluidPage(
         column(6,
             inf_sel_ui("infsel")

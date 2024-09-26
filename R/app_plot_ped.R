@@ -37,7 +37,11 @@ plot_ped_ui <- function(id) {
 #' @returns A reactive ggplot or the pedigree object.
 #' @examples
 #' if (interactive()) {
-#'     plot_ped_demo()
+#'     data("sampleped")
+#'     pedi <- shiny::reactive({
+#'         Pedigree(sampleped[sampleped$famid == "1", ])
+#'     })
+#'     plot_ped_demo(pedi)
 #' }
 #' @rdname plot_ped
 #' @keywords internal
@@ -145,13 +149,7 @@ plot_ped_server <- function(id, pedi, title, max_ind = 500) {
 #### Demo function of the module #### ----------
 #' @rdname plot_ped
 #' @export
-plot_ped_demo <- function(max_ind = 500) {
-    data_env <- new.env(parent = emptyenv())
-    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
-    pedi <- shiny::reactive({
-        ped1 <- Pedigree(data_env[["sampleped"]])
-        ped1[famid(ped(ped1)) == "1"]
-    })
+plot_ped_demo <- function(pedi, max_ind = 500) {
     ui <- shiny::fluidPage(
         plot_ped_ui("plot_ped"),
         plot_download_ui("saveped")
