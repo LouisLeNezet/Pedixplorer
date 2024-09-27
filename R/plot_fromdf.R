@@ -83,7 +83,13 @@ plot_fromdf <- function(
         title(title)
         p <- p + ggtitle(title)
     }
-    max_aff <- max(as.numeric(str_split_i(df$type, "_", 2)), na.rm = TRUE)
+
+    aff <- as.numeric(str_split_i(df$type, "_", 2))
+    if (all(is.na(aff))) {
+        max_aff <- 1
+    } else {
+        max_aff <- max(aff, na.rm = TRUE)
+    }
 
     ## Add boxes
     poly_n <- lapply(seq_len(max_aff), polygons)
@@ -92,8 +98,13 @@ plot_fromdf <- function(
     ), 1, paste, collapse = "_")
 
     boxes <- df[df$type %in% all_types, ]
-    boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(boxes$type, "_", 3)
-    boxes$angle[boxes$angle == "NA"] <- 45
+    if (nrow(boxes) != 0) {
+        boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(
+            boxes$type, "_", 3
+        )
+        boxes$angle[boxes$angle == "NA"] <- 45
+    }
+
     for (i in seq_len(dim(boxes)[1])){
         poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
             as.numeric(boxes$naff[i])

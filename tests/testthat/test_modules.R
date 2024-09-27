@@ -1,5 +1,3 @@
-use_package("shinytest2", type = "suggests")
-
 test_that("color_picker works", {
     app <- shinytest2::AppDriver$new(
         color_picker_demo(), name = "color_picker",

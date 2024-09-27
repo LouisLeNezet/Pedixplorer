@@ -82,7 +82,7 @@ inches.}
 
 \item{subreg}{A 4-element vector for (min x, max x, min depth, max depth),
 used to edit away portions of the plot coordinates returned by
-\code{\link[=align]{align()}}.
+\code{\link[=ped_to_plotdf]{ped_to_plotdf()}}.
 This is useful for zooming in on a particular region of the Pedigree.}
 
 \item{pconnect}{When connecting parent to children the program will try to
@@ -113,8 +113,7 @@ the legend.}
 \item{leg_adjy}{default=0.  Controls the vertical labels adjustment
 of the legend.}
 
-\item{...}{Extra options that feed into the
-\code{\link[=ped_to_plotdf]{ped_to_plotdf()}} function.}
+\item{...}{Extra options that feed into the}
 }
 \value{
 an invisible list containing

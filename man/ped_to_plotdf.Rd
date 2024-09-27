@@ -12,7 +12,6 @@
   align = c(1.5, 2),
   align_parents = TRUE,
   force = FALSE,
-  subreg = NULL,
   cex = 1,
   symbolsize = cex,
   pconnect = 0.5,
@@ -51,11 +50,6 @@ It helps the drawing program by lining up pedigrees that
 
 \item{force}{If \code{force = TRUE}, the function will return the depth minus
 \code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
-
-\item{subreg}{A 4-element vector for (min x, max x, min depth, max depth),
-used to edit away portions of the plot coordinates returned by
-\code{\link[=align]{align()}}.
-This is useful for zooming in on a particular region of the Pedigree.}
 
 \item{cex}{Character expansion of the text}
 

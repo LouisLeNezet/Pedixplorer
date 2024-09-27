@@ -6,67 +6,37 @@ NULL
 #'
 #' @param subreg A 4-element vector for (min x, max x, min depth, max depth),
 #' used to edit away portions of the plot coordinates returned by
-#' [align()].
+#' [ped_to_plotdf()].
 #' This is useful for zooming in on a particular region of the Pedigree.
-#' @inheritParams findspouse
+#' @param df A data frame with all the plot coordinates
 #'
-#' @return A Pedigree structure with the specified region
+#' @return A subset of the plot coordinates
 #' @keywords internal, Pedigree-plot
-subregion <- function(plist, subreg) {
-    if (subreg[3] < 1 || subreg[4] > length(plist$n)) {
-        stop("Invalid depth indices in subreg")
-    }
-    lkeep <- subreg[3]:subreg[4]
-    for (i in lkeep) {
-        if (!any(plist$pos[i, ] >= subreg[1] &
-                    plist$pos[i, ] <= subreg[2]
-            )) {
-            stop("No subjects retained on level", i)
-        }
+subregion <- function(df, subreg = NULL) {
+    if (is.null(subreg)) {
+        return(df)
     }
 
-    nid2 <- plist$nid[lkeep, ]
-    n2 <- plist$n[lkeep]
-    pos2 <- plist$pos[lkeep, ]
-    spouse2 <- plist$spouse[lkeep, ]
-    fam2 <- plist$fam[lkeep, ]
-    if (!is.null(plist$twins))
-        twin2 <- plist$twins[lkeep, ]
-
-    for (i in seq_len(nrow(nid2))) {
-        keep <- which(pos2[i, ] >= subreg[1] & pos2[i, ] <= subreg[2])
-        nkeep <- length(keep)
-        n2[i] <- nkeep
-        nid2[i, seq_len(nkeep)] <- nid2[i, keep]
-        pos2[i, seq_len(nkeep)] <- pos2[i, keep]
-        spouse2[i, seq_len(nkeep)] <- spouse2[i, keep]
-        fam2[i, seq_len(nkeep)] <- fam2[i, keep]
-        if (!is.null(plist$twins))
-            twin2[i, seq_len(nkeep)] <- twin2[i, keep]
-
-        if (i < nrow(nid2)) {
-            # look ahead
-            tfam <- match(fam2[i + 1, ], keep, nomatch = 0)
-            fam2[i + 1, ] <- tfam
-            if (any(spouse2[i, tfam] == 0)) {
-                stop("A subregion cannot separate parents")
-            }
-        }
+    if (length(subreg) != 4) {
+        stop("subreg must be a 4-element vector")
     }
 
-    n <- max(n2)
-    out <- list(
-        n = n2[seq_len(n)],
-        nid = nid2[, seq_len(n), drop = FALSE],
-        pos = pos2[, seq_len(n), drop = FALSE],
-        spouse = spouse2[, seq_len(n), drop = FALSE],
-        fam = fam2[, seq_len(n), drop = FALSE]
-    )
-    if (!is.null(plist$twins)) {
-        out$twins <- twin2[, seq_len(n), drop = FALSE]
+    if (any(!c("x0", "x1", "y0", "y1") %in% colnames(df))) {
+        stop("df must have columns x0, x1, y0, y1")
     }
-    out
-}  # end subregion()
+
+    valid_x0 <- df$x0 >= subreg[1] & df$x0 <= subreg[2]
+    valid_y0 <- df$y0 >= subreg[3] & df$y0 <= subreg[4]
+    valid_x1 <- df$x1 >= subreg[1] & df$x1 <= subreg[2]
+    valid_y1 <- df$y1 >= subreg[3] & df$y1 <= subreg[4]
+
+    valid_start <- valid_x0 & valid_y0
+    valid_end <- (valid_x1 & valid_y1) | is.na(valid_x1) | is.na(valid_y1)
+
+    valid_rows <- valid_start & valid_end
+
+    df[valid_rows, ]
+}
 
 
 #' Circular element
@@ -242,13 +212,13 @@ NULL
 #' @keywords internal, Pedigree-plot
 draw_segment <- function(
     x0, y0, x1, y1,
-    p, ggplot_gen,
+    p = NULL, ggplot_gen = FALSE,
     col = par("fg"), lwd = par("lwd"), lty = par("lty")
 ) {
     segments(x0, y0, x1, y1, col = col, lty = lty, lwd = lwd)
     if (ggplot_gen) {
         p <- p + annotate("segment", x = x0, y = y0,
-            xend = x1, yend = y1, color = col, linetype = lty, linewidth = lwd
+            xend = x1, yend = y1, colour = col, linetype = lty, linewidth = lwd
         )
     }
     p
@@ -268,8 +238,8 @@ draw_segment <- function(
 #' or add it to a ggplot object
 #' @keywords internal, Pedigree-plot
 draw_polygon <- function(
-    x, y, p, ggplot_gen = FALSE,
-    fill = "grey", border = NULL, density = NULL, angle = 45
+    x, y, p = NULL, ggplot_gen = FALSE,
+    fill = "grey", border = "black", density = NULL, angle = 45
 ) {
     polygon(
         x, y, col = fill, border = border,
@@ -299,14 +269,14 @@ draw_polygon <- function(
 #' @return Plot the text to the current device
 #' or add it to a ggplot object
 #' @keywords internal, Pedigree-plot
-draw_text <- function(x, y, label, p, ggplot_gen = FALSE,
+draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
     cex = 1, col = NULL, adjx = 0, adjy = 0
 ) {
     text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
     if (ggplot_gen) {
         p <- p + annotate(
             "text", x = x, y = y, label = label,
-            size = cex / 0.3, color = col
+            size = cex / 0.3, colour = col
         )
     }
     p
@@ -319,14 +289,18 @@ draw_text <- function(x, y, label, p, ggplot_gen = FALSE,
 #' @return Plot the arcs to the current device
 #' or add it to a ggplot object
 #' @keywords internal, Pedigree-plot
-draw_arc <- function(x0, y0, x1, y1, p, ggplot_gen = FALSE, lwd = 1,
-    col = "black"
+draw_arc <- function(
+    x0, y0, x1, y1,
+    p = NULL, ggplot_gen = FALSE,
+    lwd = 1, lty = 2, col = "black"
 ) {
     xx <- seq(x0, x1, length = 15)
     yy <- seq(y0, y1, length = 15) + (seq(-7, 7))^2 / 98 - 0.5
-    lines(xx, yy, lty = 2, lwd = lwd, col = col)
+    lines(xx, yy, lty = lty, lwd = lwd, col = col)
     if (ggplot_gen) {
-        p <- p + annotate("line", xx, yy, linetype = "dashed")
+        p <- p + annotate(
+            "line", xx, yy, linetype = "dashed", colour = col
+        )
     }
     return(p)
 }

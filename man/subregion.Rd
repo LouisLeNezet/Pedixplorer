@@ -4,19 +4,18 @@
 \alias{subregion}
 \title{Subset a region of a Pedigree}
 \usage{
-subregion(plist, subreg)
+subregion(df, subreg = NULL)
 }
 \arguments{
-\item{plist}{The alignment structure representing the Pedigree layout.
-See \code{\link[=align]{align()}} for details.}
+\item{df}{A data frame with all the plot coordinates}
 
 \item{subreg}{A 4-element vector for (min x, max x, min depth, max depth),
 used to edit away portions of the plot coordinates returned by
-\code{\link[=align]{align()}}.
+\code{\link[=ped_to_plotdf]{ped_to_plotdf()}}.
 This is useful for zooming in on a particular region of the Pedigree.}
 }
 \value{
-A Pedigree structure with the specified region
+A subset of the plot coordinates
 }
 \description{
 Subset a region of a Pedigree

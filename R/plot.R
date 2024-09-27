@@ -100,6 +100,7 @@ plot_legend <- function(
 #' @param leg_adjy default=0.  Controls the vertical labels adjustment
 #' of the legend.
 #' @param ... Extra options that feed into the
+#' @inheritParams subregion
 #' [ped_to_plotdf()] function.
 #'
 #' @return an invisible list containing
@@ -145,7 +146,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             x <- x[famid(ped(x)) == fam_to_plot]
         }
         lst <- ped_to_plotdf(
-            x, packed, width, align, align_parents, force, subreg,
+            x, packed, width, align, align_parents, force,
             cex, symbolsize, pconnect, branch, aff_mark, id_lab, label, ...
         )
 
@@ -153,7 +154,13 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             return(NULL)
         }
 
-        p <- plot_fromdf(lst$df, usr = lst$par_usr$usr,
+        if (!is.null(subreg)) {
+            lst$df <- subregion(lst$df, subreg)
+            lst$par_usr$usr <- subreg[c(1, 2, 4, 3)]
+        }
+
+        p <- plot_fromdf(
+            lst$df, lst$par_usr$usr,
             title = title, ggplot_gen = ggplot_gen,
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
         )

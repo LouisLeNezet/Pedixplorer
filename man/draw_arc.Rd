@@ -4,7 +4,17 @@
 \alias{draw_arc}
 \title{Draw arcs}
 \usage{
-draw_arc(x0, y0, x1, y1, p, ggplot_gen = FALSE, lwd = 1, col = "black")
+draw_arc(
+  x0,
+  y0,
+  x1,
+  y1,
+  p = NULL,
+  ggplot_gen = FALSE,
+  lwd = 1,
+  lty = 2,
+  col = "black"
+)
 }
 \arguments{
 \item{x0}{x coordinate of the first point}
@@ -20,6 +30,8 @@ draw_arc(x0, y0, x1, y1, p, ggplot_gen = FALSE, lwd = 1, col = "black")
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 
 \item{lwd}{Line width}
+
+\item{lty}{Line type}
 
 \item{col}{Line color}
 }

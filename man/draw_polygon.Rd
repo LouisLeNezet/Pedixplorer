@@ -7,10 +7,10 @@
 draw_polygon(
   x,
   y,
-  p,
+  p = NULL,
   ggplot_gen = FALSE,
   fill = "grey",
-  border = NULL,
+  border = "black",
   density = NULL,
   angle = 45
 )

@@ -38,7 +38,6 @@ NULL
 #' @param label If not `NULL`, add a label to each box under the id
 #' corresponding to the value of the column given.
 #' @param ... Other arguments passed to [par()]
-#' @inheritParams subregion
 #' @inheritParams set_plot_area
 #' @inheritParams kindepth
 #'
@@ -72,7 +71,7 @@ setGeneric(
 setMethod("ped_to_plotdf", "Pedigree", function(
     obj, packed = TRUE, width = 6, align = c(1.5, 2),
     align_parents = TRUE, force = FALSE,
-    subreg = NULL, cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
+    cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
     aff_mark = TRUE, id_lab = "id", label = NULL, ...
 ) {
 
@@ -85,7 +84,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             ped_fam <- obj[famid(ped(obj)) == i_fam]
             all_df[[i_fam]] <- ped_to_plotdf(ped_fam, packed, width, align,
                 align_parents, force,
-                subreg, cex, symbolsize, ...
+                cex, symbolsize, ...
             )
         }
         return(all_df)
@@ -104,9 +103,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         align = align, align_parents = align_parents,
         force = force
     )
-    if (!is.null(subreg)) {
-        plist <- subregion(plist, subreg)
-    }
+
     xrange <- range(plist$pos[plist$nid > 0])
     maxlev <- nrow(plist$pos)
 
@@ -220,6 +217,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     l_spouses_i <- i[spouses] + boxh / 2
     pos_sp1 <- pos[spouses] + boxw / 2
     pos_sp2 <- pos[spouses + maxlev] - boxw / 2
+
     l_spouses <- data.frame(
         x0 = pos_sp1, y0 = l_spouses_i,
         x1 = pos_sp2, y1 = l_spouses_i,
@@ -376,5 +374,6 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             }
         }
     }
+
     list(df = plot_df, par_usr = params_plot)
 })
