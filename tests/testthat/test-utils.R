@@ -64,3 +64,31 @@ test_that("check_num_na", {
     get_b <- check_num_na(var, na_as_num = FALSE)
     expect_equal(get_b, c(TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE))
 })
+
+test_that("get_families_table", {
+    df <- data.frame(
+        famid = c(1, 1, 2, 3, 3, 3),
+        health = c("A", "B", "A", "A", "B", "B"),
+        age = c(45, 23, 12, 45, 23, 45)
+    )
+    expect_snapshot(get_families_table(df, "health"))
+    expect_snapshot(get_families_table(df, "age"))
+})
+
+test_that("get_title", {
+    t1 <- get_title(1, 1, "health", "A", "All", 3, TRUE, 10, FALSE)
+    t2 <- get_title(1, 1, "health", "A", "All", 3, TRUE, 10, TRUE)
+    t3 <- get_title(1, 1, "health", "A", "All", 3, FALSE, 10, FALSE)
+    expect_equal(
+        t1,
+        paste(
+            "Pedigree trimmed of family N*1 sub-family N*1",
+            "(N=10) from All individuals."
+        )
+    )
+    expect_equal(t2, "Ped_F1_K3_T_IAll_SF1")
+    expect_equal(t3, paste(
+        "Pedigree of family N*1 sub-family N*1",
+        "(N=10) from All individuals."
+    ))
+})

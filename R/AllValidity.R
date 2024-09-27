@@ -362,8 +362,6 @@ is_valid_ped <- function(object) {
     } else {
         errors
     }
-
-    return(errors)
 }
 
 #' Check if a Rel object is valid
