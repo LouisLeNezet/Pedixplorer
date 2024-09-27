@@ -67,7 +67,7 @@ get_title <- function(
             keep_text <- ifelse(keep_parents, "_T", "")
             title <- paste0(
                 "Ped_F", family_sel, "_K", kin_max, keep_text,
-                "_I", gsub(", ","-",toString(inf_selected)),
+                "_I", gsub(", ", "-", toString(inf_selected)),
                 "_SF", subfamily_sel
                 , collapse = ""
             )

@@ -1,7 +1,3 @@
-# Repack IBD data as a Matrix object
-#' @importFrom Matrix sparseMatrix
-NULL
-
 #' IBD matrix
 #'
 #' @description
@@ -43,6 +39,7 @@ NULL
 #' )
 #' ibd_matrix(df$id1, df$id2, df$ibd, diagonal = 2)
 #' @seealso [kinship()]
+#' @importFrom Matrix sparseMatrix
 #' @export
 ibd_matrix <- function(id1, id2, ibd, idmap, diagonal) {
     if (!is.null(ncol(id1)) && ncol(id1) == 1) {

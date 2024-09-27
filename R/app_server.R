@@ -331,7 +331,7 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
     )
     ## Test exported values ---------------------------------------------------
     shiny::exportTestValues(
-        df = {data_subfam()}
+        df = data_subfam()
     )
 
 
