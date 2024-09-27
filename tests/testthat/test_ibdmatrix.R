@@ -1,5 +1,4 @@
 test_that("ibd_matrix works", {
-    data("relped")
     df <- data.frame(
         id1 = c("1", "2", "1", "1"),
         id2 = c("2", "3", "4", "2"),
@@ -10,7 +9,6 @@ test_that("ibd_matrix works", {
         name = c("A", "B", "C", "D")
     )
     expect_snapshot(
-        "ibd_matrix",
         ibd_matrix(
             df$id1, df$id2, df$ibd,
             diagonal = 2, idmap = idmap
@@ -21,5 +19,4 @@ test_that("ibd_matrix works", {
     expect_error(ibd_matrix(df$id1, df$id2))
     expect_error(ibd_matrix(df, df$id2, df$ibd))
     expect_error(ibd_matrix(df, ibd = df$ibd))
-    
 })

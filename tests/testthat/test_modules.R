@@ -54,7 +54,6 @@ test_that("data_import with default data", {
     app$set_inputs(`my_data_import-sep` = " ")
     # Update output value
     app$click("my_data_import-options")
-    app$set_inputs(`my_data_import-strings_as_factors` = TRUE)
     app$set_inputs(`my_data_import-heading` = FALSE)
     app$set_inputs(`my_data_import-to_char` = TRUE)
     app$set_inputs(`my_data_import-quote` = "'")
@@ -77,6 +76,7 @@ test_that("health_sel works", {
     # Update output value
     app$set_inputs(`healthsel-health_var_sel` = "gender")
     app$set_inputs(`healthsel-health_as_num` = TRUE)
+    app$wait_for_idle()
     app$set_inputs(`healthsel-health_threshold_val` = 1.22)
     app$set_inputs(`healthsel-health_threshold_sup` = FALSE)
     app$expect_values(export = TRUE)
