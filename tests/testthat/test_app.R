@@ -1,4 +1,4 @@
-use_package("shinytest2", type = "suggests")
+usethis::use_package("shinytest2", type = "suggests")
 
 test_that("ped_shiny works", {
     app <- shinytest2::AppDriver$new(
@@ -12,13 +12,15 @@ test_that("ped_shiny works", {
     app$click("data_rel_import-testdf")
 
     # Set affection and color
-    app$wait_for_idle(500)
+    app$wait_for_idle()
+    df <- app$wait_for_value(export = "df")
     app$set_inputs(`health_sel-health_as_num` = FALSE)
-    app$wait_for_idle(500)
+    app$wait_for_idle()
     app$set_inputs(`health_sel-health_aff_mods` = "1")
+    app$wait_for_idle()
     app$set_inputs(`col_aff-select_Affected` = "#63005B")
-    app$set_inputs(`col_avail-select_Avail` = "#00FFFF")
-    app$wait_for_idle(500)
+    df <- app$set_inputs(`col_avail-select_Avail` = "#00FFFF")
+    app$wait_for_idle()
     app$set_inputs(
         `family_sel-families_table_rows_selected` = 2,
         allow_no_input_binding_ = TRUE
@@ -31,15 +33,12 @@ test_that("ped_shiny works", {
         `family_sel-families_table_cell_clicked` = c(2, 2, 14),
         allow_no_input_binding_ = TRUE, priority_ = "event"
     )
-    app$wait_for_idle(500)
-
+    app$wait_for_idle()
     # Download plot ped
     app$click("saveped-download")
-    app$wait_for_idle(500)
+    app$wait_for_idle()
     app$set_inputs(`saveped-width` = 1000)
-    app$wait_for_idle(500)
     app$expect_download("saveped-plot_dwld")
-    app$wait_for_idle(500)
     app$click("saveped-close")
 
     # Select family
@@ -47,22 +46,19 @@ test_that("ped_shiny works", {
         `family_sel-families_table_rows_selected` = 1,
         allow_no_input_binding_ = TRUE
     )
-    app$wait_for_idle(500)
+    app$wait_for_idle()
     app$set_inputs(`inf_sel-inf_selected` = "Cust")
-    app$wait_for_idle(500)
+    app$wait_for_idle()
     app$set_inputs(`inf_sel-inf_custvar_val` = "1_121,1_131")
-    app$wait_for_idle(500)
     app$set_inputs(`inf_sel-kin_max` = 2)
-    app$wait_for_idle(500)
     app$set_inputs(`inf_sel-keep_parents` = FALSE)
-    app$wait_for_idle(500)
+    df <- app$wait_for_value(export = "df", ignore = df)
     app$set_inputs(
         `subfamily_sel-families_table_rows_selected` = 2,
         allow_no_input_binding_ = TRUE
     )
-    app$wait_for_idle(500)
     # Download plot ped
+    app$wait_for_idle()
     app$click("saveped-download")
-    app$wait_for_idle(500)
     app$expect_download("saveped-plot_dwld")
 })

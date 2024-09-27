@@ -53,7 +53,7 @@ NULL
 #' plot_fromdf(plot_df$df, usr = plot_df$par_usr$usr,
 #'     boxh = plot_df$par_usr$boxh, boxw = plot_df$par_usr$boxw
 #' )
-#'
+#' @importFrom plyr rbind.fill
 #' @seealso
 #' [plot_fromdf()]
 #' [ped_to_legdf()]
@@ -149,13 +149,8 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         # mean range of each box for each polygon for each subreg
         poly_aff <- lapply(polylist, "[[", aff)
         poly_aff_x <- lapply(poly_aff, "[[", "x")
-        poly_aff_y <- lapply(poly_aff, "[[", "y")
 
         poly_aff_x_mr <- vapply(poly_aff_x,
-            function(x) mean(range(x * boxw)),
-            1
-        )
-        poly_aff_y_mr <- vapply(poly_aff_y,
             function(x) mean(range(x * boxw)),
             1
         )
@@ -168,7 +163,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             border = border(obj)$border[border_idx],
             id = "polygon"
         )
-        plot_df <- rbind.fill(plot_df, ind)
+        plot_df <- plyr::rbind.fill(plot_df, ind)
         if (aff_mark) {
             aff_mark_df <- data.frame(
                 x0 = pos[idx] + poly_aff_x_mr[sex],
@@ -178,7 +173,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 type = "text", cex = cex,
                 id = "aff_mark"
             )
-            plot_df <- rbind.fill(plot_df, aff_mark_df)
+            plot_df <- plyr::rbind.fill(plot_df, aff_mark_df)
         }
     }
 

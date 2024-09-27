@@ -64,7 +64,7 @@ setGeneric("kinship", signature = "obj",
 #' @rdname kinship
 #' @export
 setMethod("kinship", "Ped",
-    function(obj, chrtype = "autosome"){
+    function(obj, chrtype = "autosome") {
         kinship(
             id(obj), dadid(obj), momid(obj),
             sex(obj), chrtype = chrtype

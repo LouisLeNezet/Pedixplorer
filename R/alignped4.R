@@ -1,6 +1,4 @@
 # Automatically generated from all.nw using noweb
-#' @importFrom quadprog solve.QP
-NULL
 
 #' Alignment fourth routine
 #'
@@ -69,7 +67,7 @@ NULL
 #' the subject is a spouse or not.
 #' @inheritParams align
 #' @inheritParams alignped1
-#'
+#' @importFrom quadprog solve.QP
 #' @return The updated position matrix
 #'
 #' @examples
@@ -148,7 +146,7 @@ alignped4 <- function(rval, spouse, level, width, align) {
 
     pp <- t(pmat) %*% pmat + 1e-08 * diag(ncol(pmat))
     fit <- tryCatch({
-        solve.QP(pp, rep(0, n), t(cmat), dvec)
+        quadprog::solve.QP(pp, rep(0, n), t(cmat), dvec)
     }, warning = function(w) {
         message("Solve QP ended with", w)
         return(NA)
@@ -158,8 +156,6 @@ alignped4 <- function(rval, spouse, level, width, align) {
     })
 
     newpos <- rval$pos
-    # fit <- lsei(pmat, rep(0, nrow(pmat)), G=cmat, H=dvec) newpos[myid>0] <-
-    # fit$X[myid]
 
     if (length(fit) > 1) {
         newpos[myid > 0] <- fit$solution[myid]

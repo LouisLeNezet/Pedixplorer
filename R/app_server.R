@@ -317,23 +317,29 @@ ped_server <- shiny::shinyServer(function(input, output, session) {
         cust_title(short = TRUE)
     )
     data_subfam <- shiny::reactive({
-      shiny::req(ped_subfam())
-      if (is.null(ped_subfam())) {
-          return(NULL)
-      } else {
-          Pedixplorer::as.data.frame(ped(ped_subfam())) 
-      }
+        shiny::req(ped_subfam())
+        if (is.null(ped_subfam())) {
+            return(NULL)
+        } else {
+            Pedixplorer::as.data.frame(ped(ped_subfam()))
+        }
     })
     data_download_server("plot_data_dwnl",
-                         data_subfam, label = "Download data",
-                         filename = cust_title(short = TRUE),
-                         helper = FALSE, title = NULL
+        data_subfam, label = "Download data",
+        filename = cust_title(short = TRUE),
+        helper = FALSE, title = NULL
     )
+    ## Test exported values ---------------------------------------------------
+    shiny::exportTestValues(
+        df = {data_subfam()}
+    )
+
+
     ## End --------------------------------------------------------------------
     if (!interactive()) {
-      session$onSessionEnded(function() {
-        shiny::stopApp()
-        q("no")
-      })
+        session$onSessionEnded(function() {
+            shiny::stopApp()
+            q("no")
+        })
     }
 })

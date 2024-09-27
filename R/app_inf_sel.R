@@ -43,7 +43,11 @@ inf_sel_ui <- function(id) {
 #' informative individuals.
 #' @examples
 #' if (interactive()) {
-#'     inf_sel_demo()
+#'     data("sampleped")
+#'     pedi <- shiny::reactive({
+#'         Pedigree(sampleped[sampleped$famid == "1", ])
+#'     })
+#'     inf_sel_demo(pedi)
 #' }
 #' @rdname inf_sel
 #' @keywords internal
@@ -123,8 +127,10 @@ inf_sel_server <- function(id, pedi) {
                     title = "Error while selecting informative individuals",
                     paste(
                         "Values",
-                        paste0(inf_custvar_val[is.na(val_pres)], collapse = ", "),
-                        "not present in", inf_custvar_sel
+                        paste0(
+                            inf_custvar_val[is.na(val_pres)],
+                            collapse = ", "
+                        ), "not present in", inf_custvar_sel
                     )
                 )
                 NULL
@@ -169,15 +175,7 @@ inf_sel_server <- function(id, pedi) {
 
 #' @rdname inf_sel
 #' @export
-inf_sel_demo <- function() {
-    data_env <- new.env(parent = emptyenv())
-    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
-    sampleped <- data_env[["sampleped"]]
-    pedi <- shiny::reactive({
-        Pedigree(
-            sampleped[sampleped$famid == "1", ]
-        )
-    })
+inf_sel_demo <- function(pedi) {
     ui <- shiny::fluidPage(
         column(6,
             inf_sel_ui("infsel")

@@ -54,7 +54,7 @@ test_that("data_import with default data", {
     app$set_inputs(`my_data_import-sep` = " ")
     # Update output value
     app$click("my_data_import-options")
-    app$set_inputs(`my_data_import-stringsAsFactors` = TRUE)
+    app$set_inputs(`my_data_import-strings_as_factors` = TRUE)
     app$set_inputs(`my_data_import-heading` = FALSE)
     app$set_inputs(`my_data_import-to_char` = TRUE)
     app$set_inputs(`my_data_import-quote` = "'")
@@ -82,15 +82,26 @@ test_that("health_sel works", {
     app$expect_values(export = TRUE)
     # Update output value
     app$set_inputs(`healthsel-health_as_num` = FALSE)
-    app$set_inputs(`healthsel-health_aff_mods_open` = TRUE, allow_no_input_binding_ = TRUE)
+    app$set_inputs(
+        `healthsel-health_aff_mods_open` = TRUE,
+        allow_no_input_binding_ = TRUE
+    )
     app$set_inputs(`healthsel-health_aff_mods` = "2")
-    app$set_inputs(`healthsel-health_aff_mods_open` = FALSE, allow_no_input_binding_ = TRUE)
+    app$set_inputs(
+        `healthsel-health_aff_mods_open` = FALSE,
+        allow_no_input_binding_ = TRUE
+    )
     app$expect_values(export = TRUE)
 })
 
 test_that("inf_sel works", {
+    data_env <- new.env(parent = emptyenv())
+    data("sampleped")
+    pedi <- shiny::reactive({
+        Pedigree(sampleped[sampleped$famid == "1", ])
+    })
     app <- shinytest2::AppDriver$new(
-        inf_sel_demo(), name = "inf_sel",
+        inf_sel_demo(pedi), name = "inf_sel",
         variant = shinytest2::platform_variant()
     )
     # Update output value
@@ -156,15 +167,18 @@ test_that("plot_download works", {
 })
 
 test_that("plot_ped works", {
+    data("sampleped")
+    pedi <- shiny::reactive({
+        Pedigree(sampleped[sampleped$famid == "1", ])
+    })
     app <- shinytest2::AppDriver$new(
-        plot_ped_demo(), name = "plot_ped",
+        plot_ped_demo(pedi = pedi), name = "plot_ped",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
-    app$set_inputs(`ped-interactive` = TRUE)
-    app$wait_for_idle(500)
-    app$wait_for_value(output = "ped-plotpedi", ignore = list(NULL))
-    # Update output value
+    app$wait_for_idle(1500)
+    app$set_inputs(`plot_ped-interactive` = TRUE)
+    app$wait_for_idle(1500)
     app$click("saveped-download")
     app$wait_for_idle(500)
     app$set_inputs(`saveped-ext` = "html")

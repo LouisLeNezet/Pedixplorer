@@ -233,8 +233,8 @@ setMethod("kindepth", "character_OR_integer", function(obj, dadid, momid,
         ## Once a subject has been shifted, we don't allow them to instigate
         ## yet another shift, possibly on another level
         done[who] <- TRUE
-        ##  This snunk into version 1.9.6, which was part of
-        ## bug: done[dads == bad | moms == bad] <- TRUE
+        ## This snunk into version 1.9.6, which was part of
+        ## bug: done should be true if dads == bad | moms == bad
     }
     if (all(depth > 0)) {
         if (force == FALSE) {

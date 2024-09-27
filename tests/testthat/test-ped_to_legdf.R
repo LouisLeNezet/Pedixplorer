@@ -24,9 +24,6 @@ test_that("Pedigree legend works", {
     p1 <- align(ped)
     p2 <- align(ped2)
 
-    #plot(ped)
-    #plot(ped2)
-
     # TODO expect_equal(p1, p2)
 
     ped <- generate_colors(ped, add_to_scale = TRUE, "avail", mods_aff = TRUE)
