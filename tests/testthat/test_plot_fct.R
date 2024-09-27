@@ -13,14 +13,9 @@ test_that("subregion works", {
     expect_true(max(df_subreg$y1, na.rm = TRUE) < 3)
     expect_equal(min(df_subreg$x0, na.rm = TRUE), 6)
     expect_equal(min(df_subreg$y0, na.rm = TRUE), 2)
-    op <- par(
-        "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
-        "fin" = c(7, 7), "bg" = "white"
-    )
     vdiffr::expect_doppelganger(
         "subregion", function() plot(pedi, subreg = c(7, 14.5, 1.5, 3.5))
     )
-    par(op)
 })
 
 test_that("circfun works", {
@@ -49,6 +44,7 @@ test_that("polygons works", {
 })
 
 test_that("plotting functions works", {
+    plot(c(0, 10), c(0, 10))
     p <- ggplot() +
         ggplot2::geom_point(aes(x = seq(1, 10), y = seq(1, 10)))
     p <- draw_segment(
@@ -79,16 +75,12 @@ test_that("plotting functions works", {
         col = "green", lwd = 4,
         p = p, ggplot_gen = TRUE
     )
-    op <- par(
-        "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
-        "fin" = c(7, 7), "bg" = "white"
-    )
     vdiffr::expect_doppelganger("plotting functions works", p)
-    par(op)
 })
 
 test_that("set_plot_area works", {
     parusr <- set_plot_area(2, c("Test", "Test2"), 3, c(0, 10), 1)
+
     expect_equal(
         names(parusr),
         c("usr", "old_par", "boxw", "boxh", "labh", "legh")
