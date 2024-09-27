@@ -79,8 +79,9 @@
 #' @keywords internal, alignment
 alignped4 <- function(rval, spouse, level, width, align) {
     ## Doc: alignped4 -part1, spacing across page
-    if (is.logical(align))
+    if (is.logical(align)) {
         align <- c(1.5, 2)  # defaults
+    }
     maxlev <- nrow(rval$nid)
     width <- max(width, rval$n + 0.01)  # width must be > the longest row
 
@@ -145,8 +146,12 @@ alignped4 <- function(rval, spouse, level, width, align) {
     }
 
     pp <- t(pmat) %*% pmat + 1e-08 * diag(ncol(pmat))
+
     fit <- tryCatch({
-        quadprog::solve.QP(pp, rep(0, n), t(cmat), dvec)
+        quadprog::solve.QP(
+            pp, rep(0, n), t(cmat), dvec,
+            meq = 0, factorized = FALSE
+        )
     }, warning = function(w) {
         message("Solve QP ended with", w)
         return(NA)
@@ -158,6 +163,11 @@ alignped4 <- function(rval, spouse, level, width, align) {
     newpos <- rval$pos
 
     if (length(fit) > 1) {
+        # Set to zero when the solution is too small
+        # This is a workaround for the fact that quadprog
+        # returns different small negative values
+        # on different platforms
+        fit$solution[fit$solution < 0.0001] <- 0
         newpos[myid > 0] <- fit$solution[myid]
     }
     newpos
