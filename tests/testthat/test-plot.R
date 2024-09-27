@@ -25,11 +25,13 @@ test_that("Pedigree plotting test", {
 
     rel_df <- data.frame(indId1 = 8, indId2 = 9, code = 3, family = 1)
     ped <- Pedigree(ped2df, rel_df, missid = "0")
-    ped
+    op <- par(
+        "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
+        "fin" = c(7, 7), "bg" = "white"
+    )
     vdiffr::expect_doppelganger("Ped simple affection",
         function() plot(ped)
     )
-
     lst <- plot(ped, label = "smoker", aff_mark = FALSE, ggplot_gen = TRUE)
     vdiffr::expect_doppelganger("Ped simple affection ggplot",
         function() plot(lst$ggplot)
@@ -47,6 +49,7 @@ test_that("Pedigree plotting test", {
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
         function() plot(p$ggplot)
     )
+    par(op)
 })
 
 test_that("Pedigree fails to line up", {
@@ -54,6 +57,10 @@ test_that("Pedigree fails to line up", {
     data(sampleped)
     df1 <- sampleped[sampleped$famid == "1", ]
     ped1 <- Pedigree(df1)
+    op <- par(
+        "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
+        "fin" = c(7, 7), "bg" = "white"
+    )
     vdiffr::expect_doppelganger("ped1",
         function() plot(ped1)
     )
@@ -63,4 +70,5 @@ test_that("Pedigree fails to line up", {
     vdiffr::expect_doppelganger("ped1reorder",
         function() plot(ped1reord)
     )
+    par(op)
 })
