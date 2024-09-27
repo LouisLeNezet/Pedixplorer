@@ -10,7 +10,7 @@ plot_ped_ui(id)
 
 plot_ped_server(id, pedi, title, max_ind = 500)
 
-plot_ped_demo(max_ind = 500)
+plot_ped_demo(pedi, max_ind = 500)
 }
 \arguments{
 \item{id}{A string.}
@@ -30,7 +30,11 @@ with the function \code{plot_ped_server()}.
 }
 \examples{
 if (interactive()) {
-    plot_ped_demo()
+    data("sampleped")
+    pedi <- shiny::reactive({
+        Pedigree(sampleped[sampleped$famid == "1", ])
+    })
+    plot_ped_demo(pedi)
 }
 }
 \keyword{internal}

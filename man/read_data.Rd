@@ -10,7 +10,7 @@ read_data(
   quote = "'",
   header = TRUE,
   df_name = NA,
-  stringsAsFactors = FALSE,
+  strings_as_factors = FALSE,
   to_char = TRUE,
   na_values = c("", "NA", "NULL", "None")
 )
@@ -26,7 +26,7 @@ read_data(
 
 \item{df_name}{A string defining the name of the dataframe / sheet to use}
 
-\item{stringsAsFactors}{A boolean defining if all the strings should be
+\item{strings_as_factors}{A boolean defining if all the strings should be
 interpreted ad factor}
 
 \item{to_char}{A boolean defining if all the dataset should be read as

@@ -114,7 +114,6 @@ summary(plot_df$df)
 plot_fromdf(plot_df$df, usr = plot_df$par_usr$usr,
     boxh = plot_df$par_usr$boxh, boxw = plot_df$par_usr$boxw
 )
-
 }
 \seealso{
 \code{\link[=plot_fromdf]{plot_fromdf()}}

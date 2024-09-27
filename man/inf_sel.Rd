@@ -10,7 +10,7 @@ inf_sel_ui(id)
 
 inf_sel_server(id, pedi)
 
-inf_sel_demo()
+inf_sel_demo(pedi)
 }
 \arguments{
 \item{id}{A string to identify the module.}
@@ -32,7 +32,11 @@ with the function \code{inf_sel_server()}.
 }
 \examples{
 if (interactive()) {
-    inf_sel_demo()
+    data("sampleped")
+    pedi <- shiny::reactive({
+        Pedigree(sampleped[sampleped$famid == "1", ])
+    })
+    inf_sel_demo(pedi)
 }
 }
 \keyword{internal}

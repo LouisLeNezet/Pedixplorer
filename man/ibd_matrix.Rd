@@ -8,7 +8,7 @@ ibd_matrix(id1, id2, ibd, idmap, diagonal)
 }
 \arguments{
 \item{id1}{A character vector with the id of the first individuals of each
-pairs}
+pairs or a matrix or data frame with 3 columns: id1, id2, and ibd}
 
 \item{id2}{A character vector with the id of the second individuals of each
 pairs}
@@ -42,6 +42,14 @@ elements.  As well, Solar will have renumbered the subjects as seq_len(n)
 in such a way that families are grouped together in the matrix; a separate
 index file contains the mapping between this new id and the original one.
 The final matrix should be labeled with the original identifiers.
+}
+\examples{
+df <- data.frame(
+    id1 = c("1", "2", "1"),
+    id2 = c("2", "3", "4"),
+    ibd = c(0.5, 0.16, 0.27)
+)
+ibd_matrix(df$id1, df$id2, df$ibd, diagonal = 2)
 }
 \seealso{
 \code{\link[=kinship]{kinship()}}
