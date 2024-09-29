@@ -61,7 +61,8 @@ Suggests:
     qpdf,
     shinytest2,
     covr,
-    devtools
+    devtools,
+    R.devices
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, Alignment
 BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues

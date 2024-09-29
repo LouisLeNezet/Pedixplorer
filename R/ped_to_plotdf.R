@@ -72,7 +72,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     obj, packed = TRUE, width = 6, align = c(1.5, 2),
     align_parents = TRUE, force = FALSE,
     cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
-    aff_mark = TRUE, id_lab = "id", label = NULL, ...
+    aff_mark = TRUE, id_lab = "id", label = NULL, precision = 3, ...
 ) {
 
     famlist <- unique(famid(ped(obj)))
@@ -108,7 +108,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     maxlev <- nrow(plist$pos)
 
     params_plot <- set_plot_area(
-        cex, id(ped(obj)), maxlev, xrange, symbolsize, ...
+        cex, id(ped(obj)), maxlev, xrange, symbolsize, precision, ...
     )
 
     boxw <- params_plot$boxw

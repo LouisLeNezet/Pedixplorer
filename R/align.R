@@ -77,6 +77,7 @@ ancestors <- function(idx, momx, dadx) {
 #' If `NULL` then the Hints stored in **obj** will be used.
 #' @inheritParams Ped
 #' @inheritParams kindepth
+#' @inheritParams alignped4
 #'
 #' @return A list with components
 #' - `n`: A vector giving the number of subjects on each
@@ -130,7 +131,7 @@ setMethod("align", "Pedigree",
     function(
         obj, packed = TRUE, width = 10,
         align = TRUE, hints = NULL, missid = "NA_character_",
-        align_parents = TRUE, force = FALSE
+        align_parents = TRUE, force = FALSE, precision = 2
     ) {
         famlist <- unique(famid(ped(obj)))
         famlist <- famlist[!is.na(famlist)]
@@ -264,7 +265,7 @@ setMethod("align", "Pedigree",
         }
         ## Doc: finish align(3)
         if ((is.numeric(align) || align) && max(level) > 1) {
-            pos <- alignped4(rval, spouse > 0, level, width, align)
+            pos <- alignped4(rval, spouse > 0, level, width, align, precision)
         } else {
             pos <- rval$pos
         }

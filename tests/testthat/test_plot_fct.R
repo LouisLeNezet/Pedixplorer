@@ -8,8 +8,9 @@ test_that("subregion works", {
     data("sampleped")
     pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
     lst <- ped_to_plotdf(pedi)
+    expect_snapshot(lst$df)
     df_subreg <- subregion(lst$df, c(6, 14, 2, 3))
-    expect_equal(max(df_subreg$x1, na.rm = TRUE), 13)
+    expect_equal(max(df_subreg$x1, na.rm = TRUE), 14)
     expect_true(max(df_subreg$y1, na.rm = TRUE) < 3)
     expect_equal(min(df_subreg$x0, na.rm = TRUE), 6)
     expect_equal(min(df_subreg$y0, na.rm = TRUE), 2)
@@ -79,11 +80,5 @@ test_that("plotting functions works", {
 })
 
 test_that("set_plot_area works", {
-    parusr <- set_plot_area(2, c("Test", "Test2"), 3, c(0, 10), 1)
-
-    expect_equal(
-        names(parusr),
-        c("usr", "old_par", "boxw", "boxh", "labh", "legh")
-    )
-    expect_equal(length(parusr$usr), 4)
+    expect_snapshot(set_plot_area(2, c("Test", "Test2"), 3, c(0, 10), 1))
 })

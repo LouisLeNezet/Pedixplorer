@@ -65,6 +65,7 @@
 #' `pos`, and `fam`.
 #' @param spouse A boolean matrix with one row per level representing if
 #' the subject is a spouse or not.
+#' @param precision The number of decimal places to round the solution to.
 #' @inheritParams align
 #' @inheritParams alignped1
 #' @importFrom quadprog solve.QP
@@ -77,7 +78,7 @@
 #'
 #' @seealso [align()]
 #' @keywords internal, alignment
-alignped4 <- function(rval, spouse, level, width, align) {
+alignped4 <- function(rval, spouse, level, width, align, precision = 2) {
     ## Doc: alignped4 -part1, spacing across page
     if (is.logical(align)) {
         align <- c(1.5, 2)  # defaults
@@ -168,7 +169,7 @@ alignped4 <- function(rval, spouse, level, width, align) {
         # returns different small negative values
         # on different platforms
         fit$solution[fit$solution < 0.0001] <- 0
-        newpos[myid > 0] <- fit$solution[myid]
+        newpos[myid > 0] <- round(fit$solution[myid], precision)
     }
     newpos
 }
