@@ -319,12 +319,20 @@ draw_arc <- function(
 #' label height and leg height
 #'
 #' @keywords internal, Pedigree-plot
-set_plot_area <- function(cex, id, maxlev, xrange, symbolsize, precision = 3, ...) {
+set_plot_area <- function(
+    cex, id, maxlev, xrange, symbolsize, precision = 3, ...
+) {
     old_par <- par(xpd = TRUE, ...)  ## took out mar=mar
     psize <- signif(par("pin"), precision)  # plot region in inches
-    stemp1 <- signif(strwidth("ABC", units = "inches", cex = cex), precision) * 2.5 / 3
-    stemp2 <- signif(strheight("1g", units = "inches", cex = cex), precision)
-    stemp3 <- max(signif(strheight(id, units = "inches", cex = cex), precision))
+    stemp1 <- signif(strwidth(
+        "ABC", units = "inches", cex = cex
+    ), precision) * 2.5 / 3
+    stemp2 <- signif(strheight(
+        "1g", units = "inches", cex = cex
+    ), precision)
+    stemp3 <- max(signif(
+        strheight(id, units = "inches", cex = cex), precision
+    ))
 
     ht1 <- psize[2] / maxlev - (stemp3 + 1.5 * stemp2)
     if (ht1 <= 0) {

@@ -21,11 +21,12 @@ par_lst <- list(
 R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
 plot.new()
 
-withr::local_options(width = 150, digits = 8)
-withr::local_options(width = 150, digits = 8)
+withr::local_options(width = 150, digits = 8, browser = "google-chrome")
+withr::local_options(width = 150, digits = 8, browser = "google-chrome")
 options(shiny.testmode = TRUE)
 Sys.setenv("R_TESTS" = "")
 test_check("Pedixplorer")
 TRUE
 
 par(op)
+dev.off()
