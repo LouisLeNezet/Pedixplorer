@@ -17,7 +17,8 @@
 #' @param input The input object from a Shiny app.
 #' @param output The output object from a Shiny app.
 #' @param session The session object from a Shiny app.
-#' @param precision An integer to set the precision of the plot.
+#' @param precision Number of decimal for the position of the boxes
+#' in the plot.
 #' @returns `shiny::shinyServer()`
 #' @examples
 #' if (interactive()) {

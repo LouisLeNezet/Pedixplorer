@@ -17,6 +17,8 @@
 #' @param port (optional) Specify port the application should list to.
 #' @param host (optional) The IPv4 address that the application should
 #' listen on.
+#' @param precision Number of decimal for the position of the boxes
+#' in the plot.
 #' @returns Running Shiny Application
 #' @examples
 #' if (interactive()) {

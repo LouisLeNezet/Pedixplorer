@@ -117,15 +117,16 @@ ped_avaf_infos_ui <- function(id) {
 #' @include app_utils.R
 #' @rdname ped_avaf_infos
 #' @keywords internal
-#' @importFrom shiny is.reactive moduleServer reactive req
+#' @importFrom shiny is.reactive moduleServer reactive req renderText
+#' @importFrom shiny renderUI h3
 #' @importFrom DT renderDataTable datatable
 #' @importFrom stringr str_to_title
 ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
         # Create the title ----------------------------------------------------
-        output$title_infos <- renderUI({
-            h3(title)
+        output$title_infos <- shiny::renderUI({
+            shiny::h3(title)
         })
 
         df <- shiny::reactive({
@@ -156,7 +157,7 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
             }
         })
         # Display the title ---------------------------------------------------
-        output$ped_avaf_infos_title <- renderText({
+        output$ped_avaf_infos_title <- shiny::renderText({
             if (!is.null(pedi())) {
                 paste(
                     "Health & Availability data representation for family",
