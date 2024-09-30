@@ -334,23 +334,32 @@ set_plot_area <- function(
         strheight(id, units = "inches", cex = cex), precision
     ))
 
-    ht1 <- psize[2] / maxlev - (stemp3 + 1.5 * stemp2)
+    ht1 <- signif(psize[2] / maxlev - (stemp3 + 1.5 * stemp2), precision)
     if (ht1 <= 0) {
         stop("Labels leave no room for the graph, reduce cex")
     }
-    ht2 <- psize[2] / (maxlev + (maxlev - 1) / 2)
-    wd2 <- 0.8 * psize[1] / (0.8 + diff(xrange))
+    ht2 <- signif(psize[2] / (maxlev + (maxlev - 1) / 2), precision)
+    wd2 <- signif(0.8 * psize[1] / (0.8 + diff(xrange)), precision)
 
-    boxsize <- symbolsize * min(ht1, ht2, stemp1, wd2)  # box size in inches
+    # box size in inches
+    boxsize <- signif(
+        symbolsize * min(ht1, ht2, stemp1, wd2),
+        precision
+    )
     # horizontal scale in inches
-    hscale <- (psize[1] - boxsize) / diff(xrange)
-    vscale <- (psize[2] - (stemp3 + stemp2 / 2 + boxsize)) /
-        max(1, maxlev - 1)
-    boxw <- boxsize / hscale  # box width in user units
-    boxh <- boxsize / vscale  # box height in user units
-    labh <- stemp2 / vscale  # height of a text string
+    hscale <- signif((psize[1] - boxsize) / diff(xrange), precision)
+    vscale <- signif(
+        (psize[2] - (stemp3 + stemp2 / 2 + boxsize)) /
+            max(1, maxlev - 1), precision
+    )
+    # box width in user units
+    boxw <- signif(boxsize / hscale, precision)
+    # box height in user units
+    boxh <- signif(boxsize / vscale, precision)
+    # height of a text string
+    labh <- signif(stemp2 / vscale, precision)
     # how tall are the 'legs' up from a child
-    legh <- min(1 / 4, boxh * 1.5)
+    legh <- signif(min(1 / 4, boxh * 1.5), precision)
     usr <- c(xrange[1] - boxw / 2, xrange[2] + boxw / 2,
         maxlev + boxh + stemp3 + stemp2 / 2, 1
     )

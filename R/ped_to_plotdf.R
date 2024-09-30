@@ -101,7 +101,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     plist <- align(
         obj, packed = packed, width = width,
         align = align, align_parents = align_parents,
-        force = force
+        force = force, precision = precision
     )
 
     xrange <- range(plist$pos[plist$nid > 0])

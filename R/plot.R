@@ -133,7 +133,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         align_parents = TRUE, force = FALSE, width = 6,
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
-        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, ...
+        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
+        ...
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -147,7 +148,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         }
         lst <- ped_to_plotdf(
             x, packed, width, align, align_parents, force,
-            cex, symbolsize, pconnect, branch, aff_mark, id_lab, label, ...
+            cex, symbolsize, pconnect, branch, aff_mark, id_lab, label,
+            precision, ...
         )
 
         if (is.null(lst)) {
