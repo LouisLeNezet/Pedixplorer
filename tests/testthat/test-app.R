@@ -58,6 +58,5 @@ test_that("ped_shiny works", {
     )
     # Download plot ped
     app$wait_for_idle()
-    app$click("saveped-download")
-    app$expect_download("saveped-plot_dwld")
+    app$expect_download("plot_data_dwnl-data_dwld")
 })
