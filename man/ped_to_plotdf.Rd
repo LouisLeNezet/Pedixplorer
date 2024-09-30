@@ -19,6 +19,7 @@
   aff_mark = TRUE,
   id_lab = "id",
   label = NULL,
+  precision = 3,
   ...
 )
 }
@@ -49,7 +50,8 @@ It helps the drawing program by lining up pedigrees that
 'join in the middle' via a marriage.}
 
 \item{force}{If \code{force = TRUE}, the function will return the depth minus
-\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
 
 \item{cex}{Character expansion of the text}
 
@@ -71,6 +73,8 @@ value of the affection column for each filling scale.}
 
 \item{label}{If not \code{NULL}, add a label to each box under the id
 corresponding to the value of the column given.}
+
+\item{precision}{The number of decimal places to round the solution to.}
 }
 \value{
 A list containing the data frame and the user coordinates.

@@ -14,7 +14,8 @@
   hints = NULL,
   missid = "NA_character_",
   align_parents = TRUE,
-  force = FALSE
+  force = FALSE,
+  precision = 2
 )
 }
 \arguments{
@@ -50,7 +51,10 @@ It helps the drawing program by lining up pedigrees that
 'join in the middle' via a marriage.}
 
 \item{force}{If \code{force = TRUE}, the function will return the depth minus
-\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
+
+\item{precision}{The number of decimal places to round the solution to.}
 }
 \value{
 A list with components

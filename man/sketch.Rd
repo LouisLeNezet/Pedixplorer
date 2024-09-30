@@ -10,7 +10,7 @@ sketch(var_name)
 \item{var_name}{the name of the health variable}
 }
 \value{
-an html sketch of the family information table
+An html sketch of the family information table
 }
 \description{
 Simple function to create a sketch of the family information table.

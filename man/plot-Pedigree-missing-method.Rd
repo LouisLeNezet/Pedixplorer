@@ -31,6 +31,7 @@
   leg_loc = NULL,
   leg_adjx = 0,
   leg_adjy = 0,
+  precision = 2,
   ...
 )
 }
@@ -73,7 +74,8 @@ It helps the drawing program by lining up pedigrees that
 'join in the middle' via a marriage.}
 
 \item{force}{If \code{force = TRUE}, the function will return the depth minus
-\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
 
 \item{width}{For a packed output, the minimum width of the plot, in
 inches.}
@@ -112,6 +114,8 @@ the legend.}
 
 \item{leg_adjy}{default=0.  Controls the vertical labels adjustment
 of the legend.}
+
+\item{precision}{The number of decimal places to round the solution to.}
 
 \item{...}{Extra options that feed into the}
 }

@@ -30,7 +30,8 @@ It helps the drawing program by lining up pedigrees that
 'join in the middle' via a marriage.}
 
 \item{force}{If \code{force = TRUE}, the function will return the depth minus
-\code{min(depth)} if \code{depth} reach a state with no founders is not possible.}
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
 }
 \value{
 An integer vector containing the depth for each subject

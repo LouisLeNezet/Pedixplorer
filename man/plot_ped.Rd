@@ -8,7 +8,7 @@
 \usage{
 plot_ped_ui(id)
 
-plot_ped_server(id, pedi, title, max_ind = 500)
+plot_ped_server(id, pedi, title, precision = 2, max_ind = 500)
 
 plot_ped_demo(pedi, max_ind = 500)
 }
@@ -18,6 +18,8 @@ plot_ped_demo(pedi, max_ind = 500)
 \item{pedi}{A reactive pedigree object.}
 
 \item{title}{A string to name the plot.}
+
+\item{precision}{An integer to set the precision of the plot.}
 }
 \value{
 A reactive ggplot or the pedigree object.

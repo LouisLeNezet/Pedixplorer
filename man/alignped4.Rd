@@ -4,7 +4,7 @@
 \alias{alignped4}
 \title{Alignment fourth routine}
 \usage{
-alignped4(rval, spouse, level, width, align)
+alignped4(rval, spouse, level, width, align, precision = 2)
 }
 \arguments{
 \item{rval}{A list with components \code{n}, \code{nid},
@@ -25,6 +25,8 @@ This argument can be a two element vector, giving the alignment
 parameters, or a logical value.
 If \code{TRUE}, the default is \code{c(1.5, 2)}, or if numeric the routine
 \code{alignped4()} will be called.}
+
+\item{precision}{The number of decimal places to round the solution to.}
 }
 \value{
 The updated position matrix
