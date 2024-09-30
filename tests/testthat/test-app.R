@@ -36,7 +36,12 @@ test_that("ped_shiny works", {
     app$click("saveped-download")
     app$wait_for_idle()
     app$set_inputs(`saveped-width` = 1000)
-    app$expect_download("saveped-plot_dwld")
+    app$expect_download(
+        "saveped-plot_dwld",
+        compare = function(old, new) {
+            old == new
+        }
+    )
     app$click("saveped-close")
 
     # Select family
