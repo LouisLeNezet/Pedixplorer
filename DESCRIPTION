@@ -35,7 +35,6 @@ Imports:
     plotly,
     colourpicker,
     shinytoastr,
-    usethis,
     scales
 Description: Routines to handle family data with a Pedigree object. The initial
     purpose was to create correlation structures that describe family
@@ -62,7 +61,8 @@ Suggests:
     shinytest2,
     covr,
     devtools,
-    R.devices
+    R.devices,
+    usethis
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, Alignment
 BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues

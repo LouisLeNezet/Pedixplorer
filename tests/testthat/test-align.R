@@ -36,7 +36,7 @@ test_that("test auto_hint works", {
     pedi <- Pedigree(sampleped[-1], rel_df)
     newhint <- auto_hint(pedi)
     expect_equal(horder(newhint),
-        setNames(c(
+        stats::setNames(c(
             1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 3, 2, 1, 4, 1,
             3, 9, 2, 4, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
             11, 12, 13, 14, 2, 3, 10, 11, 11, 12, 13, 4,
@@ -116,7 +116,7 @@ test_that("Alignment with spouse", {
         )
     )
     expect_equal(horder(hints),
-        setNames(c(
+        stats::setNames(c(
             1, 2, 3, 4, 5, 6, 7, 8, 1, 1,
             2, 3, 1, 4, 1, 3, 9, 2, 4, 10,
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10,

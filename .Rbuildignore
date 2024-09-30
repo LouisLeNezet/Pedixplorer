@@ -8,3 +8,4 @@ noweb
 LICENSE
 _\.new\.png$
 ^codecov\.yml$
+.covrignore
