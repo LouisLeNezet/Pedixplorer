@@ -28,10 +28,11 @@ usethis::use_package("shiny")
 #' @export
 ped_shiny <- function(
     port = getOption("shiny.port"),
-    host = getOption("shiny.host", "127.0.0.1")
+    host = getOption("shiny.host", "127.0.0.1"),
+    precision = 2
 ) {
     shiny::shinyApp(
-        ped_ui, ped_server,
+        ped_ui, ped_server(precision),
         options = list(host = host, port = port)
     )
 }

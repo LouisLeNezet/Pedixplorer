@@ -1,6 +1,6 @@
 test_that("ped_shiny works", {
     app <- shinytest2::AppDriver$new(
-        ped_shiny(), name = "ped_shiny",
+        ped_shiny(precision = 1), name = "ped_shiny",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
@@ -44,6 +44,7 @@ test_that("ped_shiny works", {
         `family_sel-families_table_rows_selected` = 1,
         allow_no_input_binding_ = TRUE
     )
+
     app$wait_for_idle()
     app$set_inputs(`inf_sel-inf_selected` = "Cust")
     app$wait_for_idle()

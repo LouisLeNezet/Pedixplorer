@@ -34,6 +34,7 @@ plot_ped_ui <- function(id) {
 #' @param id A string.
 #' @param pedi A reactive pedigree object.
 #' @param title A string to name the plot.
+#' @param precision An integer to set the precision of the plot.
 #' @returns A reactive ggplot or the pedigree object.
 #' @examples
 #' if (interactive()) {
@@ -45,7 +46,7 @@ plot_ped_ui <- function(id) {
 #' }
 #' @rdname plot_ped
 #' @keywords internal
-plot_ped_server <- function(id, pedi, title, max_ind = 500) {
+plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
 
@@ -91,7 +92,8 @@ plot_ped_server <- function(id, pedi, title, max_ind = 500) {
                 pedi_val(),
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1, force = TRUE,
-                mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle()
+                mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle(),
+                precision = precision
             )
 
             ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
@@ -128,7 +130,8 @@ plot_ped_server <- function(id, pedi, title, max_ind = 500) {
                         pedi_val(),
                         aff_mark = TRUE, label = NULL,
                         cex = 1, symbolsize = 1, force = TRUE,
-                        mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle()
+                        mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle(),
+                        precision = precision
                     )
                 })
                 shiny::plotOutput(ns("ped_plot"), height = "700px")
