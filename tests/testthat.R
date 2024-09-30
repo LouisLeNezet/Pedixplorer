@@ -11,6 +11,12 @@ library(testthat)
 library(Pedixplorer)
 library(vdiffr)
 library(shinytest2)
+library(R.devices)
+
+all_dev <- dev.list()
+for (devi in all_dev) {
+    dev.off(devi)
+}
 
 par_lst <- list(
     "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
@@ -21,7 +27,7 @@ par_lst <- list(
 R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
 plot.new()
 
-withr::local_options(width = 150, digits = 8, browser = "google-chrome")
+withr::local_options(width = 150, digits = 8, browser = "mozilla")
 withr::local_options(width = 150, digits = 8, browser = "google-chrome")
 options(shiny.testmode = TRUE)
 Sys.setenv("R_TESTS" = "")

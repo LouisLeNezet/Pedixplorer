@@ -80,5 +80,7 @@ test_that("plotting functions works", {
 })
 
 test_that("set_plot_area works", {
-    expect_snapshot(set_plot_area(2, c("Test", "Test2"), 3, c(0, 10), 1))
+    expect_snapshot(
+        set_plot_area(2, c("Test", "Test2"), 3, c(0, 10), 1, 2)
+    )
 })
