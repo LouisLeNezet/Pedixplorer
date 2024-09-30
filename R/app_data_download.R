@@ -1,14 +1,11 @@
-#' @importFrom shiny NS uiOutput tagList
-
-usethis::use_package("shiny")
-
 #' @rdname data_download
+#' @importFrom shiny NS uiOutput tagList
 data_download_ui <- function(id) {
     ns <- shiny::NS(id)
-    tagList(
-        uiOutput(ns("title_data")),
-        uiOutput(ns("data_text")),
-        uiOutput(ns("btn_dwld"))
+    shiny::tagList(
+        shiny::uiOutput(ns("title_data")),
+        shiny::uiOutput(ns("data_text")),
+        shiny::uiOutput(ns("btn_dwld"))
     )
 }
 
@@ -32,6 +29,10 @@ data_download_ui <- function(id) {
 #' }
 #' @rdname data_download
 #' @keywords internal
+#' @importFrom shiny is.reactive reactive NS moduleServer
+#' @importFrom shiny downloadHandler observeEvent renderUI
+#' @importFrom shiny HTML downloadButton
+#' @importFrom utils write.csv2
 data_download_server <- function(
     id, df, filename,
     label = NULL, helper = TRUE, title = "Data download"
@@ -93,6 +94,7 @@ data_download_server <- function(
 
 #' @rdname data_download
 #' @export
+#' @importFrom shiny fluidPage shinyApp reactive
 data_download_demo <- function() {
     ui <- shiny::fluidPage(
         data_download_ui("mtcars")

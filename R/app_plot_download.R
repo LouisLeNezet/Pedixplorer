@@ -3,18 +3,9 @@
 # author: Max Qiu (ytqiuhaowen@gmail.com)
 # author: Louis Le Nézet (louislenezet@gmail.com)
 
-#### Library needed #### ----------
-#' @importFrom shiny NS icon
-#' @importFrom plotly ggplotly
-usethis::use_package("ggplot2")
-usethis::use_package("shiny")
-usethis::use_package("plotly")
-usethis::use_package("htmlwidgets")
-usethis::use_package("gridExtra")
-usethis::use_package("grDevices")
-
 #### UI function of the module #### ----------
 #' @rdname plot_download
+#' @importFrom shiny NS uiOutput
 plot_download_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::uiOutput(ns("btn_dwld"))
@@ -43,6 +34,16 @@ plot_download_ui <- function(id) {
 #' }
 #' @rdname plot_download
 #' @keywords internal
+#' @importFrom shiny is.reactive NS moduleServer reactive reactiveValues
+#' @importFrom shiny renderUI actionButton observeEvent showModal removeModal
+#' @importFrom shiny modalDialog tags numericInput radioButtons tagList
+#' @importFrom shiny downloadButton downloadHandler icon
+#' @importFrom plotly ggplotly
+#' @importFrom htmlwidgets saveWidget
+#' @importFrom shinytoastr toastr_error
+#' @importFrom ggplot2 ggsave
+#' @importFrom grDevices png pdf dev.off
+#' @importFrom gridExtra grid.arrange
 plot_download_server <- function(
     id, my_plot, filename = "saveplot",
     label = "Download", width = 500, height = 500, ext = "png"
@@ -63,7 +64,7 @@ plot_download_server <- function(
 
         output$btn_dwld <- shiny::renderUI({
             shiny::actionButton(
-                ns("download"), label = label, icon("download"),
+                ns("download"), label = label, shiny::icon("download"),
                 style = "simple", size = "sm"
             )
         })
@@ -169,6 +170,9 @@ plot_download_server <- function(
 
 #' @rdname plot_download
 #' @export
+#' @importFrom utils data
+#' @importFrom shiny fluidPage fluidRow plotOutput reactive renderPlot
+#' @importFrom shiny shinyApp
 plot_download_demo <- function() {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")
@@ -179,16 +183,16 @@ plot_download_demo <- function() {
         Pedigree(data_env[["sampleped"]])
     }
     ui <- shiny::fluidPage(
-        fluidRow(
-            plotOutput("plt_sp"),
+        shiny::fluidRow(
+            shiny::plotOutput("plt_sp"),
             plot_download_ui("dwld_sp")
         ),
-        fluidRow(
-            plotOutput("plt_ped"),
+        shiny::fluidRow(
+            shiny::plotOutput("plt_ped"),
             plot_download_ui("dwld_ped")
         ),
-        fluidRow(
-            plotOutput("plt_ggplot"),
+        shiny::fluidRow(
+            shiny::plotOutput("plt_ggplot"),
             plot_download_ui("dwld_ggplot")
         )
     )

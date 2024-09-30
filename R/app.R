@@ -1,5 +1,3 @@
-usethis::use_package("shiny")
-
 #' Run Pedixplorer Shiny application
 #'
 #' This function creates a shiny application to manage and visualize
@@ -16,16 +14,17 @@ usethis::use_package("shiny")
 #' - Plotting pedigree
 #' - Family information
 #'
-#' @return Running Shiny Application
-#'
 #' @param port (optional) Specify port the application should list to.
 #' @param host (optional) The IPv4 address that the application should
 #' listen on.
+#' @returns Running Shiny Application
 #' @examples
 #' if (interactive()) {
 #'     ped_shiny()
 #' }
+#' @rdname ped_shiny
 #' @export
+#' @importFrom shiny shinyApp
 ped_shiny <- function(
     port = getOption("shiny.port"),
     host = getOption("shiny.host", "127.0.0.1"),

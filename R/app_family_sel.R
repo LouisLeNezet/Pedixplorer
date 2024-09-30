@@ -1,19 +1,15 @@
-#' @importFrom shiny NS column div h5 uiOutput tagList renderUI selectInput
-#' @importFrom shiny selectInput textOutput renderTable renderText tableOutput
-#' @importFrom shiny numericInput reactive
-
-usethis::use_package("shiny")
-
 #' @rdname family_sel
+#' @importFrom shiny NS column uiOutput fluidRow
+#' @importFrom DT dataTableOutput
 family_sel_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::column(12,
-        uiOutput(ns("title_fam")),
-        uiOutput(ns("families_var_selector")),
-        fluidRow(
+        shiny::uiOutput(ns("title_fam")),
+        shiny::uiOutput(ns("families_var_selector")),
+        shiny::fluidRow(
             DT::dataTableOutput(ns("families_table"))
         ),
-        uiOutput(ns("family_selector"))
+        shiny::uiOutput(ns("family_selector"))
     )
 }
 
@@ -38,6 +34,9 @@ family_sel_ui <- function(id) {
 #' @include app_utils.R
 #' @rdname family_sel
 #' @keywords internal
+#' @importFrom shiny is.reactive NS moduleServer req
+#' @importFrom DT renderDataTable
+#' @importFrom stats setNames
 family_sel_server <- function(
     id, pedi,
     fam_var = NULL, fam_sel = NULL, title = "Family selection"
@@ -68,7 +67,7 @@ family_sel_server <- function(
                 }
             }
             col_sel
-            setNames(col_sel, col_sel)
+            stats::setNames(col_sel, col_sel)
         })
 
         # Get families table --------------------------------------------------
@@ -134,6 +133,9 @@ family_sel_server <- function(
 
 #' @rdname family_sel
 #' @export
+#' @importFrom utils data
+#' @importFrom shiny fluidPage column tableOutput reactive
+#' @importFrom shiny renderTable exportTestValues shinyApp
 family_sel_demo <- function(
     fam_var = NULL, fam_sel = NULL,
     title = "Family selection"
@@ -142,7 +144,7 @@ family_sel_demo <- function(
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     pedi <- Pedigree(data_env[["sampleped"]])
     ui <- shiny::fluidPage(
-        column(6,
+        shiny::column(6,
             family_sel_ui("familysel")
         ), column(6,
             shiny::tableOutput("selected_fam")

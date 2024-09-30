@@ -1,7 +1,3 @@
-#' @importFrom graphics par strwidth strheight text lines
-#' @importFrom graphics polygon frame segments
-NULL
-
 #' Subset a region of a Pedigree
 #'
 #' @param subreg A 4-element vector for (min x, max x, min depth, max depth),
@@ -210,14 +206,16 @@ NULL
 #' @return Plot the segments to the current device
 #' or add it to a ggplot object
 #' @keywords internal, Pedigree-plot
+#' @importFrom ggplot2 annotate
+#' @importFrom graphics segments
 draw_segment <- function(
     x0, y0, x1, y1,
     p = NULL, ggplot_gen = FALSE,
     col = par("fg"), lwd = par("lwd"), lty = par("lty")
 ) {
-    segments(x0, y0, x1, y1, col = col, lty = lty, lwd = lwd)
+    graphics::segments(x0, y0, x1, y1, col = col, lty = lty, lwd = lwd)
     if (ggplot_gen) {
-        p <- p + annotate("segment", x = x0, y = y0,
+        p <- p + ggplot2::annotate("segment", x = x0, y = y0,
             xend = x1, yend = y1, colour = col, linetype = lty, linewidth = lwd
         )
     }
@@ -237,18 +235,20 @@ draw_segment <- function(
 #' @return Plot the polygon  to the current device
 #' or add it to a ggplot object
 #' @keywords internal, Pedigree-plot
+#' @importFrom ggplot2 geom_polygon aes
+#' @importFrom graphics polygon
 draw_polygon <- function(
     x, y, p = NULL, ggplot_gen = FALSE,
     fill = "grey", border = "black", density = NULL, angle = 45
 ) {
-    polygon(
+    graphics::polygon(
         x, y, col = fill, border = border,
         density = density, angle = angle
     )
     if (ggplot_gen) {
         p <- p +
-            geom_polygon(
-                aes(x = x, y = y), fill = fill, color = border
+            ggplot2::geom_polygon(
+                ggplot2::aes(x = x, y = y), fill = fill, color = border
             )
         # To add pattern stripes use ggpattern::geom_polygon_pattern
         # pattern_density = density[i], pattern_angle = angle[i]))
@@ -269,12 +269,14 @@ draw_polygon <- function(
 #' @return Plot the text to the current device
 #' or add it to a ggplot object
 #' @keywords internal, Pedigree-plot
+#' @importFrom ggplot2 annotate
+#' @importFrom graphics text
 draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
     cex = 1, col = NULL, adjx = 0, adjy = 0
 ) {
-    text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
+    graphics::text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
     if (ggplot_gen) {
-        p <- p + annotate(
+        p <- p + ggplot2::annotate(
             "text", x = x, y = y, label = label,
             size = cex / 0.3, colour = col
         )
@@ -289,6 +291,8 @@ draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
 #' @return Plot the arcs to the current device
 #' or add it to a ggplot object
 #' @keywords internal, Pedigree-plot
+#' @importFrom ggplot2 annotate
+#' @importFrom graphics lines
 draw_arc <- function(
     x0, y0, x1, y1,
     p = NULL, ggplot_gen = FALSE,
@@ -296,9 +300,9 @@ draw_arc <- function(
 ) {
     xx <- seq(x0, x1, length = 15)
     yy <- seq(y0, y1, length = 15) + (seq(-7, 7))^2 / 98 - 0.5
-    lines(xx, yy, lty = lty, lwd = lwd, col = col)
+    graphics::lines(xx, yy, lty = lty, lwd = lwd, col = col)
     if (ggplot_gen) {
-        p <- p + annotate(
+        p <- p + ggplot2::annotate(
             "line", xx, yy, linetype = "dashed", colour = col
         )
     }
@@ -319,19 +323,21 @@ draw_arc <- function(
 #' label height and leg height
 #'
 #' @keywords internal, Pedigree-plot
+#' @importFrom graphics par strwidth strheight
 set_plot_area <- function(
     cex, id, maxlev, xrange, symbolsize, precision = 3, ...
 ) {
-    old_par <- par(xpd = TRUE, ...)  ## took out mar=mar
-    psize <- signif(par("pin"), precision)  # plot region in inches
-    stemp1 <- signif(strwidth(
+    old_par <- graphics::par(xpd = TRUE, ...)  ## took out mar=mar
+    psize <- signif(graphics::par("pin"), precision)  # plot region in inches
+    stemp1 <- signif(graphics::strwidth(
         "ABC", units = "inches", cex = cex
     ), precision) * 2.5 / 3
-    stemp2 <- signif(strheight(
+    stemp2 <- signif(graphics::strheight(
         "1g", units = "inches", cex = cex
     ), precision)
     stemp3 <- max(signif(
-        strheight(id, units = "inches", cex = cex), precision
+        graphics::strheight(id, units = "inches", cex = cex),
+        precision
     ))
 
     ht1 <- signif(psize[2] / maxlev - (stemp3 + 1.5 * stemp2), precision)

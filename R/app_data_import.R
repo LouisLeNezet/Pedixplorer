@@ -3,12 +3,6 @@
 # author: Max Qiu (maxqiu@unl.edu)
 # author: Louis Le Nézet (louislenezet@gmail.com)
 
-#### Library needed #### ----------
-usethis::use_package("shiny")
-usethis::use_package("readxl")
-usethis::use_package("shinyWidgets")
-usethis::use_package("shinytoastr")
-
 #### Function needed to work #### ----------
 
 #' Read data from file path
@@ -33,6 +27,11 @@ usethis::use_package("shinytoastr")
 #'     read_data('path/to/my/file.txt', sep=',', header=FALSE)
 #' }
 #' @keywords data_import, internal
+#' @importFrom shiny req
+#' @importFrom tools file_ext
+#' @importFrom utils read.csv read.table
+#' @importFrom readxl excel_sheets read_excel
+#' @importFrom shinytoastr toastr_error toastr_info
 read_data <- function(
     file, sep = ";", quote = "'", header = TRUE, df_name = NA,
     strings_as_factors = FALSE, to_char = TRUE,
@@ -141,6 +140,10 @@ get_dataframe <- function(file) {
 #### UI function of the module #### ----------
 
 #' @rdname data_import
+#' @importFrom shiny NS tagList uiOutput fluidRow h5 column
+#' @importFrom shiny actionButton selectInput
+#' @importFrom shinyWidgets switchInput
+#' @importFrom shinytoastr useToastr
 data_import_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
@@ -196,6 +199,12 @@ data_import_ui <- function(id) {
 #' @keywords data
 #' @rdname data_import
 #' @keywords internal
+#' @importFrom shiny moduleServer NS renderUI fileInput reactiveValues
+#' @importFrom shiny observeEvent showModal modalDialog checkboxInput
+#' @importFrom shiny textAreaInput tagList actionButton removeModal
+#' @importFrom shiny observe
+#' @importFrom shinyWidgets pickerInput updateSwitchInput
+#' @importFrom shinytoastr toastr_error toastr_success
 data_import_server <- function(
     id, label = "Select data file",
     dftest = datasets::mtcars, max_request_size = 30
@@ -325,6 +334,8 @@ data_import_server <- function(
 
 #' @rdname data_import
 #' @export
+#' @importFrom shiny fluidPage tableOutput shinyApp
+#' @importFrom shiny renderTable exportTestValues
 data_import_demo <- function(options = list()) {
     ui <- shiny::fluidPage(
         data_import_ui("my_data_import"),

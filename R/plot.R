@@ -1,10 +1,3 @@
-#' @importFrom ggplot2 ggplot geom_polygon aes geom_text annotate ggtitle
-#' @importFrom ggplot2 scale_fill_manual scale_color_manual geom_segment
-#' @importFrom utils txtProgressBar setTxtProgressBar
-#' @importFrom stats setNames
-#' @importFrom graphics clip
-NULL
-
 #' Plot legend
 #'
 #' Small internal function to be used for plotting a Pedigree

@@ -1,24 +1,19 @@
-#' @importFrom shiny NS column div h5 uiOutput tagList
-#' @importFrom data.table copy setnames
-
-usethis::use_package("shiny")
-usethis::use_package("data.table")
-
 #' @rdname data_col_sel
+#' @importFrom shiny NS column div uiOutput tagList
 data_col_sel_ui <- function(id) {
     ns <- shiny::NS(id)
-    tagList(
-        column(6,
-            div(
+    shiny::tagList(
+        shiny::column(6,
+            shiny::div(
                 id = ns("Div"), class = "div-global",
                 style = "margin-top:1.5em",
-                uiOutput(ns("all_cols_need"))
+                shiny::uiOutput(ns("all_cols_need"))
             )
-        ), column(6,
-            div(
+        ), shiny::column(6,
+            shiny::div(
                 id = ns("Div"), class = "div-global",
                 style = "margin-top:1.5em",
-                uiOutput(ns("all_cols_supl"))
+                shiny::uiOutput(ns("all_cols_supl"))
             )
         )
     )
@@ -50,6 +45,11 @@ data_col_sel_ui <- function(id) {
 #' }
 #' @rdname data_col_sel
 #' @keywords internal
+#' @importFrom shiny moduleServer NS req renderUI selectInput
+#' @importFrom shiny reactive is.reactive div selectInput h5
+#' @importFrom shinytoastr toastr_error
+#' @importFrom data.table copy setnames
+#' @importFrom stats setNames
 data_col_sel_server <- function(
     id, df, cols_needed, cols_supl, title, na_omit = TRUE, others_cols = TRUE
 ) {
@@ -62,9 +62,9 @@ data_col_sel_server <- function(
             shiny::req(df())
             all_cols <- colnames(df())
             if (na_omit) {
-                setNames(c("NA", all_cols), c("", all_cols))
+                stats::setNames(c("NA", all_cols), c("", all_cols))
             } else {
-                setNames(all_cols, all_cols)
+                stats::setNames(all_cols, all_cols)
             }
         })
 
@@ -162,6 +162,8 @@ data_col_sel_server <- function(
 
 #' @rdname data_col_sel
 #' @export
+#' @importFrom shiny fluidPage tableOutput shinyApp
+#' @importFrom shiny exportTestValues reactive
 data_col_sel_demo <- function() {
     ui <- shiny::fluidPage(
         data_col_sel_ui("datafile"),

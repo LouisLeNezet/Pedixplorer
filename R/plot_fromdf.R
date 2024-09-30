@@ -54,37 +54,42 @@ NULL
 #' }
 #' @return an invisible ggplot object and a plot on the current plotting device
 #' @keywords internal, Pedigree-plot
+#' @importFrom graphics frame par
+#' @importFrom ggplot2 ggplot theme element_blank element_rect
+#' @importFrom ggplot2 unit scale_y_reverse ggtitle
+#' @importFrom stringr str_split_i
 #' @export
 plot_fromdf <- function(
     df, usr = NULL, title = NULL, ggplot_gen = FALSE, boxw = 1,
     boxh = 1, add_to_existing = FALSE
 ) {
     if (!add_to_existing) {
-        frame()
+        graphics::frame()
         if (!is.null(usr)) {
-            par(usr = usr)
+            graphics::par(usr = usr)
         }
     }
 
-    p <- ggplot() +
-        theme(
-            plot.margin = unit(c(0, 0, 0, 0), "cm"),
-            panel.background = element_rect(fill = "transparent", color = NA),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
-            axis.ticks = element_blank(),
-            axis.text = element_blank(),
-            axis.title = element_blank()
+    p <- ggplot2::ggplot() +
+        ggplot2::theme(
+            plot.margin = ggplot2::unit(c(0, 0, 0, 0), "cm"),
+            panel.background = ggplot2::element_rect(
+                fill = "transparent", color = NA
+            ), panel.grid.major = ggplot2::element_blank(),
+            panel.grid.minor = ggplot2::element_blank(),
+            axis.ticks = ggplot2::element_blank(),
+            axis.text = ggplot2::element_blank(),
+            axis.title = ggplot2::element_blank()
         ) +
-        scale_y_reverse()
+        ggplot2::scale_y_reverse()
 
     ## Add title if exists
     if (!is.null(title)) {
         title(title)
-        p <- p + ggtitle(title)
+        p <- p + ggplot2::ggtitle(title)
     }
 
-    aff <- as.numeric(str_split_i(df$type, "_", 2))
+    aff <- as.numeric(stringr::str_split_i(df$type, "_", 2))
     if (all(is.na(aff))) {
         max_aff <- 1
     } else {

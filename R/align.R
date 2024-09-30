@@ -127,6 +127,7 @@ setGeneric("align", signature = "obj",
 
 #' @rdname align
 #' @docType methods
+#' @importFrom stats setNames
 setMethod("align", "Pedigree",
     function(
         obj, packed = TRUE, width = 10,
@@ -157,7 +158,7 @@ setMethod("align", "Pedigree",
                 auto_hint(obj)
             }, silent = TRUE)
             if ("try-error" %in% class(hints)) {
-                hints <- Hints(horder = setNames(
+                hints <- Hints(horder = stats::setNames(
                     seq_len(length(ped(obj))), id(ped(obj))
                 ))
             }

@@ -1,9 +1,3 @@
-#' @importFrom plyr revalue
-#' @importFrom dplyr mutate %>% across mutate_at mutate_if
-#' @importFrom tidyr unite
-#' @importFrom stringr str_remove_all
-NULL
-
 #' Normalise a Ped object dataframe
 #'
 #' @description Normalise dataframe for a Ped object
@@ -93,6 +87,8 @@ NULL
 #' [Ped-class]
 #' [Pedigree()]
 #' @export
+#' @importFrom dplyr mutate_if mutate_at mutate
+#' @importFrom tidyr unite
 norm_ped <- function(
     ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
     cols_used_del = FALSE
@@ -120,7 +116,7 @@ norm_ped <- function(
     ped_df$family[is.na(ped_df$family)] <- missid
 
     if (nrow(ped_df) > 0) {
-        ped_df <- mutate_if(
+        ped_df <- dplyr::mutate_if(
             ped_df, is.character, ~replace(., . %in% na_strings, NA_character_)
         )
 
@@ -147,7 +143,7 @@ norm_ped <- function(
         ped_df$momid <- upd_famid(ped_df$motherId, ped_df$famid, missid)
 
         ## Set all missid to NA
-        ped_df <- mutate_at(ped_df, c("id", "dadid", "momid", "famid"),
+        ped_df <- dplyr::mutate_at(ped_df, c("id", "dadid", "momid", "famid"),
             ~replace(., . %in% c(na_strings, missid), NA_character_)
         )
 
@@ -193,7 +189,7 @@ norm_ped <- function(
         ] <- "isMotherButNotFemale"
 
         ## Unite all sex errors in one column
-        err <- unite(
+        err <- tidyr::unite(
             err, "sexError",
             c("sexNA", "sexErrMoFa", "sexErrMo", "sexErrFa", "sexErrTer"),
             na.rm = TRUE, sep = "_", remove = TRUE
@@ -227,7 +223,7 @@ norm_ped <- function(
         ] <- "oneParentMissing"
 
         ## Unite all id errors in one column
-        err <- unite(
+        err <- tidyr::unite(
             err, "idError", c(
                 "idErr", "idErrFa", "idErrMo", "idErrSelf",
                 "idErrOwnParent", "idErrBothParent"
@@ -262,7 +258,7 @@ norm_ped <- function(
             }
         }
 
-        ped_df$error <- unite(
+        ped_df$error <- tidyr::unite(
             err, "error", c("idError", "sexError"),
             na.rm = TRUE, sep = "_", remove = TRUE
         )$error
@@ -308,6 +304,7 @@ norm_ped <- function(
 #' norm_rel(df)
 #'
 #' @return A dataframe with the errors identified
+#' @importFrom dplyr mutate_if mutate_at mutate across
 #' @export
 norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
 
@@ -331,7 +328,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
     )
     rel_df$famid[is.na(rel_df$famid)] <- missid
     if (nrow(rel_df) > 0) {
-        rel_df <- mutate_if(
+        rel_df <- dplyr::mutate_if(
             rel_df, is.character,
             ~replace(., . %in% na_strings, NA)
         )
@@ -344,7 +341,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
 
         #### Check for id errors #### Set ids as characters
         rel_df <- rel_df %>%
-            mutate(across(c("id1", "id2", "famid"), as.character))
+            dplyr::mutate(dplyr::across(c("id1", "id2", "famid"), as.character))
 
         ## Check for non null ids
         len1 <- nchar(rel_df$id1)
@@ -356,7 +353,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         rel_df$id1 <- upd_famid(rel_df$id1, rel_df$famid, missid)
         rel_df$id2 <- upd_famid(rel_df$id2, rel_df$famid, missid)
 
-        rel_df <- mutate_at(rel_df, c("id1", "id2", "famid"),
+        rel_df <- dplyr::mutate_at(rel_df, c("id1", "id2", "famid"),
             ~replace(., . %in% c(na_strings, missid), NA_character_)
         )
 

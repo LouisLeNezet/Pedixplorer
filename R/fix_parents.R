@@ -62,7 +62,8 @@ setGeneric("fix_parents", signature = "obj",
 #' @rdname fix_parents
 #' @export
 setMethod("fix_parents", "character", function(
-    obj, dadid, momid, sex, famid = NULL, missid = NA_character_
+    obj, dadid, momid, sex,
+    famid = NULL, missid = NA_character_
 ) {
     ## fix sex of parents add parents that are missing)
     n <- length(obj)
@@ -187,7 +188,8 @@ setMethod("fix_parents", "character", function(
 #' @rdname fix_parents
 #' @export
 setMethod("fix_parents", "data.frame", function(
-    obj, del_parents = NULL, filter = NULL, missid = NA_character_
+    obj, del_parents = NULL,
+    filter = NULL, missid = NA_character_
 ) {
     cols_needed <- c("id", "dadid", "momid", "sex")
     df <- check_columns(obj, cols_needed, NULL, "famid", others_cols = TRUE,

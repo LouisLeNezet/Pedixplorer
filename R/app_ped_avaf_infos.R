@@ -1,37 +1,33 @@
-#' @importFrom shiny NS column div h5 uiOutput tagList renderUI selectInput
-#' @importFrom shiny selectInput textOutput renderTable renderText tableOutput
-
-usethis::use_package("shiny")
-
-
 #' Sketch of the family information table
 #'
 #' Simple function to create a sketch of the family information table.
 #'
 #' @param var_name the name of the health variable
-#' @return an html sketch of the family information table
+#' @return An html sketch of the family information table
 #' @keywords internal, ped_avaf_infos
+#' @importFrom shiny tags HTML
 sketch <- function(var_name) {
-    tags$table(
+    shiny::tags$table(
         class = "display",
-        tags$style(HTML(".cell-border-right{border-right: 1px solid #000}")),
-        tags$thead(
-            tags$tr(
-                tags$th(
+        shiny::tags$style(shiny::HTML(
+            ".cell-border-right{border-right: 1px solid #000}"
+        )), shiny::tags$thead(
+            shiny::tags$tr(
+                shiny::tags$th(
                     class = "dt-center cell-border-right",
                     colspan = 2, var_name
                 ),
-                tags$th(
+                shiny::tags$th(
                     class = "dt-center",
                     colspan = 3, "Availability"
                 )
             ),
-            tags$tr(
-                tags$th("Affected"),
-                tags$th("Modalities"),
-                tags$th("Available"),
-                tags$th("Unavailable"),
-                tags$th("NA")
+            shiny::tags$tr(
+                shiny::tags$th("Affected"),
+                shiny::tags$th("Modalities"),
+                shiny::tags$th("Available"),
+                shiny::tags$th("Unavailable"),
+                shiny::tags$th("NA")
             )
         )
     )
@@ -55,6 +51,7 @@ sketch <- function(var_name) {
 #' Pedixplorer:::family_infos_table(pedi, "num_child_tot")
 #' Pedixplorer:::family_infos_table(pedi, "affection")
 #' @keywords internal, ped_avaf_infos
+#' @importFrom tidyr spread
 family_infos_table <- function(pedi, col_val = NA) {
     if (!col_val %in% fill(pedi)$column_values) {
         error <- paste(
@@ -88,11 +85,13 @@ family_infos_table <- function(pedi, col_val = NA) {
 
 
 #' @rdname family_sel
+#' @importFrom shiny NS column uiOutput textOutput
+#' @importFrom DT dataTableOutput
 ped_avaf_infos_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::column(12,
-        uiOutput(ns("title_infos")),
-        textOutput(ns("ped_avaf_infos_title")),
+        shiny::uiOutput(ns("title_infos")),
+        shiny::textOutput(ns("ped_avaf_infos_title")),
         DT::dataTableOutput(ns("family_info_table"))
     )
 }
@@ -118,6 +117,9 @@ ped_avaf_infos_ui <- function(id) {
 #' @include app_utils.R
 #' @rdname ped_avaf_infos
 #' @keywords internal
+#' @importFrom shiny is.reactive moduleServer reactive req
+#' @importFrom DT renderDataTable datatable
+#' @importFrom stringr str_to_title
 ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
@@ -171,6 +173,8 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
 
 #' @rdname ped_avaf_infos
 #' @export
+#' @importFrom utils data
+#' @importFrom shiny fluidPage reactive exportTestValues shinyApp
 ped_avaf_infos_demo <- function() {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")

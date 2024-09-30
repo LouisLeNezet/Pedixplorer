@@ -178,7 +178,10 @@ setGeneric("is_parent", signature = "obj",
 #' is_parent(c("1", "2", "3", "4"), c("3", "3", NA, NA), c("4", "4", NA, NA))
 #' @export
 setMethod("is_parent", "character_OR_integer",
-    function(obj, dadid, momid, missid = NA_character_) {
+    function(
+        obj, dadid, momid,
+        missid = NA_character_
+    ) {
         # determine subjects who are parents assume input of
         # dadid/momid indices, not ids
 
@@ -489,6 +492,7 @@ make_rownames <- function(
 #' @examples
 #' Pedixplorer::make_class_info(list(1, "a", 1:3, list(1, 2)))
 #' @export
+#' @importFrom S4Vectors classNameForDisplay
 make_class_info <- function(x) {
     vapply(
         x,

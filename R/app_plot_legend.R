@@ -1,12 +1,10 @@
-#### Library needed #### ----------
-usethis::use_package("shiny")
-
 #### UI function of the module #### ----------
 #' @rdname plot_legend
 #' @export
+#' @importFrom shiny NS column plotOutput
 plot_legend_ui <- function(id, height = "200px") {
     ns <- shiny::NS(id)
-    column(12,
+    shiny::column(12,
         shiny::plotOutput(ns("plotlegend"), height = height)
     )
 }
@@ -29,18 +27,19 @@ plot_legend_ui <- function(id, height = "200px") {
 #' @rdname plot_legend
 #' @keywords internal
 #' @export
+#' @importFrom shiny moduleServer is.reactive renderPlot req
 plot_legend_server <- function(id, pedi, leg_loc = c(0.2, 1, 0, 1)) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
         output$plotlegend <- shiny::renderPlot({
             shiny::req(pedi())
-            old_mai <- par()$mai
-            par(mai = c(0, 0, 0, 0))
+            old_mai <- graphics::par()$mai
+            graphics::par(mai = c(0, 0, 0, 0))
             plot_legend(
                 pedi(), adjx = 0.7, adjy = -0.02,
                 leg_loc = leg_loc
             )
-            par(mai = old_mai)
+            graphics::par(mai = old_mai)
         })
     })
 }
@@ -48,6 +47,8 @@ plot_legend_server <- function(id, pedi, leg_loc = c(0.2, 1, 0, 1)) {
 #### Demo function of the module #### ----------
 #' @rdname plot_legend
 #' @export
+#' @importFrom utils data
+#' @importFrom shiny shinyApp fluidPage reactive
 plot_legend_demo <- function(height = "200px", leg_loc = c(0.2, 1, 0, 1)) {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")

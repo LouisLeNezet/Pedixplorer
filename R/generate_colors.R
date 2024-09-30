@@ -1,6 +1,3 @@
-#' @importFrom plyr revalue
-NULL
-
 #' Process the filling colors based on affection
 #'
 #' @description Perform transformation uppon a column given as the one
@@ -60,6 +57,8 @@ NULL
 #'
 #' @keywords generate_scales
 #' @export
+#' @importFrom plyr revalue
+#' @importFrom grDevices colorRampPalette
 generate_fill <- function(
     values, affected, labels, is_num = NULL,
     keep_full_scale = FALSE, breaks = 3,
@@ -101,10 +100,10 @@ generate_fill <- function(
         # last of aff
         fill_to_use <- c(colors_unaff[1], colors_aff[-1], colors_na)
         names(fill_to_use) <- c("FALSE", "TRUE", NA)
-        fill <- revalue(
+        fill <- plyr::revalue(
             as.character(affected), fill_to_use, warn_missing = FALSE
         )
-        mods <- revalue(
+        mods <- plyr::revalue(
             as.character(affected), c("FALSE" = 0, "TRUE" = 1),
             warn_missing = FALSE
         )

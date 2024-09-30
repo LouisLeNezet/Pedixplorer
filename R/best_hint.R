@@ -87,6 +87,7 @@ setGeneric(
 )
 
 #' @rdname best_hint
+#' @importFrom stats setNames
 setMethod(
     "best_hint", "Pedigree",
     function(obj, wt = c(1000, 10, 1), tolerance = 0) {
@@ -119,7 +120,7 @@ setMethod(
             # this fixes up marriages and such
             newhint <- auto_hint(
                 obj, hints = Hints(
-                    horder = setNames(hint[, 1], id(ped(obj)))
+                    horder = stats::setNames(hint[, 1], id(ped(obj)))
                 ), reset = TRUE
             )
             plist <- align(

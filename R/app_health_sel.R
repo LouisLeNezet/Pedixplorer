@@ -1,17 +1,13 @@
-#' @importFrom shiny NS column div h5 uiOutput tagList renderUI selectInput
-#' @importFrom shiny selectInput textOutput renderTable renderText tableOutput
-#' @importFrom shiny htmlOutput sliderInput
-usethis::use_package("shiny")
-
 #' @rdname health_sel
+#' @importFrom shiny NS uiOutput tagList
 health_sel_ui <- function(id) {
     ns <- shiny::NS(id)
-    tagList(
-        h3("Health selection"),
-        uiOutput(ns("health_var_selector")),
-        uiOutput(ns("health_num_box")),
-        uiOutput(ns("health_threshold_box")),
-        uiOutput(ns("health_aff_selector"))
+    shiny::tagList(
+        shiny::h3("Health selection"),
+        shiny::uiOutput(ns("health_var_selector")),
+        shiny::uiOutput(ns("health_num_box")),
+        shiny::uiOutput(ns("health_threshold_box")),
+        shiny::uiOutput(ns("health_aff_selector"))
     )
 }
 
@@ -39,6 +35,10 @@ health_sel_ui <- function(id) {
 #' @include app_utils.R
 #' @rdname health_sel
 #' @keywords internal
+#' @importFrom shiny is.reactive NS moduleServer req reactive sliderInput
+#' @importFrom shiny h5 checkboxInput selectInput htmlOutput renderUI
+#' @importFrom shinyWidgets pickerInput
+#' @importFrom stats setNames
 health_sel_server <- function(
     id, pedi, var = NULL, as_num = NULL, mods_aff = NULL,
     threshold = NULL, sup_threshold = NULL
@@ -48,13 +48,13 @@ health_sel_server <- function(
     shiny::moduleServer(id, function(input, output, session) {
 
         # Health variable selector --------------------------------------------
-        output$health_var_selector <- renderUI({
+        output$health_var_selector <- shiny::renderUI({
             if (is.null(pedi())) {
                 return(NULL)
             }
             cols_all <- colnames(mcols(pedi()))
-            cols_all <- as.list(setNames(cols_all, cols_all))
-            selectInput(
+            cols_all <- as.list(stats::setNames(cols_all, cols_all))
+            shiny::selectInput(
                 ns("health_var_sel"),
                 label = h5("Select Variable to use as health indicator"),
                 choices = cols_all,
@@ -63,7 +63,7 @@ health_sel_server <- function(
         })
 
         # As numeric values ---------------------------------------------------
-        output$health_num_box <- renderUI({
+        output$health_num_box <- shiny::renderUI({
             shiny::req(input$health_var_sel)
             shiny::req(pedi())
             if (is.null(input$health_var_sel)) {
@@ -73,7 +73,7 @@ health_sel_server <- function(
                 is.numeric(mcols(pedi())[[input$health_var_sel]]),
                 TRUE, FALSE
             )
-            checkboxInput(
+            shiny::checkboxInput(
                 ns("health_as_num"),
                 label = "Should the health variable be treated as numeric?",
                 value = ifelse(is.null(as_num), val_num, as_num)
@@ -100,7 +100,7 @@ health_sel_server <- function(
         output$health_threshold_box <- renderUI({
             shiny::req(input$health_as_num)
             if (input$health_as_num) {
-                checkboxInput(
+                shiny::checkboxInput(
                     ns("health_threshold_sup"),
                     label = "Affected are strickly superior to threshold",
                     value = ifelse(is.null(sup_threshold), TRUE, sup_threshold)
@@ -120,13 +120,13 @@ health_sel_server <- function(
                 max_h <- max(val_aff(), na.rm = TRUE)
                 if (any(is.na(c(min_h, max_h))) |
                         any(is.infinite(c(min_h, max_h)))) {
-                    h5(paste(
+                    shiny::h5(paste(
                         "No value found for", input$health_var_sel
                     ))
                 } else {
                     shiny::sliderInput(
                         ns("health_threshold_val"),
-                        label = h5(paste(
+                        label = shiny::h5(paste(
                             "Threshold of",
                             input$health_var_sel,
                             "to determine affected individuals"
@@ -148,7 +148,7 @@ health_sel_server <- function(
                         "No value found for", input$health_var_sel
                     ))
                 }
-                var_to_use <- as.list(setNames(
+                var_to_use <- as.list(stats::setNames(
                     health_var_lev, health_var_lev
                 ))
                 shinyWidgets::pickerInput(
@@ -192,15 +192,18 @@ health_sel_server <- function(
 
 #' @rdname health_sel
 #' @export
+#' @importFrom shiny fluidPage column htmlOutput renderUI
+#' @importFrom shiny shinyApp exportTestValues HTML
+#' @importFrom utils data
 health_sel_demo <- function() {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     pedi <- Pedigree(data_env[["sampleped"]])
     ui <- shiny::fluidPage(
-        column(6,
+        shiny::column(6,
             health_sel_ui("healthsel")
         ),
-        column(6,
+        shiny::column(6,
             shiny::htmlOutput("text")
         )
     )
@@ -224,7 +227,7 @@ health_sel_demo <- function() {
             )
             str4 <- paste("Threshold:", lst_health()$threshold)
             str5 <- paste("Threshold strict:", lst_health()$sup_threshold)
-            HTML(paste(str1, str2, str3, str4, str5, sep = "<br/>"))
+            shiny::HTML(paste(str1, str2, str3, str4, str5, sep = "<br/>"))
         })
 
         shiny::exportTestValues(lst_health = {

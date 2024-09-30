@@ -1,24 +1,21 @@
-#' @importFrom shiny NS tagList h3 uiOutput numericInput
-#' @importFrom shiny h5 strong checkboxInput selectInput
-usethis::use_package("shiny")
-
 #' @rdname inf_sel
+#' @importFrom shiny NS tagList h3 uiOutput numericInput checkboxInput
 inf_sel_ui <- function(id) {
     ns <- shiny::NS(id)
-    tagList(
+    shiny::tagList(
         ## Informative individuals selection ----------------------------------
-        h3("Informative individuals"),
-        uiOutput(ns("inf_var_selector")),
-        uiOutput(ns("inf_custvar_selector")),
-        uiOutput(ns("inf_custvar_textinput")),
+        shiny::h3("Informative individuals"),
+        shiny::uiOutput(ns("inf_var_selector")),
+        shiny::uiOutput(ns("inf_custvar_selector")),
+        shiny::uiOutput(ns("inf_custvar_textinput")),
         ## Filtering options --------------------------------------------------
-        h3("Filtering options"),
-        numericInput(
+        shiny::h3("Filtering options"),
+        shiny::numericInput(
             ns("kin_max"),
             label = h5(strong("Max kinship")),
             value = 3, min = 1
         ),
-        checkboxInput(
+        shiny::checkboxInput(
             ns("keep_parents"),
             label = "Keep informative parents (available or affected)",
             value = TRUE
@@ -51,6 +48,10 @@ inf_sel_ui <- function(id) {
 #' }
 #' @rdname inf_sel
 #' @keywords internal
+#' @importFrom shiny is.reactive NS moduleServer selectInput renderUI
+#' @importFrom shiny h5 strong req textAreaInput reactive isolate
+#' @importFrom shinytoastr toastr_error
+#' @importFrom stats setNames
 inf_sel_server <- function(id, pedi) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
@@ -58,10 +59,11 @@ inf_sel_server <- function(id, pedi) {
 
         # Informative individuals custom selection ----------------------------
         output$inf_var_selector <- renderUI({
-            selectInput(
+            shiny::selectInput(
                 ns("inf_selected"),
-                label = h5(strong("Select informative individuals")),
-                choices = list(
+                label = shiny::h5(shiny::strong(
+                    "Select informative individuals"
+                )), choices = list(
                     "All individuals" = "All",
                     "Available or Affected" = "AvOrAf",
                     "Available only" = "Av",
@@ -79,12 +81,12 @@ inf_sel_server <- function(id, pedi) {
             df <- as.data.frame(ped(pedi()))
             if (input$inf_selected == "Cust" & !is.null(df)) {
                 col_present <- colnames(df)
-                selectInput(
+                shiny::selectInput(
                     ns("inf_custvar_sel"),
                     label = paste(
                         "Select Variable to use",
                         "to select informative individuals"
-                    ), choices = as.list(setNames(col_present, col_present))
+                    ), choices = as.list(stats::setNames(col_present, col_present))
                 )
             } else {
                 NULL
@@ -92,7 +94,7 @@ inf_sel_server <- function(id, pedi) {
         })
 
         # Custom variable text input ------------------------------------------
-        output$inf_custvar_textinput <- renderUI({
+        output$inf_custvar_textinput <- shiny::renderUI({
             shiny::req(input$inf_selected == "Cust")
             if (input$inf_selected == "Cust") {
                 shiny::textAreaInput(
@@ -107,7 +109,7 @@ inf_sel_server <- function(id, pedi) {
             }
         })
         # Informative individuals selection -----------------------------------
-        inf_inds_selected <- reactive({
+        inf_inds_selected <- shiny::reactive({
             shiny::req(pedi())
             shiny::req(input$inf_selected)
             if (input$inf_selected != "Cust") {
@@ -158,7 +160,7 @@ inf_sel_server <- function(id, pedi) {
         }
 
         # Informative individuals pedigree selection --------------------------
-        lst_inf <- reactive({
+        lst_inf <- shiny::reactive({
             shiny::req(inf_inds_selected())
             list(
                 inf_txt = inf_inds_sel_txt(),
@@ -175,18 +177,20 @@ inf_sel_server <- function(id, pedi) {
 
 #' @rdname inf_sel
 #' @export
+#' @importFrom shiny fluidPage column uiOutput renderUI
+#' @importFrom shiny shinyApp exportTestValues HTML
 inf_sel_demo <- function(pedi) {
     ui <- shiny::fluidPage(
-        column(6,
+        shiny::column(6,
             inf_sel_ui("infsel")
         ),
-        column(6,
-            uiOutput("inf")
+        shiny::column(6,
+            shiny::uiOutput("inf")
         )
     )
     server <- function(input, output, session) {
         lst_inf <- inf_sel_server("infsel", pedi)
-        output$inf <- renderUI({
+        output$inf <- shiny::renderUI({
             if (is.null(lst_inf())) {
                 return(NULL)
             }
@@ -197,7 +201,7 @@ inf_sel_demo <- function(pedi) {
                     paste(lst_inf()[[i]], collapse = ",")
                 )
             }
-            HTML(txt)
+            shiny::HTML(txt)
         })
         shiny::exportTestValues(lst_inf = {
             lst_inf()

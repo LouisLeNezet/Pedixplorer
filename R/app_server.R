@@ -1,8 +1,4 @@
-usethis::use_package("shiny")
-usethis::use_package("shinyWidgets")
-usethis::use_package("DT")
-usethis::use_package("gridExtra")
-
+#' Create the server logic for the ped_shiny application
 #' @include app_health_sel.R
 #' @include app_family_sel.R
 #' @include app_inf_sel.R
@@ -14,11 +10,20 @@ usethis::use_package("gridExtra")
 #' @include app_utils.R
 #' @include app_plot_download.R
 #' @include app_plot_legend.R
-#' @rdname ped_shiny
+#' @importFrom utils data
+#' @importFrom shiny shinyServer req observeEvent reactive stopApp
+#' @importFrom shiny exportTestValues stopApp
+#' @importFrom shinytoastr toastr_warning toastr_error
 #' @param input The input object from a Shiny app.
 #' @param output The output object from a Shiny app.
 #' @param session The session object from a Shiny app.
 #' @param precision An integer to set the precision of the plot.
+#' @returns `shiny::shinyServer()`
+#' @examples
+#' if (interactive()) {
+#'     ped_shiny()
+#' }
+#' @keywords internal
 ped_server <- function(
     input, output, session, precision = 2
 ) {

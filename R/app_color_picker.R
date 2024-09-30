@@ -1,10 +1,5 @@
-#' @importFrom shiny NS div uiOutput tagList
-#' @importFrom usethis use_package
-
-usethis::use_package("shiny")
-usethis::use_package("colourpicker")
-
 #' @rdname color_picker
+#' @importFrom shiny NS fluidRow uiOutput
 color_picker_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::fluidRow(
@@ -26,6 +21,9 @@ color_picker_ui <- function(id) {
 #' }
 #' @rdname color_picker
 #' @keywords internal
+#' @importFrom shiny moduleServer NS req renderUI column
+#' @importFrom shiny reactive
+#' @importFrom colourpicker colourInput
 color_picker_server <- function(
     id, colors = NULL
 ) {
@@ -67,6 +65,8 @@ color_picker_server <- function(
 
 #' @rdname color_picker
 #' @export
+#' @importFrom shiny fluidPage textOutput shinyApp
+#' @importFrom shiny exportTestValues
 color_picker_demo <- function() {
     ui <- shiny::fluidPage(
         color_picker_ui("colors"),

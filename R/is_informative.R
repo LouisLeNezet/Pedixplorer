@@ -48,55 +48,57 @@ setGeneric("is_informative", signature = "obj",
 #' is_informative(c("A", "B", "C", "D", "E"),
 #'     informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
 #' @export
-setMethod("is_informative", "character_OR_integer", function(
-    obj, avail, affected, informative = "AvAf"
-) {
-    id <- obj
-    # Selection of all informative individuals depending of the informative
-    # parameter
-    if (length(informative) > 1) {
-        if (is.character(informative)) {
-            id_inf <- id[match(id, informative, nomatch = 0) != 0]
+setMethod("is_informative", "character_OR_integer",
+    function(
+        obj, avail, affected, informative = "AvAf"
+    ) {
+        id <- obj
+        # Selection of all informative individuals depending of the informative
+        # parameter
+        if (length(informative) > 1) {
+            if (is.character(informative)) {
+                id_inf <- id[match(id, informative, nomatch = 0) != 0]
+            } else if (is.numeric(informative)) {
+                id_inf <- id[informative]
+            } else if (is.logical(informative)) {
+                if (length(informative) != length(id)) {
+                    stop("The length of a logical informative parameter ",
+                        "must be equal to the length of the id vector"
+                    )
+                }
+                id_inf <- id[informative]
+            } else {
+                stop("The informative parameter must be a character, ",
+                    "logical or numeric"
+                )
+            }
         } else if (is.numeric(informative)) {
             id_inf <- id[informative]
         } else if (is.logical(informative)) {
-            if (length(informative) != length(id)) {
-                stop("The length of a logical informative parameter must be",
-                    "equal to the length of the id vector"
-                )
+            id_inf <- ifelse(informative, id, NA)
+            id_inf <- id_inf[!is.na(id_inf)]
+        } else {
+            if (informative == "AvOrAf") {
+                id_inf <- id[(avail == 1 & !is.na(avail)) |
+                        (affected == 1 & !is.na(affected))
+                ]
+            } else if (informative == "Av") {
+                id_inf <- id[avail == 1 & !is.na(avail)]
+            } else if (informative == "Af") {
+                id_inf <- id[affected == 1 & !is.na(affected)]
+            } else if (informative == "AvAf") {
+                id_inf <- id[(avail == 1 & !is.na(avail)) &
+                        (affected == 1 & !is.na(affected))
+                ]
+            } else if (informative == "All") {
+                id_inf <- id
+            } else {
+                id_inf <- id[match(id, informative, nomatch = 0) != 0]
             }
-            id_inf <- id[informative]
-        } else {
-            stop("The informative parameter must be a character, ",
-                "logical or numeric"
-            )
         }
-    } else if (is.numeric(informative)) {
-        id_inf <- id[informative]
-    } else if (is.logical(informative)) {
-        id_inf <- ifelse(informative, id, NA)
-        id_inf <- id_inf[!is.na(id_inf)]
-    } else {
-        if (informative == "AvOrAf") {
-            id_inf <- id[(avail == 1 & !is.na(avail)) |
-                    (affected == 1 & !is.na(affected))
-            ]
-        } else if (informative == "Av") {
-            id_inf <- id[avail == 1 & !is.na(avail)]
-        } else if (informative == "Af") {
-            id_inf <- id[affected == 1 & !is.na(affected)]
-        } else if (informative == "AvAf") {
-            id_inf <- id[(avail == 1 & !is.na(avail)) &
-                    (affected == 1 & !is.na(affected))
-            ]
-        } else if (informative == "All") {
-            id_inf <- id
-        } else {
-            id_inf <- id[match(id, informative, nomatch = 0) != 0]
-        }
+        unique(id_inf)
     }
-    unique(id_inf)
-})
+)
 
 
 #' @rdname is_informative
@@ -141,7 +143,8 @@ setMethod("is_informative", "Ped", function(
 #' isinf(ped(ped))
 #' @export
 setMethod("is_informative", "Pedigree", function(
-    obj, col_aff = NULL, informative = "AvAf", reset = FALSE
+    obj, col_aff = NULL,
+    informative = "AvAf", reset = FALSE
 ) {
     if (!reset & any(!is.na(isinf(ped(obj))))) {
         warning(

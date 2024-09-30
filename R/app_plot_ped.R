@@ -2,15 +2,9 @@
 # St Jude Bio-Hackathon of May 2023 by the team 13.
 # Author: Louis Le Nézet (louislenezet@gmail.com)
 
-
-#### Library needed #### ----------
-#' @importFrom plotly ggplotly
-usethis::use_package("dplyr")
-usethis::use_package("shiny")
-usethis::use_package("plotly")
-
 #### UI function of the module #### ----------
 #' @rdname plot_ped
+#' @importFrom shiny NS tagList uiOutput checkboxInput
 plot_ped_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
@@ -46,6 +40,10 @@ plot_ped_ui <- function(id) {
 #' }
 #' @rdname plot_ped
 #' @keywords internal
+#' @importFrom shiny is.reactive NS moduleServer reactive renderUI req
+#' @importFrom shiny tagList checkboxInput plotOutput
+#' @importFrom ggplot2 scale_y_reverse theme element_blank
+#' @importFrom plotly ggplotly renderPlotly plotlyOutput
 plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
@@ -152,6 +150,7 @@ plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
 #### Demo function of the module #### ----------
 #' @rdname plot_ped
 #' @export
+#' @importFrom shiny shinyApp fluidPage
 plot_ped_demo <- function(pedi, max_ind = 500) {
     ui <- shiny::fluidPage(
         plot_ped_ui("plot_ped"),

@@ -1,7 +1,3 @@
-#' @importFrom shiny tags
-usethis::use_package("shiny")
-usethis::use_package("dplyr")
-
 #' Summarise the families information for a given variable in a data frame
 #'
 #' This function summarises the families information for a given variable in a
@@ -18,14 +14,15 @@ usethis::use_package("dplyr")
 #' )
 #' get_families_table(df, "health")
 #' @export
+#' @importFrom dplyr group_by summarise n sym
 get_families_table <- function(df, var) {
     if (!var %in% colnames(df) || !("famid" %in% colnames(df))) {
         return(NULL)
     }
     var_num <- is.numeric(df[[var]])
     families_table <- df %>%
-        group_by(famid) %>%
-        summarise(
+        dplyr::group_by(famid) %>%
+        dplyr::summarise(
             "Major mod" = names(which.max(table(
                 !!dplyr::sym(var), useNA = "always"
             ))), "Nb Ind" = dplyr::n()
@@ -56,6 +53,7 @@ get_families_table <- function(df, var) {
 #' get_title(1, 1, "health", "A", "All", 3, TRUE, 10, TRUE)
 #' get_title(1, 1, "health", "A", "All", 3, FALSE, 10, FALSE)
 #' @export
+#' @importFrom stringr str_replace_all
 get_title <- function(
     family_sel, subfamily_sel, family_var, mod, inf_selected,
     kin_max, keep_parents, nb_rows, short_title = FALSE
