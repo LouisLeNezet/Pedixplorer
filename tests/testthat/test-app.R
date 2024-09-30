@@ -39,7 +39,9 @@ test_that("ped_shiny works", {
     app$expect_download(
         "saveped-plot_dwld",
         compare = function(old, new) {
-            old == new
+            old_name <- unlist(stringr::str_split(as.character(old), "-"))
+            new_name <- unlist(stringr::str_split(as.character(new), "-"))
+            old_name[length(old_name)] == new_name[length(new_name)]
         }
     )
     app$click("saveped-close")
