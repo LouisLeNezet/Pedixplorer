@@ -2,7 +2,7 @@
 
 NEWS file for the Pedixplorer package
 
-## Changes in version 1.1.0
+## Changes in version 1.1.1
 
 - A [shiny application](https://shiny.posit.co/) is now available through
 the `ped_shiny()` function.
