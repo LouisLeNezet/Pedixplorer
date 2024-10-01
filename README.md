@@ -1,10 +1,11 @@
 # The `Pedixplorer` Package <img src="./inst/figures/icon_Pedixplorer.png" align="right" height="139" />
 
 <!-- badges: start -->
-  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/kinship2)](https://CRAN.R-project.org/package=kinship2)
-  [![Downloads](http://cranlogs.r-pkg.org/badges/kinship2)](https://CRAN.R-project.org/package=kinship2)
-  [![Total-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/kinship2)](https://CRAN.R-project.org/package=kinship2)
-  [![Codecov test coverage](https://codecov.io/gh/LouisLeNezet/Pedixplorer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/LouisLeNezet/Pedixplorer?branch=main)     
+  [![](https://img.shields.io/badge/release%20version-1.1.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
+  [![platform](http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg)](https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives)
+  [![rank](http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg)](http://bioconductor.org/packages/stats/bioc/Pedixplorer/)
+  [![BioC Status](https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/)
+  [![Codecov test coverage](https://codecov.io/gh/LouisLeNezet/Pedixplorer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/LouisLeNezet/Pedixplorer)     
 <!-- badges: end -->
 
 This is a fork and the new version of the [**kinship2**](https://github.com/mayoverse/kinship2) package.
