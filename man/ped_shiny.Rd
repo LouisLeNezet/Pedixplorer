@@ -15,6 +15,9 @@ ped_shiny(
 
 \item{host}{(optional) The IPv4 address that the application should
 listen on.}
+
+\item{precision}{Number of decimal for the position of the boxes
+in the plot.}
 }
 \value{
 Running Shiny Application

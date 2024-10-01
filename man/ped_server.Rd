@@ -13,7 +13,8 @@ ped_server(input, output, session, precision = 2)
 
 \item{session}{The session object from a Shiny app.}
 
-\item{precision}{An integer to set the precision of the plot.}
+\item{precision}{Number of decimal for the position of the boxes
+in the plot.}
 }
 \value{
 \code{shiny::shinyServer()}
