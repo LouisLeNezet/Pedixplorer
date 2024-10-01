@@ -11,7 +11,7 @@
 #' additional functionality and bug fixes.
 #'
 #' The package download, NEWS, and README are available on CRAN:
-#' \\url{https://cran.r-project.org/package=kinship2} for the
+#' [Kinship2](https://cran.r-project.org/package=kinship2) for the
 #' previous version of the package.
 #'
 #' @section Functions:

@@ -16,7 +16,7 @@ additional functionality and bug fixes.
 }
 \details{
 The package download, NEWS, and README are available on CRAN:
-\\url{https://cran.r-project.org/package=kinship2} for the
+\href{https://cran.r-project.org/package=kinship2}{Kinship2} for the
 previous version of the package.
 }
 \section{Functions}{
@@ -68,7 +68,7 @@ library(Pedixplorer)
 Useful links:
 \itemize{
   \item \url{https://github.com/LouisLeNezet/Pedixplorer}
-  \item Report bugs at \url{https://github.com/LouisLeLezet/Pedixplorer/issues}
+  \item Report bugs at \url{https://github.com/LouisLeNezet/Pedixplorer/issues}
 }
 
 }
