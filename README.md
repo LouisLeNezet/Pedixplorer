@@ -5,7 +5,7 @@
   [![platform](http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg)](https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives)
   [![rank](http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg)](http://bioconductor.org/packages/stats/bioc/Pedixplorer/)
   [![BioC Status](https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/)
-  [![Codecov test coverage](https://codecov.io/gh/LouisLeNezet/Pedixplorer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/LouisLeNezet/Pedixplorer)     
+  [![codecov](https://codecov.io/gh/LouisLeNezet/Pedixplorer/graph/badge.svg?token=ZFQ3GZJ4BL)](https://codecov.io/gh/LouisLeNezet/Pedixplorer)     
 <!-- badges: end -->
 
 This is a fork and the new version of the [**kinship2**](https://github.com/mayoverse/kinship2) package.
