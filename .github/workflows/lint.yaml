@@ -2,9 +2,9 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [main, master, devel]
+    branches: [main, devel]
   pull_request:
-    branches: [main, master, devel]
+    branches: [main, devel]
 
 name: lint.yaml
 
@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-latest, r: 4.3}
+          - {os: ubuntu-latest, r: 4.4}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
