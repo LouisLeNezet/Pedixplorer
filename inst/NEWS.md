@@ -2,6 +2,26 @@
 
 NEWS file for the Pedixplorer package
 
+## Changes in version 1.0.1
+
+- A [shiny application](https://shiny.posit.co/) is now available through
+the `ped_shiny()` function.
+- Function imports have been cleaned.
+- Unit tests have been added as well as more snapshot to increase
+package coverage.
+- `relped` dataset allows to easily test special relationship.
+- Documentation is enhanced and correctly linted.
+- `precision` parameter has been added to `align4()` and `set_plot_area()`
+to reduce noise between platform.
+- `fix_parents()` has been fixed and improved.
+- More controls over color setting with `generate_colors()`.
+- Possibility to force computation of alignement when it fails with
+`force = TRUE`.
+- `upd_famid_id()` to `upd_famid()`.
+- Zooming in a pedigree object is now done by subsetting the dataframe
+computed by `ped_to_plotdf()`.
+- `useful_inds()` function has been improved.
+
 ## Changes in version 0.99.0
 
 - Kinship2 is renamed to Pedixplorer and hosted on Bioconductor.

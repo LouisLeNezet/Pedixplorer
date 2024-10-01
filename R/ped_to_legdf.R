@@ -17,7 +17,8 @@
 #' - `adjx`: horizontal text adjustment of the labels
 #' - `adjy`: vertical text adjustment of the labels
 #'
-#' All those columns are used by [plot_fromdf()] to plot the graph.
+#' All those columns are used by
+#' [plot_fromdf()] to plot the graph.
 #' @param obj A Pedigree object
 #' @param cex Character expansion of the text
 #' @inheritParams plot_fromdf
@@ -47,9 +48,10 @@ setGeneric(
 
 #' @rdname ped_to_legdf
 #' @export
-setMethod("ped_to_legdf", "Pedigree", function(obj,
-    boxh = 1, boxw = 1, cex = 1,
-    adjx = 0, adjy = 0
+#' @importFrom graphics strwidth
+setMethod("ped_to_legdf", "Pedigree", function(
+    obj, boxh = 1, boxw = 1,
+    cex = 1, adjx = 0, adjy = 0
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)
     plot_df <- data.frame(
@@ -67,12 +69,10 @@ setMethod("ped_to_legdf", "Pedigree", function(obj,
     })
 
     all_lab <- c(all_lab, all_aff)
-
     max_lab <- lapply(lapply(
-        all_lab, strwidth,
+        all_lab, graphics::strwidth,
         units = "inches", cex = cex
     ), max)
-
     posx <- unlist(lapply(max_lab, function(x) {
         c(c(boxw, boxw, boxw / 5), x * 3)
     }))

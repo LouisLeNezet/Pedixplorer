@@ -1,9 +1,3 @@
-#' @importFrom plyr revalue
-#' @importFrom dplyr mutate %>% across mutate_at mutate_if
-#' @importFrom tidyr unite
-#' @importFrom stringr str_remove_all
-NULL
-
 #' Normalise a Ped object dataframe
 #'
 #' @description Normalise dataframe for a Ped object
@@ -23,39 +17,45 @@ NULL
 #' A number of checks are done to ensure the dataframe is correct:
 #'
 #' ## On identifiers:
-#'    - All ids (id, dadid, momid, famid) are not empty (`!= ""`)
-#'    - All `id` are unique (no duplicated)
-#'    - All `dadid` and `momid` are unique in the id column (no duplicated)
-#'    - id is not the same as dadid or momid
-#'    - Either have both parents or none
 #'
-#' ## On sex
-#'    - All sex code are either `male`, `female`, `terminated` or `unknown`.
-#'    - No parents are steril
-#'    - All fathers are male
-#'    - All mothers are female
+#' - All ids (id, dadid, momid, famid) are not empty (`!= ""`)
+#' - All `id` are unique (no duplicated)
+#' - All `dadid` and `momid` are unique in the id column
+#' (no duplicated)
+#' - id is not the same as dadid or momid
+#' - Either have both parents or none
+#'
+#' ## On sex:
+#'
+#' - All sex code are either `male`, `female`,
+#' `terminated` or `unknown`.
+#' - No parents are steril
+#' - All fathers are male
+#' - All mothers are female
 #'
 #' @param ped_df A data.frame with the individuals informations.
 #' The minimum columns required are:
 #'
-#'     - `indID` individual identifiers -> `id`
-#'     - `fatherId` biological fathers identifiers -> `dadid`
-#'     - `motherId` biological mothers identifiers -> `momdid`
-#'     - `gender` sex of the individual -> `sex`
-#'     - `family` family identifiers -> `famid`
+#' - `indID` individual identifiers -> `id`
+#' - `fatherId` biological fathers identifiers -> `dadid`
+#' - `motherId` biological mothers identifiers -> `momdid`
+#' - `gender` sex of the individual -> `sex`
+#' - `family` family identifiers -> `famid`
 #'
-#' The `family` column, if provided, will be merged to the *ids* field
-#' separated by an underscore using the [upd_famid_id()] function.
+#' The `family` column, if provided, will be merged to
+#' the *ids* field separated by an underscore using the
+#' [upd_famid()] function.
 #'
 #' The following columns are also recognize and will be transformed with the
 #' [vect_to_binary()] function:
 #'
-#'     - `sterilisation` status -> `steril`
-#'     - `available` status -> `avail`
-#'     - `vitalStatus`, is the individual dead -> `status`
-#'     - `affection` status -> `affected`
+#' - `sterilisation` status -> `steril`
+#' - `available` status -> `avail`
+#' - `vitalStatus`, is the individual dead -> `status`
+#' - `affection` status -> `affected`
 #'
-#' The values recognized for those columns are `1` or `0`, `TRUE` or `FALSE`.
+#' The values recognized for those columns are `1` or `0`,
+#' `TRUE` or `FALSE`.
 #' @param na_strings Vector of strings to be considered as NA values.
 #' @param try_num Boolean defining if the function should try to convert
 #' all the columns to numeric.
@@ -78,14 +78,20 @@ NULL
 #'     affection = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
 #' )
 #' tryCatch(
-#'      norm_ped(df),
-#'      error = function(e) print(e)
+#'     norm_ped(df),
+#'     error = function(e) print(e)
 #' )
 #'
-#' @seealso [Ped()], [Ped-class], [Pedigree()]
+#' @seealso
+#' [Ped()]
+#' [Ped-class]
+#' [Pedigree()]
 #' @export
+#' @importFrom dplyr mutate_if mutate_at mutate
+#' @importFrom tidyr unite
 norm_ped <- function(
-    ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE
+    ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
+    cols_used_del = FALSE
 ) {
     err_cols <- c(
         "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrTer", "sexNA",
@@ -103,14 +109,14 @@ norm_ped <- function(
         "available", "family", "sterilisation", "vitalStatus", "affection"
     )
     ped_df <- check_columns(
-        ped_df, cols_need, cols_used, cols_to_use,
-        others_cols = TRUE, cols_to_use_init = TRUE, cols_used_init = TRUE
+        ped_df, cols_need, cols_used, cols_to_use, others_cols = TRUE,
+        cols_to_use_init = TRUE, cols_used_init = TRUE,
+        cols_used_del = cols_used_del
     )
-
     ped_df$family[is.na(ped_df$family)] <- missid
 
     if (nrow(ped_df) > 0) {
-        ped_df <- mutate_if(
+        ped_df <- dplyr::mutate_if(
             ped_df, is.character, ~replace(., . %in% na_strings, NA_character_)
         )
 
@@ -132,11 +138,12 @@ norm_ped <- function(
         )
         ## Make a new id from the family and subject pair
         ped_df$famid <- ped_df$family
-        ped_df$id <- upd_famid_id(ped_df$indId, ped_df$famid, missid)
-        ped_df$dadid <- upd_famid_id(ped_df$fatherId, ped_df$famid, missid)
-        ped_df$momid <- upd_famid_id(ped_df$motherId, ped_df$famid, missid)
+        ped_df$id <- upd_famid(ped_df$indId, ped_df$famid, missid)
+        ped_df$dadid <- upd_famid(ped_df$fatherId, ped_df$famid, missid)
+        ped_df$momid <- upd_famid(ped_df$motherId, ped_df$famid, missid)
 
-        ped_df <- mutate_at(ped_df, c("id", "dadid", "momid"),
+        ## Set all missid to NA
+        ped_df <- dplyr::mutate_at(ped_df, c("id", "dadid", "momid", "famid"),
             ~replace(., . %in% c(na_strings, missid), NA_character_)
         )
 
@@ -182,7 +189,7 @@ norm_ped <- function(
         ] <- "isMotherButNotFemale"
 
         ## Unite all sex errors in one column
-        err <- unite(
+        err <- tidyr::unite(
             err, "sexError",
             c("sexNA", "sexErrMoFa", "sexErrMo", "sexErrFa", "sexErrTer"),
             na.rm = TRUE, sep = "_", remove = TRUE
@@ -216,7 +223,7 @@ norm_ped <- function(
         ] <- "oneParentMissing"
 
         ## Unite all id errors in one column
-        err <- unite(
+        err <- tidyr::unite(
             err, "idError", c(
                 "idErr", "idErrFa", "idErrMo", "idErrSelf",
                 "idErrOwnParent", "idErrBothParent"
@@ -251,7 +258,7 @@ norm_ped <- function(
             }
         }
 
-        ped_df$error <- unite(
+        ped_df$error <- tidyr::unite(
             err, "error", c("idError", "sexError"),
             na.rm = TRUE, sep = "_", remove = TRUE
         )$error
@@ -266,9 +273,11 @@ norm_ped <- function(
 #' to be able to use it as an input to create a Ped object.
 #'
 #' @details
-#' The `famid` column, if provided, will be merged to the *ids* field
-#' separated by an underscore using the [upd_famid_id()] function.
-#' The `code` column will be transformed with the [rel_code_to_factor()].
+#' The `famid` column, if provided, will be merged to the
+#' *ids* field separated by an underscore using the
+#' [upd_famid()] function.
+#' The `code` column will be transformed with the
+#' [rel_code_to_factor()].
 #' Multiple test are done and errors are checked.
 #'
 #' A number of checks are done to ensure the dataframe is correct:
@@ -286,15 +295,16 @@ norm_ped <- function(
 #'
 #' @examples
 #' df <- data.frame(
-#'    id1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-#'    id2 = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 1),
-#'    code = c("MZ twin", "DZ twin", "UZ twin", "Spouse", 1, 2,
-#'       3, 4, "MzTwin", "sp oUse"),
-#'    famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2)
+#'     id1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+#'     id2 = c(2, 3, 4, 5, 6, 7, 8, 9, 10, 1),
+#'     code = c("MZ twin", "DZ twin", "UZ twin", "Spouse",
+#'         1, 2, 3, 4, "MzTwin", "sp oUse"),
+#'     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2)
 #' )
 #' norm_rel(df)
 #'
 #' @return A dataframe with the errors identified
+#' @importFrom dplyr mutate_if mutate_at mutate across
 #' @export
 norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
 
@@ -318,7 +328,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
     )
     rel_df$famid[is.na(rel_df$famid)] <- missid
     if (nrow(rel_df) > 0) {
-        rel_df <- mutate_if(
+        rel_df <- dplyr::mutate_if(
             rel_df, is.character,
             ~replace(., . %in% na_strings, NA)
         )
@@ -331,7 +341,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
 
         #### Check for id errors #### Set ids as characters
         rel_df <- rel_df %>%
-            mutate(across(c("id1", "id2", "famid"), as.character))
+            dplyr::mutate(dplyr::across(c("id1", "id2", "famid"), as.character))
 
         ## Check for non null ids
         len1 <- nchar(rel_df$id1)
@@ -340,10 +350,10 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         err$id2Err[is.na(len2) | len2 %in% missid] <- "indId2length0"
 
         ## Compute id with family id
-        rel_df$id1 <- upd_famid_id(rel_df$id1, rel_df$famid, missid)
-        rel_df$id2 <- upd_famid_id(rel_df$id2, rel_df$famid, missid)
+        rel_df$id1 <- upd_famid(rel_df$id1, rel_df$famid, missid)
+        rel_df$id2 <- upd_famid(rel_df$id2, rel_df$famid, missid)
 
-        rel_df <- mutate_at(rel_df, c("id1", "id2", "famid"),
+        rel_df <- dplyr::mutate_at(rel_df, c("id1", "id2", "famid"),
             ~replace(., . %in% c(na_strings, missid), NA_character_)
         )
 

@@ -21,7 +21,8 @@ Check if horder and spouse slots are valid:
 \item Has the three \code{idr}, \code{idl}, \code{anchor} columns
 \item \code{idr} and \code{idl} are different and doesn't contains \code{NA}
 \item \code{idr} and \code{idl} couple are unique
-\item \code{anchor} column only have \code{right}, \code{left}, \code{either} values
+\item \code{anchor} column only have \code{right}, \code{left}
+or \code{either} values
 }
 \item all ids in spouse needs to be in the names of the horder vector
 }

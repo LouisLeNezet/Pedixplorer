@@ -5,8 +5,10 @@
 #'
 #' @details
 #' Identify subjects to remove from a Pedigree who are available but
-#' non-informative (unaffected).  This is the second step to remove subjects in
-#' [shrink()] if the Pedigree does not meet the desired bit size.
+#' non-informative (unaffected).
+#' This is the second step to remove subjects in
+#' [shrink()] if the Pedigree does not meet
+#' the desired bit size.
 #'
 #' If **avail** or **affected** is null, then the function will use the
 #' corresponding Ped accessor.

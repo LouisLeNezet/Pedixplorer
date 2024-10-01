@@ -8,7 +8,7 @@ draw_text(
   x,
   y,
   label,
-  p,
+  p = NULL,
   ggplot_gen = FALSE,
   cex = 1,
   col = NULL,

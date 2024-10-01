@@ -32,7 +32,7 @@ test_that("generate aff inds works", {
     )
     expect_equal(aff_fact$mods, c(NA, 0, 1, 0, 1, 1, 0, 1, 0, 0))
     expect_equal(levels(as.factor(aff_fact$labels)),
-        c("Affected are D/E", "Healthy are A/B")
+        c("Affected are D / E", "Healthy are A / B")
     )
 })
 
@@ -112,7 +112,7 @@ test_that("generate with full scale", {
     data("sampleped")
     sampleped$val_num <- as.numeric(sampleped$id)
     ped <- Pedigree(sampleped)
-    ped <- ped[famid(ped) == "1"]
+    ped <- ped[famid(ped(ped)) == "1"]
     ped <- generate_colors(
         ped, add_to_scale = FALSE, "val_num", threshold = 115,
         colors_aff = c("pink", "purple"), keep_full_scale = TRUE
@@ -120,5 +120,21 @@ test_that("generate with full scale", {
     expect_equal(fill(ped)$labels[c(1, 4)],
         c("Healthy <= to 115 : [101,106]", "Affected > to 115 : [116,124]")
     )
-    expect(nrow(fill(ped)), 6)
+    expect_equal(nrow(fill(ped)), 6)
+})
+
+
+test_that("generate with full scale", {
+    data("sampleped")
+    sampleped$val_num <- as.numeric(sampleped$id)
+    ped <- Pedigree(sampleped)
+    ped <- ped[famid(ped(ped)) == "1"]
+    ped <- generate_colors(
+        ped, add_to_scale = FALSE, "val_num", threshold = 240,
+        colors_aff = c("pink", "purple"), keep_full_scale = TRUE
+    )
+    expect_equal(fill(ped)$labels[c(1, 4)],
+        c("Healthy <= to 240 : [101,114]", NA)
+    )
+    expect_equal(nrow(fill(ped)), 3)
 })

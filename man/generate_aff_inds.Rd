@@ -8,7 +8,8 @@ generate_aff_inds(
   values,
   mods_aff = NULL,
   threshold = NULL,
-  sup_thres_aff = NULL
+  sup_thres_aff = NULL,
+  is_num = NULL
 )
 }
 \arguments{
@@ -26,6 +27,9 @@ If \code{TRUE}, the individuals will be considered affected
 if the value of \code{values} is stricly above the \code{threshold}.
 If \code{FALSE}, the individuals will be considered affected if the
 value is stricly under the \code{threshold}.}
+
+\item{is_num}{Boolean defining if the values need to be considered as
+numeric.}
 }
 \value{
 A dataframe with the \code{affected} column processed accordingly.
@@ -52,9 +56,9 @@ element in the vector \strong{mods_aff} will be considered as affected.
 
 \subsection{If the variable is \code{numeric}:}{
 
-In this case the affected state will be \code{TRUE} if the value of the individual
-is above the \strong{threshold} if \strong{sup_thres_aff} is \code{TRUE} and \code{FALSE}
-otherwise.
+In this case the affected state will be \code{TRUE} if the value of
+the individual is above the \strong{threshold} if \strong{sup_thres_aff}
+is \code{TRUE} and \code{FALSE} otherwise.
 }
 }
 \examples{

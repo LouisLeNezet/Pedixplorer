@@ -1,7 +1,3 @@
-#' @importFrom dplyr group_by summarise mutate rename left_join rowwise join_by
-#' @importFrom tidyr pivot_longer
-NULL
-
 #' Number of childs
 #'
 #' @description Compute the number of childs per individual
@@ -35,17 +31,20 @@ setGeneric("num_child", signature = "obj",
 #' @examples
 #'
 #' num_child(
-#'   obj = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"),
-#'   dadid = c("3", "3", "6", "8", "0", "0", "0", "0", "0", "0"),
-#'   momid = c("4", "5", "7", "9", "0", "0", "0", "0", "0", "0"),
-#'   rel_df = data.frame(
-#'       id1 = "10",
-#'       id2 = "3",
-#'       code = "Spouse"
-#'   )
+#'     obj = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"),
+#'     dadid = c("3", "3", "6", "8", "0", "0", "0", "0", "0", "0"),
+#'     momid = c("4", "5", "7", "9", "0", "0", "0", "0", "0", "0"),
+#'     rel_df = data.frame(
+#'         id1 = "10",
+#'         id2 = "3",
+#'         code = "Spouse"
+#'     )
 #' )
 #' @export
-setMethod("num_child", "character_OR_integer", function(obj, dadid, momid,
+#' @importFrom dplyr group_by summarise mutate rename left_join rowwise join_by
+#' @importFrom tidyr pivot_longer
+setMethod("num_child", "character_OR_integer", function(
+    obj, dadid, momid,
     rel_df = NULL, missid = NA_character_
 ) {
     id <- obj
@@ -97,15 +96,15 @@ setMethod("num_child", "character_OR_integer", function(obj, dadid, momid,
 
     if (nrow(spouse_rel) > 0) {
         dad_child <- df[(!df$dadid %in% missid), c("dadid", "id")] %>%
-            group_by(dadid) %>%
-            summarise(child = list(id)) %>%
-            mutate(num_child_dir = lengths(child)) %>%
-            rename(id = dadid)
+            dplyr::group_by(dadid) %>%
+            dplyr::summarise(child = list(id)) %>%
+            dplyr::mutate(num_child_dir = lengths(child)) %>%
+            dplyr::rename(id = dadid)
         mom_child <- df[(!df$momid %in% missid), c("id", "momid")] %>%
-            group_by(momid) %>%
-            summarise(child = list(id)) %>%
-            mutate(num_child_dir = lengths(child)) %>%
-            rename(id = momid)
+            dplyr::group_by(momid) %>%
+            dplyr::summarise(child = list(id)) %>%
+            dplyr::mutate(num_child_dir = lengths(child)) %>%
+            dplyr::rename(id = momid)
         id_child <- rbind(dad_child, mom_child)
 
         # Number of direct child per individual
@@ -113,27 +112,27 @@ setMethod("num_child", "character_OR_integer", function(obj, dadid, momid,
 
         # Number of total childs per individual
         spouse_child <- spouse_rel %>%
-            left_join(id_child, by = c("idmin" = "id")) %>%
-            left_join(id_child, by = c("idmax" = "id"),
+            dplyr::left_join(id_child, by = c("idmin" = "id")) %>%
+            dplyr::left_join(id_child, by = c("idmax" = "id"),
                 suffix = c("_min", "_max")
             )
         rel_child <- spouse_child %>%
-            rowwise() %>%
-            mutate(childs = list(unique(unlist(
+            dplyr::rowwise() %>%
+            dplyr::mutate(childs = list(unique(unlist(
                 list(child_min, child_max)
             )))) %>%
-            select(c(idmin, idmax, childs)) %>%
+            dplyr::select(c(idmin, idmax, childs)) %>%
             tidyr::pivot_longer(cols = -childs, names_to = "order",
                 values_to = "id"
             ) %>%
-            group_by(id) %>%
-            summarise(childs_all = list(unique(unlist(childs)))) %>%
-            mutate(num_child_tot = lengths(childs_all))
+            dplyr::group_by(id) %>%
+            dplyr::summarise(childs_all = list(unique(unlist(childs)))) %>%
+            dplyr::mutate(num_child_tot = lengths(childs_all))
 
         df$num_child_tot <- rel_child$num_child_tot[match(df$id, rel_child$id)]
 
         df <- df %>%
-            mutate(across(c(num_child_dir, num_child_tot),
+            dplyr::mutate(dplyr::across(c(num_child_dir, num_child_tot),
                 ~replace(., is.na(.), 0)
             ))
 

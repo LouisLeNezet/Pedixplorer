@@ -1,7 +1,3 @@
-# Repack IBD data as a Matrix object
-#' @importFrom Matrix sparseMatrix
-NULL
-
 #' IBD matrix
 #'
 #' @description
@@ -22,7 +18,7 @@ NULL
 #' The final matrix should be labeled with the original identifiers.
 #'
 #' @param id1 A character vector with the id of the first individuals of each
-#' pairs
+#' pairs or a matrix or data frame with 3 columns: id1, id2, and ibd
 #' @param id2 A character vector with the id of the second individuals of each
 #' pairs
 #' @param ibd the IBD value for that pair
@@ -35,20 +31,29 @@ NULL
 #' @return a sparse matrix of class `dsCMatrix`.  This is the same form
 #' used for kinship matrices.
 #'
+#' @examples
+#' df <- data.frame(
+#'     id1 = c("1", "2", "1"),
+#'     id2 = c("2", "3", "4"),
+#'     ibd = c(0.5, 0.16, 0.27)
+#' )
+#' ibd_matrix(df$id1, df$id2, df$ibd, diagonal = 2)
 #' @seealso [kinship()]
+#' @importFrom Matrix sparseMatrix
 #' @export
 ibd_matrix <- function(id1, id2, ibd, idmap, diagonal) {
-    if (!is.null(ncol(id1)) && ncol(id1) == 1)
+    if (!is.null(ncol(id1)) && ncol(id1) == 1) {
         id1 <- id1[, 1]
+    }
     if (!is.null(ncol(id1))) {
         # can be a matrix or a data frame
         if (ncol(id1) != 3) {
-            stop("Argument id1 is a matrix or dataframe",
+            stop("Argument id1 is a matrix or dataframe ",
                 "but does not have 3 columns"
             )
         }
         if (!missing(id2)) {
-            stop("First argument is a matrix or dataframe,",
+            stop("First argument is a matrix or dataframe, ",
                 "but id2 argument is present"
             )
         }
@@ -77,6 +82,7 @@ ibd_matrix <- function(id1, id2, ibd, idmap, diagonal) {
 
     # Toss away any zeros and duplicates
     keep <- (ibd != 0 & !duplicated(cbind(id1, id2)))
+
     if (!all(keep)) {
         id1 <- id1[keep]
         id2 <- id2[keep]
@@ -121,7 +127,7 @@ ibd_matrix <- function(id1, id2, ibd, idmap, diagonal) {
     if (missing(idmap)) {
         dimid <- idlist
     } else {
-        if (!is.null(dim(idmap)) || ncol(idmap) != 2) {
+        if (dim(idmap)[2] != 2) {
             stop("idmap must have 2 columns")
         }
         temp <- match(idlist, idmap[, 1])
@@ -130,8 +136,7 @@ ibd_matrix <- function(id1, id2, ibd, idmap, diagonal) {
         }
         dimid <- idmap[temp, 2]
     }
-
-    sparseMatrix(i = id1, j = id2, p = ibd, symmetric = TRUE,
+    sparseMatrix(i = id1, j = id2, x = ibd, symmetric = TRUE,
         dimnames = list(dimid, dimid)
     )
 }

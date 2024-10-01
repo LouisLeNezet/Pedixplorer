@@ -44,9 +44,9 @@ Singleton subjects give a zero for family number.
 \examples{
 
 make_famid(
-     c("A", "B", "C", "D", "E", "F"),
-     c("C", "D", "0", "0", "0", "0"),
-     c("E", "E", "0", "0", "0", "0")
+    c("A", "B", "C", "D", "E", "F"),
+    c("C", "D", "0", "0", "0", "0"),
+    c("E", "E", "0", "0", "0", "0")
 )
 
 data(sampleped)

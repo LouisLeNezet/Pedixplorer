@@ -33,10 +33,10 @@ This routine will try all possible founder orders, and return the one
 with the least \strong{stress}.
 }
 \details{
-The \code{\link[=auto_hint]{auto_hint()}} routine will rearrange sibling order, but not
-founder order.
-This calls \code{\link[=auto_hint]{auto_hint()}} with every possible founder order, and finds that
-plot with the least "stress".
+The \code{\link[=auto_hint]{auto_hint()}} routine will rearrange sibling order,
+but not founder order.
+This calls \code{\link[=auto_hint]{auto_hint()}} with every possible founder
+order, and finds that plot with the least "stress".
 The stress is computed as a weighted sum of three error measures:
 \itemize{
 \item nbArcs The number of duplicate individuals in the plot
@@ -47,9 +47,9 @@ the center of the children and the parents
 }
 
 \deqn{stress =
-     wt[1] * nbArcs +
-     wt[2] * lgArcs +
-     wt[3] * lgParentsChilds
+    wt[1] * nbArcs +
+    wt[2] * lgArcs +
+    wt[3] * lgParentsChilds
 }
 
 If during the search, a plot is found with a stress level less than

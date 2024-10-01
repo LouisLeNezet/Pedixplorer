@@ -50,8 +50,8 @@ test_that("fix_parents works with famid", {
     expect_snapshot_error(Pedigree(datped))
     fixped <- fix_parents(datped)
 
-    expect_contains(fixped$id, "2_209")
-    expect_equal(fixped$sex[fixped$id == "2_209"], 1)
-    expect_equal(fixped$famid[fixped$id == "2_209"], "2")
+    expect_contains(fixped$id, "209")
+    expect_equal(fixped$sex[fixped$id == "209"], 1)
+    expect_equal(fixped$famid[fixped$id == "209"], "2")
     expect_no_error(Pedigree(fixped))
 })

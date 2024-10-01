@@ -5,12 +5,14 @@
 #' @details Check for the informativeness of the individuals based on the
 #' informative parameter given, the number of children and the usefulness
 #' of their parents. A `useful` slot is added to the Ped object with the
-#' usefulness of the individual. This boolean is hereditary.
+#' usefulness of the individual.
 #'
 #' @param num_child_tot A numeric vector of the number of children of each
 #' individuals
-#' @param keep_infos Boolean to indicate if individuals with unknown status
+#' @param keep_infos Boolean to indicate if parents with unknown status
 #' but available or reverse should be kept
+#' @param id_inf An identifiers vector of informative individuals.
+#' @param max_dist The maximum distance to informative individuals
 #' @inheritParams Ped
 #' @inheritParams is_informative
 #'
@@ -33,42 +35,27 @@ setGeneric("useful_inds", signature = "obj",
 #' @export
 setMethod("useful_inds", "character",
     function(obj, dadid, momid, avail, affected, num_child_tot,
-        informative = "AvAf", keep_infos = FALSE
+        id_inf, keep_infos = FALSE
     ) {
         id <- obj
-
-        # Get informative individuals
-        id_inf <- is_informative(id, avail, affected,
-            informative
-        )
         isinf <- id %in% id_inf
+
+        # Get parents of individuals to be kept
+        parents <- parent_of(id, dadid, momid, id_inf)
 
         # Keep individual affected or available
         if (keep_infos) {
-            isinf <- isinf |
+            isinf <- isinf | ((
                 (!is.na(affected) & affected == 1) |
-                (!is.na(avail) & avail == 1)
+                    (!is.na(avail) & avail == 1)
+            ) & id %in% parents)
         }
 
-        # Check if parents participate to the Pedigree structure
-        ped_part <- num_child_tot > 1
-        to_kept <- isinf | ped_part
+        # Check if parents contribute to more than 1 child
+        par_part <- num_child_tot > 1 & id %in% parents
 
-        num_ind_old <- 0
-        num_ind_new <- length(id[to_kept])
-        # Until no more individuals are added
-        while (num_ind_old != num_ind_new) {
-            for (it1 in seq_along(to_kept)) {
-                if (!to_kept[it1]) {
-                    # If not already kept Check if parents to be kept
-                    to_kept[it1] <- any(to_kept[
-                        id %in% c(dadid[it1], momid[it1])
-                    ])
-                }
-            }
-            num_ind_old <- num_ind_new
-            num_ind_new <- length(id[to_kept])
-        }
+        # Keep individuals and informative parents
+        to_kept <- isinf | par_part
         id[to_kept]
     }
 )
@@ -82,10 +69,12 @@ setMethod("useful_inds", "character",
 #' ped(useful_inds(ped1, informative = "AvAf"))
 #' @export
 setMethod("useful_inds", "Pedigree", function(obj,
-    informative = "AvAf", keep_infos = FALSE, reset = FALSE
+    informative = "AvAf", keep_infos = FALSE,
+    reset = FALSE, max_dist = NULL
 ) {
     new_ped <- useful_inds(ped(obj),
-        informative, keep_infos, reset
+        informative, keep_infos,
+        reset, max_dist
     )
 
     obj@ped <- new_ped
@@ -96,11 +85,19 @@ setMethod("useful_inds", "Pedigree", function(obj,
 #' @rdname useful_inds
 #' @export
 setMethod("useful_inds", "Ped", function(obj,
-    informative = "AvAf", keep_infos = FALSE, reset = FALSE
+    informative = "AvAf", keep_infos = FALSE,
+    reset = FALSE, max_dist = NULL
 ) {
-    useful <- useful_inds(id(obj), dadid(obj), momid(obj),
-        avail(obj), affected(obj), obj@num_child_tot,
-        informative, keep_infos
+    ped <- is_informative(obj, informative, reset = reset)
+    min_dist <- min_dist_inf(ped, reset)
+    if (!is.null(max_dist)) {
+        id_in_dist <- id(min_dist)[kin(min_dist) <= max_dist]
+    } else {
+        id_in_dist <- id(min_dist)[!is.infinite(kin(min_dist))]
+    }
+    useful <- useful_inds(id(min_dist), dadid(min_dist), momid(min_dist),
+        avail(min_dist), affected(min_dist), obj@num_child_tot,
+        id_in_dist, keep_infos
     )
 
     if (!reset & any(!is.na(useful(obj)))) {
@@ -109,9 +106,10 @@ setMethod("useful_inds", "Ped", function(obj,
             " and reset is set to FALSE"
         )
     }
-    obj@useful <- vect_to_binary(
-        ifelse(id(obj) %in% useful, 1, 0), logical = TRUE
+    useful[is.na(useful)] <- FALSE
+    min_dist@useful <- vect_to_binary(
+        ifelse(id(min_dist) %in% useful, 1, 0), logical = TRUE
     )
-    validObject(obj)
-    obj
+    validObject(min_dist)
+    min_dist
 })

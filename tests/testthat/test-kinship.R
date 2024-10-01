@@ -41,14 +41,15 @@ test_that("kinship works", {
     kmat_char <- with(twindat, kinship(id, dadid, momid))
     tped <- Pedigree(twindat, missid = "0")
     kmat_ped <- kinship(tped)
-
-    expect_equal(kmat_char, kmat_ped)
+    ord <- order(as.numeric(row.names(kmat_ped)))
+    expect_equal(kmat_char, kmat_ped[ord, ord])
 
     ## Test with no special relationship with chr_type to X
     kmat_char <- with(twindat, kinship(id, dadid, momid, sex, chrtype = "X"))
     tped <- Pedigree(twindat, missid = "0")
     kmat_ped <- kinship(tped, chrtype = "X")
-    expect_equal(kmat_char, kmat_ped)
+    ord <- order(as.numeric(row.names(kmat_ped)))
+    expect_equal(kmat_char, kmat_ped[ord, ord])
 
     ## Test with monozygotic relationship
     tped <- Pedigree(twindat, relate, missid = "0")
@@ -62,34 +63,24 @@ test_that("kinship works", {
     ] == 0.5))
     expect_true(all(kmat[c("203", "204"), c("203", "204")] == 0.5))
 
-    # Renumber everyone as 1,2,....; makes the all.equal checks easier
-    indx <- sort(unique(unlist(twindat[, 1:3])))
-    twindat$id <- match(twindat$id, indx) - 1
-    twindat$dadid <- match(twindat$dadid, indx) - 1
-    twindat$momid <- match(twindat$momid, indx) - 1
-    relate$id1 <- match(relate$id1, indx) - 1
-    relate$id2 <- match(relate$id2, indx) - 1
-
-    # Build the Pedigree and kinship
-    tped <- Pedigree(twindat, relate, missid = "0")
-    kmat <- kinship(tped)
-
     truth <- matrix(
         c(
-            5, 6, 0,
-            5, 4, .25, # parent child
-            10, 11, .5, # MZ twins
-            22, 12, .25, # aunt, mz with mother
-            22, 13, .125, # aunt, dz
-            13, 14, .25, # dz twins
-            20, 21, .5, # MZ twins
-            19, 16, 0, # marry in uncle
-            19, 11, .125, # aunt who is a twin
-            19, 3, .125
-        ), # grandmother
+            "5", "6", 0, # Spouse no link
+            "5", "4", .25, # parent child
+            "101", "103", .5, # MZ twins
+            "205", "103", .25, # aunt, mz with mother
+            "205", "100", .125, # aunt, dz
+            "104", "105", .25, # dz twins
+            "203", "204", .5, # MZ twins
+            "108", "205", .0, # marry in uncle
+            "205", "104", .125, # aunt who is a twin
+            "205", "3", .125 # grandmother
+        ),
         byrow = TRUE, ncol = 3
     )
-    expect_equal(kmat[truth[, 1:2]], truth[, 3])
+    row <- match(truth[, 1], row.names(kmat))
+    col <- match(truth[, 2], row.names(kmat))
+    expect_equal(kmat[as.matrix(data.frame(row, col))], as.numeric(truth[, 3]))
 })
 
 test_that("Kinship Claus Ekstrom 09/2012", {
@@ -144,7 +135,7 @@ test_that("kinship works with X chromosoms", {
 
     ## now with unknown sex, gets NAs
     k3 <- kinship(ped3, chrtype = "X")
-    expect_true(all(is.na(k3[10, ])))
+    expect_true(all(is.na(k3[2, ])))
 })
 
 test_that("Kinship with 2 different family", {

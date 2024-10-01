@@ -1,8 +1,11 @@
 # The `Pedixplorer` Package <img src="./inst/figures/icon_Pedixplorer.png" align="right" height="139" />
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/kinship2)](https://CRAN.R-project.org/package=kinship2)
-[![Downloads](http://cranlogs.r-pkg.org/badges/kinship2)](https://CRAN.R-project.org/package=kinship2)
-[![Total-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/kinship2)](https://CRAN.R-project.org/package=kinship2)
+<!-- badges: start -->
+  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/kinship2)](https://CRAN.R-project.org/package=kinship2)
+  [![Downloads](http://cranlogs.r-pkg.org/badges/kinship2)](https://CRAN.R-project.org/package=kinship2)
+  [![Total-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/kinship2)](https://CRAN.R-project.org/package=kinship2)
+  [![Codecov test coverage](https://codecov.io/gh/LouisLeNezet/Pedixplorer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/LouisLeNezet/Pedixplorer?branch=main)     
+<!-- badges: end -->
 
 This is a fork and the new version of the [**kinship2**](https://github.com/mayoverse/kinship2) package.
 
@@ -95,6 +98,12 @@ object. It is coded for dyplotype organisms, handling all relationships that
 can be specified for the Pedigree object, including inbreeding, monozygotic
 twins, etc. A recent addition is handling the kinship matrix for the X and Y
 chromosomes.
+
+### The `ped_shiny()` Function
+
+| | |
+|-|-|
+| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/). | <img src="inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800"/>|
 
 ### Other Notable Functions
 

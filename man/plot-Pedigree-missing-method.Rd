@@ -10,6 +10,7 @@
 \S4method{plot}{Pedigree,missing}(
   x,
   aff_mark = TRUE,
+  id_lab = "id",
   label = NULL,
   ggplot_gen = FALSE,
   cex = 1,
@@ -17,6 +18,8 @@
   branch = 0.6,
   packed = TRUE,
   align = c(1.5, 2),
+  align_parents = TRUE,
+  force = FALSE,
   width = 6,
   title = NULL,
   subreg = NULL,
@@ -28,6 +31,7 @@
   leg_loc = NULL,
   leg_adjx = 0,
   leg_adjy = 0,
+  precision = 2,
   ...
 )
 }
@@ -37,8 +41,10 @@
 \item{aff_mark}{If \code{TRUE}, add a aff_mark to each box corresponding to the
 value of the affection column for each filling scale.}
 
-\item{label}{If not \code{NULL}, add a label to each box corresponding to the
-value of the column given.}
+\item{id_lab}{The column name of the id for each individuals.}
+
+\item{label}{If not \code{NULL}, add a label to each box under the id
+corresponding to the value of the column given.}
 
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 
@@ -61,6 +67,16 @@ parameters, or a logical value.
 If \code{TRUE}, the default is \code{c(1.5, 2)}, or if numeric the routine
 \code{alignped4()} will be called.}
 
+\item{align_parents}{If \code{align_parents = TRUE}, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
+
 \item{width}{For a packed output, the minimum width of the plot, in
 inches.}
 
@@ -68,7 +84,7 @@ inches.}
 
 \item{subreg}{A 4-element vector for (min x, max x, min depth, max depth),
 used to edit away portions of the plot coordinates returned by
-\code{\link[=align]{align()}}.
+\code{\link[=ped_to_plotdf]{ped_to_plotdf()}}.
 This is useful for zooming in on a particular region of the Pedigree.}
 
 \item{pconnect}{When connecting parent to children the program will try to
@@ -99,7 +115,9 @@ the legend.}
 \item{leg_adjy}{default=0.  Controls the vertical labels adjustment
 of the legend.}
 
-\item{...}{Extra options that feed into the plot function.}
+\item{precision}{The number of decimal places to round the solution to.}
+
+\item{...}{Extra options that feed into the}
 }
 \value{
 an invisible list containing
@@ -112,7 +130,8 @@ an invisible list containing
 \description{
 This function is used to plot a Pedigree object.
 
-It is a wrapper for \code{\link[=plot_fromdf]{plot_fromdf()}} and \code{\link[=ped_to_plotdf]{ped_to_plotdf()}} as well as
+It is a wrapper for \code{\link[=plot_fromdf]{plot_fromdf()}}
+and \code{\link[=ped_to_plotdf]{ped_to_plotdf()}} as well as
 \code{\link[=ped_to_legdf]{ped_to_legdf()}} if \code{legend = TRUE}.
 }
 \details{
@@ -150,13 +169,14 @@ which tends to keep them together. The size of \code{b} controls the relative
 importance of sib-parent and spouse-spouse closeness.
 }
 \section{Side Effects}{
- Creates plot on current plotting device.
+
+Creates plot on current plotting device.
 }
 
 \examples{
 data(sampleped)
 pedAll <- Pedigree(sampleped)
-#plot(pedAll)
+if (interactive()) { plot(pedAll) }
 
 }
 \seealso{

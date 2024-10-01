@@ -1,16 +1,39 @@
-#' @importFrom ggplot2 ggplot geom_polygon aes geom_text annotate ggtitle
-#' @importFrom ggplot2 scale_fill_manual scale_color_manual geom_segment
-#' @importFrom utils txtProgressBar setTxtProgressBar
-#' @importFrom stats setNames
-#' @importFrom graphics clip
-NULL
+#' Plot legend
+#'
+#' Small internal function to be used for plotting a Pedigree
+#' object legend
+#'
+#' @keywords internal, plot_legend
+#' @importFrom scales rescale
+plot_legend <- function(
+    pedi, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
+    leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL
+) {
+    leg <- ped_to_legdf(
+        pedi, cex = cex,
+        boxw = boxw, boxh = boxh,
+        adjx = adjx, adjy = adjy
+    )
+    leg$df$x0 <- scales::rescale(leg$df$x0,
+        c(leg_loc[1], leg_loc[2])
+    )
+    leg$df$y0 <- scales::rescale(leg$df$y0,
+        c(leg_loc[3], leg_loc[4])
+    )
+    plot_fromdf(
+        leg$df, add_to_existing = add_to_existing,
+        boxw = boxw, boxh = boxh, usr = usr
+    )
+}
+
 
 #' Plot Pedigrees
 #'
 #' @description
 #' This function is used to plot a Pedigree object.
 #'
-#' It is a wrapper for [plot_fromdf()] and [ped_to_plotdf()] as well as
+#' It is a wrapper for [plot_fromdf()]
+#' and [ped_to_plotdf()] as well as
 #' [ped_to_legdf()] if `legend = TRUE`.
 #'
 #' @details
@@ -53,6 +76,7 @@ NULL
 #' @inheritParams set_plot_area
 #' @inheritParams subregion
 #' @inheritParams align
+#' @inheritParams kindepth
 #' @param fam_to_plot default=1.  If the Pedigree contains multiple families,
 #' this parameter can be used to select which family to plot.
 #' It can be a numeric value or a character value. If numeric, it is the
@@ -68,7 +92,9 @@ NULL
 #' the legend.
 #' @param leg_adjy default=0.  Controls the vertical labels adjustment
 #' of the legend.
-#' @param ... Extra options that feed into the plot function.
+#' @param ... Extra options that feed into the
+#' @inheritParams subregion
+#' [ped_to_plotdf()] function.
 #'
 #' @return an invisible list containing
 #' - df : the data.frame used to plot the Pedigree
@@ -78,9 +104,10 @@ NULL
 #' @examples
 #' data(sampleped)
 #' pedAll <- Pedigree(sampleped)
-#' #plot(pedAll)
+#' if (interactive()) { plot(pedAll) }
 #'
-#' @section Side Effects: Creates plot on current plotting device.
+#' @section Side Effects:
+#' Creates plot on current plotting device.
 #' @seealso [Pedigree()]
 #' @include align.R
 #' @include plot_fct.R
@@ -93,56 +120,58 @@ NULL
 #' @export
 #' @docType methods
 setMethod("plot", c(x = "Pedigree", y = "missing"),
-    function(x, aff_mark = TRUE,
-        label = NULL, ggplot_gen = FALSE, cex = 1, symbolsize = 1, branch = 0.6,
-        packed = TRUE, align = c(1.5, 2), width = 6,
+    function(x, aff_mark = TRUE, id_lab = "id", label = NULL,
+        ggplot_gen = FALSE, cex = 1, symbolsize = 1,
+        branch = 0.6, packed = TRUE, align = c(1.5, 2),
+        align_parents = TRUE, force = FALSE, width = 6,
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
-        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, ...
+        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
+        ...
     ) {
-        famlist <- unique(famid(x))
+        famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
             message("Multiple families present, only plotting family ",
                 fam_to_plot
             )
             if (is.numeric(fam_to_plot)) {
-                fam_to_plot <- famlist[fam_to_plot]
+                fam_to_plot <- famlist[!is.na(famlist)][fam_to_plot]
             }
-            x <- x[famid(x) == fam_to_plot]
+            x <- x[famid(ped(x)) == fam_to_plot]
         }
-
-        lst <- ped_to_plotdf(x, packed, width, align, subreg,
-            cex, symbolsize, pconnect, branch, aff_mark, label, ...
+        lst <- ped_to_plotdf(
+            x, packed, width, align, align_parents, force,
+            cex, symbolsize, pconnect, branch, aff_mark, id_lab, label,
+            precision, ...
         )
 
-        p <- plot_fromdf(lst$df, usr = lst$par_usr$usr,
+        if (is.null(lst)) {
+            return(NULL)
+        }
+
+        if (!is.null(subreg)) {
+            lst$df <- subregion(lst$df, subreg)
+            lst$par_usr$usr <- subreg[c(1, 2, 4, 3)]
+        }
+
+        p <- plot_fromdf(
+            lst$df, lst$par_usr$usr,
             title = title, ggplot_gen = ggplot_gen,
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
         )
 
         if (legend) {
-            leg <- ped_to_legdf(x, cex = leg_cex,
-                boxw = lst$par_usr$boxw * leg_symbolsize,
-                boxh = lst$par_usr$boxh * leg_symbolsize,
-                adjx = leg_adjx, adjy = leg_adjy
-            )
             if (is.null(leg_loc)) {
-                wh_fr <- lst$par_usr$usr
                 leg_loc <- c(
-                    wh_fr[1] + 1, wh_fr[2],
-                    wh_fr[3] + 0.1, wh_fr[3] + 0.4
+                    lst$par_usr$usr[1] + 1, lst$par_usr$usr[2],
+                    lst$par_usr$usr[3] + 0.1, lst$par_usr$usr[3] + 0.4
                 )
             }
-            leg$df$x0 <- scales::rescale(leg$df$x0,
-                c(leg_loc[1], leg_loc[2])
-            )
-            leg$df$y0 <- scales::rescale(leg$df$y0,
-                c(leg_loc[3], leg_loc[4])
-            )
-            clip(leg_loc[1] - 1, leg_loc[2] + 1, leg_loc[3] - 1, leg_loc[4] + 1)
-            plot_fromdf(leg$df, add_to_existing = TRUE,
+            plot_legend(x, cex = leg_cex,
                 boxw = lst$par_usr$boxw * leg_symbolsize,
-                boxh = lst$par_usr$boxh * leg_symbolsize
+                boxh = lst$par_usr$boxh * leg_symbolsize,
+                adjx = leg_adjx, adjy = leg_adjy,
+                leg_loc = leg_loc, add_to_existing = TRUE
             )
         }
 

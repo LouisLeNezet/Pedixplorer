@@ -8,7 +8,7 @@
 \usage{
 \S4method{fix_parents}{character}(obj, dadid, momid, sex, famid = NULL, missid = NA_character_)
 
-\S4method{fix_parents}{data.frame}(obj, delete = FALSE, filter = NULL, missid = NA_character_)
+\S4method{fix_parents}{data.frame}(obj, del_parents = NULL, filter = NULL, missid = NA_character_)
 }
 \arguments{
 \item{obj}{A data.frame or a vector of the individuals identifiers. If a
@@ -23,7 +23,9 @@ biologicals mothers.}
 
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
-with the following levels: \code{male} < \code{female} < \code{unknown} < `terminated
+with the following levels:
+\code{male} < \code{female} <
+\code{unknown} < \code{terminated}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
@@ -39,11 +41,11 @@ identifiers separated by an underscore.}
 All the id, dadid and momid corresponding to those values will be set
 to \code{NA_character_}.}
 
-\item{delete}{Boolean defining if missing parents needs to be:
-\itemize{
-\item \code{TRUE} : added as a new row
-\item \code{FALSE} : be deleted
-}}
+\item{del_parents}{Boolean defining if missing parents needs to be deleted
+or fixed. If \code{one} then if one of the parent is missing, both are removed,
+if \code{both} then if both parents are missing, both are removed.
+If \code{NULL} then no parent is removed and the missing parents
+are added as new rows.}
 
 \item{filter}{Filtering column containing \code{0} or \code{1} for the
 rows to kept before proceeding.}
@@ -61,16 +63,17 @@ different individuals informations.
 First look to add parents whose ids are given in momid/dadid. Second, fix
 sex of parents. Last look to add second parent for children for whom only
 one parent id is given.
-If a \strong{famid} vector is given the family id will be added to the ids of all
-individuals (\code{id}, \code{dadid}, \code{momid})
+If a \strong{famid} vector is given the family id will be added to the
+ids of all individuals (\code{id}, \code{dadid}, \code{momid})
 separated by an underscore before proceeding.
 \subsection{Special case for dataframe}{
 
 Check for presence of both parents id in the \strong{id} field.
 If not both presence behaviour depend of \strong{delete} parameter
 \itemize{
-\item If \code{TRUE} then use fix_parents function and merge back the other fields
-in the dataframe then set availability to O for non available parents.
+\item If \code{TRUE} then use fix_parents function and merge back the
+other fields in the dataframe then set availability to
+\code{O} for non available parents.
 \item If \code{FALSE} then delete the id of missing parents
 }
 }
@@ -78,20 +81,20 @@ in the dataframe then set availability to O for non available parents.
 \examples{
 
 test1char <- data.frame(
-  id = paste('fam', 101:111, sep = ''),
-  sex = c('male', 'female')[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1)],
-  father = c(
-    0, 0, 'fam101', 'fam101', 'fam101', 0, 0,
-    'fam106', 'fam106', 'fam106', 'fam109'
-  ),
-  mother = c(
-    0, 0, 'fam102', 'fam102', 'fam102', 0, 0,
-    'fam107', 'fam107', 'fam107', 'fam112'
-  )
+    id = paste('fam', 101:111, sep = ''),
+    sex = c('male', 'female')[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1)],
+    father = c(
+        0, 0, 'fam101', 'fam101', 'fam101', 0, 0,
+        'fam106', 'fam106', 'fam106', 'fam109'
+    ),
+    mother = c(
+        0, 0, 'fam102', 'fam102', 'fam102', 0, 0,
+        'fam107', 'fam107', 'fam107', 'fam112'
+    )
 )
 test1newmom <- with(test1char, fix_parents(id, father, mother,
-  sex,
-  missid = NA_character_
+    sex,
+    missid = NA_character_
 ))
 Pedigree(test1newmom)
 

@@ -48,3 +48,14 @@ test_that("paste0max works", {
     expect_equal(paste0max(1:10), "'1', '2', '3', '4', '5'...")
     expect_equal(paste0max(1:3), "'1', '2', '3'")
 })
+
+test_that("is_valid works", {
+    data("sampleped")
+    data("relped")
+    pedi <- Pedigree(sampleped, relped)
+    expect_equal(is_valid_scales(pedi@scales), TRUE)
+    expect_equal(is_valid_hints(pedi@hints), TRUE)
+    expect_equal(is_valid_ped(pedi@ped), TRUE)
+    expect_equal(is_valid_rel(pedi@rel), TRUE)
+    expect_equal(is_valid_pedigree(pedi), TRUE)
+})

@@ -4,10 +4,13 @@
 \name{is_informative}
 \alias{is_informative}
 \alias{is_informative,character_OR_integer-method}
+\alias{is_informative,Ped-method}
 \alias{is_informative,Pedigree-method}
 \title{Find informative individuals}
 \usage{
 \S4method{is_informative}{character_OR_integer}(obj, avail, affected, informative = "AvAf")
+
+\S4method{is_informative}{Ped}(obj, informative = "AvAf", reset = FALSE)
 
 \S4method{is_informative}{Pedigree}(obj, col_aff = NULL, informative = "AvAf", reset = FALSE)
 }
@@ -17,11 +20,15 @@
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = unaffected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 
 \item{informative}{Informative individuals selection can take 5 values:
 \itemize{
@@ -34,10 +41,10 @@ individuals
 \item A boolean
 }}
 
+\item{reset}{If \code{TRUE}, the \code{isinf} slot is reset}
+
 \item{col_aff}{A character vector with the name of the column to be used
 for the affection status.}
-
-\item{reset}{If \code{TRUE}, the \code{isinf} slot is reset}
 }
 \value{
 \subsection{When obj is a vector}{
@@ -64,16 +71,20 @@ corresponding informative individuals based on the avail and affected
 columns.
 }
 \examples{
-
 is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 is_informative(c("A", "B", "C", "D", "E"), informative = c(1, 2))
 is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-  affected = c(0, 1, 0, 1, 1), informative = "AvAf")
+    affected = c(0, 1, 0, 1, 1), informative = "AvAf")
 is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-  affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
+    affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
 is_informative(c("A", "B", "C", "D", "E"),
-     informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
+    informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
+
+data("sampleped")
+ped <- Pedigree(sampleped)
+ped <- is_informative(ped, col_aff = "affection_mods")
+isinf(ped(ped))
 
 data("sampleped")
 ped <- Pedigree(sampleped)

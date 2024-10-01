@@ -5,7 +5,8 @@ NULL
 #'
 #' @description
 #' Convert a Pedigree to a data frame with all the elements and their
-#' characteristic for them to be plotted afterwards with [plot_fromdf()].
+#' characteristic for them to be plotted afterwards with
+#' [plot_fromdf()].
 #'
 #' @details The data frame contains the following columns:
 #' - `x0`, `y0`, `x1`, `y1`: coordinates of the elements
@@ -20,7 +21,8 @@ NULL
 #' - `adjx`: horizontal text adjustment of the labels
 #' - `adjy`: vertical text adjustment of the labels
 #'
-#' All those columns are used by [plot_fromdf()] to plot the graph.
+#' All those columns are used by
+#' [plot_fromdf()] to plot the graph.
 #'
 #' @inheritParams align
 #' @param pconnect When connecting parent to children the program will try to
@@ -32,11 +34,12 @@ NULL
 #' nuclear families.
 #' @param aff_mark If `TRUE`, add a aff_mark to each box corresponding to the
 #' value of the affection column for each filling scale.
-#' @param label If not `NULL`, add a label to each box corresponding to the
-#' value of the column given.
+#' @param id_lab The column name of the id for each individuals.
+#' @param label If not `NULL`, add a label to each box under the id
+#' corresponding to the value of the column given.
 #' @param ... Other arguments passed to [par()]
-#' @inheritParams subregion
 #' @inheritParams set_plot_area
+#' @inheritParams kindepth
 #'
 #' @return A list containing the data frame and the user coordinates.
 #'
@@ -49,7 +52,7 @@ NULL
 #' plot_fromdf(plot_df$df, usr = plot_df$par_usr$usr,
 #'     boxh = plot_df$par_usr$boxh, boxw = plot_df$par_usr$boxw
 #' )
-#'
+#' @importFrom plyr rbind.fill
 #' @seealso
 #' [plot_fromdf()]
 #' [ped_to_legdf()]
@@ -65,20 +68,24 @@ setGeneric(
 
 #' @rdname ped_to_plotdf
 #' @export
+#' @importFrom plyr rbind.fill
 setMethod("ped_to_plotdf", "Pedigree", function(
-    obj, packed = TRUE, width = 6, align = c(1.5, 2),
-    subreg = NULL, cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
-    aff_mark = TRUE, label = NULL, ...
+    obj, packed = TRUE, width = 6,
+    align = c(1.5, 2), align_parents = TRUE, force = FALSE,
+    cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
+    aff_mark = TRUE, id_lab = "id", label = NULL, precision = 3, ...
 ) {
 
-    famlist <- unique(famid(obj))
+    famlist <- unique(famid(ped(obj)))
+    famlist <- famlist[!is.na(famlist)]
     if (length(famlist) > 1) {
-        nfam <- length(famlist)
-        all_df <- vector("list", nfam)
+        message("Multiple families present, computing each family separately")
+        all_df <- list()
         for (i_fam in famlist) {
-            ped_fam <- obj[famid(obj) == i_fam]
+            ped_fam <- obj[famid(ped(obj)) == i_fam]
             all_df[[i_fam]] <- ped_to_plotdf(ped_fam, packed, width, align,
-                subreg, cex, symbolsize, ...
+                align_parents, force,
+                cex, symbolsize, ...
             )
         }
         return(all_df)
@@ -92,16 +99,17 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         label = character(), tips = character(),
         adjx = numeric(), adjy = numeric()
     )
-    plist <- align(obj, packed = packed, width = width, align = align)
+    plist <- align(
+        obj, packed = packed, width = width,
+        align = align, align_parents = align_parents,
+        force = force, precision = precision
+    )
 
-    if (!is.null(subreg)) {
-        plist <- subregion(plist, subreg)
-    }
     xrange <- range(plist$pos[plist$nid > 0])
     maxlev <- nrow(plist$pos)
 
     params_plot <- set_plot_area(
-        cex, id(ped(obj)), maxlev, xrange, symbolsize, ...
+        cex, id(ped(obj)), maxlev, xrange, symbolsize, precision, ...
     )
 
     boxw <- params_plot$boxw
@@ -139,13 +147,8 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         # mean range of each box for each polygon for each subreg
         poly_aff <- lapply(polylist, "[[", aff)
         poly_aff_x <- lapply(poly_aff, "[[", "x")
-        poly_aff_y <- lapply(poly_aff, "[[", "y")
 
         poly_aff_x_mr <- vapply(poly_aff_x,
-            function(x) mean(range(x * boxw)),
-            1
-        )
-        poly_aff_y_mr <- vapply(poly_aff_y,
             function(x) mean(range(x * boxw)),
             1
         )
@@ -158,7 +161,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             border = border(obj)$border[border_idx],
             id = "polygon"
         )
-        plot_df <- rbind.fill(plot_df, ind)
+        plot_df <- plyr::rbind.fill(plot_df, ind)
         if (aff_mark) {
             aff_mark_df <- data.frame(
                 x0 = pos[idx] + poly_aff_x_mr[sex],
@@ -168,7 +171,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 type = "text", cex = cex,
                 id = "aff_mark"
             )
-            plot_df <- rbind.fill(plot_df, aff_mark_df)
+            plot_df <- plyr::rbind.fill(plot_df, aff_mark_df)
         }
     }
 
@@ -190,7 +193,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     ## Add ids
     id_df <- data.frame(
         x0 = pos[idx], y0 = i[idx] + boxh + labh * 1.2,
-        label = ped_df[id[idx], "id"], fill = "black",
+        label = ped_df[id[idx], id_lab], fill = "black",
         type = "text", cex = cex,
         id = "id"
     )
@@ -215,6 +218,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     l_spouses_i <- i[spouses] + boxh / 2
     pos_sp1 <- pos[spouses] + boxw / 2
     pos_sp2 <- pos[spouses + maxlev] - boxw / 2
+
     l_spouses <- data.frame(
         x0 = pos_sp1, y0 = l_spouses_i,
         x1 = pos_sp2, y1 = l_spouses_i,
@@ -371,5 +375,6 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             }
         }
     }
+
     list(df = plot_df, par_usr = params_plot)
 })

@@ -215,6 +215,7 @@ duporder <- function(idlist, plist, lev, obj) {
 #'  2. `twinrel` the twins relationships
 #'  3. `twinord` the order of the twins
 #' @seealso [auto_hint()]
+#' @importFrom stats setNames
 get_twin_rel <- function(obj) {
     if (length(rel(obj)) == 0) {
         relation <- NULL
@@ -223,8 +224,8 @@ get_twin_rel <- function(obj) {
         relation$code <- as.numeric(relation$code)
     }
     n <- length(obj)
-    twinset <- setNames(rep(0, n), id(ped(obj)))
-    twinord <- setNames(rep(1, n), id(ped(obj)))
+    twinset <- stats::setNames(rep(0, n), id(ped(obj)))
+    twinord <- stats::setNames(rep(1, n), id(ped(obj)))
     twinrel <- NULL
 
     if (!is.null(relation) && any(relation$code < 4)) {
@@ -269,9 +270,9 @@ get_twin_rel <- function(obj) {
 #' between two families this simple-minded approach works surprisingly well.
 #' For more complex structures hand-tuning of the hints may be required.
 #'
-#' When `auto_hint()` is called with a a vector of numbers as the **hints**
-#' argument, the values for the founder females are used to order the founder
-#' families left to right across the plot.
+#' When `auto_hint()` is called with a a vector of numbers as the
+#' **hints** argument, the values for the founder females are used to
+#' order the founder families left to right across the plot.
 #' The values within a sibship are used as the preliminary order of
 #' siblings within a family; this may be changed to move one of them to the
 #' edge so as to match up with a spouse. The actual values in the vector are
@@ -283,7 +284,8 @@ get_twin_rel <- function(obj) {
 #'
 #' @return The initial [Hints-class] object.
 #'
-#' @seealso [align()], [best_hint()], [Hints-class]
+#' @seealso [align()], [best_hint()]
+#' @seealso [Hints-class]
 #' @examples
 #' data(sampleped)
 #' ped <- Pedigree(sampleped[sampleped$famid == 1, ])
@@ -297,15 +299,17 @@ setGeneric("auto_hint", signature = "obj",
 
 #' @rdname auto_hint
 #' @export
-setMethod("auto_hint", "Pedigree", function(obj,
-    hints = NULL, packed = TRUE, align = FALSE, reset = FALSE
+setMethod("auto_hint", "Pedigree", function(
+    obj, hints = NULL, packed = TRUE,
+    align = FALSE, reset = FALSE
 ) {
     ## full documentation now in vignette: align_code_details.Rmd
     ## References to those sections appear here as:
     ## Doc: auto_hint
     if (!is.null(hints) && is(hints, "Hints")) {
         if (
-            (length(horder(hints)) != 0 || length(spouse(hints)) != 0) && !reset
+            (length(horder(hints)) != 0 || length(spouse(hints)) != 0) &&
+                !reset
         ) {
             return(hints(obj))
         }
@@ -319,7 +323,7 @@ setMethod("auto_hint", "Pedigree", function(obj,
     depth <- kindepth(obj, align_parents = TRUE)
 
     ## Doc: init-auto_hint horder
-    horder <- setNames(rep(0, n), id(ped(obj)))
+    horder <- stats::setNames(rep(0, n), id(ped(obj)))
     if (!is.null(hints)) {
         if (is.list(hints)) {
             hints <- Hints(hints)

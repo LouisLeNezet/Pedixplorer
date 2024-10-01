@@ -8,7 +8,7 @@ NULL
 #' @description
 #' This function is used to create a plot from a data.frame.
 #'
-#' If `ggplot_gen = TRUE`, the plot will be generated with ggplot2 and 
+#' If `ggplot_gen = TRUE`, the plot will be generated with ggplot2 and
 #' will be returned invisibly.
 #'
 #' @param df A data.frame with the following columns:
@@ -47,43 +47,54 @@ NULL
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[sampleped$famid == 1,])
 #' lst <- ped_to_plotdf(ped1)
-#' #plot_fromdf(lst$df, lst$par_usr$usr,
-#' #     boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
-#' #)
-#'
+#' if (interactive()) {
+#'     plot_fromdf(lst$df, lst$par_usr$usr,
+#'         boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
+#'     )
+#' }
 #' @return an invisible ggplot object and a plot on the current plotting device
 #' @keywords internal, Pedigree-plot
+#' @importFrom graphics frame par
+#' @importFrom ggplot2 ggplot theme element_blank element_rect
+#' @importFrom ggplot2 unit scale_y_reverse ggtitle
+#' @importFrom stringr str_split_i
 #' @export
 plot_fromdf <- function(
     df, usr = NULL, title = NULL, ggplot_gen = FALSE, boxw = 1,
     boxh = 1, add_to_existing = FALSE
 ) {
     if (!add_to_existing) {
-        frame()
+        graphics::frame()
         if (!is.null(usr)) {
-            par(usr = usr)
+            graphics::par(usr = usr)
         }
     }
 
-    p <- ggplot() +
-        theme(
-            plot.margin = unit(c(0, 0, 0, 0), "cm"),
-            panel.background = element_rect(fill = "transparent", color = NA),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
-            axis.ticks = element_blank(),
-            axis.text = element_blank(),
-            axis.title = element_blank()
+    p <- ggplot2::ggplot() +
+        ggplot2::theme(
+            plot.margin = ggplot2::unit(c(0, 0, 0, 0), "cm"),
+            panel.background = ggplot2::element_rect(
+                fill = "transparent", color = NA
+            ), panel.grid.major = ggplot2::element_blank(),
+            panel.grid.minor = ggplot2::element_blank(),
+            axis.ticks = ggplot2::element_blank(),
+            axis.text = ggplot2::element_blank(),
+            axis.title = ggplot2::element_blank()
         ) +
-        scale_y_reverse()
+        ggplot2::scale_y_reverse()
 
     ## Add title if exists
     if (!is.null(title)) {
         title(title)
-        p <- p + ggtitle(title)
+        p <- p + ggplot2::ggtitle(title)
     }
 
-    max_aff <- max(as.numeric(str_split_i(df$type, "_", 2)), na.rm = TRUE)
+    aff <- as.numeric(stringr::str_split_i(df$type, "_", 2))
+    if (all(is.na(aff))) {
+        max_aff <- 1
+    } else {
+        max_aff <- max(aff, na.rm = TRUE)
+    }
 
     ## Add boxes
     poly_n <- lapply(seq_len(max_aff), polygons)
@@ -92,8 +103,13 @@ plot_fromdf <- function(
     ), 1, paste, collapse = "_")
 
     boxes <- df[df$type %in% all_types, ]
-    boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(boxes$type, "_", 3)
-    boxes$angle[boxes$angle == "NA"] <- 45
+    if (nrow(boxes) != 0) {
+        boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(
+            boxes$type, "_", 3
+        )
+        boxes$angle[boxes$angle == "NA"] <- 45
+    }
+
     for (i in seq_len(dim(boxes)[1])){
         poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
             as.numeric(boxes$naff[i])

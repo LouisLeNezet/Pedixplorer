@@ -48,7 +48,8 @@ ancestors <- function(idx, momx, dadx) {
 #' [alignped3()], and [alignped4()]
 #' contain the bulk of the computation.
 #'
-#' If the **hints** are missing the [auto_hint()] routine is called to
+#' If the **hints** are missing the
+#' [auto_hint()] routine is called to
 #' supply an initial guess.
 #'
 #' If multiple families are present in the **obj** Pedigree, this routine
@@ -71,20 +72,23 @@ ancestors <- function(idx, momx, dadx) {
 #' parameters, or a logical value.
 #' If `TRUE`, the default is `c(1.5, 2)`, or if numeric the routine
 #' `alignped4()` will be called.
-#' @param hints A Hints object or a named list containing `horder` and
-#' `spouse`. If `NULL` then the Hints stored in **obj** will be used.
+#' @param hints A Hints object or a named list containing
+#' `horder` and `spouse`.
+#' If `NULL` then the Hints stored in **obj** will be used.
 #' @inheritParams Ped
+#' @inheritParams kindepth
+#' @inheritParams alignped4
 #'
 #' @return A list with components
-#' - `n`: A vector giving the number of subjects on each horizonal level of the
-#' plot
-#' - `nid`: A matrix with one row for each level, giving the numeric id of
-#' each subject plotted.
-#' (A value of `17` means the 17th subject in the Pedigree).
+#' - `n`: A vector giving the number of subjects on each
+#'     horizonal level of the plot
+#' - `nid`: A matrix with one row for each level, giving
+#'     the numeric id of each subject plotted.
+#'     (A value of `17` means the 17th subject in the Pedigree).
 #' - `pos`: A matrix giving the horizontal position of each plot point
 #' - `fam`: A matrix giving the family id of each plot point.
-#' A value of `3` would mean that the two subjects in positions 3 and 4,
-#' in the row above, are this subject's parents.
+#'     A value of `3` would mean that the two subjects in positions
+#'     3 and 4, in the row above, are this subject's parents.
 #' - `spouse`: A matrix with values
 #'     - `0` = not a spouse
 #'     - `1` = subject plotted to the immediate right is a spouse
@@ -110,6 +114,7 @@ ancestors <- function(idx, momx, dadx) {
 #' @include auto_hint.R
 #' @include kindepth.R
 #' @include AllClass.R
+#' @include AllAccessors.R
 #' @include alignped1.R
 #' @include alignped2.R
 #' @include alignped3.R
@@ -122,17 +127,19 @@ setGeneric("align", signature = "obj",
 
 #' @rdname align
 #' @docType methods
+#' @importFrom stats setNames
 setMethod("align", "Pedigree",
     function(
         obj, packed = TRUE, width = 10,
-        align = TRUE, hints = NULL, missid = "NA_character_"
+        align = TRUE, hints = NULL, missid = "NA_character_",
+        align_parents = TRUE, force = FALSE, precision = 2
     ) {
-        famlist <- unique(famid(obj))
+        famlist <- unique(famid(ped(obj)))
+        famlist <- famlist[!is.na(famlist)]
         if (length(famlist) > 1) {
-            nfam <- length(famlist)
-            alignment <- vector("list", nfam)
+            alignment <- vector("list")
             for (i_fam in famlist) {
-                ped_fam <- obj[famid(obj) == i_fam]
+                ped_fam <- obj[famid(ped(obj)) == i_fam]
                 alignment[[i_fam]] <- align(ped_fam, packed, width, align)
             }
             return(alignment)
@@ -151,7 +158,7 @@ setMethod("align", "Pedigree",
                 auto_hint(obj)
             }, silent = TRUE)
             if ("try-error" %in% class(hints)) {
-                hints <- Hints(horder = setNames(
+                hints <- Hints(horder = stats::setNames(
                     seq_len(length(ped(obj))), id(ped(obj))
                 ))
             }
@@ -159,7 +166,9 @@ setMethod("align", "Pedigree",
         ## Doc: Setup-align
         n <- length(obj)
 
-        level <- 1 + kindepth(obj, align_parents = TRUE)
+        level <- 1 + kindepth(
+            obj, align_parents = align_parents, force = force
+        )
         ## relative order of siblings within a family
         horder <- horder(hints)
 
@@ -257,7 +266,7 @@ setMethod("align", "Pedigree",
         }
         ## Doc: finish align(3)
         if ((is.numeric(align) || align) && max(level) > 1) {
-            pos <- alignped4(rval, spouse > 0, level, width, align)
+            pos <- alignped4(rval, spouse > 0, level, width, align, precision)
         } else {
             pos <- rval$pos
         }

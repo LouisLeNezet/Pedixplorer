@@ -30,9 +30,9 @@ setGeneric("make_famid", signature = "obj",
 #' @examples
 #'
 #' make_famid(
-#'      c("A", "B", "C", "D", "E", "F"),
-#'      c("C", "D", "0", "0", "0", "0"),
-#'      c("E", "E", "0", "0", "0", "0")
+#'     c("A", "B", "C", "D", "E", "F"),
+#'     c("C", "D", "0", "0", "0", "0"),
+#'     c("E", "E", "0", "0", "0", "0")
 #' )
 setMethod("make_famid", "character",
     function(obj, dadid, momid) {
@@ -82,8 +82,9 @@ setMethod("make_famid", "character",
             xx <- table(famid)
             if (any(xx == 1)) {
                 singles <- as.integer(names(xx[xx == 1]))  # famid of singletons
-                famid[!is.na(match(famid, singles))] <- 0  # set singletons to 0
-                as.character(match(famid, sort(unique(famid))) - 1) # renumber
+                # set singletons to 0
+                famid[!is.na(match(famid, singles))] <- NA_character_
+                as.character(match(famid, sort(unique(famid)))) # renumber
             } else {
                 as.character(match(famid, sort(unique(famid))))
             }  # renumber, no zeros
@@ -116,7 +117,7 @@ setMethod("make_famid", "Pedigree",
         }
 
         obj@rel@famid <- fam_id1
-        obj <- upd_famid_id(obj)
+        obj <- upd_famid(obj)
         validObject(obj)
         obj
     }
@@ -129,8 +130,8 @@ setMethod("make_famid", "Pedigree",
 #' Therefore to update their family prefix the ids are split by the
 #' first underscore and the first part is overwritten by **famid**.
 #'
-#' If famid is *missing*, then the `famid()` function will be called on the
-#' object.
+#' If famid is *missing*, then the `famid()` function will be called
+#' on the object.
 #'
 #' @param obj Ped or Pedigree object or a character vector of individual ids
 #' @inheritParams Ped
@@ -140,17 +141,17 @@ setMethod("make_famid", "Pedigree",
 #'
 #' @export
 #' @usage NULL
-setGeneric("upd_famid_id",
-    function(obj, famid, ...) standardGeneric("upd_famid_id")
+setGeneric("upd_famid",
+    function(obj, famid, ...) standardGeneric("upd_famid")
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @examples
 #'
-#' upd_famid_id(c("1", "2", "B_3"), c("A", "B", "A"))
-#' upd_famid_id(c("1", "B_2", "C_3", "4"), c("A", NA, "A", NA))
+#' upd_famid(c("1", "2", "B_3"), c("A", "B", "A"))
+#' upd_famid(c("1", "B_2", "C_3", "4"), c("A", NA, "A", NA))
 #' @export
-setMethod("upd_famid_id", "character",
+setMethod("upd_famid", "character",
     function(obj, famid, missid = NA_character_) {
         if (length(obj) != length(famid)) {
             stop("id and famid must have the same length")
@@ -173,68 +174,68 @@ setMethod("upd_famid_id", "character",
     }
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @export
-setMethod("upd_famid_id",
+setMethod("upd_famid",
     signature(obj = "Ped", famid = "character_OR_integer"),
     function(obj, famid) {
-        obj@id <- upd_famid_id(id(obj), famid)
-        obj@dadid <- upd_famid_id(dadid(obj), famid)
-        obj@momid <- upd_famid_id(momid(obj), famid)
+        obj@id <- upd_famid(id(obj), famid)
+        obj@dadid <- upd_famid(dadid(obj), famid)
+        obj@momid <- upd_famid(momid(obj), famid)
         obj@famid <- famid
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
-setMethod("upd_famid_id",
+#' @rdname upd_famid
+setMethod("upd_famid",
     signature(obj = "Ped", famid = "missing"),
     function(obj) {
-        obj@id <- upd_famid_id(id(obj), famid(obj))
-        obj@dadid <- upd_famid_id(dadid(obj), famid(obj))
-        obj@momid <- upd_famid_id(momid(obj), famid(obj))
+        obj@id <- upd_famid(id(obj), famid(obj))
+        obj@dadid <- upd_famid(dadid(obj), famid(obj))
+        obj@momid <- upd_famid(momid(obj), famid(obj))
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
-setMethod("upd_famid_id",
+#' @rdname upd_famid
+setMethod("upd_famid",
     signature(obj = "Rel", famid = "character_OR_integer"),
     function(obj, famid) {
-        obj@id1 <- upd_famid_id(id1(obj), famid)
-        obj@id2 <- upd_famid_id(id2(obj), famid)
+        obj@id1 <- upd_famid(id1(obj), famid)
+        obj@id2 <- upd_famid(id2(obj), famid)
         obj@famid <- famid
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
-setMethod("upd_famid_id",
+#' @rdname upd_famid
+setMethod("upd_famid",
     signature(obj = "Rel", famid = "missing"),
     function(obj) {
-        obj@id1 <- upd_famid_id(id1(obj), famid(obj))
-        obj@id2 <- upd_famid_id(id2(obj), famid(obj))
+        obj@id1 <- upd_famid(id1(obj), famid(obj))
+        obj@id2 <- upd_famid(id2(obj), famid(obj))
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @examples
 #'
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[,-1])
 #' id(ped(ped1))
 #' new_fam <- make_famid(id(ped(ped1)), dadid(ped(ped1)), momid(ped(ped1)))
-#' id(ped(upd_famid_id(ped1, new_fam)))
-setMethod("upd_famid_id",
+#' id(ped(upd_famid(ped1, new_fam)))
+setMethod("upd_famid",
     signature(obj = "Pedigree", famid = "character_OR_integer"),
     function(obj, famid) {
         old_id <- id(ped(obj))
-        obj@ped <- upd_famid_id(ped(obj), famid)
+        obj@ped <- upd_famid(ped(obj), famid)
         fid1 <- famid[match(id1(rel(obj)), old_id)]
         fid2 <- famid[match(id2(rel(obj)), old_id)]
         if (any(fid1 != fid2)) {
@@ -242,24 +243,53 @@ setMethod("upd_famid_id",
                 "are not in the same family"
             )
         }
-        obj@rel <- upd_famid_id(rel(obj), fid1)
+        obj@rel <- upd_famid(rel(obj), fid1)
         validObject(obj)
         obj
     }
 )
 
-#' @rdname upd_famid_id
+#' @rdname upd_famid
 #' @examples
 #'
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[,-1])
 #' make_famid(ped1)
-setMethod("upd_famid_id",
+setMethod("upd_famid",
     signature(obj = "Pedigree", famid = "missing"),
     function(obj) {
-        obj@ped <- upd_famid_id(ped(obj))
-        obj@rel <- upd_famid_id(rel(obj))
+        obj@ped <- upd_famid(ped(obj))
+        obj@rel <- upd_famid(rel(obj))
         validObject(obj)
         obj
+    }
+)
+
+#' Get family id
+#'
+#' Get the family id ftom the individuals identifiers.
+#'
+#' The family id is the first part of the individual id, separated by an
+#' underscore.
+#' If the individual id does not contain an underscore, then the family id is
+#' set to NA.
+#'
+#' @param obj A character vector of individual ids
+#' @return A character vector of family ids
+#' @export
+setGeneric("get_famid",
+    function(obj) standardGeneric("get_famid")
+)
+
+#' @rdname get_famid
+#' @examples
+#' get_famid(c("A", "1_B", "C_2", "D_", "_E", "F"))
+setMethod("get_famid",
+    signature(obj = "character"),
+    function(obj) {
+        obj[!str_detect(obj, "_")] <- paste0("_", obj[!str_detect(obj, "_")])
+        ids <- str_split_fixed(obj, "_", 2)
+        ids[ids[, 1] == "", 1] <- NA
+        return(ids[, 1])
     }
 )

@@ -6,3 +6,6 @@ noweb
 ^documentation$
 ^idea$
 LICENSE
+_\.new\.png$
+^codecov\.yml$
+.covrignore
