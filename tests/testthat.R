@@ -12,6 +12,7 @@ library(Pedixplorer)
 library(vdiffr)
 library(shinytest2)
 library(R.devices)
+library(shiny)
 
 all_dev <- dev.list()
 for (devi in all_dev) {
