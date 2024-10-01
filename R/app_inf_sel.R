@@ -86,7 +86,9 @@ inf_sel_server <- function(id, pedi) {
                     label = paste(
                         "Select Variable to use",
                         "to select informative individuals"
-                    ), choices = as.list(stats::setNames(col_present, col_present))
+                    ), choices = as.list(stats::setNames(
+                        col_present, col_present
+                    ))
                 )
             } else {
                 NULL
