@@ -1,6 +1,6 @@
 Package: Pedixplorer
-Version: 1.0.1
-Date: 2023-11-15
+Version: 1.1.0
+Date: 2024-10-01
 Title: Pedigree Functions
 Authors@R: c(
     person("Louis", "Le Nézet", email="louislenezet@gmail.com",
@@ -64,8 +64,8 @@ Suggests:
     R.devices,
     usethis
 Config/testthat/edition: 3
-biocViews: Software, DataRepresentation, Genetics, Alignment
-BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues
+biocViews: Software, DataRepresentation, Genetics, GraphAndNetwork, Visualization
+BugReports: https://github.com/LouisLeNezet/Pedixplorer/issues
 URL: https://github.com/LouisLeNezet/Pedixplorer
 BiocType: Software
 Collate: 
