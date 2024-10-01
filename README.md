@@ -99,6 +99,12 @@ can be specified for the Pedigree object, including inbreeding, monozygotic
 twins, etc. A recent addition is handling the kinship matrix for the X and Y
 chromosomes.
 
+### The `ped_shiny()` Function
+
+| | |
+|-|-|
+| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/). | <img src="inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800"/>|
+
 ### Other Notable Functions
 
 * `shrink()` will shrink a Pedigree to a given size, keeping the most
