@@ -57,12 +57,16 @@ app <- shinytest2::AppDriver$new(
     test_demo(), name = "color_picker"
 )
 
+print("test_demo() passed")
+
 print(Pedixplorer:::color_picker_demo)
 
 # Does not work
 app <- shinytest2::AppDriver$new(
     Pedixplorer:::color_picker_demo(), name = "color_picker"
 )
+
+print("Pedixplorer:::color_picker_demo() passed")
 
 TRUE
 
