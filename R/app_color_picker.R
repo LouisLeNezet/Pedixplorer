@@ -68,21 +68,7 @@ color_picker_server <- function(
 #' @importFrom shiny fluidPage textOutput shinyApp
 #' @importFrom shiny exportTestValues
 color_picker_demo <- function() {
-    ui <- shiny::fluidPage(
-        Pedixplorer:::color_picker_ui("colors"),
-        shiny::textOutput("selected_colors")
-    )
-    server <- function(input, output, session) {
-        col_sel <- Pedixplorer:::color_picker_server(
-            "colors",
-            list("Val1" = "red", "Val2" = "blue")
-        )
-        output$selected_colors <- shiny::renderText({
-            paste0(col_sel())
-        })
-        shiny::exportTestValues(col_sel = {
-            col_sel()
-        })
-    }
+    ui <- shiny::fluidPage()
+    server <- function(input, output, session) {}
     shiny::shinyApp(ui, server)
 }

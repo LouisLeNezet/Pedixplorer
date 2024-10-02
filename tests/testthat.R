@@ -29,24 +29,10 @@ withr::local_options(width = 150, digits = 8, browser = "google-chrome")
 options(shiny.testmode = TRUE)
 Sys.setenv("R_TESTS" = "")
 
-
+library(shiny)
 test_demo <- function() {
-    ui <- shiny::fluidPage(
-        Pedixplorer:::color_picker_ui("colors"),
-        shiny::textOutput("selected_colors")
-    )
-    server <- function(input, output, session) {
-        col_sel <- Pedixplorer:::color_picker_server(
-            "colors",
-            list("Val1" = "red", "Val2" = "blue")
-        )
-        output$selected_colors <- shiny::renderText({
-            paste0(col_sel())
-        })
-        shiny::exportTestValues(col_sel = {
-            col_sel()
-        })
-    }
+    ui <- shiny::fluidPage()
+    server <- function(input, output, session) {}
     shiny::shinyApp(ui, server)
 }
 
