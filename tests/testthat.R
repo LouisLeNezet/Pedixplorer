@@ -10,11 +10,13 @@ library(Pedixplorer)
 library(shinytest2)
 library(R.devices)
 
+## Clean up any open devices
 all_dev <- dev.list()
 for (devi in all_dev) {
     dev.off(devi)
 }
 
+## Set up the plotting device
 par_lst <- list(
     "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
     "fin" = c(6, 6), "bg" = "white", "family" = "HersheySans",
@@ -24,36 +26,13 @@ par_lst <- list(
 R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
 plot.new()
 
+## Set up the environment
 withr::local_options(width = 150, digits = 8, browser = "mozilla")
 withr::local_options(width = 150, digits = 8, browser = "google-chrome")
-options(shiny.testmode = TRUE)
+options(shiny.testmode = TRUE, shinytest2.load_timeout = 60000)
 Sys.setenv("R_TESTS" = "")
 
-library(shiny)
-test_demo <- function() {
-    ui <- shiny::fluidPage()
-    server <- function(input, output, session) {}
-    shiny::shinyApp(ui, server)
-}
-
-print(test_demo)
-
-# Works
-app <- shinytest2::AppDriver$new(
-    test_demo(), name = "color_picker"
-)
-
-print("test_demo() passed")
-
-print(Pedixplorer:::color_picker_demo)
-
-# Does not work
-app <- shinytest2::AppDriver$new(
-    Pedixplorer:::color_picker_demo(), name = "color_picker"
-)
-
-print("Pedixplorer:::color_picker_demo() passed")
-
-TRUE
+## Run the tests
+test_check("Pedixplorer")
 
 dev.off()
