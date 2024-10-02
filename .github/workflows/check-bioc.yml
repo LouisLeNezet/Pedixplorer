@@ -65,6 +65,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      ## Set up Chrome for shinytest
+      - uses: browser-actions/setup-chrome@v1
+        id: setup-chrome
 
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
@@ -213,6 +216,7 @@ jobs:
 
       - name: Run CMD check
         env:
+          CHROME_CHROMOTE: ${{ steps.setup-chrome.outputs.chrome-path }}
           _R_CHECK_CRAN_INCOMING_: false
           DISPLAY: 99.0
         run: |
