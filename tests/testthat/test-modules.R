@@ -37,7 +37,10 @@ test_that("data_download works", {
     )
     app$set_window_size(width = 1611, height = 956)
     # Check download
-    app$expect_download("datafile-data_dwld")
+    app$expect_download(
+        "datafile-data_dwld",
+        compare = testthat::compare_file_text
+    )
 })
 
 test_that("data_import with default data", {

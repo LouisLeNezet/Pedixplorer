@@ -10,7 +10,7 @@ test_that("ped_shiny works", {
     app$click("data_rel_import-testdf")
 
     # Set affection and color
-    app$wait_for_idle()
+    app$wait_for_idle(timeout = 30000)
     df <- app$wait_for_value(export = "df")
     app$set_inputs(`health_sel-health_as_num` = FALSE)
     app$wait_for_idle()

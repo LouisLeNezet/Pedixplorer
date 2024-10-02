@@ -2,6 +2,10 @@
 
 NEWS file for the Pedixplorer package
 
+## Changes in version 1.1.2
+
+- Use R version 4.4 and update workflows
+
 ## Changes in version 1.1.1
 
 - A [shiny application](https://shiny.posit.co/) is now available through
