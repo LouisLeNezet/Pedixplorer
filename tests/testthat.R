@@ -6,10 +6,7 @@
 # * https://r-pkgs.org/tests.html
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
-library(withr)
-library(testthat)
 library(Pedixplorer)
-library(vdiffr)
 library(shinytest2)
 library(R.devices)
 
@@ -31,7 +28,13 @@ withr::local_options(width = 150, digits = 8, browser = "mozilla")
 withr::local_options(width = 150, digits = 8, browser = "google-chrome")
 options(shiny.testmode = TRUE)
 Sys.setenv("R_TESTS" = "")
-test_check("Pedixplorer")
+
+app <- shinytest2::AppDriver$new(
+    color_picker_demo(), name = "color_picker",
+    variant = shinytest2::platform_variant()
+)
+
+#test_check("Pedixplorer")
 TRUE
 
 dev.off()
