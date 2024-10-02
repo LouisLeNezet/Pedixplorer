@@ -65,6 +65,11 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      ## For linux add dependencies
+      - name: Install libgbm-dev
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libgbm-dev
+
       ## Set up Chrome for shinytest
       - uses: browser-actions/setup-chrome@v1
         id: setup-chrome
