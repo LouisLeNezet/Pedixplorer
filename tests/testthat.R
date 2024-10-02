@@ -29,12 +29,41 @@ withr::local_options(width = 150, digits = 8, browser = "google-chrome")
 options(shiny.testmode = TRUE)
 Sys.setenv("R_TESTS" = "")
 
+
+test_demo <- function() {
+    ui <- shiny::fluidPage(
+        Pedixplorer:::color_picker_ui("colors"),
+        shiny::textOutput("selected_colors")
+    )
+    server <- function(input, output, session) {
+        col_sel <- Pedixplorer:::color_picker_server(
+            "colors",
+            list("Val1" = "red", "Val2" = "blue")
+        )
+        output$selected_colors <- shiny::renderText({
+            paste0(col_sel())
+        })
+        shiny::exportTestValues(col_sel = {
+            col_sel()
+        })
+    }
+    shiny::shinyApp(ui, server)
+}
+
+print(test_demo)
+
+# Works
 app <- shinytest2::AppDriver$new(
-    color_picker_demo(), name = "color_picker",
-    variant = shinytest2::platform_variant()
+    test_demo(), name = "color_picker"
 )
 
-#test_check("Pedixplorer")
+print(Pedixplorer:::color_picker_demo)
+
+# Does not work
+app <- shinytest2::AppDriver$new(
+    Pedixplorer:::color_picker_demo(), name = "color_picker"
+)
+
 TRUE
 
 dev.off()
