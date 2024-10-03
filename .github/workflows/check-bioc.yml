@@ -28,7 +28,21 @@ on:
 
 name: R-CMD-check-bioc
 
-permissions: write-all
+permissions:
+  actions: none
+  attestations: none
+  checks: none
+  contents: write
+  deployments: write
+  id-token: none
+  issues: none
+  discussions: none
+  packages: write
+  pages: write
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
 
 ## These environment variables control whether to run GHA code later on that is
 ## specific to testthat, covr, and pkgdown.
@@ -43,7 +57,7 @@ env:
   run_pkgdown: 'true'
   has_RUnit: 'false'
   cache-version: 'cache-v1'
-  run_docker: 'false'
+  run_docker: 'true'
 
 jobs:
   build-check:
