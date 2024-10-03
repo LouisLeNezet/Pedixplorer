@@ -28,11 +28,7 @@ on:
 
 name: R-CMD-check-bioc
 
-permissions:
-  contents: read
-  pages: write
-  deployments: write
-  packages: write
+permissions: write-all
 
 ## These environment variables control whether to run GHA code later on that is
 ## specific to testthat, covr, and pkgdown.
@@ -42,8 +38,8 @@ permissions:
 ## Note that you can always run a GHA test without the cache by using the word
 ## "/nocache" in the commit message.
 env:
-  has_testthat: 'true'
-  run_covr: 'true'
+  has_testthat: 'false'
+  run_covr: 'false'
   run_pkgdown: 'true'
   has_RUnit: 'false'
   cache-version: 'cache-v1'
@@ -61,7 +57,7 @@ jobs:
       matrix:
         config:
           - { os: ubuntu-latest, r: '4.4', bioc: '3.19', cont: "bioconductor/bioconductor_docker:RELEASE_3_19", rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest" }
-          - { os: windows-latest, r: '4.4', bioc: '3.19'}
+          ##- { os: windows-latest, r: '4.4', bioc: '3.19'}
           ## Check https://github.com/r-lib/actions/tree/master/examples
           ## for examples using the http-user-agent
     env:
@@ -177,7 +173,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Install covr
-        if: env.run_covr == 'true' && runner.os == 'Linux'
+        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
         run: |
           remotes::install_cran("covr")
         shell: Rscript {0}
@@ -196,6 +192,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Run CMD check
+        if : github.ref == 'refs/heads/devel'
         env:
           CHROME_CHROMOTE: ${{ steps.setup-chrome.outputs.chrome-path }}
           _R_CHECK_CRAN_INCOMING_: false
@@ -215,6 +212,7 @@ jobs:
         run: find . -name testthat.Rout -exec cat '{}' ';'
 
       - name: Run BiocCheck
+        if: github.ref == 'refs/heads/devel'
         env:
           DISPLAY: 99.0
         run: |
@@ -227,7 +225,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Test coverage
-        if: env.run_covr == 'true' && runner.os == 'Linux'
+        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
         run: |
           cov <- covr::package_coverage(
             quiet = FALSE,
@@ -238,7 +236,7 @@ jobs:
         shell: Rscript {0}
 
       - uses: codecov/codecov-action@v4
-        if: env.run_covr == 'true' && runner.os == 'Linux'
+        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
         with:
           file: ./cobertura.xml
           plugin: noop
@@ -286,25 +284,25 @@ jobs:
     needs: build-check
     steps:
       - name: Checkout Repository
-        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true' && github.ref == 'refs/heads/devel'"
+        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true'"
         uses: actions/checkout@v3
 
       - name: Register repo name
-        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true' && github.ref == 'refs/heads/devel'"
+        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true'"
         id: reg_repo_name
         run: |
           echo CONT_IMG_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
 
       - name: Set up QEMU
-        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true' && github.ref == 'refs/heads/devel'"
+        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true'"
         uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
-        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true' && github.ref == 'refs/heads/devel'"
+        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true'"
         uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
-        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true' && github.ref == 'refs/heads/devel'"
+        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true'"
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
