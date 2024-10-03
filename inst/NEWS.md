@@ -2,6 +2,11 @@
 
 NEWS file for the Pedixplorer package
 
+## Changes in version 1.1.3
+
+- Fix github workflows
+- Disable ped_shiny() execution in markdown
+
 ## Changes in version 1.1.2
 
 - Use R version 4.4 and update workflows
