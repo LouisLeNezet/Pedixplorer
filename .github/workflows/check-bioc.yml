@@ -197,7 +197,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Run CMD check
-        if: github.ref == 'refs/heads/devel'
         env:
           CHROME_CHROMOTE: ${{ steps.setup-chrome.outputs.chrome-path }}
           _R_CHECK_CRAN_INCOMING_: false
