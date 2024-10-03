@@ -1,4 +1,4 @@
-pandoc: '3.4'
+pandoc: '3.2'
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
@@ -7,4 +7,7 @@ articles:
   pedigree_object: pedigree_object.html
   pedigree_plot: pedigree_plot.html
   pedigree: pedigree.html
-last_built: 2024-10-03T09:45Z
+last_built: 2024-10-03T12:46Z
+urls:
+  reference: https://louislenezet.github.io/Pedixplorer/reference
+  article: https://louislenezet.github.io/Pedixplorer/articles

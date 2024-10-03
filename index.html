@@ -4,90 +4,78 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pedigree Functions • Pedixplorer</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Pedigree Functions">
-<meta property="og:description" content="Routines to handle family data with a Pedigree object. The initial purpose was to create correlation structures that describe family relationships such as kinship and identity-by-descent, which can be used to model family data in mixed effects models, such as in the coxme function. Also includes a tool for Pedigree drawing which is focused on producing compact layouts without intervention. Recent additions include utilities to trim the Pedigree object with various criteria, and kinship for the X chromosome.">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>An BioConductor R package for pedigree creation, filtering and drawing • Pedixplorer</title>
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="An BioConductor R package for pedigree creation, filtering and drawing">
+<meta name="description" content="Routines to handle family data with a Pedigree object.">
+<meta property="og:description" content="Routines to handle family data with a Pedigree object.">
+<meta property="og:image" content="https://louislenezet.github.io/Pedixplorer/inst/figures/icon_Pedixplorer.png">
+<meta property="og:image:alt" content="Pedixplorer BioConductor package">
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">Pedixplorer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
-      </span>
-    </div>
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="reference/index.html">Reference</a>
+    <a class="navbar-brand me-2" href="index.html">Pedixplorer</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/pedigree_alignment.html">Pedigree alignment details</a></li>
+    <li><a class="dropdown-item" href="articles/pedigree_kinship.html">Pedigree kinship() details</a></li>
+    <li><a class="dropdown-item" href="articles/pedigree_object.html">Pedigree object</a></li>
+    <li><a class="dropdown-item" href="articles/pedigree_plot.html">Pedigree plotting details</a></li>
+    <li><a class="dropdown-item" href="articles/pedigree.html">Pedixplorer tutorial</a></li>
+  </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/pedigree_alignment.html">Pedigree alignment details</a>
-    </li>
-    <li>
-      <a href="articles/pedigree_kinship.html">Pedigree kinship() details</a>
-    </li>
-    <li>
-      <a href="articles/pedigree_object.html">Pedigree object</a>
-    </li>
-    <li>
-      <a href="articles/pedigree_plot.html">Pedigree plotting details</a>
-    </li>
-    <li>
-      <a href="articles/pedigree.html">Pedixplorer tutorial</a>
-    </li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-news">
+<li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Version 1.0.0</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="news/index.html">Changelog</a></li>
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/LouisLeNezet/Pedixplorer/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-
-  </a>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/LouisLeNezet/Pedixplorer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-
-
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-<div class="section level1">
-<div class="page-header"><h1 id="the-pedixplorer-package-">The <code>Pedixplorer</code> Package <img src="./inst/figures/icon_Pedixplorer.png" align="right" height="139"><a class="anchor" aria-label="anchor" href="#the-pedixplorer-package-"></a>
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="the-pedixplorer-package-">The <code>Pedixplorer</code> Package <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="139"><a class="anchor" aria-label="anchor" href="#the-pedixplorer-package-"></a>
 </h1></div>
 <!-- badges: start -->
 
@@ -168,9 +156,9 @@
 <col width="50%">
 <col width="50%">
 </colgroup>
-<tbody><tr>
+<tbody><tr class="odd">
 <td>To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting <code>Pedigree</code> object before visualising it. You’ll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at <a href="https://pedixplorer.univ-rennes.fr/" class="external-link">pedixplorer.univ-rennes</a>.</td>
-<td><img src="inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800"></td>
+<td><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800"></td>
 </tr></tbody>
 </table>
 </div>
@@ -188,7 +176,7 @@
 </h2>
 <p>The diagrams below show the main functions of the package and how they are related.</p>
 <div class="float">
-<img src="./inst/figures/Pedixplorer_diagram.png" alt="Pedixplorer Diagram"><div class="figcaption">Pedixplorer Diagram</div>
+<img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/Pedixplorer_diagram.png" alt="Pedixplorer Diagram"><div class="figcaption">Pedixplorer Diagram</div>
 </div>
 <div class="section level3">
 <h3 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
@@ -200,47 +188,47 @@
 <col width="38%">
 <col width="30%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="left">Process</th>
 <th align="center">Flow chart</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td align="left"><strong>S4 Pedixplorer creation</strong></td>
-<td align="center"><img src="inst/figures/pedigreeobj.png" alt="pedigreeobj" width="800"></td>
+<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/pedigreeobj.png" alt="pedigreeobj" width="800"></td>
 <td>The <em>Pedigree S4 object</em> creation is done by the <strong>Pedigree()</strong> constructor function. It mainly normalise a <em>ped_df</em> dataframe containing the information of each individuals with the <strong>norm_ped()</strong> function and the <em>rel_df</em> dataframe containing the special relationship (i.e. twins, spouse with no child) with the <strong>norm_rel()</strong> function. Thereafter It calls the <strong>generate_colors()</strong> function to create the colors scales (i.e. filling and border) before validating the object with <strong>is_valid()</strong>
 </td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><strong>Alignment</strong></td>
-<td align="center"><img src="inst/figures/alignment.png" alt="alignment" width="800"></td>
+<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/alignment.png" alt="alignment" width="800"></td>
 <td>The alignment process is used to create a <strong>plist</strong> stroing the graphical disposition of the different individuals and their relation between them. The <em>hints</em> information used by <strong>auto_hint()</strong>, <strong>align()</strong> can be used by the user to force the ordering of some indiviuals</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><strong>Plotting</strong></td>
-<td align="center"><img src="inst/figures/plotting.png" alt="plotting" width="800"></td>
+<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/plotting.png" alt="plotting" width="800"></td>
 <td>The plotting process is now separated in three distinct steps: <br> - <strong>ped_to_plotdf()</strong> is first called to convert the <em>S4 Pedigree object</em> into a dataframe listing all the graphical elements and their caracteristic. <br> - <strong>ped_to_legdf()</strong> does the same but for the legend informations. <br> - <strong>plot_fromdf()</strong> take as input such resulting dataframe and iteratively plot the elements based on their given characteristics. <br> All those steps are merge in one step with the <strong>plot.Pedigree()</strong> method.</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><strong>Shrinking</strong></td>
-<td align="center"><img src="inst/figures/shrinking.png" alt="shrinking" width="800"></td>
+<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/shrinking.png" alt="shrinking" width="800"></td>
 <td>This process is useful when you want to reduce a huge Pedigree into a more simple version. The <strong>shrink()</strong> method will remove iteratively the less informative individuals from the Pedigree until it reach the <em>max_bits</em> size awaited</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><strong>Informations</strong></td>
-<td align="center"><img src="inst/figures/infos.png" alt="infos" width="800"></td>
+<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/infos.png" alt="infos" width="800"></td>
 <td>From a <em>S4 Pedigree object</em> it is possible to extract a lot of informations about the individuals, such as their shared relatedness <strong>kinship()</strong>, the number of direct and indirect child <strong>num_child()</strong>, their informativeness based on a set variable <strong>is_informative()</strong>, …</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><strong>Checking columns</strong></td>
-<td align="center"><img src="inst/figures/checkingcol.png" alt="checkingcol" height="200"></td>
+<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/checkingcol.png" alt="checkingcol" height="200"></td>
 <td>The <strong>check_col()</strong> function is used to check the presence absence of columns in a designated <em>data.frame</em>
 </td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><strong>Legend</strong></td>
-<td align="center"><img src="inst/figures/legend.png" alt="legend" height="200"></td>
+<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/legend.png" alt="legend" height="200"></td>
 <td>The diagrams listed here follow this rules</td>
 </tr>
 </tbody>
@@ -248,10 +236,7 @@
 </div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
+  </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.bioconductor.org/packages/Pedixplorer" class="external-link">View on Bioconductor</a></li>
@@ -296,23 +281,20 @@
 </ul>
 </div>
 
-  </div>
+  </aside>
 </div>
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
-
 
 
 
