@@ -140,7 +140,9 @@ A shiny application is available to create, interact and plot pedigrees.
 To launch the application, use the following command:
 
 ```{r, shiny_app}
-ped_shiny()
+if (interactive()){
+    ped_shiny()
+}
 ```
 
 The use is simple:
