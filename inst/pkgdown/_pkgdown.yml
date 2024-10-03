@@ -7,10 +7,12 @@ home:
 template:
   bootstrap: 5
   light-switch: true
+  math-rendering: katex
   opengraph:
     image:
-      src: inst/figures/icon_Pedixplorer.png
+      src: https://louislenezet.github.io/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png
       alt: "Pedixplorer BioConductor package"
+      size: 200x200
 
 news:
   releases:
