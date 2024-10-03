@@ -1,0 +1,10 @@
+pandoc: '3.4'
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  pedigree_alignment: pedigree_alignment.html
+  pedigree_kinship: pedigree_kinship.html
+  pedigree_object: pedigree_object.html
+  pedigree_plot: pedigree_plot.html
+  pedigree: pedigree.html
+last_built: 2024-10-03T09:45Z
