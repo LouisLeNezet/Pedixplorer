@@ -1,4 +1,4 @@
-# The `Pedixplorer` Package <img src="./inst/figures/icon_Pedixplorer.png" align="right" height="139" />
+# The `Pedixplorer` Package <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:140px;"/>
 
 <!-- badges: start -->
   [![](https://img.shields.io/badge/release%20version-1.1.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
@@ -104,7 +104,7 @@ chromosomes.
 
 | | |
 |-|-|
-| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/). | <img src="inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800"/>|
+| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/). | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800" style="width:800px;"/>|
 
 ### Other Notable Functions
 
@@ -121,7 +121,7 @@ object.
 The diagrams below show the main functions of the package and how they are
 related.
 
-![Pedixplorer Diagram](./inst/figures/Pedixplorer_diagram.png)
+![Pedixplorer Diagram](https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/Pedixplorer_diagram.png)
 
 ### Details
 
@@ -129,10 +129,10 @@ Here is the details of the different parts of the diagram.
 
 |       Process        |        Flow chart          |     Description      |
 |:---------------------|:--------------------------:|----------------------|
-| **S4 Pedixplorer creation** | <img src="inst/figures/pedigreeobj.png" alt="pedigreeobj" width="800"/> | The *Pedigree S4 object* creation is done by the **Pedigree()** constructor function. It mainly normalise a *ped_df* dataframe containing the information of each individuals with the **norm_ped()** function and the *rel_df* dataframe containing the special relationship (i.e. twins, spouse with no child) with the **norm_rel()** function. Thereafter It calls the **generate_colors()** function to create the colors scales (i.e. filling and border) before validating the object with **is_valid()** |
-| **Alignment**            | <img src="inst/figures/alignment.png" alt="alignment" width="800"/>     | The alignment process is used to create a **plist** stroing the graphical disposition of the different individuals and their relation between them. The *hints* information used by **auto_hint()**, **align()** can be used by the user to force the ordering of some indiviuals |
-| **Plotting**             | <img src="inst/figures/plotting.png" alt="plotting" width="800"/>       | The plotting process is now separated in three distinct steps: <br> - **ped_to_plotdf()** is first called to convert the *S4 Pedigree object* into a dataframe listing all the graphical elements and their caracteristic. <br> - **ped_to_legdf()** does the same but for the legend informations. <br> - **plot_fromdf()** take as input such resulting dataframe and iteratively plot the elements based on their given characteristics. <br> All those steps are merge in one step with the **plot.Pedigree()** method. |
-| **Shrinking**            | <img src="inst/figures/shrinking.png" alt="shrinking" width="800"/>     | This process is useful when you want to reduce a huge Pedigree into a more simple version. The **shrink()** method will remove iteratively the less informative individuals from the Pedigree until it reach the *max_bits* size awaited |
-| **Informations**         | <img src="inst/figures/infos.png" alt="infos" width="800"/>             | From a *S4 Pedigree object* it is possible to extract a lot of informations about the individuals, such as their shared relatedness **kinship()**, the number of direct and indirect child **num_child()**, their informativeness based on a set variable **is_informative()**, ... |
-| **Checking columns**     | <img src="inst/figures/checkingcol.png" alt="checkingcol" height="200"/> | The **check_col()** function is used to check the presence absence of columns in a designated *data.frame* |
-| **Legend**               | <img src="inst/figures/legend.png" alt="legend" height="200"/>           | The diagrams listed here follow this rules |
+| **S4 Pedixplorer creation** | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/pedigreeobj.png" alt="pedigreeobj" width="800" style="width:800px;"/> | The *Pedigree S4 object* creation is done by the **Pedigree()** constructor function. It mainly normalise a *ped_df* dataframe containing the information of each individuals with the **norm_ped()** function and the *rel_df* dataframe containing the special relationship (i.e. twins, spouse with no child) with the **norm_rel()** function. Thereafter It calls the **generate_colors()** function to create the colors scales (i.e. filling and border) before validating the object with **is_valid()** |
+| **Alignment**            | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/alignment.png" alt="alignment" width="800" style="width:800px;"/>     | The alignment process is used to create a **plist** stroing the graphical disposition of the different individuals and their relation between them. The *hints* information used by **auto_hint()**, **align()** can be used by the user to force the ordering of some indiviuals |
+| **Plotting**             | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/plotting.png" alt="plotting" width="800" style="width:800px;"/>       | The plotting process is now separated in three distinct steps: <br> - **ped_to_plotdf()** is first called to convert the *S4 Pedigree object* into a dataframe listing all the graphical elements and their caracteristic. <br> - **ped_to_legdf()** does the same but for the legend informations. <br> - **plot_fromdf()** take as input such resulting dataframe and iteratively plot the elements based on their given characteristics. <br> All those steps are merge in one step with the **plot.Pedigree()** method. |
+| **Shrinking**            | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/shrinking.png" alt="shrinking" width="800" style="width:800px;"/>     | This process is useful when you want to reduce a huge Pedigree into a more simple version. The **shrink()** method will remove iteratively the less informative individuals from the Pedigree until it reach the *max_bits* size awaited |
+| **Informations**         | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/infos.png" alt="infos" width="800"/>             | From a *S4 Pedigree object* it is possible to extract a lot of informations about the individuals, such as their shared relatedness **kinship()**, the number of direct and indirect child **num_child()**, their informativeness based on a set variable **is_informative()**, ... |
+| **Checking columns**     | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/checkingcol.png" alt="checkingcol" height="200" style="height:200px;"/> | The **check_col()** function is used to check the presence absence of columns in a designated *data.frame* |
+| **Legend**               | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/legend.png" alt="legend" height="200"  style="height:200px;"/>           | The diagrams listed here follow this rules |
