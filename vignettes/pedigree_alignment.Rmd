@@ -138,7 +138,7 @@ matrices:
 right is my spouse (1), a double marriage (2), or neither (0).
 - $fam$ matrix, link upward to my parents, or 0 if no link.
 
-```{r, auto_hint1, echo = FALSE, fig.dim = c(10, 8)}
+```{r, auto_hint1, echo = FALSE, fig.dim = c(10, 8), fig.alt="Comparison of Pedigrees before and after auto_hint with a simple Pedigree"}
 #
 # A simple Pedigree to illustrate autohint's code
 #
@@ -217,7 +217,7 @@ matrix.
 In this particular case the final element could be a 1 or a 2, since both
 are connected to their parents.
 
-```{r, align2, echo = FALSE, fig.dim = c(10, 8)}
+```{r, align2, echo = FALSE, fig.dim = c(10, 8), fig.alt = "Comparison of Pedigrees before and after auto_hint with a more complex Pedigree"}
 #
 # The second, more complex test Pedigree
 #
@@ -303,7 +303,7 @@ that 5 should be plotted left of 11 for the 5-11 marriage, with the first
 partner as the anchor, and a second row `(11, 9, 2)`.
 This will cause the common spouse to be plotted in the middle.
 
-```{r, align3, echo = FALSE, fig.dim = c(10, 8)}
+```{r, align3, echo = FALSE, fig.dim = c(10, 8), fig.alt = "Comparison of Pedigrees before and after changing the horizontal ordering"}
 #
 # A simple pedigree to illustrate autohint's code
 #

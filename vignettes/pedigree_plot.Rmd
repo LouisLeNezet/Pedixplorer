@@ -138,7 +138,7 @@ Each polygon is named based on its shape ("square", "circle","diamond",
 "triangle"), the total number of division of the whole shape, and the
 position of the division to plot.
 
-```{r, polygons}
+```{r, polygons, fig.alt = "Different polygons"}
 library(Pedixplorer)
 types <- c(
     "square_1_1", # Whole square

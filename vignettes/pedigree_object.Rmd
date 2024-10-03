@@ -107,7 +107,7 @@ corresponding named list, the columns are renamed for them to be used
 correctly.
 The renaming is done as follow
 
-```{r, column renaming}
+```{r, column_renaming}
 rel_df <- data.frame(
     indId1 = c("110", "204"),
     indId2 = c("112", "205"),
@@ -153,7 +153,7 @@ If any error is detected after the normalisation process, then the normalised
 dataframe is gave back to the user with errors column added describing the
 encountered problems.
 
-```{r, rel_df errors}
+```{r, rel_df_errors}
 rel_wrong <- rel_df
 rel_wrong$code[2] <- "A"
 df <- Pedigree(sampleped, rel_wrong)
@@ -290,7 +290,7 @@ With this new S4 object comes multiple methods to ease the use of it:
 - unrelated()
 - useful_inds()
 
-```{r, pedigree methods}
+```{r, pedigree_methods, fig.alt = "Pedigree plot"}
 ## We can change the family name based on an other column
 ped <- upd_famid(ped, mcols(ped)$idth)
 

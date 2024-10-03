@@ -121,7 +121,7 @@ which we show below. The print method prints the $Ped$ and $Rel$ object of
 the pedigree. The summary method prints a short summary of the pedigree.
 Finally the plot method displays the pedigree.
 
-```{r, ped1}
+```{r, ped1, fig.alt = "Pedigree of family 1"}
 ped <- Pedigree(sampleped)
 print(famid(ped(ped)))
 ped1 <- ped[famid(ped(ped)) == "1"]
@@ -131,7 +131,7 @@ plot(ped1)
 
 You can add a title and a legend to the plot with the following command:
 
-```{r, ped1_title}
+```{r, ped1_title, fig.alt = "Pedigree of family 1 with legend"}
 plot(ped1, title = "Pedigree 1", legend = TRUE, leg_loc = c(5, 15, 4.5, 5))
 ```
 # Pedigree Shiny application
@@ -188,7 +188,7 @@ employ the `fix_parents()` function to adjust the *sex* value to match
 either *momid* or *dadid*. `fix_parents()` will also add back in any
 deleted subjects, further fixing the Pedigree.
 
-```{r, fixped2}
+```{r, fixped2, fig.alt = "Pedigree of family 2"}
 tryout <- try({
     ped2 <- Pedigree(datped2)
 })
@@ -287,7 +287,7 @@ indicator, so we create one to indicate that the first generation of
 $ped2$, subjects $1$ and $2$, are deceased. The $status$ indicator is
 used to cross out the individuals in the Pedigree plot.
 
-```{r, status}
+```{r, status, fig.alt = "Pedigree of family 2 with different vital status"}
 df2 <- sampleped[sampleped$famid == 2, ]
 names(df2)
 df2$status <- c(1, 1, rep(0, 12))
@@ -306,7 +306,7 @@ of the $Ped$ object of the $Pedigree$.
 As space permits, more lines and characters per line can be
 made using the a {/em \n} character to indicate a new line.
 
-```{r, labels}
+```{r, labels, fig.alt = "Pedigree of family 2 with names label"}
 mcols(ped2)$Names <- c(
     "John\nDalton", "Linda", "Jack", "Rachel", "Joe", "Deb",
     "Lucy", "Ken", "Barb", "Mike", "Matt",
@@ -326,7 +326,7 @@ baldness. And add it as a second filling scale for the plot with
 is therefore divided into two equal parts and shaded differently to
 indicate the two affected indicators.
 
-```{r, two_affection}
+```{r, two_affection, fig.alt = "Pedigree of family 2 with two affection indicators"}
 mcols(ped2)$bald <- as.factor(c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1))
 ped2 <- generate_colors(ped2, col_aff = "bald", add_to_scale = TRUE)
 plot(ped2, legend = TRUE)
@@ -355,7 +355,7 @@ The twin relationships are both represented with diverging lines from a
 single point. The monozygotic twins have an additional line connecting
 the diverging lines, while twins of unknown zygosity have a question mark.
 
-```{r, twins}
+```{r, twins, fig.alt = "Pedigree of family 2 with special relationships"}
 ## create twin relationships
 data("relped")
 rel(ped2) <- Rel(relped[relped$famid == 2, ])
@@ -377,7 +377,7 @@ $198$ and $199$ siblings, we give them the same parents, creating
 subjects $195$ and $196$. This results in subjects $201$ and $202$ being
 first cousins, and therefore inbred.
 
-```{r, inbreeding}
+```{r, inbreeding, fig.alt = "Pedigree with inbreeding"}
 indid <- 195:202
 dadid <- c(NA, NA, NA, 196, 196, NA, 197, 199)
 momid <- c(NA, NA, NA, 195, 195, NA, 198, 200)
@@ -399,7 +399,7 @@ setting the code value to $Spouse$ or $4$. If we use the $ped2$ from
 earlier and add a new spouse relationship between the individuals $212$
 and $211$ we get the following plot.
 
-```{r, spouse}
+```{r, spouse, fig.alt = "Pedigree with spouse with no children"}
 ## create twin relationships
 rel_df2 <- data.frame(
     id1 = "211",
@@ -426,7 +426,7 @@ specify the marriage with the $relation$ argument, the plot method
 excludes subject $113$ from the plot. The basic plot of $ped1$ is
 shown in the figure below.
 
-```{r, plotped1}
+```{r, plotped1, fig.alt = "Pedigree of family 1"}
 df1 <- sampleped[sampleped$famid == 1, ]
 relate1 <- data.frame(
     id1 = 113,
@@ -447,7 +447,7 @@ creating the Pedigree, we can help the plot method reduce the need to
 duplicate subjects, as Figure\~\ref{reordPed1} no longer has subject
 $110$ duplicated.
 
-```{r, ordering}
+```{r, ordering, fig.alt = "Pedigree of family 1 with reordering"}
 df1reord <- df1[c(35:41, 1:34), ]
 ped1reord <- Pedigree(df1reord, relate1)
 plot(ped1reord)
@@ -466,7 +466,7 @@ patterns used for the filling and the bordering of the plot.
 
 To do so you can do as follow:
 
-```{r, generate_colors}
+```{r, generate_colors, fig.alt = "Pedigree of family 1 with change in colors"}
 scales(ped1)
 ped1 <- generate_colors(
     ped1, col_aff = "num",
@@ -550,7 +550,7 @@ the bit size after removing only the unavailable subjects. We show how
 to extract the shrunken Pedigree object from the $shrink$ result, and
 plot it.
 
-```{r, shrink1}
+```{r, shrink1, fig.alt = "Pedigree of family 1 shrinked to 30 bits"}
 set.seed(200)
 shrink1_b30 <- shrink(ped1, max_bits = 30)
 print(shrink1_b30[c(2:8)])
@@ -562,7 +562,7 @@ who are informative. If there is a tie between multiple subjects about
 who to remove, the method randomly chooses one of them. With this seed
 setting, the method removes subjects $140$ then $141$.
 
-```{r, shrink2}
+```{r, shrink2, fig.alt = "Pedigree of family 1 shrinked to 25 bits"}
 set.seed(10)
 shrink1_b25 <- shrink(ped1, max_bits = 25)
 print(shrink1_b25[c(2:8)])
