@@ -6,6 +6,7 @@ NEWS file for the Pedixplorer package
 
 - Fix github workflows
 - Disable ped_shiny() execution in markdown
+- Publish with `pkgdown`
 
 ## Changes in version 1.1.2
 
