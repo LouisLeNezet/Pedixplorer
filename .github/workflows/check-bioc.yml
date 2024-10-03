@@ -31,6 +31,8 @@ name: R-CMD-check-bioc
 permissions:
   contents: read
   pages: write
+  deployments: write
+  packages: write
 
 ## These environment variables control whether to run GHA code later on that is
 ## specific to testthat, covr, and pkgdown.
