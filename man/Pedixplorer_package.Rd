@@ -67,7 +67,7 @@ library(Pedixplorer)
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/LouisLeNezet/Pedixplorer}
+  \item \url{https://louislenezet.github.io/Pedixplorer/}
   \item Report bugs at \url{https://github.com/LouisLeNezet/Pedixplorer/issues}
 }
 
