@@ -2,17 +2,19 @@
 #'
 #' Small internal function to be used for plotting a Pedigree
 #' object legend
-#'
+#' @inheritParams ped_to_legdf
 #' @keywords internal, plot_legend
 #' @importFrom scales rescale
 plot_legend <- function(
     pedi, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
-    leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL
+    leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
+    lwd = par("lwd")
 ) {
     leg <- ped_to_legdf(
         pedi, cex = cex,
         boxw = boxw, boxh = boxh,
-        adjx = adjx, adjy = adjy
+        adjx = adjx, adjy = adjy,
+        lwd = lwd
     )
     leg$df$x0 <- scales::rescale(leg$df$x0,
         c(leg_loc[1], leg_loc[2])
@@ -128,7 +130,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
-        ...
+        lwd = par("lwd"), ...
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -143,7 +145,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         lst <- ped_to_plotdf(
             x, packed, width, align, align_parents, force,
             cex, symbolsize, pconnect, branch, aff_mark, id_lab, label,
-            precision, ...
+            precision, lwd = lwd, ...
         )
 
         if (is.null(lst)) {

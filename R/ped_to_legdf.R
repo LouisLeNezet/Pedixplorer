@@ -51,7 +51,7 @@ setGeneric(
 #' @importFrom graphics strwidth
 setMethod("ped_to_legdf", "Pedigree", function(
     obj, boxh = 1, boxw = 1,
-    cex = 1, adjx = 0, adjy = 0
+    cex = 1, adjx = 0, adjy = 0, lwd = par("lwd")
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)
     plot_df <- data.frame(
@@ -109,7 +109,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         type = paste(names(poly1)[all_sex], 1, 1, sep = "_"),
         fill = "white",
         border = "black",
-        id = "sex"
+        id = "sex", cex = lwd
     )
 
     sex_label <- data.frame(
@@ -130,7 +130,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         type = rep("square_1_1", length(border_mods)),
         border = border(obj)$border[match(border_mods, border(obj)$mods)],
         fill = "white",
-        id = "border"
+        id = "border", cex = lwd
     )
     lab <- border(obj)$labels[match(border_mods, border(obj)$mods)]
     lab[is.na(lab)] <- "NA"
@@ -154,8 +154,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
             type = rep(paste("square", 1, 1, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black",
-            fill = "white",
+            border = "black", fill = "white", cex = lwd,
             id = paste("aff_bkg", aff, aff_mods, sep = "_")
         )
 
@@ -164,7 +163,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
             type = rep(paste("square", n_aff, aff, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black",
+            border = "black", cex = lwd,
             fill = aff_df$fill[match(aff_mods, aff_df$mods)],
             id = paste("affected", aff, aff_mods, sep = "_")
         )

@@ -37,6 +37,7 @@ NULL
 #' @param id_lab The column name of the id for each individuals.
 #' @param label If not `NULL`, add a label to each box under the id
 #' corresponding to the value of the column given.
+#' @param lwd The line width of the segments, arcs and polygons.
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams set_plot_area
 #' @inheritParams kindepth
@@ -73,7 +74,8 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     obj, packed = TRUE, width = 6,
     align = c(1.5, 2), align_parents = TRUE, force = FALSE,
     cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
-    aff_mark = TRUE, id_lab = "id", label = NULL, precision = 3, ...
+    aff_mark = TRUE, id_lab = "id", label = NULL, precision = 3,
+    lwd = par("lwd"), ...
 ) {
 
     famlist <- unique(famid(ped(obj)))
@@ -159,6 +161,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             density = aff_df[aff_idx, "density"],
             angle = aff_df[aff_idx, "angle"],
             border = border(obj)$border[border_idx],
+            cex = lwd,
             id = "polygon"
         )
         plot_df <- plyr::rbind.fill(plot_df, ind)
@@ -183,7 +186,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         dead_df <- data.frame(
             x0 = pos[idx_dead] - 0.6 * boxw, y0 = i[idx_dead] + 1.1 * boxh,
             x1 = pos[idx_dead] + 0.6 * boxw, y1 = i[idx_dead] - 0.1 * boxh,
-            type = "segments", fill = "black", cex = cex,
+            type = "segments", fill = "black", cex = lwd,
             id = "dead"
         )
 
@@ -222,7 +225,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     l_spouses <- data.frame(
         x0 = pos_sp1, y0 = l_spouses_i,
         x1 = pos_sp2, y1 = l_spouses_i,
-        type = "segments", fill = "black", cex = cex,
+        type = "segments", fill = "black", cex = lwd,
         id = "line_spouses"
     )
     plot_df <- rbind.fill(plot_df, l_spouses)
@@ -238,7 +241,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             y0 = l_spouses2_i,
             x1 = pos_sp22 - boxw / 2,
             y1 = l_spouses2_i,
-            type = "segments", fill = "black", cex = cex,
+            type = "segments", fill = "black", cex = lwd,
             id = "line_spouses2"
         )
         plot_df <- rbind.fill(plot_df, l_spouses2)
@@ -273,7 +276,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             vert <- data.frame(
                 x0 = pos[gen, who], y0 = yy,
                 x1 = target, y1 = yy - legh,
-                type = "segments", fill = "black", cex = cex,
+                type = "segments", fill = "black", cex = lwd,
                 id = "line_children_vertical"
             )
             plot_df <- rbind.fill(plot_df, vert)
@@ -288,7 +291,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 twin_l <- data.frame(
                     x0 = temp1, y0 = yy,
                     x1 = temp2, y1 = yy,
-                    type = "segments", fill = "black", cex = cex,
+                    type = "segments", fill = "black", cex = lwd,
                     id = "line_children_twin1"
                 )
                 plot_df <- rbind.fill(plot_df, twin_l)
@@ -313,7 +316,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             hori <- data.frame(
                 x0 = min(target), y0 = gen - legh,
                 x1 = max(target), y1 = gen - legh,
-                type = "segments", fill = "black", cex = cex,
+                type = "segments", fill = "black", cex = lwd,
                 id = "line_children_horizontal"
             )
             plot_df <- rbind.fill(plot_df, hori)
@@ -335,7 +338,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 l_child_par <- data.frame(
                     x0 = x1, y0 = y1,
                     x1 = parentx, y1 = (gen - 1) + boxh / 2,
-                    type = "segments", fill = "black", cex = cex,
+                    type = "segments", fill = "black", cex = lwd,
                     id = "line_parent_mid"
                 )
             } else {
@@ -345,7 +348,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 l_child_par <- data.frame(
                     x0 = c(x1, x1, x2), y0 = c(y1, y1 + ydelta, y2 - ydelta),
                     x1 = c(x1, x2, x2), y1 = c(y1 + ydelta, y2 - ydelta, y2),
-                    type = "segments", fill = "black", cex = cex,
+                    type = "segments", fill = "black", cex = lwd,
                     id = "line_parent_mid"
                 )
             }
@@ -368,7 +371,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 arc <- data.frame(
                     x0 = tx[j + 0], y0 = ty[j + 0],
                     x1 = tx[j + 1], y1 = ty[j + 1],
-                    type = "arc", fill = "black", cex = cex,
+                    type = "arc", fill = "black", cex = lwd,
                     id = "arc"
                 )
                 plot_df <- rbind.fill(plot_df, arc)

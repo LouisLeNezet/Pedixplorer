@@ -245,16 +245,19 @@ draw_segment <- function(
 #' @importFrom graphics polygon
 draw_polygon <- function(
     x, y, p = NULL, ggplot_gen = FALSE,
-    fill = "grey", border = "black", density = NULL, angle = 45
+    fill = "grey", border = "black", density = NULL, angle = 45,
+    lwd = par("lwd")
 ) {
     graphics::polygon(
         x, y, col = fill, border = border,
-        density = density, angle = angle
+        density = density, angle = angle,
+        lwd = lwd
     )
     if (ggplot_gen) {
         p <- p +
             ggplot2::geom_polygon(
-                ggplot2::aes(x = x, y = y), fill = fill, color = border
+                ggplot2::aes(x = x, y = y), fill = fill, color = border,
+                linewidth = lwd
             )
         # To add pattern stripes use ggpattern::geom_polygon_pattern
         # pattern_density = density[i], pattern_angle = angle[i]))
