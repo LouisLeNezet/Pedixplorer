@@ -17,3 +17,45 @@ news:
   releases:
   - text: "Version 1.0.0"
     href: https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html
+
+reference:
+  - title: "Pedixplorer"
+    url: https://bioconductor.org/packages/Pedixplorer
+    desc: "Pedixplorer a BioConductor package to create, filter and draw pedigrees."
+    contents:
+      - Pedixplorer
+      - Pedixplorer-package
+
+  - title: "Pedigree S4 object"
+    desc : "The Pedigree object is a S4 class that contains the pedigree data."
+    contents:
+      - Pedigree
+      - Ped
+      - Rel
+      - Scales
+      - Hints
+
+  - title: "Pedigree drawing and legend"
+    desc : "The Pedigree object can be drawn using the plot method."
+    contents:
+      - plot(<Pedigree>,<missing>)
+      - ped_to_plotdf(<Pedigree>)
+      - ped_to_legdf(<Pedigree>)
+      - plot_from_df()
+
+  - title: "Pedigree datasets"
+    desc : "Different datasets are available to test the package."
+    contents:
+      - minnbreast
+      - sampleped
+      - relped
+
+right:
+  - title: "View on Bioconductor"
+    url: https://www.bioconductor.org/packages/Pedixplorer
+  - title: "Test the shiny app"
+    url: https://pedixplorer.univ-rennes.fr/
+  - title: "Browse source code"
+    url: https://github.com/LouisLeNezet/Pedixplorer/
+  - title: "Report a bug"
+    url: https://github.com/LouisLeNezet/Pedixplorer/issues
