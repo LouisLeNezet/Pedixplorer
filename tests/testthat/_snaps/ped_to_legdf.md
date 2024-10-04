@@ -59,41 +59,41 @@
       3       NA 1.2                     affection <NA>    0    1
       4       NA 1.2                         avail <NA>    0    1
       5       NA 1.2                       val_num <NA>    0    1
-      6       NA  NA                          <NA> <NA>   NA   NA
-      7       NA  NA                          <NA> <NA>   NA   NA
+      6       NA 0.5                          <NA> <NA>   NA   NA
+      7       NA 0.5                          <NA> <NA>   NA   NA
       8       NA 0.8                          Male <NA>    0    1
       9       NA 0.8                        Female <NA>    0    1
-      10      NA  NA                          <NA> <NA>   NA   NA
-      11      NA  NA                          <NA> <NA>   NA   NA
+      10      NA 0.5                          <NA> <NA>   NA   NA
+      11      NA 0.5                          <NA> <NA>   NA   NA
       12      NA 0.8                 Non Available <NA>    0    1
       13      NA 0.8                     Available <NA>    0    1
-      14      NA  NA                          <NA> <NA>   NA   NA
-      15      NA  NA                          <NA> <NA>   NA   NA
-      16      NA  NA                          <NA> <NA>   NA   NA
-      17      NA  NA                          <NA> <NA>   NA   NA
-      18      NA  NA                          <NA> <NA>   NA   NA
-      19      NA  NA                          <NA> <NA>   NA   NA
+      14      NA 0.5                          <NA> <NA>   NA   NA
+      15      NA 0.5                          <NA> <NA>   NA   NA
+      16      NA 0.5                          <NA> <NA>   NA   NA
+      17      NA 0.5                          <NA> <NA>   NA   NA
+      18      NA 0.5                          <NA> <NA>   NA   NA
+      19      NA 0.5                          <NA> <NA>   NA   NA
       20      NA 0.8             Healthy <= to 0.5 <NA>    0    1
       21      NA 0.8             Affected > to 0.5 <NA>    0    1
       22      NA 0.8                            NA <NA>    0    1
-      23      NA  NA                          <NA> <NA>   NA   NA
-      24      NA  NA                          <NA> <NA>   NA   NA
-      25      NA  NA                          <NA> <NA>   NA   NA
-      26      NA  NA                          <NA> <NA>   NA   NA
+      23      NA 0.5                          <NA> <NA>   NA   NA
+      24      NA 0.5                          <NA> <NA>   NA   NA
+      25      NA 0.5                          <NA> <NA>   NA   NA
+      26      NA 0.5                          <NA> <NA>   NA   NA
       27      NA 0.8             Healthy are FALSE <NA>    0    1
       28      NA 0.8             Affected are TRUE <NA>    0    1
-      29      NA  NA                          <NA> <NA>   NA   NA
-      30      NA  NA                          <NA> <NA>   NA   NA
-      31      NA  NA                          <NA> <NA>   NA   NA
-      32      NA  NA                          <NA> <NA>   NA   NA
-      33      NA  NA                          <NA> <NA>   NA   NA
-      34      NA  NA                          <NA> <NA>   NA   NA
-      35      NA  NA                          <NA> <NA>   NA   NA
-      36      NA  NA                          <NA> <NA>   NA   NA
-      37      NA  NA                          <NA> <NA>   NA   NA
-      38      NA  NA                          <NA> <NA>   NA   NA
-      39      NA  NA                          <NA> <NA>   NA   NA
-      40      NA  NA                          <NA> <NA>   NA   NA
+      29      NA 0.5                          <NA> <NA>   NA   NA
+      30      NA 0.5                          <NA> <NA>   NA   NA
+      31      NA 0.5                          <NA> <NA>   NA   NA
+      32      NA 0.5                          <NA> <NA>   NA   NA
+      33      NA 0.5                          <NA> <NA>   NA   NA
+      34      NA 0.5                          <NA> <NA>   NA   NA
+      35      NA 0.5                          <NA> <NA>   NA   NA
+      36      NA 0.5                          <NA> <NA>   NA   NA
+      37      NA 0.5                          <NA> <NA>   NA   NA
+      38      NA 0.5                          <NA> <NA>   NA   NA
+      39      NA 0.5                          <NA> <NA>   NA   NA
+      40      NA 0.5                          <NA> <NA>   NA   NA
       41      NA 0.8 Healthy <= to 115 : [101,106] <NA>    0    1
       42      NA 0.8 Healthy <= to 115 : (106,110] <NA>    0    1
       43      NA 0.8 Healthy <= to 115 : (110,115] <NA>    0    1

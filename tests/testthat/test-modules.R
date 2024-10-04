@@ -59,10 +59,12 @@ test_that("data_import with default data", {
     app$set_inputs(`my_data_import-to_char` = TRUE)
     app$set_inputs(`my_data_import-quote` = "'")
     app$click("my_data_import-close")
+    app$wait_for_idle()
     # Update output value
     app$expect_values(export = TRUE)
     app$click("my_data_import-testdf")
     # Update output value
+    app$wait_for_idle()
     app$expect_values(export = TRUE)
 })
 
