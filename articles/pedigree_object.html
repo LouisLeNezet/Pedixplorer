@@ -4,97 +4,90 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Pedigree object • Pedixplorer</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Pedigree object">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../lightswitch.js"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><link href="../deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
+<script src="../deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Pedigree object">
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">Pedixplorer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.3</span>
-      </span>
-    </div>
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../articles/Pedixplorer.html">Get started</a>
+    <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/Pedixplorer.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/pedigree_alignment.html">Pedigree alignment details</a></li>
+    <li><a class="dropdown-item" href="../articles/pedigree_kinship.html">Pedigree kinship() details</a></li>
+    <li><a class="dropdown-item" href="../articles/pedigree_object.html">Pedigree object</a></li>
+    <li><a class="dropdown-item" href="../articles/pedigree_plot.html">Pedigree plotting details</a></li>
+  </ul>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/pedigree_alignment.html">Pedigree alignment details</a>
-    </li>
-    <li>
-      <a href="../articles/pedigree_kinship.html">Pedigree kinship() details</a>
-    </li>
-    <li>
-      <a href="../articles/pedigree_object.html">Pedigree object</a>
-    </li>
-    <li>
-      <a href="../articles/pedigree_plot.html">Pedigree plotting details</a>
-    </li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-news">
+<li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Version 1.0.0</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../news/index.html">Changelog</a></li>
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/LouisLeNezet/Pedixplorer/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-
-  </a>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/LouisLeNezet/Pedixplorer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
 
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Pedigree object</h1>
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+
+      <h1>Pedigree object</h1>
                         <h4 data-toc-skip class="author">Terry Therneau,
 Elizabeth Atkinson, Louis Le Nézet</h4>
             
             <h4 data-toc-skip class="date">04 October, 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/website/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
-      <div class="hidden name"><code>pedigree_object.Rmd</code></div>
-
+      <div class="d-none name"><code>pedigree_object.Rmd</code></div>
     </div>
 
     
@@ -132,36 +125,35 @@ It accepts the following input</p>
 <strong>ped_df</strong> A dataframe containing the columns
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>n</mi><mi>d</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">indId</annotation></semantics></math>
-A numeric or character vector of subject identifiers.</li>
+<span class="math inline">indId</span> A numeric or character vector
+of subject identifiers.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">fatherId</annotation></semantics></math>
-The identifier of the father.</li>
+<span class="math inline">fatherId</span> The identifier of the
+father.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>o</mi><mi>t</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>I</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">motherId</annotation></semantics></math>
-The identifier of the mother.</li>
+<span class="math inline">motherId</span> The identifier of the
+mother.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>e</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">gender</annotation></semantics></math>
-The gender of the individual. This can be a numeric variable with codes
-of 1=male, 2=female, 3=unknown, 4=terminated, or NA=unknown. A character
-or factor variable can also be supplied containing the above; the string
-may be truncated and of arbitrary case.</li>
+<span class="math inline">gender</span> The gender of the
+individual. This can be a numeric variable with codes of 1=male,
+2=female, 3=unknown, 4=terminated, or NA=unknown. A character or factor
+variable can also be supplied containing the above; the string may be
+truncated and of arbitrary case.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>v</mi><mi>a</mi><mi>i</mi><mi>l</mi><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">available</annotation></semantics></math>
-Optional, a numeric variable with 0 = unavailable and 1 =
-available.</li>
+<span class="math inline">available</span> Optional, a numeric
+variable with 0 = unavailable and 1 = available.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>f</mi><mi>f</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">affected</annotation></semantics></math>
-Optional, a numeric variable with 0 = unaffected and 1 = affected.</li>
+<span class="math inline">affected</span> Optional, a numeric
+variable with 0 = unaffected and 1 = affected.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>t</mi><mi>u</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">status</annotation></semantics></math>
-Optional, a numeric variable with 0 = censored and 1 = dead.</li>
+<span class="math inline">status</span> Optional, a numeric variable
+with 0 = censored and 1 = dead.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>a</mi><mi>m</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">famid</annotation></semantics></math>
-Optional, a numeric or character vector of family identifiers.</li>
+<span class="math inline">famid</span> Optional, a numeric or
+character vector of family identifiers.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>i</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">steril</annotation></semantics></math>
-Optional, a numeric variable with 0 = not steril and 1 = steril.</li>
+<span class="math inline">steril</span> Optional, a numeric variable
+with 0 = not steril and 1 = steril.</li>
 </ul>
 </li>
 <li>
@@ -169,18 +161,18 @@ Optional, a numeric variable with 0 = not steril and 1 = steril.</li>
 four columns.
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>n</mi><mi>d</mi><mi>I</mi><mi>d</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">indId1</annotation></semantics></math>
-identifier values of the subject pairs</li>
+<span class="math inline">indId1</span> identifier values of the
+subject pairs</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>n</mi><mi>d</mi><mi>I</mi><mi>d</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">indId2</annotation></semantics></math>
-identifier values of the subject pairs</li>
+<span class="math inline">indId2</span> identifier values of the
+subject pairs</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">code</annotation></semantics></math>
-relationship codification : 1 = Monozygotic twin, 2=Dizygotic twin, 3=
-twin of unknown zygosity, 4 = Spouse.</li>
+<span class="math inline">code</span> relationship codification : 1
+= Monozygotic twin, 2=Dizygotic twin, 3= twin of unknown zygosity, 4 =
+Spouse.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>a</mi><mi>m</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">famid</annotation></semantics></math>
-Optional, a numeric or character vector of family identifiers.</li>
+<span class="math inline">famid</span> Optional, a numeric or
+character vector of family identifiers.</li>
 </ul>
 </li>
 <li>
@@ -257,13 +249,11 @@ follow</p>
 <p>If the normalisation process is selected
 <code>normalize = TRUE</code>, then both dataframe will be checked by
 their dedicated normalization function. It will ensure that all
-modalities are written correctly and set up the right way. If a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>a</mi><mi>m</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">famid</annotation></semantics></math>
-column is present in the dataframe, then it will be aggregated to the id
-of each individual and separated by an ’’_’’ to ensure the uniqueness of
-the individuals identifiers.</p>
+modalities are written correctly and set up the right way. If a <span class="math inline">famid</span> column is present in the dataframe,
+then it will be aggregated to the id of each individual and separated by
+an ’’_’’ to ensure the uniqueness of the individuals identifiers.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/LouisLeNezet/Pedixplorer" class="external-link">Pedixplorer</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://louislenezet.github.io/Pedixplorer/">Pedixplorer</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sampleped"</span><span class="op">)</span></span>
 <span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"id"</span>, <span class="st">"avail"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
@@ -305,34 +295,20 @@ describing the encountered problems.</p>
 <h3 id="validation">Validation<a class="anchor" aria-label="anchor" href="#validation"></a>
 </h3>
 <p>Now that the data for the Pedigree object creation are ready, they
-are given to a new
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>g</mi><mi>r</mi><mi>e</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">Pedigree</annotation></semantics></math>
-object, trigerring the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>d</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">validation</annotation></semantics></math>
-process.</p>
+are given to a new <span class="math inline">Pedigree</span> object,
+trigerring the <span class="math inline">validation</span> process.</p>
 <p>This validation step will check up for many errors such as:</p>
 <ul>
 <li>All necessary columns are present</li>
-<li>No duplicated
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">id</annotation></semantics></math>
+<li>No duplicated <span class="math inline">id</span>
 </li>
-<li>All
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>o</mi><mi>m</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">momid</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">dadid</annotation></semantics></math>
-are present in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">id</annotation></semantics></math>
+<li>All <span class="math inline">momid</span> and <span class="math inline">dadid</span> are present in <span class="math inline">id</span>
 </li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>e</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">sex</annotation></semantics></math>
-column only contain “male”, “female”, “unknown” or “terminated”
-values</li>
+<span class="math inline">sex</span> column only contain “male”,
+“female”, “unknown” or “terminated” values</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>i</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">steril</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>t</mi><mi>u</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">status</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>v</mi><mi>a</mi><mi>i</mi><mi>l</mi><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">available</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>f</mi><mi>f</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">affected</annotation></semantics></math>
-only contains 0, 1 or NA values</li>
+<span class="math inline">steril</span>, <span class="math inline">status</span>, <span class="math inline">available</span>, <span class="math inline">affected</span> only contains 0, 1 or NA values</li>
 <li>Father are males and Mother are females</li>
 <li>Twins have same parents and MZ twins have same sex</li>
 <li>Hints object is valid and ids contained is in the Ped object</li>
@@ -343,81 +319,73 @@ only contains 0, 1 or NA values</li>
 <div class="section level2">
 <h2 id="pedigree-class">Pedigree Class<a class="anchor" aria-label="anchor" href="#pedigree-class"></a>
 </h2>
-<p>After validation an
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">S4</annotation></semantics></math>
-object is generated. This new concept make it possible to easily setup
-methods for this new type of object. The controls of the parameters is
-also more precise.</p>
-<p>The
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>g</mi><mi>r</mi><mi>e</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">Pedigree</annotation></semantics></math>
-object contains 4 slots, each of them contains a different
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">S4</annotation></semantics></math>
-object containing a specific type of information used for the Pedigree
-construction.</p>
+<p>After validation an <span class="math inline">S4</span> object is
+generated. This new concept make it possible to easily setup methods for
+this new type of object. The controls of the parameters is also more
+precise.</p>
+<p>The <span class="math inline">Pedigree</span> object contains 4
+slots, each of them contains a different <span class="math inline">S4</span> object containing a specific type of
+information used for the Pedigree construction.</p>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>e</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">ped</annotation></semantics></math>
-a Ped object for the Pedigree information with at least the following
-slots:
+<span class="math inline">ped</span> a Ped object for the Pedigree
+information with at least the following slots:
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">id</annotation></semantics></math>
-the identifiers of the individuals</li>
+<span class="math inline">id</span> the identifiers of the
+individuals</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">dadid</annotation></semantics></math>
-the identifiers of the fathers</li>
+<span class="math inline">dadid</span> the identifiers of the
+fathers</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>o</mi><mi>m</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">momid</annotation></semantics></math>
-the identifiers of the mothers</li>
+<span class="math inline">momid</span> the identifiers of the
+mothers</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>e</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">sex</annotation></semantics></math>
-the gender of each individuals</li>
+<span class="math inline">sex</span> the gender of each
+individuals</li>
 </ul>
 </li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>e</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">rel</annotation></semantics></math>
-a Rel object describing all special relationship beetween individuals
-that can’t be descibed in the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>e</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">ped</annotation></semantics></math>
-slot. The minimal slots needed are :
+<span class="math inline">rel</span> a Rel object describing all
+special relationship beetween individuals that can’t be descibed in the
+<span class="math inline">ped</span> slot. The minimal slots needed are
+:
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>d</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">id1</annotation></semantics></math>
-the identifiers of the 1st individuals</li>
+<span class="math inline">id1</span> the identifiers of the 1st
+individuals</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>d</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">id2</annotation></semantics></math>
-the identifiers of the 2nd individuals</li>
+<span class="math inline">id2</span> the identifiers of the 2nd
+individuals</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">code</annotation></semantics></math>
-factor describing the type of relationship (“MZ twin”, “DZ twin”, “UZ
-twin”, “Spouse”)</li>
+<span class="math inline">code</span> factor describing the type of
+relationship (“MZ twin”, “DZ twin”, “UZ twin”, “Spouse”)</li>
 </ul>
 </li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>e</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">scales</annotation></semantics></math>
-a Scales object with two slots :
+<span class="math inline">scales</span> a Scales object with two
+slots :
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>i</mi><mi>l</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">fill</annotation></semantics></math>
-a dataframe describing which modalities in which columns correspond to
-an affected individuals. Plotting information such as colour, angle and
-density are also provided</li>
+<span class="math inline">fill</span> a dataframe describing which
+modalities in which columns correspond to an affected individuals.
+Plotting information such as colour, angle and density are also
+provided</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mi>o</mi><mi>r</mi><mi>d</mi><mi>e</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">border</annotation></semantics></math>
-a dataframe describing which modalities in which columns to use to plot
-the border of the plot elements.</li>
+<span class="math inline">border</span> a dataframe describing which
+modalities in which columns to use to plot the border of the plot
+elements.</li>
 </ul>
 </li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">hints</annotation></semantics></math>
-a Hints object with two slots :
+<span class="math inline">hints</span> a Hints object with two slots
+:
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>o</mi><mi>r</mi><mi>d</mi><mi>e</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">horder</annotation></semantics></math>
-numeric vector for the ordering of the individuals plotting</li>
+<span class="math inline">horder</span> numeric vector for the
+ordering of the individuals plotting</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>p</mi><mi>o</mi><mi>u</mi><mi>s</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">spouse</annotation></semantics></math>
-a matrix of the spouses</li>
+<span class="math inline">spouse</span> a matrix of the spouses</li>
 </ul>
 </li>
 </ul>
@@ -432,8 +400,7 @@ a matrix of the spouses</li>
 <div class="section level2">
 <h2 id="pedigree-accessors">Pedigree accessors<a class="anchor" aria-label="anchor" href="#pedigree-accessors"></a>
 </h2>
-<p>As the Pedigree object is now an
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">S4</annotation></semantics></math>
+<p>As the Pedigree object is now an <span class="math inline">S4</span>
 class, we have made available a number of accessors. Most of them can be
 used as a getter or as a setter to modify a value in the correponding
 slot of the object</p>
@@ -657,29 +624,22 @@ it:</p>
 <span><span class="co">## [73] BiocGenerics_0.50.0 jsonlite_1.8.9      R6_2.5.1           </span></span>
 <span><span class="co">## [76] plyr_1.8.9          systemfonts_1.1.0   fs_1.6.4</span></span></code></pre>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
-
 
 
 
