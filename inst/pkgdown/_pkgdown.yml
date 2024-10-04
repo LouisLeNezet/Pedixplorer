@@ -1,7 +1,7 @@
 url: https://louislenezet.github.io/Pedixplorer
 
 home:
-  title: An BioConductor R package for pedigree creation, filtering and drawing
+  title: A BioConductor R package for pedigree creation, filtering and drawing
   description: Routines to handle family data with a Pedigree object.
 
 template:

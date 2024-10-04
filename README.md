@@ -1,11 +1,11 @@
-# The `Pedixplorer` Package <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:140px;"/>
+# The `Pedixplorer` Package <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:200px;"/>
 
 <!-- badges: start -->
-  [![](https://img.shields.io/badge/release%20version-1.1.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
-  [![platform](http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg)](https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives)
+  [![Release](https://img.shields.io/badge/release%20version-1.1.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
+  [![Platform](http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg)](https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives)
   [![rank](http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg)](http://bioconductor.org/packages/stats/bioc/Pedixplorer/)
   [![BioC Status](https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/)
-  [![codecov](https://codecov.io/gh/LouisLeNezet/Pedixplorer/graph/badge.svg?token=ZFQ3GZJ4BL)](https://codecov.io/gh/LouisLeNezet/Pedixplorer)     
+  [![codecov](https://codecov.io/gh/LouisLeNezet/Pedixplorer/graph/badge.svg?token=ZFQ3GZJ4BL)](https://codecov.io/gh/LouisLeNezet/Pedixplorer)
 <!-- badges: end -->
 
 This is a fork and the new version of the [**kinship2**](https://github.com/mayoverse/kinship2) package.
@@ -17,11 +17,12 @@ It has now an S4 class for pedigrees, a kinship function that calculates the kin
 matrix from a Pedigree object, and the Pedigree plotting routines that adhere
 to many of the standards for genetics counselors.
 
-## Installation
+> [!TIP]
+> Try today the [**Pedixplorer shiny app**](https://pedixplorer.univ-rennes.fr/) to easily use the package.
+
+## Installation through R
 
 ### From Github
-
-To install this package from Github you can use the following R script:
 
 ```R
 if (!require("remotes", quietly = TRUE))
@@ -30,11 +31,9 @@ if (!require("remotes", quietly = TRUE))
 remotes::install_github("louislenezet/Pedixplorer",
     build_vignettes=TRUE
 )
-````
+```
 
-### From Bioconductor (not yet available)
-
-To install this package you can use the following R script:
+### From Bioconductor
 
 ```R
 if (!require("BiocManager", quietly = TRUE))
@@ -43,24 +42,22 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("Pedixplorer")
 ```
 
-## Documentation
+## Documentation and News
 
-To view documentation for the version of this package installed in your system,
-start R and enter:
+To view documentation start R and enter:
 
 ```R
+library(Pedixplorer)
+help(package="Pedixplorer")
+
+# Or to view the vignettes
 browseVignettes("Pedixplorer")
-```
 
-## News
-
-To see the new functions / modification please use:
-
-```R
+# Or to see the news
 utils::news(package="Pedixplorer")
 ```
 
-## The main functions
+## **Main functions**
 
 ### The `Pedigree()` Function
 
@@ -104,7 +101,7 @@ chromosomes.
 
 | | |
 |-|-|
-| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/). | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800" style="width:800px;"/>|
+| <p valign="center">To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/). </p> | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800" style="height:400px;"/>|
 
 ### Other Notable Functions
 
