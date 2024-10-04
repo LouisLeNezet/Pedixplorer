@@ -87,19 +87,21 @@
       </header><div class="row">
   <div class="contents col-md-9">
 <div class="section level1">
-<div class="page-header"><h1 id="the-pedixplorer-package-">The <code>Pedixplorer</code> Package <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:140px;"><a class="anchor" aria-label="anchor" href="#the-pedixplorer-package-"></a>
+<div class="page-header"><h1 id="the-pedixplorer-package-">The <code>Pedixplorer</code> Package <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:200px;"><a class="anchor" aria-label="anchor" href="#the-pedixplorer-package-"></a>
 </h1></div>
 <!-- badges: start -->
 
 <p>This is a fork and the new version of the <a href="https://github.com/mayoverse/kinship2" class="external-link"><strong>kinship2</strong></a> package.</p>
 <p>Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a kinship function that calculates the kinship matrix from a Pedigree object, and the Pedigree plotting routines that adhere to many of the standards for genetics counselors.</p>
+<blockquote>
+<p>[!TIP] Try today the <a href="https://pedixplorer.univ-rennes.fr/" class="external-link"><strong>Pedixplorer shiny app</strong></a> to easily use the package.</p>
+</blockquote>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="installation-through-r">Installation through R<a class="anchor" aria-label="anchor" href="#installation-through-r"></a>
 </h2>
 <div class="section level3">
 <h3 id="from-github">From Github<a class="anchor" aria-label="anchor" href="#from-github"></a>
 </h3>
-<p>To install this package from Github you can use the following R script:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
@@ -109,9 +111,8 @@
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="from-bioconductor-not-yet-available">From Bioconductor (not yet available)<a class="anchor" aria-label="anchor" href="#from-bioconductor-not-yet-available"></a>
+<h3 id="from-bioconductor">From Bioconductor<a class="anchor" aria-label="anchor" href="#from-bioconductor"></a>
 </h3>
-<p>To install this package you can use the following R script:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
@@ -120,21 +121,22 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+<h2 id="documentation-and-news">Documentation and News<a class="anchor" aria-label="anchor" href="#documentation-and-news"></a>
 </h2>
-<p>To view documentation for the version of this package installed in your system, start R and enter:</p>
+<p>To view documentation start R and enter:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span><span class="st">"Pedixplorer"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/LouisLeNezet/Pedixplorer" class="external-link">Pedixplorer</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"Pedixplorer"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or to view the vignettes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span><span class="st">"Pedixplorer"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or to see the news</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/news.html" class="external-link">news</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"Pedixplorer"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
-</h2>
-<p>To see the new functions / modification please use:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/news.html" class="external-link">news</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"Pedixplorer"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="the-main-functions">The main functions<a class="anchor" aria-label="anchor" href="#the-main-functions"></a>
+<h2 id="main-functions">
+<strong>Main functions</strong><a class="anchor" aria-label="anchor" href="#main-functions"></a>
 </h2>
 <div class="section level3">
 <h3 id="the-pedigree-function">The <code>Pedigree()</code> Function<a class="anchor" aria-label="anchor" href="#the-pedigree-function"></a>
@@ -169,8 +171,8 @@
 <col width="50%">
 </colgroup>
 <tbody><tr class="odd">
-<td>To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting <code>Pedigree</code> object before visualising it. You’ll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at <a href="https://pedixplorer.univ-rennes.fr/" class="external-link">pedixplorer.univ-rennes</a>.</td>
-<td><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" width="800" style="width:800px;"></td>
+<td></td>
+<td><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" height="400" style="height:400px;"></td>
 </tr></tbody>
 </table>
 </div>
@@ -288,8 +290,8 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.bioconductor.org/packages/Pedixplorer" class="external-link"><img src="https://img.shields.io/badge/release%20version-1.1.0-green.svg"></a></li>
-<li><a href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives" class="external-link"><img src="http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg" alt="platform"></a></li>
+<li><a href="https://www.bioconductor.org/packages/Pedixplorer" class="external-link"><img src="https://img.shields.io/badge/release%20version-1.1.0-green.svg" alt="Release"></a></li>
+<li><a href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives" class="external-link"><img src="http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg" alt="Platform"></a></li>
 <li><a href="http://bioconductor.org/packages/stats/bioc/Pedixplorer/" class="external-link"><img src="http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg" alt="rank"></a></li>
 <li><a href="http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/" class="external-link"><img src="https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg" alt="BioC Status"></a></li>
 <li><a href="https://codecov.io/gh/LouisLeNezet/Pedixplorer" class="external-link"><img src="https://codecov.io/gh/LouisLeNezet/Pedixplorer/graph/badge.svg?token=ZFQ3GZJ4BL" alt="codecov"></a></li>
