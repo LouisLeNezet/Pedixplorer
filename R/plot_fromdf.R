@@ -103,15 +103,15 @@ plot_fromdf <- function(
     ), 1, paste, collapse = "_")
 
     seg <- df[df$type == "segments" & df$id != "dead", ]
-    if (!is.null(seg)) {
+    if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
-            p, ggplot_gen, seg$fill, seg$cex
+            p, ggplot_gen, col = seg$fill, lwd = seg$cex
         )
     }
 
     boxes <- df[df$type %in% all_types, ]
-    if (!is.null(boxes)) {
+    if (!is.null(boxes) && nrow(boxes) > 0) {
         boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(
             boxes$type, "_", 3
         )
@@ -124,23 +124,23 @@ plot_fromdf <- function(
                 boxes$x0[i] + poly$x * boxw,
                 boxes$y0[i] + poly$y * boxh,
                 p, ggplot_gen,
-                boxes$fill[i], boxes$border[i],
-                boxes$density[i], boxes$angle[i],
+                fill = boxes$fill[i], border = boxes$border[i],
+                density = boxes$density[i], angle = boxes$angle[i],
                 lwd = boxes$cex[i]
             )
         }
     }
 
     seg <- df[df$type == "segments" & df$id == "dead", ]
-    if (!is.null(seg)) {
+    if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
-            p, ggplot_gen, seg$fill, seg$cex
+            p, ggplot_gen, col = seg$fill, lwd = seg$cex
         )
     }
 
     arcs <- df[df$type == "arc", ]
-    if (!is.null(arcs)) {
+    if (!is.null(arcs) && nrow(arcs) > 0) {
         for (it in seq_len(nrow(arcs))){
             arc <- arcs[it, ]
             p <- draw_arc(arc$x0, arc$y0, arc$x1, arc$y1,
@@ -151,10 +151,11 @@ plot_fromdf <- function(
 
 
     txt <- df[df$type == "text" & !is.na(df$label), ]
-    if (!is.null(txt)) {
+    if (!is.null(txt) && nrow(txt) > 0) {
         p <- draw_text(
             txt$x0, txt$y0, txt$label,
-            p, ggplot_gen, txt$cex, txt$fill, txt$adjx, txt$adjy
+            p, ggplot_gen, txt$cex, txt$fill,
+            txt$adjx, txt$adjy
         )
     }
 
