@@ -8,11 +8,10 @@ template:
   bootstrap: 5
   light-switch: true
   math-rendering: katex
-  opengraph:
-    image:
-      src: https://louislenezet.github.io/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png
-      alt: "Pedixplorer BioConductor package"
-      size: 200x200
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
 
 news:
   releases:
