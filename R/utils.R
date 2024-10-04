@@ -166,7 +166,6 @@ check_num_na <- function(var, na_as_num = TRUE) {
 #' @return A vector of boolean of the same size as **obj**
 #' with TRUE if the individual is a parent and FALSE otherwise
 #' @inheritParams Ped
-#' @keywords internal
 #' @usage NULL
 setGeneric("is_parent", signature = "obj",
     function(obj, ...) standardGeneric("is_parent")
@@ -248,6 +247,7 @@ is_founder <- function(momid, dadid, missid = NA_character_) {
 #'     c("4", "4", NA, NA, NA)
 #' )
 #' @export
+#' @keywords internal
 is_disconnected <- function(id, dadid, momid) {
     # check to see if any subjects are disconnected in Pedigree by checking for
     # kinship = 0 for all subjects excluding self
@@ -315,6 +315,7 @@ NULL
 #' @examples
 #' sex_to_factor(c(1, 2, 3, 4, "f", "m", "man", "female"))
 #' @export
+#' @keywords internal
 sex_to_factor <- function(sex) {
     if (is.factor(sex) || is.numeric(sex)) {
         sex <- as.character(sex)
@@ -347,6 +348,7 @@ NULL
 #' @examples
 #' rel_code_to_factor(c(1, 2, 3, 4, "MZ twin", "DZ twin", "UZ twin", "Spouse"))
 #' @export
+#' @keywords internal
 rel_code_to_factor <- function(code) {
     if (is.factor(code) || is.numeric(code)) {
         code <- as.character(code)
@@ -396,6 +398,7 @@ rel_code_to_factor <- function(code) {
 #'     c(0, 1, 2, 3.6, "TRUE", "FALSE", "0", "1", "NA", "B", TRUE, FALSE, NA)
 #' )
 #' @export
+#' @keywords internal
 vect_to_binary <- function(vect, logical = FALSE) {
     if (is.factor(vect) || is.numeric(vect) || is.logical(vect)) {
         vect <- as.character(vect)
@@ -430,6 +433,7 @@ vect_to_binary <- function(vect, logical = FALSE) {
 #' @examples
 #' anchor_to_factor(c(1, 2, 0, "left", "right", "either"))
 #' @export
+#' @keywords internal
 anchor_to_factor <- function(anchor) {
     if (is.factor(anchor) || is.numeric(anchor)) {
         anchor <- as.character(anchor)

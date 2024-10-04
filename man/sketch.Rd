@@ -15,5 +15,5 @@ An html sketch of the family information table
 \description{
 Simple function to create a sketch of the family information table.
 }
-\keyword{internal,}
+\keyword{internal}
 \keyword{ped_avaf_infos}

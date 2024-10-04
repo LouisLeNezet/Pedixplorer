@@ -21,4 +21,4 @@ A subset of the plot coordinates
 Subset a region of a Pedigree
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

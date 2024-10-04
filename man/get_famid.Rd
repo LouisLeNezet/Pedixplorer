@@ -27,3 +27,4 @@ set to NA.
 \examples{
 get_famid(c("A", "1_B", "C_2", "D_", "_E", "F"))
 }
+\keyword{internal}

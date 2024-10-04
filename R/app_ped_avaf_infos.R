@@ -4,7 +4,8 @@
 #'
 #' @param var_name the name of the health variable
 #' @return An html sketch of the family information table
-#' @keywords internal, ped_avaf_infos
+#' @keywords internal
+#' @keywords ped_avaf_infos
 #' @importFrom shiny tags HTML
 sketch <- function(var_name) {
     shiny::tags$table(
@@ -50,7 +51,7 @@ sketch <- function(var_name) {
 #' pedi <- generate_colors(pedi, "num_child_tot", threshold = 2)
 #' Pedixplorer:::family_infos_table(pedi, "num_child_tot")
 #' Pedixplorer:::family_infos_table(pedi, "affection")
-#' @keywords internal, ped_avaf_infos
+#' @keywords ped_avaf_infos
 #' @importFrom tidyr spread
 family_infos_table <- function(pedi, col_val = NA) {
     if (!col_val %in% fill(pedi)$column_values) {

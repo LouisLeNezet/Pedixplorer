@@ -14,6 +14,7 @@
 #' )
 #' get_families_table(df, "health")
 #' @export
+#' @keywords internal
 #' @importFrom dplyr group_by summarise n sym
 get_families_table <- function(df, var) {
     if (!var %in% colnames(df) || !("famid" %in% colnames(df))) {
@@ -54,6 +55,7 @@ get_families_table <- function(df, var) {
 #' get_title(1, 1, "health", "A", "All", 3, FALSE, 10, FALSE)
 #' @export
 #' @importFrom stringr str_replace_all
+#' @keywords internal
 get_title <- function(
     family_sel, subfamily_sel, family_var, mod, inf_selected,
     kin_max, keep_parents, nb_rows, short_title = FALSE

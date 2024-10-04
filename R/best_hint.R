@@ -6,7 +6,8 @@
 #'
 #' @param x A vector of length **n**
 #' @return A matrix with **n** cols and **n!** rows
-#' @keywords internal, auto_hint
+#' @keywords internal
+#' @keywords auto_hint
 permute <- function(x) {
     n <- length(x)
     if (n == 1) {

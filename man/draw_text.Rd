@@ -43,4 +43,4 @@ or add it to a ggplot object
 Draw texts
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

@@ -31,4 +31,4 @@ the order they should be plotted.
 \code{\link[=auto_hint]{auto_hint()}}
 }
 \keyword{auto_hint}
-\keyword{internal,}
+\keyword{internal}

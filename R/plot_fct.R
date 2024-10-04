@@ -7,7 +7,8 @@
 #' @param df A data frame with all the plot coordinates
 #'
 #' @return A subset of the plot coordinates
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 subregion <- function(df, subreg = NULL) {
     if (is.null(subreg)) {
         return(df)
@@ -44,7 +45,8 @@ subregion <- function(df, subreg = NULL) {
 #' @param n Total number of points in the circle
 #'
 #' @return A list of x and y coordinates per slice.
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @examples
 #'
 #' circfun(1)
@@ -77,7 +79,8 @@ circfun <- function(nslice, n = 50) {
 #' containing x and y coordinates and theta
 #'
 #' @return a list of x and y coordinates
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @examples
 #' polyfun(2, list(
 #'     x = c(-0.5, -0.5, 0.5, 0.5),
@@ -138,7 +141,8 @@ polyfun <- function(nslice, coor) {
 #'
 #' @return a list of polygonal elements with x, y coordinates
 #' and theta by slice.
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @examples
 #' polygons()
 #' polygons(4)
@@ -205,7 +209,8 @@ NULL
 #'
 #' @return Plot the segments to the current device
 #' or add it to a ggplot object
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @importFrom ggplot2 annotate
 #' @importFrom graphics segments
 draw_segment <- function(
@@ -234,7 +239,8 @@ draw_segment <- function(
 #'
 #' @return Plot the polygon  to the current device
 #' or add it to a ggplot object
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @importFrom ggplot2 geom_polygon aes
 #' @importFrom graphics polygon
 draw_polygon <- function(
@@ -268,7 +274,8 @@ draw_polygon <- function(
 #'
 #' @return Plot the text to the current device
 #' or add it to a ggplot object
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @importFrom ggplot2 annotate
 #' @importFrom graphics text
 draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
@@ -290,7 +297,8 @@ draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
 #'
 #' @return Plot the arcs to the current device
 #' or add it to a ggplot object
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @importFrom ggplot2 annotate
 #' @importFrom graphics lines
 draw_arc <- function(
@@ -322,7 +330,8 @@ draw_arc <- function(
 #' @return List of user coordinates, old par, box width, box height,
 #' label height and leg height
 #'
-#' @keywords internal, Pedigree-plot
+#' @keywords internal
+#' @keywords Pedigree-plot
 #' @importFrom graphics par strwidth strheight
 set_plot_area <- function(
     cex, id, maxlev, xrange, symbolsize, precision = 3, ...

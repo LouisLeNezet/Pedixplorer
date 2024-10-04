@@ -40,3 +40,4 @@ vect_to_binary(
     c(0, 1, 2, 3.6, "TRUE", "FALSE", "0", "1", "NA", "B", TRUE, FALSE, NA)
 )
 }
+\keyword{internal}

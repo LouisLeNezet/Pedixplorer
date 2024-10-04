@@ -40,4 +40,4 @@ or add it to a ggplot object
 Draw a polygon
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

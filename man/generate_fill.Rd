@@ -91,6 +91,6 @@ gradient follow the direction of the affection.
 aff <- generate_aff_inds(seq_len(5), threshold = 3, sup_thres_aff = TRUE)
 generate_fill(seq_len(5), aff$affected, aff$labels)
 generate_fill(seq_len(5), aff$affected, aff$labels, keep_full_scale = TRUE)
-
 }
 \keyword{generate_scales}
+\keyword{internal}

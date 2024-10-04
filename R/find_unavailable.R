@@ -111,7 +111,8 @@ setMethod("find_unavailable", "Pedigree",
 #' Returns a data frame of subject identifiers and their parents.
 #' The data frame is trimmed of any founders who are not parents.
 #'
-#' @keywords internal, shrink
+#' @keywords internal
+#' @keywords shrink
 #' @seealso [shrink()]
 exclude_stray_marryin <- function(id, dadid, momid) {
     # get rid of founders who are not parents (stray available marryins
@@ -144,7 +145,8 @@ exclude_stray_marryin <- function(id, dadid, momid) {
 #' - dadid Vector of father identifiers
 #' - momid Vector of mother identifiers
 #'
-#' @keywords internal, shrink
+#' @keywords internal
+#' @keywords shrink
 #' @seealso [shrink()]
 exclude_unavail_founders <- function(
     id, dadid, momid, avail, missid = NA_character_

@@ -41,5 +41,5 @@ Exclude any unavailable founders.
 \seealso{
 \code{\link[=shrink]{shrink()}}
 }
-\keyword{internal,}
+\keyword{internal}
 \keyword{shrink}

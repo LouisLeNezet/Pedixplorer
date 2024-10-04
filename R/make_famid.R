@@ -277,6 +277,7 @@ setMethod("upd_famid",
 #' @param obj A character vector of individual ids
 #' @return A character vector of family ids
 #' @export
+#' @keywords internal
 setGeneric("get_famid",
     function(obj) standardGeneric("get_famid")
 )

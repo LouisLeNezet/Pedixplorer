@@ -38,4 +38,3 @@ data(sampleped)
 ped <- Pedigree(sampleped)
 is_parent(ped(ped))
 }
-\keyword{internal}
