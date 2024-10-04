@@ -17,7 +17,6 @@ It has now an S4 class for pedigrees, a kinship function that calculates the kin
 matrix from a Pedigree object, and the Pedigree plotting routines that adhere
 to many of the standards for genetics counselors.
 
-> [!TIP]
 > Try today the [**Pedixplorer shiny app**](https://pedixplorer.univ-rennes.fr/) to easily use the package.
 
 ## Installation through R
@@ -101,7 +100,7 @@ chromosomes.
 
 | | |
 |-|-|
-| <p valign="center">To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/). </p> | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" height="400" style="height:400px;"/>|
+| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/).| <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" max-height="400" style="max-height:400px;"/>|
 
 ### Other Notable Functions
 
