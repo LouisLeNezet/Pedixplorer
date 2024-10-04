@@ -102,7 +102,36 @@ plot_fromdf <- function(
         names(polygons(1)), seq_len(max_aff), seq_len(max_aff)
     ), 1, paste, collapse = "_")
 
-    seg <- df[df$type == "segments", ]
+    seg <- df[df$type == "segments" & df$id != "dead", ]
+    if (!is.null(seg)) {
+        p <- draw_segment(
+            seg$x0, seg$y0, seg$x1, seg$y1,
+            p, ggplot_gen, seg$fill, seg$cex
+        )
+    }
+
+    boxes <- df[df$type %in% all_types, ]
+    if (!is.null(boxes)) {
+        boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(
+            boxes$type, "_", 3
+        )
+        boxes$angle[boxes$angle == "NA"] <- 45
+        for (i in seq_len(dim(boxes)[1])){
+            poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
+                as.numeric(boxes$naff[i])
+            ]]
+            p <- draw_polygon(
+                boxes$x0[i] + poly$x * boxw,
+                boxes$y0[i] + poly$y * boxh,
+                p, ggplot_gen,
+                boxes$fill[i], boxes$border[i],
+                boxes$density[i], boxes$angle[i],
+                lwd = boxes$cex[i]
+            )
+        }
+    }
+
+    seg <- df[df$type == "segments" & df$id == "dead", ]
     if (!is.null(seg)) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
@@ -121,25 +150,6 @@ plot_fromdf <- function(
     }
 
 
-    boxes <- df[df$type %in% all_types, ]
-    if (!is.null(boxes)) {
-        boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(
-            boxes$type, "_", 3
-        )
-        boxes$angle[boxes$angle == "NA"] <- 45
-        for (i in seq_len(dim(boxes)[1])){
-            poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
-                as.numeric(boxes$naff[i])
-            ]]
-            p <- draw_polygon(
-                boxes$x0[i] + poly$x * boxw,
-                boxes$y0[i] + poly$y * boxh,
-                p, ggplot_gen,
-                boxes$fill[i], boxes$border[i], boxes$density[i], boxes$angle[i],
-                lwd = boxes$cex[i]
-            )
-        }
-    }
     txt <- df[df$type == "text" & !is.na(df$label), ]
     if (!is.null(txt)) {
         p <- draw_text(
