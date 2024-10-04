@@ -1,4 +1,4 @@
-# `Pedixplorer`: a BioConductor package to create, filter and draw pedigree <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:200px;"/>
+# `Pedixplorer`: a BioConductor package to create, filter and draw pedigree
 
 <!-- badges: start -->
   [![Release](https://img.shields.io/badge/release%20version-1.1.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
@@ -8,14 +8,9 @@
   [![codecov](https://codecov.io/gh/LouisLeNezet/Pedixplorer/graph/badge.svg?token=ZFQ3GZJ4BL)](https://codecov.io/gh/LouisLeNezet/Pedixplorer)
 <!-- badges: end -->
 
-This is a fork and the new version of the [**kinship2**](https://github.com/mayoverse/kinship2) package.
-
-Initially a set of functions to view pedigrees while developing models that use
-kinship matrices, the functions were useful enough to put into a package of its
-own.
-It has now an S4 class for pedigrees, a kinship function that calculates the kinship
-matrix from a Pedigree object, and the Pedigree plotting routines that adhere
-to many of the standards for genetics counselors.
+|||
+|-|-|
+| This is a fork and the new version of the [**kinship2**](https://github.com/mayoverse/kinship2) package. Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a kinship function that calculates the kinship matrix from a Pedigree object, and the Pedigree plotting routines that adhere to many of the standards for genetics counselors. | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" max-height="140" style="align:center;max-height:200px;"/> |
 
 > Try today the [**Pedixplorer shiny app**](https://pedixplorer.univ-rennes.fr/) to easily use the package.
 
@@ -85,7 +80,7 @@ chromosomes.
 
 | | |
 |-|-|
-| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/).| <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" align="center" max-width="300" style="max-width:300px;align:center;"/>|
+| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/).| <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" align="right" max-width="300" style="max-width:300px;align:right;"/>|
 
 ### Other Notable Functions
 
