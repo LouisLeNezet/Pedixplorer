@@ -1,4 +1,4 @@
-# The `Pedixplorer` Package <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:200px;"/>
+# `Pedixplorer`: a BioConductor package to create, filter and draw pedigree <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" align="right" height="140" style="float:right;height:200px;"/>
 
 <!-- badges: start -->
   [![Release](https://img.shields.io/badge/release%20version-1.1.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
