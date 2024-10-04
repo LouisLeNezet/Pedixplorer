@@ -1,8 +1,6 @@
 url: https://louislenezet.github.io/Pedixplorer
 
 home:
-  title: `Pedixplorer` a BioConductor R package for pedigree creation, filtering and drawing
-  description: Routines to handle family data with a Pedigree object.
   links:
     - text: "Test the shiny app"
       href: https://pedixplorer.univ-rennes.fr/
@@ -37,14 +35,52 @@ reference:
       - Rel
       - Scales
       - Hints
+  
+  - title: "Pedigree construction"
+    desc : "How to fix pedigree data and normalize it"
+    contents:
+      - fix_parents
+      - norm_ped
+      - norm_rel
+
+  - title: "Shiny app"
+    desc : "The Pedixplorer package comes with a shiny app to interact with the Pedigree object."
+    contents:
+      - ped_shiny
 
   - title: "Pedigree drawing and legend"
     desc : "The Pedigree object can be drawn using the plot method."
     contents:
-      - plot(<Pedigree>,<missing>)
-      - ped_to_plotdf(<Pedigree>)
-      - ped_to_legdf(<Pedigree>)
-      - plot_from_df()
+      - plot,Pedigree,missing-method
+      - ped_to_plotdf
+      - ped_to_legdf
+      - plot_fromdf
+      - generate_colors
+
+  - title: "Pedigree informations"
+    desc: "Informations about the pedigree."
+    contents:
+      - kinship
+      - ibd_matrix
+      - num_child
+      - is_informative
+      - family_infos_table
+      - unrelated
+      - parent_of
+      - is_parent
+      - make_famid
+      - upd_famid
+
+  - title: "Pedigree filtering"
+    desc: "Filtering methods to select a subset of individuals in a pedigree."
+    contents:
+      - useful_inds
+      - min_dist_inf
+      - shrink
+      - bit_size
+      - find_avail_affected
+      - find_avail_noninform
+      - find_unavailable
 
   - title: "Pedigree datasets"
     desc : "Different datasets are available to test the package."
@@ -52,3 +88,15 @@ reference:
       - minnbreast
       - sampleped
       - relped
+
+  - title: "Pedigree alignment"
+    desc: "Alignment methods to organize graphical representation of pedigrees."
+    contents:
+      - align
+      - alignped1
+      - alignped2
+      - alignped3
+      - alignped4
+      - auto_hint
+      - best_hint
+      - kindepth
