@@ -28,7 +28,7 @@ R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
 plot.new()
 
 ## Set up the environment
-withr::local_options(width = 150, digits = 8, browser = NULL)
+withr::local_options(width = 150, digits = 8, browser = "mozilla")
 withr::local_options(width = 150, digits = 8, browser = "google-chrome")
 options(shiny.testmode = TRUE, shinytest2.load_timeout = 60000)
 Sys.setenv("R_TESTS" = "")
