@@ -119,6 +119,7 @@ plot_legend <- function(
 #' @keywords Pedigree-plot
 #' @export
 #' @docType methods
+#' @rdname plot_pedigree
 setMethod("plot", c(x = "Pedigree", y = "missing"),
     function(x, aff_mark = TRUE, id_lab = "id", label = NULL,
         ggplot_gen = FALSE, cex = 1, symbolsize = 1,
