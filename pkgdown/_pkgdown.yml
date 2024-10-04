@@ -50,12 +50,7 @@ reference:
       - sampleped
       - relped
 
-right:
-  - title: "View on Bioconductor"
-    url: https://www.bioconductor.org/packages/Pedixplorer
-  - title: "Test the shiny app"
-    url: https://pedixplorer.univ-rennes.fr/
-  - title: "Browse source code"
-    url: https://github.com/LouisLeNezet/Pedixplorer/
-  - title: "Report a bug"
-    url: https://github.com/LouisLeNezet/Pedixplorer/issues
+home:
+  links:
+    - text: "Test the shiny app"
+      href: https://pedixplorer.univ-rennes.fr/

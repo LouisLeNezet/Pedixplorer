@@ -10,28 +10,17 @@ on:
 
 name: Deploy pkgdown site
 
-permissions:
-  actions: none
-  attestations: none
-  checks: none
-  contents: write
-  deployments: write
-  id-token: none
-  issues: none
-  discussions: none
-  packages: write
-  pages: write
-  pull-requests: none
-  repository-projects: none
-  security-events: none
-  statuses: none
+permissions: read-all
 
 jobs:
-  build-check:
+  pkgdown:
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
     container: ${{ matrix.config.cont }}
     ## Environment variables unique to this job.
+
+    permissions:
+      contents: write
 
     strategy:
       fail-fast: false

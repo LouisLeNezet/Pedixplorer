@@ -41,22 +41,7 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("Pedixplorer")
 ```
 
-## Documentation and News
-
-To view documentation start R and enter:
-
-```R
-library(Pedixplorer)
-help(package="Pedixplorer")
-
-# Or to view the vignettes
-browseVignettes("Pedixplorer")
-
-# Or to see the news
-utils::news(package="Pedixplorer")
-```
-
-## **Main functions**
+## Main functions
 
 ### The `Pedigree()` Function
 
@@ -100,7 +85,7 @@ chromosomes.
 
 | | |
 |-|-|
-| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/).| <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" max-height="400" style="max-height:400px;"/>|
+| To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [pedixplorer.univ-rennes](https://pedixplorer.univ-rennes.fr/).| <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" alt="shiny-app_diagram" align="center" max-width="300" style="max-width:300px;align:center;"/>|
 
 ### Other Notable Functions
 
@@ -132,3 +117,18 @@ Here is the details of the different parts of the diagram.
 | **Informations**         | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/infos.png" alt="infos" width="800"/>             | From a *S4 Pedigree object* it is possible to extract a lot of informations about the individuals, such as their shared relatedness **kinship()**, the number of direct and indirect child **num_child()**, their informativeness based on a set variable **is_informative()**, ... |
 | **Checking columns**     | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/checkingcol.png" alt="checkingcol" height="200" style="height:200px;"/> | The **check_col()** function is used to check the presence absence of columns in a designated *data.frame* |
 | **Legend**               | <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/legend.png" alt="legend" height="200"  style="height:200px;"/>           | The diagrams listed here follow this rules |
+
+## Documentation and News
+
+To view documentation start R and enter:
+
+```R
+library(Pedixplorer)
+help(package="Pedixplorer")
+
+# Or to view the vignettes
+browseVignettes("Pedixplorer")
+
+# Or to see the news
+utils::news(package="Pedixplorer")
+```
