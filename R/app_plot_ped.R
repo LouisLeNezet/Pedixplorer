@@ -151,13 +151,17 @@ plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
 #' @rdname plot_ped
 #' @export
 #' @importFrom shiny shinyApp fluidPage
-plot_ped_demo <- function(pedi, max_ind = 500) {
+plot_ped_demo <- function(pedi, precision = 2, max_ind = 500) {
     ui <- shiny::fluidPage(
         plot_ped_ui("plot_ped"),
         plot_download_ui("saveped")
     )
     server <- function(input, output, session) {
-        ped_plot <- plot_ped_server("plot_ped", pedi, "My Pedigree", max_ind)
+        ped_plot <- plot_ped_server(
+            "plot_ped", pedi,
+            "My Pedigree", max_ind = max_ind,
+            precision = precision
+        )
         plot_download_server("saveped", ped_plot)
     }
     shiny::shinyApp(ui, server)
