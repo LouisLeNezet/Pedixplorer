@@ -1,4 +1,4 @@
-pandoc: '3.2'
+pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
@@ -6,5 +6,5 @@ articles:
   pedigree_kinship: pedigree_kinship.html
   pedigree_object: pedigree_object.html
   pedigree_plot: pedigree_plot.html
-  pedigree: pedigree.html
-last_built: 2024-10-03T15:13Z
+  Pedixplorer: Pedixplorer.html
+last_built: 2024-10-04T13:44Z
