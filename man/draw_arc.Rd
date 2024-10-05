@@ -11,7 +11,7 @@ draw_arc(
   y1,
   p = NULL,
   ggplot_gen = FALSE,
-  lwd = 1,
+  lwd = par("lwd"),
   lty = 2,
   col = "black"
 )

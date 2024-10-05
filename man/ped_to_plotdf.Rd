@@ -20,6 +20,7 @@
   id_lab = "id",
   label = NULL,
   precision = 3,
+  lwd = par("lwd"),
   ...
 )
 }
@@ -75,6 +76,9 @@ value of the affection column for each filling scale.}
 corresponding to the value of the column given.}
 
 \item{precision}{The number of decimal places to round the solution to.}
+
+\item{lwd}{default=par("lwd"). Controls the line width of the
+segments, arcs and polygons.}
 }
 \value{
 A list containing the data frame and the user coordinates.

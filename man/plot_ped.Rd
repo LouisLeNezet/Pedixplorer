@@ -10,7 +10,7 @@ plot_ped_ui(id)
 
 plot_ped_server(id, pedi, title, precision = 2, max_ind = 500)
 
-plot_ped_demo(pedi, max_ind = 500)
+plot_ped_demo(pedi, precision = 2, max_ind = 500)
 }
 \arguments{
 \item{id}{A string.}

@@ -22,13 +22,29 @@ plot_legend(
   adjy = 0,
   leg_loc = c(0, 1, 0, 1),
   add_to_existing = FALSE,
-  usr = NULL
+  usr = NULL,
+  lwd = par("lwd")
 )
 }
 \arguments{
 \item{id}{A string.}
 
 \item{pedi}{A reactive pedigree object.}
+
+\item{cex}{Character expansion of the text}
+
+\item{boxw}{Width of the polygons elements}
+
+\item{boxh}{Height of the polygons elements}
+
+\item{adjx}{default=0.  Controls the horizontal text adjustment of
+the labels in the legend.}
+
+\item{adjy}{default=0.  Controls the vertical text adjustment
+of the labels in the legend.}
+
+\item{lwd}{default=par("lwd").  Controls the bordering line width of the
+elements in the legend.}
 }
 \value{
 A static UI with the legend.

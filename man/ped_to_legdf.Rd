@@ -5,7 +5,15 @@
 \alias{ped_to_legdf,Pedigree-method}
 \title{Create plotting legend data frame from a Pedigree}
 \usage{
-\S4method{ped_to_legdf}{Pedigree}(obj, boxh = 1, boxw = 1, cex = 1, adjx = 0, adjy = 0)
+\S4method{ped_to_legdf}{Pedigree}(
+  obj,
+  boxh = 1,
+  boxw = 1,
+  cex = 1,
+  adjx = 0,
+  adjy = 0,
+  lwd = par("lwd")
+)
 }
 \arguments{
 \item{obj}{A Pedigree object}
@@ -21,6 +29,9 @@ the labels in the legend.}
 
 \item{adjy}{default=0.  Controls the vertical text adjustment
 of the labels in the legend.}
+
+\item{lwd}{default=par("lwd").  Controls the bordering line width of the
+elements in the legend.}
 }
 \value{
 A list containing the legend data frame and the user coordinates.

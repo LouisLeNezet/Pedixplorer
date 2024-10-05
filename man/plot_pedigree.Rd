@@ -32,6 +32,7 @@
   leg_adjx = 0,
   leg_adjy = 0,
   precision = 2,
+  lwd = par("lwd"),
   ...
 )
 }
@@ -116,6 +117,9 @@ the legend.}
 of the legend.}
 
 \item{precision}{The number of decimal places to round the solution to.}
+
+\item{lwd}{default=par("lwd"). Controls the line width of the
+segments, arcs and polygons.}
 
 \item{...}{Extra options that feed into the}
 }

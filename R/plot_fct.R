@@ -308,7 +308,7 @@ draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
 draw_arc <- function(
     x0, y0, x1, y1,
     p = NULL, ggplot_gen = FALSE,
-    lwd = 1, lty = 2, col = "black"
+    lwd = par("lwd"), lty = 2, col = "black"
 ) {
     xx <- seq(x0, x1, length = 15)
     yy <- seq(y0, y1, length = 15) + (seq(-7, 7))^2 / 98 - 0.5
