@@ -85,7 +85,7 @@ family_infos_table <- function(pedi, col_val = NA) {
 }
 
 
-#' @rdname family_sel
+#' @rdname ped_avaf_infos
 #' @importFrom shiny NS column uiOutput textOutput
 #' @importFrom DT dataTableOutput
 ped_avaf_infos_ui <- function(id, height = "auto") {

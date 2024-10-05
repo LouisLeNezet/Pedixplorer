@@ -19,6 +19,7 @@ plot_legend_ui <- function(id, height = "200px") {
 #'
 #' @param id A string.
 #' @param pedi A reactive pedigree object.
+#' @inheritParams plot_legend
 #' @returns A static UI with the legend.
 #' @examples
 #' if (interactive()) {
