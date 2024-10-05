@@ -24,7 +24,7 @@
 ped_ui <- function() {
     logo  <- paste0(
         "https://github.com/LouisLeNezet/Pedixplorer/",
-        "raw/website/inst/figures/icon_Pedixplorer.png"
+        "raw/devel/inst/figures/icon_Pedixplorer.png"
     )
     shiny::shinyUI(shiny::fluidPage(
         ## Configuration -------------------------------
