@@ -89,7 +89,8 @@ object legend</p>
 <span>  adjy <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  leg_loc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  add_to_existing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  usr <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  usr <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -103,6 +104,33 @@ object legend</p>
 
 <dt id="arg-pedi">pedi<a class="anchor" aria-label="anchor" href="#arg-pedi"></a></dt>
 <dd><p>A reactive pedigree object.</p></dd>
+
+
+<dt id="arg-cex">cex<a class="anchor" aria-label="anchor" href="#arg-cex"></a></dt>
+<dd><p>Character expansion of the text</p></dd>
+
+
+<dt id="arg-boxw">boxw<a class="anchor" aria-label="anchor" href="#arg-boxw"></a></dt>
+<dd><p>Width of the polygons elements</p></dd>
+
+
+<dt id="arg-boxh">boxh<a class="anchor" aria-label="anchor" href="#arg-boxh"></a></dt>
+<dd><p>Height of the polygons elements</p></dd>
+
+
+<dt id="arg-adjx">adjx<a class="anchor" aria-label="anchor" href="#arg-adjx"></a></dt>
+<dd><p>default=0.  Controls the horizontal text adjustment of
+the labels in the legend.</p></dd>
+
+
+<dt id="arg-adjy">adjy<a class="anchor" aria-label="anchor" href="#arg-adjy"></a></dt>
+<dd><p>default=0.  Controls the vertical text adjustment
+of the labels in the legend.</p></dd>
+
+
+<dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
+<dd><p>default=par("lwd").  Controls the bordering line width of the
+elements in the legend.</p></dd>
 
 </dl></div>
     <div class="section level2">
