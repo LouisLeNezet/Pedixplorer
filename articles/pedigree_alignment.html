@@ -127,22 +127,21 @@ processed in the order in which they appear in the data set, children
 appear in the order they are found in the data set, husbands are to the
 left of their wives, and a marriage is plotted at the leftmost spouse. A
 simple example where we want to bend these rules is when two families
-marry, and the Pedigrees for both extend above the wedded pair.<br>
-In the joint Pedigree the pair should appear as the right-most child in
-the left hand family, and as the left-most child in the right hand
-family. With respect to founders, assume that a family has three
-lineages with a marriage between 1 and 2, and another between 2 and 3.
-In the joint Pedigree the sets should be 1, 2, 3 from left to right.</p>
+marry, and the Pedigrees for both extend above the wedded pair. In the
+joint Pedigree the pair should appear as the right-most child in the
+left hand family, and as the left-most child in the right hand family.
+With respect to founders, assume that a family has three lineages with a
+marriage between 1 and 2, and another between 2 and 3. In the joint
+Pedigree the sets should be 1, 2, 3 from left to right.</p>
 <p>The hints consist of a list with two components.</p>
 <ol style="list-style-type: decimal">
 <li>A vector of numbers of the same length as the Pedigree, used to
 order the female founders and to order siblings within family. For
-subjects not part of either of these the value can be arbitrary.<br>
-</li>
+subjects not part of either of these the value can be arbitrary.</li>
 <li>A 3 column matrix of spouse pairs, each row indicates the left-hand
 member of the pair, the right-hand member, and which of the two is the
-anchor, i.e., directly connected to their parent.<br>
-Double and triple marriages can start to get interesting.</li>
+anchor, i.e., directly connected to their parent. Double and triple
+marriages can start to get interesting.</li>
 </ol>
 </div>
 <div class="section level2">
@@ -171,8 +170,8 @@ pairs of twins and their relation, it is a subset of the incoming <span class="m
 <li>
 <span class="math inline">twinset</span> vector identifies twins, it
 is 0 for anyone who is not a part of a multiple-birth set, and a unique
-id for each member of a set.<br>
-We use the minimum row number of the members of the set as the id.</li>
+id for each member of a set. We use the minimum row number of the
+members of the set as the id.</li>
 <li>
 <span class="math inline">twinord</span> is a starting order vector
 for the set; it mostly makes sure that there are no ties (who knows what
@@ -185,9 +184,8 @@ and align.</p>
 </h3>
 <p>Next is an internal function that rearranges someone to be the
 leftmost or rightmost of his/her siblings. The only real complication is
-twins. If one of them moves the other has to move too.<br>
-And we need to keep the monozygotics together within a band of
-triplets.</p>
+twins. If one of them moves the other has to move too. And we need to
+keep the monozygotics together within a band of triplets.</p>
 <p><em>Algorithm</em> : if the person to be moved is part of a twinset,
 first move all the twins to the left end (or right as the case may be),
 then move all the monozygotes to the left, then move the subject himself
@@ -196,8 +194,7 @@ to the left.</p>
 <div class="section level3">
 <h3 id="init-auto_hint">Init auto_hint<a class="anchor" aria-label="anchor" href="#init-auto_hint"></a>
 </h3>
-<p>Now, get an ordering of the Pedigree to use as the starting
-point.<br>
+<p>Now, get an ordering of the Pedigree to use as the starting point.
 The numbers start at 1 on each level. We do not need the final
 <em>prettify</em> step, hence <code>align = FALSE</code>. If there is a
 hints structure entered, we retain its non-zero entries, otherwise
@@ -271,17 +268,15 @@ subject in the Pedigree, not to their label
 </h3>
 <p>For the case shown in figure above the <a href="#duporder">duporder</a> function will return a single row array
 with values <code>(2, 6, 1)</code>, the first two being the positions of
-the duplicated subject.<br>
-The anchor will be 2 since that is the copy connected to parents The
-direction is TRUE, since the spouse is to the left of the anchor point.
-The id is 9, sibs are 8, 9, 10, and the shift function will create
-position hints of 2,1,3, which will cause them to be listed in the order
-9, 8, 10.</p>
+the duplicated subject. The anchor will be 2 since that is the copy
+connected to parents The direction is TRUE, since the spouse is to the
+left of the anchor point. The id is 9, sibs are 8, 9, 10, and the shift
+function will create position hints of 2,1,3, which will cause them to
+be listed in the order 9, 8, 10.</p>
 <p>The value of spouse is 3 (third position in the row), subjects 3, 4,
 and 5 are reordered, and finally the line <code>(4,9,1)</code> is added
-to the sptemp matrix.<br>
-In this particular case the final element could be a 1 or a 2, since
-both are connected to their parents.</p>
+to the sptemp matrix. In this particular case the final element could be
+a 1 or a 2, since both are connected to their parents.</p>
 <p><img src="pedigree_alignment_files/figure-html/align2-1.png" alt="Comparison of Pedigrees before and after auto_hint with a more complex Pedigree" width="960"></p>
 <p>The figure above shows a more complex case with several arcs. In the
 upper left is a double marry-in. The <span class="math inline">anchor</span> variable in the above code will be
@@ -339,21 +334,20 @@ left of 11 for the 5-11 marriage, with the first partner as the anchor,
 and a second row <code>(11, 9, 2)</code>. This will cause the common
 spouse to be plotted in the middle.</p>
 <p><img src="pedigree_alignment_files/figure-html/align3-1.png" alt="Comparison of Pedigrees before and after changing the horizontal ordering" width="960"></p>
-<p>Multiple marriages can lead to unanchored subjects.<br>
-In the left hand portion of the figure above we have two double
-marriages, one on the left and one on the right with anchor values of
-<code>(0,2)</code> and <code>(2,0)</code>, respectively.<br>
-We add two marriages to the return list to ensure that both print in the
-correct left-right order; the 14-4 one is correct by default but it is
-easier to output a line than check sex orders.</p>
+<p>Multiple marriages can lead to unanchored subjects. In the left hand
+portion of the figure above we have two double marriages, one on the
+left and one on the right with anchor values of <code>(0,2)</code> and
+<code>(2,0)</code>, respectively. We add two marriages to the return
+list to ensure that both print in the correct left-right order; the 14-4
+one is correct by default but it is easier to output a line than check
+sex orders.</p>
 <p>The left panel of the figure above shows a case where subject 11
 marries into the Pedigree but also has a second spouse. The <span class="math inline">anchor</span> variable for this case will be
 <code>(2, 0)</code>; the first instance of 11 has a spouse tied into the
 tree above, the second instance has no upward connections. In the top
 row, subject 6 has values of <code>(0, 0)</code> since neither
-connection has an upward parent.<br>
-In the right hand panel subject 2 has an anchor variable of
-<code>(0,1)</code>.</p>
+connection has an upward parent. In the right hand panel subject 2 has
+an anchor variable of <code>(0,1)</code>.</p>
 </div>
 </div>
 <div class="section level2">
@@ -366,10 +360,8 @@ In the right hand panel subject 2 has an anchor variable of
 multiple families we loop over each family separately.</li>
 <li>
 <span class="math inline">packed</span> do we allow branches of the
-tree to overlap?<br>
-If FALSE the drawing is much easier, but final drawing can take up a
-huge amount of space.<br>
-</li>
+tree to overlap? If FALSE the drawing is much easier, but final drawing
+can take up a huge amount of space.</li>
 <li>
 <span class="math inline">width</span> the minimum width for a
 packed Pedigree. This affects only small pedigrees, since the minimum
@@ -458,8 +450,8 @@ Pedigree</li>
 plotting structures, merge them into a single one</li>
 </ul>
 <p>Call <a href="#alignped1">alignped1</a> sequentially with each
-founder pair and merge the results.<br>
-A founder pair is a married pair, neither of which has a father.</p>
+founder pair and merge the results. A founder pair is a married pair,
+neither of which has a father.</p>
 </div>
 <div class="section level3">
 <h3 id="align-finish">Align-finish<a class="anchor" aria-label="anchor" href="#align-finish"></a>
@@ -504,8 +496,8 @@ care about the degree of relationship to the spouse.</p>
 </h2>
 <p>This is the first of the three co-routines. It is called with a
 single subject, and returns the subtree founded on said subject, as
-though it were the only tree.<br>
-We only go down the Pedigree, not up. Input arguments are</p>
+though it were the only tree. We only go down the Pedigree, not up.
+Input arguments are</p>
 <ul>
 <li>
 <span class="math inline">nid</span> the numeric id of the subject
@@ -569,20 +561,19 @@ routines will widen the result.</p>
 <h3 id="alignped1---part3">alignped1 - part3<a class="anchor" aria-label="anchor" href="#alignped1---part3"></a>
 </h3>
 <p>Now we have a list of spouses that should be dealt with and the the
-correponding columns of the spouselist matrix.<br>
-Create the two complimentary lists lspouse and rspouse to denote those
-plotted on the left and on the right. For someone with lots of spouses
-we try to split them evenly. If the number of spouses is odd, then men
-should have more on the right than on the left, women more on the right.
-Any hints in the spouselist matrix override. We put the undecided
-marriages closest to <span class="math inline">x</span>, then add
-predetermined ones to the left and right. The majority of marriages will
-be undetermined singletons, for which nleft will be 1 for female (put my
-husband to the left) and 0 for male. In one bug found by plotting canine
-data, lspouse could initially be empty but
-<code>length(rspouse)&gt; 1</code>. This caused
-<code>nleft&gt;length(indx)</code>. A fix was to not let indx to be
-indexed beyond its length, fix by JPS 5/2013.</p>
+correponding columns of the spouselist matrix. Create the two
+complimentary lists lspouse and rspouse to denote those plotted on the
+left and on the right. For someone with lots of spouses we try to split
+them evenly. If the number of spouses is odd, then men should have more
+on the right than on the left, women more on the right. Any hints in the
+spouselist matrix override. We put the undecided marriages closest to
+<span class="math inline">x</span>, then add predetermined ones to the
+left and right. The majority of marriages will be undetermined
+singletons, for which nleft will be 1 for female (put my husband to the
+left) and 0 for male. In one bug found by plotting canine data, lspouse
+could initially be empty but <code>length(rspouse)&gt; 1</code>. This
+caused <code>nleft&gt;length(indx)</code>. A fix was to not let indx to
+be indexed beyond its length, fix by JPS 5/2013.</p>
 <div class="section level4">
 <h4 id="alignped1---part4">alignped1 - part4<a class="anchor" aria-label="anchor" href="#alignped1---part4"></a>
 </h4>
@@ -595,11 +586,11 @@ to join the trees.</p>
 <h4 id="alignped1---part5">alignped1 - part5<a class="anchor" aria-label="anchor" href="#alignped1---part5"></a>
 </h4>
 <p>To finish up we need to splice together the tree made up from all the
-kids, which only has data from lev+1 down, with the data here.<br>
-There are 3 cases. The first and easiest is when no children were found.
-The second, and most common, is when the tree below is wider than the
-tree here, in which case we add the data from this level onto theirs.
-The third is when below is narrower, for instance an only child.</p>
+kids, which only has data from lev+1 down, with the data here. There are
+3 cases. The first and easiest is when no children were found. The
+second, and most common, is when the tree below is wider than the tree
+here, in which case we add the data from this level onto theirs. The
+third is when below is narrower, for instance an only child.</p>
 </div>
 </div>
 </div>
@@ -673,12 +664,11 @@ each other, to the extent possible within the constraints of page width.
 This routine used to be the most intricate and complex of the set, until
 I realized that the task could be cast as constrained quadradic
 optimization. The current code does necessary setup and then calls the
-<span class="math inline">quadprog</span> function.<br>
-At one point I investigated using one of the simpler least-squares
-routines where <span class="math inline">\beta</span> is constrained to
-be non-negative. However a problem can only be translated into that form
-if the number of constraints is less than the number of parameters,
-which is not true in this problem.</p>
+<span class="math inline">quadprog</span> function. At one point I
+investigated using one of the simpler least-squares routines where <span class="math inline">\beta</span> is constrained to be non-negative.
+However a problem can only be translated into that form if the number of
+constraints is less than the number of parameters, which is not true in
+this problem.</p>
 <p>There are two important parameters for the function. One is the user
 specified maximum width. The smallest possible width is the maximum
 number of subjects on a line, if the user suggestion is too low it is
@@ -712,8 +702,7 @@ in the alignment problem (what we hand to quadprog) is the set of
 parameter number for each position so that it is easy to find. There is
 one extra penalty added at the end. Because the penalty amount would be
 the same if all the final positions were shifted by a constant, the
-penalty matrix will not be positive definite; solve.QP does not
-like<br>
+penalty matrix will not be positive definite; solve.QP does not like
 this. We add a tiny amount of leftward pull to the widest line.</p>
 </div>
 <div class="section level3">

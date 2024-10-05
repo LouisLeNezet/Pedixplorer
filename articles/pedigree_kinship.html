@@ -118,7 +118,7 @@ paternal origin.</p>
 \begin{align}
     K(i,j) &amp;= P(\mbox{$g$ maternal}) * K(m(i), j) +
                 P(\mbox{$g$ paternal}) * K(f(i), j) \label{recur0} \\
-            &amp;= 1/2 K(m(i), j) + 1/2 K(f(i), j)   \label{recur1} \\
+            &amp;= 1/2 K(m(i), j) + 1/2 K(f(i), j) \label{recur1} \\
     K(i,i) &amp;= 1/2(1 + K(m(i), f(i))) \label{self}
 \end{align}
 </span></p>
@@ -146,8 +146,7 @@ have</p>
 probability that a selected <span class="math inline">X</span>
 chromosome is maternal is 1, so when <span class="math inline">i</span>
 a male the recurrence formula becomes <span class="math inline">K(i,j) =
-K(m(i),j)</span>.<br>
-For females it is unchanged. All males will have <span class="math inline">K(i,i) = 1</span> for the <span class="math inline">X</span> chromosome.</p>
+K(m(i),j)</span>. For females it is unchanged. All males will have <span class="math inline">K(i,i) = 1</span> for the <span class="math inline">X</span> chromosome.</p>
 <p>In order to have already-defined terms on the right hand side of the
 recurrence formula for each element, subjects need to be processed in
 the following order</p>
@@ -166,18 +165,19 @@ generation 2.</li>
 <li>…</li>
 </ul>
 <p>The kindepth routine assigns a plotting depth to each subject in such
-a way that parents are always above children.<br>
-For each depth we need to do the compuations of formula <span class="math inline">K(i,j)</span> twice. The first time it will get the
-relationship between each subject and prior generations correct, the
-second will correctly compute the values between subjects on the same
-level. The computations within any stage of the above list can be
-vectorized, but not those between stages.</p>
+a way that parents are always above children. For each depth we need to
+do the compuations of formula <span class="math inline">K(i,j)</span>
+twice. The first time it will get the relationship between each subject
+and prior generations correct, the second will correctly compute the
+values between subjects on the same level. The computations within any
+stage of the above list can be vectorized, but not those between
+stages.</p>
 <p>Let <span class="math inline">indx</span> be the index of the rows
-for the generation currently being processed, say generation <span class="math inline">g</span>.<br>
-We add correct computations to the matrix one row at a time; all of the
-calculations depend only on the prior rows with the exception of the
-<span class="math inline">i,i</span> element. This approach leads to a
-for loop containing operations on single rows/columns.</p>
+for the generation currently being processed, say generation <span class="math inline">g</span>. We add correct computations to the matrix
+one row at a time; all of the calculations depend only on the prior rows
+with the exception of the <span class="math inline">i,i</span> element.
+This approach leads to a for loop containing operations on single
+rows/columns.</p>
 <p>At one point below we use a vectorized version. It looks like the
 snippet below</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -228,9 +228,8 @@ subscripting.</p>
 <p>For the Minnesota Family Cancer Study there are 461 families and
 29114 subjects. The raw kinship matrix would be 29114 by 29114 which is
 over 5 terabytes of memory, something that clearly will not work within
-S.<br>
-The solution is to store the overall matrix as a sparse Matrix object.
-Each family forms a single block. For this study we have
+S. The solution is to store the overall matrix as a sparse Matrix
+object. Each family forms a single block. For this study we have
 <code>n &lt;- table(minnbreast$famid); sum(n*(n+1)/2)</code> or 1.07
 million entries; assuming that only the lower half of each matrix is
 stored. The actual size is actually smaller than this, since each family
@@ -320,13 +319,12 @@ difficult example:</p>
 </tbody>
 </table>
 <p>Subjects 1, 2, 3, and 7 form a monozygotic quadruple, 5/6 and 9/10
-are monzygotic pairs.<br>
-First create a vector <code>mzgrp</code> which contains for each subject
-the lowest index of a monozygotic twin for that subject.<br>
-For non-twins it can have any value.<br>
-For this example that vector is set to 1 for subjects 1, 2, 3, and 7, to
-5 for 5 and 6, and to 9 for 9 and 10. Creating this requires a short
-while loop. Once this is in hand we can identify the sets.</p>
+are monzygotic pairs. First create a vector <code>mzgrp</code> which
+contains for each subject the lowest index of a monozygotic twin for
+that subject. For non-twins it can have any value. For this example that
+vector is set to 1 for subjects 1, 2, 3, and 7, to 5 for 5 and 6, and to
+9 for 9 and 10. Creating this requires a short while loop. Once this is
+in hand we can identify the sets.</p>
 <p>Next make a matrix that has a row for every possible pair. Finally,
 remove the rows that are identical. The result is a set of all pairs of
 observations in the matrix that correspond to monozygotic pairs.</p>

@@ -118,12 +118,13 @@ implemented, is how we might break a plot across multiple pages.</p>
 step.</p>
 <ul>
 <li>
-<strong>ped_to_plotdf()</strong> create a dataframe from a Pedigree
-given containing all the necessary information to plot all the elements
-of the Pedigree: “polygons”, “text”, “segments”, “arcs”</li>
+<strong><code><a href="../reference/ped_to_plotdf.html">ped_to_plotdf()</a></code></strong> create a dataframe
+from a Pedigree given containing all the necessary information to plot
+all the elements of the Pedigree: “polygons”, “text”, “segments”,
+“arcs”</li>
 <li>
-<strong>plot_from_df()</strong> use a given dataframe and plot all
-the element given</li>
+<strong><code>plot_from_df()</code></strong> use a given dataframe
+and plot all the element given</li>
 </ul>
 <p>The advantage of this two step method, is that all the plotting can
 be parralelised, each element can be customised by the user if necessary
@@ -203,21 +204,23 @@ appropriate setting of the usr parameter.</p>
 original documentation by TM Therneau, it is within the sizing section
 above.</p>
 <p>Sometimes a Pedigree is too large to fit comfortably on one page. The
-<span class="math inline">subregion</span> argument allows one to plot
-only a portion of the Pedigree based on the plot region. Along with
-other tools to select portions of the Pedigree based on relatedness,
-such as all the descendents of a particular marriage, it gives a tool
-for addressing this. This breaks our original goal of completely
-automatic plots, but users keep asking for more.</p>
-<p>The argument is <span class="math inline">subregion = c(min x, max x,
-min depth, max depth)</span>, and works by editing away portions of the
-<span class="math inline">plist</span> object returned by align. First
-decide what lines to keep. Then take subjects away from each line,
-update spouses and twins, and fix up parentage for the line below.</p>
+<code>subregion</code> argument allows one to plot only a portion of the
+Pedigree based on the plot region. Along with other tools to select
+portions of the Pedigree based on relatedness, such as all the
+descendents of a particular marriage, it gives a tool for addressing
+this. This breaks our original goal of completely automatic plots, but
+users keep asking for more.</p>
+<p>The argument is
+<code>subregion = c(min x, max x, min depth, max depth)</code>, and
+works by editing away portions of the <code>plist</code> object returned
+by align. First decide what lines to keep. Then take subjects away from
+each line, update spouses and twins, and fix up parentage for the line
+below.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="ped_to_plotdf">ped_to_plotdf()<a class="anchor" aria-label="anchor" href="#ped_to_plotdf"></a>
+<h2 id="ped_to_plotdf">
+<code>ped_to_plotdf()</code><a class="anchor" aria-label="anchor" href="#ped_to_plotdf"></a>
 </h2>
 <p>This first function create the dataframe with the necessary plotting
 information from a Pedigree object. The steps are:</p>
@@ -253,9 +256,10 @@ whole shape, and the position of the division to plot.</p>
 <span><span class="fu"><a href="../reference/plot_fromdf.html">plot_fromdf</a></span><span class="op">(</span><span class="va">df</span>, usr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pedigree_plot_files/figure-html/polygons-1.png" alt="Different polygons" width="700"></p>
 <p>The number of division will depend on the number of affection
-register in the <span class="math inline">fill</span> slot of the <span class="math inline">scale</span> slot of the Pedigree. The filling will
-depend on the color given by the corresponding modality for each
-individual, it is the same for the border of the polygon.</p>
+register in the <code>fill</code> slot of the <code>scale</code> slot of
+the Pedigree. The filling will depend on the color given by the
+corresponding modality for each individual, it is the same for the
+border of the polygon.</p>
 </div>
 <div class="section level3">
 <h3 id="details-on-connecting-children-to-parents-">Details on connecting children to parents.<a class="anchor" aria-label="anchor" href="#details-on-connecting-children-to-parents-"></a>
@@ -264,10 +268,9 @@ individual, it is the same for the border of the polygon.</p>
 except for twins, triplets, etc. Then we draw the horizontal bar across
 siblings and finally the connector from the parent. For twins, the
 <em>vertical</em> lines are angled towards a common point, the variable
-is called <span class="math inline">target</span> below. The horizontal
-part is easier if we do things family by family. The
-<code>plist$twins</code> variable is 1/2/3 for a twin on my right, 0
-otherwise.</p>
+is called <em>target</em> below. The horizontal part is easier if we do
+things family by family. The <code>plist$twins</code> variable is 1/2/3
+for a twin on my right, 0 otherwise.</p>
 </div>
 <div class="section level3">
 <h3 id="details-on-arcs-">Details on arcs.<a class="anchor" aria-label="anchor" href="#details-on-arcs-"></a>
@@ -275,12 +278,13 @@ otherwise.</p>
 <p>The last set of lines are dotted arcs that connect mulitiple
 instances of a subject on the same line. These instances may or may not
 be on the same line. The arrcconect function draws a quadratic arc
-between locations <span class="math inline">(x1, y1)</span> and <span class="math inline">(x2, y2</span>) whose height is 1/2 unit above a
+between locations <span class="math inline">(x1, y1)</span> and <span class="math inline">(x2, y2)</span> whose height is 1/2 unit above a
 straight line connection.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="plot_fromdf">plot_fromdf()<a class="anchor" aria-label="anchor" href="#plot_fromdf"></a>
+<h2 id="plot_fromdf">
+<code>plot_fromdf()</code><a class="anchor" aria-label="anchor" href="#plot_fromdf"></a>
 </h2>
 <div class="section level3">
 <h3 id="polygons-drawing">Polygons drawing<a class="anchor" aria-label="anchor" href="#polygons-drawing"></a>
@@ -292,11 +296,12 @@ straight line connection.</p>
 male, circle = female, diamond= unknown, and triangle =
 terminated.<br>
 They are shaded according to the value(s) of affected status for each
-subject, and filling uses the standard arguments of the <span class="math inline">polygon()</span> function. The complexity is when
-multiple affected status are given, in which case the symbol will be
-divided up into sections, clockwise starting at the lower left. I asked
-Beth about this (original author) and there was no particular reason to
-start at 6 o-clock, but it is now established as history.</p>
+subject, and filling uses the standard arguments of the
+<code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon()</a></code> function. The complexity is when multiple
+affected status are given, in which case the symbol will be divided up
+into sections, clockwise starting at the lower left. I asked Beth about
+this (original author) and there was no particular reason to start at 6
+o-clock, but it is now established as history.</p>
 <p>The first part of the code is to create the collection of polygons
 that will make up the symbol. These are then used again and again. The
 collection is kept as a list with the four elements square, circle,
@@ -350,11 +355,11 @@ both conditions.</p>
 <p>The Pedigree is plotted in a new frame or added to the current
 device. If <code>ggplot_gen = TRUE</code>, then a ggplot object is
 create with the same informations and available in the invisible object
-given back by <em>plot_fromdf()</em></p>
+given back by <code>plot_fromdf()*</code></p>
 <pre><code>Notes:
     Remind the user of subjects who did not get
     plotted; these are ususally subjects who are married in but without
-    children.  Unless the Pedigree contains spousal information the
+    children. Unless the Pedigree contains spousal information the
     routine does not know who is the spouse.
     Then restore the plot parameters.
     This would only not be done if someone wants to further annotate
