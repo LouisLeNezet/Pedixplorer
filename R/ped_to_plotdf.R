@@ -37,7 +37,8 @@ NULL
 #' @param id_lab The column name of the id for each individuals.
 #' @param label If not `NULL`, add a label to each box under the id
 #' corresponding to the value of the column given.
-#' @param lwd The line width of the segments, arcs and polygons.
+#' @param lwd default=par("lwd"). Controls the line width of the
+#' segments, arcs and polygons.
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams set_plot_area
 #' @inheritParams kindepth
