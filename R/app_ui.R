@@ -49,9 +49,9 @@ ped_ui <- function() {
                 ))
             ),
             shiny::column(2, align = "center",
-                htmltools::tags$figure(
+                shiny::tags$figure(
                     class = "centerFigure",
-                    htmltools::tags$img(
+                    shiny::tags$img(
                         src = logo,
                         height = 200,
                         alt = "Pedixplorer logo"
