@@ -150,9 +150,14 @@ data_import_ui <- function(id) {
         shinytoastr::useToastr(),
         shiny::uiOutput(ns("fileselection")),
         shiny::fluidRow(
-            shiny::h5("Use test data"),
             shiny::column(
-                width = 6,
+                width = 6, align = "center",
+                shiny::h5("Use test data")
+            )
+        ),
+        shiny::fluidRow(
+            shiny::column(
+                width = 6, align = "center",
                 shinyWidgets::switchInput(
                     ns("testdf"), value = FALSE, size = "small"
                 )

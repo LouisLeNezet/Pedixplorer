@@ -22,22 +22,49 @@
 #' }
 #' @keywords internal
 ped_ui <- function() {
+    logo  <- paste0(
+        "https://github.com/LouisLeNezet/Pedixplorer/",
+        "raw/website/inst/figures/icon_Pedixplorer.png"
+    )
     shiny::shinyUI(shiny::fluidPage(
         ## Configuration -------------------------------
         shiny::tags$head(
             shiny::tags$style(shiny::HTML(
-                "hr {border-top: 1px solid #000000;}
-                .navigationBar{background-color:#0001}"
+                "hr {border-top: 2px solid #3792ad;}
+                .navigationBar{background-color:#0001; margin-top: 10px;}
+                .title {margin-top: 85px; font-style: italic; font-size: 50px;}
+                .titlehr {border-top: 4px solid #8aca25; margin-top: 100px}
+                .title2 {margin-left: 30px; font-size: 20px;}"
             ))
         ),
         ## Application title --------------------------
         shiny::fluidRow(
-            shiny::column(12, align = "center",
-                shiny::titlePanel("Pedigree creation")
+            shiny::column(2, align = "center",
+                shiny::tags$div(class = "titlehr")
+            ),
+            shiny::column(6, align = "center",
+                shiny::tags$div(class = "title", shiny::titlePanel(
+                    "Pedigree creation, filtering and plotting",
+                    windowTitle = "Pedixplorer"
+                ))
+            ),
+            shiny::column(2, align = "center",
+                htmltools::tags$figure(
+                    class = "centerFigure",
+                    htmltools::tags$img(
+                        src = logo,
+                        height = 200,
+                        alt = "Pedixplorer logo"
+                    ),
+                )
+            ),
+            shiny::column(2,
+                shiny::tags$div(class = "titlehr")
             )
         ),
         ## Navigation bar -----------------------------
         shiny::fluidRow(title = "Navigation", class = "navigationBar",
+            shiny::br(),
             ## ___Data and Family selection -------------
             shiny::column(2, data_import_ui(id = "data_ped_import")),
             shiny::column(6, data_col_sel_ui(id = "data_ped_col_sel")),
@@ -52,8 +79,10 @@ ped_ui <- function() {
         shiny::hr(),
         ## Family and Health selection ---------------------------
         shiny::fluidRow(title = "Health and Family selection",
-            shiny::h2("Health and Family selection"),
-            shiny::column(
+            shiny::tags$div(
+                class = "title2",
+                shiny::h2("Health and Family selection")
+            ), shiny::column(
                 2, align = "center",
                 shiny::uiOutput("health_full_scale_box"),
                 color_picker_ui("col_aff"),
@@ -70,13 +99,16 @@ ped_ui <- function() {
             ),
             shiny::column(
                 4, align = "center",
-                ped_avaf_infos_ui("ped_avaf_infos")
+                ped_avaf_infos_ui("ped_avaf_infos", height = "200px")
             )
         ),
         shiny::hr(),
         ## Informative and subfamily selection ----------------------
         shiny::fluidRow(
-            shiny::h2("Informative and subfamily selection"),
+            shiny::tags$div(
+                class = "title2",
+                shiny::h2("Informative and subfamily selection")
+            ),
             shiny::column(4, align = "center",
                 inf_sel_ui("inf_sel")
             ),
@@ -86,7 +118,7 @@ ped_ui <- function() {
             ),
             ## Subfamily information -----------------------
             shiny::column(4, align = "center",
-                ped_avaf_infos_ui("subped_avaf_infos")
+                ped_avaf_infos_ui("subped_avaf_infos", height = "200px")
             )
         ),
         shiny::hr(),
@@ -95,12 +127,12 @@ ped_ui <- function() {
             plot_ped_ui("ped"),
         ),
         shiny::fluidRow(
-            shiny::column(4,
+            shiny::column(5,
                 plot_download_ui("saveped"),
                 data_download_ui("plot_data_dwnl")
             ),
-            shiny::column(8,
-                plot_legend_ui("legend", "300px")
+            shiny::column(7,
+                plot_legend_ui("legend", "350px")
             )
         )
     ))

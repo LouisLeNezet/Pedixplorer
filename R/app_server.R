@@ -199,20 +199,20 @@ ped_server <- function(
 
         cols_aff <- color_picker_server("col_aff",
             list(
-                "LeastAffected" = "yellow",
-                "Affected" = "red"
+                "LeastAffected" = "#ecbd00",
+                "Affected" = "#c40000"
             )
         )
 
         cols_unaff <- color_picker_server("col_unaff",
             list(
                 "Unaffected" = "white",
-                "Dubious" = "steelblue4"
+                "Dubious" = "#3792ad"
             )
         )
 
         cols_avail <- color_picker_server("col_avail",
-            list("Avail" = "green", "Unavail" = "black")
+            list("Avail" = "#8aca25", "Unavail" = "black")
         )
 
         ## Families selection -------------------------------------------------
@@ -318,10 +318,14 @@ ped_server <- function(
         plot_ped <- plot_ped_server(
             "ped", ped_subfam,
             cust_title(short = FALSE),
-            precision = precision
+            precision = precision, lwd = 2
         )
 
-        plot_legend_server("legend", ped_subfam)
+        plot_legend_server(
+            "legend", ped_subfam,
+            boxw = 0.03, boxh = 0.07, adjx = 0.3, adjy = -0.015,
+            leg_loc = c(0.2, 1.2, 0.2, 0.95), lwd = 2
+        )
 
         ## Download data and plot ---------------------------------------------
         plot_download_server(

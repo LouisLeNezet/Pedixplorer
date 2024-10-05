@@ -88,12 +88,12 @@ family_infos_table <- function(pedi, col_val = NA) {
 #' @rdname family_sel
 #' @importFrom shiny NS column uiOutput textOutput
 #' @importFrom DT dataTableOutput
-ped_avaf_infos_ui <- function(id) {
+ped_avaf_infos_ui <- function(id, height = "auto") {
     ns <- shiny::NS(id)
     shiny::column(12,
         shiny::uiOutput(ns("title_infos")),
         shiny::textOutput(ns("ped_avaf_infos_title")),
-        DT::dataTableOutput(ns("family_info_table"))
+        DT::dataTableOutput(ns("family_info_table"), height = height)
     )
 }
 
@@ -109,6 +109,7 @@ ped_avaf_infos_ui <- function(id) {
 #' @param id A string to identify the module.
 #' @param pedi A reactive pedigree object.
 #' @param title The title of the module.
+#' @param height The height of the datatable.
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names of cols_needed and cols_supl.
 #' @examples
@@ -122,7 +123,9 @@ ped_avaf_infos_ui <- function(id) {
 #' @importFrom shiny renderUI h3
 #' @importFrom DT renderDataTable datatable
 #' @importFrom stringr str_to_title
-ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
+ped_avaf_infos_server <- function(
+    id, pedi, title = "Family informations", height = "auto"
+) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
         # Create the title ----------------------------------------------------
@@ -177,14 +180,14 @@ ped_avaf_infos_server <- function(id, pedi, title = "Family informations") {
 #' @export
 #' @importFrom utils data
 #' @importFrom shiny fluidPage reactive exportTestValues shinyApp
-ped_avaf_infos_demo <- function() {
+ped_avaf_infos_demo <- function(height = "auto") {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     pedi <- Pedigree(
         data_env[["sampleped"]][data_env[["sampleped"]]$famid == "1", ]
     )
     ui <- shiny::fluidPage(
-        ped_avaf_infos_ui("familysel")
+        ped_avaf_infos_ui("familysel", height = height)
     )
     server <- function(input, output, session) {
         df <- ped_avaf_infos_server(
