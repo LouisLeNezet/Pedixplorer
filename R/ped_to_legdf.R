@@ -26,6 +26,8 @@
 #' the labels in the legend.
 #' @param adjy default=0.  Controls the vertical text adjustment
 #' of the labels in the legend.
+#' @param lwd default=par("lwd").  Controls the bordering line width of the
+#' elements in the legend.
 #'
 #' @return
 #' A list containing the legend data frame and the user coordinates.
@@ -148,7 +150,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     ## Affected
     for (aff in seq_len(n_aff)) {
         aff_df <- all_aff[all_aff$order == aff, ]
-        aff_mods <- unique(ped_df[, unique(aff_df[["column_mods"]])])
+        aff_mods <- aff_df$mods
         aff_bkg <- data.frame(
             x0 = posx[3 + aff * 2], y0 = posy[seq_along(aff_mods)],
             type = rep(paste("square", 1, 1, sep = "_"),
@@ -164,11 +166,11 @@ setMethod("ped_to_legdf", "Pedigree", function(
                 length(aff_mods)
             ),
             border = "black", cex = lwd,
-            fill = aff_df$fill[match(aff_mods, aff_df$mods)],
+            fill = aff_df$fill,
             id = paste("affected", aff, aff_mods, sep = "_")
         )
 
-        lab <- aff_df$labels[match(aff_mods, aff_df$mods)]
+        lab <- aff_df$labels
         lab[is.na(lab)] <- "NA"
         affected_label <- data.frame(
             x0 = posx[4 + aff * 2] + adjx,
