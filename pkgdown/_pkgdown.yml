@@ -18,6 +18,8 @@ template:
 
 news:
   releases:
+  - text: "Version 1.1.4"
+    href: "https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.1.4"
   - text: "Version 1.0.0"
     href: https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html
 
