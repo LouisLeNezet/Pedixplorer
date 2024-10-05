@@ -28,7 +28,7 @@ The formal definition is $K(i,i) = 1/4 + 1/4 + 1/2 K(m,f)$ where
 $m$ and $f$ are the father and mother of subject $i$.
 
 The algorithm used is found in K Lange, 
-*Mathematical and Statistical  Methods for Genetic Analysis*, 
+*Mathematical and Statistical Methods for Genetic Analysis*, 
 Springer 1997, page 71--72.
 
 The key idea of the recursive algorithm for $K(i,j)$ is to condition on
@@ -41,7 +41,7 @@ $$
 \begin{align}
     K(i,j) &= P(\mbox{$g$ maternal}) * K(m(i), j) + 
                 P(\mbox{$g$ paternal}) * K(f(i), j) \label{recur0} \\
-            &= 1/2 K(m(i), j) + 1/2 K(f(i), j)   \label{recur1} \\
+            &= 1/2 K(m(i), j) + 1/2 K(f(i), j) \label{recur1} \\
     K(i,i) &= 1/2(1 + K(m(i), f(i))) \label{self} 
 \end{align}
 $$
@@ -49,7 +49,7 @@ $$
 The key step in equation $K(i,j)$ is if $g$ has a maternal origin, then
 it is a random selection from the two maternal genes, and its IBD state with
 respect to subject $j$ is that of a random selection from $m(i)$ to a random
-selection from $j$.  This is precisely the definition of $K(m(i), j)$.
+selection from $j$. This is precisely the definition of $K(m(i), j)$.
 The recursion does not work for $K(i,i)$ since once 
 we select a maternal gene the second choice from $j$ cannot use a 
 different maternal gene.
@@ -70,7 +70,7 @@ $$
 The final formula slightly different for the $X$ chromosome. 
 Equation $K(i,j)$ still holds, but for males the probability
 that a selected $X$ chromosome is maternal is 1, so when $i$ a male
-the recurrence formula becomes $K(i,j) = K(m(i),j)$.  
+the recurrence formula becomes $K(i,j) = K(m(i),j)$.
 For females it is unchanged.
 All males will have $K(i,i) = 1$ for the $X$ chromosome.
 
@@ -87,7 +87,7 @@ in the following order
 
 
 The kindepth routine assigns a plotting depth to each subject in such
-a way that parents are always above children.  
+a way that parents are always above children.
 For each depth we need to do the compuations of formula $K(i,j)$
 twice. The first time it will get the relationship between each subject
 and prior generations correct, the second will correctly compute the
@@ -96,12 +96,12 @@ The computations within any stage of the above list can be vectorized,
 but not those between stages.
 
 Let $indx$ be the index of the
-rows for the generation currently being processed, say generation $g$.  
+rows for the generation currently being processed, say generation $g$.
 We add correct computations to the matrix one row at a time;
 all of the calculations depend only on the prior rows with the
 exception of the $i,i$ element.
 This approach leads to
-a for loop containing operations on single rows/columns.  
+a for loop containing operations on single rows/columns.
 
 At one point below we use a vectorized version. It looks like the snippet below
 
@@ -121,14 +121,14 @@ and zero for higher generations.
 The second line does the vertical stripe, and because of the line before it
 does have the data it needs and so gets all the stripe correct.
 Except of course for the diagonal elements, for which formula $K(i,j)$
-does not hold.  We fill those in last.
+does not hold. We fill those in last.
 We know that vectorized calculations are always faster in R and I was excited
-to figure this out.  The unfortunate truth is that for this code
+to figure this out. The unfortunate truth is that for this code
 it hardly makes a difference, and for the X chromosome calculation leads to
 impenetrable if-then-else logic.
 
-The program can be called with a Pedigree, or
-raw data.  The first argument is $id$ instead of the more generic $x$
+The program can be called with a Pedigree, or raw data.
+The first argument is $id$ instead of the more generic $x$
 for backwards compatability with an older version of the routine.
 We give founders a fake parent of subject $n+1$ who is not related to
 anybody (even themself); it avoids some if-then-else constructions.
@@ -139,7 +139,7 @@ The method for a Pedigree object is an almost trivial modification. Since the
 mother and father are already indexed into the id list it has 
 two lines that are different, those that create mrow and drow.
 The other change is that now we potentially have information available
-on monozygotic twins.  If there are any such, then when the second
+on monozygotic twins. If there are any such, then when the second
 twin of a pair is added to the matrix, we need to ensure that the
 pairs kinship coefficient is set to the self-self value.
 This can be done after each level is complete, but before children
@@ -157,7 +157,7 @@ $mzindex$ is created for matrix subscripting.
 
 For the Minnesota Family Cancer Study there are 461 families and 29114
 subjects. The raw kinship matrix would be 29114 by 29114 which is over
-5 terabytes of memory, something that clearly will not work within S.       
+5 terabytes of memory, something that clearly will not work within S.
 The solution is to store the overall matrix as a sparse Matrix object.
 Each family forms a single block. For this study we have
 `n <- table(minnbreast$famid); sum(n*(n+1)/2)` or 1.07 million entries;
@@ -172,7 +172,7 @@ form.
 The $bdiag$ function is then used to paste all of these individual
 sparse matrices into a single large matrix.
 
-Why do we note use `(i in famlist)` below?  A numeric subscript of `[[9]]` %
+Why do we note use `(i in famlist)` below? A numeric subscript of `[[9]]` %
 selects the ninth family, not the family labeled as 9, so a numeric
 family id would not act as we wished.
 If all of the subject ids are unique, across all families, the final
@@ -217,10 +217,10 @@ Consider the following rather difficult example:
 | 10 | 9 |
 
 Subjects 1, 2, 3, and 7 form a monozygotic quadruple, 5/6 and 9/10 are
-monzygotic pairs.  
+monzygotic pairs.
 First create a vector `mzgrp` which contains for each subject the
-lowest index of a monozygotic twin for that subject.  
-For non-twins it can have any value.  
+lowest index of a monozygotic twin for that subject.
+For non-twins it can have any value.
 For this example that vector is set to 1 for subjects 1, 2, 3, and 7,
 to 5 for 5 and 6, and to 9 for 9 and 10.
 Creating this requires a short while loop.

@@ -35,10 +35,10 @@ Setup
 
 The new version of the plotting Pedigree function works in two step.
 
-- **ped_to_plotdf()** create a dataframe from a Pedigree given containing
+- **`ped_to_plotdf()`** create a dataframe from a Pedigree given containing
 all the necessary information to plot all the elements of the Pedigree:
 "polygons", "text", "segments", "arcs"
-- **plot_from_df()** use a given dataframe and plot all the element given
+- **`plot_from_df()`** use a given dataframe and plot all the element given
 
 The advantage of this two step method, is that all the plotting can be
 parralelised, each element can be customised by the user if necessary and
@@ -105,20 +105,20 @@ This section is still experimental and might change. Also, in the original
 documentation by TM Therneau, it is within the sizing section above.
 
 Sometimes a Pedigree is too large to fit comfortably on one page.
-The $subregion$ argument allows one to plot only a portion of the
+The `subregion` argument allows one to plot only a portion of the
 Pedigree based on the plot region.  Along with other tools to
 select portions of the Pedigree based on relatedness, such as all
 the descendents of a particular marriage, it gives a tool for
 addressing this. This breaks our original goal of completely
 automatic plots, but users keep asking for more.
 
-The argument is $subregion = c(min x, max x, min depth, max depth)$,
-and works by editing away portions of the $plist$ object
+The argument is `subregion = c(min x, max x, min depth, max depth)`,
+and works by editing away portions of the `plist` object
 returned by align.  First decide what lines to keep. 
 Then take subjects away from each line, update spouses and twins,
 and fix up parentage for the line below.
 
-ped_to_plotdf()
+`ped_to_plotdf()`
 ==================
 
 This first function create the dataframe with the necessary plotting
@@ -157,7 +157,7 @@ plot_fromdf(df, usr = c(0, 8, 0, 2))
 ```
 
 The number of division will depend on the number of affection register in the
-$fill$ slot of the $scale$ slot of the Pedigree.
+`fill` slot of the `scale` slot of the Pedigree.
 The filling will depend on the color given by the corresponding modality for
 each individual, it is the same for the border of the polygon.
 
@@ -167,7 +167,7 @@ First there are lines up from each child, which would be trivial except for
 twins, triplets, etc.
 Then we draw the horizontal bar across siblings and finally the connector from
 the parent.  For twins, the *vertical* lines are angled towards a 
-common point, the variable is called $target$ below.
+common point, the variable is called *target* below.
 The horizontal part is easier if we do things family by
 family.  The `plist$twins` variable is 1/2/3 for a twin on my right,
 0 otherwise.
@@ -178,9 +178,9 @@ The last set of lines are dotted arcs that connect mulitiple instances of
 a subject on the same line.  These instances may or may not be on the
 same line.
 The arrcconect function draws a quadratic arc between locations $(x1, y1)$
-and $(x2, y2$) whose height is 1/2 unit above a straight line connection.
+and $(x2, y2)$ whose height is 1/2 unit above a straight line connection.
 
-plot_fromdf()
+`plot_fromdf()`
 ==================
 
 ## Polygons drawing
@@ -191,7 +191,7 @@ There are four sumbols corresponding to the four sex codes: square = male,
 circle = female, diamond= unknown, and triangle = terminated.  
 They are shaded according to the value(s) of affected status for each
 subject, and filling uses the standard
-arguments of the $polygon()$ function.
+arguments of the `polygon()` function.
 The complexity is when multiple affected status are given, in which case the
 symbol will be divided up into sections, clockwise starting at the 
 lower left. 
@@ -199,7 +199,7 @@ I asked Beth about this (original author) and there was no particular
 reason to start at 6 o-clock, but it is now established as history.
 
 The first part of the code is to create the collection of polygons that
-will make up the symbol.  These are then used again and again.
+will make up the symbol. These are then used again and again.
 The collection is kept as a list with the four elements square, circle,
 diamond and triangle.
 
@@ -238,8 +238,8 @@ particular side will satisfy
 
 Equation $z$ will lead to a division by zero if the ray from the
 origin does not intersect a side, e.g., a vertical divider will be parallel
-to the sides of a square symbol.  The only solutions we want have
-$0 \le z \le 1$ and are in the ''forward''' part of the ray.  This latter
+to the sides of a square symbol. The only solutions we want have
+$0 \le z \le 1$ and are in the ''forward''' part of the ray. This latter
 is true if the inner product $x \cos(\theta) + y \sin(\theta) >0$.
 Exactly one of the polygon sides will satisfy both conditions.
 
@@ -249,12 +249,12 @@ Final output
 The Pedigree is plotted in a new frame or added to the current device.
 If `ggplot_gen = TRUE`, then a ggplot object is create with the same
 informations and available in the invisible object given back by
-*plot_fromdf()* 
+`plot_fromdf()*`
 
     Notes:
         Remind the user of subjects who did not get
         plotted; these are ususally subjects who are married in but without
-        children.  Unless the Pedigree contains spousal information the
+        children. Unless the Pedigree contains spousal information the
         routine does not know who is the spouse.
         Then restore the plot parameters.
         This would only not be done if someone wants to further annotate
