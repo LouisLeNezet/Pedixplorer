@@ -9,7 +9,16 @@
 \usage{
 plot_legend_ui(id, height = "200px")
 
-plot_legend_server(id, pedi, leg_loc = c(0.2, 1, 0, 1))
+plot_legend_server(
+  id,
+  pedi,
+  leg_loc = c(0.2, 1, 0, 1),
+  lwd = par("lwd"),
+  boxw = 1,
+  boxh = 1,
+  adjx = 0,
+  adjy = 0
+)
 
 plot_legend_demo(height = "200px", leg_loc = c(0.2, 1, 0, 1))
 
@@ -31,7 +40,8 @@ plot_legend(
 
 \item{pedi}{A reactive pedigree object.}
 
-\item{cex}{Character expansion of the text}
+\item{lwd}{default=par("lwd").  Controls the bordering line width of the
+elements in the legend.}
 
 \item{boxw}{Width of the polygons elements}
 
@@ -43,8 +53,7 @@ the labels in the legend.}
 \item{adjy}{default=0.  Controls the vertical text adjustment
 of the labels in the legend.}
 
-\item{lwd}{default=par("lwd").  Controls the bordering line width of the
-elements in the legend.}
+\item{cex}{Character expansion of the text}
 }
 \value{
 A static UI with the legend.
