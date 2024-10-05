@@ -472,7 +472,16 @@ setMethod("generate_colors", "Pedigree",
         } else {
             lst_sc$fill$order <- 1
         }
-        scales(obj) <- Scales(lst_sc$fill, lst_sc$border)
+
+        lst_sc$fill <- lst_sc$fill[order(
+            as.numeric(lst_sc$fill$order),
+            as.numeric(lst_sc$fill$mods)
+        ), ]
+        rownames(lst_sc$fill) <- NULL
+        scales(obj) <- Scales(
+            lst_sc$fill,
+            lst_sc$border
+        )
         validObject(obj)
         obj
     }
