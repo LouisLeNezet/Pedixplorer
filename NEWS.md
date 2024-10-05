@@ -10,8 +10,8 @@ NEWS file for the Pedixplorer package
 - Add more control to line width of box and lines
 - Improve legend ordering
 - Separate website building workflow from check
-- Update documentation and set to internal all unecessary functions for users
-- Stabilise unit test
+- Update documentation and set to internal all unnecessary functions for users
+- Stabilize unit test
 
 ## Changes in version 1.1.3
 
