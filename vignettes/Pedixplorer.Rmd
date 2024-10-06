@@ -7,6 +7,7 @@ output:
   BiocStyle::html_document:
     toc: true
     toc_depth: 2
+    fig_crop: no
 header-includes: \usepackage{tabularx}
 vignette: |
   %\VignetteIndexEntry{Pedixplorer tutorial}
@@ -123,28 +124,31 @@ which we show below. The print method prints the `Ped` and `Rel` object of
 the pedigree. The summary method prints a short summary of the pedigree.
 Finally the plot method displays the pedigree.
 
-```{r, ped1, fig.alt = "Pedigree of family 1"}
+```{r, ped1, fig.alt = "Pedigree of family 1", fig.align = "center"}
 ped <- Pedigree(sampleped)
 print(famid(ped(ped)))
 ped1 <- ped[famid(ped(ped)) == "1"]
 summary(ped1)
-plot(ped1)
+plot(ped1, cex = 0.7)
 ```
 
 You can add a title and a legend to the plot with the following command:
 
 ```{r, ped1_title, fig.alt = "Pedigree of family 1 with legend"}
-plot(ped1, title = "Pedigree 1", legend = TRUE, leg_loc = c(5, 15, 4.5, 5))
+plot(
+    ped1, title = "Pedigree 1",
+    legend = TRUE, leg_loc = c(7, 16, 1.05, 1.9),
+    cex=0.7
+)
 ```
-# Pedigree Shiny application
+
+## Pedigree Shiny application
 
 A shiny application is available to create, interact and plot pedigrees.
 To launch the application, use the following command:
 
-```{r, shiny_app}
-if (interactive()) {
-    ped_shiny()
-}
+```{r, shiny_app, eval = FALSE}
+ped_shiny()
 ```
 
 The use is simple:
@@ -314,7 +318,7 @@ mcols(ped2)$Names <- c(
     "Lucy", "Ken", "Barb", "Mike", "Matt",
     "Mindy", "Mark", "Marie\nCurie"
 )
-plot(ped2, label = "Names")
+plot(ped2, label = "Names", cex = 0.7)
 ```
 
 ## Affected Indicators
@@ -331,7 +335,13 @@ indicate the two affected indicators.
 ```{r, two_affection, fig.alt = "Pedigree of family 2 with two affection indicators"}
 mcols(ped2)$bald <- as.factor(c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1))
 ped2 <- generate_colors(ped2, col_aff = "bald", add_to_scale = TRUE)
-plot(ped2, legend = TRUE)
+# Increase down margin for the legend
+op <- par(mai=c(1.5, 0.2, 0.2, 0.2))
+plot(
+    ped2, legend = TRUE,
+    leg_loc = c(0.5, 6, 3.5, 4))
+# Reset graphical parameter
+par(op)
 ```
 
 ## Special Relationships
@@ -438,7 +448,7 @@ relate1 <- data.frame(
     famid = 1
 )
 ped1 <- Pedigree(df1, relate1)
-plot(ped1)
+plot(ped1, cex = 0.7)
 ```
 
 ## Align by Input Order
@@ -453,7 +463,7 @@ duplicate subjects, as Figure\~\ref{reordPed1} no longer has subject
 ```{r, ordering, fig.alt = "Pedigree of family 1 with reordering"}
 df1reord <- df1[c(35:41, 1:34), ]
 ped1reord <- Pedigree(df1reord, relate1)
-plot(ped1reord)
+plot(ped1reord, cex = 0.7)
 ```
 
 ## Plot colors and scales
@@ -480,7 +490,7 @@ ped1 <- generate_colors(
     threshold = 3, sup_thres_aff = FALSE
 )
 
-plot(ped1)
+plot(ped1, cex = 0.7)
 
 # To modify a given scale you can do as follow
 fill(ped1)
@@ -488,7 +498,10 @@ fill(ped1)$fill[4] <- "#970b6d"
 fill(ped1)$density[5] <- 30
 fill(ped1)$angle[5] <- 45
 border(ped1)$border <- c("red", "black", "orange")
-plot(ped1, legend = TRUE, leg_loc = c(7, 18, 1, 1.5))
+plot(
+    ped1, cex = 0.7, legend = TRUE,
+    leg_loc = c(6, 16, 1, 1.8), leg_cex = 0.5,
+)
 ```
 
 # Pedigree Utility Functions
@@ -525,7 +538,9 @@ and can take the following values:
 They will be the individuals from which the distance will be compute.
 This distance correspond to :
 
-$\eqn{minDist = log2(1 / \max(kinship))}$
+$$
+    minDist = log2(\frac{1}{\max(kinship)})
+$$
 
 Therefore, the minimum distance is 0 when the maximum kinship is 1 and
 is infinite when the maximum kinship is 0. For siblings, the kinship value
