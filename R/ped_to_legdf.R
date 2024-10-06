@@ -86,16 +86,17 @@ setMethod("ped_to_legdf", "Pedigree", function(
     })))
 
     posy <- rep(boxh, n_max * 2)
-    posy <- cumsum(posy) - boxh
+    posy <- cumsum(posy)
     posy <- posy[seq_along(posy) %% 2 == 0]
 
     all_aff <- fill(obj)
     n_aff <- length(unique(all_aff$order))
 
+    # Categories titles
     lab_title <- c("Sex", "Border", unique(all_aff$column_values))
     titles <- data.frame(
-        x0 = posx[seq_along(posx) %% 2 == 0] - boxw, y0 = 0,
-        type = "text", label = lab_title,
+        x0 = posx[seq_along(posx) %% 2 == 0] - boxw, y0  = 0,
+        type = "text", label = lab_title, adjx = 0.5, adjy =0,
         fill = "black", cex = cex * 1.5,
         id = "titles"
     )
@@ -103,6 +104,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
 
     ## Get ped_df
     ped_df <- as.data.frame(ped(obj))
+
     # Sex
     poly1 <- polygons(1)
     all_sex <- unique(as.numeric(ped_df$sex))
@@ -116,9 +118,9 @@ setMethod("ped_to_legdf", "Pedigree", function(
 
     sex_label <- data.frame(
         x0 = posx[2] + adjx,
-        y0 = posy[all_sex] + boxh / 2 + adjy,
+        y0 = posy[all_sex] + adjy,
         label = sex_equiv[all_sex], cex = cex,
-        type = "text",
+        type = "text", adjx = 0, adjy = 0.5,
         fill = "black",
         id = "sex_label"
     )
@@ -138,8 +140,8 @@ setMethod("ped_to_legdf", "Pedigree", function(
     lab[is.na(lab)] <- "NA"
     border_label <- data.frame(
         x0 = posx[4] + adjx,
-        y0 = posy[seq_along(border_mods)] + boxh / 2  + adjy,
-        label = lab, cex = cex,
+        y0 = posy[seq_along(border_mods)] + adjy,
+        label = lab, cex = cex, adjx = 0, adjy = 0.5,
         type = "text",
         fill = "black",
         id = "border_label"
@@ -174,8 +176,8 @@ setMethod("ped_to_legdf", "Pedigree", function(
         lab[is.na(lab)] <- "NA"
         affected_label <- data.frame(
             x0 = posx[4 + aff * 2] + adjx,
-            y0 = posy[seq_along(aff_mods)] + boxh / 2 + adjy,
-            label = lab, cex = cex,
+            y0 = posy[seq_along(aff_mods)] + adjy,
+            label = lab, cex = cex, adjx = 0, adjy = 0.5,
             type = "text",
             fill = "black",
             id = paste("affected_label", aff, aff_mods, sep = "_")

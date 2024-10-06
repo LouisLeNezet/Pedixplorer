@@ -283,7 +283,7 @@ draw_polygon <- function(
 #' @importFrom ggplot2 annotate
 #' @importFrom graphics text
 draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
-    cex = 1, col = NULL, adjx = 0, adjy = 0
+    cex = 1, col = NULL, adjx = 0.5, adjy = 0.5
 ) {
     graphics::text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
     if (ggplot_gen) {
