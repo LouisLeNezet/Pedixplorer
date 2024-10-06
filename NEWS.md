@@ -14,6 +14,7 @@ NEWS file for the Pedixplorer package
 functions for users
 - Stabilize unit test
 - Standardize the vignettes and add more documentation
+- Fix label adjusting position in plot functions
 
 ## Changes in version 1.1.3
 
