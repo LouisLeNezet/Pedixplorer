@@ -258,20 +258,25 @@ plot method displays the pedigree.</p>
 <span><span class="co">## [1] "Ped object with 41 individuals and 13 metadata columns"</span></span>
 <span><span class="co">## [1] "Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse"</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Pedixplorer_files/figure-html/ped1-1.png" alt="Pedigree of family 1" width="700"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span>, cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Pedixplorer_files/figure-html/ped1-1.png" alt="Pedigree of family 1" width="700" style="display: block; margin: auto;"></p>
 <p>You can add a title and a legend to the plot with the following
 command:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span>, title <span class="op">=</span> <span class="st">"Pedigree 1"</span>, legend <span class="op">=</span> <span class="cn">TRUE</span>, leg_loc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">15</span>, <span class="fl">4.5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Pedixplorer_files/figure-html/ped1_title-1.png" alt="Pedigree of family 1 with legend" width="700">
-# Pedigree Shiny application</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>    <span class="va">ped1</span>, title <span class="op">=</span> <span class="st">"Pedigree 1"</span>,</span>
+<span>    legend <span class="op">=</span> <span class="cn">TRUE</span>, leg_loc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">16</span>, <span class="fl">1.05</span>, <span class="fl">1.9</span><span class="op">)</span>,</span>
+<span>    cex<span class="op">=</span><span class="fl">0.7</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="Pedixplorer_files/figure-html/ped1_title-1.png" alt="Pedigree of family 1 with legend" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="pedigree-shiny-application">Pedigree Shiny application<a class="anchor" aria-label="anchor" href="#pedigree-shiny-application"></a>
+</h3>
 <p>A shiny application is available to create, interact and plot
 pedigrees. To launch the application, use the following command:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/ped_shiny.html">ped_shiny</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ped_shiny.html">ped_shiny</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The use is simple:</p>
 <ul>
 <li>You first need to import a dataset and select the columns to
@@ -529,7 +534,7 @@ using the a {/em } character to indicate a new line.</p>
 <span>    <span class="st">"Lucy"</span>, <span class="st">"Ken"</span>, <span class="st">"Barb"</span>, <span class="st">"Mike"</span>, <span class="st">"Matt"</span>,</span>
 <span>    <span class="st">"Mindy"</span>, <span class="st">"Mark"</span>, <span class="st">"Marie\nCurie"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped2</span>, label <span class="op">=</span> <span class="st">"Names"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped2</span>, label <span class="op">=</span> <span class="st">"Names"</span>, cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Pedixplorer_files/figure-html/labels-1.png" alt="Pedigree of family 2 with names label" width="700"></p>
 </div>
 <div class="section level3">
@@ -547,8 +552,15 @@ differently to indicate the two affected indicators.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mcols</span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span><span class="op">$</span><span class="va">bald</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ped2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_colors.html">generate_colors</a></span><span class="op">(</span><span class="va">ped2</span>, col_aff <span class="op">=</span> <span class="st">"bald"</span>, add_to_scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped2</span>, legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Increase down margin for the legend</span></span>
+<span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mai<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>    <span class="va">ped2</span>, legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    leg_loc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">6</span>, <span class="fl">3.5</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Pedixplorer_files/figure-html/two_affection-1.png" alt="Pedigree of family 2 with two affection indicators" width="700"></p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Reset graphical parameter</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="special-relationships">Special Relationships<a class="anchor" aria-label="anchor" href="#special-relationships"></a>
@@ -578,7 +590,7 @@ relationships are both represented with diverging lines from a single
 point. The monozygotic twins have an additional line connecting the
 diverging lines, while twins of unknown zygosity have a question
 mark.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## create twin relationships</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"relped"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/Pedigree-class.html">rel</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Rel-class.html">Rel</a></span><span class="op">(</span><span class="va">relped</span><span class="op">[</span><span class="va">relped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="fl">2</span>, <span class="op">]</span><span class="op">)</span></span>
@@ -601,7 +613,7 @@ parents of <em>201</em> and also create subjects <em>199</em> and
 creating subjects <em>195</em> and <em>196</em>. This results in
 subjects <em>201</em> and <em>202</em> being first cousins, and
 therefore inbred.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">indid</span> <span class="op">&lt;-</span> <span class="fl">195</span><span class="op">:</span><span class="fl">202</span></span>
 <span><span class="va">dadid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">196</span>, <span class="fl">196</span>, <span class="cn">NA</span>, <span class="fl">197</span>, <span class="fl">199</span><span class="op">)</span></span>
 <span><span class="va">momid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">195</span>, <span class="fl">195</span>, <span class="cn">NA</span>, <span class="fl">198</span>, <span class="fl">200</span><span class="op">)</span></span>
@@ -624,7 +636,7 @@ therefore inbred.</p>
 <code>spouse</code> or <code>4</code>. If we use the <em>ped2</em> from
 earlier and add a new spouse relationship between the individuals
 <em>212</em> and <em>211</em> we get the following plot.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## create twin relationships</span></span>
 <span><span class="va">rel_df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    id1 <span class="op">=</span> <span class="st">"211"</span>,</span>
@@ -653,7 +665,7 @@ without children between them. If we do not specify the marriage with
 the <code>rel_df</code> argument, the plot method excludes subject
 <em>113</em> from the plot. The basic plot of <em>ped1</em> is shown in
 the figure below.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="va">sampleped</span><span class="op">[</span><span class="va">sampleped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span></span>
 <span><span class="va">relate1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    id1 <span class="op">=</span> <span class="fl">113</span>,</span>
@@ -662,7 +674,7 @@ the figure below.</p>
 <span>    famid <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">relate1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span>, cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Pedixplorer_files/figure-html/plotped1-1.png" alt="Pedigree of family 1" width="700"></p>
 <div class="section level3">
 <h3 id="align-by-input-order">Align by Input Order<a class="anchor" aria-label="anchor" href="#align-by-input-order"></a>
@@ -673,10 +685,10 @@ make two copies of a subject. If we change the order of the subjects
 when creating the Pedigree, we can help the plot method reduce the need
 to duplicate subjects, as Figure~ no longer has subject <em>110</em>
 duplicated.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df1reord</span> <span class="op">&lt;-</span> <span class="va">df1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">35</span><span class="op">:</span><span class="fl">41</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">34</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">ped1reord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">df1reord</span>, <span class="va">relate1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1reord</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1reord</span>, cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Pedixplorer_files/figure-html/ordering-1.png" alt="Pedigree of family 1 with reordering" width="700"></p>
 </div>
 <div class="section level3">
@@ -692,7 +704,7 @@ generate a color palette for each level of the factor. The user can then
 modify the colors and the patterns used for the filling and the
 bordering of the plot.</p>
 <p>To do so you can do as follow:</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/Pedigree-class.html">scales</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## An object of class "Scales"</span></span>
 <span><span class="co">## Slot "fill":</span></span>
@@ -706,7 +718,7 @@ bordering of the plot.</p>
 <span><span class="co">## 1         avail  avail_mods   NA            NA   grey</span></span>
 <span><span class="co">## 2         avail  avail_mods    1     Available  green</span></span>
 <span><span class="co">## 3         avail  avail_mods    0 Non Available  black</span></span></code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_colors.html">generate_colors</a></span><span class="op">(</span></span>
 <span>    <span class="va">ped1</span>, col_aff <span class="op">=</span> <span class="st">"num"</span>,</span>
 <span>    add_to_scale <span class="op">=</span> <span class="cn">TRUE</span>, is_num <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -716,9 +728,9 @@ bordering of the plot.</p>
 <span>    threshold <span class="op">=</span> <span class="fl">3</span>, sup_thres_aff <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span>, cex <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Pedixplorer_files/figure-html/generate_colors-1.png" alt="Pedigree of family 1 with change in colors" width="700"></p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To modify a given scale you can do as follow</span></span>
 <span><span class="fu"><a href="../reference/Scales-class.html">fill</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   order column_values    column_mods mods                       labels affected    fill density</span></span>
@@ -739,12 +751,15 @@ bordering of the plot.</p>
 <span><span class="co">## 6    NA</span></span>
 <span><span class="co">## 7    NA</span></span>
 <span><span class="co">## 8    NA</span></span></code></pre>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/Scales-class.html">fill</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"#970b6d"</span></span>
 <span><span class="fu"><a href="../reference/Scales-class.html">fill</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">$</span><span class="va">density</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">30</span></span>
 <span><span class="fu"><a href="../reference/Scales-class.html">fill</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">$</span><span class="va">angle</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">45</span></span>
 <span><span class="fu"><a href="../reference/Scales-class.html">border</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">$</span><span class="va">border</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"black"</span>, <span class="st">"orange"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped1</span>, legend <span class="op">=</span> <span class="cn">TRUE</span>, leg_loc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">18</span>, <span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>    <span class="va">ped1</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    leg_loc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">16</span>, <span class="fl">1</span>, <span class="fl">1.8</span><span class="op">)</span>, leg_cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="Pedixplorer_files/figure-html/generate_colors-2.png" alt="Pedigree of family 1 with change in colors" width="700"></p>
 </div>
 </div>
@@ -760,7 +775,7 @@ vectors from the Pedigree object into a <code>data.frame</code> with
 basic information that can be used to construct a new
 <code>Pedigree</code> object. This is possible with the
 <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> method, as shown below.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfped2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">dfped2</span></span></code></pre></div>
 </div>
@@ -788,8 +803,9 @@ the following values:</p>
 </ul>
 <p>They will be the individuals from which the distance will be compute.
 This distance correspond to :</p>
-<p><span class="math inline">\eqn{minDist = log2(1 /
-\max(kinship))}</span></p>
+<p><span class="math display">
+    minDist = log2(\frac{1}{\max(kinship)})
+</span></p>
 <p>Therefore, the minimum distance is 0 when the maximum kinship is 1
 and is infinite when the maximum kinship is 0. For siblings, the kinship
 value is 0.5 and the minimum distance is 1. Each time the kinship degree
@@ -802,7 +818,7 @@ inside the circle will be kept and the others disregarded.</p>
 <p>The <code><a href="../reference/useful_inds.html">useful_inds()</a></code> function is used as follow and return
 the same <code>Pedigree</code> object but with the <code>useful</code>
 column updated in the <code>Ped</code> object :</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
 <span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
 <span></span>
@@ -812,7 +828,7 @@ column updated in the <code>Ped</code> object :</p>
 <span><span class="co">## [17] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
 <span><span class="co">## [33] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
 <span><span class="co">## [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped_filtered</span> <span class="op">&lt;-</span> <span class="va">ped1</span><span class="op">[</span><span class="fu"><a href="../reference/Ped-class.html">useful</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped_filtered</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Pedixplorer_files/figure-html/useful_inds-1.png" width="700"></p>
@@ -827,13 +843,13 @@ identify which subjects to remove. We show how a subject (e.g. subject
 object is changed by verifying that the <code>Rel</code> object no
 longer has the twin relationship between subjects <em>210</em> and
 <em>211</em>, as indicated by <code>id1</code> and <code>id2</code>.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped2_rm210</span> <span class="op">&lt;-</span> <span class="va">ped2</span><span class="op">[</span><span class="op">-</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="../reference/Pedigree-class.html">rel</a></span><span class="op">(</span><span class="va">ped2_rm210</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse:</span></span>
 <span><span class="co">##          id1         id2                     code       famid</span></span>
 <span><span class="co">##  &lt;character&gt; &lt;character&gt; &lt;c("ordered", "factor")&gt; &lt;character&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/Pedigree-class.html">rel</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Rel object with 4 relationshipswith 1 MZ twin, 1 DZ twin, 1 UZ twin, 1 Spouse:</span></span>
 <span><span class="co">##           id1         id2     code       famid</span></span>
@@ -849,12 +865,12 @@ by their <code>id</code> or other argument. Below is an example of
 removing subject <em>110</em>, as done above, then we further trim the
 pedigree by a vector of subject ids. We check the trimming by looking at
 the <code>id</code> vector and the <code>Rel</code> object.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped2_trim210</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ped2</span>, <span class="st">"2_210"</span>, keep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/Ped-class.html">id</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped2_trim210</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "2_201" "2_202" "2_203" "2_204" "2_205" "2_206" "2_207" "2_208" "2_209" "2_211" "2_212" "2_213"</span></span>
 <span><span class="co">## [13] "2_214"</span></span></code></pre>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/Pedigree-class.html">rel</a></span><span class="op">(</span><span class="va">ped2_trim210</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Rel object with 3 relationshipswith 0 MZ twin, 1 DZ twin, 1 UZ twin, 1 Spouse:</span></span>
 <span><span class="co">##           id1         id2                     code       famid</span></span>
@@ -862,11 +878,11 @@ the <code>id</code> vector and the <code>Rel</code> object.</p>
 <span><span class="co">## 1       2_204       2_208                  DZ twin           2</span></span>
 <span><span class="co">## 2       2_212       2_213                  UZ twin           2</span></span>
 <span><span class="co">## 3       2_211       2_212                   Spouse           2</span></span></code></pre>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped2_trim_more</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ped2_trim210</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2_212"</span>, <span class="st">"2_214"</span><span class="op">)</span>, keep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/Ped-class.html">id</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped2_trim_more</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "2_201" "2_202" "2_203" "2_204" "2_205" "2_206" "2_207" "2_208" "2_209" "2_211" "2_213"</span></span></code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/Pedigree-class.html">rel</a></span><span class="op">(</span><span class="va">ped2_trim_more</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Rel object with 1 relationshipwith 0 MZ twin, 1 DZ twin, 0 UZ twin, 0 Spouse:</span></span>
 <span><span class="co">##           id1         id2                     code       famid</span></span>
@@ -887,7 +903,7 @@ available who are unaffected + available who are affected</p>
 which happens to be the bit size after removing only the unavailable
 subjects. We show how to extract the shrunken <code>Pedigree</code>
 object from the <code><a href="../reference/shrink.html">shrink()</a></code> result, and plot it.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span></span>
 <span><span class="va">shrink1_b30</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shrink.html">shrink</a></span><span class="op">(</span><span class="va">ped1</span>, max_bits <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">shrink1_b30</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
@@ -920,7 +936,7 @@ object from the <code><a href="../reference/shrink.html">shrink()</a></code> res
 <span><span class="co">## </span></span>
 <span><span class="co">## $pedSizeFinal</span></span>
 <span><span class="co">## [1] 34</span></span></code></pre>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">shrink1_b30</span><span class="op">$</span><span class="va">pedObj</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Multiple families present, only plotting family 1</span></span></code></pre>
 <p><img src="Pedixplorer_files/figure-html/shrink1-1.png" alt="Pedigree of family 1 shrinked to 30 bits" width="700"></p>
@@ -929,7 +945,7 @@ requires removing subjects who are informative. If there is a tie
 between multiple subjects about who to remove, the method randomly
 chooses one of them. With this seed setting, the method removes subjects
 <em>140</em> then <em>141</em>.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">shrink1_b25</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shrink.html">shrink</a></span><span class="op">(</span><span class="va">ped1</span>, max_bits <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">shrink1_b25</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
@@ -961,7 +977,7 @@ chooses one of them. With this seed setting, the method removes subjects
 <span><span class="co">## </span></span>
 <span><span class="co">## $pedSizeFinal</span></span>
 <span><span class="co">## [1] 29</span></span></code></pre>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">shrink1_b25</span><span class="op">$</span><span class="va">pedObj</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Multiple families present, only plotting family 1</span></span></code></pre>
 <p><img src="Pedixplorer_files/figure-html/shrink2-1.png" alt="Pedigree of family 1 shrinked to 25 bits" width="700"></p>
@@ -977,13 +993,13 @@ vector indicating availability. In some pedigrees there are numerous
 sets of subjects that satisfy the maximum number of unrelateds, so the
 method randomly chooses from the set. We show two sets of subject ids
 that are selected by the routine and discuss below.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">set1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/unrelated.html">unrelated</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span></span>
 <span><span class="va">set1</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "2_203" "2_206"</span></span></code></pre>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">set2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/unrelated.html">unrelated</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span></span>
 <span><span class="va">set2</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "2_203" "2_214"</span></span></code></pre>
@@ -997,7 +1013,7 @@ subjects: <em>201</em>, <em>204</em>, <em>206</em>, <em>207</em>,
 <em>212</em> and <em>214</em>, as indicated by the kinship matrix for
 <em>Pedigree 2</em> subset to those with availability status of
 <em>1</em>.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">kin2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/kinship.html">kinship</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span></span>
 <span><span class="va">is_avail</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Ped-class.html">id</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="../reference/Ped-class.html">avail</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">kin2</span></span></code></pre></div>
@@ -1018,7 +1034,7 @@ subjects: <em>201</em>, <em>204</em>, <em>206</em>, <em>207</em>,
 <span><span class="co">## 2_212 0.125 0.125 .    0.125 0.125 0.125 0.125 0.250 0.25 0.0625 0.0625 0.5000 0.2500 0.2500</span></span>
 <span><span class="co">## 2_213 0.125 0.125 .    0.125 0.125 0.125 0.125 0.250 0.25 0.0625 0.0625 0.2500 0.5000 0.2500</span></span>
 <span><span class="co">## 2_214 0.125 0.125 .    0.125 0.125 0.125 0.125 0.250 0.25 0.0625 0.0625 0.2500 0.2500 0.5000</span></span></code></pre>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">kin2</span><span class="op">[</span><span class="va">is_avail</span>, <span class="va">is_avail</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## 8 x 8 sparse Matrix of class "dsCMatrix"</span></span>
 <span><span class="co">##       2_201 2_203 2_204 2_206 2_207  2_211  2_212  2_214</span></span>
@@ -1034,7 +1050,7 @@ subjects: <em>201</em>, <em>204</em>, <em>206</em>, <em>207</em>,
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.4.1 (2024-06-14)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
