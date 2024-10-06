@@ -171,7 +171,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 x0 = pos[idx] + poly_aff_x_mr[sex],
                 y0 = i[idx] + boxh / 2,
                 label = ped_df[id[idx], unique(aff_df[["column_values"]])],
-                fill = "black",
+                fill = "black", adjx = 0.5, adjy = 0.5,
                 type = "text", cex = cex,
                 id = "aff_mark"
             )
@@ -198,7 +198,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     id_df <- data.frame(
         x0 = pos[idx], y0 = i[idx] + boxh + labh * 1.2,
         label = ped_df[id[idx], id_lab], fill = "black",
-        type = "text", cex = cex,
+        type = "text", cex = cex, adjx = 0.5, adjy = 0.5,
         id = "id"
     )
     plot_df <- rbind.fill(plot_df, id_df)
@@ -208,9 +208,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (!is.null(label)) {
         check_columns(ped_df, label)
         label <- data.frame(
-            x0 = pos[idx], y0 = i[idx] + boxh + labh * 2.8,
+            x0 = pos[idx], y0 = i[idx] + boxh + labh * 3,
             label = ped_df[id[idx], label],
-            fill = "black",
+            fill = "black", adjy = 1, adjx = 0.5,
             type = "text", cex = cex,
             id = "label"
         )
@@ -308,6 +308,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                     x0 = (temp1 + temp2) / 2, y0 = yy,
                     label = "?", fill = "black",
                     type = "text", cex = cex,
+                    adjx = 0.5, adjy = 0.5,
                     id = "label_children_twin3"
                 )
                 plot_df <- rbind.fill(plot_df, twin_lab)

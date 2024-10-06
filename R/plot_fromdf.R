@@ -152,11 +152,18 @@ plot_fromdf <- function(
 
     txt <- df[df$type == "text" & !is.na(df$label), ]
     if (!is.null(txt) && nrow(txt) > 0) {
-        p <- draw_text(
-            txt$x0, txt$y0, txt$label,
-            p, ggplot_gen, txt$cex, txt$fill,
-            txt$adjx, txt$adjy
-        )
+        for (adjx in unique(txt$adjx)) {
+            txt_x <- txt[txt$adjx == adjx,]
+            for (adjy in unique(txt_x$adjy)) {
+                txt_xy <- txt_x[txt_x$adjy == adjy,]
+                print(txt_xy[c("label", "adjy", "adjx")])
+                p <- draw_text(
+                    txt_xy$x0, txt_xy$y0, txt_xy$label,
+                    p, ggplot_gen, txt_xy$cex, txt_xy$fill,
+                    adjx, adjy
+                )
+            }
+        }
     }
 
     invisible(p)
