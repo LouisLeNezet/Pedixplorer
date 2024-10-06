@@ -96,7 +96,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     lab_title <- c("Sex", "Border", unique(all_aff$column_values))
     titles <- data.frame(
         x0 = posx[seq_along(posx) %% 2 == 0] - boxw, y0  = 0,
-        type = "text", label = lab_title, adjx = 0.5, adjy =0,
+        type = "text", label = lab_title, adjx = 0.5, adjy = 0,
         fill = "black", cex = cex * 1.5,
         id = "titles"
     )

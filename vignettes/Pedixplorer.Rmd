@@ -138,7 +138,7 @@ You can add a title and a legend to the plot with the following command:
 plot(
     ped1, title = "Pedigree 1",
     legend = TRUE, leg_loc = c(7, 16, 1.05, 1.9),
-    cex=0.7
+    cex = 0.7
 )
 ```
 
@@ -336,10 +336,11 @@ indicate the two affected indicators.
 mcols(ped2)$bald <- as.factor(c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1))
 ped2 <- generate_colors(ped2, col_aff = "bald", add_to_scale = TRUE)
 # Increase down margin for the legend
-op <- par(mai=c(1.5, 0.2, 0.2, 0.2))
+op <- par(mai = c(1.5, 0.2, 0.2, 0.2))
 plot(
     ped2, legend = TRUE,
-    leg_loc = c(0.5, 6, 3.5, 4))
+    leg_loc = c(0.5, 6, 3.5, 4)
+)
 # Reset graphical parameter
 par(op)
 ```
