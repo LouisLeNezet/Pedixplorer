@@ -102,48 +102,66 @@ plot_fromdf <- function(
         names(polygons(1)), seq_len(max_aff), seq_len(max_aff)
     ), 1, paste, collapse = "_")
 
+    seg <- df[df$type == "segments" & df$id != "dead", ]
+    if (!is.null(seg) && nrow(seg) > 0) {
+        p <- draw_segment(
+            seg$x0, seg$y0, seg$x1, seg$y1,
+            p, ggplot_gen, col = seg$fill, lwd = seg$cex
+        )
+    }
+
     boxes <- df[df$type %in% all_types, ]
-    if (nrow(boxes) != 0) {
+    if (!is.null(boxes) && nrow(boxes) > 0) {
         boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(
             boxes$type, "_", 3
         )
         boxes$angle[boxes$angle == "NA"] <- 45
+        for (i in seq_len(dim(boxes)[1])){
+            poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
+                as.numeric(boxes$naff[i])
+            ]]
+            p <- draw_polygon(
+                boxes$x0[i] + poly$x * boxw,
+                boxes$y0[i] + poly$y * boxh,
+                p, ggplot_gen,
+                fill = boxes$fill[i], border = boxes$border[i],
+                density = boxes$density[i], angle = boxes$angle[i],
+                lwd = boxes$cex[i]
+            )
+        }
     }
 
-    for (i in seq_len(dim(boxes)[1])){
-        poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
-            as.numeric(boxes$naff[i])
-        ]]
-        p <- draw_polygon(
-            boxes$x0[i] + poly$x * boxw,
-            boxes$y0[i] + poly$y * boxh,
-            p, ggplot_gen,
-            boxes$fill[i], boxes$border[i], boxes$density[i], boxes$angle[i]
-        )
-    }
-    txt <- df[df$type == "text" & !is.na(df$label), ]
-    if (nrow(txt) > 0) {
-        p <- draw_text(
-            txt$x0, txt$y0, txt$label,
-            p, ggplot_gen, txt$cex, txt$fill, txt$adjx, txt$adjy
-        )
-    }
-
-    seg <- df[df$type == "segments", ]
-    if (nrow(seg) > 0) {
+    seg <- df[df$type == "segments" & df$id == "dead", ]
+    if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
-            p, ggplot_gen, seg$fill, seg$cex
+            p, ggplot_gen, col = seg$fill, lwd = seg$cex
         )
     }
 
     arcs <- df[df$type == "arc", ]
-    if (nrow(arcs) > 0) {
+    if (!is.null(arcs) && nrow(arcs) > 0) {
         for (it in seq_len(nrow(arcs))){
             arc <- arcs[it, ]
             p <- draw_arc(arc$x0, arc$y0, arc$x1, arc$y1,
                 p, ggplot_gen, lwd = arc$cex, col = arc$fill
             )
+        }
+    }
+
+
+    txt <- df[df$type == "text" & !is.na(df$label), ]
+    if (!is.null(txt) && nrow(txt) > 0) {
+        for (adjx in unique(txt$adjx)) {
+            txt_x <- txt[txt$adjx == adjx, ]
+            for (adjy in unique(txt_x$adjy)) {
+                txt_xy <- txt_x[txt_x$adjy == adjy, ]
+                p <- draw_text(
+                    txt_xy$x0, txt_xy$y0, txt_xy$label,
+                    p, ggplot_gen, txt_xy$cex, txt_xy$fill,
+                    adjx, adjy
+                )
+            }
         }
     }
 

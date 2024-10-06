@@ -59,10 +59,12 @@ test_that("data_import with default data", {
     app$set_inputs(`my_data_import-to_char` = TRUE)
     app$set_inputs(`my_data_import-quote` = "'")
     app$click("my_data_import-close")
+    app$wait_for_idle()
     # Update output value
     app$expect_values(export = TRUE)
     app$click("my_data_import-testdf")
     # Update output value
+    app$wait_for_idle()
     app$expect_values(export = TRUE)
 })
 
@@ -177,11 +179,11 @@ test_that("plot_ped works", {
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
-    app$wait_for_idle(1500)
+    app$wait_for_idle()
     app$set_inputs(`plot_ped-interactive` = TRUE)
-    app$wait_for_idle(1500)
+    app$wait_for_idle()
     app$click("saveped-download")
-    app$wait_for_idle(500)
+    app$wait_for_idle()
     app$set_inputs(`saveped-ext` = "html")
     path <- app$get_download("saveped-plot_dwld")
     expect_true(file.exists(path))

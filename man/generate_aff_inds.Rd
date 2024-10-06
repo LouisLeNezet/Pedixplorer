@@ -68,4 +68,5 @@ generate_aff_inds(c("A", "B", "C", "A", "V", "B"), mods_aff = c("A", "B"))
 \author{
 Louis Le Nézet
 }
-\keyword{generate_scales}
+\keyword{generate_scales,}
+\keyword{internal}

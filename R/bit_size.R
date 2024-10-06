@@ -31,7 +31,7 @@
 #' ped <- Pedigree(sampleped)
 #' bit_size(ped)
 #' @export
-#' @keywords internal, shrink
+#' @keywords shrink
 #' @usage NULL
 setGeneric("bit_size", signature = "obj",
     function(obj, ...) standardGeneric("bit_size")

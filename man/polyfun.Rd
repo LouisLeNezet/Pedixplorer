@@ -28,4 +28,4 @@ polyfun(2, list(
 ))
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

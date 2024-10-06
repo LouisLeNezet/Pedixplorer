@@ -26,3 +26,4 @@ df <- data.frame(
 )
 get_families_table(df, "health")
 }
+\keyword{internal}

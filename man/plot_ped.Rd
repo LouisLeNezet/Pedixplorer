@@ -8,9 +8,16 @@
 \usage{
 plot_ped_ui(id)
 
-plot_ped_server(id, pedi, title, precision = 2, max_ind = 500)
+plot_ped_server(
+  id,
+  pedi,
+  title,
+  precision = 2,
+  max_ind = 500,
+  lwd = par("lwd")
+)
 
-plot_ped_demo(pedi, max_ind = 500)
+plot_ped_demo(pedi, precision = 2, max_ind = 500)
 }
 \arguments{
 \item{id}{A string.}
@@ -20,6 +27,8 @@ plot_ped_demo(pedi, max_ind = 500)
 \item{title}{A string to name the plot.}
 
 \item{precision}{An integer to set the precision of the plot.}
+
+\item{max_ind}{An integer to set the maximum number of individuals to plot.}
 }
 \value{
 A reactive ggplot or the pedigree object.

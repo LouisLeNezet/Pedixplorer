@@ -29,6 +29,8 @@ plot_ped_ui <- function(id) {
 #' @param pedi A reactive pedigree object.
 #' @param title A string to name the plot.
 #' @param precision An integer to set the precision of the plot.
+#' @param max_ind An integer to set the maximum number of individuals to plot.
+#' @inheritParams plot_fromdf
 #' @returns A reactive ggplot or the pedigree object.
 #' @examples
 #' if (interactive()) {
@@ -44,7 +46,10 @@ plot_ped_ui <- function(id) {
 #' @importFrom shiny tagList checkboxInput plotOutput
 #' @importFrom ggplot2 scale_y_reverse theme element_blank
 #' @importFrom plotly ggplotly renderPlotly plotlyOutput
-plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
+plot_ped_server <- function(
+    id, pedi, title, precision = 2,
+    max_ind = 500, lwd = par("lwd")
+) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
 
@@ -91,7 +96,7 @@ plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1, force = TRUE,
                 mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle(),
-                precision = precision
+                precision = precision, lwd = lwd
             )
 
             ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
@@ -129,7 +134,7 @@ plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
                         aff_mark = TRUE, label = NULL,
                         cex = 1, symbolsize = 1, force = TRUE,
                         mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle(),
-                        precision = precision
+                        precision = precision, lwd = lwd
                     )
                 })
                 shiny::plotOutput(ns("ped_plot"), height = "700px")
@@ -151,13 +156,17 @@ plot_ped_server <- function(id, pedi, title, precision = 2, max_ind = 500) {
 #' @rdname plot_ped
 #' @export
 #' @importFrom shiny shinyApp fluidPage
-plot_ped_demo <- function(pedi, max_ind = 500) {
+plot_ped_demo <- function(pedi, precision = 2, max_ind = 500) {
     ui <- shiny::fluidPage(
         plot_ped_ui("plot_ped"),
         plot_download_ui("saveped")
     )
     server <- function(input, output, session) {
-        ped_plot <- plot_ped_server("plot_ped", pedi, "My Pedigree", max_ind)
+        ped_plot <- plot_ped_server(
+            "plot_ped", pedi,
+            "My Pedigree", max_ind = max_ind,
+            precision = precision
+        )
         plot_download_server("saveped", ped_plot)
     }
     shiny::shinyApp(ui, server)

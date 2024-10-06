@@ -19,6 +19,7 @@ plot_legend_ui <- function(id, height = "200px") {
 #'
 #' @param id A string.
 #' @param pedi A reactive pedigree object.
+#' @inheritParams plot_legend
 #' @returns A static UI with the legend.
 #' @examples
 #' if (interactive()) {
@@ -28,7 +29,11 @@ plot_legend_ui <- function(id, height = "200px") {
 #' @keywords internal
 #' @export
 #' @importFrom shiny moduleServer is.reactive renderPlot req
-plot_legend_server <- function(id, pedi, leg_loc = c(0.2, 1, 0, 1)) {
+plot_legend_server <- function(
+    id, pedi, leg_loc = c(0.2, 1, 0, 1),
+    lwd = par("lwd"), boxw = 1, boxh = 1,
+    adjx = 0, adjy = 0
+) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
         output$plotlegend <- shiny::renderPlot({
@@ -36,8 +41,9 @@ plot_legend_server <- function(id, pedi, leg_loc = c(0.2, 1, 0, 1)) {
             old_mai <- graphics::par()$mai
             graphics::par(mai = c(0, 0, 0, 0))
             plot_legend(
-                pedi(), adjx = 0.7, adjy = -0.02,
-                leg_loc = leg_loc
+                pedi(), adjx = adjx, adjy = adjy,
+                boxw = boxw, boxh = boxh,
+                leg_loc = leg_loc, lwd = lwd
             )
             graphics::par(mai = old_mai)
         })

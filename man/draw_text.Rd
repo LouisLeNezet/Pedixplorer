@@ -12,8 +12,8 @@ draw_text(
   ggplot_gen = FALSE,
   cex = 1,
   col = NULL,
-  adjx = 0,
-  adjy = 0
+  adjx = 0.5,
+  adjy = 0.5
 )
 }
 \arguments{
@@ -43,4 +43,4 @@ or add it to a ggplot object
 Draw texts
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

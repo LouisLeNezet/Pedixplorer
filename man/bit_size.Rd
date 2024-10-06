@@ -55,5 +55,4 @@ bit_size(ped)
 \seealso{
 \code{\link[=shrink]{shrink()}}
 }
-\keyword{internal,}
 \keyword{shrink}

@@ -33,6 +33,6 @@ The vector given will be transformed using the
 }
 \examples{
 generate_border(c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA))
-
 }
 \keyword{generate_scales}
+\keyword{internal}

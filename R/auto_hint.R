@@ -19,7 +19,8 @@
 #'
 #' @return The updated hint vector
 #' @seealso [auto_hint()]
-#' @keywords internal, auto_hint
+#' @keywords internal
+#' @keywords auto_hint
 shift <- function(id, sibs, goleft, hint, twinrel, twinset) {
     if (twinset[id] > 0) {
         # enough to avoid overlap
@@ -87,7 +88,8 @@ shift <- function(id, sibs, goleft, hint, twinrel, twinset) {
 #'
 #' @return The position of the spouse
 #' @seealso [auto_hint()]
-#' @keywords internal, auto_hint
+#' @keywords internal
+#' @keywords auto_hint
 findspouse <- function(idpos, plist, lev, obj) {
     lpos <- idpos
     while (lpos > 1 && plist$spouse[lev, lpos - 1]) {
@@ -121,7 +123,8 @@ findspouse <- function(idpos, plist, lev, obj) {
 #'
 #' @return The positions of the siblings
 #' @seealso [auto_hint()]
-#' @keywords internal, auto_hint
+#' @keywords internal
+#' @keywords auto_hint
 findsibs <- function(idpos, plist, lev) {
     family <- plist$fam[lev, idpos]
     if (family == 0) {
@@ -142,7 +145,8 @@ findsibs <- function(idpos, plist, lev) {
 #'
 #' @return A matrix of duplicate pairs
 #' @seealso [auto_hint()]
-#' @keywords internal, auto_hint
+#' @keywords internal
+#' @keywords auto_hint
 duporder <- function(idlist, plist, lev, obj) {
     temp <- table(idlist)
     if (all(temp == 1)) {
@@ -209,7 +213,8 @@ duporder <- function(idlist, plist, lev, obj) {
 #'
 #' @inheritParams align
 #'
-#' @keywords internal, auto_hint
+#' @keywords internal
+#' @keywords auto_hint
 #' @return A list containing components
 #'  1. `twinset` the set of twins
 #'  2. `twinrel` the twins relationships

@@ -134,7 +134,7 @@ test_that("generate with full scale", {
         colors_aff = c("pink", "purple"), keep_full_scale = TRUE
     )
     expect_equal(fill(ped)$labels[c(1, 4)],
-        c("Healthy <= to 240 : [101,114]", NA)
+        c("Healthy <= to 240 : (128,141]", NA)
     )
     expect_equal(nrow(fill(ped)), 3)
 })

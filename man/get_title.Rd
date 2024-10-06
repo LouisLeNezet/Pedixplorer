@@ -47,3 +47,4 @@ get_title(1, 1, "health", "A", "All", 3, TRUE, 10, FALSE)
 get_title(1, 1, "health", "A", "All", 3, TRUE, 10, TRUE)
 get_title(1, 1, "health", "A", "All", 3, FALSE, 10, FALSE)
 }
+\keyword{internal}

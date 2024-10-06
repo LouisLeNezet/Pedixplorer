@@ -38,7 +38,7 @@ test_that("Pedigree legend works", {
         function() {
             suppressWarnings(plot_legend(
                 ped, boxh = 0.07, boxw = 0.07, cex = 0.8,
-                leg_loc = c(0, 1.2, 0, 0.9), adjx = 0.75, adjy = -0.01
+                leg_loc = c(0, 1.2, 0, 0.9), adjx = 0.5, adjy = 0.04
             ))
         }
     )

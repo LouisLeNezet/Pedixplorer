@@ -29,3 +29,4 @@ Gender variable to ordered factor
 \examples{
 sex_to_factor(c(1, 2, 3, 4, "f", "m", "man", "female"))
 }
+\keyword{internal}

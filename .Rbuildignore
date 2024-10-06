@@ -10,3 +10,4 @@ _\.new\.png$
 ^codecov\.yml$
 .covrignore
 _pkgdown.yml
+pkgdown

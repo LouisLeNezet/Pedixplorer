@@ -26,6 +26,8 @@
 #' the labels in the legend.
 #' @param adjy default=0.  Controls the vertical text adjustment
 #' of the labels in the legend.
+#' @param lwd default=par("lwd").  Controls the bordering line width of the
+#' elements in the legend.
 #'
 #' @return
 #' A list containing the legend data frame and the user coordinates.
@@ -51,7 +53,7 @@ setGeneric(
 #' @importFrom graphics strwidth
 setMethod("ped_to_legdf", "Pedigree", function(
     obj, boxh = 1, boxw = 1,
-    cex = 1, adjx = 0, adjy = 0
+    cex = 1, adjx = 0, adjy = 0, lwd = par("lwd")
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)
     plot_df <- data.frame(
@@ -84,16 +86,17 @@ setMethod("ped_to_legdf", "Pedigree", function(
     })))
 
     posy <- rep(boxh, n_max * 2)
-    posy <- cumsum(posy) - boxh
+    posy <- cumsum(posy)
     posy <- posy[seq_along(posy) %% 2 == 0]
 
     all_aff <- fill(obj)
     n_aff <- length(unique(all_aff$order))
 
+    # Categories titles
     lab_title <- c("Sex", "Border", unique(all_aff$column_values))
     titles <- data.frame(
-        x0 = posx[seq_along(posx) %% 2 == 0] - boxw, y0 = 0,
-        type = "text", label = lab_title,
+        x0 = posx[seq_along(posx) %% 2 == 0] - boxw, y0  = 0,
+        type = "text", label = lab_title, adjx = 0.5, adjy = 0,
         fill = "black", cex = cex * 1.5,
         id = "titles"
     )
@@ -101,6 +104,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
 
     ## Get ped_df
     ped_df <- as.data.frame(ped(obj))
+
     # Sex
     poly1 <- polygons(1)
     all_sex <- unique(as.numeric(ped_df$sex))
@@ -109,14 +113,14 @@ setMethod("ped_to_legdf", "Pedigree", function(
         type = paste(names(poly1)[all_sex], 1, 1, sep = "_"),
         fill = "white",
         border = "black",
-        id = "sex"
+        id = "sex", cex = lwd
     )
 
     sex_label <- data.frame(
         x0 = posx[2] + adjx,
-        y0 = posy[all_sex] + boxh / 2 + adjy,
+        y0 = posy[all_sex] + adjy,
         label = sex_equiv[all_sex], cex = cex,
-        type = "text",
+        type = "text", adjx = 0, adjy = 0.5,
         fill = "black",
         id = "sex_label"
     )
@@ -130,14 +134,14 @@ setMethod("ped_to_legdf", "Pedigree", function(
         type = rep("square_1_1", length(border_mods)),
         border = border(obj)$border[match(border_mods, border(obj)$mods)],
         fill = "white",
-        id = "border"
+        id = "border", cex = lwd
     )
     lab <- border(obj)$labels[match(border_mods, border(obj)$mods)]
     lab[is.na(lab)] <- "NA"
     border_label <- data.frame(
         x0 = posx[4] + adjx,
-        y0 = posy[seq_along(border_mods)] + boxh / 2  + adjy,
-        label = lab, cex = cex,
+        y0 = posy[seq_along(border_mods)] + adjy,
+        label = lab, cex = cex, adjx = 0, adjy = 0.5,
         type = "text",
         fill = "black",
         id = "border_label"
@@ -148,14 +152,13 @@ setMethod("ped_to_legdf", "Pedigree", function(
     ## Affected
     for (aff in seq_len(n_aff)) {
         aff_df <- all_aff[all_aff$order == aff, ]
-        aff_mods <- unique(ped_df[, unique(aff_df[["column_mods"]])])
+        aff_mods <- aff_df$mods
         aff_bkg <- data.frame(
             x0 = posx[3 + aff * 2], y0 = posy[seq_along(aff_mods)],
             type = rep(paste("square", 1, 1, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black",
-            fill = "white",
+            border = "black", fill = "white", cex = lwd,
             id = paste("aff_bkg", aff, aff_mods, sep = "_")
         )
 
@@ -164,17 +167,17 @@ setMethod("ped_to_legdf", "Pedigree", function(
             type = rep(paste("square", n_aff, aff, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black",
-            fill = aff_df$fill[match(aff_mods, aff_df$mods)],
+            border = "black", cex = lwd,
+            fill = aff_df$fill,
             id = paste("affected", aff, aff_mods, sep = "_")
         )
 
-        lab <- aff_df$labels[match(aff_mods, aff_df$mods)]
+        lab <- aff_df$labels
         lab[is.na(lab)] <- "NA"
         affected_label <- data.frame(
             x0 = posx[4 + aff * 2] + adjx,
-            y0 = posy[seq_along(aff_mods)] + boxh / 2 + adjy,
-            label = lab, cex = cex,
+            y0 = posy[seq_along(aff_mods)] + adjy,
+            label = lab, cex = cex, adjx = 0, adjy = 0.5,
             type = "text",
             fill = "black",
             id = paste("affected_label", aff, aff_mods, sep = "_")

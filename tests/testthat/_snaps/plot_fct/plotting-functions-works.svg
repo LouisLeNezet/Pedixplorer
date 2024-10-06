@@ -37,7 +37,7 @@
 <circle cx='561.25' cy='141.49' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='622.56' cy='94.01' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='683.87' cy='46.53' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
-<line x1='70.79' y1='521.37' x2='193.40' y2='426.40' style='stroke-width: 2.13; stroke-linecap: butt;' />
+<line x1='70.79' y1='521.37' x2='193.40' y2='426.40' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='70.79' y1='521.37' x2='193.40' y2='521.37' style='stroke-width: 4.27; stroke: #FF0000; stroke-dasharray: 5.69,17.07; stroke-linecap: butt;' />
 <polygon points='193.40,426.40 193.40,378.92 254.71,378.92 254.71,426.40 ' style='stroke-width: 1.07; stroke-linecap: butt; fill: #BEBEBE;' />
 <polygon points='377.33,141.49 438.63,94.01 438.63,46.53 499.94,94.01 ' style='stroke-width: 1.07; stroke: #00FF00; stroke-linecap: butt; fill: #A52A2A;' />

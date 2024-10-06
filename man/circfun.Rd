@@ -25,4 +25,4 @@ circfun(1, 10)
 circfun(4, 50)
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

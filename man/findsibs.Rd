@@ -28,4 +28,4 @@ It finds the siblings of a subject.
 \code{\link[=auto_hint]{auto_hint()}}
 }
 \keyword{auto_hint}
-\keyword{internal,}
+\keyword{internal}

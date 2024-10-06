@@ -21,13 +21,14 @@ par_lst <- list(
     "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
     "fin" = c(6, 6), "bg" = "white", "family" = "HersheySans",
     "usr" = c(0, 1, 0, 1), xaxp = c(0, 1, 5), yaxp = c(0, 1, 5),
-    "fig" = c(0, 1, 0, 1), "mar" = c(1, 1, 1, 1), xpd = TRUE
+    "fig" = c(0, 1, 0, 1), "mar" = c(1, 1, 1, 1), xpd = TRUE,
+    lwd = 0.5
 )
 R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
 plot.new()
 
 ## Set up the environment
-withr::local_options(width = 150, digits = 8, browser = NULL)
+withr::local_options(width = 150, digits = 8, browser = "firefox")
 withr::local_options(width = 150, digits = 8, browser = "google-chrome")
 options(shiny.testmode = TRUE, shinytest2.load_timeout = 60000)
 Sys.setenv("R_TESTS" = "")

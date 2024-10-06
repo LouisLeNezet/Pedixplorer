@@ -2,10 +2,24 @@
 
 NEWS file for the Pedixplorer package
 
+## Changes in version 1.1.4
+
+- Update website and logo
+- Improve `ped_shiny()` esthetics
+- Change plot element order rendering for better looks
+- Add more control to line width of box and lines
+- Improve legend ordering
+- Separate website building workflow from check
+- Update function documentation and set to internal all unnecessary
+functions for users
+- Stabilize unit test
+- Standardize the vignettes and add more documentation
+- Fix label adjusting position in plot functions
+
 ## Changes in version 1.1.3
 
 - Fix github workflows
-- Disable ped_shiny() execution in markdown
+- Disable `ped_shiny()` execution in markdown
 - Publish with `pkgdown`
 
 ## Changes in version 1.1.2

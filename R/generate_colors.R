@@ -54,7 +54,7 @@
 #' aff <- generate_aff_inds(seq_len(5), threshold = 3, sup_thres_aff = TRUE)
 #' generate_fill(seq_len(5), aff$affected, aff$labels)
 #' generate_fill(seq_len(5), aff$affected, aff$labels, keep_full_scale = TRUE)
-#'
+#' @keywords internal
 #' @keywords generate_scales
 #' @export
 #' @importFrom plyr revalue
@@ -223,7 +223,7 @@ generate_fill <- function(
 #'
 #' @examples
 #' generate_border(c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA))
-#'
+#' @keywords internal
 #' @keywords generate_scales
 #' @export
 generate_border <- function(
@@ -472,7 +472,16 @@ setMethod("generate_colors", "Pedigree",
         } else {
             lst_sc$fill$order <- 1
         }
-        scales(obj) <- Scales(lst_sc$fill, lst_sc$border)
+
+        lst_sc$fill <- lst_sc$fill[order(
+            as.numeric(lst_sc$fill$order),
+            as.numeric(lst_sc$fill$mods)
+        ), ]
+        rownames(lst_sc$fill) <- NULL
+        scales(obj) <- Scales(
+            lst_sc$fill,
+            lst_sc$border
+        )
         validObject(obj)
         obj
     }
