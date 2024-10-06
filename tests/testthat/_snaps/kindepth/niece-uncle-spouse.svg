@@ -48,12 +48,12 @@
 <polygon points='669.73,192.83 669.73,212.90 689.76,212.90 689.76,192.83 ' style='stroke-width: 0.75; stroke: #BEBEBE; fill: #BEBEBE;' />
 <polyline points='69.06,326.62 112.68,299.32 156.30,274.75 199.92,252.90 243.54,233.79 287.16,217.41 330.78,203.75 374.40,192.83 418.02,184.64 461.64,179.18 505.26,176.45 548.88,176.45 592.50,179.18 636.12,184.64 679.74,192.83 ' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
 <text x='435.47' y='92.55' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>1</text>
-<text x='191.19' y='226.35' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>3</text>
-<text x='69.06' y='360.08' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>5</text>
+<text x='191.19' y='226.34' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>3</text>
+<text x='69.06' y='360.13' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>5</text>
 <text x='191.19' y='493.93' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>7</text>
-<text x='679.74' y='92.61' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
+<text x='679.74' y='92.55' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
 <text x='435.47' y='226.34' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>4</text>
-<text x='313.33' y='360.14' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>6</text>
-<text x='679.74' y='226.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>5</text>
+<text x='313.33' y='360.13' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>6</text>
+<text x='679.74' y='226.34' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>5</text>
 </g>
 </svg>

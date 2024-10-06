@@ -98,16 +98,16 @@
       8   green    NA      NA 0.5  <NA> <NA>   NA   NA
       9   green    NA      NA 0.5  <NA> <NA>   NA   NA
       10  black    NA      NA 0.5  <NA> <NA>   NA   NA
-      11   <NA>    NA      NA 1.0     1 <NA>   NA   NA
-      12   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      13   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      14   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      15   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      16   <NA>    NA      NA 1.0     1 <NA>   NA   NA
-      17   <NA>    NA      NA 1.0     1 <NA>   NA   NA
-      18   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      19   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      20   <NA>    NA      NA 1.0     1 <NA>   NA   NA
+      11   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
+      12   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      13   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      14   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      15   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      16   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
+      17   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
+      18   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      19   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      20   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
       21  black    NA      NA 0.5  <NA> <NA>   NA   NA
       22  green    NA      NA 0.5  <NA> <NA>   NA   NA
       23  black    NA      NA 0.5  <NA> <NA>   NA   NA
@@ -118,30 +118,30 @@
       28  green    NA      NA 0.5  <NA> <NA>   NA   NA
       29  green    NA      NA 0.5  <NA> <NA>   NA   NA
       30  black    NA      NA 0.5  <NA> <NA>   NA   NA
-      31   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      32   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      33   <NA>    NA      NA 1.0     1 <NA>   NA   NA
-      34   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      35   <NA>    NA      NA 1.0  <NA> <NA>   NA   NA
-      36   <NA>    NA      NA 1.0     1 <NA>   NA   NA
-      37   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      38   <NA>    NA      NA 1.0     1 <NA>   NA   NA
-      39   <NA>    NA      NA 1.0     0 <NA>   NA   NA
-      40   <NA>    NA      NA 1.0     0 <NA>   NA   NA
+      31   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      32   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      33   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
+      34   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      35   <NA>    NA      NA 1.0  <NA> <NA>  0.5  0.5
+      36   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
+      37   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      38   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
+      39   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
+      40   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
       41   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       42   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       43   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       44   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      45   <NA>    NA      NA 1.0   1_1 <NA>   NA   NA
-      46   <NA>    NA      NA 1.0   1_3 <NA>   NA   NA
-      47   <NA>    NA      NA 1.0   1_7 <NA>   NA   NA
-      48   <NA>    NA      NA 1.0  1_10 <NA>   NA   NA
-      49   <NA>    NA      NA 1.0   1_2 <NA>   NA   NA
-      50   <NA>    NA      NA 1.0   1_5 <NA>   NA   NA
-      51   <NA>    NA      NA 1.0   1_8 <NA>   NA   NA
-      52   <NA>    NA      NA 1.0   1_6 <NA>   NA   NA
-      53   <NA>    NA      NA 1.0   1_9 <NA>   NA   NA
-      54   <NA>    NA      NA 1.0   1_4 <NA>   NA   NA
+      45   <NA>    NA      NA 1.0   1_1 <NA>  0.5  0.5
+      46   <NA>    NA      NA 1.0   1_3 <NA>  0.5  0.5
+      47   <NA>    NA      NA 1.0   1_7 <NA>  0.5  0.5
+      48   <NA>    NA      NA 1.0  1_10 <NA>  0.5  0.5
+      49   <NA>    NA      NA 1.0   1_2 <NA>  0.5  0.5
+      50   <NA>    NA      NA 1.0   1_5 <NA>  0.5  0.5
+      51   <NA>    NA      NA 1.0   1_8 <NA>  0.5  0.5
+      52   <NA>    NA      NA 1.0   1_6 <NA>  0.5  0.5
+      53   <NA>    NA      NA 1.0   1_9 <NA>  0.5  0.5
+      54   <NA>    NA      NA 1.0   1_4 <NA>  0.5  0.5
       55   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       56   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       57   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
@@ -160,7 +160,7 @@
       70   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       71   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       72   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      73   <NA>    NA      NA 1.0     ? <NA>   NA   NA
+      73   <NA>    NA      NA 1.0     ? <NA>  0.5  0.5
       74   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       75   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       76   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
