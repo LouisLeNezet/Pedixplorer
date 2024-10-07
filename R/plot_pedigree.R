@@ -7,12 +7,12 @@
 #' @keywords plot_legend
 #' @importFrom scales rescale
 plot_legend <- function(
-    pedi, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
+    obj, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
     lwd = par("lwd")
 ) {
     leg <- ped_to_legdf(
-        pedi, cex = cex,
+        obj, cex = cex,
         boxw = boxw, boxh = boxh,
         adjx = adjx, adjy = adjy,
         lwd = lwd
@@ -26,12 +26,12 @@ plot_legend <- function(
         leg$df$y0 <- scales::rescale(leg$df$y0,
             c(leg_loc[3], leg_loc[4])
         )
-        boxw <- boxw * ((max(leg$df$x0) - min(leg$df$x0))/distx0)
-        boxh <- boxh * ((max(leg$df$y0) - min(leg$df$y0))/disty0)
+        boxw <- boxw * ((max(leg$df$x0) - min(leg$df$x0)) / distx0)
+        boxh <- boxh * ((max(leg$df$y0) - min(leg$df$y0)) / disty0)
         if (leg_loc[3] > leg_loc[4]) {
             label <- stringr::str_detect(leg$df$type, "label")
             symbol <- !label & leg$df$type != "text"
-            leg$df[symbol,]$y0 <- leg$df[symbol,]$y0 - boxh
+            leg$df[symbol, ]$y0 <- leg$df[symbol, ]$y0 - boxh
         }
     }
     plot_fromdf(
@@ -112,7 +112,7 @@ plot_legend <- function(
 #' @param ped_par default=list().  A list of parameters to use as graphical
 #' parameteres for the main plot.
 #' @param leg_par default=list().  A list of parameters to use as graphical
-#' parameters for the legend. 
+#' parameters for the legend.
 #' @param ... Extra options that feed into the
 #' @inheritParams subregion
 #' [ped_to_plotdf()] function.
@@ -192,7 +192,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             }
             par(leg_par)
             box(col = "#00000000")
-            plot_legend(x, cex = leg_cex,
+            plot_legend(obj = x, cex = leg_cex,
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
                 adjx = leg_adjx, adjy = leg_adjy,

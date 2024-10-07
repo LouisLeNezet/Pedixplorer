@@ -83,7 +83,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         length(x)
     })))
 
-    posy <- rep(c(boxh, boxh/3), n_max)
+    posy <- rep(c(boxh, boxh / 3), n_max)
     posy <- cumsum(posy)
     posy <- posy[seq_along(posy) %% 2 == 0]
 
@@ -107,7 +107,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     poly1 <- polygons(1)
     all_sex <- unique(as.numeric(ped_df$sex))
     sex <- data.frame(
-        x0 = posx[1] , y0 = posy[all_sex] - boxh / 2,
+        x0 = posx[1], y0 = posy[all_sex] - boxh / 2,
         type = paste(names(poly1)[all_sex], 1, 1, sep = "_"),
         fill = "white",
         border = "black",

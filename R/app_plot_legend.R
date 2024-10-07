@@ -1,8 +1,8 @@
 #### UI function of the module #### ----------
-#' @rdname plot_legend
+#' @rdname plot_legend_app
 #' @export
 #' @importFrom shiny NS column plotOutput
-plot_legend_ui <- function(id, height = "200px") {
+plot_legend_ui <- function(id, height = "400px") {
     ns <- shiny::NS(id)
     shiny::column(12,
         shiny::plotOutput(ns("plotlegend"), height = height)
@@ -25,7 +25,7 @@ plot_legend_ui <- function(id, height = "200px") {
 #' if (interactive()) {
 #'     plot_legend_demo()
 #' }
-#' @rdname plot_legend
+#' @rdname plot_legend_app
 #' @keywords internal
 #' @export
 #' @importFrom shiny moduleServer is.reactive renderPlot req
@@ -51,7 +51,7 @@ plot_legend_server <- function(
 }
 
 #### Demo function of the module #### ----------
-#' @rdname plot_legend
+#' @rdname plot_legend_app
 #' @export
 #' @importFrom utils data
 #' @importFrom shiny shinyApp fluidPage reactive
