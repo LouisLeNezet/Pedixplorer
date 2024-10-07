@@ -30,8 +30,8 @@ plot_legend_ui <- function(id, height = "200px") {
 #' @export
 #' @importFrom shiny moduleServer is.reactive renderPlot req
 plot_legend_server <- function(
-    id, pedi, leg_loc = c(0.2, 1, 0, 1),
-    lwd = par("lwd"), boxw = 1, boxh = 1,
+    id, pedi, leg_loc = c(0, 1, 0, 1),
+    lwd = par("lwd"), boxw = 0.1, boxh = 0.1,
     adjx = 0, adjy = 0
 ) {
     stopifnot(shiny::is.reactive(pedi))
@@ -55,7 +55,9 @@ plot_legend_server <- function(
 #' @export
 #' @importFrom utils data
 #' @importFrom shiny shinyApp fluidPage reactive
-plot_legend_demo <- function(height = "200px", leg_loc = c(0.2, 1, 0, 1)) {
+plot_legend_demo <- function(
+    height = "400px", leg_loc = c(0.2, 0.8, 0.2, 0.6)
+) {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     pedi <- shiny::reactive({

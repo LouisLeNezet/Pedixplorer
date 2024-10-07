@@ -65,11 +65,13 @@ plot_fromdf <- function(
 ) {
     if (!add_to_existing) {
         graphics::frame()
+        op <- par(no.readonly = TRUE)
         if (!is.null(usr)) {
             graphics::par(usr = usr)
         }
+    } else {
+        op <- par(no.readonly = TRUE)
     }
-
     p <- ggplot2::ggplot() +
         ggplot2::theme(
             plot.margin = ggplot2::unit(c(0, 0, 0, 0), "cm"),
@@ -164,6 +166,6 @@ plot_fromdf <- function(
             }
         }
     }
-
+    par(op)
     invisible(p)
 }

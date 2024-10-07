@@ -323,8 +323,8 @@ ped_server <- function(
 
         plot_legend_server(
             "legend", ped_subfam,
-            boxw = 0.03, boxh = 0.07, adjx = 0.3, adjy = -0.015,
-            leg_loc = c(0.2, 1.2, 0.2, 0.95), lwd = 2
+            boxw = 0.02, boxh = 0.08, adjx = 0, adjy = 0,
+            leg_loc = c(0.1, 0.7, 0.01, 0.95), lwd = 1.5
         )
 
         ## Download data and plot ---------------------------------------------

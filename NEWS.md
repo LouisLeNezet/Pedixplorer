@@ -2,6 +2,14 @@
 
 NEWS file for the Pedixplorer package
 
+## Changes in version 1.1.5
+
+- Change code of ped_to_legdf
+- When plotting with the main plot, the legend gets its own
+space separate from the plot. This allow better control over
+the size and localisation of the legend.
+- The graphical parameters are reset after each use of plot_fromdf
+
 ## Changes in version 1.1.4
 
 - Update website and logo
