@@ -134,6 +134,7 @@ plot_legend <- function(
 #' @include ped_to_plotdf.R
 #' @include ped_to_legdf.R
 #' @include plot_fromdf.R
+#' @include utils.R
 #' @aliases plot.Pedigree
 #' @aliases plot,Pedigree
 #' @keywords Pedigree-plot
@@ -149,7 +150,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
-        lwd = par("lwd"), ped_par = list(), leg_par = list()
+        lwd = par("lwd"), ped_par = list(), leg_par = list(),
+        tips = NULL
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -163,9 +165,12 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         }
         op <- par(ped_par)
         lst <- ped_to_plotdf(
-            x, packed, width, align, align_parents, force,
-            cex, symbolsize, pconnect, branch, aff_mark, id_lab, label,
-            precision, lwd = lwd
+            obj = x, packed = packed, width = width, align = align,
+            align_parents = align_parents, force = force,
+            cex = cex, symbolsize = symbolsize,
+            pconnect = pconnect, branch = branch,
+            aff_mark = aff_mark, id_lab = id_lab, label = label,
+            tips = tips, precision = precision, lwd = lwd
         )
 
         if (is.null(lst)) {
@@ -178,7 +183,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         }
 
         p <- plot_fromdf(
-            lst$df, lst$par_usr$usr,
+            df = lst$df, usr = lst$par_usr$usr,
             title = title, ggplot_gen = ggplot_gen,
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
         )

@@ -86,3 +86,18 @@ test_that("Fix of vertical scaling", {
         }
     )
 })
+
+test_that("Tooltip works", {
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    p <- plot(
+        pedi, ggplot_gen = TRUE, precision = 1,
+        label = "num", tips = c("num", "momid", "dadid")
+    )$ggplot
+    ggplotly(p)
+
+    p <- ggplot() +
+        geom_polygon(aes(x = c(0,0,1,1), y = c(0,1,0,1), text = "test2"))+
+        ggplot2::annotate("text", x = 0.5, y = 0.5, label = "Test", cex = 50, tooltip = FALSE)
+    ggplotly(p, tooltip = "text")
+})

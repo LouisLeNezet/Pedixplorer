@@ -247,7 +247,7 @@ draw_polygon <- function(
     x, y, p = NULL, ggplot_gen = FALSE,
     fill = "grey", border = "black",
     density = NULL, angle = 45,
-    lwd = par("lwd")
+    lwd = par("lwd"), tips = NULL
 ) {
     graphics::polygon(
         x, y, col = fill, border = border,
@@ -257,7 +257,7 @@ draw_polygon <- function(
     if (ggplot_gen) {
         p <- p +
             ggplot2::geom_polygon(
-                ggplot2::aes(x = x, y = y), fill = fill,
+                ggplot2::aes(x = x, y = y, text = tips), fill = fill,
                 color = border, linewidth = lwd
             )
         # To add pattern stripes use ggpattern::geom_polygon_pattern
@@ -283,13 +283,14 @@ draw_polygon <- function(
 #' @importFrom ggplot2 annotate
 #' @importFrom graphics text
 draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
-    cex = 1, col = NULL, adjx = 0.5, adjy = 0.5
+    cex = 1, col = NULL, adjx = 0.5, adjy = 0.5, tips = NULL
 ) {
     graphics::text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
     if (ggplot_gen) {
         p <- p + ggplot2::annotate(
             "text", x = x, y = y, label = label,
-            size = cex / 0.3, colour = col
+            size = cex / 0.3, colour = col,
+            tooltip = FALSE
         )
     }
     p

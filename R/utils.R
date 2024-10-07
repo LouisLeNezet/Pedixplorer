@@ -506,3 +506,45 @@ make_class_info <- function(x) {
         character(1), USE.NAMES = FALSE
     )
 }
+
+
+#' Create a text column
+#'
+#' Aggregate multiple columns into a single text column
+#' separated by a newline character.
+#'
+#' @param df A dataframe
+#' @param title The title of the text column
+#' @param cols A vector of columns to concatenate
+#' @param na_strings A vector of strings that should be considered as NA
+#' @return The concatenated text column
+#' @keywords internal
+#' @examples
+#' df <- data.frame(a = 1:3, b = c("4", "NA", 6), c = c("", "A", 2))
+#' create_text_column(df, "a", c("b", "c"))
+#' @importFrom dplyr rowwise mutate ungroup pull
+create_text_column <- function(
+    df, title = NULL, cols = NULL, na_strings = c("", "NA")
+) {
+    check_columns(df, c(title, cols), NULL, others_cols = TRUE)
+    df %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(text = paste(
+            paste(
+                "<span style='font-size:16px;'><b>",
+                as.character(get(title)),
+                "</b><br><br>", sep = ""
+            ), paste(
+                unlist(sapply(cols, function(col) {
+                    value <- as.character(get(col))
+                    if (value %in% na_strings) {
+                        return(NULL)
+                    } else {
+                        return(paste("<b>", col, "</b>: ", value, sep = ""))
+                    }
+                })), collapse = "<br>", sep = ""
+            )
+        )) %>%
+        dplyr::ungroup() %>%
+        dplyr::pull(text)
+}
