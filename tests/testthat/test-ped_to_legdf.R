@@ -37,8 +37,8 @@ test_that("Pedigree legend works", {
     vdiffr::expect_doppelganger("Legend alone",
         function() {
             suppressWarnings(plot_legend(
-                ped, boxh = 0.07, boxw = 0.07, cex = 0.8,
-                leg_loc = c(0, 1.2, 0, 0.9), adjx = 0.5, adjy = 0.04
+                ped, boxh = 0.07, boxw = 0.07, cex = 0.7,
+                leg_loc = c(0, 0.9, 0, 0.9), adjx = 0, adjy = 0
             ))
         }
     )
@@ -48,8 +48,10 @@ test_that("Pedigree legend works", {
             suppressWarnings(plot(
                 ped[!is.na(famid(ped(ped)))],
                 cex = 0.8, symbolsize = 1.5, aff_mark = FALSE,
-                legend = TRUE, leg_cex = 0.6, leg_symbolsize = 0.4,
-                leg_loc = c(7, 16, 1, 1.8)
+                legend = TRUE, leg_cex = 0.8, leg_symbolsize = 0.01,
+                leg_loc = c(0, 0.8, 0, 0.25),
+                ped_par = list(oma = c(12, 1, 1, 1), mar = rep(0, 4)),
+                leg_par = list(oma = c(1, 1, 1, 1), mar = rep(0, 4))
             ))
         }
     )
