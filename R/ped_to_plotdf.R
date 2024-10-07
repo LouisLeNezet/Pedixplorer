@@ -111,8 +111,10 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     xrange <- range(plist$pos[plist$nid > 0])
     maxlev <- nrow(plist$pos)
 
+    labels = unname(unlist(as.data.frame(ped(obj))[c(id_lab, label)]))
+
     params_plot <- set_plot_area(
-        cex, id(ped(obj)), maxlev, xrange, symbolsize, precision, ...
+        cex, labels, maxlev, xrange, symbolsize, precision, ...
     )
 
     boxw <- params_plot$boxw
@@ -196,9 +198,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
 
     ## Add ids
     id_df <- data.frame(
-        x0 = pos[idx], y0 = i[idx] + boxh + labh * 1.2,
+        x0 = pos[idx], y0 = i[idx] + boxh + labh,
         label = ped_df[id[idx], id_lab], fill = "black",
-        type = "text", cex = cex, adjx = 0.5, adjy = 0.5,
+        type = "text", cex = cex, adjx = 0.5, adjy = 1,
         id = "id"
     )
     plot_df <- rbind.fill(plot_df, id_df)

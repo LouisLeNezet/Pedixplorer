@@ -368,7 +368,7 @@ set_plot_area <- function(
     # horizontal scale in inches
     hscale <- signif((psize[1] - boxsize) / diff(xrange), precision)
     vscale <- signif(
-        (psize[2] - (stemp3 + stemp2 / 2 + boxsize)) /
+        (psize[2] - (stemp3 + stemp2 + boxsize)) /
             max(1, maxlev - 1), precision
     )
     # box width in user units
@@ -379,8 +379,9 @@ set_plot_area <- function(
     labh <- signif(stemp2 / vscale, precision)
     # how tall are the 'legs' up from a child
     legh <- signif(min(1 / 4, boxh * 1.5), precision)
+
     usr <- c(xrange[1] - boxw / 2, xrange[2] + boxw / 2,
-        maxlev + boxh + stemp3 + stemp2 / 2, 1
+        maxlev + boxh + stemp3 / vscale + stemp2 / vscale, 1
     )
     list(usr = usr, old_par = old_par, boxw = boxw,
         boxh = boxh, labh = labh, legh = legh

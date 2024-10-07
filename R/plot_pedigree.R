@@ -113,7 +113,6 @@ plot_legend <- function(
 #' parameteres for the main plot.
 #' @param leg_par default=list().  A list of parameters to use as graphical
 #' parameters for the legend.
-#' @param ... Extra options that feed into the
 #' @inheritParams subregion
 #' [ped_to_plotdf()] function.
 #'
@@ -138,6 +137,7 @@ plot_legend <- function(
 #' @aliases plot.Pedigree
 #' @aliases plot,Pedigree
 #' @keywords Pedigree-plot
+#' @importFrom graphics par
 #' @export
 #' @docType methods
 #' @rdname plot_pedigree
@@ -149,7 +149,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
-        lwd = par("lwd"), ped_par = list(), leg_par = list(), ...
+        lwd = par("lwd"), ped_par = list(), leg_par = list()
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -165,7 +165,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         lst <- ped_to_plotdf(
             x, packed, width, align, align_parents, force,
             cex, symbolsize, pconnect, branch, aff_mark, id_lab, label,
-            precision, lwd = lwd, ...
+            precision, lwd = lwd
         )
 
         if (is.null(lst)) {
@@ -183,6 +183,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
         )
         par(op)
+
         if (legend) {
             if (is.null(leg_loc)) {
                 leg_loc <- c(
@@ -191,7 +192,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 )
             }
             par(leg_par)
-            box(col = "#00000000")
+            graphics::box(col = "#00000000")
             plot_legend(obj = x, cex = leg_cex,
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
