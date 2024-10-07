@@ -49,16 +49,16 @@
       42                     dead -0.0420 2.0770 0.042 1.9930   segments   black
       43                     dead  1.9580 1.0770 2.042 0.9930   segments   black
       44                     dead  0.9580 2.0770 1.042 1.9930   segments   black
-      45                       id  1.0000 1.1060    NA     NA       text   black
-      46                       id  0.0000 2.1060    NA     NA       text   black
-      47                       id  0.7000 3.1060    NA     NA       text   black
-      48                       id  1.2000 4.1060    NA     NA       text   black
-      49                       id  2.0000 1.1060    NA     NA       text   black
-      50                       id  1.0000 2.1060    NA     NA       text   black
-      51                       id  1.7000 3.1060    NA     NA       text   black
-      52                       id  2.0000 2.1060    NA     NA       text   black
-      53                       id  2.7000 3.1060    NA     NA       text   black
-      54                       id  3.0000 2.1060    NA     NA       text   black
+      45                       id  1.0000 1.1000    NA     NA       text   black
+      46                       id  0.0000 2.1000    NA     NA       text   black
+      47                       id  0.7000 3.1000    NA     NA       text   black
+      48                       id  1.2000 4.1000    NA     NA       text   black
+      49                       id  2.0000 1.1000    NA     NA       text   black
+      50                       id  1.0000 2.1000    NA     NA       text   black
+      51                       id  1.7000 3.1000    NA     NA       text   black
+      52                       id  2.0000 2.1000    NA     NA       text   black
+      53                       id  2.7000 3.1000    NA     NA       text   black
+      54                       id  3.0000 2.1000    NA     NA       text   black
       55             line_spouses  1.0350 1.0350 1.965 1.0350   segments   black
       56             line_spouses  0.0350 2.0350 0.965 2.0350   segments   black
       57             line_spouses  0.7350 3.0350 1.665 3.0350   segments   black
@@ -132,16 +132,16 @@
       42   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       43   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       44   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      45   <NA>    NA      NA 1.0   1_1 <NA>  0.5  0.5
-      46   <NA>    NA      NA 1.0   1_3 <NA>  0.5  0.5
-      47   <NA>    NA      NA 1.0   1_7 <NA>  0.5  0.5
-      48   <NA>    NA      NA 1.0  1_10 <NA>  0.5  0.5
-      49   <NA>    NA      NA 1.0   1_2 <NA>  0.5  0.5
-      50   <NA>    NA      NA 1.0   1_5 <NA>  0.5  0.5
-      51   <NA>    NA      NA 1.0   1_8 <NA>  0.5  0.5
-      52   <NA>    NA      NA 1.0   1_6 <NA>  0.5  0.5
-      53   <NA>    NA      NA 1.0   1_9 <NA>  0.5  0.5
-      54   <NA>    NA      NA 1.0   1_4 <NA>  0.5  0.5
+      45   <NA>    NA      NA 1.0   1_1 <NA>  0.5  1.0
+      46   <NA>    NA      NA 1.0   1_3 <NA>  0.5  1.0
+      47   <NA>    NA      NA 1.0   1_7 <NA>  0.5  1.0
+      48   <NA>    NA      NA 1.0  1_10 <NA>  0.5  1.0
+      49   <NA>    NA      NA 1.0   1_2 <NA>  0.5  1.0
+      50   <NA>    NA      NA 1.0   1_5 <NA>  0.5  1.0
+      51   <NA>    NA      NA 1.0   1_8 <NA>  0.5  1.0
+      52   <NA>    NA      NA 1.0   1_6 <NA>  0.5  1.0
+      53   <NA>    NA      NA 1.0   1_9 <NA>  0.5  1.0
+      54   <NA>    NA      NA 1.0   1_4 <NA>  0.5  1.0
       55   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       56   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
       57   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
@@ -173,7 +173,7 @@
       
       $par_usr
       $par_usr$usr
-      [1] -0.035  3.035  4.220  1.000
+      [1] -0.0350000  3.0350000  4.1366667  1.0000000
       
       $par_usr$old_par
       $par_usr$old_par$xpd
