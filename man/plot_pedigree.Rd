@@ -34,8 +34,7 @@
   precision = 2,
   lwd = par("lwd"),
   ped_par = list(),
-  leg_par = list(),
-  ...
+  leg_par = list()
 )
 }
 \arguments{
@@ -131,8 +130,6 @@ parameteres for the main plot.}
 
 \item{leg_par}{default=list().  A list of parameters to use as graphical
 parameters for the legend.}
-
-\item{...}{Extra options that feed into the}
 }
 \value{
 an invisible list containing
