@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,9 +85,9 @@
                         <h4 data-toc-skip class="author">TM
 Therneau</h4>
             
-            <h4 data-toc-skip class="date">06 October, 2024</h4>
+            <h4 data-toc-skip class="date">07 October, 2024</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_alignment.Rmd" class="external-link"><code>vignettes/pedigree_alignment.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/Legend/vignettes/pedigree_alignment.Rmd" class="external-link"><code>vignettes/pedigree_alignment.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_alignment.Rmd</code></div>
     </div>
 
@@ -222,7 +222,7 @@ level, subject directly to my right is my spouse (1), a double marriage
 <span class="math inline">fam</span> matrix, link upward to my
 parents, or 0 if no link.</li>
 </ul>
-<p><img src="pedigree_alignment_files/figure-html/auto_hint1-1.png" alt="Comparison of Pedigrees before and after auto_hint with a simple Pedigree" width="960"></p>
+<p><img src="pedigree_alignment_files/figure-html/auto_hint1-1.png" alt="Comparison of Pedigrees before and after auto_hint with a simple Pedigree" width="960"><img src="pedigree_alignment_files/figure-html/auto_hint1-2.png" alt="Comparison of Pedigrees before and after auto_hint with a simple Pedigree" width="960"></p>
 <p>Now, walk down through the levels one by one. A candidate subject is
 one who appears twice on the level, once under his/her parents and once
 somewhere else as a spouse. Move this person and spouse the the ends of
@@ -277,7 +277,7 @@ be listed in the order 9, 8, 10.</p>
 and 5 are reordered, and finally the line <code>(4,9,1)</code> is added
 to the sptemp matrix. In this particular case the final element could be
 a 1 or a 2, since both are connected to their parents.</p>
-<p><img src="pedigree_alignment_files/figure-html/align2-1.png" alt="Comparison of Pedigrees before and after auto_hint with a more complex Pedigree" width="960"></p>
+<p><img src="pedigree_alignment_files/figure-html/align2-1.png" alt="Comparison of Pedigrees before and after auto_hint with a more complex Pedigree" width="960"><img src="pedigree_alignment_files/figure-html/align2-2.png" alt="Comparison of Pedigrees before and after auto_hint with a more complex Pedigree" width="960"></p>
 <p>The figure above shows a more complex case with several arcs. In the
 upper left is a double marry-in. The <span class="math inline">anchor</span> variable in the above code will be
 <code>(2,2)</code> since both copies have an anchored spouse. The left
@@ -333,7 +333,7 @@ two rows, <code>(5, 11, 1)</code> indicating that 5 should be plotted
 left of 11 for the 5-11 marriage, with the first partner as the anchor,
 and a second row <code>(11, 9, 2)</code>. This will cause the common
 spouse to be plotted in the middle.</p>
-<p><img src="pedigree_alignment_files/figure-html/align3-1.png" alt="Comparison of Pedigrees before and after changing the horizontal ordering" width="960"></p>
+<p><img src="pedigree_alignment_files/figure-html/align3-1.png" alt="Comparison of Pedigrees before and after changing the horizontal ordering" width="960"><img src="pedigree_alignment_files/figure-html/align3-2.png" alt="Comparison of Pedigrees before and after changing the horizontal ordering" width="960"></p>
 <p>Multiple marriages can lead to unanchored subjects. In the left hand
 portion of the figure above we have two double marriages, one on the
 left and one on the right with anchor values of <code>(0,2)</code> and
@@ -742,7 +742,7 @@ one must be at least 1 unit to the right, and the final point must be
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] Pedixplorer_1.1.4 BiocStyle_2.32.1 </span></span>
+<span><span class="co">## [1] Pedixplorer_1.1.5 BiocStyle_2.32.1 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] gtable_0.3.5        xfun_0.48           bslib_0.8.0        </span></span>
