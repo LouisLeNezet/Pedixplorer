@@ -111,7 +111,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     xrange <- range(plist$pos[plist$nid > 0])
     maxlev <- nrow(plist$pos)
 
-    labels = unname(unlist(as.data.frame(ped(obj))[c(id_lab, label)]))
+    labels <- unname(unlist(as.data.frame(ped(obj))[c(id_lab, label)]))
 
     params_plot <- set_plot_area(
         cex, labels, maxlev, xrange, symbolsize, precision, ...
