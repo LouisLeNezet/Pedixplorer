@@ -95,7 +95,8 @@ plot_ped_server <- function(
                 pedi_val(),
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1, force = TRUE,
-                mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle(),
+                ped_par = list(mar = c(0.5, 0.5, 1.5, 0.5)),
+                title = mytitle(),
                 precision = precision, lwd = lwd
             )
 
@@ -133,7 +134,8 @@ plot_ped_server <- function(
                         pedi_val(),
                         aff_mark = TRUE, label = NULL,
                         cex = 1, symbolsize = 1, force = TRUE,
-                        mar = c(0.5, 0.5, 1.5, 0.5), title = mytitle(),
+                        ped_par = list(mar = c(0.5, 0.5, 1.5, 0.5)),
+                        title = mytitle(),
                         precision = precision, lwd = lwd
                     )
                 })
