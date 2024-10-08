@@ -48,7 +48,8 @@ plot_ped_ui <- function(id) {
 #' @importFrom plotly ggplotly renderPlotly plotlyOutput
 plot_ped_server <- function(
     id, pedi, title, precision = 2,
-    max_ind = 500, lwd = par("lwd")
+    max_ind = 500, lwd = par("lwd"),
+    tips = "None"
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
@@ -96,7 +97,7 @@ plot_ped_server <- function(
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1, force = TRUE,
                 ped_par = list(mar = c(0.5, 0.5, 1.5, 0.5)),
-                title = mytitle(),
+                title = mytitle(), tips = tips,
                 precision = precision, lwd = lwd
             )
 
@@ -116,7 +117,8 @@ plot_ped_server <- function(
                 ggp +
                     ggplot2::theme(legend.position = "none"),
                 tooltip = "text"
-            )
+            ) %>%
+                plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
         })
         output$plotpedi <- shiny::renderUI({
             if (is.null(input$interactive)) {
