@@ -39,6 +39,8 @@ NULL
 #' corresponding to the value of the column given.
 #' @param lwd default=par("lwd"). Controls the line width of the
 #' segments, arcs and polygons.
+#' @param tips A character vector of the column names of the data frame to
+#' use as tooltips. If `NULL`, no tooltips are added.
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams set_plot_area
 #' @inheritParams kindepth

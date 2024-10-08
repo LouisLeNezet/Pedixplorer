@@ -431,8 +431,7 @@ vect_to_binary <- function(vect, logical = FALSE) {
 #' @return An ordered factor vector containing the transformed variable
 #' "either" < "left" < "right"
 #' @examples
-#' anchor_to_factor(c(1, 2, 0, "left", "right", "either"))
-#' @export
+#' Pedixplorer:::anchor_to_factor(c(1, 2, 0, "left", "right", "either"))
 #' @keywords internal
 anchor_to_factor <- function(anchor) {
     if (is.factor(anchor) || is.numeric(anchor)) {
@@ -467,8 +466,7 @@ anchor_to_factor <- function(anchor) {
 #' @return A character vector of rownames
 #' @keywords internal
 #' @examples
-#' Pedixplorer::make_rownames(rownames(mtcars), nrow(mtcars), 3, 3)
-#' @export
+#' Pedixplorer:::make_rownames(rownames(mtcars), nrow(mtcars), 3, 3)
 make_rownames <- function(
     x_rownames, nrow, nhead, ntail
 ) {
@@ -494,8 +492,7 @@ make_rownames <- function(
 #' @return A character vector of class information
 #' @keywords internal
 #' @examples
-#' Pedixplorer::make_class_info(list(1, "a", 1:3, list(1, 2)))
-#' @export
+#' Pedixplorer:::make_class_info(list(1, "a", 1:3, list(1, 2)))
 #' @importFrom S4Vectors classNameForDisplay
 make_class_info <- function(x) {
     vapply(
@@ -521,7 +518,7 @@ make_class_info <- function(x) {
 #' @keywords internal
 #' @examples
 #' df <- data.frame(a = 1:3, b = c("4", "NA", 6), c = c("", "A", 2))
-#' create_text_column(df, "a", c("b", "c"))
+#' Pedixplorer:::create_text_column(df, "a", c("b", "c"))
 #' @importFrom dplyr rowwise mutate ungroup pull
 create_text_column <- function(
     df, title = NULL, cols = NULL, na_strings = c("", "NA")
