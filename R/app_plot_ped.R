@@ -101,14 +101,14 @@ plot_ped_server <- function(
             shiny::req(pedi_val())
             shiny::req(mytitle())
             shiny::req(mytips())
-            ped_plot_lst <- suppressWarnings(plot(
+            ped_plot_lst <- plot(
                 pedi_val(),
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1, force = TRUE,
                 ped_par = list(mar = c(0.5, 0.5, 1.5, 0.5)),
                 title = mytitle(), tips = mytips(),
                 precision = precision, lwd = lwd / 3
-            ))
+            )
 
             ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
                 ggplot2::theme(

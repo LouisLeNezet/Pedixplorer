@@ -259,10 +259,10 @@ draw_polygon <- function(
             tips <- "None"
         }
         p <- p +
-            ggplot2::geom_polygon(
+            suppressWarnings(ggplot2::geom_polygon(
                 ggplot2::aes(x = x, y = y, text = tips),
                 fill = fill, color = border, linewidth = lwd
-            )
+            ))
         # To add pattern stripes use ggpattern::geom_polygon_pattern
         # pattern_density = density[i], pattern_angle = angle[i]))
     }
@@ -293,10 +293,10 @@ draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
         if (is.null(tips)) {
             tips <- label
         }
-        p <- p + ggplot2::geom_text(ggplot2::aes(
+        p <- p + suppressWarnings(ggplot2::geom_text(ggplot2::aes(
             x = x, y = y, label = label,
             text = tips
-        ), size = cex / 0.3, colour = col)
+        ), size = cex / 0.3, colour = col))
     }
     p
 }
