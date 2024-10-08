@@ -83,6 +83,7 @@ characteristic for them to be plotted afterwards with
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  precision <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>,</span>
+<span>  tips <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -176,6 +177,11 @@ corresponding to the value of the column given.</p></dd>
 <dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
 <dd><p>default=par("lwd"). Controls the line width of the
 segments, arcs and polygons.</p></dd>
+
+
+<dt id="arg-tips">tips<a class="anchor" aria-label="anchor" href="#arg-tips"></a></dt>
+<dd><p>A character vector of the column names of the data frame to
+use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
 
 </dl></div>
     <div class="section level2">
