@@ -24,6 +24,6 @@ separated by a newline character.
 }
 \examples{
 df <- data.frame(a = 1:3, b = c("4", "NA", 6), c = c("", "A", 2))
-create_text_column(df, "a", c("b", "c"))
+Pedixplorer:::create_text_column(df, "a", c("b", "c"))
 }
 \keyword{internal}
