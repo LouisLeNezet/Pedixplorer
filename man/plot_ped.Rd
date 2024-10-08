@@ -18,7 +18,7 @@ plot_ped_server(
   tips = NULL
 )
 
-plot_ped_demo(pedi, precision = 2, max_ind = 500)
+plot_ped_demo(pedi, precision = 2, max_ind = 500, tips = NULL)
 }
 \arguments{
 \item{id}{A string.}
@@ -30,6 +30,12 @@ plot_ped_demo(pedi, precision = 2, max_ind = 500)
 \item{precision}{An integer to set the precision of the plot.}
 
 \item{max_ind}{An integer to set the maximum number of individuals to plot.}
+
+\item{lwd}{default=par("lwd"). Controls the line width of the
+segments, arcs and polygons.}
+
+\item{tips}{A character vector of the column names of the data frame to
+use as tooltips. If \code{NULL}, no tooltips are added.}
 }
 \value{
 A reactive ggplot or the pedigree object.

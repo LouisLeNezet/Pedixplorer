@@ -31,6 +31,7 @@ plot_ped_ui <- function(id) {
 #' @param precision An integer to set the precision of the plot.
 #' @param max_ind An integer to set the maximum number of individuals to plot.
 #' @inheritParams plot_fromdf
+#' @inheritParams ped_to_plotdf
 #' @returns A reactive ggplot or the pedigree object.
 #' @examples
 #' if (interactive()) {
