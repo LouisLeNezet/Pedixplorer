@@ -114,7 +114,6 @@ plot_legend <- function(
 #' @param leg_par default=list().  A list of parameters to use as graphical
 #' parameters for the legend.
 #' @inheritParams subregion
-#' [ped_to_plotdf()] function.
 #'
 #' @return an invisible list containing
 #' - df : the data.frame used to plot the Pedigree

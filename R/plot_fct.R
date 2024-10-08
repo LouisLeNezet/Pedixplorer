@@ -235,6 +235,7 @@ draw_segment <- function(
 #' @param border Border color
 #' @param density Density of shading
 #' @param angle Angle of shading
+#' @param tips Text to be displayed when hovering over the polygon
 #' @inheritParams draw_segment
 #'
 #' @return Plot the polygon  to the current device
@@ -276,6 +277,7 @@ draw_polygon <- function(
 #' @param col Text color
 #' @param adjx x adjustment
 #' @param adjy y adjustment
+#' @param tips Text to be displayed when hovering over the text
 #' @inheritParams draw_segment
 #' @inheritParams draw_polygon
 #'

@@ -13,7 +13,8 @@ draw_text(
   cex = 1,
   col = NULL,
   adjx = 0.5,
-  adjy = 0.5
+  adjy = 0.5,
+  tips = NULL
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ draw_text(
 \item{adjx}{x adjustment}
 
 \item{adjy}{y adjustment}
+
+\item{tips}{Text to be displayed when hovering over the text}
 }
 \value{
 Plot the text to the current device

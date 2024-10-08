@@ -14,7 +14,8 @@ plot_ped_server(
   title,
   precision = 2,
   max_ind = 500,
-  lwd = par("lwd")
+  lwd = par("lwd"),
+  tips = "None"
 )
 
 plot_ped_demo(pedi, precision = 2, max_ind = 500)

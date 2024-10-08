@@ -21,6 +21,7 @@
   label = NULL,
   precision = 3,
   lwd = par("lwd"),
+  tips = NULL,
   ...
 )
 }

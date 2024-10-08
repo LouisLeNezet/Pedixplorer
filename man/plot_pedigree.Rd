@@ -34,7 +34,8 @@
   precision = 2,
   lwd = par("lwd"),
   ped_par = list(),
-  leg_par = list()
+  leg_par = list(),
+  tips = NULL
 )
 }
 \arguments{
