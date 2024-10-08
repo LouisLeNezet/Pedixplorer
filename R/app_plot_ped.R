@@ -56,6 +56,13 @@ plot_ped_server <- function(
 
         ns <- shiny::NS(id)
 
+        mytips <- shiny::reactive({
+            if (shiny::is.reactive(tips)) {
+                tips <- tips()
+            }
+            tips
+        })
+
         mytitle <- shiny::reactive({
             if (shiny::is.reactive(title)) {
                 title <- title()
@@ -92,14 +99,16 @@ plot_ped_server <- function(
         plotly_ped <- shiny::reactive({
             shiny::req(input$interactive)
             shiny::req(pedi_val())
-            ped_plot_lst <- plot(
+            shiny::req(mytitle())
+            shiny::req(mytips())
+            ped_plot_lst <- suppressWarnings(plot(
                 pedi_val(),
                 aff_mark = TRUE, label = NULL, ggplot_gen = input$interactive,
                 cex = 1, symbolsize = 1, force = TRUE,
                 ped_par = list(mar = c(0.5, 0.5, 1.5, 0.5)),
-                title = mytitle(), tips = tips,
-                precision = precision, lwd = lwd
-            )
+                title = mytitle(), tips = mytips(),
+                precision = precision, lwd = lwd / 3
+            ))
 
             ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
                 ggplot2::theme(

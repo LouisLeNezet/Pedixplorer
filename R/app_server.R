@@ -317,10 +317,7 @@ ped_server <- function(
         ### Tips column selection --------------------------------------------
         output$col_sel_tips <- renderUI({
             shiny::req(ped_subfam())
-            all_cols <- c(
-                "None",
-                colnames(as.data.frame(ped(ped_subfam())))
-            )
+            all_cols <- colnames(as.data.frame(ped(ped_subfam())))
             select <- c("affection", "affected", "avail", "status")
             select <- select[select %in% all_cols]
             shiny::selectInput(
@@ -331,11 +328,15 @@ ped_server <- function(
             )
         })
 
+        my_tips <- shiny::reactive({
+            input$tips_col
+        })
+
         plot_ped <- plot_ped_server(
             "ped", ped_subfam,
             cust_title(short = FALSE),
             precision = precision, lwd = 2,
-            tips = input$tips_col
+            tips = my_tips
         )
 
         plot_legend_server(
