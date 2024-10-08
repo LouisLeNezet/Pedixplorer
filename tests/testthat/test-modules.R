@@ -175,7 +175,7 @@ test_that("plot_ped works", {
         Pedigree(sampleped[sampleped$famid == "1", ])
     })
     app <- shinytest2::AppDriver$new(
-        plot_ped_demo(pedi = pedi), name = "plot_ped",
+        plot_ped_demo(pedi = pedi, tips = c("id", "momid", "num")), name = "plot_ped",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
@@ -185,6 +185,7 @@ test_that("plot_ped works", {
     app$click("saveped-download")
     app$wait_for_idle()
     app$set_inputs(`saveped-ext` = "html")
+    app$wait_for_idle()
     path <- app$get_download("saveped-plot_dwld")
     expect_true(file.exists(path))
     expect_equal(tools::file_ext(path), "html")

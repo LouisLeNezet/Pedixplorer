@@ -105,11 +105,11 @@ plot_download_server <- function(
                 paste(myfilename(), input$ext, sep = ".")
             }, content = function(file) {
                 if (input$ext == "html") {
-                    if ("ggplot" %in% class(my_plot())) {
+                    if ("htmlwidget" %in% class(my_plot())) {
+                        htmlwidgets::saveWidget(file = file, my_plot())
+                    } else if ("ggplot" %in% class(my_plot())) {
                         plot_html <- plotly::ggplotly(my_plot())
                         htmlwidgets::saveWidget(file = file, plot_html)
-                    } else if ("htmlwidget" %in% class(my_plot())) {
-                        htmlwidgets::saveWidget(file = file, my_plot())
                     } else {
                         shinytoastr::toastr_error(
                             title = "Error in plot type selected",
