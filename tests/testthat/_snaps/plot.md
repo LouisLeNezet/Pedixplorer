@@ -87,89 +87,172 @@
       80          line_parent_mid  1.2000 3.9000 1.200 3.6405   segments   black
       81          line_parent_mid  1.2000 3.6405 1.200 3.2945   segments   black
       82          line_parent_mid  1.2000 3.2945 1.200 3.0350   segments   black
-         border angle density cex label tips adjx adjy
-      1   black    NA      NA 0.5  <NA> <NA>   NA   NA
-      2   green    NA      NA 0.5  <NA> <NA>   NA   NA
-      3   black    NA      NA 0.5  <NA> <NA>   NA   NA
-      4   black    NA      NA 0.5  <NA> <NA>   NA   NA
-      5   green    NA      NA 0.5  <NA> <NA>   NA   NA
-      6   green    NA      NA 0.5  <NA> <NA>   NA   NA
-      7   green    NA      NA 0.5  <NA> <NA>   NA   NA
-      8   green    NA      NA 0.5  <NA> <NA>   NA   NA
-      9   green    NA      NA 0.5  <NA> <NA>   NA   NA
-      10  black    NA      NA 0.5  <NA> <NA>   NA   NA
-      11   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
-      12   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      13   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      14   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      15   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      16   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
-      17   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
-      18   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      19   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      20   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
-      21  black    NA      NA 0.5  <NA> <NA>   NA   NA
-      22  green    NA      NA 0.5  <NA> <NA>   NA   NA
-      23  black    NA      NA 0.5  <NA> <NA>   NA   NA
-      24  black    NA      NA 0.5  <NA> <NA>   NA   NA
-      25  green    NA      NA 0.5  <NA> <NA>   NA   NA
-      26  green    NA      NA 0.5  <NA> <NA>   NA   NA
-      27  green    NA      NA 0.5  <NA> <NA>   NA   NA
-      28  green    NA      NA 0.5  <NA> <NA>   NA   NA
-      29  green    NA      NA 0.5  <NA> <NA>   NA   NA
-      30  black    NA      NA 0.5  <NA> <NA>   NA   NA
-      31   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      32   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      33   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
-      34   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      35   <NA>    NA      NA 1.0  <NA> <NA>  0.5  0.5
-      36   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
-      37   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      38   <NA>    NA      NA 1.0     1 <NA>  0.5  0.5
-      39   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      40   <NA>    NA      NA 1.0     0 <NA>  0.5  0.5
-      41   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      42   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      43   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      44   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      45   <NA>    NA      NA 1.0   1_1 <NA>  0.5  1.0
-      46   <NA>    NA      NA 1.0   1_3 <NA>  0.5  1.0
-      47   <NA>    NA      NA 1.0   1_7 <NA>  0.5  1.0
-      48   <NA>    NA      NA 1.0  1_10 <NA>  0.5  1.0
-      49   <NA>    NA      NA 1.0   1_2 <NA>  0.5  1.0
-      50   <NA>    NA      NA 1.0   1_5 <NA>  0.5  1.0
-      51   <NA>    NA      NA 1.0   1_8 <NA>  0.5  1.0
-      52   <NA>    NA      NA 1.0   1_6 <NA>  0.5  1.0
-      53   <NA>    NA      NA 1.0   1_9 <NA>  0.5  1.0
-      54   <NA>    NA      NA 1.0   1_4 <NA>  0.5  1.0
-      55   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      56   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      57   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      58   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      59   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      60   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      61   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      62   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      63   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      64   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      65   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      66   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      67   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      68   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      69   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      70   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      71   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      72   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      73   <NA>    NA      NA 1.0     ? <NA>  0.5  0.5
-      74   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      75   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      76   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      77   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      78   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      79   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      80   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      81   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
-      82   <NA>    NA      NA 0.5  <NA> <NA>   NA   NA
+         border angle density cex label
+      1   black    NA      NA 0.5  <NA>
+      2   green    NA      NA 0.5  <NA>
+      3   black    NA      NA 0.5  <NA>
+      4   black    NA      NA 0.5  <NA>
+      5   green    NA      NA 0.5  <NA>
+      6   green    NA      NA 0.5  <NA>
+      7   green    NA      NA 0.5  <NA>
+      8   green    NA      NA 0.5  <NA>
+      9   green    NA      NA 0.5  <NA>
+      10  black    NA      NA 0.5  <NA>
+      11   <NA>    NA      NA 1.0     1
+      12   <NA>    NA      NA 1.0     0
+      13   <NA>    NA      NA 1.0     0
+      14   <NA>    NA      NA 1.0     0
+      15   <NA>    NA      NA 1.0     0
+      16   <NA>    NA      NA 1.0     1
+      17   <NA>    NA      NA 1.0     1
+      18   <NA>    NA      NA 1.0     0
+      19   <NA>    NA      NA 1.0     0
+      20   <NA>    NA      NA 1.0     1
+      21  black    NA      NA 0.5  <NA>
+      22  green    NA      NA 0.5  <NA>
+      23  black    NA      NA 0.5  <NA>
+      24  black    NA      NA 0.5  <NA>
+      25  green    NA      NA 0.5  <NA>
+      26  green    NA      NA 0.5  <NA>
+      27  green    NA      NA 0.5  <NA>
+      28  green    NA      NA 0.5  <NA>
+      29  green    NA      NA 0.5  <NA>
+      30  black    NA      NA 0.5  <NA>
+      31   <NA>    NA      NA 1.0     0
+      32   <NA>    NA      NA 1.0     0
+      33   <NA>    NA      NA 1.0     1
+      34   <NA>    NA      NA 1.0     0
+      35   <NA>    NA      NA 1.0  <NA>
+      36   <NA>    NA      NA 1.0     1
+      37   <NA>    NA      NA 1.0     0
+      38   <NA>    NA      NA 1.0     1
+      39   <NA>    NA      NA 1.0     0
+      40   <NA>    NA      NA 1.0     0
+      41   <NA>    NA      NA 0.5  <NA>
+      42   <NA>    NA      NA 0.5  <NA>
+      43   <NA>    NA      NA 0.5  <NA>
+      44   <NA>    NA      NA 0.5  <NA>
+      45   <NA>    NA      NA 1.0   1_1
+      46   <NA>    NA      NA 1.0   1_3
+      47   <NA>    NA      NA 1.0   1_7
+      48   <NA>    NA      NA 1.0  1_10
+      49   <NA>    NA      NA 1.0   1_2
+      50   <NA>    NA      NA 1.0   1_5
+      51   <NA>    NA      NA 1.0   1_8
+      52   <NA>    NA      NA 1.0   1_6
+      53   <NA>    NA      NA 1.0   1_9
+      54   <NA>    NA      NA 1.0   1_4
+      55   <NA>    NA      NA 0.5  <NA>
+      56   <NA>    NA      NA 0.5  <NA>
+      57   <NA>    NA      NA 0.5  <NA>
+      58   <NA>    NA      NA 0.5  <NA>
+      59   <NA>    NA      NA 0.5  <NA>
+      60   <NA>    NA      NA 0.5  <NA>
+      61   <NA>    NA      NA 0.5  <NA>
+      62   <NA>    NA      NA 0.5  <NA>
+      63   <NA>    NA      NA 0.5  <NA>
+      64   <NA>    NA      NA 0.5  <NA>
+      65   <NA>    NA      NA 0.5  <NA>
+      66   <NA>    NA      NA 0.5  <NA>
+      67   <NA>    NA      NA 0.5  <NA>
+      68   <NA>    NA      NA 0.5  <NA>
+      69   <NA>    NA      NA 0.5  <NA>
+      70   <NA>    NA      NA 0.5  <NA>
+      71   <NA>    NA      NA 0.5  <NA>
+      72   <NA>    NA      NA 0.5  <NA>
+      73   <NA>    NA      NA 1.0     ?
+      74   <NA>    NA      NA 0.5  <NA>
+      75   <NA>    NA      NA 0.5  <NA>
+      76   <NA>    NA      NA 0.5  <NA>
+      77   <NA>    NA      NA 0.5  <NA>
+      78   <NA>    NA      NA 0.5  <NA>
+      79   <NA>    NA      NA 0.5  <NA>
+      80   <NA>    NA      NA 0.5  <NA>
+      81   <NA>    NA      NA 0.5  <NA>
+      82   <NA>    NA      NA 0.5  <NA>
+                                                        tips adjx adjy
+      1   <span style='font-size:14px'><b>1_1</b></span><br>   NA   NA
+      2   <span style='font-size:14px'><b>1_3</b></span><br>   NA   NA
+      3   <span style='font-size:14px'><b>1_7</b></span><br>   NA   NA
+      4  <span style='font-size:14px'><b>1_10</b></span><br>   NA   NA
+      5   <span style='font-size:14px'><b>1_2</b></span><br>   NA   NA
+      6   <span style='font-size:14px'><b>1_5</b></span><br>   NA   NA
+      7   <span style='font-size:14px'><b>1_8</b></span><br>   NA   NA
+      8   <span style='font-size:14px'><b>1_6</b></span><br>   NA   NA
+      9   <span style='font-size:14px'><b>1_9</b></span><br>   NA   NA
+      10  <span style='font-size:14px'><b>1_4</b></span><br>   NA   NA
+      11  <span style='font-size:14px'><b>1_1</b></span><br>  0.5  0.5
+      12  <span style='font-size:14px'><b>1_3</b></span><br>  0.5  0.5
+      13  <span style='font-size:14px'><b>1_7</b></span><br>  0.5  0.5
+      14 <span style='font-size:14px'><b>1_10</b></span><br>  0.5  0.5
+      15  <span style='font-size:14px'><b>1_2</b></span><br>  0.5  0.5
+      16  <span style='font-size:14px'><b>1_5</b></span><br>  0.5  0.5
+      17  <span style='font-size:14px'><b>1_8</b></span><br>  0.5  0.5
+      18  <span style='font-size:14px'><b>1_6</b></span><br>  0.5  0.5
+      19  <span style='font-size:14px'><b>1_9</b></span><br>  0.5  0.5
+      20  <span style='font-size:14px'><b>1_4</b></span><br>  0.5  0.5
+      21  <span style='font-size:14px'><b>1_1</b></span><br>   NA   NA
+      22  <span style='font-size:14px'><b>1_3</b></span><br>   NA   NA
+      23  <span style='font-size:14px'><b>1_7</b></span><br>   NA   NA
+      24 <span style='font-size:14px'><b>1_10</b></span><br>   NA   NA
+      25  <span style='font-size:14px'><b>1_2</b></span><br>   NA   NA
+      26  <span style='font-size:14px'><b>1_5</b></span><br>   NA   NA
+      27  <span style='font-size:14px'><b>1_8</b></span><br>   NA   NA
+      28  <span style='font-size:14px'><b>1_6</b></span><br>   NA   NA
+      29  <span style='font-size:14px'><b>1_9</b></span><br>   NA   NA
+      30  <span style='font-size:14px'><b>1_4</b></span><br>   NA   NA
+      31  <span style='font-size:14px'><b>1_1</b></span><br>  0.5  0.5
+      32  <span style='font-size:14px'><b>1_3</b></span><br>  0.5  0.5
+      33  <span style='font-size:14px'><b>1_7</b></span><br>  0.5  0.5
+      34 <span style='font-size:14px'><b>1_10</b></span><br>  0.5  0.5
+      35  <span style='font-size:14px'><b>1_2</b></span><br>  0.5  0.5
+      36  <span style='font-size:14px'><b>1_5</b></span><br>  0.5  0.5
+      37  <span style='font-size:14px'><b>1_8</b></span><br>  0.5  0.5
+      38  <span style='font-size:14px'><b>1_6</b></span><br>  0.5  0.5
+      39  <span style='font-size:14px'><b>1_9</b></span><br>  0.5  0.5
+      40  <span style='font-size:14px'><b>1_4</b></span><br>  0.5  0.5
+      41                                                <NA>   NA   NA
+      42                                                <NA>   NA   NA
+      43                                                <NA>   NA   NA
+      44                                                <NA>   NA   NA
+      45  <span style='font-size:14px'><b>1_1</b></span><br>  0.5  1.0
+      46  <span style='font-size:14px'><b>1_3</b></span><br>  0.5  1.0
+      47  <span style='font-size:14px'><b>1_7</b></span><br>  0.5  1.0
+      48 <span style='font-size:14px'><b>1_10</b></span><br>  0.5  1.0
+      49  <span style='font-size:14px'><b>1_2</b></span><br>  0.5  1.0
+      50  <span style='font-size:14px'><b>1_5</b></span><br>  0.5  1.0
+      51  <span style='font-size:14px'><b>1_8</b></span><br>  0.5  1.0
+      52  <span style='font-size:14px'><b>1_6</b></span><br>  0.5  1.0
+      53  <span style='font-size:14px'><b>1_9</b></span><br>  0.5  1.0
+      54  <span style='font-size:14px'><b>1_4</b></span><br>  0.5  1.0
+      55                                                <NA>   NA   NA
+      56                                                <NA>   NA   NA
+      57                                                <NA>   NA   NA
+      58                                                <NA>   NA   NA
+      59                                                <NA>   NA   NA
+      60                                                <NA>   NA   NA
+      61                                                <NA>   NA   NA
+      62                                                <NA>   NA   NA
+      63                                                <NA>   NA   NA
+      64                                                <NA>   NA   NA
+      65                                                <NA>   NA   NA
+      66                                                <NA>   NA   NA
+      67                                                <NA>   NA   NA
+      68                                                <NA>   NA   NA
+      69                                                <NA>   NA   NA
+      70                                                <NA>   NA   NA
+      71                                                <NA>   NA   NA
+      72                                                <NA>   NA   NA
+      73                                                <NA>  0.5  0.5
+      74                                                <NA>   NA   NA
+      75                                                <NA>   NA   NA
+      76                                                <NA>   NA   NA
+      77                                                <NA>   NA   NA
+      78                                                <NA>   NA   NA
+      79                                                <NA>   NA   NA
+      80                                                <NA>   NA   NA
+      81                                                <NA>   NA   NA
+      82                                                <NA>   NA   NA
       
       $par_usr
       $par_usr$usr
@@ -193,4 +276,9 @@
       [1] 0.1
       
       
+
+# Tooltip works
+
+    Code
+      html_plot
 
