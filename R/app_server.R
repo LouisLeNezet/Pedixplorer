@@ -313,7 +313,7 @@ ped_server <- function(
                 )
             })
         }
-        
+
         ### Tips column selection --------------------------------------------
         output$col_sel_tips <- renderUI({
             shiny::req(ped_subfam())

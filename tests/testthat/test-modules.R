@@ -175,7 +175,9 @@ test_that("plot_ped works", {
         Pedigree(sampleped[sampleped$famid == "1", ])
     })
     app <- shinytest2::AppDriver$new(
-        plot_ped_demo(pedi = pedi, tips = c("id", "momid", "num")), name = "plot_ped",
+        plot_ped_demo(
+            pedi = pedi, tips = c("id", "momid", "num")
+        ), name = "plot_ped",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)

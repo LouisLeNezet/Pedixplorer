@@ -137,7 +137,7 @@ plot_ped_server <- function(
                     plotly_ped()
                 })
                 plotly::plotlyOutput(ns("ped_plotly"), height = "700px") %>%
-                    shinycssloaders::withSpinner(color="#8aca25")
+                    shinycssloaders::withSpinner(color = "#8aca25")
             } else {
                 output$ped_plot <- shiny::renderPlot({
                     shiny::req(pedi_val())
@@ -151,7 +151,7 @@ plot_ped_server <- function(
                     )
                 })
                 shiny::plotOutput(ns("ped_plot"), height = "700px") %>%
-                    shinycssloaders::withSpinner(color="#8aca25")
+                    shinycssloaders::withSpinner(color = "#8aca25")
             }
         })
 

@@ -256,7 +256,7 @@ draw_polygon <- function(
         lwd = lwd
     )
     if (ggplot_gen) {
-        if(is.null(tips)) {
+        if (is.null(tips)) {
             tips <- "None"
         }
         p <- p +

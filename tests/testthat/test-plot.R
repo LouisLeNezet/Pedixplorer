@@ -96,7 +96,7 @@ test_that("Tooltip works", {
     )$ggplot
 
     html_plot <- ggplotly(p, tooltip = "text") %>%
-        plotly::layout(hoverlabel=list(bgcolor="darkgrey"))
+        plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
 
     expect_snapshot(html_plot)
 })
