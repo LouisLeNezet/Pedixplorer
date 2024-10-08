@@ -92,12 +92,9 @@ test_that("Tooltip works", {
     pedi <- Pedigree(sampleped)
     p <- plot(
         pedi, ggplot_gen = TRUE, precision = 1,
-        label = "num", tips = c("num", "momid", "dadid")
+        label = "num", tips = c("momid"), symbolsize = 2
     )$ggplot
-    ggplotly(p)
-
-    p <- ggplot() +
-        geom_polygon(aes(x = c(0,0,1,1), y = c(0,1,0,1), text = "test2"))+
-        ggplot2::annotate("text", x = 0.5, y = 0.5, label = "Test", cex = 50, tooltip = FALSE)
-    ggplotly(p, tooltip = "text")
+    html_plot <- ggplotly(p, tooltip = "text") %>%
+        plotly::layout(hoverlabel=list(bgcolor="darkgrey"))
+    expect_snapshot(html_plot)
 })

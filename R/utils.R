@@ -531,9 +531,9 @@ create_text_column <- function(
         dplyr::rowwise() %>%
         dplyr::mutate(text = paste(
             paste(
-                "<span style='font-size:16px;'><b>",
+                "<span style='font-size:14px'><b>",
                 as.character(get(title)),
-                "</b><br><br>", sep = ""
+                "</b></span><br>", sep = ""
             ), paste(
                 unlist(sapply(cols, function(col) {
                     value <- as.character(get(col))
@@ -543,7 +543,7 @@ create_text_column <- function(
                         return(paste("<b>", col, "</b>: ", value, sep = ""))
                     }
                 })), collapse = "<br>", sep = ""
-            )
+            ), collapse = "<br>", sep = ""
         )) %>%
         dplyr::ungroup() %>%
         dplyr::pull(text)

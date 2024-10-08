@@ -287,11 +287,13 @@ draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
 ) {
     graphics::text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
     if (ggplot_gen) {
-        p <- p + ggplot2::annotate(
-            "text", x = x, y = y, label = label,
-            size = cex / 0.3, colour = col,
-            tooltip = FALSE
-        )
+        if (is.null(tips)) {
+            tips <- label
+        }
+        p <- p + ggplot2::geom_text(aes(
+            x = x, y = y, label = label,
+            text = tips
+        ), size = cex / 0.3, colour = col)
     }
     p
 }
