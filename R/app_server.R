@@ -317,7 +317,7 @@ ped_server <- function(
         ### Tips column selection --------------------------------------------
         output$col_sel_tips <- renderUI({
             shiny::req(ped_subfam())
-            all_cols <- colnames(as.data.frame(ped(ped_subfam())))
+            all_cols <- colnames(Pedixplorer::as.data.frame(ped(ped_subfam())))
             select <- c("affection", "affected", "avail", "status")
             select <- select[select %in% all_cols]
             shiny::selectInput(
