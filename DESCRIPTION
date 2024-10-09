@@ -63,7 +63,8 @@ Suggests:
     covr,
     devtools,
     R.devices,
-    usethis
+    usethis,
+    magick
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, GraphAndNetwork, Visualization
 BugReports: https://github.com/LouisLeNezet/Pedixplorer/issues
