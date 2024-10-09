@@ -39,6 +39,8 @@ NULL
 #' corresponding to the value of the column given.
 #' @param lwd default=par("lwd"). Controls the line width of the
 #' segments, arcs and polygons.
+#' @param tips A character vector of the column names of the data frame to
+#' use as tooltips. If `NULL`, no tooltips are added.
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams set_plot_area
 #' @inheritParams kindepth
@@ -76,7 +78,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     align = c(1.5, 2), align_parents = TRUE, force = FALSE,
     cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
     aff_mark = TRUE, id_lab = "id", label = NULL, precision = 3,
-    lwd = par("lwd"), ...
+    lwd = par("lwd"), tips = NULL, ...
 ) {
 
     famlist <- unique(famid(ped(obj)))
@@ -111,8 +113,10 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     xrange <- range(plist$pos[plist$nid > 0])
     maxlev <- nrow(plist$pos)
 
+    labels <- unname(unlist(as.data.frame(ped(obj))[c(id_lab, label)]))
+
     params_plot <- set_plot_area(
-        cex, id(ped(obj)), maxlev, xrange, symbolsize, precision, ...
+        cex, labels, maxlev, xrange, symbolsize, precision, ...
     )
 
     boxw <- params_plot$boxw
@@ -141,6 +145,8 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     border_mods <- ped_df[id[idx], unique(border(obj)$column_mods)]
     border_idx <- match(border_mods, border(obj)$mods)
 
+    ped_df$tips <- create_text_column(ped_df, id_lab, c(label, tips))
+
     for (aff in seq_len(n_aff)) {
         aff_df <- all_aff[all_aff$order == aff, ]
         aff_mods <- ped_df[id[idx], unique(aff_df[["column_mods"]])]
@@ -162,7 +168,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             density = aff_df[aff_idx, "density"],
             angle = aff_df[aff_idx, "angle"],
             border = border(obj)$border[border_idx],
-            cex = lwd,
+            cex = lwd, tips = ped_df[id[idx], "tips"],
             id = "polygon"
         )
         plot_df <- plyr::rbind.fill(plot_df, ind)
@@ -172,7 +178,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 y0 = i[idx] + boxh / 2,
                 label = ped_df[id[idx], unique(aff_df[["column_values"]])],
                 fill = "black", adjx = 0.5, adjy = 0.5,
-                type = "text", cex = cex,
+                type = "text", cex = cex, tips = ped_df[id[idx], "tips"],
                 id = "aff_mark"
             )
             plot_df <- plyr::rbind.fill(plot_df, aff_mark_df)
@@ -196,10 +202,10 @@ setMethod("ped_to_plotdf", "Pedigree", function(
 
     ## Add ids
     id_df <- data.frame(
-        x0 = pos[idx], y0 = i[idx] + boxh + labh * 1.2,
+        x0 = pos[idx], y0 = i[idx] + boxh + labh,
         label = ped_df[id[idx], id_lab], fill = "black",
-        type = "text", cex = cex, adjx = 0.5, adjy = 0.5,
-        id = "id"
+        type = "text", cex = cex, adjx = 0.5, adjy = 1,
+        id = "id", tips = ped_df[id[idx], "tips"]
     )
     plot_df <- rbind.fill(plot_df, id_df)
 
@@ -212,7 +218,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             label = ped_df[id[idx], label],
             fill = "black", adjy = 1, adjx = 0.5,
             type = "text", cex = cex,
-            id = "label"
+            id = "label", tips = ped_df[id[idx], "tips"]
         )
         plot_df <- rbind.fill(plot_df, label)
     }

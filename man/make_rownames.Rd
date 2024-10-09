@@ -22,6 +22,6 @@ A character vector of rownames
 Make rownames for rectangular data display
 }
 \examples{
-Pedixplorer::make_rownames(rownames(mtcars), nrow(mtcars), 3, 3)
+Pedixplorer:::make_rownames(rownames(mtcars), nrow(mtcars), 3, 3)
 }
 \keyword{internal}

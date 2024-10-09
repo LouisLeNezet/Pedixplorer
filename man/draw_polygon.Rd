@@ -13,7 +13,8 @@ draw_polygon(
   border = "black",
   density = NULL,
   angle = 45,
-  lwd = par("lwd")
+  lwd = par("lwd"),
+  tips = NULL
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ draw_polygon(
 \item{angle}{Angle of shading}
 
 \item{lwd}{Line width}
+
+\item{tips}{Text to be displayed when hovering over the polygon}
 }
 \value{
 Plot the polygon  to the current device

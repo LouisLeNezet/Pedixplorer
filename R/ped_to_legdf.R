@@ -73,19 +73,17 @@ setMethod("ped_to_legdf", "Pedigree", function(
     all_lab <- c(all_lab, all_aff)
     max_lab <- lapply(lapply(
         all_lab, graphics::strwidth,
-        units = "inches", cex = cex
+        units = "figure", cex = cex
     ), max)
-    posx <- unlist(lapply(max_lab, function(x) {
-        c(c(boxw, boxw, boxw / 5), x * 3)
-    }))
-    posx <- cumsum(posx) - boxw
-    posx <- c(posx[seq_along(posx) %% 2 == 1], posx[length(posx)])
+
+    posx_all <- cumsum(unlist(max_lab) + boxw * 2)
+    posx <- c(0, posx_all[seq_len((length(posx_all) - 1))])
 
     n_max <- max(unlist(lapply(all_lab, function(x) {
         length(x)
     })))
 
-    posy <- rep(boxh, n_max * 2)
+    posy <- rep(c(boxh, boxh / 3), n_max)
     posy <- cumsum(posy)
     posy <- posy[seq_along(posy) %% 2 == 0]
 
@@ -95,7 +93,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     # Categories titles
     lab_title <- c("Sex", "Border", unique(all_aff$column_values))
     titles <- data.frame(
-        x0 = posx[seq_along(posx) %% 2 == 0] - boxw, y0  = 0,
+        x0 = posx, y0  = 0,
         type = "text", label = lab_title, adjx = 0.5, adjy = 0,
         fill = "black", cex = cex * 1.5,
         id = "titles"
@@ -109,7 +107,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     poly1 <- polygons(1)
     all_sex <- unique(as.numeric(ped_df$sex))
     sex <- data.frame(
-        x0 = posx[1], y0 = posy[all_sex],
+        x0 = posx[1], y0 = posy[all_sex] - boxh / 2,
         type = paste(names(poly1)[all_sex], 1, 1, sep = "_"),
         fill = "white",
         border = "black",
@@ -117,7 +115,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     )
 
     sex_label <- data.frame(
-        x0 = posx[2] + adjx,
+        x0 = posx[1] + boxw + adjx,
         y0 = posy[all_sex] + adjy,
         label = sex_equiv[all_sex], cex = cex,
         type = "text", adjx = 0, adjy = 0.5,
@@ -130,7 +128,8 @@ setMethod("ped_to_legdf", "Pedigree", function(
     # Border
     border_mods <- unique(ped_df[, unique(border(obj)$column_mods)])
     border <- data.frame(
-        x0 = posx[3], y0 = posy[seq_along(border_mods)],
+        x0 = posx[2],
+        y0 = posy[seq_along(border_mods)] - boxh / 2,
         type = rep("square_1_1", length(border_mods)),
         border = border(obj)$border[match(border_mods, border(obj)$mods)],
         fill = "white",
@@ -139,7 +138,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     lab <- border(obj)$labels[match(border_mods, border(obj)$mods)]
     lab[is.na(lab)] <- "NA"
     border_label <- data.frame(
-        x0 = posx[4] + adjx,
+        x0 = posx[2] + boxw + adjx,
         y0 = posy[seq_along(border_mods)] + adjy,
         label = lab, cex = cex, adjx = 0, adjy = 0.5,
         type = "text",
@@ -154,7 +153,8 @@ setMethod("ped_to_legdf", "Pedigree", function(
         aff_df <- all_aff[all_aff$order == aff, ]
         aff_mods <- aff_df$mods
         aff_bkg <- data.frame(
-            x0 = posx[3 + aff * 2], y0 = posy[seq_along(aff_mods)],
+            x0 = posx[2 + aff],
+            y0 = posy[seq_along(aff_mods)] - boxh / 2,
             type = rep(paste("square", 1, 1, sep = "_"),
                 length(aff_mods)
             ),
@@ -163,7 +163,8 @@ setMethod("ped_to_legdf", "Pedigree", function(
         )
 
         affected <- data.frame(
-            x0 = posx[3 + aff * 2], y0 = posy[seq_along(aff_mods)],
+            x0 = posx[2 + aff],
+            y0 = posy[seq_along(aff_mods)] - boxh / 2,
             type = rep(paste("square", n_aff, aff, sep = "_"),
                 length(aff_mods)
             ),
@@ -174,8 +175,9 @@ setMethod("ped_to_legdf", "Pedigree", function(
 
         lab <- aff_df$labels
         lab[is.na(lab)] <- "NA"
+
         affected_label <- data.frame(
-            x0 = posx[4 + aff * 2] + adjx,
+            x0 = posx[2 + aff] + boxw + adjx,
             y0 = posy[seq_along(aff_mods)] + adjy,
             label = lab, cex = cex, adjx = 0, adjy = 0.5,
             type = "text",

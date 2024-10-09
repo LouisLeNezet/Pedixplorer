@@ -16,6 +16,6 @@ A character vector of class information
 Make class information
 }
 \examples{
-Pedixplorer::make_class_info(list(1, "a", 1:3, list(1, 2)))
+Pedixplorer:::make_class_info(list(1, "a", 1:3, list(1, 2)))
 }
 \keyword{internal}

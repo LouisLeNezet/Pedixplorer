@@ -66,3 +66,37 @@ test_that("Pedigree fails to line up", {
         function() plot(ped1reord, precision = 1)
     )
 })
+
+test_that("Fix of vertical scaling", {
+    # Simple trio with multiline labels
+    pedi <- Pedigree(
+        1:3, dadid = c(0, 0, 1), momid = c(0, 0, 2), sex = c(1, 2, 1),
+        na_strings = 0
+    )
+    mcols(pedi)$labels <- c("1", "2", "3\n1/1\n1/1\n1/1\n1/1\n1/1\n1/1")
+
+    vdiffr::expect_doppelganger("Ped scaling multiple label",
+        function() {
+            # Plot
+            par(mar = rep(2, 4), oma = rep(1, 4))
+            plot(
+                pedi, id_lab = "labels",
+                ped_par = list(mar = rep(2, 4), oma = rep(1, 4))
+            )
+        }
+    )
+})
+
+test_that("Tooltip works", {
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    p <- plot(
+        pedi, ggplot_gen = TRUE, precision = 1,
+        label = "num", tips = c("momid"), symbolsize = 1.5
+    )$ggplot
+
+    html_plot <- ggplotly(p, tooltip = "text") %>%
+        plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
+
+    expect_snapshot(html_plot)
+})

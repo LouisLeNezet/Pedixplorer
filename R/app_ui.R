@@ -129,7 +129,8 @@ ped_ui <- function() {
         shiny::fluidRow(
             shiny::column(5,
                 plot_download_ui("saveped"),
-                data_download_ui("plot_data_dwnl")
+                data_download_ui("plot_data_dwnl"),
+                shiny::uiOutput("col_sel_tips")
             ),
             shiny::column(7,
                 plot_legend_ui("legend", "350px")

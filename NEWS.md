@@ -1,8 +1,15 @@
-# NEWS
+## Changes in v1.1.5
 
-NEWS file for the Pedixplorer package
+- Change code of ped_to_legdf
+- When plotting with the main plot, the legend gets its own
+space separate from the plot. This allow better control over
+the size and localisation of the legend.
+- The graphical parameters are reset after each use of plot_fromdf
+- Add tooltips control in Pedigree plots and add it to the app
+- Add example of interactivness in vignette
+- Fix plot area function and legend creation for better alignment
 
-## Changes in version 1.1.4
+## Changes in v1.1.4
 
 - Update website and logo
 - Improve `ped_shiny()` esthetics
@@ -16,17 +23,17 @@ functions for users
 - Standardize the vignettes and add more documentation
 - Fix label adjusting position in plot functions
 
-## Changes in version 1.1.3
+## Changes in v1.1.3
 
 - Fix github workflows
 - Disable `ped_shiny()` execution in markdown
 - Publish with `pkgdown`
 
-## Changes in version 1.1.2
+## Changes in v1.1.2
 
 - Use R version 4.4 and update workflows
 
-## Changes in version 1.1.1
+## Changes in v1.1.1
 
 - A [shiny application](https://shiny.posit.co/) is now available through
 the `ped_shiny()` function.
@@ -46,7 +53,7 @@ to reduce noise between platform.
 computed by `ped_to_plotdf()`.
 - `useful_inds()` function has been improved.
 
-## Changes in version 0.99.0
+## Changes in v0.99.0
 
 - Kinship2 is renamed to Pedixplorer and hosted on Bioconductor.
 - Pedigree is now a S4 object, all functions are updated to work with

@@ -235,6 +235,7 @@ draw_segment <- function(
 #' @param border Border color
 #' @param density Density of shading
 #' @param angle Angle of shading
+#' @param tips Text to be displayed when hovering over the polygon
 #' @inheritParams draw_segment
 #'
 #' @return Plot the polygon  to the current device
@@ -247,7 +248,7 @@ draw_polygon <- function(
     x, y, p = NULL, ggplot_gen = FALSE,
     fill = "grey", border = "black",
     density = NULL, angle = 45,
-    lwd = par("lwd")
+    lwd = par("lwd"), tips = NULL
 ) {
     graphics::polygon(
         x, y, col = fill, border = border,
@@ -255,11 +256,14 @@ draw_polygon <- function(
         lwd = lwd
     )
     if (ggplot_gen) {
+        if (is.null(tips)) {
+            tips <- "None"
+        }
         p <- p +
-            ggplot2::geom_polygon(
-                ggplot2::aes(x = x, y = y), fill = fill,
-                color = border, linewidth = lwd
-            )
+            suppressWarnings(ggplot2::geom_polygon(
+                ggplot2::aes(x = x, y = y, text = tips),
+                fill = fill, color = border, linewidth = lwd
+            ))
         # To add pattern stripes use ggpattern::geom_polygon_pattern
         # pattern_density = density[i], pattern_angle = angle[i]))
     }
@@ -273,6 +277,7 @@ draw_polygon <- function(
 #' @param col Text color
 #' @param adjx x adjustment
 #' @param adjy y adjustment
+#' @param tips Text to be displayed when hovering over the text
 #' @inheritParams draw_segment
 #' @inheritParams draw_polygon
 #'
@@ -283,14 +288,17 @@ draw_polygon <- function(
 #' @importFrom ggplot2 annotate
 #' @importFrom graphics text
 draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
-    cex = 1, col = NULL, adjx = 0.5, adjy = 0.5
+    cex = 1, col = NULL, adjx = 0.5, adjy = 0.5, tips = NULL
 ) {
     graphics::text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
     if (ggplot_gen) {
-        p <- p + ggplot2::annotate(
-            "text", x = x, y = y, label = label,
-            size = cex / 0.3, colour = col
-        )
+        if (is.null(tips)) {
+            tips <- label
+        }
+        p <- p + suppressWarnings(ggplot2::geom_text(ggplot2::aes(
+            x = x, y = y, label = label,
+            text = tips
+        ), size = cex / 0.3, colour = col))
     }
     p
 }
@@ -368,7 +376,7 @@ set_plot_area <- function(
     # horizontal scale in inches
     hscale <- signif((psize[1] - boxsize) / diff(xrange), precision)
     vscale <- signif(
-        (psize[2] - (stemp3 + stemp2 / 2 + boxsize)) /
+        (psize[2] - (stemp3 + stemp2 + boxsize)) /
             max(1, maxlev - 1), precision
     )
     # box width in user units
@@ -379,8 +387,9 @@ set_plot_area <- function(
     labh <- signif(stemp2 / vscale, precision)
     # how tall are the 'legs' up from a child
     legh <- signif(min(1 / 4, boxh * 1.5), precision)
+
     usr <- c(xrange[1] - boxw / 2, xrange[2] + boxw / 2,
-        maxlev + boxh + stemp3 + stemp2 / 2, 1
+        maxlev + boxh + stemp3 / vscale + stemp2 / vscale, 1
     )
     list(usr = usr, old_par = old_par, boxw = boxw,
         boxh = boxh, labh = labh, legh = legh

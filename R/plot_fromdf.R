@@ -65,11 +65,13 @@ plot_fromdf <- function(
 ) {
     if (!add_to_existing) {
         graphics::frame()
+        op <- par(no.readonly = TRUE)
         if (!is.null(usr)) {
             graphics::par(usr = usr)
         }
+    } else {
+        op <- par(no.readonly = TRUE)
     }
-
     p <- ggplot2::ggplot() +
         ggplot2::theme(
             plot.margin = ggplot2::unit(c(0, 0, 0, 0), "cm"),
@@ -126,7 +128,7 @@ plot_fromdf <- function(
                 p, ggplot_gen,
                 fill = boxes$fill[i], border = boxes$border[i],
                 density = boxes$density[i], angle = boxes$angle[i],
-                lwd = boxes$cex[i]
+                lwd = boxes$cex[i], tips = boxes$tips[i]
             )
         }
     }
@@ -159,11 +161,11 @@ plot_fromdf <- function(
                 p <- draw_text(
                     txt_xy$x0, txt_xy$y0, txt_xy$label,
                     p, ggplot_gen, txt_xy$cex, txt_xy$fill,
-                    adjx, adjy
+                    adjx, adjy, tips = txt_xy$tips
                 )
             }
         }
     }
-
+    par(op)
     invisible(p)
 }

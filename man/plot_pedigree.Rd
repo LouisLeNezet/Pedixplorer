@@ -33,7 +33,9 @@
   leg_adjy = 0,
   precision = 2,
   lwd = par("lwd"),
-  ...
+  ped_par = list(),
+  leg_par = list(),
+  tips = NULL
 )
 }
 \arguments{
@@ -108,7 +110,10 @@ If character, it is the family id to plot.}
 
 \item{leg_loc}{default=NULL.  If NULL, the legend will be placed in the
 upper right corner of the plot.  Otherwise, a 4-element vector of the form
-(x0, x1, y0, y1) can be used to specify the location of the legend.}
+(x0, x1, y0, y1) can be used to specify the location of the legend.
+The legend will be fitted to the specified and might be distorted if the
+aspect ratio of the legend is different from the aspect ratio of the
+specified location.}
 
 \item{leg_adjx}{default=0.  Controls the horizontal labels adjustment of
 the legend.}
@@ -121,7 +126,14 @@ of the legend.}
 \item{lwd}{default=par("lwd"). Controls the line width of the
 segments, arcs and polygons.}
 
-\item{...}{Extra options that feed into the}
+\item{ped_par}{default=list().  A list of parameters to use as graphical
+parameteres for the main plot.}
+
+\item{leg_par}{default=list().  A list of parameters to use as graphical
+parameters for the legend.}
+
+\item{tips}{A character vector of the column names of the data frame to
+use as tooltips. If \code{NULL}, no tooltips are added.}
 }
 \value{
 an invisible list containing

@@ -298,7 +298,6 @@ ped_server <- function(
         )
 
         ## Plotting pedigree --------------------------------------------------
-
         cust_title <- function(short) {
             shiny::reactive({
                 shiny::req(lst_fam())
@@ -315,16 +314,35 @@ ped_server <- function(
             })
         }
 
+        ### Tips column selection --------------------------------------------
+        output$col_sel_tips <- renderUI({
+            shiny::req(ped_subfam())
+            all_cols <- colnames(Pedixplorer::as.data.frame(ped(ped_subfam())))
+            select <- c("affection", "affected", "avail", "status")
+            select <- select[select %in% all_cols]
+            shiny::selectInput(
+                "tips_col",
+                label = "Select columns for tips",
+                choices = all_cols, selected = select,
+                multiple = TRUE
+            )
+        })
+
+        my_tips <- shiny::reactive({
+            input$tips_col
+        })
+
         plot_ped <- plot_ped_server(
             "ped", ped_subfam,
             cust_title(short = FALSE),
-            precision = precision, lwd = 2
+            precision = precision, lwd = 2,
+            tips = my_tips
         )
 
         plot_legend_server(
             "legend", ped_subfam,
-            boxw = 0.03, boxh = 0.07, adjx = 0.3, adjy = -0.015,
-            leg_loc = c(0.2, 1.2, 0.2, 0.95), lwd = 2
+            boxw = 0.02, boxh = 0.08, adjx = 0, adjy = 0,
+            leg_loc = c(0.1, 0.7, 0.01, 0.95), lwd = 1.5
         )
 
         ## Download data and plot ---------------------------------------------

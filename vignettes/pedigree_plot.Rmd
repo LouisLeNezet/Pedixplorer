@@ -243,13 +243,33 @@ $0 \le z \le 1$ and are in the ''forward''' part of the ray. This latter
 is true if the inner product $x \cos(\theta) + y \sin(\theta) >0$.
 Exactly one of the polygon sides will satisfy both conditions.
 
-Final output
-==========================
+Final output and interactivness
+================================
 
 The Pedigree is plotted in a new frame or added to the current device.
 If `ggplot_gen = TRUE`, then a ggplot object is create with the same
 informations and available in the invisible object given back by
 `plot_fromdf()*`
+
+This ggplot object can be used to further customise the plot, add
+annotations, or make it interactive. The `tips` argument can be used
+to add tooltips to the plot. They will be displayed when hovering
+over the corresponding element through the `text` element.
+
+```{r, interactive_plot, fig.alt = "Interactive plot", eval = FALSE}
+data(sampleped)
+pedi <- Pedigree(sampleped)
+
+p <- plot(
+    pedi, ggplot_gen = TRUE,
+    tips = c("affected", "momid", "dadid"),
+    symbolsize = 1.5, cex = 0.8
+)
+plotly::layout(
+    plotly::ggplotly(p$ggplot, tooltip = "text"),
+    hoverlabel = list(bgcolor = "darkgrey")
+)
+```
 
     Notes:
         Remind the user of subjects who did not get
