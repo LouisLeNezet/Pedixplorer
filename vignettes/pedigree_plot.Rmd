@@ -265,11 +265,10 @@ p <- plot(
     tips = c("affected", "momid", "dadid"),
     symbolsize = 1.5, cex = 0.8
 )
-plotly::ggplotly(p$ggplot, tooltip = "text") %>%
-    plotly::layout(
-        title = "Interactive Pedigree plot",
-        hoverlabel = list(bgcolor = "darkgrey")
-    )
+plotly::layout(
+    plotly::ggplotly(p$ggplot, tooltip = "text"),
+    hoverlabel = list(bgcolor = "darkgrey")
+)
 ```
 
     Notes:
