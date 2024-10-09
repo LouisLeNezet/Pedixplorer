@@ -35,9 +35,21 @@ of the labels in the legend.}
 \item{lwd}{default=par("lwd").  Controls the bordering line width of the
 elements in the legend.}
 }
+\value{
+an invisible list containing
+\itemize{
+\item df : the data.frame used to plot the Pedigree
+\item par_usr : the user coordinates used to plot the Pedigree
+}
+}
 \description{
 Small internal function to be used for plotting a Pedigree
 object legend
 }
+\section{Side Effects}{
+
+Creates plot on current plotting device.
+}
+
 \keyword{internal}
 \keyword{plot_legend}

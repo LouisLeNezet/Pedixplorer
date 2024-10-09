@@ -77,7 +77,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
     ), max)
 
     posx_all <- cumsum(unlist(max_lab) + boxw * 2)
-    posx <- c(0, posx_all[1:(length(posx_all) - 1)])
+    posx <- c(0, posx_all[seq_len((length(posx_all) - 1))])
 
     n_max <- max(unlist(lapply(all_lab, function(x) {
         length(x)

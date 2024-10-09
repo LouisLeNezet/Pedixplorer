@@ -532,7 +532,7 @@ create_text_column <- function(
                 as.character(get(title)),
                 "</b></span><br>", sep = ""
             ), paste(
-                unlist(sapply(cols, function(col) {
+                unlist(lapply(cols, function(col) {
                     value <- as.character(get(col))
                     if (value %in% na_strings) {
                         return(NULL)

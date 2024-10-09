@@ -3,6 +3,11 @@
 #' Small internal function to be used for plotting a Pedigree
 #' object legend
 #' @inheritParams ped_to_legdf
+#' @return an invisible list containing
+#' - df : the data.frame used to plot the Pedigree
+#' - par_usr : the user coordinates used to plot the Pedigree
+#' @section Side Effects:
+#' Creates plot on current plotting device.
 #' @keywords internal
 #' @keywords plot_legend
 #' @importFrom scales rescale
@@ -38,6 +43,8 @@ plot_legend <- function(
         leg$df, add_to_existing = add_to_existing,
         boxw = boxw, boxh = boxh, usr = usr
     )
+
+    invisible(list(df = leg$df, par_usr = usr))
 }
 
 
