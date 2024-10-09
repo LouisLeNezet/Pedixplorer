@@ -256,7 +256,7 @@ annotations, or make it interactive. The `tips` argument can be used
 to add tooltips to the plot. They will be displayed when hovering
 over the corresponding element through the `text` element.
 
-```{r, interactive_plot, fig.alt = "Interactive plot"}
+```{r, interactive_plot, fig.alt = "Interactive plot", eval = FALSE}
 data(sampleped)
 pedi <- Pedigree(sampleped)
 
