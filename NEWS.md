@@ -9,6 +9,9 @@ NEWS file for the Pedixplorer package
 space separate from the plot. This allow better control over
 the size and localisation of the legend.
 - The graphical parameters are reset after each use of plot_fromdf
+- Add tooltips control in Pedigree plots and add it to the app
+- Add example of interactivness in vignette
+- Fix plot area function and legend creation for better alignment
 
 ## Changes in version 1.1.4
 
