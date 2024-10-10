@@ -3,5 +3,6 @@
 *.Rproj
 *.so
 *.Rprofile
-devel/*
-Pedixplorer.Rcheck
+*.lintr
+Pedixplorer*
+devel
