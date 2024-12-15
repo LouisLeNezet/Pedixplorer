@@ -529,7 +529,7 @@ create_text_column <- function(
         dplyr::mutate(text = paste(
             paste(
                 "<span style='font-size:14px'><b>",
-                as.character(get(title)),
+                ifelse(is.null(title), "", as.character(get(title))),
                 "</b></span><br>", sep = ""
             ), paste(
                 unlist(lapply(cols, function(col) {

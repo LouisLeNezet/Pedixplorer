@@ -164,7 +164,7 @@ setMethod("Ped", "data.frame",
 #' @export
 setMethod("Ped", "character_OR_integer",
     function(
-        obj, sex, dadid, momid, famid = NA,
+        obj, dadid, momid, sex, famid = NA,
         steril = NA, status = NA, avail = NA,
         affected = NA, missid = NA_character_,
         useful = NA, isinf = NA, kin = NA_real_

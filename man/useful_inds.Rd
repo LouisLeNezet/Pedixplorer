@@ -18,21 +18,9 @@
   keep_infos = FALSE
 )
 
-\S4method{useful_inds}{Pedigree}(
-  obj,
-  informative = "AvAf",
-  keep_infos = FALSE,
-  reset = FALSE,
-  max_dist = NULL
-)
+\S4method{useful_inds}{Pedigree}(obj, keep_infos = FALSE, max_dist = NULL, reset = FALSE)
 
-\S4method{useful_inds}{Ped}(
-  obj,
-  informative = "AvAf",
-  keep_infos = FALSE,
-  reset = FALSE,
-  max_dist = NULL
-)
+\S4method{useful_inds}{Ped}(obj, keep_infos = FALSE, reset = FALSE, max_dist = NULL)
 }
 \arguments{
 \item{obj}{A character vector with the id of the individuals or a
@@ -64,20 +52,9 @@ individuals}
 \item{keep_infos}{Boolean to indicate if parents with unknown status
 but available or reverse should be kept}
 
-\item{informative}{Informative individuals selection can take 5 values:
-\itemize{
-\item 'AvAf' (available and affected),
-\item 'AvOrAf' (available or affected),
-\item 'Av' (available only),
-\item 'Af' (affected only),
-\item 'All' (all individuals)
-\item A numeric/character vector of individuals id
-\item A boolean
-}}
+\item{max_dist}{The maximum distance to informative individuals}
 
 \item{reset}{Boolean to indicate if the \code{useful} column should be reset}
-
-\item{max_dist}{The maximum distance to informative individuals}
 }
 \value{
 \subsection{When obj is a vector}{

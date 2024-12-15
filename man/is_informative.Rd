@@ -10,7 +10,12 @@
 \usage{
 \S4method{is_informative}{character_OR_integer}(obj, avail, affected, informative = "AvAf")
 
-\S4method{is_informative}{Ped}(obj, informative = "AvAf", reset = FALSE)
+\S4method{is_informative}{Ped}(
+  obj,
+  informative = "AvAf",
+  col_aff = "affection_mods",
+  reset = FALSE
+)
 
 \S4method{is_informative}{Pedigree}(obj, col_aff = NULL, informative = "AvAf", reset = FALSE)
 }
@@ -41,10 +46,10 @@ individuals
 \item A boolean
 }}
 
-\item{reset}{If \code{TRUE}, the \code{isinf} slot is reset}
-
 \item{col_aff}{A character vector with the name of the column to be used
 for the affection status.}
+
+\item{reset}{If \code{TRUE}, the \code{isinf} slot is reset}
 }
 \value{
 \subsection{When obj is a vector}{
@@ -83,11 +88,11 @@ is_informative(c("A", "B", "C", "D", "E"),
 
 data("sampleped")
 ped <- Pedigree(sampleped)
-ped <- is_informative(ped, col_aff = "affection_mods")
+ped <- is_informative(ped, col_aff = "affection")
 isinf(ped(ped))
 
 data("sampleped")
 ped <- Pedigree(sampleped)
-ped <- is_informative(ped, col_aff = "affection_mods")
+ped <- is_informative(ped, col_aff = "affection")
 isinf(ped(ped))
 }

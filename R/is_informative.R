@@ -107,11 +107,12 @@ setMethod("is_informative", "character_OR_integer",
 #'
 #' data("sampleped")
 #' ped <- Pedigree(sampleped)
-#' ped <- is_informative(ped, col_aff = "affection_mods")
+#' ped <- is_informative(ped, col_aff = "affection")
 #' isinf(ped(ped))
 #' @export
 setMethod("is_informative", "Ped", function(
-    obj, informative = "AvAf", reset = FALSE
+    obj, informative = "AvAf", col_aff = "affection_mods",
+    reset = FALSE
 ) {
     if (!reset & any(!is.na(isinf(obj)))) {
         warning(
@@ -121,7 +122,9 @@ setMethod("is_informative", "Ped", function(
         return(obj)
     }
 
-    id_inf <- is_informative(id(obj), avail(obj), affected(obj),
+    check_columns(mcols(obj), col_aff, "", "")
+
+    id_inf <- is_informative(id(obj), avail(obj), mcols(obj)[[col_aff]],
         informative = informative
     )
 
@@ -139,7 +142,7 @@ setMethod("is_informative", "Ped", function(
 #'
 #' data("sampleped")
 #' ped <- Pedigree(sampleped)
-#' ped <- is_informative(ped, col_aff = "affection_mods")
+#' ped <- is_informative(ped, col_aff = "affection")
 #' isinf(ped(ped))
 #' @export
 setMethod("is_informative", "Pedigree", function(
@@ -159,13 +162,12 @@ setMethod("is_informative", "Pedigree", function(
     if (is.null(col_aff)) {
         stop("The col_aff argument is required")
     }
-    # TODO use the affected columns
-    if (col_aff %in% aff_scl$column_mods) {
+    if (col_aff %in% aff_scl$column_values) {
         aff <- aff_scl$mods[aff_scl$affected == TRUE &
-                aff_scl$column_mods == col_aff
+                aff_scl$column_values == col_aff
         ]
         unaff <- aff_scl$mods[aff_scl$affected == FALSE &
-                aff_scl$column_mods == col_aff
+                aff_scl$column_values == col_aff
         ]
         ped_df$affected[ped_df[, col_aff] %in% aff] <- 1
         ped_df$affected[ped_df[, col_aff] %in% unaff] <- 0

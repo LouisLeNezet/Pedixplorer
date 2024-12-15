@@ -54,17 +54,16 @@ setGeneric("min_dist_inf", signature = "obj",
 #'     id_inf = c("D", "E")
 #' )
 #' @export
-setMethod("min_dist_inf", "character", function(obj,
-    dadid, momid, sex, id_inf
+setMethod("min_dist_inf", "character", function(
+    obj, dadid, momid, sex, id_inf
 ) {
-    id <- obj
     # Selection of all informative individuals depending of the informative
     # parameter
     if (any(is.na(id_inf)) || length(id_inf) == 0) {
         stop("No informative individuals detected")
     }
     # For all individuals, compute kinship degree
-    mat <- as.matrix(kinship(id, dadid, momid, sex))
+    mat <- as.matrix(kinship(obj, dadid, momid, sex))
     sub <- mat[, colnames(mat) %in% id_inf] %>%
         as.data.frame()
 
@@ -101,7 +100,6 @@ setMethod("min_dist_inf", "Pedigree", function(
 setMethod("min_dist_inf", "Ped", function(
     obj, reset = FALSE
 ) {
-
     if (!reset & any(!is.na(kin(obj)))) {
         stop(
             "The kin slot already has values in the Ped object",
@@ -111,7 +109,8 @@ setMethod("min_dist_inf", "Ped", function(
 
     id_inf <- id(obj)[isinf(obj)]
     kin <- min_dist_inf(
-        id(obj), dadid(obj), momid(obj), sex(obj), id_inf
+        obj = id(obj), dadid = dadid(obj), momid = momid(obj),
+        sex = sex(obj), id_inf = id_inf
     )
 
     kin(obj) <- kin

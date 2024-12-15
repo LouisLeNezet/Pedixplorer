@@ -69,12 +69,12 @@ setMethod("useful_inds", "character",
 #' ped(useful_inds(ped1, informative = "AvAf"))
 #' @export
 setMethod("useful_inds", "Pedigree", function(obj,
-    informative = "AvAf", keep_infos = FALSE,
-    reset = FALSE, max_dist = NULL
+    keep_infos = FALSE, max_dist = NULL, reset = FALSE
 ) {
     new_ped <- useful_inds(ped(obj),
-        informative, keep_infos,
-        reset, max_dist
+        keep_infos = keep_infos,
+        max_dist = max_dist,
+        reset = reset
     )
 
     obj@ped <- new_ped
@@ -85,11 +85,10 @@ setMethod("useful_inds", "Pedigree", function(obj,
 #' @rdname useful_inds
 #' @export
 setMethod("useful_inds", "Ped", function(obj,
-    informative = "AvAf", keep_infos = FALSE,
+    keep_infos = FALSE,
     reset = FALSE, max_dist = NULL
 ) {
-    ped <- is_informative(obj, informative, reset = reset)
-    min_dist <- min_dist_inf(ped, reset)
+    min_dist <- min_dist_inf(obj, reset = reset)
     if (!is.null(max_dist)) {
         id_in_dist <- id(min_dist)[kin(min_dist) <= max_dist]
     } else {

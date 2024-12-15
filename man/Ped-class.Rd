@@ -65,9 +65,9 @@
 
 \S4method{Ped}{character_OR_integer}(
   obj,
-  sex,
   dadid,
   momid,
+  sex,
   famid = NA,
   steril = NA,
   status = NA,
@@ -89,6 +89,12 @@ should be initialised to NA.}
 \item{cols_used_del}{Boolean defining if the columns that will be used
 should be deleted.}
 
+\item{dadid}{A vector containing for each subject, the identifiers of the
+biologicals fathers.}
+
+\item{momid}{A vector containing for each subject, the identifiers of the
+biologicals mothers.}
+
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
@@ -100,12 +106,6 @@ The following values are recognized:
 "unknown", "terminated"
 \item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
 }}
-
-\item{dadid}{A vector containing for each subject, the identifiers of the
-biologicals fathers.}
-
-\item{momid}{A vector containing for each subject, the identifiers of the
-biologicals mothers.}
 
 \item{famid}{A character vector with the family identifiers of the
 individuals. If provide, will be aggregated to the individuals
