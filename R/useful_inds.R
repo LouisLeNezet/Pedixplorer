@@ -14,7 +14,6 @@
 #' @param id_inf An identifiers vector of informative individuals.
 #' @param max_dist The maximum distance to informative individuals
 #' @inheritParams Ped
-#' @inheritParams is_informative
 #'
 #' @return
 #' ## When obj is a vector
@@ -66,14 +65,14 @@ setMethod("useful_inds", "character",
 #'
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[sampleped$famid == "1",])
-#' ped(useful_inds(ped1, informative = "AvAf"))
+#' ped(useful_inds(ped1))
 #' @export
 setMethod("useful_inds", "Pedigree", function(obj,
-    informative = "AvAf", keep_infos = FALSE,
+    keep_infos = FALSE,
     reset = FALSE, max_dist = NULL
 ) {
     new_ped <- useful_inds(ped(obj),
-        informative, keep_infos,
+        keep_infos,
         reset, max_dist
     )
 
@@ -85,11 +84,10 @@ setMethod("useful_inds", "Pedigree", function(obj,
 #' @rdname useful_inds
 #' @export
 setMethod("useful_inds", "Ped", function(obj,
-    informative = "AvAf", keep_infos = FALSE,
+    keep_infos = FALSE,
     reset = FALSE, max_dist = NULL
 ) {
-    ped <- is_informative(obj, informative, reset = reset)
-    min_dist <- min_dist_inf(ped, reset)
+    min_dist <- min_dist_inf(obj, reset)
     if (!is.null(max_dist)) {
         id_in_dist <- id(min_dist)[kin(min_dist) <= max_dist]
     } else {

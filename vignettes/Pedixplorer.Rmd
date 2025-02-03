@@ -560,8 +560,8 @@ object but with the `useful` column updated in the `Ped` object :
 ```{r, useful_inds}
 data(sampleped)
 ped1 <- Pedigree(sampleped)
-
-ped1 <- useful_inds(ped1, informative = c("1_110", "1_120"), max_dist = 1)
+ped1 <- is_informative(ped1, informative = c("1_110", "1_120"))
+ped1 <- useful_inds(ped1, max_dist = 1)
 print(useful(ped(ped1)))
 ped_filtered <- ped1[useful(ped(ped1))]
 plot(ped_filtered)
