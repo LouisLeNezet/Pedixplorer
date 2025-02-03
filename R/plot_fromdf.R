@@ -61,7 +61,7 @@ NULL
 #' @export
 plot_fromdf <- function(
     df, usr = NULL, title = NULL, ggplot_gen = FALSE, boxw = 1,
-    boxh = 1, add_to_existing = FALSE
+    boxh = 1, add_to_existing = FALSE, title_cex = 2
 ) {
     if (!add_to_existing) {
         graphics::frame()
@@ -87,7 +87,7 @@ plot_fromdf <- function(
 
     ## Add title if exists
     if (!is.null(title)) {
-        title(title)
+        title(title, cex.main = title_cex)
         p <- p + ggplot2::ggtitle(title)
     }
 

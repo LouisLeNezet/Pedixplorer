@@ -11,7 +11,8 @@ plot_fromdf(
   ggplot_gen = FALSE,
   boxw = 1,
   boxh = 1,
-  add_to_existing = FALSE
+  add_to_existing = FALSE,
+  title_cex = 2
 )
 }
 \arguments{

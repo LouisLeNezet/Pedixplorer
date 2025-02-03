@@ -35,7 +35,8 @@
   lwd = par("lwd"),
   ped_par = list(),
   leg_par = list(),
-  tips = NULL
+  tips = NULL,
+  title_cex = 2
 )
 }
 \arguments{
