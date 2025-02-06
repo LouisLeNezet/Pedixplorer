@@ -38,11 +38,19 @@ read_data <- function(
     na_values = c("", "NA", "NULL", "None")
 ) {
     shiny::req(file)
+    supported_ext <- c(
+        "csv", "txt", "tsv", "tab",
+        "xls", "xlsx", "rda"
+    )
     if (!is.null(file)) {
         tryCatch({
             ext <- tools::file_ext(file)
-            if (!ext %in% c("csv", "txt", "xls", "xlsx", "rda", "tab")) {
-                stop("Please upload a (csv, txt, xls, xlsx, rda, tab) file")
+            if (!ext %in% supported_ext) {
+                stop(paste(
+                    "Please upload a (",
+                    paste0(supported_ext, collapse = ","),
+                    ") file"
+                ))
             }
 
             if (to_char) {
@@ -53,7 +61,7 @@ read_data <- function(
                 col_types <- NULL
             }
 
-            if (ext %in% c("csv", "txt")) {
+            if (ext %in% c("csv", "txt", "tsv")) {
                 df <- utils::read.csv(
                     file, sep = sep, quote = quote,
                     header = header, colClasses = col_classes,
