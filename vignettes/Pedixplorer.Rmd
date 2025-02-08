@@ -4,18 +4,18 @@ author: "Louis Le Nézet"
 date: "31/08/2023"
 url: "https://github.com/LouisLeNezet/Pedixplorer"
 output:
-  BiocStyle::html_document:
-    toc: true
-    toc_depth: 2
-    fig_crop: no
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 2
+        fig_crop: no
 header-includes: \usepackage{tabularx}
 vignette: |
-  %\VignetteIndexEntry{Pedixplorer tutorial}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{Pedixplorer tutorial}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
-  markdown: 
-    wrap: 72
+    markdown: 
+        wrap: 72
 ---
 
 ```{r width_control, echo = FALSE}

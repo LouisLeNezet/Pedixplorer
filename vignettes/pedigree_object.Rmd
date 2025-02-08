@@ -3,14 +3,14 @@ title: Pedigree object
 author: Terry Therneau, Elizabeth Atkinson, Louis Le Nézet
 date: '`r format(Sys.time(),"%d %B, %Y")`'
 output:
-  BiocStyle::html_document:
-    toc: true
-    toc_depth: 2
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 2
 header-includes: \usepackage{tabularx}
 vignette: |
-  %\VignetteIndexEntry{Pedigree object}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{Pedigree object}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
 ---
 
 Introduction
@@ -314,7 +314,8 @@ plot(lst1_s$pedObj, cex = 0.5)
 kinship(ped_a)[1:10, 1:10]
 
 ## Get the useful individuals
-ped_a <- useful_inds(ped_a, informative = "AvAf")
+ped_a <- is_informative(ped_a, informative = "AvAf", col_aff = "affection")
+ped_a <- useful_inds(ped_a)
 as.data.frame(ped(ped_a))["useful"][1:10, ]
 ```
 

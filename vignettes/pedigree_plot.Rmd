@@ -3,14 +3,14 @@ title: Pedigree plotting details
 author: TM Therneau, JP Sinnwell, Louis Le Nézet
 date: '`r format(Sys.time(),"%d %B, %Y")`'
 output:
-  BiocStyle::html_document:
-    toc: true
-    toc_depth: 2
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 2
 header-includes: \usepackage{tabularx}
 vignette: |
-  %\VignetteIndexEntry{Pedigree plotting details}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{Pedigree plotting details}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
 ---
 
 Introduction
