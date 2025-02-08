@@ -53,6 +53,8 @@ Only used for \code{segments} and \code{arc}.
 
 \item{add_to_existing}{If \code{TRUE}, the plot will be added to the current
 plot.}
+
+\item{title_cex}{The size of the title.}
 }
 \value{
 an invisible ggplot object and a plot on the current plotting device

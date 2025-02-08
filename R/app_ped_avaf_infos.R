@@ -139,7 +139,7 @@ ped_avaf_infos_server <- function(
             unique(fill(pedi())$column_values)
         })
 
-        df <- shiny::reactive({
+        df_infos <- shiny::reactive({
             shiny::req(pedi())
             shiny::req(col_var())
             family_infos_table(pedi(), col_var()[1])
@@ -151,9 +151,9 @@ ped_avaf_infos_server <- function(
 
         # Display the family information table --------------------------------
         output$family_info_table_dt <- DT::renderDataTable({
-            shiny::req(df())
+            shiny::req(df_infos())
             DT::datatable(
-                df(),
+                df_infos(),
                 container = sketch_family_table(stringr::str_to_title(
                     col_var()[1]
                 )), rownames = FALSE, selection = "none",
@@ -184,7 +184,7 @@ ped_avaf_infos_server <- function(
             }
         })
 
-        return(df)
+        return(df_infos)
     })
 }
 

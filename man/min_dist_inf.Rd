@@ -84,9 +84,9 @@ min_dist_inf(
 data(sampleped)
 ped <- is_informative(
     Pedigree(sampleped),
-    informative = "AvAf", col_aff = "affection_mods"
+    informative = "AvAf", col_aff = "affection"
 )
-kin(ped(min_dist_inf(ped, col_aff = "affection_mods")))
+kin(ped(min_dist_inf(ped, col_aff = "affection")))
 }
 \seealso{
 \code{\link[=kinship]{kinship()}}

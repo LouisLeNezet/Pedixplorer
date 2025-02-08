@@ -135,6 +135,8 @@ parameters for the legend.}
 
 \item{tips}{A character vector of the column names of the data frame to
 use as tooltips. If \code{NULL}, no tooltips are added.}
+
+\item{title_cex}{The size of the title.}
 }
 \value{
 an invisible list containing

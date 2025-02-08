@@ -39,6 +39,7 @@ NULL
 #' plot.
 #' @param boxh Height of the polygons elements
 #' @param boxw Width of the polygons elements
+#' @param title_cex The size of the title.
 #' @inheritParams draw_segment
 #' @inheritParams ped_to_plotdf
 #' @include plot_fct.R

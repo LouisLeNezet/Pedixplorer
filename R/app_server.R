@@ -30,6 +30,8 @@ ped_server <- function(
 ) {
     shiny::shinyServer(function(input, output, session) {
 
+        height_family_infos <- "auto"
+
         data_env <- new.env(parent = emptyenv())
         utils::data("sampleped", envir = data_env, package = "Pedixplorer")
         utils::data("relped", envir = data_env, package = "Pedixplorer")
@@ -257,7 +259,11 @@ ped_server <- function(
         })
 
         ## Family information -------------------------------------------------
-        ped_avaf_infos_server("ped_avaf_infos", ped_aff, height = "200px")
+        ped_avaf_infos_server(
+            "ped_avaf_infos", pedi = ped_aff,
+            title = "Family informations",
+            height = height_family_infos
+        )
 
         ## Informative selection ----------------------------------------------
         lst_inf <- inf_sel_server("inf_sel", ped_all)
@@ -266,9 +272,13 @@ ped_server <- function(
         ped_subfamilies <- shiny::reactive({
             shiny::req(lst_inf())
             shiny::req(ped_aff())
+            pedi_inf <- is_informative(
+                ped_aff(),
+                informative = lst_inf()$inf_sel,
+                col_aff = lst_health()$var
+            )
             pedi_inf <- useful_inds(
-                ped_aff(), lst_inf()$inf_sel,
-                keep_infos = lst_inf()$keep_parents,
+                pedi_inf, keep_infos = lst_inf()$keep_parents,
                 max_dist = lst_inf()$kin_max, reset = TRUE
             )
             pedi_inf <- Pedixplorer::subset(
@@ -293,8 +303,9 @@ ped_server <- function(
 
         ## Sub Family information ---------------------------------------------
         ped_avaf_infos_server(
-            "subped_avaf_infos", ped_subfam,
-            "Subfamily informations", height = "200px"
+            "subped_avaf_infos", pedi = ped_subfam,
+            title = "Subfamily informations",
+            height = height_family_infos
         )
 
         ## Plotting pedigree --------------------------------------------------

@@ -6,7 +6,7 @@
 \alias{ped_avaf_infos_demo}
 \title{Shiny modules to display family information}
 \usage{
-ped_avaf_infos_ui(id, height = "auto")
+ped_avaf_infos_ui(id)
 
 ped_avaf_infos_server(id, pedi, title = "Family informations", height = "auto")
 
@@ -15,11 +15,11 @@ ped_avaf_infos_demo(height = "auto")
 \arguments{
 \item{id}{A string to identify the module.}
 
-\item{height}{The height of the datatable.}
-
 \item{pedi}{A reactive pedigree object.}
 
 \item{title}{The title of the module.}
+
+\item{height}{The height of the datatable.}
 }
 \value{
 A reactive dataframe with the selected columns renamed
