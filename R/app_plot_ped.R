@@ -59,7 +59,7 @@ plot_ped_server <- function(
         ns <- shiny::NS(id)
 
         mytips <- shiny::reactive({
-            if (shiny::is.reactive(title)) {
+            if (shiny::is.reactive(tips)) {
                 tips <- tips()
             }
             tips
