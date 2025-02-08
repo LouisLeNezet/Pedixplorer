@@ -35,7 +35,8 @@ R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
 ## Set up the environment
 withr::local_options(
     width = 150, digits = 8,
-    browser = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+    #browser = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+    browser = "google-chrome"
 )
 options(
     shiny.testmode = TRUE,
