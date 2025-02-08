@@ -7,7 +7,7 @@
 #' @keywords internal
 #' @keywords ped_avaf_infos
 #' @importFrom shiny tags HTML
-sketch <- function(var_name) {
+sketch_family_table <- function(var_name) {
     shiny::tags$table(
         class = "display",
         shiny::tags$style(shiny::HTML(
@@ -88,12 +88,12 @@ family_infos_table <- function(pedi, col_val = NA) {
 #' @rdname ped_avaf_infos
 #' @importFrom shiny NS column uiOutput textOutput
 #' @importFrom DT dataTableOutput
-ped_avaf_infos_ui <- function(id, height = "auto") {
+ped_avaf_infos_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::column(12,
         shiny::uiOutput(ns("title_infos")),
         shiny::textOutput(ns("ped_avaf_infos_title")),
-        DT::dataTableOutput(ns("family_info_table"), height = height)
+        shiny::uiOutput(ns("family_info_table_ui"))
     )
 }
 
@@ -128,37 +128,49 @@ ped_avaf_infos_server <- function(
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
+        ns <- shiny::NS(id)
         # Create the title ----------------------------------------------------
         output$title_infos <- shiny::renderUI({
             shiny::h3(title)
         })
 
+        col_var <- shiny::reactive({
+            shiny::req(pedi())
+            unique(fill(pedi())$column_values)
+        })
+
         df <- shiny::reactive({
             shiny::req(pedi())
-            col_val <- unique(fill(pedi())$column_values)[1]
-            family_infos_table(pedi(), col_val)
+            shiny::req(col_var())
+            family_infos_table(pedi(), col_var()[1])
+        })
+
+        output$family_info_table_ui <- shiny::renderUI({
+            DT::dataTableOutput(ns("family_info_table_dt"), height = height)
         })
 
         # Display the family information table --------------------------------
-        output$family_info_table <- DT::renderDataTable({
-            shiny::req(pedi())
-            if (!is.null(pedi())) {
-                DT::datatable(
-                    df(),
-                    container = sketch(stringr::str_to_title(
-                        colnames(df())[1]
-                    )), rownames = FALSE, selection = "none",
-                    options = list(
-                        columnDefs = list(
-                            list(targets = 1, className = "cell-border-right"),
-                            list(targets = "_all", className = "dt-center")
-                        ), dom = "t"
-                    ),
-                    fillContainer = TRUE
-                )
-            } else {
-                NULL
-            }
+        output$family_info_table_dt <- DT::renderDataTable({
+            shiny::req(df())
+            DT::datatable(
+                df(),
+                container = sketch_family_table(stringr::str_to_title(
+                    col_var()[1]
+                )), rownames = FALSE, selection = "none",
+                options = list(
+                    columnDefs = list(
+                        list(
+                            targets = 1,
+                            className = "cell-border-right"
+                        ),
+                        list(
+                            targets = "_all",
+                            className = "dt-center"
+                        )
+                    ), dom = "t"
+                ),
+                fillContainer = TRUE
+            )
         })
         # Display the title ---------------------------------------------------
         output$ped_avaf_infos_title <- shiny::renderText({
@@ -187,14 +199,15 @@ ped_avaf_infos_demo <- function(height = "auto") {
         data_env[["sampleped"]][data_env[["sampleped"]]$famid == "1", ]
     )
     ui <- shiny::fluidPage(
-        ped_avaf_infos_ui("familysel", height = height)
+        ped_avaf_infos_ui("familysel")
     )
     server <- function(input, output, session) {
         df <- ped_avaf_infos_server(
             "familysel",
             shiny::reactive({
                 pedi
-            })
+            }),
+            height = height
         )
         shiny::exportTestValues(df = {
             df()

@@ -257,7 +257,7 @@ ped_server <- function(
         })
 
         ## Family information -------------------------------------------------
-        ped_avaf_infos_server("ped_avaf_infos", ped_aff)
+        ped_avaf_infos_server("ped_avaf_infos", ped_aff, height = "200px")
 
         ## Informative selection ----------------------------------------------
         lst_inf <- inf_sel_server("inf_sel", ped_all)
@@ -294,7 +294,7 @@ ped_server <- function(
         ## Sub Family information ---------------------------------------------
         ped_avaf_infos_server(
             "subped_avaf_infos", ped_subfam,
-            "Subfamily informations"
+            "Subfamily informations", height = "200px"
         )
 
         ## Plotting pedigree --------------------------------------------------

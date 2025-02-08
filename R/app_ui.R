@@ -99,7 +99,7 @@ ped_ui <- function() {
             ),
             shiny::column(
                 4, align = "center",
-                ped_avaf_infos_ui("ped_avaf_infos", height = "200px")
+                ped_avaf_infos_ui("ped_avaf_infos")
             )
         ),
         shiny::hr(),
@@ -118,7 +118,7 @@ ped_ui <- function() {
             ),
             ## Subfamily information -----------------------
             shiny::column(4, align = "center",
-                ped_avaf_infos_ui("subped_avaf_infos", height = "200px")
+                ped_avaf_infos_ui("subped_avaf_infos")
             )
         ),
         shiny::hr(),
