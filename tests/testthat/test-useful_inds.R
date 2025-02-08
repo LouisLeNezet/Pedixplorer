@@ -39,9 +39,11 @@ test_that("useful_inds works with Pedigree", {
     expect_snapshot_error(
         suppressWarnings(useful_inds(ped))
     )
-
-    ped <- is_informative(ped, informative = "AvOrAf")
-    ped <- useful_inds(ped, reset = TRUE, max_dist = 2)
+    ped <- is_informative(
+        ped, informative = "AvOrAf",
+        reset = TRUE, col_aff = "affection"
+    )
+    ped <- useful_inds(ped, max_dist = 2, reset = TRUE)
     expect_equal(id(ped(ped))[useful(ped(ped)) == 0], c("1_108"))
 
     data("minnbreast")
@@ -61,7 +63,7 @@ test_that("useful_inds works with Pedigree", {
         add_to_scale = FALSE
     )
 
-    pedi219 <- is_informative(pedi219, informative = "Af")
+    pedi219 <- is_informative(pedi219, informative = "Af", col_aff = "cancer")
     pedi219 <- useful_inds(pedi219, max_dist = 3, reset = TRUE)
     pedi219u <- suppressWarnings(pedi219[useful(ped(pedi219))])
 
