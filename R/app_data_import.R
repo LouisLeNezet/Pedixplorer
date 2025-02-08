@@ -102,11 +102,17 @@ read_data <- function(
                 if (df_name %in% all_data) {
                     df <- get(df_name)
                 } else {
-                    stop("Dataframe selected isn't in file. Only: ", all_data, " present.")
+                    stop(
+                        "Dataframe selected isn't in file. Only: ",
+                        all_data, " present."
+                    )
                 }
             }
         }
-        return(as.data.frame(unclass(df), stringsAsFactors = strings_as_factors))
+        return(as.data.frame(
+            unclass(df),
+            stringsAsFactors = 
+        ))
     } else {
         return(NULL)
     }

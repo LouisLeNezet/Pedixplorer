@@ -165,11 +165,11 @@ setMethod("is_informative", "Pedigree", function(
                 stop("The column ", col_aff, " is not in the scales fill")
             }
             col_aff_mods <- paste0(col_aff, "_mods")
-            aff <- aff_scl$mods[aff_scl$affected == TRUE &
-                aff_scl$column_values == col_aff
+            aff <- aff_scl$mods[aff_scl$affected == TRUE
+                & aff_scl$column_values == col_aff
             ]
-            unaff <- aff_scl$mods[aff_scl$affected == FALSE &
-                aff_scl$column_values == col_aff
+            unaff <- aff_scl$mods[aff_scl$affected == FALSE
+                & aff_scl$column_values == col_aff
             ]
             ped_df$affected[ped_df[, col_aff_mods] %in% aff] <- 1
             ped_df$affected[ped_df[, col_aff_mods] %in% unaff] <- 0
