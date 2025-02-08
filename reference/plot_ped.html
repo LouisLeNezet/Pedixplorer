@@ -56,7 +56,7 @@ with the function plot_ped_server()."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Shiny module to generate pedigree graph.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/app_plot_ped.R" class="external-link"><code>R/app_plot_ped.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/new_dev2/R/app_plot_ped.R" class="external-link"><code>R/app_plot_ped.R</code></a></small>
       <div class="d-none name"><code>plot_ped.Rd</code></div>
     </div>
 
@@ -74,11 +74,11 @@ with the function <code>plot_ped_server()</code>.</p>
 <span><span class="fu">plot_ped_server</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
 <span>  <span class="va">pedi</span>,</span>
-<span>  <span class="va">title</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  precision <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  max_ind <span class="op">=</span> <span class="fl">500</span>,</span>
-<span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>,</span>
-<span>  tips <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  tips <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">plot_ped_demo</span><span class="op">(</span><span class="va">pedi</span>, precision <span class="op">=</span> <span class="fl">2</span>, max_ind <span class="op">=</span> <span class="fl">500</span>, tips <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
@@ -108,14 +108,13 @@ with the function <code>plot_ped_server()</code>.</p>
 <dd><p>An integer to set the maximum number of individuals to plot.</p></dd>
 
 
-<dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
-<dd><p>default=par("lwd"). Controls the line width of the
-segments, arcs and polygons.</p></dd>
-
-
 <dt id="arg-tips">tips<a class="anchor" aria-label="anchor" href="#arg-tips"></a></dt>
-<dd><p>A character vector of the column names of the data frame to
-use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
+<dd><p>A character vector of the column names of the data frame to use
+as tooltips. If NULL, no tooltips are added.</p></dd>
+
+
+<dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
+<dd><p>A numeric to set the line width of the plot.</p></dd>
 
 </dl></div>
     <div class="section level2">

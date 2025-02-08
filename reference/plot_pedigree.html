@@ -56,7 +56,7 @@ ped_to_legdf() if legend = TRUE."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot Pedigrees</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/plot_pedigree.R" class="external-link"><code>R/plot_pedigree.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/new_dev2/R/plot_pedigree.R" class="external-link"><code>R/plot_pedigree.R</code></a></small>
       <div class="d-none name"><code>plot_pedigree.Rd</code></div>
     </div>
 
@@ -98,7 +98,8 @@ and <code><a href="ped_to_plotdf.html">ped_to_plotdf()</a></code> as well as
 <span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>,</span>
 <span>  ped_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  leg_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  tips <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  tips <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  title_cex <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -256,6 +257,10 @@ parameters for the legend.</p></dd>
 <dt id="arg-tips">tips<a class="anchor" aria-label="anchor" href="#arg-tips"></a></dt>
 <dd><p>A character vector of the column names of the data frame to
 use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
+
+
+<dt id="arg-title-cex">title_cex<a class="anchor" aria-label="anchor" href="#arg-title-cex"></a></dt>
+<dd><p>The size of the title.</p></dd>
 
 </dl></div>
     <div class="section level2">

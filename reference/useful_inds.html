@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Usefulness of individuals</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/useful_inds.R" class="external-link"><code>R/useful_inds.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/new_dev2/R/useful_inds.R" class="external-link"><code>R/useful_inds.R</code></a></small>
       <div class="d-none name"><code>useful_inds.Rd</code></div>
     </div>
 
@@ -73,22 +73,10 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'Pedigree'</span></span>
-<span><span class="fu">useful_inds</span><span class="op">(</span></span>
-<span>  <span class="va">obj</span>,</span>
-<span>  informative <span class="op">=</span> <span class="st">"AvAf"</span>,</span>
-<span>  keep_infos <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  reset <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  max_dist <span class="op">=</span> <span class="cn">NULL</span></span>
-<span><span class="op">)</span></span>
+<span><span class="fu">useful_inds</span><span class="op">(</span><span class="va">obj</span>, keep_infos <span class="op">=</span> <span class="cn">FALSE</span>, reset <span class="op">=</span> <span class="cn">FALSE</span>, max_dist <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'Ped'</span></span>
-<span><span class="fu">useful_inds</span><span class="op">(</span></span>
-<span>  <span class="va">obj</span>,</span>
-<span>  informative <span class="op">=</span> <span class="st">"AvAf"</span>,</span>
-<span>  keep_infos <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  reset <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  max_dist <span class="op">=</span> <span class="cn">NULL</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">useful_inds</span><span class="op">(</span><span class="va">obj</span>, keep_infos <span class="op">=</span> <span class="cn">FALSE</span>, reset <span class="op">=</span> <span class="cn">FALSE</span>, max_dist <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -140,17 +128,6 @@ individuals</p></dd>
 but available or reverse should be kept</p></dd>
 
 
-<dt id="arg-informative">informative<a class="anchor" aria-label="anchor" href="#arg-informative"></a></dt>
-<dd><p>Informative individuals selection can take 5 values:</p><ul><li><p>'AvAf' (available and affected),</p></li>
-<li><p>'AvOrAf' (available or affected),</p></li>
-<li><p>'Av' (available only),</p></li>
-<li><p>'Af' (affected only),</p></li>
-<li><p>'All' (all individuals)</p></li>
-<li><p>A numeric/character vector of individuals id</p></li>
-<li><p>A boolean</p></li>
-</ul></dd>
-
-
 <dt id="arg-reset">reset<a class="anchor" aria-label="anchor" href="#arg-reset"></a></dt>
 <dd><p>Boolean to indicate if the <code>useful</code> column should be reset</p></dd>
 
@@ -191,7 +168,8 @@ usefulness of the individual.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span><span class="va">sampleped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="st">"1"</span>,<span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="Pedigree-class.html">ped</a></span><span class="op">(</span><span class="fu">useful_inds</span><span class="op">(</span><span class="va">ped1</span>, informative <span class="op">=</span> <span class="st">"AvAf"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="is_informative.html">is_informative</a></span><span class="op">(</span><span class="va">ped1</span>, informative <span class="op">=</span> <span class="st">"AvAf"</span>, <span class="st">"affection"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Pedigree-class.html">ped</a></span><span class="op">(</span><span class="fu">useful_inds</span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 41 individuals and 13 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid    steril</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;logical&gt;</span>
@@ -208,17 +186,17 @@ usefulness of the individual.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_141           1_141       1_137       1_138    female           1      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              status     avail  affected    useful       kin     isinf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101          &lt;NA&gt;     FALSE     FALSE      TRUE         3     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102          &lt;NA&gt;     FALSE      TRUE      TRUE         3     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103          &lt;NA&gt;     FALSE      TRUE      TRUE         2     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104          &lt;NA&gt;     FALSE     FALSE      TRUE         2     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE         3     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE         3     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE         2     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE         2     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_105          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE         2     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ...             ...       ...       ...       ...       ...       ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_137          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE       Inf     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_138          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE         3     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_139          &lt;NA&gt;     FALSE      TRUE      TRUE         4     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_140          &lt;NA&gt;      TRUE     FALSE      TRUE         4     FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_141          &lt;NA&gt;      TRUE     FALSE      TRUE         4     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_139          &lt;NA&gt;     FALSE      &lt;NA&gt;      TRUE         4     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_140          &lt;NA&gt;      TRUE      &lt;NA&gt;      TRUE         4     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_141          &lt;NA&gt;      TRUE      &lt;NA&gt;      TRUE         4     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           num_child_tot num_child_dir num_child_ind |      family       indId</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;   &lt;character&gt; &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_101                 1             1             0             1         101</span>

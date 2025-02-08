@@ -87,7 +87,7 @@ Nézet</h4>
             
             <h4 data-toc-skip class="date">31/08/2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/Pedixplorer.Rmd" class="external-link"><code>vignettes/Pedixplorer.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/new_dev2/vignettes/Pedixplorer.Rmd" class="external-link"><code>vignettes/Pedixplorer.Rmd</code></a></small>
       <div class="d-none name"><code>Pedixplorer.Rmd</code></div>
     </div>
 
@@ -822,8 +822,8 @@ column updated in the <code>Ped</code> object :</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
 <span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/useful_inds.html">useful_inds</a></span><span class="op">(</span><span class="va">ped1</span>, informative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1_110"</span>, <span class="st">"1_120"</span><span class="op">)</span>, max_dist <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/is_informative.html">is_informative</a></span><span class="op">(</span><span class="va">ped1</span>, informative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1_110"</span>, <span class="st">"1_120"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/useful_inds.html">useful_inds</a></span><span class="op">(</span><span class="va">ped1</span>, max_dist <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/Ped-class.html">useful</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
 <span><span class="co">## [17] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
@@ -910,7 +910,7 @@ object from the <code><a href="../reference/shrink.html">shrink()</a></code> res
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">shrink1_b30</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $id_trim</span></span>
 <span><span class="co">##  [1] "1_101" "1_102" "1_107" "1_108" "1_111" "1_113" "1_121" "1_122" "1_123" "1_131" "1_132" "1_134"</span></span>
-<span><span class="co">## [13] "1_139" "2_205" "2_210" "2_213" "1_125" "1_126" "1_130" "1_140"</span></span>
+<span><span class="co">## [13] "1_139" "2_205" "2_210" "2_213" "1_141" "1_140" "2_214" "2_212"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $id_lst</span></span>
 <span><span class="co">## $id_lst$unavail</span></span>
@@ -918,16 +918,15 @@ object from the <code><a href="../reference/shrink.html">shrink()</a></code> res
 <span><span class="co">## [13] "1_139" "2_205" "2_210" "2_213"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $id_lst$affect</span></span>
-<span><span class="co">## [1] "1_125" "1_126" "1_130" "1_140"</span></span>
+<span><span class="co">## [1] "1_141" "1_140" "2_214" "2_212"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $bit_size</span></span>
-<span><span class="co">## [1] 62 39 37 33 31 29</span></span>
+<span><span class="co">## [1] 62 39 37 33 31 28</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $avail</span></span>
-<span><span class="co">##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE</span></span>
-<span><span class="co">## [17]  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE</span></span>
-<span><span class="co">## [33]  TRUE  TRUE</span></span>
+<span><span class="co">##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE</span></span>
+<span><span class="co">## [17]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pedSizeOriginal</span></span>
 <span><span class="co">## [1] 55</span></span>
@@ -936,7 +935,7 @@ object from the <code><a href="../reference/shrink.html">shrink()</a></code> res
 <span><span class="co">## [1] 39</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pedSizeFinal</span></span>
-<span><span class="co">## [1] 34</span></span></code></pre>
+<span><span class="co">## [1] 29</span></span></code></pre>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">shrink1_b30</span><span class="op">$</span><span class="va">pedObj</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Multiple families present, only plotting family 1</span></span></code></pre>
@@ -952,7 +951,7 @@ chooses one of them. With this seed setting, the method removes subjects
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">shrink1_b25</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $id_trim</span></span>
 <span><span class="co">##  [1] "1_101" "1_102" "1_107" "1_108" "1_111" "1_113" "1_121" "1_122" "1_123" "1_131" "1_132" "1_134"</span></span>
-<span><span class="co">## [13] "1_139" "2_205" "2_210" "2_213" "1_140" "1_141" "1_125" "1_126" "1_130"</span></span>
+<span><span class="co">## [13] "1_139" "2_205" "2_210" "2_213" "1_130" "1_140" "1_141" "2_207" "1_126" "1_125"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $id_lst</span></span>
 <span><span class="co">## $id_lst$unavail</span></span>
@@ -960,15 +959,15 @@ chooses one of them. With this seed setting, the method removes subjects
 <span><span class="co">## [13] "1_139" "2_205" "2_210" "2_213"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $id_lst$affect</span></span>
-<span><span class="co">## [1] "1_140" "1_141" "1_125" "1_126" "1_130"</span></span>
+<span><span class="co">## [1] "1_130" "1_140" "1_141" "2_207" "1_126" "1_125"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $bit_size</span></span>
-<span><span class="co">## [1] 62 39 37 33 31 27 25</span></span>
+<span><span class="co">## [1] 62 39 37 35 31 29 27 23</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $avail</span></span>
 <span><span class="co">##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE</span></span>
-<span><span class="co">## [17]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">## [17]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pedSizeOriginal</span></span>
 <span><span class="co">## [1] 55</span></span>
@@ -977,7 +976,7 @@ chooses one of them. With this seed setting, the method removes subjects
 <span><span class="co">## [1] 39</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pedSizeFinal</span></span>
-<span><span class="co">## [1] 29</span></span></code></pre>
+<span><span class="co">## [1] 28</span></span></code></pre>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">shrink1_b25</span><span class="op">$</span><span class="va">pedObj</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Multiple families present, only plotting family 1</span></span></code></pre>
