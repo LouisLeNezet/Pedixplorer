@@ -111,7 +111,7 @@ read_data <- function(
         }
         return(as.data.frame(
             unclass(df),
-            stringsAsFactors = stringsAsFactors
+            stringsAsFactors = strings_as_factors
         ))
     } else {
         return(NULL)
