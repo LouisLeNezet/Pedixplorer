@@ -92,43 +92,6 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         id: setup-chrome
 
-      - name: Set Chrome path (Linux)
-        if: runner.os == 'Linux'
-        shell: sh
-        run: |
-          CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
-
-          if [ -z "$CHROME_PATH" ] || [ ! -x "$CHROME_PATH" ]; then
-            echo "Error: Google Chrome not found!" >&2
-            exit 1
-          fi
-
-          echo "CHROME_CHROMOTE=$CHROME_PATH" >> $GITHUB_ENV
-          echo "CHROMOTE_HEADLESS=new" >> $GITHUB_ENV
-          echo "CHROMOTE_CHROME_ARGS=--headless --disable-gpu --remote-debugging-port=9222" >> $GITHUB_ENV
-          echo "BROWSER=$CHROME_PATH" >> $GITHUB_ENV
-          echo "$(dirname $CHROME_PATH)" >> $GITHUB_PATH
-
-      - name: Set Chrome path (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $chromePath = "${{ steps.setup-chrome.outputs.chrome-path }}"
-
-          if (-not $chromePath) {
-            Write-Host "Error: Google Chrome not found!"
-            exit 1
-          }
-
-          echo "CHROME_CHROMOTE=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "CHROMOTE_HEADLESS=new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "CHROMOTE_CHROME_ARGS=--headless --disable-gpu --remote-debugging-port=9222" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "BROWSER=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
-          # Add Chrome's directory to PATH
-          $chromeDir = $chromePath | Split-Path -Parent
-          echo $chromeDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
       - name: Set R Library home on Linux
@@ -215,6 +178,9 @@ jobs:
           remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE, upgrade = TRUE, force = TRUE)
         shell: Rscript {0}
 
+      - name: Reinstall chromote
+        run: Rscript -e 'install.packages("chromote", repos = "https://cloud.r-project.org")'
+
       - name: Install covr
         if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
         run: |
@@ -231,6 +197,9 @@ jobs:
       - name: Run CMD check
         env:
           CHROME_CHROMOTE: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMOTE_HEADLESS : "new"
+          CHROMOTE_CHROME_ARGS: "--headless --disable-gpu --remote-debugging-port=9222"
+          BROWSER: ${{ steps.setup-chrome.outputs.chrome-path }}
           _R_CHECK_CRAN_INCOMING_: false
           DISPLAY: 99.0
         run: |
