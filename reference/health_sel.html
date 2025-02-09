@@ -56,7 +56,7 @@ with the function health_sel_server()."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Shiny module to select a health variable in a pedigree</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/app_health_sel.R" class="external-link"><code>R/app_health_sel.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/R/app_health_sel.R" class="external-link"><code>R/app_health_sel.R</code></a></small>
       <div class="d-none name"><code>health_sel.Rd</code></div>
     </div>
 
@@ -94,6 +94,28 @@ with the function <code>health_sel_server()</code>.</p>
 
 <dt id="arg-pedi">pedi<a class="anchor" aria-label="anchor" href="#arg-pedi"></a></dt>
 <dd><p>A reactive pedigree object.</p></dd>
+
+
+<dt id="arg-var">var<a class="anchor" aria-label="anchor" href="#arg-var"></a></dt>
+<dd><p>A string with the name of the health variable to select.</p></dd>
+
+
+<dt id="arg-as-num">as_num<a class="anchor" aria-label="anchor" href="#arg-as-num"></a></dt>
+<dd><p>A boolean to know if the health variable needs to be considered
+as numeric.</p></dd>
+
+
+<dt id="arg-mods-aff">mods_aff<a class="anchor" aria-label="anchor" href="#arg-mods-aff"></a></dt>
+<dd><p>A character vector of the affected modalities.</p></dd>
+
+
+<dt id="arg-threshold">threshold<a class="anchor" aria-label="anchor" href="#arg-threshold"></a></dt>
+<dd><p>A numeric threshold to determine affected individuals.</p></dd>
+
+
+<dt id="arg-sup-threshold">sup_threshold<a class="anchor" aria-label="anchor" href="#arg-sup-threshold"></a></dt>
+<dd><p>A boolean to know if the affected individuals
+are strickly superior to the threshold.</p></dd>
 
 </dl></div>
     <div class="section level2">

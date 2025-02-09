@@ -87,7 +87,7 @@ Sinnwell, Louis Le Nézet</h4>
             
             <h4 data-toc-skip class="date">09 February, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_plot.Rmd" class="external-link"><code>vignettes/pedigree_plot.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/vignettes/pedigree_plot.Rmd" class="external-link"><code>vignettes/pedigree_plot.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_plot.Rmd</code></div>
     </div>
 
@@ -226,7 +226,7 @@ below.</p>
 information from a Pedigree object. The steps are:</p>
 <ol style="list-style-type: decimal">
 <li>Add boxes (depend on affection and sex) and marks.</li>
-<li>Add status crossing if present.</li>
+<li>Add deceased crossing if present.</li>
 <li>Add id text and labels</li>
 <li>Add in the connections, one by one, beginning with spouses.</li>
 <li>Add connections children to parents.</li>
@@ -367,7 +367,7 @@ element.</p>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>    <span class="va">pedi</span>, ggplot_gen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    tips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"affected"</span>, <span class="st">"momid"</span>, <span class="st">"dadid"</span><span class="op">)</span>,</span>
+<span>    tips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"affection"</span>, <span class="st">"momid"</span>, <span class="st">"dadid"</span><span class="op">)</span>,</span>
 <span>    symbolsize <span class="op">=</span> <span class="fl">1.5</span>, cex <span class="op">=</span> <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">plotly</span><span class="fu">::</span><span class="fu">layout</span><span class="op">(</span></span>

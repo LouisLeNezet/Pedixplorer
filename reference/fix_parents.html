@@ -54,7 +54,7 @@ different individuals informations."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fix parents relationship and gender</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/fix_parents.R" class="external-link"><code>R/fix_parents.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/R/fix_parents.R" class="external-link"><code>R/fix_parents.R</code></a></small>
       <div class="d-none name"><code>fix_parents.Rd</code></div>
     </div>
 
@@ -180,51 +180,36 @@ other fields in the dataframe then set availability to
 <span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">test1newmom</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Pedigree informations are not valid. Here is the normalised Pedigree informations with the identified problems</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     indId motherId fatherId gender family    sex steril status avail       id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  fam101        0        0      1      1   male     NA     NA    NA 1_fam101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  fam102        0        0      2      1 female     NA     NA    NA 1_fam102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  fam103   fam102   fam101      1      1   male     NA     NA    NA 1_fam103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  fam104   fam102   fam101      2      1 female     NA     NA    NA 1_fam104</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  fam105   fam102   fam101      1      1   male     NA     NA    NA 1_fam105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  fam106        0        0      1      1   male     NA     NA    NA 1_fam106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  fam107        0        0      2      1 female     NA     NA    NA 1_fam107</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  fam108   fam107   fam106      2      1 female     NA     NA    NA 1_fam108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  fam109   fam107   fam106      1      1   male     NA     NA    NA 1_fam109</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 fam110   fam107   fam106      2      1 female     NA     NA    NA 1_fam110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 fam111   fam112   fam109      1      1   male     NA     NA    NA 1_fam111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      0     &lt;NA&gt;     &lt;NA&gt;      1      1 female     NA     NA    NA      1_0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      0     &lt;NA&gt;     &lt;NA&gt;      2   &lt;NA&gt; female     NA     NA    NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 fam112     &lt;NA&gt;     &lt;NA&gt;      2      1 female     NA     NA    NA 1_fam112</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       dadid    momid famid                                error affected</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       1_0      1_0     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       1_0      1_0     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1_fam101 1_fam102     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1_fam101 1_fam102     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1_fam101 1_fam102     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       1_0      1_0     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       1_0      1_0     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1_fam106 1_fam107     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1_fam106 1_fam107     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1_fam106 1_fam107     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1_fam109 1_fam112     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12     &lt;NA&gt;     &lt;NA&gt;     1 isMotherAndFather_isFatherButNotMale       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14     &lt;NA&gt;     &lt;NA&gt;     1                                 &lt;NA&gt;       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    available sterilisation vitalStatus affection</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        NA            NA          NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        NA            NA          NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          id    momid    dadid    sex famid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1_fam101      1_0      1_0   male     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1_fam102      1_0      1_0 female     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1_fam103 1_fam102 1_fam101   male     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1_fam104 1_fam102 1_fam101 female     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1_fam105 1_fam102 1_fam101   male     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1_fam106      1_0      1_0   male     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1_fam107      1_0      1_0 female     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1_fam108 1_fam107 1_fam106 female     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1_fam109 1_fam107 1_fam106   male     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1_fam110 1_fam107 1_fam106 female     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1_fam111 1_fam112 1_fam109   male     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      1_0     &lt;NA&gt;     &lt;NA&gt; female     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        0     &lt;NA&gt;     &lt;NA&gt; female  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1_fam112     &lt;NA&gt;     &lt;NA&gt; female     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                          error avail steril deceased</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                         &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                        &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                                        &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 is_mother_and_father_is_father_but_not_male    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                        &lt;NA&gt;    NA     NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                        &lt;NA&gt;    NA     NA       NA</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

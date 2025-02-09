@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Sampleped data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/data.R" class="external-link"><code>R/data.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/R/data.R" class="external-link"><code>R/data.R</code></a></small>
       <div class="d-none name"><code>sampleped.Rd</code></div>
     </div>
 
@@ -73,7 +73,7 @@ data set; zero otherwise</p></li>
 <li><p><code>momid</code> : Identifier of the mother, if the mother is part of the
 data set; zero otherwise</p></li>
 <li><p><code>sex</code> : <code>1</code> for male or <code>2</code> for female</p></li>
-<li><p><code>affected</code> : <code>1</code> or <code>0</code></p></li>
+<li><p><code>affection</code> : <code>1</code> or <code>0</code></p></li>
 <li><p><code>avail</code> : <code>1</code> or <code>0</code></p></li>
 <li><p><code>num</code> : Numerical test variable from 0 to 6 randomly distributed</p></li>
 </ul></div>
@@ -90,7 +90,7 @@ The aim was to create a data set with a variety of pedigree structures.</p>
 <span class="r-in"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pedigree object with </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Ped object with 55 individuals and 13 metadata columns"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Ped object with 55 individuals and 5 metadata columns"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse"</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span> <span class="op">}</span></span></span>
 </code></pre></div>

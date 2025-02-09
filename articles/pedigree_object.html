@@ -87,7 +87,7 @@ Elizabeth Atkinson, Louis Le Nézet</h4>
             
             <h4 data-toc-skip class="date">09 February, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_object.Rmd</code></div>
     </div>
 
@@ -125,27 +125,26 @@ Pedigree. It accepts the following input</p>
 <code>ped_df</code> A dataframe containing the columns
 <ul>
 <li>
-<code>indId</code> A numeric or character vector of subject
+<code>id</code> A numeric or character vector of subject
 identifiers.</li>
 <li>
-<code>fatherId</code> The identifier of the father.</li>
+<code>dadid</code> The identifier of the father.</li>
 <li>
-<code>motherId</code> The identifier of the mother.</li>
+<code>momid</code> The identifier of the mother.</li>
 <li>
-<code>gender</code> The gender of the individual. This can be a
-numeric variable with codes of <code>1</code>=male,
-<code>2</code>=female, <code>3</code>=unknown,
-<code>4</code>=terminated, or NA=unknown. A character or factor variable
-can also be supplied containing the above; the string may be truncated
-and of arbitrary case.</li>
+<code>sex</code> The gender of the individual. This can be a numeric
+variable with codes of <code>1</code>=male, <code>2</code>=female,
+<code>3</code>=unknown, <code>4</code>=terminated, or NA=unknown. A
+character or factor variable can also be supplied containing the above;
+the string may be truncated and of arbitrary case.</li>
 <li>
-<code>available</code> Optional, a numeric variable with
+<code>avail</code> Optional, a numeric variable with
 <code>0</code>=unavailable and <code>1</code>=available.</li>
 <li>
 <code>affected</code> Optional, a numeric variable with
 <code>0</code>=unaffected and <code>1</code>=affected.</li>
 <li>
-<code>status</code> Optional, a numeric variable with
+<code>deceased</code> Optional, a numeric variable with
 <code>0</code>=alive and <code>1</code>=dead.</li>
 <li>
 <code>famid</code> Optional, a numeric or character vector of family
@@ -160,9 +159,9 @@ identifiers.</li>
 four columns.
 <ul>
 <li>
-<code>indId1</code> identifier values of the subject pairs</li>
+<code>id1</code> identifier values of the subject pairs</li>
 <li>
-<code>indId2</code> identifier values of the subject pairs</li>
+<code>id2</code> identifier values of the subject pairs</li>
 <li>
 <code>code</code> relationship codification :
 <code>1</code>=Monozygotic twin, <code>2</code>=Dizygotic twin,
@@ -178,7 +177,8 @@ the <code>ped_df</code> dataframe</li>
 <li>
 <code>cols_ren_rel</code> Optional, a named list for the renaming of
 the <code>rel_df</code> dataframe</li>
-<li>`<code>normalize</code> Optional, a logical to know if the data
+<li>
+<code>normalize</code> Optional, a logical to know if the data
 should be normalised.</li>
 <li>
 <code>hints</code> Optional, a list containing the horder in which
@@ -282,9 +282,9 @@ describing the encountered problems.</p>
 <span><span class="co">## is the normalised relationship informations with the identified problems</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##     id1   id2    code famid            error</span></span>
-<span><span class="co">## 1 1_110 1_112 MZ twin     1             &lt;NA&gt;</span></span>
-<span><span class="co">## 2 2_204 2_205    &lt;NA&gt;     2 CodeNotRecognise</span></span></code></pre>
+<pre><code><span><span class="co">##     id1   id2    code famid              error</span></span>
+<span><span class="co">## 1 1_110 1_112 MZ twin     1               &lt;NA&gt;</span></span>
+<span><span class="co">## 2 2_204 2_205    &lt;NA&gt;     2 code_not_recognise</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -305,7 +305,7 @@ are given to a new <code>Pedigree</code> object, trigerring the
 <code>sex</code> column only contain “male”, “female”, “unknown” or
 “terminated” values</li>
 <li>
-<code>steril</code>, <code>status</code>, <code>available</code>,
+<code>steril</code>, <code>deceased</code>, <code>avail</code>,
 <code>affected</code> only contains 0, 1 or NA values</li>
 <li>Father are males and Mother are females</li>
 <li>Twins have same parents and MZ twins have same sex</li>
@@ -417,7 +417,7 @@ slot of the object</p>
 <code><a href="../reference/Ped-class.html">momid()</a></code>, <code><a href="../reference/Ped-class.html">famid()</a></code>, <code><a href="../reference/Ped-class.html">sex()</a></code>
 </li>
 <li>Other infos used : <code><a href="../reference/Ped-class.html">affected()</a></code>, <code><a href="../reference/Ped-class.html">avail()</a></code>,
-<code><a href="../reference/Ped-class.html">status()</a></code>
+<code><a href="../reference/Ped-class.html">deceased()</a></code>
 </li>
 <li>Computed : <code><a href="../reference/Ped-class.html">isinf()</a></code>, <code><a href="../reference/Ped-class.html">kin()</a></code>,
 <code><a href="../reference/Ped-class.html">useful()</a></code>
@@ -461,25 +461,27 @@ slot of the object</p>
 more informations to your individuals.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
-<span><span class="fu">mcols</span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">[</span><span class="fl">8</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span></span></code></pre></div>
+<span><span class="fu">mcols</span><span class="op">(</span><span class="va">ped</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## DataFrame with 55 rows and 5 columns</span></span>
-<span><span class="co">##           num       error sterilisation vitalStatus affection_mods</span></span>
-<span><span class="co">##     &lt;integer&gt; &lt;character&gt;     &lt;logical&gt;   &lt;logical&gt;      &lt;numeric&gt;</span></span>
-<span><span class="co">## 1           2          NA            NA          NA              0</span></span>
-<span><span class="co">## 2           3          NA            NA          NA              1</span></span>
-<span><span class="co">## 3           2          NA            NA          NA              1</span></span>
-<span><span class="co">## 4           4          NA            NA          NA              0</span></span>
-<span><span class="co">## 5           6          NA            NA          NA             NA</span></span>
-<span><span class="co">## ...       ...         ...           ...         ...            ...</span></span>
-<span><span class="co">## 51          2          NA            NA          NA              0</span></span>
-<span><span class="co">## 52          1          NA            NA          NA              0</span></span>
-<span><span class="co">## 53          3          NA            NA          NA              0</span></span>
-<span><span class="co">## 54          2          NA            NA          NA              0</span></span>
-<span><span class="co">## 55          0          NA            NA          NA              1</span></span></code></pre>
+<span><span class="co">##     affection       num       error affection_mods avail_mods</span></span>
+<span><span class="co">##     &lt;integer&gt; &lt;integer&gt; &lt;character&gt;      &lt;numeric&gt;  &lt;numeric&gt;</span></span>
+<span><span class="co">## 1           0         2          NA              0          0</span></span>
+<span><span class="co">## 2           1         3          NA              1          0</span></span>
+<span><span class="co">## 3           1         2          NA              1          0</span></span>
+<span><span class="co">## 4           0         4          NA              0          0</span></span>
+<span><span class="co">## 5          NA         6          NA             NA          0</span></span>
+<span><span class="co">## ...       ...       ...         ...            ...        ...</span></span>
+<span><span class="co">## 51          0         2          NA              0          0</span></span>
+<span><span class="co">## 52          0         1          NA              0          1</span></span>
+<span><span class="co">## 53          0         3          NA              0          1</span></span>
+<span><span class="co">## 54          0         2          NA              0          0</span></span>
+<span><span class="co">## 55          1         0          NA              1          1</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add new columns as a threshold if identifiers of individuals superior</span></span>
 <span><span class="co">## to a given threshold for example</span></span>
-<span><span class="fu">mcols</span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">$</span><span class="va">idth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">mcols</span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">$</span><span class="va">indId</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">200</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span></span>
+<span><span class="fu">mcols</span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">$</span><span class="va">idth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
+<span>    <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html" class="external-link">str_split_i</a></span><span class="op">(</span><span class="fu"><a href="../reference/Ped-class.html">id</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">)</span>, <span class="st">"_"</span>,<span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">200</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span></span>
 <span><span class="fu">mcols</span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">$</span><span class="va">idth</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A"</span></span>
 <span><span class="co">## [20] "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A" "A"</span></span>
@@ -523,7 +525,7 @@ it:</p>
 <code class="sourceCode R"><span><span class="co">## Do a summary</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ped_a</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Pedigree object with </span></span>
-<span><span class="co">## [1] "Ped object with 41 individuals and 14 metadata columns"</span></span>
+<span><span class="co">## [1] "Ped object with 41 individuals and 6 metadata columns"</span></span>
 <span><span class="co">## [1] "Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse"</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Coerce it to a list</span></span>

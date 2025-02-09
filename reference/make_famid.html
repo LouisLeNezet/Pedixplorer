@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Compute family id</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/make_famid.R" class="external-link"><code>R/make_famid.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/R/make_famid.R" class="external-link"><code>R/make_famid.R</code></a></small>
       <div class="d-none name"><code>make_famid.Rd</code></div>
     </div>
 
@@ -131,7 +131,7 @@ Singleton subjects give a zero for family number.</p>
 <span class="r-in"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">make_famid</span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pedigree object with: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 55 individuals and 13 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 55 individuals and 5 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid    steril</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;logical&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           1_101        &lt;NA&gt;        &lt;NA&gt;      male           1      &lt;NA&gt;</span>
@@ -145,7 +145,7 @@ Singleton subjects give a zero for family number.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           2_212       2_209       2_208    female           2      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_213           2_213       2_209       2_208      male           2      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           2_214       2_209       2_208      male           2      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              status     avail  affected    useful       kin     isinf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            deceased     avail  affected    useful       kin     isinf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_101          &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_102          &lt;NA&gt;     FALSE      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
@@ -158,58 +158,32 @@ Singleton subjects give a zero for family number.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_212          &lt;NA&gt;      TRUE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_213          &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_214          &lt;NA&gt;      TRUE      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           num_child_tot num_child_dir num_child_ind |       indId    fatherId</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           num_child_tot num_child_dir num_child_ind |   affection         num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;   &lt;character&gt; &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101                 1             1             0           101        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102                 1             1             0           102        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103                 4             4             0           103         135</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104                 4             4             0           104        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105                 4             4             0           105        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101                 1             1             0             0           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102                 1             1             0             1           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103                 4             4             0             1           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104                 4             4             0             0           4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105                 4             4             0          &lt;NA&gt;           6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ...                 ...           ...           ...           ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210                 0             0             0           210         203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211                 0             0             0           211         203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212                 0             0             0           212         209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213                 0             0             0           213         209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214                 0             0             0           214         209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              motherId      gender   affection   available         num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101            &lt;NA&gt;           1           0           0           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102            &lt;NA&gt;           2           1           0           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103             136           1           1           0           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104            &lt;NA&gt;           2           0           0           4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105            &lt;NA&gt;           1        &lt;NA&gt;           0           6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...         ...         ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210             204           1           0           0           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211             204           1           0           1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212             208           2           0           1           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213             208           1           0           0           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214             208           1           1           1           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 error      family sterilisation vitalStatus affection_mods</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt;   &lt;character&gt; &lt;character&gt;    &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...           ...         ...            ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214            &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            avail_mods</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214               1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210                 0             0             0             0           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211                 0             0             0             0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212                 0             0             0             0           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213                 0             0             0             0           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214                 0             0             0             1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 error affection_mods  avail_mods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt;    &lt;character&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101            &lt;NA&gt;              0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102            &lt;NA&gt;              1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103            &lt;NA&gt;              1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104            &lt;NA&gt;              0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105            &lt;NA&gt;             NA           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...            ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210            &lt;NA&gt;              0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211            &lt;NA&gt;              0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212            &lt;NA&gt;              0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213            &lt;NA&gt;              0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214            &lt;NA&gt;              1           1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          id1         id2                     code       famid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  &lt;character&gt; &lt;character&gt; &lt;c("ordered", "factor")&gt; &lt;character&gt;</span>

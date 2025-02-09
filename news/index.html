@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -62,6 +62,10 @@
 <li>Use directly columns names from <code>fill</code> instead of the mods columns</li>
 <li>Move to R 4.4 and Bioc 3.20</li>
 <li>Fix unittests and update snapshots</li>
+<li>Change normalisation process to directly use <code>id</code>, <code>dadid</code>, <code>momid</code>, <code>famid</code>, <code>sex</code> no more need for <code>indId</code>, <code>fatherId</code>, …</li>
+<li>
+<code>affection</code> is now used as default affection modality columns that will be used to generate <code>affected</code>
+</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="changes-in-v120">Changes in v1.2.0<a class="anchor" aria-label="anchor" href="#changes-in-v120"></a></h2>

@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Normalise a Ped object dataframe</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
       <div class="d-none name"><code>norm_ped.Rd</code></div>
     </div>
 
@@ -75,19 +75,18 @@
 
 <dl><dt id="arg-ped-df">ped_df<a class="anchor" aria-label="anchor" href="#arg-ped-df"></a></dt>
 <dd><p>A data.frame with the individuals informations.
-The minimum columns required are:</p><ul><li><p><code>indID</code> individual identifiers -&gt; <code>id</code></p></li>
-<li><p><code>fatherId</code> biological fathers identifiers -&gt; <code>dadid</code></p></li>
-<li><p><code>motherId</code> biological mothers identifiers -&gt; <code>momdid</code></p></li>
-<li><p><code>gender</code> sex of the individual -&gt; <code>sex</code></p></li>
-<li><p><code>family</code> family identifiers -&gt; <code>famid</code></p></li>
-</ul><p>The <code>family</code> column, if provided, will be merged to
+The minimum columns required are:</p><ul><li><p><code>id</code> individual identifiers</p></li>
+<li><p><code>dadid</code> biological fathers identifiers</p></li>
+<li><p><code>momid</code> biological mothers identifiers</p></li>
+<li><p><code>sex</code> of the individual</p></li>
+<li><p><code>famid</code> family identifiers</p></li>
+</ul><p>The <code>famid</code> column, if provided, will be merged to
 the <em>ids</em> field separated by an underscore using the
 <code><a href="upd_famid.html">upd_famid()</a></code> function.</p>
 <p>The following columns are also recognize and will be transformed with the
-<code><a href="vect_to_binary.html">vect_to_binary()</a></code> function:</p><ul><li><p><code>sterilisation</code> status -&gt; <code>steril</code></p></li>
-<li><p><code>available</code> status -&gt; <code>avail</code></p></li>
-<li><p><code>vitalStatus</code>, is the individual dead -&gt; <code>status</code></p></li>
-<li><p><code>affection</code> status -&gt; <code>affected</code></p></li>
+<code><a href="vect_to_binary.html">vect_to_binary()</a></code> function:</p><ul><li><p><code>steril</code> status -&gt; is the individual steril</p></li>
+<li><p><code>avail</code> status -&gt; is the individual available</p></li>
+<li><p><code>deceased</code> status -&gt; is the individual dead</p></li>
 </ul><p>The values recognized for those columns are <code>1</code> or <code>0</code>,
 <code>TRUE</code> or <code>FALSE</code>.</p></dd>
 
@@ -121,12 +120,11 @@ and with the errors identified in the <code>error</code> column</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Normalise a dataframe and check for columns correspondance
 to be able to use it as an input to create a Ped object.
-Multiple test are done and errors are checked.
-Sex is calculated based on the <code>gender</code> column.</p>
+Multiple test are done and errors are checked.</p>
 <p>The <code>steril</code> column need to be a boolean either TRUE, FALSE or 'NA'.
 Will be considered available any individual with no 'NA' values in the
 <code>available</code> column.
-Duplicated <code>indId</code> will nullify the relationship of the individual.
+Duplicated <code>id</code> will nullify the relationship of the individual.
 All individuals with errors will be remove from the dataframe and will
 be transfered to the error dataframe.</p>
 <p>A number of checks are done to ensure the dataframe is correct:</p><div class="section">
@@ -161,22 +159,21 @@ be transfered to the error dataframe.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    indId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    fatherId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    motherId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">8</span>, <span class="fl">8</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"f"</span>, <span class="st">"male"</span>, <span class="st">"m"</span>, <span class="st">"m"</span>, <span class="st">"f"</span>, <span class="st">"f"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    available <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"1"</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    dadid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    momid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">8</span>, <span class="fl">8</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"f"</span>, <span class="st">"male"</span>, <span class="st">"m"</span>, <span class="st">"m"</span>, <span class="st">"f"</span>, <span class="st">"f"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"1"</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    famid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    sterilisation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="st">"TRUE"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    vitalStatus <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    affection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    steril <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="st">"TRUE"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in data.frame(id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), dadid = c("A",     0, 1, 3, 0, 4, 1, 0, 6, 6), momid = c(0, 0, 2, 2, 0, 5, 2,     0, 8, 8), sex = c(1, 2, "m", "man", "f", "male", "m", "m",     "f", "f"), avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2), steril = c("TRUE",         "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, "TRUE"), deceased = c("TRUE",         "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0), ):</span> argument is missing, with no default</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">norm_ped</span><span class="op">(</span><span class="va">df</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;simpleError in check_columns(ped_df, cols_need, cols_used, cols_to_use, others_cols = TRUE,     cols_to_use_init = TRUE, cols_used_init = TRUE, cols_used_del = cols_used_del): Columns : famid are used by the script and would be overwritten.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;simpleError in matrix(NA, nrow = nrow(ped_df), ncol = length(err_cols)): non-numeric matrix extent&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

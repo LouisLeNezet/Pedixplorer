@@ -52,7 +52,7 @@ status."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Find single affected and available individual from a Pedigree</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/find_avail_affected.R" class="external-link"><code>R/find_avail_affected.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/normalization/R/find_avail_affected.R" class="external-link"><code>R/find_avail_affected.R</code></a></small>
       <div class="d-none name"><code>find_avail_affected.Rd</code></div>
     </div>
 
@@ -126,7 +126,7 @@ corresponding Ped accessor.</p>
 <span class="r-in"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">find_avail_affected</span><span class="op">(</span><span class="va">ped</span>, affstatus <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 38 individuals and 13 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 38 individuals and 5 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid    steril</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;logical&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           1_103       1_135       1_136      male           1      &lt;NA&gt;</span>
@@ -140,7 +140,7 @@ corresponding Ped accessor.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_211           2_211       2_203       2_204      male           2      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           2_212       2_209       2_208    female           2      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           2_214       2_209       2_208      male           2      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              status     avail  affected    useful       kin     isinf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            deceased     avail  affected    useful       kin     isinf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_103          &lt;NA&gt;     FALSE      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_104          &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
@@ -153,58 +153,32 @@ corresponding Ped accessor.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_211          &lt;NA&gt;      TRUE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_212          &lt;NA&gt;      TRUE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_214          &lt;NA&gt;      TRUE      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           num_child_tot num_child_dir num_child_ind |      family       indId</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           num_child_tot num_child_dir num_child_ind |   affection         num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;   &lt;character&gt; &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103                 3             3             0             1         103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104                 3             3             0             1         104</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105                 4             4             0             1         105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_106                 4             4             0             1         106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_109                 0             0             0             1         109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103                 3             3             0             1           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104                 3             3             0             0           4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105                 4             4             0          &lt;NA&gt;           6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_106                 4             4             0          &lt;NA&gt;           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_109                 0             0             0             0           3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ...                 ...           ...           ...           ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_208                 2             2             0             2         208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_209                 2             2             0             2         209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211                 0             0             0             2         211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212                 0             0             0             2         212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214                 0             0             0             2         214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              fatherId    motherId      gender   affection   available</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103             135         136           1           1           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104            &lt;NA&gt;        &lt;NA&gt;           2           0           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105            &lt;NA&gt;        &lt;NA&gt;           1        &lt;NA&gt;           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_106            &lt;NA&gt;        &lt;NA&gt;           2        &lt;NA&gt;           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_109             101         102           2           0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...         ...         ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_208             201         202           2           0           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_209            &lt;NA&gt;        &lt;NA&gt;           1           0           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211             203         204           1           0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212             209         208           2           0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214             209         208           1           1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   num       error sterilisation vitalStatus affection_mods</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt;   &lt;character&gt; &lt;character&gt;    &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103               2        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104               4        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105               6        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_106               1        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_109               3        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...           ...         ...            ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_208               1        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_209               2        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211               1        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212               3        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214               0        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            avail_mods</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_106               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_109               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_208               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_209               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214               1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_208                 2             2             0             0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_209                 2             2             0             0           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211                 0             0             0             0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212                 0             0             0             0           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214                 0             0             0             1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 error affection_mods  avail_mods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt;    &lt;character&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103            &lt;NA&gt;              1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104            &lt;NA&gt;              0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105            &lt;NA&gt;             NA           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_106            &lt;NA&gt;             NA           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_109            &lt;NA&gt;              0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...            ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_208            &lt;NA&gt;              0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_209            &lt;NA&gt;              0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211            &lt;NA&gt;              0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212            &lt;NA&gt;              0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214            &lt;NA&gt;              1           1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $new_avail</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE</span>
