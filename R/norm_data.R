@@ -105,7 +105,7 @@ norm_ped <- function(
         cols_to_use_init = TRUE, cols_used_init = TRUE,
         cols_used_del = cols_used_del
     )
-    new_ped_df <- ped_df
+
     ped_df$famid[is.na(ped_df$famid)] <- missid
 
     if (nrow(ped_df) > 0) {

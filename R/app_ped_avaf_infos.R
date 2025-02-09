@@ -50,7 +50,7 @@ sketch_family_table <- function(var_name) {
 #' pedi <- Pedigree(sampleped)
 #' pedi <- generate_colors(pedi, "num_child_tot", threshold = 2)
 #' Pedixplorer:::family_infos_table(pedi, "num_child_tot")
-#' Pedixplorer:::family_infos_table(pedi, "affected")
+#' Pedixplorer:::family_infos_table(pedi, "affection)
 #' @keywords ped_avaf_infos
 #' @importFrom tidyr spread
 family_infos_table <- function(pedi, col_val = NA) {

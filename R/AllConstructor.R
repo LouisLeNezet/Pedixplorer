@@ -129,7 +129,7 @@ setMethod("Ped", "data.frame",
 
         df$famid[is.na(df$famid)] <- NA_character_
 
-        if (nrow(df) > 0){
+        if (nrow(df) > 0) {
             df$steril <- vect_to_binary(df$steril, logical = TRUE)
             df$deceased <- vect_to_binary(df$deceased, logical = TRUE)
             df$avail <- vect_to_binary(df$avail, logical = TRUE)
@@ -913,7 +913,7 @@ setMethod("Pedigree", "data.frame",  function(
             && !col_aff %in% colnames(ped_df)
             && nrow(ped_df) > 0
         ) {
-                ped_df$affection <- NA
+            ped_df$affection <- NA
         }
     }
 

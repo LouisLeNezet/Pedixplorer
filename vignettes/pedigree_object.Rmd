@@ -264,7 +264,7 @@ mcols(ped)
 ## Add new columns as a threshold if identifiers of individuals superior
 ## to a given threshold for example
 mcols(ped)$idth <- ifelse(as.numeric(
-    stringr::str_split_i(id(ped(ped)), "_",2)
+    stringr::str_split_i(id(ped(ped)), "_", 2)
 ) < 200, "A", "B")
 mcols(ped)$idth
 ```
