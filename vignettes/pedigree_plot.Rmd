@@ -126,7 +126,7 @@ information from a Pedigree object.
 The steps are: 
 
 1. Add boxes (depend on affection and sex) and marks.
-2. Add status crossing if present.
+2. Add deceased crossing if present.
 3. Add id text and labels
 3. Add in the connections, one by one, beginning with spouses.
 4. Add connections children to parents.
@@ -262,7 +262,7 @@ pedi <- Pedigree(sampleped)
 
 p <- plot(
     pedi, ggplot_gen = TRUE,
-    tips = c("affected", "momid", "dadid"),
+    tips = c("affection", "momid", "dadid"),
     symbolsize = 1.5, cex = 0.8
 )
 plotly::layout(
