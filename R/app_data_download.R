@@ -46,7 +46,6 @@ data_download_server <- function(
         filename
     })
 
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
         ## Create title
         output$title_data <- shiny::renderUI({
@@ -74,11 +73,14 @@ data_download_server <- function(
                         NULL
                     })
                 }
-                output$data_dwld <- shiny::downloadHandler(filename = function() {
-                    paste(myfilename(), ".csv", sep = "")
-                }, content = function(file) {
-                    utils::write.csv2(df(), file)
-                })
+                output$data_dwld <- shiny::downloadHandler(
+                    filename = function() {
+                        paste(myfilename(), ".csv", sep = "")
+                    },
+                    content = function(file) {
+                        utils::write.csv2(df(), file)
+                    }
+                )
 
             }
         })
