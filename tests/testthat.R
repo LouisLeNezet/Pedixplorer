@@ -16,6 +16,15 @@ library(Pedixplorer)
 library(shinytest2)
 library(R.devices)
 
+## Set up the environment
+
+Sys.setenv(
+    CHROMOTE_CHROME=Sys.getenv("CHROME_CHROMOTE"),
+    CHROMOTE_HEADLESS="new",
+    BROWSER=Sys.getenv("CHROME_CHROMOTE"),
+    CHROMOTE_CHROME_ARGS = "--headless --disable-gpu --remote-debugging-port=9222"
+)
+
 ## Clean up any open devices
 all_dev <- dev.list()
 for (devi in all_dev) {
@@ -40,7 +49,8 @@ withr::local_options(
 options(
     shiny.testmode = TRUE,
     shinytest2.load_timeout = 60000,
-    shiny.fullstacktrace = TRUE
+    shiny.fullstacktrace = TRUE,
+    chromote.verbose = TRUE
 )
 Sys.setenv("R_TESTS" = "")
 

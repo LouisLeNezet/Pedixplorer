@@ -105,6 +105,7 @@ jobs:
 
           echo "CHROME_CHROMOTE=$CHROME_PATH" >> $GITHUB_ENV
           echo "CHROMOTE_HEADLESS=new" >> $GITHUB_ENV
+          echo "CHROMOTE_CHROME_ARGS=--headless --disable-gpu --remote-debugging-port=9222" >> $GITHUB_ENV
           echo "BROWSER=$CHROME_PATH" >> $GITHUB_ENV
           echo "$(dirname $CHROME_PATH)" >> $GITHUB_PATH
 
@@ -121,6 +122,7 @@ jobs:
 
           echo "CHROME_CHROMOTE=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           echo "CHROMOTE_HEADLESS=new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "CHROMOTE_CHROME_ARGS=--headless --disable-gpu --remote-debugging-port=9222" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           echo "BROWSER=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
           # Add Chrome's directory to PATH
