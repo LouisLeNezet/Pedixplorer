@@ -197,8 +197,7 @@ jobs:
 
       - name: Run CMD check
         env:
-          CHROME_CHROMOTE: ${{ steps.setup-chrome.outputs.chrome-path }}
-          BROWSER: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMOTE_CHROME: ${{ steps.setup-chrome.outputs.chrome-path }}
           _R_CHECK_CRAN_INCOMING_: false
           DISPLAY: 99.0
         run: |
