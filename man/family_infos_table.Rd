@@ -25,6 +25,6 @@ data(sampleped)
 pedi <- Pedigree(sampleped)
 pedi <- generate_colors(pedi, "num_child_tot", threshold = 2)
 Pedixplorer:::family_infos_table(pedi, "num_child_tot")
-Pedixplorer:::family_infos_table(pedi, "affection")
+Pedixplorer:::family_infos_table(pedi, "affected")
 }
 \keyword{ped_avaf_infos}

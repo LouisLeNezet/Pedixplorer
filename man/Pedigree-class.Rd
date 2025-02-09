@@ -56,8 +56,8 @@ Pedigree(obj, ...)
   sex,
   famid = NA,
   avail = NULL,
-  affected = NULL,
-  status = NULL,
+  affections = NULL,
+  deceased = NULL,
   steril = NULL,
   rel_df = NULL,
   missid = NA_character_,
@@ -67,14 +67,14 @@ Pedigree(obj, ...)
 )
 
 \S4method{Pedigree}{data.frame}(
-  obj = data.frame(indId = character(), fatherId = character(), motherId = character(),
-    gender = numeric(), family = character(), available = numeric(), vitalStatus =
-    numeric(), affection = numeric(), sterilisation = numeric()),
+  obj = data.frame(id = character(), dadid = character(), momid = character(), sex =
+    numeric(), famid = character(), avail = numeric(), deceased = numeric(), steril =
+    numeric()),
   rel_df = data.frame(id1 = character(), id2 = character(), code = numeric(), famid =
     character()),
-  cols_ren_ped = list(indId = "id", fatherId = "dadid", motherId = "momid", family =
-    "famid", gender = "sex", sterilisation = "steril", affection = "affected", available
-    = "avail", vitalStatus = "status"),
+  cols_ren_ped = list(id = "indId", dadid = "fatherId", momid = "motherId", famid =
+    "family", sex = "gender", steril = "sterilisation", affection = "affected", avail =
+    "available", deceased = c("status", "vitalStatus")),
   cols_ren_rel = list(id1 = "indId1", id2 = "indId2", famid = "family"),
   hints = list(horder = NULL, spouse = NULL),
   normalize = TRUE,
@@ -123,14 +123,14 @@ individuals
 \code{TRUE} = available,
 \code{NA} = unknown).}
 
-\item{affected}{A logical vector with the affection status of the
+\item{affections}{A logical vector with the affections status of the
 individuals
 (i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).
 Can also be a data.frame with the same length as \code{obj}. If it is a
 matrix, it will be converted to a data.frame and the columns will be
 named after the \code{col_aff} argument.}
 
-\item{status}{A logical vector with the affection status of the
+\item{deceased}{A logical vector with the death status of the
 individuals
 (i.e. \code{FALSE} = alive,
 \code{TRUE} = dead,
@@ -210,44 +210,40 @@ Rel object.
 If the normalization is set to \code{TRUE}, then the data will be
 standardized using the function \code{norm_ped()} and \code{norm_rel()}.
 
-If a data.frame is given, the columns names needed will depend if
-the normalization is selected or not. If the normalization is selected,
-the columns names needed are as follow and if not the columns names
-needed are in parenthesis:
+If a data.frame is given, the columns names needed are as follow:
 \itemize{
-\item \code{indID}: the individual identifier (\code{id})
-\item \code{fatherId}: the identifier of the biological father (\code{dadid})
-\item \code{motherId}: the identifier of the biological mother (\code{momid})
-\item \code{gender}: the sex of the individual (\code{sex})
-\item \code{family}: the family identifier of the individual (\code{famid})
-\item \code{sterilisation}: the sterilisation status of the individual
-(\code{steril})
+\item \code{id}: the individual identifier
+\item \code{dadid}: the identifier of the biological father
+\item \code{momid}: the identifier of the biological mother
+\item \code{sex}: the sex of the individual
+\item \code{famid}: the family identifier of the individual
+\item \code{steril}: the sterilisation status of the individual
 \item \code{available}: the availability status of the individual (\code{avail})
-\item \code{vitalStatus}: the death status of the individual (\code{status})
-\item \code{affection}: the affection status of the individual (\code{affected})
+\item \code{deceased}: the death status of the individual
+\item \code{affection}: the affection status of the individual
 \item \code{...}: other columns that will be stored in the
 \code{elementMetadata} slot
 }
 
 The minimum columns required are :
 \itemize{
-\item \code{indID} / \code{id}
-\item \code{fatherId} / \code{dadid}
-\item \code{motherId} / \code{momid}
-\item \code{gender} / \code{sex}
+\item \code{id}
+\item \code{dadid}
+\item \code{momid}
+\item \code{sex}
 }
 
-The \code{family} / \code{famid} column can also be used to specify the
+The \code{famid} column can also be used to specify the
 family of the individuals and will be merge to the
-\code{indId} / \code{id} field separated by an underscore.
-The columns \code{sterilisation}, \code{available},
-\code{vitalStatus}, \code{affection}
+\code{id} field separated by an underscore.
+The columns \code{steril}, \code{avail},
+\code{deceased}, \code{affected}
 will be transformed with the \code{\link[=vect_to_binary]{vect_to_binary()}}
 function when the normalisation is selected.
 If you do not use the normalisation, the columns will be checked to
 be \code{0} or \code{1}.
 
-If \code{affected} is a data.frame, \strong{col_aff} will be
+If \code{affections} is a data.frame, \strong{col_aff} will be
 overwritten by the column names of the data.frame.
 }
 \section{Slots}{
@@ -448,7 +444,7 @@ Pedigree(
     momid = c("5", "5", "5", "0", "0", "0"),
     sex = c(1, 2, 3, 1, 2, 1),
     avail = c(0, 1, 0, 1, 0, 1),
-    affected = matrix(c(
+    affections = matrix(c(
         0, 1, 0, 1, 0, 1,
         1, 1, 1, 1, 1, 1
     ), ncol = 2),

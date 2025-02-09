@@ -75,8 +75,7 @@ gathered by questionnaire.
 data(minnbreast)
 breastped <- Pedigree(minnbreast,
     cols_ren_ped = list(
-        "indId" = "id", "fatherId" = "fatherid",
-        "motherId" = "motherid", "gender" = "sex", "family" = "famid"
+        "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0", col_aff = "cancer"
 )
 summary(breastped)

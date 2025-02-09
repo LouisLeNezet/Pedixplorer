@@ -15,7 +15,7 @@ data set; zero otherwise
 \item \code{momid} : Identifier of the mother, if the mother is part of the
 data set; zero otherwise
 \item \code{sex} : \code{1} for male or \code{2} for female
-\item \code{affected} : \code{1} or \code{0}
+\item \code{affection} : \code{1} or \code{0}
 \item \code{avail} : \code{1} or \code{0}
 \item \code{num} : Numerical test variable from 0 to 6 randomly distributed
 }
