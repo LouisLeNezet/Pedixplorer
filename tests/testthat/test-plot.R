@@ -14,16 +14,15 @@ test_that("Pedigree plotting test", {
         ), ncol = 7, byrow = TRUE
     )
     ped2df <- as.data.frame(ped2mat)
-    names(ped2df) <- c("family", "indId", "fatherId", "motherId",
-        "gender", "affection", "available"
+    names(ped2df) <- c("famid", "id", "dadid", "momid",
+        "sex", "affected", "avail"
     )
 
     ped2df$disease <- c(NA, NA, 1, 0, 0, 0, 0, 1, 1, 1)
     ped2df$smoker <- c(0, NA, 0, 0, 1, 1, 1, 0, 0, 0)
-    ped2df$availability <- c(0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
-    ped2df$vitalStatus <- c(1, 1, 1, 0, 1, 0, 0, 8, 0, 0)
+    ped2df$deceased <- c(1, 1, 1, 0, 1, 0, 0, 8, 0, 0)
 
-    rel_df <- data.frame(indId1 = 8, indId2 = 9, code = 3, family = 1)
+    rel_df <- data.frame(id1 = 8, id2 = 9, code = 3, famid = 1)
     ped <- Pedigree(ped2df, rel_df, missid = "0")
     vdiffr::expect_doppelganger("Ped simple affection",
         function() plot(ped)

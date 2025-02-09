@@ -101,10 +101,10 @@ test_that("Alignment with spouse", {
     data(sampleped)
     df1 <- sampleped[sampleped$famid == 1, ]
     relate1 <- data.frame(
-        indId1 = 113,
-        indId2 = 114,
+        id1 = 113,
+        id2 = 114,
         code = 4,
-        family = 1
+        famid = 1
     )
     ped1 <- Pedigree(df1, relate1)
     hints <- auto_hint(ped1)

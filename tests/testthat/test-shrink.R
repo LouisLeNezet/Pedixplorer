@@ -4,8 +4,8 @@
 test_that("Pedigree shrink works", {
     data(minnbreast)
     ped_mb <- Pedigree(minnbreast,
-        cols_ren_ped = list(fatherId = "fatherid", motherId = "motherid",
-            indId = "id", gender = "sex", family = "famid"
+        cols_ren_ped = list(
+            dadid = "fatherid", momid = "motherid"
         ), missid = "0"
     )
     ped_mb <- generate_colors(ped_mb, col_aff = "cancer", add_to_scale = FALSE)

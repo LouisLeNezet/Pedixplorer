@@ -15,8 +15,7 @@ test_that("Kindepth works", {
 
     data(minnbreast)
     ped <- Pedigree(minnbreast, cols_ren_ped = list(
-        "indId" = "id", "fatherId" = "fatherid",
-        "motherId" = "motherid", "gender" = "sex", "family" = "famid"
+        "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0")
     expect_equal(sum(kindepth(ped)), 33147)
     expect_equal(sum(kindepth(ped, align_parents = TRUE)), 39091)

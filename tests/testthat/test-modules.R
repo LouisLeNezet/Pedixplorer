@@ -75,7 +75,7 @@ test_that("health_sel works", {
     app$set_window_size(width = 1611, height = 956)
     app$expect_values(export = TRUE)
     # Update output value
-    app$set_inputs(`healthsel-health_var_sel` = "gender")
+    app$set_inputs(`healthsel-health_var_sel` = "num")
     app$wait_for_idle()
     app$set_inputs(`healthsel-health_threshold_val` = 1.22)
     app$set_inputs(`healthsel-health_threshold_sup` = FALSE)

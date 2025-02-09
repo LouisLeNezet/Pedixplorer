@@ -1,10 +1,10 @@
 {
   "export": {
     "lst_health": {
-      "var": "gender",
+      "var": "num",
       "as_num": true,
       "mods_aff": null,
-      "threshold": 1.22,
+      "threshold": 1,
       "sup_threshold": false
     }
   }
