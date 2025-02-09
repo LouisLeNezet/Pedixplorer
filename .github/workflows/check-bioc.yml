@@ -95,20 +95,37 @@ jobs:
       - name: Set google-chrome-stable path (Linux)
         if: runner.os == 'Linux'
         run: |
-          echo "CHROME_CHROMOTE=$(which google-chrome-stable)" >> $GITHUB_ENV
-          echo "CHROMOTE_HEADLESS=new" >> $GITHUB_ENV
-          echo "BROWSER=$(which google-chrome-stable)" >> $GITHUB_ENV
-          echo "$(dirname $(which google-chrome-stable))" >> $GITHUB_PATH
+          CHROME_PATH=$(which google-chrome-stable || which google-chrome || which chromium || echo "")
+          
+          if [ -z "$CHROME_PATH" ]; then
+            echo "Error: Google Chrome not found!" >&2
+            exit 1
+          fi
 
-      - name: Set google-chrome-stable path (Windows)
+          echo "CHROME_CHROMOTE=$CHROME_PATH" >> $GITHUB_ENV
+          echo "CHROMOTE_HEADLESS=new" >> $GITHUB_ENV
+          echo "BROWSER=$CHROME_PATH" >> $GITHUB_ENV
+          echo "$(dirname $CHROME_PATH)" >> $GITHUB_PATH
+
+      - name: Set Chrome path (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          $chromePath = Get-Command "chrome.exe" | Select-Object -ExpandProperty Source
-          echo "CHROME_CHROMOTE=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-          echo "CHROMOTE_HEADLESS=new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-          echo "BROWSER=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-          echo "PATH=$($chromePath | Split-Path -Parent);$env:PATH" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
+          $chromePath = (Get-Command "chrome.exe" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source)
+          
+          if (-not $chromePath) {
+            Write-Host "Error: Google Chrome not found!"
+            exit 1
+          }
+
+          # Append variables to GITHUB_ENV
+          echo "CHROME_CHROMOTE=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "CHROMOTE_HEADLESS=new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "BROWSER=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+          # Add Chrome's directory to PATH
+          $chromeDir = $chromePath | Split-Path -Parent
+          echo $chromeDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
