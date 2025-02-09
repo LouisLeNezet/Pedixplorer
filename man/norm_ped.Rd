@@ -100,7 +100,7 @@ df <- data.frame(
     avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
     steril = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, "TRUE"),
-    deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
+    deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
 )
 tryCatch(
     norm_ped(df),
