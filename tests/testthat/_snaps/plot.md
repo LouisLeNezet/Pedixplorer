@@ -281,7 +281,4 @@
 
     Code
       html_plot
-    Condition
-      Warning in `system()`:
-      '"google-chrome"' not found
 
