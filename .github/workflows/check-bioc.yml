@@ -95,10 +95,10 @@ jobs:
       - name: Set google-chrome-stable path (Linux)
         if: runner.os == 'Linux'
         run: |
-          echo "::set-env name=CHROME_CHROMOTE::$(which google-chrome-stable)"
-          echo "::set-env name=CHROMOTE_HEADLESS = 'new'"
-          echo "::set-env name=BROWSER::$(which google-chrome-stable)"
-          echo "::add-path::$(dirname $(which google-chrome-stable))"
+          echo "CHROME_CHROMOTE=$(which google-chrome-stable)" >> $GITHUB_ENV
+          echo "CHROMOTE_HEADLESS=new" >> $GITHUB_ENV
+          echo "BROWSER=$(which google-chrome-stable)" >> $GITHUB_ENV
+          echo "$(dirname $(which google-chrome-stable))" >> $GITHUB_PATH
 
       - name: Set google-chrome-stable path (Windows)
         if: runner.os == 'Windows'
