@@ -33,9 +33,9 @@ par_lst <- list(
 R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
 
 ## Set up the environment
+## Add BROWSER="google-chrome" to your environment variables
 withr::local_options(
-    width = 150, digits = 8,
-    browser = "google-chrome"
+    width = 150, digits = 8
 )
 options(
     shiny.testmode = TRUE,

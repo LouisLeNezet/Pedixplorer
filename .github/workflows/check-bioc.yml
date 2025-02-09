@@ -67,8 +67,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-latest, r: '4.4', bioc: '3.19', cont: "bioconductor/bioconductor_docker:RELEASE_3_19", rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest" }
-          - { os: windows-latest, r: '4.4', bioc: '3.19'}
+          - { os: ubuntu-latest, r: '4.4', bioc: '3.19', cont: "bioconductor/bioconductor_docker:RELEASE_3_20", rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest" }
+          - { os: windows-latest, r: '4.4', bioc: '3.20'}
           ## Check https://github.com/r-lib/actions/tree/master/examples
           ## for examples using the http-user-agent
     env:
@@ -88,8 +88,27 @@ jobs:
           sudo apt-get install -y libgtk-3-dev
 
       ## Set up Chrome for shinytest
-      - uses: browser-actions/setup-chrome@v1
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
         id: setup-chrome
+
+      - name: Set google-chrome-stable path (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          echo "::set-env name=CHROME_CHROMOTE::$(which google-chrome-stable)"
+          echo "::set-env name=CHROMOTE_HEADLESS = 'new'"
+          echo "::set-env name=BROWSER::$(which google-chrome-stable)"
+          echo "::add-path::$(dirname $(which google-chrome-stable))"
+
+      - name: Set google-chrome-stable path (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $chromePath = Get-Command "chrome.exe" | Select-Object -ExpandProperty Source
+          echo "CHROME_CHROMOTE=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          echo "CHROMOTE_HEADLESS=new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          echo "BROWSER=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          echo "PATH=$($chromePath | Split-Path -Parent);$env:PATH" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
 
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
