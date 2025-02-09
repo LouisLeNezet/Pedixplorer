@@ -5,7 +5,7 @@ data_download_ui <- function(id) {
     shiny::tagList(
         shiny::uiOutput(ns("title_data")),
         shiny::uiOutput(ns("data_text")),
-        shiny::uiOutput(ns("btn_dwld"))
+        shiny::downloadButton(ns("data_dwld"))
     )
 }
 
@@ -54,20 +54,12 @@ data_download_server <- function(
         })
 
         ## Create download button
-        output$data_dwld <- shiny::downloadHandler(filename = function() {
-            paste(myfilename(), ".csv", sep = "")
-        }, content = function(file) {
-            utils::write.csv2(df(), file)
-        })
-
         shiny::observeEvent(df(), {
             if (nrow(df()) == 0) {
                 output$data_text <- shiny::renderUI({
                     shiny::HTML(paste(label, "doesn't have any rows"))
                 })
-                output$btn_dwld <- shiny::renderUI({
-                    NULL
-                })
+                output$data_dwld <- NULL
             } else {
                 if (helper) {
                     output$data_text <- shiny::renderUI({
@@ -82,9 +74,10 @@ data_download_server <- function(
                         NULL
                     })
                 }
-
-                output$btn_dwld <- shiny::renderUI({
-                    shiny::downloadButton(ns("data_dwld"), label = label)
+                output$data_dwld <- shiny::downloadHandler(filename = function() {
+                    paste(myfilename(), ".csv", sep = "")
+                }, content = function(file) {
+                    utils::write.csv2(df(), file)
                 })
 
             }
@@ -97,11 +90,11 @@ data_download_server <- function(
 #' @importFrom shiny fluidPage shinyApp reactive
 data_download_demo <- function() {
     ui <- shiny::fluidPage(
-        data_download_ui("mtcars")
+        data_download_ui("data_download")
     )
     server <- function(input, output, session) {
         data_download_server(
-            "mtcars",
+            "data_download",
             shiny::reactive({
                 datasets::mtcars
             }),
