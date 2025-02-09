@@ -68,7 +68,7 @@ na_to_length <- function(x, temp, value) {
 #' (i.e. `FALSE` = not sterilised,
 #' `TRUE` = sterilised,
 #' `NA` = unknown).
-#' @param status A logical vector with the affection status of the
+#' @param deceased A logical vector with the death status of the
 #' individuals
 #' (i.e. `FALSE` = alive,
 #' `TRUE` = dead,
@@ -114,8 +114,8 @@ setMethod("Ped", "data.frame",
     function(obj, cols_used_init = FALSE, cols_used_del = FALSE) {
         col_need <- c("id", "sex", "dadid", "momid")
         col_to_use <- c(
-            "famid", "steril", "status", "avail", "affected",
-            "kin", "isinf", "useful"
+            "famid", "steril", "deceased", "avail",
+            "kin", "isinf", "useful", "affected"
         )
         col_used <- c(
             "num_child_tot", "num_child_dir", "num_child_ind",
@@ -129,17 +129,20 @@ setMethod("Ped", "data.frame",
 
         df$famid[is.na(df$famid)] <- NA_character_
 
-        df$steril <- vect_to_binary(df$steril, logical = TRUE)
-        df$status <- vect_to_binary(df$status, logical = TRUE)
-        df$avail <- vect_to_binary(df$avail, logical = TRUE)
-        df$affected <- vect_to_binary(df$affected, logical = TRUE)
-        df$isinf <- vect_to_binary(df$isinf, logical = TRUE)
-        df$useful <- vect_to_binary(df$useful, logical = TRUE)
-        df$kin <- na_to_length(df$kin, df$id, NA_real_)
+        if (nrow(df) > 0) {
+            df$steril <- vect_to_binary(df$steril, logical = TRUE)
+            df$deceased <- vect_to_binary(df$deceased, logical = TRUE)
+            df$avail <- vect_to_binary(df$avail, logical = TRUE)
+            df$affected <- vect_to_binary(df$affected, logical = TRUE)
+            df$isinf <- vect_to_binary(df$isinf, logical = TRUE)
+            df$useful <- vect_to_binary(df$useful, logical = TRUE)
+            df$kin <- na_to_length(df$kin, df$id, NA_real_)
+        }
+
         myped <- with(df, Ped(
             obj = id, sex = sex, dadid = dadid, momid = momid,
             famid = famid,
-            steril = steril, status = status, avail = avail,
+            steril = steril, deceased = deceased, avail = avail,
             affected = affected,
             kin = kin, isinf = isinf, useful = useful
         ))
@@ -165,7 +168,7 @@ setMethod("Ped", "data.frame",
 setMethod("Ped", "character_OR_integer",
     function(
         obj, sex, dadid, momid, famid = NA,
-        steril = NA, status = NA, avail = NA,
+        steril = NA, deceased = NA, avail = NA,
         affected = NA, missid = NA_character_,
         useful = NA, isinf = NA, kin = NA_real_
     ) {
@@ -181,7 +184,7 @@ setMethod("Ped", "character_OR_integer",
         sex <- sex_to_factor(sex)
 
         steril <- na_to_length(steril, id, NA)
-        status <- na_to_length(status, id, NA)
+        deceased <- na_to_length(deceased, id, NA)
         avail <- na_to_length(avail, id, NA)
         affected <- na_to_length(affected, id, NA)
         useful <- na_to_length(useful, id, NA)
@@ -193,7 +196,7 @@ setMethod("Ped", "character_OR_integer",
         new(
             "Ped",
             id = id, dadid = dadid, momid = momid, famid = famid,
-            sex = sex, steril = steril, status = status, avail = avail,
+            sex = sex, steril = steril, deceased = deceased, avail = avail,
             affected = affected,
             useful = useful, kin = kin, isinf = isinf,
             num_child_tot = df_child$num_child_tot,
@@ -586,34 +589,30 @@ setMethod("Scales",
 #' If the normalization is set to `TRUE`, then the data will be
 #' standardized using the function `norm_ped()` and `norm_rel()`.
 #'
-#' If a data.frame is given, the columns names needed will depend if
-#' the normalization is selected or not. If the normalization is selected,
-#' the columns names needed are as follow and if not the columns names
-#' needed are in parenthesis:
-#' - `indID`: the individual identifier (`id`)
-#' - `fatherId`: the identifier of the biological father (`dadid`)
-#' - `motherId`: the identifier of the biological mother (`momid`)
-#' - `gender`: the sex of the individual (`sex`)
-#' - `family`: the family identifier of the individual (`famid`)
-#' - `sterilisation`: the sterilisation status of the individual
-#' (`steril`)
+#' If a data.frame is given, the columns names needed are as follow:
+#' - `id`: the individual identifier
+#' - `dadid`: the identifier of the biological father
+#' - `momid`: the identifier of the biological mother
+#' - `sex`: the sex of the individual
+#' - `famid`: the family identifier of the individual
+#' - `steril`: the sterilisation status of the individual
 #' - `available`: the availability status of the individual (`avail`)
-#' - `vitalStatus`: the death status of the individual (`status`)
-#' - `affection`: the affection status of the individual (`affected`)
+#' - `deceased`: the death status of the individual
+#' - `affection`: the affection status of the individual
 #' - `...`: other columns that will be stored in the
 #' `elementMetadata` slot
 #'
 #' The minimum columns required are :
-#' - `indID` / `id`
-#' - `fatherId` / `dadid`
-#' - `motherId` / `momid`
-#' - `gender` / `sex`
+#' - `id`
+#' - `dadid`
+#' - `momid`
+#' - `sex`
 #'
-#' The `family` / `famid` column can also be used to specify the
+#' The `famid` column can also be used to specify the
 #' family of the individuals and will be merge to the
-#' `indId` / `id` field separated by an underscore.
-#' The columns `sterilisation`, `available`,
-#' `vitalStatus`, `affection`
+#' `id` field separated by an underscore.
+#' The columns `steril`, `avail`,
+#' `deceased`, `affected`
 #' will be transformed with the [vect_to_binary()]
 #' function when the normalisation is selected.
 #' If you do not use the normalisation, the columns will be checked to
@@ -667,14 +666,14 @@ setGeneric("Pedigree", signature = "obj",
 
 #' @export
 #' @rdname Pedigree-class
-#' @param affected A logical vector with the affection status of the
+#' @param affections A logical vector with the affections status of the
 #' individuals
 #' (i.e. `FALSE` = unaffected, `TRUE` = affected, `NA` = unknown).
 #' Can also be a data.frame with the same length as `obj`. If it is a
 #' matrix, it will be converted to a data.frame and the columns will be
 #' named after the `col_aff` argument.
 #' @details
-#' If `affected` is a data.frame, **col_aff** will be
+#' If `affections` is a data.frame, **col_aff** will be
 #' overwritten by the column names of the data.frame.
 #' @inheritParams generate_colors
 #' @inheritParams norm_ped
@@ -686,7 +685,7 @@ setGeneric("Pedigree", signature = "obj",
 #'     momid = c("5", "5", "5", "0", "0", "0"),
 #'     sex = c(1, 2, 3, 1, 2, 1),
 #'     avail = c(0, 1, 0, 1, 0, 1),
-#'     affected = matrix(c(
+#'     affections = matrix(c(
 #'         0, 1, 0, 1, 0, 1,
 #'         1, 1, 1, 1, 1, 1
 #'     ), ncol = 2),
@@ -697,7 +696,7 @@ setGeneric("Pedigree", signature = "obj",
 #'     ), ncol = 3, byrow = TRUE),
 #' )
 setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
-    sex, famid = NA, avail = NULL, affected = NULL, status = NULL,
+    sex, famid = NA, avail = NULL, affections = NULL, deceased = NULL,
     steril = NULL, rel_df =  NULL,
     missid = NA_character_, col_aff = "affection", normalize = TRUE, ...
 ) {
@@ -716,59 +715,59 @@ setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
     if (length(avail) != n & !is.null(avail)) {
         stop("Mismatched lengths, id and avail")
     }
-    if (length(status) != n & !is.null(status)) {
-        stop("Mismatched lengths, id and status")
+    if (length(deceased) != n & !is.null(deceased)) {
+        stop("Mismatched lengths, id and deceased")
     }
 
     ped_df <- data.frame(
-        family = famid,
-        indId = obj,
-        fatherId = dadid,
-        motherId = momid,
-        gender = sex
+        famid = famid,
+        id = obj,
+        dadid = dadid,
+        momid = momid,
+        sex = sex
     )
 
-    if (is.null(affected)) {
+    if (is.null(affections)) {
         ped_df[col_aff] <- NA
-    } else if (any(!is.na(affected))) {
-        if (is.vector(affected)) {
-            ped_df[col_aff] <- affected
-        } else if (is.data.frame(affected)) {
-            ped_df <- cbind(ped_df, affected)
-            col_aff <- colnames(affected)
-        } else if (is.matrix(affected)) {
-            affected <- as.data.frame(affected)
-            if (is.null(colnames(affected))) {
-                if (length(col_aff) != ncol(affected)) {
+    } else if (any(!is.na(affections))) {
+        if (is.vector(affections)) {
+            ped_df[col_aff] <- affections
+        } else if (is.data.frame(affections)) {
+            ped_df <- cbind(ped_df, affections)
+            col_aff <- colnames(affections)
+        } else if (is.matrix(affections)) {
+            affections <- as.data.frame(affections)
+            if (is.null(colnames(affections))) {
+                if (length(col_aff) != ncol(affections)) {
                     stop("The length of col_aff should be equal to the number",
-                        "of columns of affected"
+                        "of columns of affections"
                     )
                 }
-                colnames(affected) <- col_aff
+                colnames(affections) <- col_aff
             }
-            ped_df <- cbind(ped_df, affected)
-            col_aff <- colnames(affected)
+            ped_df <- cbind(ped_df, affections)
+            col_aff <- colnames(affections)
         } else {
-            stop("Affected must be a vector or a data.frame, got:",
-                class(affected)
+            stop("Affections must be a vector or a data.frame, got:",
+                class(affections)
             )
         }
     }
     if (any(!is.na(avail))) {
-        ped_df$available <- avail
+        ped_df$avail <- avail
     }
-    if (any(!is.na(status))) {
-        ped_df$vitalStatus <- status
+    if (any(!is.na(deceased))) {
+        ped_df$deceased <- deceased
     }
     if (any(!is.na(steril))) {
-        ped_df$sterilisation <- steril
+        ped_df$steril <- steril
     }
     if (is.null(rel_df)) {
         rel_df <- data.frame(
             id1 = character(),
             id2 = character(),
             code = numeric(),
-            family = character()
+            famid = character()
         )
     }
     Pedigree(ped_df, rel_df = rel_df,
@@ -785,15 +784,14 @@ setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
 #' Pedigree(sampleped)
 setMethod("Pedigree", "data.frame",  function(
     obj = data.frame(
-        indId = character(),
-        fatherId = character(),
-        motherId = character(),
-        gender = numeric(),
-        family = character(),
-        available = numeric(),
-        vitalStatus = numeric(),
-        affection = numeric(),
-        sterilisation = numeric()
+        id = character(),
+        dadid = character(),
+        momid = character(),
+        sex = numeric(),
+        famid = character(),
+        avail = numeric(),
+        deceased = numeric(),
+        steril = numeric()
     ),
     rel_df = data.frame(
         id1 = character(),
@@ -802,15 +800,15 @@ setMethod("Pedigree", "data.frame",  function(
         famid = character()
     ),
     cols_ren_ped = list(
-        indId = "id",
-        fatherId = "dadid",
-        motherId = "momid",
-        family = "famid",
-        gender = "sex",
-        sterilisation = "steril",
+        id = "indId",
+        dadid = "fatherId",
+        momid = "motherId",
+        famid = "family",
+        sex = "gender",
+        steril = "sterilisation",
         affection = "affected",
-        available = "avail",
-        vitalStatus = "status"
+        avail = "available",
+        deceased = c("status", "vitalStatus")
     ),
     cols_ren_rel = list(
         id1 = "indId1",
@@ -849,7 +847,7 @@ setMethod("Pedigree", "data.frame",  function(
             code = rel_mat[, 3]
         )
         if (dim(rel_mat)[2] > 3) {
-            rel_df$family <- rel_mat[, 4]
+            rel_df$famid <- rel_mat[, 4]
         }
     }
 
@@ -872,7 +870,7 @@ setMethod("Pedigree", "data.frame",  function(
         new_cols[!is.na(cols_to_ren)]
 
     ## Set family, id, dadid and momid to character
-    to_char <- c("family", "indId", "fatherId", "motherId")
+    to_char <- c("famid", "id", "dadid", "momid")
     to_char <- colnames(ped_df)[colnames(ped_df) %in% to_char]
     ped_df[to_char] <- lapply(ped_df[to_char], as.character)
 
@@ -882,7 +880,7 @@ setMethod("Pedigree", "data.frame",  function(
         rel_df <- norm_rel(rel_df, missid = missid, na_strings = na_strings)
     } else {
         cols_need <- c("id", "dadid", "momid", "sex")
-        cols_to_use <- c("steril", "avail", "famid", "status", "affected")
+        cols_to_use <- c("steril", "avail", "famid", "deceased", "affected")
         ped_df <- check_columns(
             ped_df, cols_need, "", cols_to_use,
             others_cols = TRUE, cols_to_use_init = TRUE
@@ -908,6 +906,17 @@ setMethod("Pedigree", "data.frame",  function(
         )
         return(rel_df)
     }
+
+    # Check if the affection column is in the data
+    if (length(col_aff) == 1) {
+        if (col_aff == "affection"
+            && !col_aff %in% colnames(ped_df)
+            && nrow(ped_df) > 0
+        ) {
+            ped_df$affection <- NA
+        }
+    }
+
     ped <- Ped(ped_df)
     rel <- Rel(rel_df)
     hints <- Hints(hints)
@@ -917,7 +926,13 @@ setMethod("Pedigree", "data.frame",  function(
         ped = ped, rel = rel,
         hints = hints, scales = scales
     )
-    generate_colors(pedi, col_aff = col_aff, ...)
+
+    if (all(!is.na(col_aff))) {
+        pedi <- generate_colors(pedi, col_aff = col_aff, ...)
+    } else if (length(col_aff) > 1) {
+        stop("One of the affection columns is NA")
+    }
+    return(pedi)
 }
 )
 

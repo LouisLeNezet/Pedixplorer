@@ -8,7 +8,7 @@
       col_class <character> <character> <character> <ordered> <character> <logical>
       ID5               ID5        <NA>        <NA>    female        <NA>      <NA>
       ID4               ID4        <NA>        <NA>      male        <NA>      <NA>
-                   status     avail  affected    useful       kin     isinf
+                 deceased     avail  affected    useful       kin     isinf
       col_class <logical> <logical> <logical> <logical> <numeric> <logical>
       ID5            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
       ID4            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>

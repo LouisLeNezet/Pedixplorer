@@ -81,7 +81,7 @@ usefulness of the individual.
 
 data(sampleped)
 ped1 <- Pedigree(sampleped[sampleped$famid == "1",])
-ped1 <- is_informative(ped1, informative = "AvAf", "affection")
+ped1 <- is_informative(ped1, informative = "AvAf", col_aff = "affection")
 ped(useful_inds(ped1))
 }
 \keyword{shrink}

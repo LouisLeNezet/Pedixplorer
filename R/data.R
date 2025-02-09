@@ -87,8 +87,7 @@
 #' data(minnbreast)
 #' breastped <- Pedigree(minnbreast,
 #'     cols_ren_ped = list(
-#'         "indId" = "id", "fatherId" = "fatherid",
-#'         "motherId" = "motherid", "gender" = "sex", "family" = "famid"
+#'         "dadid" = "fatherid", "momid" = "motherid"
 #'     ), missid = "0", col_aff = "cancer"
 #' )
 #' summary(breastped)
@@ -116,7 +115,7 @@
 #' - `momid` : Identifier of the mother, if the mother is part of the
 #' data set; zero otherwise
 #' - `sex` : `1` for male or `2` for female
-#' - `affected` : `1` or `0`
+#' - `affection` : `1` or `0`
 #' - `avail` : `1` or `0`
 #' - `num` : Numerical test variable from 0 to 6 randomly distributed
 #'

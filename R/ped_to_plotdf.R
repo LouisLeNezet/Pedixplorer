@@ -185,9 +185,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         }
     }
 
-    ## Add status
-    status <- ped_df[id[idx], "status"]
-    idx_dead <- idx[status == 1 & !is.na(status)]
+    ## Add deceased status
+    deceased <- ped_df[id[idx], "deceased"]
+    idx_dead <- idx[deceased == 1 & !is.na(deceased)]
 
     if (length(idx_dead) > 0) {
         dead_df <- data.frame(

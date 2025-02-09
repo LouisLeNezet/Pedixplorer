@@ -5,6 +5,11 @@
 - Use directly columns names from `fill` instead of the mods columns
 - Move to R 4.4 and Bioc 3.20
 - Fix unittests and update snapshots
+- Change normalisation process to directly use `id`, `dadid`, `momid`, `famid`, `sex`
+no more need for `indId`, `fatherId`, ...
+- `affection` is now used as default affection modality columns that will be
+used to generate `affected`
+- `status` is replaced by `deceased`
 
 ## Changes in v1.2.0
 

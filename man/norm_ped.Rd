@@ -16,24 +16,23 @@ norm_ped(
 \item{ped_df}{A data.frame with the individuals informations.
 The minimum columns required are:
 \itemize{
-\item \code{indID} individual identifiers -> \code{id}
-\item \code{fatherId} biological fathers identifiers -> \code{dadid}
-\item \code{motherId} biological mothers identifiers -> \code{momdid}
-\item \code{gender} sex of the individual -> \code{sex}
-\item \code{family} family identifiers -> \code{famid}
+\item \code{id} individual identifiers
+\item \code{dadid} biological fathers identifiers
+\item \code{momid} biological mothers identifiers
+\item \code{sex} of the individual
+\item \code{famid} family identifiers
 }
 
-The \code{family} column, if provided, will be merged to
+The \code{famid} column, if provided, will be merged to
 the \emph{ids} field separated by an underscore using the
 \code{\link[=upd_famid]{upd_famid()}} function.
 
 The following columns are also recognize and will be transformed with the
 \code{\link[=vect_to_binary]{vect_to_binary()}} function:
 \itemize{
-\item \code{sterilisation} status -> \code{steril}
-\item \code{available} status -> \code{avail}
-\item \code{vitalStatus}, is the individual dead -> \code{status}
-\item \code{affection} status -> \code{affected}
+\item \code{steril} status -> is the individual steril
+\item \code{avail} status -> is the individual available
+\item \code{deceased} status -> is the individual dead
 }
 
 The values recognized for those columns are \code{1} or \code{0},
@@ -62,12 +61,11 @@ Normalise dataframe for a Ped object
 Normalise a dataframe and check for columns correspondance
 to be able to use it as an input to create a Ped object.
 Multiple test are done and errors are checked.
-Sex is calculated based on the \code{gender} column.
 
 The \code{steril} column need to be a boolean either TRUE, FALSE or 'NA'.
 Will be considered available any individual with no 'NA' values in the
 \code{available} column.
-Duplicated \code{indId} will nullify the relationship of the individual.
+Duplicated \code{id} will nullify the relationship of the individual.
 All individuals with errors will be remove from the dataframe and will
 be transfered to the error dataframe.
 
@@ -95,15 +93,14 @@ A number of checks are done to ensure the dataframe is correct:
 }
 \examples{
 df <- data.frame(
-    indId = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-    fatherId = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
-    motherId = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
-    gender = c(1, 2, "m", "man", "f", "male", "m", "m", "f", "f"),
-    available = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
+    id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+    dadid = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
+    momid = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
+    sex = c(1, 2, "m", "man", "f", "male", "m", "m", "f", "f"),
+    avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
-    sterilisation = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, "TRUE"),
-    vitalStatus = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
-    affection = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
+    steril = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, "TRUE"),
+    deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
 )
 tryCatch(
     norm_ped(df),

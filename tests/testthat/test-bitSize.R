@@ -1,8 +1,7 @@
 test_that("bit_size works", {
     data(minnbreast)
     minnped <- Pedigree(minnbreast, cols_ren_ped = list(
-        "indId" = "id", "fatherId" = "fatherid",
-        "motherId" = "motherid", "gender" = "sex", "family" = "famid"
+        "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0")
     bs_pedi <- bit_size(minnped)
     bs_char <- bit_size(

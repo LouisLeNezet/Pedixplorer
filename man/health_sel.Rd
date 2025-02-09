@@ -24,6 +24,18 @@ health_sel_demo()
 \item{id}{A string to identify the module.}
 
 \item{pedi}{A reactive pedigree object.}
+
+\item{var}{A string with the name of the health variable to select.}
+
+\item{as_num}{A boolean to know if the health variable needs to be considered
+as numeric.}
+
+\item{mods_aff}{A character vector of the affected modalities.}
+
+\item{threshold}{A numeric threshold to determine affected individuals.}
+
+\item{sup_threshold}{A boolean to know if the affected individuals
+are strickly superior to the threshold.}
 }
 \value{
 A reactive list with the following informations:\code{actions-box}

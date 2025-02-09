@@ -34,7 +34,7 @@ setClassUnion("missing_OR_NULL", c("missing", "NULL"))
 #' (i.e. `FALSE` = not sterilised,
 #' `TRUE` = sterilised,
 #' `NA` = unknown).
-#' @slot status A logical vector with the affection status of the
+#' @slot deceased A logical vector with the death status of the
 #' individuals
 #' (i.e. `FALSE` = alive,
 #' `TRUE` = dead,
@@ -81,7 +81,7 @@ setClass("Ped",
         sex = "factor",
         famid = "character",
         steril = "logical",
-        status = "logical",
+        deceased = "logical",
         avail = "logical",
         affected = "logical",
         useful = "logical",
@@ -98,7 +98,7 @@ setMethod("parallel_slot_names", "Ped",
     function(x) {
         c(
             "id", "dadid", "momid", "sex", "famid",
-            "steril", "status", "avail", "affected",
+            "steril", "deceased", "avail", "affected",
             "useful", "kin", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind",
             callNextMethod()

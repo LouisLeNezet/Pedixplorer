@@ -285,20 +285,20 @@ handle such marry-ins for plotting.
 We use *ped2* from `sampleped` to sequentially add optional
 information to the `Pedigree` object.
 
-## Status
+## Deceased
 
-The example below shows how to specify a `status` indicator, such as
-vital status. The `sampleped` data does not include such an\
+The example below shows how to specify a `deceased` indicator.
+The `sampleped` data does not include such an\
 indicator, so we create one to indicate that the first generation of
-*ped2*, subjects *1* and *2*, are deceased. The `status` indicator is
+*ped2*, subjects *1* and *2*, are deceased. The `deceased` indicator is
 used to cross out the individuals in the Pedigree plot.
 
-```{r, status, fig.alt = "Pedigree of family 2 with different vital status"}
+```{r, deceased, fig.alt = "Pedigree of family 2 with different vital status"}
 df2 <- sampleped[sampleped$famid == 2, ]
 names(df2)
-df2$status <- c(1, 1, rep(0, 12))
+df2$deceased <- c(1, 1, rep(0, 12))
 ped2 <- Pedigree(df2)
-summary(status(ped(ped2)))
+summary(deceased(ped(ped2)))
 plot(ped2)
 ```
 

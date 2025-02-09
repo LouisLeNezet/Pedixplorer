@@ -400,6 +400,9 @@ rel_code_to_factor <- function(code) {
 #' @export
 #' @keywords internal
 vect_to_binary <- function(vect, logical = FALSE) {
+    if (length(vect) == 0) {
+        return(NA)
+    }
     if (is.factor(vect) || is.numeric(vect) || is.logical(vect)) {
         vect <- as.character(vect)
     }

@@ -343,35 +343,35 @@ setMethod("avail<-",
     }
 )
 
-##### Status Accessors #####
+##### Deceased Accessors #####
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("status", function(x) {
-    standardGeneric("status")
+setGeneric("deceased", function(x) {
+    standardGeneric("deceased")
 })
 
 #' @section Accessors:
-#' - `status(x)` : Individuals' death status
+#' - `deceased(x)` : Individuals' death status
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setMethod("status", signature(x = "Ped"), function(x) {
-    x@status
+setMethod("deceased", signature(x = "Ped"), function(x) {
+    x@deceased
 })
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("status<-", function(x, value) {
-    standardGeneric("status<-")
+setGeneric("deceased<-", function(x, value) {
+    standardGeneric("deceased<-")
 })
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setMethod("status<-",
+setMethod("deceased<-",
     signature(x = "Ped", value = "numeric_OR_logical"),
     function(x, value) {
         if (length(value) != length(x)) {
@@ -384,7 +384,7 @@ setMethod("status<-",
                 )
             }
         }
-        x@status <- vect_to_binary(value, logical = TRUE)
+        x@deceased <- vect_to_binary(value, logical = TRUE)
         validObject(x)
         x
     }
@@ -716,7 +716,7 @@ setMethod(
     function(object, slot, value) {
         ped_slots <- c(
             "id", "dadid", "momid", "sex", "famid",
-            "steril", "status", "avail", "affected",
+            "steril", "deceased", "avail", "affected",
             "kin", "useful", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind"
         )

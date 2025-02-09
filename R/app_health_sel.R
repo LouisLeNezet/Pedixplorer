@@ -20,6 +20,13 @@ health_sel_ui <- function(id) {
 #'
 #' @param id A string to identify the module.
 #' @param pedi A reactive pedigree object.
+#' @param var A string with the name of the health variable to select.
+#' @param as_num A boolean to know if the health variable needs to be considered
+#' as numeric.
+#' @param mods_aff A character vector of the affected modalities.
+#' @param threshold A numeric threshold to determine affected individuals.
+#' @param sup_threshold A boolean to know if the affected individuals
+#' are strickly superior to the threshold.
 #' @return A reactive list with the following informations:`actions-box`
 #' - health_var: the selected health variable,
 #' - to_num: a boolean to know if the health variable needs to be considered as

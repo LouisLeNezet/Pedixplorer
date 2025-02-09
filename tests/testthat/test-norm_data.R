@@ -13,14 +13,14 @@ test_that("Norm ped", {
     )
     ped_df <- matrix(ped_df, ncol = 8, byrow = TRUE)
     dimnames(ped_df) <- list(NULL, c(
-        "indId", "fatherId", "motherId", "gender",
-        "sterilisation", "available", "NumOther", "AffMod"
+        "id", "dadid", "momid", "sex",
+        "steril", "avail", "NumOther", "AffMod"
     ))
     ped_df <- data.frame(ped_df)
     ped_df <- suppressWarnings(norm_ped(
         ped_df, na_strings = c("None", "NA")
     ))
-    expect_equal(dim(ped_df), c(10, 21))
+    expect_equal(dim(ped_df), c(10, 11))
     expect_snapshot(ped_df)
     expect_equal(sum(is.na(ped_df$error)), 4)
 })
@@ -39,7 +39,7 @@ test_that("Norm rel", {
     )
 
     rel_df <- matrix(rel_df, ncol = 4, byrow = TRUE)
-    dimnames(rel_df) <- list(NULL, c("id1", "id2", "code", "family"))
+    dimnames(rel_df) <- list(NULL, c("id1", "id2", "code", "famid"))
     rel_df <- data.frame(rel_df)
 
     rel_df <- norm_rel(rel_df)

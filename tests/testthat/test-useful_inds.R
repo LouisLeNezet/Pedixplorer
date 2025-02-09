@@ -50,11 +50,8 @@ test_that("useful_inds works with Pedigree", {
     pedi <- Pedigree(
         minnbreast,
         cols_ren_ped = c(
-            indId = "id",
-            fatherId = "fatherid",
-            motherId = "motherid",
-            family = "famid",
-            gender = "sex"
+            dadid = "fatherid",
+            momid = "motherid"
         ), missid = "0"
     )
     pedi219 <- suppressWarnings(pedi[famid(ped(pedi)) == "219"])

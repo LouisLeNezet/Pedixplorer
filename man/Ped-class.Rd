@@ -36,10 +36,10 @@
 \alias{avail,Ped-method}
 \alias{avail<-}
 \alias{avail<-,Ped,numeric_OR_logical-method}
-\alias{status}
-\alias{status,Ped-method}
-\alias{status<-}
-\alias{status<-,Ped,numeric_OR_logical-method}
+\alias{deceased}
+\alias{deceased,Ped-method}
+\alias{deceased<-}
+\alias{deceased<-,Ped,numeric_OR_logical-method}
 \alias{isinf}
 \alias{isinf,Ped-method}
 \alias{isinf<-}
@@ -70,7 +70,7 @@
   momid,
   famid = NA,
   steril = NA,
-  status = NA,
+  deceased = NA,
   avail = NA,
   affected = NA,
   missid = NA_character_,
@@ -117,7 +117,7 @@ individuals
 \code{TRUE} = sterilised,
 \code{NA} = unknown).}
 
-\item{status}{A logical vector with the affection status of the
+\item{deceased}{A logical vector with the death status of the
 individuals
 (i.e. \code{FALSE} = alive,
 \code{TRUE} = dead,
@@ -196,7 +196,7 @@ individuals
 \code{TRUE} = sterilised,
 \code{NA} = unknown).}
 
-\item{\code{status}}{A logical vector with the affection status of the
+\item{\code{deceased}}{A logical vector with the death status of the
 individuals
 (i.e. \code{FALSE} = alive,
 \code{TRUE} = dead,
@@ -289,7 +289,7 @@ or a data.frame with each elements with the same length as \code{x}.
 
 
 \itemize{
-\item \code{status(x)} : Individuals' death status
+\item \code{deceased(x)} : Individuals' death status
 }
 
 

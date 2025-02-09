@@ -12,8 +12,8 @@ ped_df_r <- c(
 )
 ped_df_r <- matrix(ped_df_r, ncol = 8, byrow = TRUE)
 dimnames(ped_df_r) <- list(NULL, c(
-    "indId", "fatherId", "motherId", "gender",
-    "sterilisation", "available", "NumOther", "AffMod"
+    "id", "dadid", "momid", "sex",
+    "steril", "avail", "NumOther", "AffMod"
 ))
 
 ped_df_r <- data.frame(ped_df_r)

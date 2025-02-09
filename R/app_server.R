@@ -45,16 +45,16 @@ ped_server <- function(
         ped_df_rename <- data_col_sel_server(
             "data_ped_col_sel", ped_df,
             list(
-                "indId" = c("indid", "indId", "id", "IndId"),
-                "fatherId" = c("dadid", "fatherid", "fatherId", "FatherId"),
-                "motherId" = c("momid", "motherid", "motherId", "MotherId"),
-                "gender" = c("gender", "sex", "Gender")
+                "id" = c("indid", "indId", "id", "IndId"),
+                "dadid" = c("dadid", "fatherid", "fatherId", "FatherId"),
+                "momid" = c("momid", "motherid", "motherId", "MotherId"),
+                "sex" = c("gender", "sex", "Gender")
             ),
             list(
-                "family" = c("family", "famid"),
+                "famid" = c("family", "famid"),
                 "steril" = c("steril", "sterilization"),
-                "available" = c("avail", "available"),
-                "status" = c("status", "vitalStatus")
+                "avail" = c("avail", "available"),
+                "deceased" = c("status", "vitalStatus", "death", "deceased")
             ),
             "Select columns :", na_omit = TRUE
         )
@@ -70,7 +70,9 @@ ped_server <- function(
                 "id1" = c("id1", "indId1"),
                 "id2" = c("id2", "indId2"),
                 "code" = c("code")
-            ), list(),
+            ), list(
+                "famid" = c("family", "famid")
+            ),
             "Select columns :", na_omit = TRUE
         )
 
@@ -81,11 +83,11 @@ ped_server <- function(
                 return(NULL)
             }
             ped_df <- ped_df_rename()
-            if (!"family" %in% colnames(ped_df_rename())) {
-                ped_df$family <- make_famid(
-                    as.character(ped_df$indId),
-                    as.character(ped_df$fatherId),
-                    as.character(ped_df$motherId)
+            if (!"famid" %in% colnames(ped_df_rename())) {
+                ped_df$famid <- make_famid(
+                    as.character(ped_df$id),
+                    as.character(ped_df$dadid),
+                    as.character(ped_df$momid)
                 )
             }
             withCallingHandlers({
@@ -329,7 +331,7 @@ ped_server <- function(
         output$col_sel_tips <- renderUI({
             shiny::req(ped_subfam())
             all_cols <- colnames(Pedixplorer::as.data.frame(ped(ped_subfam())))
-            select <- c("affection", "affected", "avail", "status")
+            select <- c("affected", "avail", "status")
             select <- select[select %in% all_cols]
             shiny::selectInput(
                 "tips_col",

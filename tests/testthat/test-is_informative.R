@@ -71,7 +71,6 @@ test_that("is_informative works with Pedigree", {
         ped, col_aff = "test", informative = "AvAf"
     ))
 
-
     ped <- generate_colors(ped,
         col_aff = "sex", mods_aff = "male", add_to_scale = FALSE
     )
@@ -84,11 +83,7 @@ test_that("is_informative works with Pedigree", {
 
     data(minnbreast)
     ped <- Pedigree(minnbreast, cols_ren_ped = list(
-        "indId" = "id",
-        "fatherId" = "fatherid",
-        "motherId" = "motherid",
-        "gender" = "sex",
-        "family" = "famid"
+        "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0")
     ped <- generate_colors(ped, col_aff = "education",
         threshold = 3, sup_thres_aff = TRUE, keep_full_scale = TRUE,

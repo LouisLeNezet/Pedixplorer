@@ -371,16 +371,16 @@ setMethod("generate_colors", "numeric",
 #' @examples
 #' data("sampleped")
 #' ped <- Pedigree(sampleped)
-#' ped <- generate_colors(ped, "affected", add_to_scale=FALSE)
+#' ped <- generate_colors(ped, "affection", add_to_scale=FALSE)
 #' scales(ped)
 #' @rdname generate_colors
 #' @include AllClass.R
 #' @export
 setMethod("generate_colors", "Pedigree",
     function(obj,
-        col_aff = "affected", add_to_scale = TRUE,
+        col_aff = "affection", add_to_scale = TRUE,
         col_avail = "avail", is_num = NULL,
-        mods_aff = NULL, threshold = 0.5, sup_thres_aff = TRUE,
+        mods_aff = TRUE, threshold = 0.5, sup_thres_aff = TRUE,
         keep_full_scale = FALSE, breaks = 3,
         colors_aff = c("yellow2", "red"),
         colors_unaff = c("white", "steelblue4"),
@@ -403,6 +403,10 @@ setMethod("generate_colors", "Pedigree",
                 )
             }
             return(obj)
+        }
+
+        if (is.na(col_aff)) {
+            scales(obj) <- Scales()
         }
 
         new_fill <- paste0(col_aff, "_mods")
