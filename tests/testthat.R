@@ -21,8 +21,7 @@ library(R.devices)
 Sys.setenv(
     CHROMOTE_CHROME = Sys.getenv("CHROME_CHROMOTE"),
     CHROMOTE_HEADLESS = "new",
-    BROWSER = Sys.getenv("CHROME_CHROMOTE"),
-    CHROMOTE_CHROME_ARGS = "--headless --disable-gpu --remote-debugging-port=9222 --no-sandbox --disable-dev-shm-usage"
+    BROWSER = Sys.getenv("CHROME_CHROMOTE")
 )
 
 print(Sys.getenv("CHROMOTE_CHROME"))
