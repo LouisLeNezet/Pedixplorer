@@ -11,3 +11,4 @@ _\.new\.png$
 .covrignore
 _pkgdown.yml
 pkgdown
+Rplots.pdf

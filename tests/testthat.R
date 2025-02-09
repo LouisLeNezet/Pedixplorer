@@ -6,9 +6,26 @@
 # * https://r-pkgs.org/tests.html
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
+## Beware when testing with shinytest2
+## the package version used will be the one avalailable through
+## `library(Pedixplore)` as an independant R session is launched
+## To do so you need to `unload("Pedixplorer")`, `build()`
+## and `install("../Pedixplorer*.tar.gz")` the package before running the tests
+
 library(Pedixplorer)
 library(shinytest2)
 library(R.devices)
+
+## Set up the environment
+
+Sys.setenv(
+    CHROMOTE_CHROME = Sys.getenv("CHROME_CHROMOTE"),
+    CHROMOTE_HEADLESS = "new",
+    BROWSER = Sys.getenv("CHROME_CHROMOTE")
+)
+
+print(Sys.getenv("CHROMOTE_CHROME"))
+print(Sys.getenv("CHROMOTE_CHROME_ARGS"))
 
 ## Clean up any open devices
 all_dev <- dev.list()
@@ -25,12 +42,18 @@ par_lst <- list(
     lwd = 0.5
 )
 R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
-plot.new()
 
 ## Set up the environment
-withr::local_options(width = 150, digits = 8, browser = "firefox")
-withr::local_options(width = 150, digits = 8, browser = "google-chrome")
-options(shiny.testmode = TRUE, shinytest2.load_timeout = 60000)
+## Add BROWSER="google-chrome" to your environment variables
+withr::local_options(
+    width = 150, digits = 8
+)
+options(
+    shiny.testmode = TRUE,
+    shinytest2.load_timeout = 60000,
+    shiny.fullstacktrace = TRUE,
+    chromote.verbose = TRUE
+)
 Sys.setenv("R_TESTS" = "")
 
 ## Run the tests

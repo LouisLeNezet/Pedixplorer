@@ -106,9 +106,9 @@ setMethod("is_informative", "character_OR_integer",
 #' @examples
 #'
 #' data("sampleped")
-#' ped <- Pedigree(sampleped)
-#' ped <- is_informative(ped, col_aff = "affection_mods")
-#' isinf(ped(ped))
+#' ped <- ped(Pedigree(sampleped))
+#' ped <- is_informative(ped, informative = "Av")
+#' isinf(ped)
 #' @export
 setMethod("is_informative", "Ped", function(
     obj, informative = "AvAf", reset = FALSE
@@ -139,14 +139,14 @@ setMethod("is_informative", "Ped", function(
 #'
 #' data("sampleped")
 #' ped <- Pedigree(sampleped)
-#' ped <- is_informative(ped, col_aff = "affection_mods")
+#' ped <- is_informative(ped, col_aff = "affection")
 #' isinf(ped(ped))
 #' @export
 setMethod("is_informative", "Pedigree", function(
     obj, col_aff = NULL,
     informative = "AvAf", reset = FALSE
 ) {
-    if (!reset & any(!is.na(isinf(ped(obj))))) {
+    if (!reset && any(!is.na(isinf(ped(obj))))) {
         warning(
             "The isinf slot already has values in the Ped object",
             " and reset is set to FALSE"
@@ -156,21 +156,24 @@ setMethod("is_informative", "Pedigree", function(
     affected(ped(obj)) <- NA
     aff_scl <- fill(obj)
     ped_df <- as.data.frame(ped(obj))
-    if (is.null(col_aff)) {
-        stop("The col_aff argument is required")
-    }
-    # TODO use the affected columns
-    if (col_aff %in% aff_scl$column_mods) {
-        aff <- aff_scl$mods[aff_scl$affected == TRUE &
-                aff_scl$column_mods == col_aff
-        ]
-        unaff <- aff_scl$mods[aff_scl$affected == FALSE &
-                aff_scl$column_mods == col_aff
-        ]
-        ped_df$affected[ped_df[, col_aff] %in% aff] <- 1
-        ped_df$affected[ped_df[, col_aff] %in% unaff] <- 0
-    } else {
-        stop("The column ", col_aff, " is not in the scales fill")
+    if (length(informative) == 1) {
+        if (is.null(col_aff) && informative %in% c("AvAf", "AvOrAf", "Af")) {
+            stop("The col_aff argument is required")
+        }
+        if (informative %in% c("AvAf", "AvOrAf", "Af")) {
+            if (! col_aff %in% aff_scl$column_values) {
+                stop("The column ", col_aff, " is not in the scales fill")
+            }
+            col_aff_mods <- paste0(col_aff, "_mods")
+            aff <- aff_scl$mods[aff_scl$affected == TRUE
+                & aff_scl$column_values == col_aff
+            ]
+            unaff <- aff_scl$mods[aff_scl$affected == FALSE
+                & aff_scl$column_values == col_aff
+            ]
+            ped_df$affected[ped_df[, col_aff_mods] %in% aff] <- 1
+            ped_df$affected[ped_df[, col_aff_mods] %in% unaff] <- 0
+        }
     }
 
     cols_needed <- c("id", "avail", "affected")

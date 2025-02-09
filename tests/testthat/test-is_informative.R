@@ -55,7 +55,7 @@ test_that("is_informative works with Pedigree", {
     )
 
 
-    ped_upd <- is_informative(ped, col_aff = "affection_mods",
+    ped_upd <- is_informative(ped, col_aff = "affection",
         informative = "AvAf"
     )
 
@@ -77,7 +77,7 @@ test_that("is_informative works with Pedigree", {
     )
     expect_equal(
         sum(isinf(ped(is_informative(
-            ped, col_aff = "sex_mods", informative = "Af"
+            ped, col_aff = "sex", informative = "Af"
         )))),
         length(ped(ped, "id")[ped(ped, "sex") == "male"])
     )
@@ -96,7 +96,7 @@ test_that("is_informative works with Pedigree", {
     )
     expect_equal(
         sum(isinf(ped(is_informative(
-            ped, col_aff = "education_mods", informative = "Af"
+            ped, col_aff = "education", informative = "Af"
         )))),
         sum(minnbreast$education > 3, na.rm = TRUE)
     )

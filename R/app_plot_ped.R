@@ -30,8 +30,9 @@ plot_ped_ui <- function(id) {
 #' @param title A string to name the plot.
 #' @param precision An integer to set the precision of the plot.
 #' @param max_ind An integer to set the maximum number of individuals to plot.
-#' @inheritParams plot_fromdf
-#' @inheritParams ped_to_plotdf
+#' @param tips A character vector of the column names of the data frame to use
+#' as tooltips. If NULL, no tooltips are added.
+#' @param lwd A numeric to set the line width of the plot.
 #' @returns A reactive ggplot or the pedigree object.
 #' @examples
 #' if (interactive()) {
@@ -49,9 +50,8 @@ plot_ped_ui <- function(id) {
 #' @importFrom plotly ggplotly renderPlotly plotlyOutput
 #' @importFrom shinycssloaders withSpinner
 plot_ped_server <- function(
-    id, pedi, title, precision = 2,
-    max_ind = 500, lwd = par("lwd"),
-    tips = NULL
+    id, pedi, title = NA, precision = 2,
+    max_ind = 500, tips = NULL, lwd = par("lwd")
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
@@ -171,16 +171,20 @@ plot_ped_server <- function(
 #' @rdname plot_ped
 #' @export
 #' @importFrom shiny shinyApp fluidPage
-plot_ped_demo <- function(pedi, precision = 2, max_ind = 500, tips = NULL) {
+plot_ped_demo <- function(
+    pedi, precision = 2, max_ind = 500, tips = NULL
+) {
     ui <- shiny::fluidPage(
-        plot_ped_ui("plot_ped"),
+        plot_ped_ui("plotped"),
         plot_download_ui("saveped")
     )
+
     server <- function(input, output, session) {
         ped_plot <- plot_ped_server(
-            "plot_ped", pedi,
-            "My Pedigree", max_ind = max_ind,
-            precision = precision, tips = tips
+            "plotped",
+            pedi = pedi, tips = tips,
+            title = "My Pedigree", max_ind = max_ind,
+            precision = precision
         )
         plot_download_server("saveped", ped_plot)
     }

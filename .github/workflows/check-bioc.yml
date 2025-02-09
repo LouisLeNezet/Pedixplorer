@@ -67,8 +67,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-latest, r: '4.4', bioc: '3.19', cont: "bioconductor/bioconductor_docker:RELEASE_3_19", rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest" }
-          - { os: windows-latest, r: '4.4', bioc: '3.19'}
+          - { os: ubuntu-latest, r: '4.4', bioc: '3.19', cont: "bioconductor/bioconductor_docker:RELEASE_3_20", rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest" }
+          - { os: windows-latest, r: '4.4', bioc: '3.20'}
           ## Check https://github.com/r-lib/actions/tree/master/examples
           ## for examples using the http-user-agent
     env:
@@ -89,8 +89,10 @@ jobs:
 
       ## Set up Chrome for shinytest
       - uses: browser-actions/setup-chrome@v1
-        id: setup-chrome
-
+        with:
+          chrome-version: 120
+          install-dependencies: true
+      
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
       - name: Set R Library home on Linux
@@ -177,6 +179,9 @@ jobs:
           remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE, upgrade = TRUE, force = TRUE)
         shell: Rscript {0}
 
+      - name: Reinstall chromote
+        run: Rscript -e 'install.packages("chromote", repos = "https://cloud.r-project.org")'
+
       - name: Install covr
         if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
         run: |
@@ -193,6 +198,7 @@ jobs:
       - name: Run CMD check
         env:
           CHROME_CHROMOTE: ${{ steps.setup-chrome.outputs.chrome-path }}
+          BROWSER: ${{ steps.setup-chrome.outputs.chrome-path }}
           _R_CHECK_CRAN_INCOMING_: false
           DISPLAY: 99.0
         run: |

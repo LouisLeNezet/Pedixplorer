@@ -35,7 +35,8 @@
   lwd = par("lwd"),
   ped_par = list(),
   leg_par = list(),
-  tips = NULL
+  tips = NULL,
+  title_cex = 2
 )
 }
 \arguments{
@@ -134,6 +135,8 @@ parameters for the legend.}
 
 \item{tips}{A character vector of the column names of the data frame to
 use as tooltips. If \code{NULL}, no tooltips are added.}
+
+\item{title_cex}{The size of the title.}
 }
 \value{
 an invisible list containing

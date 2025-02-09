@@ -37,10 +37,7 @@ test_that("data_download works", {
     )
     app$set_window_size(width = 1611, height = 956)
     # Check download
-    app$expect_download(
-        "datafile-data_dwld",
-        compare = testthat::compare_file_text
-    )
+    app$expect_download("data_download-data_dwld")
 })
 
 test_that("data_import with default data", {
@@ -50,7 +47,8 @@ test_that("data_import with default data", {
     )
     app$set_window_size(width = 1611, height = 956)
     # Uploaded file outside of: ./tests/testthat
-    app$upload_file(`my_data_import-fileinput` = "sampleped.tab")
+    df_path <- paste0(testthat::test_path(), "/testdata/sampleped.tab")
+    app$upload_file(`my_data_import-fileinput` = df_path)
     # Update output value
     app$set_inputs(`my_data_import-sep` = " ")
     # Update output value
@@ -78,7 +76,6 @@ test_that("health_sel works", {
     app$expect_values(export = TRUE)
     # Update output value
     app$set_inputs(`healthsel-health_var_sel` = "gender")
-    app$set_inputs(`healthsel-health_as_num` = TRUE)
     app$wait_for_idle()
     app$set_inputs(`healthsel-health_threshold_val` = 1.22)
     app$set_inputs(`healthsel-health_threshold_sup` = FALSE)
@@ -110,6 +107,8 @@ test_that("inf_sel works", {
     # Update output value
     app$set_window_size(width = 1611, height = 956)
     app$expect_values(export = TRUE)
+    app$wait_for_idle()
+
     app$set_inputs(`infsel-inf_selected` = "Af")
     # Update output value
     app$set_inputs(`infsel-kin_max` = 2)
@@ -117,10 +116,14 @@ test_that("inf_sel works", {
     app$set_inputs(`infsel-keep_parents` = FALSE)
     # Update output value
     app$expect_values(export = TRUE)
+    app$wait_for_idle()
+
     app$set_inputs(`infsel-inf_selected` = "Cust")
     # Update output value
     app$set_inputs(`infsel-inf_custvar_sel` = "affected")
     app$set_inputs(`infsel-inf_custvar_val` = "TRUE")
+    app$set_inputs(`infsel-keep_parents` = TRUE)
+    app$wait_for_idle()
     # Update output value
     app$expect_values(export = TRUE)
 })
@@ -131,6 +134,7 @@ test_that("ped_avaf_infos works", {
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
+    app$wait_for_idle()
     app$expect_values(export = TRUE)
 })
 
@@ -170,25 +174,30 @@ test_that("plot_download works", {
 })
 
 test_that("plot_ped works", {
-    data("sampleped")
     pedi <- shiny::reactive({
-        Pedigree(sampleped[sampleped$famid == "1", ])
+        data_env <- new.env(parent = emptyenv())
+        data("sampleped", envir = data_env)
+        Pedigree(data_env[["sampleped"]])
     })
+
     app <- shinytest2::AppDriver$new(
         plot_ped_demo(
-            pedi = pedi, tips = c("id", "momid", "num")
-        ), name = "plot_ped",
+            pedi = pedi,
+            precision = 2,
+            tips = c("id", "momid", "num")
+        ), name = "plotped",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
     app$wait_for_idle()
-    app$set_inputs(`plot_ped-interactive` = TRUE)
+    app$set_inputs(`plotped-interactive` = TRUE)
     app$wait_for_idle()
     app$click("saveped-download")
     app$wait_for_idle()
     app$set_inputs(`saveped-ext` = "html")
     app$wait_for_idle()
     path <- app$get_download("saveped-plot_dwld")
+    app$wait_for_idle()
     expect_true(file.exists(path))
     expect_equal(tools::file_ext(path), "html")
     app$click("saveped-close")

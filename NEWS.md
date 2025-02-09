@@ -1,4 +1,12 @@
-## Changes in v1.1.5
+## Changes in v1.3.1
+
+- Add support for `.ped`, `.tsv` files in data import
+- `is_informative` independent from `useful_inds`
+- Use directly columns names from `fill` instead of the mods columns
+- Move to R 4.4 and Bioc 3.20
+- Fix unittests and update snapshots
+
+## Changes in v1.2.0
 
 - Change code of ped_to_legdf
 - When plotting with the main plot, the legend gets its own

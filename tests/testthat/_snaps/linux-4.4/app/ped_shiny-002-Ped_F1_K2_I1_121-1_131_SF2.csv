@@ -1,10 +1,10 @@
 "";"id";"dadid";"momid";"sex";"famid";"steril";"status";"avail";"affected";"useful";"kin";"isinf";"num_child_tot";"num_child_dir";"num_child_ind";"family";"indId";"fatherId";"motherId";"gender";"affection";"available";"num";"error";"sterilisation";"vitalStatus";"affection_mods";"avail_mods"
 "2_105";"2_105";NA;NA;"male";"2";NA;NA;FALSE;NA;TRUE;3;FALSE;1;1;0;"1";"105";NA;NA;1;NA;0;6;NA;NA;NA;NA;0
 "2_106";"2_106";NA;NA;"female";"2";NA;NA;FALSE;NA;TRUE;3;FALSE;1;1;0;"1";"106";NA;NA;2;NA;0;1;NA;NA;NA;NA;0
-"2_119";"2_119";"2_105";"2_106";"male";"2";NA;NA;TRUE;TRUE;TRUE;2;FALSE;5;5;0;"1";"119";"105";"106";1;1;1;6;NA;NA;NA;1;1
-"2_120";"2_120";NA;NA;"female";"2";NA;NA;FALSE;FALSE;TRUE;2;FALSE;5;5;0;"1";"120";"107";"108";2;0;0;2;NA;NA;NA;0;0
-"2_130";"2_130";"2_119";"2_120";"male";"2";NA;NA;TRUE;FALSE;TRUE;2;FALSE;0;0;0;"1";"130";"119";"120";1;0;1;3;NA;NA;NA;0;1
-"2_131";"2_131";"2_119";"2_120";"male";"2";NA;NA;FALSE;TRUE;TRUE;1;TRUE;0;0;0;"1";"131";"119";"120";1;1;0;1;NA;NA;NA;1;0
-"2_132";"2_132";"2_119";"2_120";"male";"2";NA;NA;FALSE;FALSE;TRUE;2;FALSE;0;0;0;"1";"132";"119";"120";1;0;0;0;NA;NA;NA;0;0
-"2_133";"2_133";"2_119";"2_120";"female";"2";NA;NA;TRUE;FALSE;TRUE;2;FALSE;0;0;0;"1";"133";"119";"120";2;0;1;2;NA;NA;NA;0;1
-"2_134";"2_134";"2_119";"2_120";"female";"2";NA;NA;FALSE;TRUE;TRUE;2;FALSE;0;0;0;"1";"134";"119";"120";2;1;0;4;NA;NA;NA;1;0
+"2_119";"2_119";"2_105";"2_106";"male";"2";NA;NA;TRUE;NA;TRUE;2;FALSE;5;5;0;"1";"119";"105";"106";1;1;1;6;NA;NA;NA;1;1
+"2_120";"2_120";NA;NA;"female";"2";NA;NA;FALSE;NA;TRUE;2;FALSE;5;5;0;"1";"120";"107";"108";2;0;0;2;NA;NA;NA;0;0
+"2_130";"2_130";"2_119";"2_120";"male";"2";NA;NA;TRUE;NA;TRUE;2;FALSE;0;0;0;"1";"130";"119";"120";1;0;1;3;NA;NA;NA;0;1
+"2_131";"2_131";"2_119";"2_120";"male";"2";NA;NA;FALSE;NA;TRUE;1;TRUE;0;0;0;"1";"131";"119";"120";1;1;0;1;NA;NA;NA;1;0
+"2_132";"2_132";"2_119";"2_120";"male";"2";NA;NA;FALSE;NA;TRUE;2;FALSE;0;0;0;"1";"132";"119";"120";1;0;0;0;NA;NA;NA;0;0
+"2_133";"2_133";"2_119";"2_120";"female";"2";NA;NA;TRUE;NA;TRUE;2;FALSE;0;0;0;"1";"133";"119";"120";2;0;1;2;NA;NA;NA;0;1
+"2_134";"2_134";"2_119";"2_120";"female";"2";NA;NA;FALSE;NA;TRUE;2;FALSE;0;0;0;"1";"134";"119";"120";2;1;0;4;NA;NA;NA;1;0

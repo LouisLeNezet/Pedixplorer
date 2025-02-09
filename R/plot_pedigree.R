@@ -157,7 +157,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
         lwd = par("lwd"), ped_par = list(), leg_par = list(),
-        tips = NULL
+        tips = NULL, title_cex = 2
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -190,7 +190,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
 
         p <- plot_fromdf(
             df = lst$df, usr = lst$par_usr$usr,
-            title = title, ggplot_gen = ggplot_gen,
+            title = title, title_cex = title_cex, ggplot_gen = ggplot_gen,
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
         )
         par(op)

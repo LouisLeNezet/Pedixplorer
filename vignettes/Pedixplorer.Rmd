@@ -4,18 +4,18 @@ author: "Louis Le Nézet"
 date: "31/08/2023"
 url: "https://github.com/LouisLeNezet/Pedixplorer"
 output:
-  BiocStyle::html_document:
-    toc: true
-    toc_depth: 2
-    fig_crop: no
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 2
+        fig_crop: no
 header-includes: \usepackage{tabularx}
 vignette: |
-  %\VignetteIndexEntry{Pedixplorer tutorial}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{Pedixplorer tutorial}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
-  markdown: 
-    wrap: 72
+    markdown: 
+        wrap: 72
 ---
 
 ```{r width_control, echo = FALSE}
@@ -560,8 +560,8 @@ object but with the `useful` column updated in the `Ped` object :
 ```{r, useful_inds}
 data(sampleped)
 ped1 <- Pedigree(sampleped)
-
-ped1 <- useful_inds(ped1, informative = c("1_110", "1_120"), max_dist = 1)
+ped1 <- is_informative(ped1, informative = c("1_110", "1_120"))
+ped1 <- useful_inds(ped1, max_dist = 1)
 print(useful(ped(ped1)))
 ped_filtered <- ped1[useful(ped(ped1))]
 plot(ped_filtered)
