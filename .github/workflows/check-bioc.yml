@@ -92,12 +92,13 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         id: setup-chrome
 
-      - name: Set google-chrome-stable path (Linux)
+      - name: Set Chrome path (Linux)
         if: runner.os == 'Linux'
+        shell: sh
         run: |
-          CHROME_PATH=$(which google-chrome-stable || which google-chrome || which chromium || echo "")
-          
-          if [ -z "$CHROME_PATH" ]; then
+          CHROME_PATH="${{ steps.setup-chrome.outputs.chrome-path }}"
+
+          if [ -z "$CHROME_PATH" ] || [ ! -x "$CHROME_PATH" ]; then
             echo "Error: Google Chrome not found!" >&2
             exit 1
           fi
@@ -111,14 +112,13 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          $chromePath = (Get-Command "chrome.exe" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source)
-          
+          $chromePath = "${{ steps.setup-chrome.outputs.chrome-path }}"
+
           if (-not $chromePath) {
             Write-Host "Error: Google Chrome not found!"
             exit 1
           }
 
-          # Append variables to GITHUB_ENV
           echo "CHROME_CHROMOTE=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           echo "CHROMOTE_HEADLESS=new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           echo "BROWSER=$chromePath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
