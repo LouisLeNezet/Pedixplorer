@@ -87,10 +87,24 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev
 
+      - name: Check Running Chrome Processes (Linux)
+        if: runner.os == 'Linux'
+        run: ps aux | grep chrome || echo "No Chrome processes found"
+      
+      - name: Kill Existing Chrome Processes (Linux)
+        if: runner.os == 'Linux'
+        run: pkill chrome || echo "No running Chrome processes to kill"
+
       ## Set up Chrome for shinytest
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
         id: setup-chrome
+
+      - name: Debug Chrome Version and Path
+        run: |
+          echo "Chrome Path: ${{ steps.setup-chrome.outputs.chrome-path }}"
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+
 
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
@@ -198,7 +212,7 @@ jobs:
         env:
           CHROME_CHROMOTE: ${{ steps.setup-chrome.outputs.chrome-path }}
           CHROMOTE_HEADLESS : "new"
-          CHROMOTE_CHROME_ARGS: "--headless --disable-gpu --remote-debugging-port=9222"
+          CHROMOTE_CHROME_ARGS: "--headless --disable-gpu --remote-debugging-port=9222 --no-sandbox --disable-dev-shm-usage"
           BROWSER: ${{ steps.setup-chrome.outputs.chrome-path }}
           _R_CHECK_CRAN_INCOMING_: false
           DISPLAY: 99.0

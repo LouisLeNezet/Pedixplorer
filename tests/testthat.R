@@ -19,11 +19,14 @@ library(R.devices)
 ## Set up the environment
 
 Sys.setenv(
-    CHROMOTE_CHROME=Sys.getenv("CHROME_CHROMOTE"),
-    CHROMOTE_HEADLESS="new",
-    BROWSER=Sys.getenv("CHROME_CHROMOTE"),
-    CHROMOTE_CHROME_ARGS = "--headless --disable-gpu --remote-debugging-port=9222"
+    CHROMOTE_CHROME = Sys.getenv("CHROME_CHROMOTE"),
+    CHROMOTE_HEADLESS = "new",
+    BROWSER = Sys.getenv("CHROME_CHROMOTE"),
+    CHROMOTE_CHROME_ARGS = "--headless --disable-gpu --remote-debugging-port=9222 --no-sandbox --disable-dev-shm-usage"
 )
+
+print(Sys.getenv("CHROMOTE_CHROME"))
+print(Sys.getenv("CHROMOTE_CHROME_ARGS"))
 
 ## Clean up any open devices
 all_dev <- dev.list()
