@@ -30,13 +30,23 @@ the \emph{ids} field separated by an underscore using the
 The following columns are also recognize and will be transformed with the
 \code{\link[=vect_to_binary]{vect_to_binary()}} function:
 \itemize{
-\item \code{steril} status -> is the individual steril
 \item \code{avail} status -> is the individual available
 \item \code{deceased} status -> is the individual dead
 }
 
 The values recognized for those columns are \code{1} or \code{0},
-\code{TRUE} or \code{FALSE}.}
+\code{TRUE} or \code{FALSE}.
+
+The \code{fertility} column will be transformed to an ordered factor using the
+\code{\link[=fertility_to_factor]{fertility_to_factor()}} function.
+\code{infertile_choice_na} < \code{infertile} < \code{fertile}
+The following values are recognized:
+\itemize{
+\item character() or factor() : "fertile", "infertile", "steril",
+"infertile_choice", "infertile_na", "infertile_choice_na"
+\item numeric() : 1 = "fertile", 0 = "infertile"
+\item logical() : \code{TRUE} = "fertile", \code{FALSE} = "infertile"
+}}
 
 \item{na_strings}{Vector of strings to be considered as NA values.}
 
@@ -62,7 +72,6 @@ Normalise a dataframe and check for columns correspondance
 to be able to use it as an input to create a Ped object.
 Multiple test are done and errors are checked.
 
-The \code{steril} column need to be a boolean either TRUE, FALSE or 'NA'.
 Will be considered available any individual with no 'NA' values in the
 \code{available} column.
 Duplicated \code{id} will nullify the relationship of the individual.
@@ -84,8 +93,8 @@ A number of checks are done to ensure the dataframe is correct:
 \subsection{On sex:}{
 \itemize{
 \item All sex code are either \code{male}, \code{female},
-\code{terminated} or \code{unknown}.
-\item No parents are steril
+or \code{unknown}.
+\item No parents are infertile.
 \item All fathers are male
 \item All mothers are female
 }
@@ -96,11 +105,12 @@ df <- data.frame(
     id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
     dadid = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
     momid = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
-    sex = c(1, 2, "m", "man", "f", "male", "m", "m", "f", "f"),
+    sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f"),
     avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
-    steril = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, "TRUE"),
-    deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
+    fertility = c(
+      "TRUE", "FALSE", TRUE, FALSE, 1, 0, "fertile", "infertile", 1, "TRUE"
+    ), deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
 )
 tryCatch(
     norm_ped(df),

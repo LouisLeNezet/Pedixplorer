@@ -102,7 +102,6 @@ test_that("Tooltip works", {
 
 test_that("Supplementary graphical representations", {
     data("sampleped")
-
     pedi <- Pedigree(sampleped)
 
     ## Fertility

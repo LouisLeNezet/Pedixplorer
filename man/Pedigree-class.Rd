@@ -58,7 +58,7 @@ Pedigree(obj, ...)
   avail = NULL,
   affections = NULL,
   deceased = NULL,
-  steril = NULL,
+  fertility = NULL,
   rel_df = NULL,
   missid = NA_character_,
   col_aff = "affection",
@@ -68,13 +68,13 @@ Pedigree(obj, ...)
 
 \S4method{Pedigree}{data.frame}(
   obj = data.frame(id = character(), dadid = character(), momid = character(), sex =
-    numeric(), famid = character(), avail = numeric(), deceased = numeric(), steril =
+    numeric(), famid = character(), avail = numeric(), deceased = numeric(), fertility =
     numeric()),
   rel_df = data.frame(id1 = character(), id2 = character(), code = numeric(), famid =
     character()),
   cols_ren_ped = list(id = "indId", dadid = "fatherId", momid = "motherId", famid =
-    "family", sex = "gender", steril = "sterilisation", affection = "affected", avail =
-    "available", deceased = c("status", "vitalStatus")),
+    "family", sex = "gender", fertility = c("sterilisation", "steril"), affection =
+    "affected", avail = "available", deceased = c("status", "vitalStatus")),
   cols_ren_rel = list(id1 = "indId1", id2 = "indId2", famid = "family"),
   hints = list(horder = NULL, spouse = NULL),
   normalize = TRUE,
@@ -104,13 +104,12 @@ biologicals mothers.}
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-\code{male} < \code{female} <
-\code{unknown} < \code{terminated}
+\code{male} < \code{female} < \code{unknown}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
+"unknown"
+\item numeric() : 1 = "male", 2 = "female", 3 = "unknown"
 }}
 
 \item{famid}{A character vector with the family identifiers of the
@@ -136,11 +135,17 @@ individuals
 \code{TRUE} = dead,
 \code{NA} = unknown).}
 
-\item{steril}{A logical vector with the sterilisation status of the
-individuals
-(i.e. \code{FALSE} = not sterilised,
-\code{TRUE} = sterilised,
-\code{NA} = unknown).}
+\item{fertility}{A character, factor or numeric vector corresponding to
+the fertility status of the individuals. This will be transformed to an
+ordered factor with the following levels:
+\code{infertile_choice_na} < \code{infertile} < \code{fertile}
+The following values are recognized:
+\itemize{
+\item character() or factor() : "fertile", "infertile", "steril",
+"infertile_choice", "infertile_na", "infertile_choice_na"
+\item numeric() : 1 = "fertile", 0 = "infertile"
+\item logical() : \code{TRUE} = "fertile", \code{FALSE} = "infertile"
+}}
 
 \item{rel_df}{A data.frame with the special relationships between
 individuals. See \code{\link[=Rel]{Rel()}} for more informations.
@@ -217,7 +222,7 @@ If a data.frame is given, the columns names needed are as follow:
 \item \code{momid}: the identifier of the biological mother
 \item \code{sex}: the sex of the individual
 \item \code{famid}: the family identifier of the individual
-\item \code{steril}: the sterilisation status of the individual
+\item \code{fertility}: the fertility status of the individual
 \item \code{available}: the availability status of the individual (\code{avail})
 \item \code{deceased}: the death status of the individual
 \item \code{affection}: the affection status of the individual
@@ -236,10 +241,12 @@ The minimum columns required are :
 The \code{famid} column can also be used to specify the
 family of the individuals and will be merge to the
 \code{id} field separated by an underscore.
-The columns \code{steril}, \code{avail},
+The columns \code{avail},
 \code{deceased}, \code{affected}
 will be transformed with the \code{\link[=vect_to_binary]{vect_to_binary()}}
 function when the normalisation is selected.
+The \code{fertility} column will be transformed with the
+\code{\link[=fertility_to_factor]{fertility_to_factor()}} function.
 If you do not use the normalisation, the columns will be checked to
 be \code{0} or \code{1}.
 
