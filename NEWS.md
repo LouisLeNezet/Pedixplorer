@@ -10,6 +10,9 @@ no more need for `indId`, `fatherId`, ...
 - `affection` is now used as default affection modality columns that will be
 used to generate `affected`
 - `status` is replaced by `deceased`
+- `steril` is replaced by `fertility` and corresponding symbols is added for
+`infertile` and `infertile_choice_na`
+- `terminated` is deleted
 
 ## Changes in v1.2.0
 
