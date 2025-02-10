@@ -87,7 +87,7 @@ Nézet</h4>
             
             <h4 data-toc-skip class="date">31/08/2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/Pedixplorer.Rmd" class="external-link"><code>vignettes/Pedixplorer.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/vignettes/Pedixplorer.Rmd" class="external-link"><code>vignettes/Pedixplorer.Rmd</code></a></small>
       <div class="d-none name"><code>Pedixplorer.Rmd</code></div>
     </div>
 
@@ -206,13 +206,13 @@ underscore to create a unique id for each individual in the
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Pedigree object with: </span></span>
 <span><span class="co">## Ped object with 5 individuals and 5 metadata columns:</span></span>
-<span><span class="co">##                    id       dadid       momid       sex       famid    steril  deceased     avail</span></span>
-<span><span class="co">## col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt;</span></span>
-<span><span class="co">## 1_103           1_103       1_135       1_136      male           1      &lt;NA&gt;      &lt;NA&gt;     FALSE</span></span>
-<span><span class="co">## 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;    female           1      &lt;NA&gt;      &lt;NA&gt;     FALSE</span></span>
-<span><span class="co">## 1_110           1_110       1_103       1_104      male           1      &lt;NA&gt;      &lt;NA&gt;      TRUE</span></span>
-<span><span class="co">## 1_135           1_135        &lt;NA&gt;        &lt;NA&gt;      male           1      &lt;NA&gt;      &lt;NA&gt;     FALSE</span></span>
-<span><span class="co">## 1_136           1_136        &lt;NA&gt;        &lt;NA&gt;    female           1      &lt;NA&gt;      &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">##                    id       dadid       momid       sex       famid fertility  deceased     avail</span></span>
+<span><span class="co">## col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;ordered&gt; &lt;logical&gt; &lt;logical&gt;</span></span>
+<span><span class="co">## 1_103           1_103       1_135       1_136      male           1   fertile      &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile      &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_110           1_110       1_103       1_104      male           1   fertile      &lt;NA&gt;      TRUE</span></span>
+<span><span class="co">## 1_135           1_135        &lt;NA&gt;        &lt;NA&gt;      male           1   fertile      &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_136           1_136        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile      &lt;NA&gt;     FALSE</span></span>
 <span><span class="co">##            affected    useful       kin     isinf num_child_tot num_child_dir num_child_ind |</span></span>
 <span><span class="co">## col_class &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;  </span></span>
 <span><span class="co">## 1_103          TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1             0  </span></span>

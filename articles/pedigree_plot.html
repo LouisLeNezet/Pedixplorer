@@ -85,9 +85,9 @@
                         <h4 data-toc-skip class="author">TM Therneau, JP
 Sinnwell, Louis Le Nézet</h4>
             
-            <h4 data-toc-skip class="date">09 February, 2025</h4>
+            <h4 data-toc-skip class="date">10 February, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_plot.Rmd" class="external-link"><code>vignettes/pedigree_plot.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/vignettes/pedigree_plot.Rmd" class="external-link"><code>vignettes/pedigree_plot.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_plot.Rmd</code></div>
     </div>
 
@@ -292,9 +292,11 @@ straight line connection.</p>
 <div class="section level4">
 <h4 id="symbols">Symbols<a class="anchor" aria-label="anchor" href="#symbols"></a>
 </h4>
-<p>There are four sumbols corresponding to the four sex codes: square =
-male, circle = female, diamond= unknown, and triangle =
-terminated.<br>
+<p>There are three main symbols corresponding to the three sex codes:
+square = male, circle = female, diamond= unknown. A triangle is use to
+represent miscarriage. This triangle is crossed in the case of
+Termination of Pregnancy (TOB) contrary to Spontaneous Abortion
+(SAB).<br>
 They are shaded according to the value(s) of affected status for each
 subject, and filling uses the standard arguments of the
 <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon()</a></code> function. The complexity is when multiple

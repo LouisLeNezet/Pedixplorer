@@ -85,9 +85,9 @@
                         <h4 data-toc-skip class="author">Terry Therneau,
 Elizabeth Atkinson, Louis Le Nézet</h4>
             
-            <h4 data-toc-skip class="date">09 February, 2025</h4>
+            <h4 data-toc-skip class="date">10 February, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_object.Rmd</code></div>
     </div>
 
@@ -134,9 +134,9 @@ identifiers.</li>
 <li>
 <code>sex</code> The gender of the individual. This can be a numeric
 variable with codes of <code>1</code>=male, <code>2</code>=female,
-<code>3</code>=unknown, <code>4</code>=terminated, or NA=unknown. A
-character or factor variable can also be supplied containing the above;
-the string may be truncated and of arbitrary case.</li>
+<code>3</code>=unknown, or NA=unknown. A character or factor variable
+can also be supplied containing the above; the string may be truncated
+and of arbitrary case.</li>
 <li>
 <code>avail</code> Optional, a numeric variable with
 <code>0</code>=unavailable and <code>1</code>=available.</li>
@@ -150,8 +150,18 @@ the string may be truncated and of arbitrary case.</li>
 <code>famid</code> Optional, a numeric or character vector of family
 identifiers.</li>
 <li>
-<code>steril</code> Optional, a numeric variable with
-<code>0</code>=not steril and <code>1</code>=steril.</li>
+<code>fertility</code> Optional, will be transformed to an ordered
+factor using the [fertility_to_factor()] function.
+<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt;
+<code>fertile</code> The following values are recognized:
+<ul>
+<li>character() or factor() : “fertile”, “infertile”, “steril”,
+“infertile_choice”, “infertile_na”, “infertile_choice_na”</li>
+<li>numeric() : 1 = “fertile”, 0 = “infertile”</li>
+<li>logical() : <code>TRUE</code> = “fertile”, <code>FALSE</code> =
+“infertile”</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
@@ -263,11 +273,10 @@ ensure the uniqueness of the individuals identifiers.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##          sex          id              avail        </span></span>
-<span><span class="co">##  male      :28   Length:55          Mode :logical  </span></span>
-<span><span class="co">##  female    :27   Class :character   FALSE:31       </span></span>
-<span><span class="co">##  unknown   : 0   Mode  :character   TRUE :24       </span></span>
-<span><span class="co">##  terminated: 0</span></span></code></pre>
+<pre><code><span><span class="co">##       sex          id              avail        </span></span>
+<span><span class="co">##  male   :28   Length:55          Mode :logical  </span></span>
+<span><span class="co">##  female :27   Class :character   FALSE:31       </span></span>
+<span><span class="co">##  unknown: 0   Mode  :character   TRUE :24</span></span></code></pre>
 <div class="section level4">
 <h4 id="errors-present-after-the-normalisation-process">Errors present after the normalisation process<a class="anchor" aria-label="anchor" href="#errors-present-after-the-normalisation-process"></a>
 </h4>
@@ -284,7 +293,7 @@ describing the encountered problems.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     id1   id2    code famid              error</span></span>
 <span><span class="co">## 1 1_110 1_112 MZ twin     1               &lt;NA&gt;</span></span>
-<span><span class="co">## 2 2_204 2_205    &lt;NA&gt;     2 code_not_recognise</span></span></code></pre>
+<span><span class="co">## 2 2_204 2_205    &lt;NA&gt;     2 code-not-recognise</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -302,11 +311,14 @@ are given to a new <code>Pedigree</code> object, trigerring the
 <code>id</code>
 </li>
 <li>
-<code>sex</code> column only contain “male”, “female”, “unknown” or
-“terminated” values</li>
+<code>sex</code> column only contain “male”, “female”, “unknown”
+values</li>
 <li>
-<code>steril</code>, <code>deceased</code>, <code>avail</code>,
-<code>affected</code> only contains 0, 1 or NA values</li>
+<code>fertility</code> column only contain “fertile”, “infertile”,
+“infertile_choice_na”</li>
+<li>
+<code>deceased</code>, <code>avail</code>, <code>affected</code>
+only contains 0, 1 or NA values</li>
 <li>Father are males and Mother are females</li>
 <li>Twins have same parents and MZ twins have same sex</li>
 <li>Hints object is valid and ids contained is in the Ped object</li>

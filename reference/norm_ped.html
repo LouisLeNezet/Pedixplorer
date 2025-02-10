@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Normalise a Ped object dataframe</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
       <div class="d-none name"><code>norm_ped.Rd</code></div>
     </div>
 
@@ -173,28 +173,17 @@ be transfered to the error dataframe.</p>
 <span class="r-in"><span>    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id dadid momid        sex avail famid steril deceased</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A   1_0       male    NA     1  FALSE     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2   1_0   1_0     female  TRUE     1  FALSE    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1_3   1_1   1_2       male FALSE     1  FALSE     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1_4   1_3   1_2       male    NA     1  FALSE    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5   1_0   1_0     female  TRUE     1  FALSE     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1_6   1_4   1_5       male FALSE     1  FALSE    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1_7   1_1   1_2 terminated  TRUE     1   TRUE     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8   2_0   2_0     female FALSE     2  FALSE    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2_9   2_6   2_8 terminated  TRUE     2   TRUE     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2_10   2_6   2_8 terminated FALSE     2   TRUE    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  is_steril_but_is_parent</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  is_steril_but_is_parent</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  is_steril_but_is_parent</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id dadid momid    sex avail famid steril deceased error fertility</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A   1_0   male    NA     1   TRUE     TRUE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2   1_0   1_0 female  TRUE     1  FALSE    FALSE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1_3   1_1   1_2   male FALSE     1   TRUE     TRUE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1_4   1_3   1_2   male    NA     1  FALSE    FALSE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5   1_0   1_0 female  TRUE     1      1     TRUE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1_6   1_4   1_5   male FALSE     1      0    FALSE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1_7   1_1   1_2   male  TRUE     1      1     TRUE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8   2_0   2_0 female FALSE     2      0    FALSE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2_9   2_6   2_8 female  TRUE     2      1     TRUE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2_10   2_6   2_8 female FALSE     2   TRUE    FALSE  &lt;NA&gt;   fertile</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -82,7 +82,7 @@ Rel object.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Pedigree object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>Pedigree-class.Rd</code></div>
     </div>
 
@@ -441,14 +441,14 @@ based on the individuals identifiers given.</p></li>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pedigree object with: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 6 individuals and 6 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid    steril</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;logical&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   1           4           5      male        &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                   2           4           5    female        &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   3           6           5   unknown        &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   4        &lt;NA&gt;        &lt;NA&gt;      male        &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   5        &lt;NA&gt;        &lt;NA&gt;    female        &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                   6        &lt;NA&gt;        &lt;NA&gt;      male        &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid fertility</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;ordered&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   1           4           5      male        &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                   2           4           5    female        &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   3           6           5   unknown        &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   4        &lt;NA&gt;        &lt;NA&gt;      male        &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   5        &lt;NA&gt;        &lt;NA&gt;    female        &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                   6        &lt;NA&gt;        &lt;NA&gt;      male        &lt;NA&gt;   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            deceased     avail  affected    useful       kin     isinf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1              &lt;NA&gt;     FALSE      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
@@ -482,19 +482,19 @@ based on the individuals identifiers given.</p></li>
 <span class="r-in"><span><span class="fu">Pedigree</span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pedigree object with: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 55 individuals and 5 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid    steril</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;logical&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           1_101        &lt;NA&gt;        &lt;NA&gt;      male           1      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102           1_102        &lt;NA&gt;        &lt;NA&gt;    female           1      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           1_103       1_135       1_136      male           1      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;    female           1      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105           1_105        &lt;NA&gt;        &lt;NA&gt;      male           1      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid fertility</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;ordered&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           1_101        &lt;NA&gt;        &lt;NA&gt;      male           1   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102           1_102        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           1_103       1_135       1_136      male           1   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105           1_105        &lt;NA&gt;        &lt;NA&gt;      male           1   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...         ...       ...         ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210           2_210       2_203       2_204      male           2      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211           2_211       2_203       2_204      male           2      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           2_212       2_209       2_208    female           2      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213           2_213       2_209       2_208      male           2      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           2_214       2_209       2_208      male           2      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210           2_210       2_203       2_204      male           2   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211           2_211       2_203       2_204      male           2   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           2_212       2_209       2_208    female           2   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213           2_213       2_209       2_208      male           2   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           2_214       2_209       2_208      male           2   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            deceased     avail  affected    useful       kin     isinf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_101          &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
