@@ -84,11 +84,18 @@ The minimum columns required are:</p><ul><li><p><code>id</code> individual ident
 the <em>ids</em> field separated by an underscore using the
 <code><a href="upd_famid.html">upd_famid()</a></code> function.</p>
 <p>The following columns are also recognize and will be transformed with the
-<code><a href="vect_to_binary.html">vect_to_binary()</a></code> function:</p><ul><li><p><code>steril</code> status -&gt; is the individual steril</p></li>
-<li><p><code>avail</code> status -&gt; is the individual available</p></li>
+<code><a href="vect_to_binary.html">vect_to_binary()</a></code> function:</p><ul><li><p><code>avail</code> status -&gt; is the individual available</p></li>
 <li><p><code>deceased</code> status -&gt; is the individual dead</p></li>
 </ul><p>The values recognized for those columns are <code>1</code> or <code>0</code>,
-<code>TRUE</code> or <code>FALSE</code>.</p></dd>
+<code>TRUE</code> or <code>FALSE</code>.</p>
+<p>The <code>fertility</code> column will be transformed to an ordered factor using the
+<code><a href="fertility_to_factor.html">fertility_to_factor()</a></code> function.
+<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code>
+The following values are recognized:</p><ul><li><p>character() or factor() : "fertile", "infertile", "steril",
+"infertile_choice", "infertile_na", "infertile_choice_na"</p></li>
+<li><p>numeric() : 1 = "fertile", 0 = "infertile"</p></li>
+<li><p>logical() : <code>TRUE</code> = "fertile", <code>FALSE</code> = "infertile"</p></li>
+</ul></dd>
 
 
 <dt id="arg-na-strings">na_strings<a class="anchor" aria-label="anchor" href="#arg-na-strings"></a></dt>
@@ -121,8 +128,7 @@ and with the errors identified in the <code>error</code> column</p>
     <p>Normalise a dataframe and check for columns correspondance
 to be able to use it as an input to create a Ped object.
 Multiple test are done and errors are checked.</p>
-<p>The <code>steril</code> column need to be a boolean either TRUE, FALSE or 'NA'.
-Will be considered available any individual with no 'NA' values in the
+<p>Will be considered available any individual with no 'NA' values in the
 <code>available</code> column.
 Duplicated <code>id</code> will nullify the relationship of the individual.
 All individuals with errors will be remove from the dataframe and will
@@ -142,8 +148,8 @@ be transfered to the error dataframe.</p>
 <h3 id="on-sex-">On sex:<a class="anchor" aria-label="anchor" href="#on-sex-"></a></h3>
 
 <ul><li><p>All sex code are either <code>male</code>, <code>female</code>,
-<code>terminated</code> or <code>unknown</code>.</p></li>
-<li><p>No parents are steril</p></li>
+or <code>unknown</code>.</p></li>
+<li><p>No parents are infertile.</p></li>
 <li><p>All fathers are male</p></li>
 <li><p>All mothers are female</p></li>
 </ul></div>
@@ -162,28 +168,40 @@ be transfered to the error dataframe.</p>
 <span class="r-in"><span>    id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    dadid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    momid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">8</span>, <span class="fl">8</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"f"</span>, <span class="st">"male"</span>, <span class="st">"m"</span>, <span class="st">"m"</span>, <span class="st">"f"</span>, <span class="st">"f"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"f"</span>, <span class="st">"male"</span>, <span class="st">"m"</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="st">"f"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"1"</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    famid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    steril <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="st">"TRUE"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    fertility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="st">"fertile"</span>, <span class="st">"infertile"</span>, <span class="fl">1</span>, <span class="st">"TRUE"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>, deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">norm_ped</span><span class="op">(</span><span class="va">df</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id dadid momid    sex avail famid steril deceased error fertility</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A   1_0   male    NA     1   TRUE     TRUE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2   1_0   1_0 female  TRUE     1  FALSE    FALSE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1_3   1_1   1_2   male FALSE     1   TRUE     TRUE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1_4   1_3   1_2   male    NA     1  FALSE    FALSE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5   1_0   1_0 female  TRUE     1      1     TRUE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1_6   1_4   1_5   male FALSE     1      0    FALSE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1_7   1_1   1_2   male  TRUE     1      1     TRUE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8   2_0   2_0 female FALSE     2      0    FALSE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2_9   2_6   2_8 female  TRUE     2      1     TRUE  &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2_10   2_6   2_8 female FALSE     2   TRUE    FALSE  &lt;NA&gt;   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id dadid momid     sex avail famid fertility deceased</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A   1_0    male    NA     1   fertile     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2   1_0   1_0  female  TRUE     1 infertile    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1_3   1_1   1_2    male FALSE     1   fertile     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1_4   1_3   1_2    male    NA     1 infertile    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5   1_0   1_0  female  TRUE     1   fertile     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1_6   1_4   1_5    male FALSE     1 infertile    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1_7   1_1   1_2    male  TRUE     1   fertile     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8   2_0   2_0  female FALSE     2 infertile    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2_9   2_6   2_8 unknown  TRUE     2   fertile     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2_10   2_6   2_8  female FALSE     2   fertile    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         error</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  is-infertile-but-is-parent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  is-infertile-but-is-parent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  is-infertile-but-is-parent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                       &lt;NA&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -103,7 +103,7 @@ to the Ped slots.</p>
 <span>  <span class="va">dadid</span>,</span>
 <span>  <span class="va">momid</span>,</span>
 <span>  famid <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  steril <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  fertility <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  deceased <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  avail <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  affected <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -137,11 +137,10 @@ should be deleted.</p></dd>
 <dd><p>A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-<code>male</code> &lt; <code>female</code> &lt;
-<code>unknown</code> &lt; <code>terminated</code>
+<code>male</code> &lt; <code>female</code> &lt; <code>unknown</code>
 The following values are recognized:</p><ul><li><p>character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"</p></li>
-<li><p>numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"</p></li>
+"unknown"</p></li>
+<li><p>numeric() : 1 = "male", 2 = "female", 3 = "unknown"</p></li>
 </ul></dd>
 
 
@@ -161,12 +160,16 @@ individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.</p></dd>
 
 
-<dt id="arg-steril">steril<a class="anchor" aria-label="anchor" href="#arg-steril"></a></dt>
-<dd><p>A logical vector with the sterilisation status of the
-individuals
-(i.e. <code>FALSE</code> = not sterilised,
-<code>TRUE</code> = sterilised,
-<code>NA</code> = unknown).</p></dd>
+<dt id="arg-fertility">fertility<a class="anchor" aria-label="anchor" href="#arg-fertility"></a></dt>
+<dd><p>A character, factor or numeric vector corresponding to
+the fertility status of the individuals. This will be transformed to an
+ordered factor with the following levels:
+<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code>
+The following values are recognized:</p><ul><li><p>character() or factor() : "fertile", "infertile", "steril",
+"infertile_choice", "infertile_na", "infertile_choice_na"</p></li>
+<li><p>numeric() : 1 = "fertile", 0 = "infertile"</p></li>
+<li><p>logical() : <code>TRUE</code> = "fertile", <code>FALSE</code> = "infertile"</p></li>
+</ul></dd>
 
 
 <dt id="arg-deceased">deceased<a class="anchor" aria-label="anchor" href="#arg-deceased"></a></dt>
@@ -248,7 +251,7 @@ the individuals.</p></dd>
 
 <dt><code>sex</code></dt>
 <dd><p>An ordered factor vector for the sex of the individuals
-(i.e. <code>male</code> &lt; <code>female</code> &lt; <code>unknown</code> &lt; <code>terminated</code>).</p></dd>
+(i.e. <code>male</code> &lt; <code>female</code> &lt; <code>unknown</code>).</p></dd>
 
 
 <dt><code>famid</code></dt>
@@ -256,12 +259,12 @@ the individuals.</p></dd>
 individuals (optional).</p></dd>
 
 
-<dt><code>steril</code></dt>
-<dd><p>A logical vector with the sterilisation status of the
+<dt><code>fertility</code></dt>
+<dd><p>A factor vector with the fertility status of the
 individuals
-(i.e. <code>FALSE</code> = not sterilised,
-<code>TRUE</code> = sterilised,
-<code>NA</code> = unknown).</p></dd>
+(i.e. <code>infertile_choice_na</code> = no children by choice or unknown reason,
+<code>infertile</code> = individual is inferile,
+<code>fertile</code> = individual is fertile).</p></dd>
 
 
 <dt><code>deceased</code></dt>
@@ -349,6 +352,7 @@ or a data.frame with each elements with the same length as <code>x</code>.</p>
 </ul><ul><li><p><code>momid(x)</code> : Individuals' mother identifiers</p></li>
 </ul><ul><li><p><code>famid(x)</code> : Individuals' family identifiers</p></li>
 </ul><ul><li><p><code>sex(x)</code> : Individuals' gender</p></li>
+</ul><ul><li><p><code>fertility(x)</code> : Individuals' fertility status</p></li>
 </ul><ul><li><p><code>affected(x)</code> : Individuals' affection status</p></li>
 </ul><ul><li><p><code>avail(x)</code> : Individuals' availability status</p></li>
 </ul><ul><li><p><code>deceased(x)</code> : Individuals' death status</p></li>

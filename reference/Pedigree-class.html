@@ -120,7 +120,7 @@ Rel object.</p>
 <span>  avail <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  affections <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  deceased <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  steril <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fertility <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rel_df <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  missid <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  col_aff <span class="op">=</span> <span class="st">"affection"</span>,</span>
@@ -131,13 +131,13 @@ Rel object.</p>
 <span><span class="co"># S4 method for class 'data.frame'</span></span>
 <span><span class="fu">Pedigree</span><span class="op">(</span></span>
 <span>  obj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, dadid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, momid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, sex <span class="op">=</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, famid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, steril <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, famid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, fertility <span class="op">=</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  rel_df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, famid <span class="op">=</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  cols_ren_ped <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"indId"</span>, dadid <span class="op">=</span> <span class="st">"fatherId"</span>, momid <span class="op">=</span> <span class="st">"motherId"</span>, famid <span class="op">=</span></span>
-<span>    <span class="st">"family"</span>, sex <span class="op">=</span> <span class="st">"gender"</span>, steril <span class="op">=</span> <span class="st">"sterilisation"</span>, affection <span class="op">=</span> <span class="st">"affected"</span>, avail <span class="op">=</span></span>
-<span>    <span class="st">"available"</span>, deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"vitalStatus"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="st">"family"</span>, sex <span class="op">=</span> <span class="st">"gender"</span>, fertility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sterilisation"</span>, <span class="st">"steril"</span><span class="op">)</span>, affection <span class="op">=</span></span>
+<span>    <span class="st">"affected"</span>, avail <span class="op">=</span> <span class="st">"available"</span>, deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"vitalStatus"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  cols_ren_rel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="st">"indId1"</span>, id2 <span class="op">=</span> <span class="st">"indId2"</span>, famid <span class="op">=</span> <span class="st">"family"</span><span class="op">)</span>,</span>
 <span>  hints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>horder <span class="op">=</span> <span class="cn">NULL</span>, spouse <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
 <span>  normalize <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -180,11 +180,10 @@ biologicals mothers.</p></dd>
 <dd><p>A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-<code>male</code> &lt; <code>female</code> &lt;
-<code>unknown</code> &lt; <code>terminated</code>
+<code>male</code> &lt; <code>female</code> &lt; <code>unknown</code>
 The following values are recognized:</p><ul><li><p>character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"</p></li>
-<li><p>numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"</p></li>
+"unknown"</p></li>
+<li><p>numeric() : 1 = "male", 2 = "female", 3 = "unknown"</p></li>
 </ul></dd>
 
 
@@ -219,12 +218,16 @@ individuals
 <code>NA</code> = unknown).</p></dd>
 
 
-<dt id="arg-steril">steril<a class="anchor" aria-label="anchor" href="#arg-steril"></a></dt>
-<dd><p>A logical vector with the sterilisation status of the
-individuals
-(i.e. <code>FALSE</code> = not sterilised,
-<code>TRUE</code> = sterilised,
-<code>NA</code> = unknown).</p></dd>
+<dt id="arg-fertility">fertility<a class="anchor" aria-label="anchor" href="#arg-fertility"></a></dt>
+<dd><p>A character, factor or numeric vector corresponding to
+the fertility status of the individuals. This will be transformed to an
+ordered factor with the following levels:
+<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code>
+The following values are recognized:</p><ul><li><p>character() or factor() : "fertile", "infertile", "steril",
+"infertile_choice", "infertile_na", "infertile_choice_na"</p></li>
+<li><p>numeric() : 1 = "fertile", 0 = "infertile"</p></li>
+<li><p>logical() : <code>TRUE</code> = "fertile", <code>FALSE</code> = "infertile"</p></li>
+</ul></dd>
 
 
 <dt id="arg-rel-df">rel_df<a class="anchor" aria-label="anchor" href="#arg-rel-df"></a></dt>
@@ -295,7 +298,7 @@ standardized using the function <code><a href="norm_ped.html">norm_ped()</a></co
 <li><p><code>momid</code>: the identifier of the biological mother</p></li>
 <li><p><code>sex</code>: the sex of the individual</p></li>
 <li><p><code>famid</code>: the family identifier of the individual</p></li>
-<li><p><code>steril</code>: the sterilisation status of the individual</p></li>
+<li><p><code>fertility</code>: the fertility status of the individual</p></li>
 <li><p><code>available</code>: the availability status of the individual (<code>avail</code>)</p></li>
 <li><p><code>deceased</code>: the death status of the individual</p></li>
 <li><p><code>affection</code>: the affection status of the individual</p></li>
@@ -308,10 +311,12 @@ standardized using the function <code><a href="norm_ped.html">norm_ped()</a></co
 </ul><p>The <code>famid</code> column can also be used to specify the
 family of the individuals and will be merge to the
 <code>id</code> field separated by an underscore.
-The columns <code>steril</code>, <code>avail</code>,
+The columns <code>avail</code>,
 <code>deceased</code>, <code>affected</code>
 will be transformed with the <code><a href="vect_to_binary.html">vect_to_binary()</a></code>
 function when the normalisation is selected.
+The <code>fertility</code> column will be transformed with the
+<code><a href="fertility_to_factor.html">fertility_to_factor()</a></code> function.
 If you do not use the normalisation, the columns will be checked to
 be <code>0</code> or <code>1</code>.</p>
 <p>If <code>affections</code> is a data.frame, <strong>col_aff</strong> will be
