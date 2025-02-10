@@ -131,6 +131,7 @@ ped_server <- function(
                     normalize = FALSE
                 )
             }, error = function(e) {
+                print(e)
                 shinytoastr::toastr_error(
                     title = "Couldn't create pedigree object",
                     conditionMessage(e)

@@ -863,31 +863,34 @@ setMethod("Pedigree", "data.frame",  function(
     }
 
     ## Rename columns ped
-    cols_mapping <- setNames(
-        rep(names(cols_ren_ped), lengths(cols_ren_ped)),
-        unlist(cols_ren_ped)
-    )
-    ped_df <- ped_df %>%
-        dplyr::rename_with(
-            ~ cols_mapping[.x],
-            .cols = names(cols_mapping)[
-                names(cols_mapping) %in% names(ped_df)
-            ]
+    if (length(cols_ren_ped) > 0) {
+        cols_mapping <- setNames(
+            rep(names(cols_ren_ped), lengths(cols_ren_ped)),
+            unlist(cols_ren_ped)
         )
+        ped_df <- ped_df %>%
+            dplyr::rename_with(
+                ~ cols_mapping[.x],
+                .cols = names(cols_mapping)[
+                    names(cols_mapping) %in% names(ped_df)
+                ]
+            )
+    }
 
     ## Rename columns rel
-    cols_mapping <- setNames(
-        rep(names(cols_ren_rel), lengths(cols_ren_rel)),
-        unlist(cols_ren_rel)
-    )
-    rel_df <- rel_df %>%
-        dplyr::rename_with(
-            ~ cols_mapping[.x],
-            .cols = names(cols_mapping)[
-                names(cols_mapping) %in% names(rel_df)
-            ]
+    if (length(cols_ren_rel) > 0) {
+        cols_mapping <- setNames(
+            rep(names(cols_ren_rel), lengths(cols_ren_rel)),
+            unlist(cols_ren_rel)
         )
-
+        rel_df <- rel_df %>%
+            dplyr::rename_with(
+                ~ cols_mapping[.x],
+                .cols = names(cols_mapping)[
+                    names(cols_mapping) %in% names(rel_df)
+                ]
+            )
+    }
     ## Set family, id, dadid and momid to character
     to_char <- c("famid", "id", "dadid", "momid")
     to_char <- colnames(ped_df)[colnames(ped_df) %in% to_char]
