@@ -111,3 +111,23 @@ test_that("fertility_to_factor", {
         ordered = TRUE)
     )
 })
+
+
+test_that("miscarriage_to_factor", {
+    miscarriage <- c(
+        "spontaneous", "spontaenous abortion",
+        "termination", "terminated", "termination of pregnancy",
+        "ectopic", "ectopic pregnancy",
+        "0", "false", "no", "NA", "other"
+    )
+    miscarriage <- miscarriage_to_factor(miscarriage)
+    expect_equal(
+        miscarriage,
+        factor(c(
+            "SAB", "SAB",
+            "TOP", "TOP", "TOP",
+            "ECT", "ECT",
+            "FALSE", "FALSE", "FALSE", "FALSE", "FALSE"
+        ), levels = c("SAB", "TOP", "ECT", "FALSE"))
+    )
+})

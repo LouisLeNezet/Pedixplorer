@@ -386,6 +386,57 @@ fertility_to_factor <- function(fertility) {
     fertility
 }
 
+#' Miscarriage variable to factor
+#'
+#' @description Transform a miscarriage variable to a factor variable
+#' By default, the following values are recognized:
+#'
+#' - "SAB" : "spontaneous", "spontaenous abortion"
+#' - "TOP" : "termination", "terminated", "termination of pregnancy"
+#' - "ECT" : "ectopic", "ectopic pregnancy"
+#' - FALSE : "0", "false", "no", "NA"
+#'
+#' By default, all other values are transformed to `NA` and considered as
+#' `FALSE`. Space and case are ignored.
+#'
+#' @inheritParams Ped
+#'
+#' @return an factor vector containing the transformed variable
+#' "SAB", "TOP", "ECT", "FALSE"
+#' @examples
+#' miscarriage_to_factor(c(
+#'    "spontaneous", "spontaenous abortion",
+#'   "termination", "terminated", "termination of pregnancy",
+#'   "ectopic", "ectopic pregnancy",
+#'   "0", "false", "no", "NA"
+#' ))
+#' @export
+#' @keywords internal
+miscarriage_to_factor <- function(miscarriage) {
+    if (
+        is.factor(miscarriage)
+        || is.numeric(miscarriage)
+        || is.logical(miscarriage)
+    ) {
+        miscarriage <- as.character(miscarriage)
+    }
+    ## Normalized difference notations for miscarriage
+    miscarriage_equiv <- c(
+        spontaneous = "SAB", spontaenousabortion = "SAB",
+        termination = "TOP", terminated = "TOP", terminationofpregnancy = "TOP",
+        ectopic = "ECT", ectopicpregnancy = "ECT",
+        `0` = "FALSE", `false` = "FALSE", no = "FALSE", na = "FALSE"
+    )
+    miscarriage <- as.character(revalue(as.factor(
+        stringr::str_remove_all(casefold(miscarriage, upper = FALSE), " ")
+    ), miscarriage_equiv, warn_missing = FALSE))
+    miscarriage_codes <- c("SAB", "TOP", "ECT", "FALSE")
+    miscarriage[!miscarriage %in% miscarriage_codes] <- "FALSE"
+
+    miscarriage <- factor(miscarriage, miscarriage_codes)
+    miscarriage
+}
+
 #' @importFrom stringr str_remove_all
 NULL
 
