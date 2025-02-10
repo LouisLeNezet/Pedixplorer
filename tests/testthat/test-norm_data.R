@@ -1,20 +1,20 @@
 test_that("Norm ped", {
     ped_df <- c(
-        1, 3, 4, 2, TRUE, NA, "1", "None",
+        1, 3, 4, 2, FALSE, NA, "1", "None",
         2, 0, 0, 1, TRUE, 1, 2, "A",
-        3, 8, 7, "man", FALSE, 0, "2", "E",
-        4, 6, 5, "woman", FALSE, "A", 3, "A",
-        5, 0, 0, "f", FALSE, NA, 7, "E",
-        6, "None", 0, "m", TRUE, 0, "NA", "D",
+        3, 8, 7, "man", "infertile_choice", 0, "2", "E",
+        4, 6, 5, "woman", 1, "A", 3, "A",
+        5, 0, 0, "f", "fertile", NA, 7, "E",
+        6, "None", 0, "m", "steril", 0, "NA", "D",
         7, 0, "0", 1, FALSE, "NA", 6, "A",
-        8, 0, 0, 1, FALSE, "0", "3", "D",
-        8, 2, 0, 2, FALSE, "None", "3", "A",
-        9, 9, 8, 3, FALSE, "Ab", "5", "B"
+        8, 0, 0, 1, 1, "0", "3", "D",
+        8, 2, 0, 2, TRUE, "None", "3", "A",
+        9, 9, 8, 3, NA, "Ab", "5", "B"
     )
     ped_df <- matrix(ped_df, ncol = 8, byrow = TRUE)
     dimnames(ped_df) <- list(NULL, c(
         "id", "dadid", "momid", "sex",
-        "steril", "avail", "NumOther", "AffMod"
+        "fertility", "avail", "NumOther", "AffMod"
     ))
     ped_df <- data.frame(ped_df)
     ped_df <- suppressWarnings(norm_ped(

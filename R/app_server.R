@@ -52,7 +52,7 @@ ped_server <- function(
             ),
             list(
                 "famid" = c("family", "famid"),
-                "steril" = c("steril", "sterilization"),
+                "fertility" = c("steril", "sterilization"),
                 "avail" = c("avail", "available"),
                 "deceased" = c("status", "vitalStatus", "death", "deceased")
             ),

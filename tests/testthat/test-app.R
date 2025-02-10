@@ -1,3 +1,8 @@
+if (Sys.getenv("SKIP_SHINY_TESTS") == "TRUE") {
+    skip("Skipping shiny test")
+}
+
+
 test_that("ped_shiny works", {
     app <- shinytest2::AppDriver$new(
         ped_shiny(precision = 1), name = "ped_shiny",

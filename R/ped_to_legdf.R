@@ -64,7 +64,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         label = character(), tips = character(), adjx = numeric(),
         adjy = numeric()
     )
-    sex_equiv <- c("Male", "Female", "Terminated", "Unknown")
+    sex_equiv <- c("Male", "Female", "Unknown")
     all_lab <- list(sex_equiv, border(obj)$labels)
     all_aff <- lapply(unique(fill(obj)$order), function(x) {
         fill(obj)$labels[fill(obj)$order == x]

@@ -249,6 +249,56 @@ setMethod("sex<-",
     }
 )
 
+##### Fertility Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("fertility", function(x) {
+    standardGeneric("fertility")
+})
+
+#' @section Accessors:
+#' - `fertility(x)` : Individuals' fertility status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("fertility", signature(x = "Ped"), function(x) {
+    x@fertility
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("fertility<-", function(x, value) {
+    standardGeneric("fertility<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("fertility<-",
+    signature(x = "Ped", value = "character_OR_integer"),
+    function(x, value) {
+        if (
+            ! is.character(value) &&
+                ! is.integer(value) &&
+                ! is.factor(value)
+        ) {
+            stop("fertility must be a character or integer vector")
+        }
+        if (length(value) != length(x)) {
+            stop(
+                "The length of the new values for fertility should be: ",
+                "equal to the length of the Ped object"
+            )
+        }
+        x@fertility <- fertility_to_factor(value)
+        validObject(x)
+        x
+    }
+)
+
 ##### Affected Accessors #####
 
 #' @rdname Ped-class
@@ -716,7 +766,7 @@ setMethod(
     function(object, slot, value) {
         ped_slots <- c(
             "id", "dadid", "momid", "sex", "famid",
-            "steril", "deceased", "avail", "affected",
+            "fertility", "deceased", "avail", "affected",
             "kin", "useful", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind"
         )

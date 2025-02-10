@@ -26,14 +26,14 @@ setClassUnion("missing_OR_NULL", c("missing", "NULL"))
 #' @slot momid A character vector with the id of the mother of
 #' the individuals.
 #' @slot sex An ordered factor vector for the sex of the individuals
-#' (i.e. `male` < `female` < `unknown` < `terminated`).
+#' (i.e. `male` < `female` < `unknown`).
 #' @slot famid A character vector with the family identifiers of the
 #' individuals (optional).
-#' @slot steril A logical vector with the sterilisation status of the
+#' @slot fertility A factor vector with the fertility status of the
 #' individuals
-#' (i.e. `FALSE` = not sterilised,
-#' `TRUE` = sterilised,
-#' `NA` = unknown).
+#' (i.e. `infertile_choice_na` = no children by choice or unknown reason,
+#' `infertile` = individual is inferile,
+#' `fertile` = individual is fertile).
 #' @slot deceased A logical vector with the death status of the
 #' individuals
 #' (i.e. `FALSE` = alive,
@@ -80,7 +80,7 @@ setClass("Ped",
         momid = "character",
         sex = "factor",
         famid = "character",
-        steril = "logical",
+        fertility = "factor",
         deceased = "logical",
         avail = "logical",
         affected = "logical",
@@ -98,7 +98,9 @@ setMethod("parallel_slot_names", "Ped",
     function(x) {
         c(
             "id", "dadid", "momid", "sex", "famid",
-            "steril", "deceased", "avail", "affected",
+            "fertility",
+            "deceased",
+            "avail", "affected",
             "useful", "kin", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind",
             callNextMethod()
