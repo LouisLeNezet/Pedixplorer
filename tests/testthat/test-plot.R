@@ -99,3 +99,21 @@ test_that("Tooltip works", {
 
     expect_snapshot(html_plot)
 })
+
+test_that("Supplementary graphical representations", {
+    data("sampleped")
+
+    pedi <- Pedigree(sampleped)
+
+    ## Fertility
+    current_ferti <- fertility(ped(pedi))
+    fertility(ped(pedi))[id(ped(pedi)) %in% c("1_139", "1_129")] <- "infertile"
+    fertility(ped(pedi))[
+        id(ped(pedi)) %in% c("1_131", "1_111")
+    ] <- "infertile_choice_na"
+    vdiffr::expect_doppelganger("Ped with fertility",
+        function() {
+            plot(pedi)
+        }
+    )
+})
