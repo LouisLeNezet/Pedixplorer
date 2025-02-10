@@ -61,7 +61,7 @@ test_that("Pedigree shrink error if missing info", {
     data("sampleped")
     ped <- Pedigree(sampleped)
     ped2 <- ped[famid(ped(ped)) == "2"]
-    sex(ped(ped2))[c(13, 12)] <- c("unknown", "terminated")
+    sex(ped(ped2))[c(13, 12)] <- "unknown"
 
     ## set 2nd col of affected to NA
     expect_no_error(shrink(ped2, max_bits = 32))

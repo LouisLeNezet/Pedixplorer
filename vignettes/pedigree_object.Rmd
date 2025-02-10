@@ -47,7 +47,7 @@ It accepts the following input
     - `dadid` The identifier of the father.
     - `momid` The identifier of the mother.
     - `sex` The gender of the individual. This can be a numeric
-    variable with codes of `1`=male, `2`=female, `3`=unknown, `4`=terminated,
+    variable with codes of `1`=male, `2`=female, `3`=unknown,
     or NA=unknown.
     A character or factor variable can also be supplied containing
     the above; the string may be truncated and of arbitrary case.
@@ -59,8 +59,14 @@ It accepts the following input
     `1`=dead.
     - `famid` Optional, a numeric or character vector of family
     identifiers.
-    - `steril` Optional, a numeric variable with `0`=not steril and
-    `1`=steril.
+    - `fertility` Optional, will be transformed to an ordered factor using the
+    [fertility_to_factor()] function.
+    `infertile_choice_na` < `infertile` < `fertile`
+    The following values are recognized:
+        - character() or factor() : "fertile", "infertile", "steril",
+        "infertile_choice", "infertile_na", "infertile_choice_na"
+        - numeric() : 1 = "fertile", 0 = "infertile"
+        - logical() : `TRUE` = "fertile", `FALSE` = "infertile"
 - `rel_df` Optional, a data frame with three columns or four columns.
     - `id1` identifier values of the subject pairs
     - `id2` identifier values of the subject pairs
@@ -170,8 +176,9 @@ This validation step will check up for many errors such as:
 - All necessary columns are present
 - No duplicated `id`
 - All `momid` and `dadid` are present in `id`
-- `sex` column only contain "male", "female", "unknown" or "terminated" values
-- `steril`, `deceased`, `avail`, `affected` only contains 0, 1 or NA values
+- `sex` column only contain "male", "female", "unknown" values
+- `fertility` column only contain "fertile", "infertile", "infertile_choice_na"
+- `deceased`, `avail`, `affected` only contains 0, 1 or NA values
 - Father are males and Mother are females
 - Twins have same parents and MZ twins have same sex
 - Hints object is valid and ids contained is in the Ped object

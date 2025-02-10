@@ -287,7 +287,7 @@ is_valid_scales <- function(object) {
 #' Multiple checks are done here
 #'
 #' 1. Check that the ped ids slots have the right values
-#' 2. Check that the sex, steril, deceased, avail and affected slots have the
+#' 2. Check that the sex, fertility, deceased, avail and affected slots have the
 #' right values
 #' 3. Check that dad are male and mom are female
 #' 4. Check that individuals have both parents or none
@@ -328,10 +328,11 @@ is_valid_ped <- function(object) {
         object@momid, c(object@id, missid), "momid"
     ))
 
-    # Control values for sex, steril, deceased, avail and affected
-    sex_code <- c("male", "female", "unknown", "terminated")
+    # Control values for sex, fertility, deceased, avail and affected
+    sex_code <- c("male", "female", "unknown")
     errors <- c(errors, check_values(object@sex, sex_code))
-    errors <- c(errors, check_values(object@steril, c(0, 1, NA)))
+    fertility_code <- c("fertile", "infertile", "infertile_choice_na")
+    errors <- c(errors, check_values(object@fertility, fertility_code))
     errors <- c(errors, check_values(object@deceased, c(0, 1, NA)))
     errors <- c(errors, check_values(object@avail, c(0, 1, NA)))
     errors <- c(errors, check_values(object@affected, c(0, 1, NA)))

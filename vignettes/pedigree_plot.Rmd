@@ -187,8 +187,10 @@ and $(x2, y2)$ whose height is 1/2 unit above a straight line connection.
 
 ### Symbols
 
-There are four sumbols corresponding to the four sex codes: square = male,
-circle = female, diamond= unknown, and triangle = terminated.  
+There are three main symbols corresponding to the three sex codes: square = male,
+circle = female, diamond= unknown. A triangle is use to represent miscarriage.
+This triangle is crossed in the case of Termination of Pregnancy (TOB) contrary
+to Spontaneous Abortion (SAB).  
 They are shaded according to the value(s) of affected status for each
 subject, and filling uses the standard
 arguments of the `polygon()` function.

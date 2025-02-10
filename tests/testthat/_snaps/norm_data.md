@@ -3,28 +3,28 @@
     Code
       ped_df
     Output
-         id dadid momid        sex steril avail NumOther AffMod
-      1   1     3     4 terminated   TRUE    NA        1   <NA>
-      2   2     0     0       male  FALSE  TRUE        2      A
-      3   3     8     7       male  FALSE FALSE        2      E
-      4   4     6     5     female  FALSE    NA        3      A
-      5   5     0     0     female  FALSE    NA        7      E
-      6   6  <NA>     0       male  FALSE FALSE     <NA>      D
-      7   7     0     0     female  FALSE    NA        6      A
-      8   8     0     0     female  FALSE FALSE        3      D
-      9   8     2     0     female  FALSE    NA        3      A
-      10  9     9     8       male  FALSE    NA        5      B
+         id dadid momid    sex           fertility avail NumOther AffMod
+      1   1     3     4 female           infertile    NA        1   <NA>
+      2   2     0     0   male             fertile  TRUE        2      A
+      3   3     8     7   male infertile_choice_na FALSE        2      E
+      4   4     6     5 female             fertile    NA        3      A
+      5   5     0     0 female             fertile    NA        7      E
+      6   6  <NA>     0   male           infertile FALSE     <NA>      D
+      7   7     0     0 female           infertile    NA        6      A
+      8   8     0     0 female             fertile FALSE        3      D
+      9   8     2     0 female             fertile    NA        3      A
+      10  9     9     8   male             fertile    NA        5      B
                                                                   error famid
       1                                                            <NA>  <NA>
-      2                                         is_steril_but_is_parent  <NA>
-      3                                                dadid_duplicated  <NA>
+      2                                                            <NA>  <NA>
+      3                     dadid-duplicated_is-infertile-but-is-parent  <NA>
       4                                                            <NA>  <NA>
       5                                                            <NA>  <NA>
-      6                      one_parent_missing_is_steril_but_is_parent  <NA>
-      7                                                            <NA>  <NA>
-      8  self_id_duplicated_is_mother_and_father_is_father_but_not_male  <NA>
-      9  self_id_duplicated_is_mother_and_father_is_father_but_not_male  <NA>
-      10                             momid_duplicated_is_its_own_parent  <NA>
+      6                   one-parent-missing_is-infertile-but-is-parent  <NA>
+      7                                      is-infertile-but-is-parent  <NA>
+      8  self-id-duplicated_is-mother-and-father_is-father-but-not-male  <NA>
+      9  self-id-duplicated_is-mother-and-father_is-father-but-not-male  <NA>
+      10                             momid-duplicated_is-its-own-parent  <NA>
          deceased
       1        NA
       2        NA
@@ -48,10 +48,10 @@
       3  1_2 1_3 UZ twin     1                           <NA>
       4  2_1 2_2  Spouse     2                           <NA>
       5  2_3 2_4 MZ twin     2                           <NA>
-      6  2_6 2_7    <NA>     2             code_not_recognise
-      7  2_8 2_8  Spouse     2                        same_id
+      6  2_6 2_7    <NA>     2             code-not-recognise
+      7  2_8 2_8  Spouse     2                        same-id
       8  1_9 1_0  Spouse     1                           <NA>
-      9 <NA> 1_B    <NA>     1 id1_length0_code_not_recognise
+      9 <NA> 1_B    <NA>     1 id1-length0_code-not-recognise
 
 ---
 
@@ -63,6 +63,6 @@
       2       3     2 DZ twin  <NA>               <NA>
       3       3     1 DZ twin  <NA>               <NA>
       4       3     4 MZ twin  <NA>               <NA>
-      5       7 Other    <NA>  <NA> code_not_recognise
-      6 spo Use     9    <NA>  <NA> code_not_recognise
+      5       7 Other    <NA>  <NA> code-not-recognise
+      6 spo Use     9    <NA>  <NA> code-not-recognise
 

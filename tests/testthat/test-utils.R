@@ -92,3 +92,22 @@ test_that("get_title", {
         "(N=10) from All individuals."
     ))
 })
+
+test_that("fertility_to_factor", {
+    fertility <- c(
+        1, "fertile", TRUE, NA,
+        "infertile", "steril", FALSE, 0,
+        "infertile_na", "infertile_choice_na", "infertile_choice"
+    )
+    fertil <- fertility_to_factor(fertility)
+    expect_equal(
+        fertil,
+        factor(c(
+            "fertile", "fertile", "fertile", "fertile",
+            "infertile", "infertile", "infertile", "infertile",
+            "infertile_choice_na", "infertile_choice_na",
+            "infertile_choice_na"
+        ), levels = c("infertile_choice_na", "infertile", "fertile"),
+        ordered = TRUE)
+    )
+})

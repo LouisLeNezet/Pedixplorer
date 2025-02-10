@@ -311,7 +311,7 @@ NULL
 #' @inheritParams Ped
 #'
 #' @return an ordered factor vector containing the transformed variable
-#' "male" < "female" < "unknown" < "terminated"
+#' "male" < "female" < "unknown"
 #' @examples
 #' sex_to_factor(c(1, 2, 3, 4, "f", "m", "man", "female"))
 #' @export
@@ -322,18 +322,68 @@ sex_to_factor <- function(sex) {
     }
     ## Normalized difference notations for sex
     sex_equiv <- c(
-        f = "female", m = "male", woman = "female", man = "male",
-        female = "female", male = "male", `2` = "female", `1` = "male",
-        `3` = "unknown", `4` = "terminated"
+        m = "male", male = "male", man = "male", `1` = "male",
+        f = "female", female = "female", woman = "female", `2` = "female",
+        `3` = "unknown"
     )
     sex <- as.character(revalue(as.factor(
         casefold(sex, upper = FALSE)
     ), sex_equiv, warn_missing = FALSE))
-    sex_codes <- c("male", "female", "unknown", "terminated")
+    sex_codes <- c("male", "female", "unknown")
     sex[!sex %in% sex_codes] <- "unknown"
 
     sex <- factor(sex, sex_codes, ordered = TRUE)
     sex
+}
+
+#' Fertility variable to factor
+#'
+#' @description Transform a fertility variable to a factor variable
+#' By default, the following values are recognized:
+#'
+#' - "inferile_choice_na" : "infertile_choice", "infertile_na"
+#' - "infertile" : "infertile", "steril", FALSE, 0
+#' - "fertile" : "fertile", "TRUE", `TRUE`, 1, NA
+#'
+#' By default, all other values are transformed to `NA` and considered as
+#' fertile.
+#'
+#' @inheritParams Ped
+#'
+#' @return an factor vector containing the transformed variable
+#' "infertile_choice_na" < "infertile" < "fertile"
+#' @examples
+#' fertility_to_factor(c(
+#'    1, "fertile", TRUE, NA,
+#'   "infertile", "steril", FALSE, 0,
+#'   "infertile_na", "infertile_choice_na", "infertile_choice"
+#' ))
+#' @export
+#' @keywords internal
+fertility_to_factor <- function(fertility) {
+    if (
+        is.factor(fertility)
+        || is.numeric(fertility)
+        || is.logical(fertility)
+    ) {
+        fertility <- as.character(fertility)
+    }
+    ## Normalized difference notations for fertility
+    fertility_equiv <- c(
+        infertile_choice = "infertile_choice_na",
+        infertile_na = "infertile_choice_na",
+        infertile = "infertile", steril = "infertile", `0` = "infertile",
+        `false` = "infertile",
+        fertile = "fertile", `true` = "fertile", `1` = "fertile"
+    )
+    fertility <- as.character(revalue(as.factor(
+        casefold(fertility, upper = FALSE)
+    ), fertility_equiv, warn_missing = FALSE))
+    fertility_codes <- c("infertile_choice_na", "infertile", "fertile")
+    fertility[!fertility %in% fertility_codes] <- "fertile"
+
+    fertility <- factor(fertility, fertility_codes, ordered = TRUE)
+    fertility
 }
 
 #' @importFrom stringr str_remove_all

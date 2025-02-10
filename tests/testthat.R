@@ -20,7 +20,8 @@ library(R.devices)
 
 Sys.setenv(
     CHROMOTE_CHROME = Sys.getenv("CHROMOTE_CHROME"),
-    CHROMOTE_HEADLESS = "new"
+    CHROMOTE_HEADLESS = "new",
+    SKIP_SHINY_TESTS = "FALSE"
 )
 
 print(Sys.getenv("CHROMOTE_CHROME"))

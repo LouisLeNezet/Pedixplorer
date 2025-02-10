@@ -52,7 +52,7 @@ ped_server <- function(
             ),
             list(
                 "famid" = c("family", "famid"),
-                "steril" = c("steril", "sterilization"),
+                "fertility" = c("steril", "sterilization"),
                 "avail" = c("avail", "available"),
                 "deceased" = c("status", "vitalStatus", "death", "deceased")
             ),
@@ -131,6 +131,7 @@ ped_server <- function(
                     normalize = FALSE
                 )
             }, error = function(e) {
+                print(e)
                 shinytoastr::toastr_error(
                     title = "Couldn't create pedigree object",
                     conditionMessage(e)

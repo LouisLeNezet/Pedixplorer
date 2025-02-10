@@ -28,13 +28,12 @@ biologicals mothers.}
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-\code{male} < \code{female} <
-\code{unknown} < \code{terminated}
+\code{male} < \code{female} < \code{unknown}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
+"unknown"
+\item numeric() : 1 = "male", 2 = "female", 3 = "unknown"
 }}
 
 \item{id_inf}{An identifiers vector of informative individuals.}

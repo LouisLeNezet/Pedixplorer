@@ -200,9 +200,46 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- rbind.fill(plot_df, dead_df)
     }
 
+    ## Add infertility status
+    infertile <- ped_df[id[idx], "fertility"]
+    idx_iftl_all <- idx[infertile != "fertile"]
+    idx_iftl <- idx[infertile == "infertile"]
+
+    if (length(idx_iftl_all) > 0) {
+        iftl_df_vert <- data.frame(
+            x0 = pos[idx_iftl_all], y0 = i[idx_iftl_all] + boxh,
+            x1 = pos[idx_iftl_all], y1 = i[idx_iftl_all] + boxh * 1.2,
+            type = "segments", fill = "black", cex = lwd,
+            id = "infertile"
+        )
+
+        iftl_df_hori <- data.frame(
+            x0 = pos[idx_iftl_all] - (boxw / 2) * 0.8,
+            y0 = i[idx_iftl_all] + boxh * 1.2,
+            x1 = pos[idx_iftl_all] + (boxw / 2) * 0.8,
+            y1 = i[idx_iftl_all] + boxh * 1.2,
+            type = "segments", fill = "black", cex = lwd,
+            id = "infertile"
+        )
+
+        plot_df <- rbind.fill(plot_df, iftl_df_vert, iftl_df_hori)
+
+        if (length(idx_iftl) > 0) {
+            iftl_df_hori_2 <- data.frame(
+                x0 = pos[idx_iftl] - (boxw / 2),
+                y0 = i[idx_iftl] + boxh * 1.3,
+                x1 = pos[idx_iftl] + (boxw / 2),
+                y1 = i[idx_iftl] + boxh * 1.3,
+                type = "segments", fill = "black", cex = lwd,
+                id = "infertile"
+            )
+            plot_df <- rbind.fill(plot_df, iftl_df_hori_2)
+        }
+    }
+
     ## Add ids
     id_df <- data.frame(
-        x0 = pos[idx], y0 = i[idx] + boxh + labh,
+        x0 = pos[idx], y0 = i[idx] + boxh * 1.2 + labh,
         label = ped_df[id[idx], id_lab], fill = "black",
         type = "text", cex = cex, adjx = 0.5, adjy = 1,
         id = "id", tips = ped_df[id[idx], "tips"]
@@ -214,7 +251,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (!is.null(label)) {
         check_columns(ped_df, label)
         label <- data.frame(
-            x0 = pos[idx], y0 = i[idx] + boxh + labh * 3,
+            x0 = pos[idx], y0 = i[idx] + boxh * 1.2 + labh * 3,
             label = ped_df[id[idx], label],
             fill = "black", adjy = 1, adjx = 0.5,
             type = "text", cex = cex,

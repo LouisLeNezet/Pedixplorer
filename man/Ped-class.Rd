@@ -28,6 +28,10 @@
 \alias{sex,Ped-method}
 \alias{sex<-}
 \alias{sex<-,Ped,character_OR_integer-method}
+\alias{fertility}
+\alias{fertility,Ped-method}
+\alias{fertility<-}
+\alias{fertility<-,Ped,character_OR_integer-method}
 \alias{affected}
 \alias{affected,Ped-method}
 \alias{affected<-}
@@ -69,7 +73,7 @@
   dadid,
   momid,
   famid = NA,
-  steril = NA,
+  fertility = NA,
   deceased = NA,
   avail = NA,
   affected = NA,
@@ -92,13 +96,12 @@ should be deleted.}
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-\code{male} < \code{female} <
-\code{unknown} < \code{terminated}
+\code{male} < \code{female} < \code{unknown}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
+"unknown"
+\item numeric() : 1 = "male", 2 = "female", 3 = "unknown"
 }}
 
 \item{dadid}{A vector containing for each subject, the identifiers of the
@@ -111,11 +114,17 @@ biologicals mothers.}
 individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.}
 
-\item{steril}{A logical vector with the sterilisation status of the
-individuals
-(i.e. \code{FALSE} = not sterilised,
-\code{TRUE} = sterilised,
-\code{NA} = unknown).}
+\item{fertility}{A character, factor or numeric vector corresponding to
+the fertility status of the individuals. This will be transformed to an
+ordered factor with the following levels:
+\code{infertile_choice_na} < \code{infertile} < \code{fertile}
+The following values are recognized:
+\itemize{
+\item character() or factor() : "fertile", "infertile", "steril",
+"infertile_choice", "infertile_na", "infertile_choice_na"
+\item numeric() : 1 = "fertile", 0 = "infertile"
+\item logical() : \code{TRUE} = "fertile", \code{FALSE} = "infertile"
+}}
 
 \item{deceased}{A logical vector with the death status of the
 individuals
@@ -185,16 +194,16 @@ the individuals.}
 the individuals.}
 
 \item{\code{sex}}{An ordered factor vector for the sex of the individuals
-(i.e. \code{male} < \code{female} < \code{unknown} < \code{terminated}).}
+(i.e. \code{male} < \code{female} < \code{unknown}).}
 
 \item{\code{famid}}{A character vector with the family identifiers of the
 individuals (optional).}
 
-\item{\code{steril}}{A logical vector with the sterilisation status of the
+\item{\code{fertility}}{A factor vector with the fertility status of the
 individuals
-(i.e. \code{FALSE} = not sterilised,
-\code{TRUE} = sterilised,
-\code{NA} = unknown).}
+(i.e. \code{infertile_choice_na} = no children by choice or unknown reason,
+\code{infertile} = individual is inferile,
+\code{fertile} = individual is fertile).}
 
 \item{\code{deceased}}{A logical vector with the death status of the
 individuals
@@ -275,6 +284,11 @@ or a data.frame with each elements with the same length as \code{x}.
 
 \itemize{
 \item \code{sex(x)} : Individuals' gender
+}
+
+
+\itemize{
+\item \code{fertility(x)} : Individuals' fertility status
 }
 
 
