@@ -55,8 +55,8 @@
 #'
 #' The `fertility` column will be transformed to an ordered factor using the
 #' [fertility_to_factor()] function.
-#' `infertile_choice_na` < `infertile` < `fertile`#'
-#' 
+#' `infertile_choice_na` < `infertile` < `fertile`
+#'
 #' The `miscarriage` column will be transformed to a using the
 #' [miscarriage_to_factor()] function.
 #' `SAB`, `TOP`, `ECT`, `FALSE`
