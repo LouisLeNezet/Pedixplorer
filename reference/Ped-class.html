@@ -72,7 +72,7 @@ to the Ped slots.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Ped object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>Ped-class.Rd</code></div>
     </div>
 
@@ -104,6 +104,7 @@ to the Ped slots.</p>
 <span>  <span class="va">momid</span>,</span>
 <span>  famid <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  fertility <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  miscarriage <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  deceased <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  avail <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  affected <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -137,10 +138,10 @@ should be deleted.</p></dd>
 <dd><p>A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-<code>male</code> &lt; <code>female</code> &lt; <code>unknown</code>
-The following values are recognized:</p><ul><li><p>character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown"</p></li>
-<li><p>numeric() : 1 = "male", 2 = "female", 3 = "unknown"</p></li>
+<code>male</code> &lt; <code>female</code> &lt; <code>unknown</code></p>
+<p>The following values are recognized:</p><ul><li><p>"male": "m", "male", "man", <code>1</code></p></li>
+<li><p>"female": "f", "female", "woman", <code>2</code></p></li>
+<li><p>"unknown": "unknown", <code>3</code></p></li>
 </ul></dd>
 
 
@@ -164,11 +165,22 @@ identifiers separated by an underscore.</p></dd>
 <dd><p>A character, factor or numeric vector corresponding to
 the fertility status of the individuals. This will be transformed to an
 ordered factor with the following levels:
-<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code>
-The following values are recognized:</p><ul><li><p>character() or factor() : "fertile", "infertile", "steril",
-"infertile_choice", "infertile_na", "infertile_choice_na"</p></li>
-<li><p>numeric() : 1 = "fertile", 0 = "infertile"</p></li>
-<li><p>logical() : <code>TRUE</code> = "fertile", <code>FALSE</code> = "infertile"</p></li>
+<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code></p>
+<p>The following values are recognized:</p><ul><li><p>"inferile_choice_na" : "infertile_choice", "infertile_na"</p></li>
+<li><p>"infertile" : "infertile", "steril", <code>FALSE</code>, <code>0</code></p></li>
+<li><p>"fertile" : "fertile", <code>TRUE</code>, <code>1</code>, <code>NA</code></p></li>
+</ul></dd>
+
+
+<dt id="arg-miscarriage">miscarriage<a class="anchor" aria-label="anchor" href="#arg-miscarriage"></a></dt>
+<dd><p>A character, factor or numeric vector corresponding to
+the miscarriage status of the individuals. This will be transformed to a
+factor with the following levels:
+<code>TOP</code>, <code>SAB</code>, <code>ECT</code>, <code>FALSE</code>
+The following values are recognized:</p><ul><li><p>"SAB" : "spontaneous", "spontaenous abortion"</p></li>
+<li><p>"TOP" : "termination", "terminated", "termination of pregnancy"</p></li>
+<li><p>"ECT" : "ectopic", "ectopic pregnancy"</p></li>
+<li><p>FALSE : <code>0</code>, <code>FALSE</code>, "no", <code>NA</code></p></li>
 </ul></dd>
 
 
@@ -267,6 +279,15 @@ individuals
 <code>fertile</code> = individual is fertile).</p></dd>
 
 
+<dt><code>miscarriage</code></dt>
+<dd><p>A factor vector with the miscarriage status of the
+individuals
+(i.e. <code>TOP</code> = Termination of Pregnancy,
+<code>SAB</code> = Spontaneous Abortion,
+<code>ECT</code> = Ectopic Pregnancy,
+<code>FALSE</code> = no miscarriage).</p></dd>
+
+
 <dt><code>deceased</code></dt>
 <dd><p>A logical vector with the death status of the
 individuals
@@ -353,6 +374,7 @@ or a data.frame with each elements with the same length as <code>x</code>.</p>
 </ul><ul><li><p><code>famid(x)</code> : Individuals' family identifiers</p></li>
 </ul><ul><li><p><code>sex(x)</code> : Individuals' gender</p></li>
 </ul><ul><li><p><code>fertility(x)</code> : Individuals' fertility status</p></li>
+</ul><ul><li><p><code>miscarriage(x)</code> : Individuals' miscarriage status</p></li>
 </ul><ul><li><p><code>affected(x)</code> : Individuals' affection status</p></li>
 </ul><ul><li><p><code>avail(x)</code> : Individuals' availability status</p></li>
 </ul><ul><li><p><code>deceased(x)</code> : Individuals' death status</p></li>
@@ -405,32 +427,45 @@ should be kept or deleted.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 212               212         209         208    female           2   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 213               213         209         208      male           2   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 214               214         209         208      male           2   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            deceased     avail  affected    useful       kin     isinf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101            &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102            &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 103            &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 104            &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 105            &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...             ...       ...       ...       ...       ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 210            &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 211            &lt;NA&gt;      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 212            &lt;NA&gt;      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 213            &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 214            &lt;NA&gt;      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           num_child_tot num_child_dir num_child_ind |   affection         num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;   &lt;character&gt; &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101                   1             1             0             0           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102                   1             1             0             1           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 103                   4             4             0             1           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 104                   4             4             0             0           4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 105                   4             4             0          &lt;NA&gt;           6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                 ...           ...           ...           ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 210                   0             0             0             0           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 211                   0             0             0             0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 212                   0             0             0             0           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 213                   0             0             0             0           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 214                   0             0             0             1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           miscarriage  deceased     avail  affected    useful       kin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class    &lt;factor&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101             FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102             FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103             FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104             FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105             FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...       ...       ...       ...       ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 210             FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 211             FALSE      &lt;NA&gt;      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 212             FALSE      &lt;NA&gt;      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 213             FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 214             FALSE      &lt;NA&gt;      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               isinf num_child_tot num_child_dir num_child_ind |   affection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt;     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;   &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101            &lt;NA&gt;             1             1             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102            &lt;NA&gt;             1             1             0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103            &lt;NA&gt;             4             4             0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104            &lt;NA&gt;             4             4             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105            &lt;NA&gt;             4             4             0          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...             ...           ...           ...           ...           ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 210            &lt;NA&gt;             0             0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 211            &lt;NA&gt;             0             0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 212            &lt;NA&gt;             0             0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 213            &lt;NA&gt;             0             0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 214            &lt;NA&gt;             0             0             0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   num</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101                 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102                 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103                 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104                 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105                 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 210                 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 211                 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 212                 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 213                 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 214                 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">Ped</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    obj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span><span class="op">)</span>,</span></span>
@@ -448,22 +483,22 @@ should be kept or deleted.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                   4        &lt;NA&gt;        &lt;NA&gt;      male        &lt;NA&gt;   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                   5        &lt;NA&gt;        &lt;NA&gt;    female        &lt;NA&gt;   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                   6        &lt;NA&gt;        &lt;NA&gt;      male        &lt;NA&gt;   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            deceased     avail  affected    useful       kin     isinf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1              &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4              &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5              &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6              &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           num_child_tot num_child_dir num_child_ind</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                     0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     3             2             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                     3             3             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                     3             1             2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           miscarriage  deceased     avail  affected    useful       kin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class    &lt;factor&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3               FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4               FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5               FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6               FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               isinf num_child_tot num_child_dir num_child_ind</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt;     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1              &lt;NA&gt;             0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2              &lt;NA&gt;             0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3              &lt;NA&gt;             0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4              &lt;NA&gt;             3             2             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5              &lt;NA&gt;             3             3             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6              &lt;NA&gt;             3             1             2</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

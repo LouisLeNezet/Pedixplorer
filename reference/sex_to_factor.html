@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Gender variable to ordered factor</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
       <div class="d-none name"><code>sex_to_factor.Rd</code></div>
     </div>
 
@@ -71,10 +71,10 @@
 <dd><p>A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-<code>male</code> &lt; <code>female</code> &lt; <code>unknown</code>
-The following values are recognized:</p><ul><li><p>character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown"</p></li>
-<li><p>numeric() : 1 = "male", 2 = "female", 3 = "unknown"</p></li>
+<code>male</code> &lt; <code>female</code> &lt; <code>unknown</code></p>
+<p>The following values are recognized:</p><ul><li><p>"male": "m", "male", "man", <code>1</code></p></li>
+<li><p>"female": "f", "female", "woman", <code>2</code></p></li>
+<li><p>"unknown": "unknown", <code>3</code></p></li>
 </ul></dd>
 
 </dl></div>
@@ -86,8 +86,8 @@ The following values are recognized:</p><ul><li><p>character() or factor() : "f"
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sex_to_factor</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="st">"f"</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"female"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] male    female  unknown unknown female  male    male    female </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sex_to_factor</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="st">"f"</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"female"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] male    female  unknown female  male    male    female </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: male &lt; female &lt; unknown</span>
 </code></pre></div>
     </div>
