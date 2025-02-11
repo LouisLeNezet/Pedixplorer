@@ -34,6 +34,12 @@ setClassUnion("missing_OR_NULL", c("missing", "NULL"))
 #' (i.e. `infertile_choice_na` = no children by choice or unknown reason,
 #' `infertile` = individual is inferile,
 #' `fertile` = individual is fertile).
+#' @slot miscarriage A factor vector with the miscarriage status of the
+#' individuals
+#' (i.e. `TOP` = Termination of Pregnancy,
+#' `SAB` = Spontaneous Abortion,
+#' `ECT` = Ectopic Pregnancy,
+#' `FALSE` = no miscarriage).
 #' @slot deceased A logical vector with the death status of the
 #' individuals
 #' (i.e. `FALSE` = alive,
@@ -81,6 +87,7 @@ setClass("Ped",
         sex = "factor",
         famid = "character",
         fertility = "factor",
+        miscarriage = "factor",
         deceased = "logical",
         avail = "logical",
         affected = "logical",
@@ -98,7 +105,7 @@ setMethod("parallel_slot_names", "Ped",
     function(x) {
         c(
             "id", "dadid", "momid", "sex", "famid",
-            "fertility",
+            "fertility", "miscarriage",
             "deceased",
             "avail", "affected",
             "useful", "kin", "isinf",

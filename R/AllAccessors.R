@@ -299,6 +299,56 @@ setMethod("fertility<-",
     }
 )
 
+##### Miscarriage Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("miscarriage", function(x) {
+    standardGeneric("miscarriage")
+})
+
+#' @section Accessors:
+#' - `miscarriage(x)` : Individuals' miscarriage status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("miscarriage", signature(x = "Ped"), function(x) {
+    x@miscarriage
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("miscarriage<-", function(x, value) {
+    standardGeneric("miscarriage<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("miscarriage<-",
+    signature(x = "Ped", value = "character_OR_integer"),
+    function(x, value) {
+        if (
+            ! is.character(value) &&
+                ! is.integer(value) &&
+                ! is.factor(value)
+        ) {
+            stop("miscarriage must be a character or integer vector")
+        }
+        if (length(value) != length(x)) {
+            stop(
+                "The length of the new values for miscarriage should be: ",
+                "equal to the length of the Ped object"
+            )
+        }
+        x@miscarriage <- miscarriage_to_factor(value)
+        validObject(x)
+        x
+    }
+)
+
 ##### Affected Accessors #####
 
 #' @rdname Ped-class
@@ -766,7 +816,7 @@ setMethod(
     function(object, slot, value) {
         ped_slots <- c(
             "id", "dadid", "momid", "sex", "famid",
-            "fertility", "deceased", "avail", "affected",
+            "fertility", "miscarriage", "deceased", "avail", "affected",
             "kin", "useful", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind"
         )

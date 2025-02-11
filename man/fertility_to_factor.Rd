@@ -11,12 +11,12 @@ fertility_to_factor(fertility)
 the fertility status of the individuals. This will be transformed to an
 ordered factor with the following levels:
 \code{infertile_choice_na} < \code{infertile} < \code{fertile}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "fertile", "infertile", "steril",
-"infertile_choice", "infertile_na", "infertile_choice_na"
-\item numeric() : 1 = "fertile", 0 = "infertile"
-\item logical() : \code{TRUE} = "fertile", \code{FALSE} = "infertile"
+\item "inferile_choice_na" : "infertile_choice", "infertile_na"
+\item "infertile" : "infertile", "steril", \code{FALSE}, \code{0}
+\item "fertile" : "fertile", \code{TRUE}, \code{1}, \code{NA}
 }}
 }
 \value{
@@ -25,13 +25,6 @@ an factor vector containing the transformed variable
 }
 \description{
 Transform a fertility variable to a factor variable
-By default, the following values are recognized:
-\itemize{
-\item "inferile_choice_na" : "infertile_choice", "infertile_na"
-\item "infertile" : "infertile", "steril", FALSE, 0
-\item "fertile" : "fertile", "TRUE", \code{TRUE}, 1, NA
-}
-
 By default, all other values are transformed to \code{NA} and considered as
 fertile.
 }

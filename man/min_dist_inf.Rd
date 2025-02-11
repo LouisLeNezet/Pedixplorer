@@ -29,11 +29,12 @@ biologicals mothers.}
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
 \code{male} < \code{female} < \code{unknown}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown"
+\item "male": "m", "male", "man", \code{1}
+\item "female": "f", "female", "woman", \code{2}
+\item "unknown": "unknown", \code{3}
 }}
 
 \item{id_inf}{An identifiers vector of informative individuals.}

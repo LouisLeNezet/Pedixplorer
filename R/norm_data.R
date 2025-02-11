@@ -100,7 +100,8 @@ norm_ped <- function(
     cols_used_del = FALSE
 ) {
     err_cols <- c(
-        "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis", "sexNA",
+        "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
+        "sexErrMisFer", "sexNA",
         "sexError", "idErr", "idErrFa", "idErrMo", "idErrSelf",
         "idErrOwnParent", "idErrBothParent", "idError", "error"
     )
@@ -178,6 +179,11 @@ norm_ped <- function(
             & (is_father | is_mother)
         ] <- "is-aborted-but-is-parent"
 
+        err$sexErrMisFer[ped_df$miscarriage != "FALSE"
+            & ped_df$fertility != "fertile"
+        ] <- "is-aborted-but-has-fertility"
+
+
         ## Check error between sex and parentality
         err$sexNA[!ped_df$sex %in%
                 c("male", "female", "unknown")
@@ -195,7 +201,7 @@ norm_ped <- function(
             err, "sexError",
             c(
                 "sexNA", "sexErrMoFa", "sexErrMo", "sexErrFa",
-                "sexErrFer", "sexErrMis"
+                "sexErrFer", "sexErrMis", "sexErrMisFer"
             ), na.rm = TRUE, sep = "_", remove = TRUE
         )
         err$sexError[err$sexError == ""] <- NA

@@ -6,6 +6,7 @@ obj <- new("testClass",
 setMethod("as.list", c(x = "testClass"), function(x, ...) {
     list(x = x@x, y = x@y)
 })
+
 lst <- list(X = data.frame(a = 1:10), Y = 11:20)
 
 test_that("check_slot_fd works", {

@@ -40,7 +40,7 @@ par_lst <- list(
     "fig" = c(0, 1, 0, 1), "mar" = c(1, 1, 1, 1), xpd = TRUE,
     lwd = 0.5
 )
-R.devices::devNew("pdf",  width = 10, height = 10, par = par_lst)
+R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 
 ## Set up the environment
 ## Add BROWSER="google-chrome" to your environment variables

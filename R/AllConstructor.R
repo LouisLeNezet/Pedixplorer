@@ -54,23 +54,6 @@ na_to_length <- function(x, temp, value) {
 #' @param famid A character vector with the family identifiers of the
 #' individuals. If provide, will be aggregated to the individuals
 #' identifiers separated by an underscore.
-#' @param sex A character, factor or numeric vector corresponding to
-#' the gender of the individuals. This will be transformed to an ordered factor
-#' with the following levels:
-#' `male` < `female` < `unknown`
-#' The following values are recognized:
-#' - character() or factor() : "f", "m", "woman", "man", "male", "female",
-#' "unknown"
-#' - numeric() : 1 = "male", 2 = "female", 3 = "unknown"
-#' @param fertility A character, factor or numeric vector corresponding to
-#' the fertility status of the individuals. This will be transformed to an
-#' ordered factor with the following levels:
-#' `infertile_choice_na` < `infertile` < `fertile`
-#' The following values are recognized:
-#' - character() or factor() : "fertile", "infertile", "steril",
-#' "infertile_choice", "infertile_na", "infertile_choice_na"
-#' - numeric() : 1 = "fertile", 0 = "infertile"
-#' - logical() : `TRUE` = "fertile", `FALSE` = "infertile"
 #' @param deceased A logical vector with the death status of the
 #' individuals
 #' (i.e. `FALSE` = alive,
@@ -98,6 +81,9 @@ na_to_length <- function(x, temp, value) {
 #' @param kin A numeric vector with minimal kinship value between the
 #' individuals and the informative individuals.
 #' @inheritParams check_columns
+#' @inheritParams sex_to_factor
+#' @inheritParams fertility_to_factor
+#' @inheritParams miscarriage_to_factor
 #' @return A Ped object.
 #' @rdname Ped-class
 #' @export
@@ -117,7 +103,7 @@ setMethod("Ped", "data.frame",
     function(obj, cols_used_init = FALSE, cols_used_del = FALSE) {
         col_need <- c("id", "sex", "dadid", "momid")
         col_to_use <- c(
-            "famid", "fertility", "deceased", "avail",
+            "famid", "fertility", "miscarriage", "deceased", "avail",
             "kin", "isinf", "useful", "affected"
         )
         col_used <- c(
@@ -134,6 +120,7 @@ setMethod("Ped", "data.frame",
 
         if (nrow(df) > 0) {
             df$fertility <- fertility_to_factor(df$fertility)
+            df$miscarriage <- miscarriage_to_factor(df$miscarriage)
             df$deceased <- vect_to_binary(df$deceased, logical = TRUE)
             df$avail <- vect_to_binary(df$avail, logical = TRUE)
             df$affected <- vect_to_binary(df$affected, logical = TRUE)
@@ -143,9 +130,9 @@ setMethod("Ped", "data.frame",
         }
 
         myped <- with(df, Ped(
-            obj = id, sex = sex, dadid = dadid, momid = momid,
-            famid = famid,
-            fertility = fertility, deceased = deceased, avail = avail,
+            obj = id, sex = sex, dadid = dadid, momid = momid, famid = famid,
+            fertility = fertility, miscarriage = miscarriage,
+            deceased = deceased, avail = avail,
             affected = affected,
             kin = kin, isinf = isinf, useful = useful
         ))
@@ -171,7 +158,8 @@ setMethod("Ped", "data.frame",
 setMethod("Ped", "character_OR_integer",
     function(
         obj, sex, dadid, momid, famid = NA,
-        fertility = NA, deceased = NA, avail = NA,
+        fertility = NA, miscarriage = NA,
+        deceased = NA, avail = NA,
         affected = NA, missid = NA_character_,
         useful = NA, isinf = NA, kin = NA_real_
     ) {
@@ -189,6 +177,9 @@ setMethod("Ped", "character_OR_integer",
         fertility <- fertility_to_factor(
             na_to_length(fertility, id, NA)
         )
+        miscarriage <- miscarriage_to_factor(
+            na_to_length(miscarriage, id, NA)
+        )
         deceased <- na_to_length(deceased, id, NA)
         avail <- na_to_length(avail, id, NA)
         affected <- na_to_length(affected, id, NA)
@@ -201,7 +192,7 @@ setMethod("Ped", "character_OR_integer",
         new(
             "Ped",
             id = id, dadid = dadid, momid = momid, famid = famid,
-            sex = sex, fertility = fertility,
+            sex = sex, fertility = fertility, miscarriage = miscarriage,
             deceased = deceased, avail = avail, affected = affected,
             useful = useful, kin = kin, isinf = isinf,
             num_child_tot = df_child$num_child_tot,
@@ -601,6 +592,7 @@ setMethod("Scales",
 #' - `sex`: the sex of the individual
 #' - `famid`: the family identifier of the individual
 #' - `fertility`: the fertility status of the individual
+#' - `miscarriage`: the miscarriage status of the individual
 #' - `available`: the availability status of the individual (`avail`)
 #' - `deceased`: the death status of the individual
 #' - `affection`: the affection status of the individual
@@ -616,18 +608,22 @@ setMethod("Scales",
 #' The `famid` column can also be used to specify the
 #' family of the individuals and will be merge to the
 #' `id` field separated by an underscore.
+#'
 #' The columns `avail`,
 #' `deceased`, `affected`
 #' will be transformed with the [vect_to_binary()]
 #' function when the normalisation is selected.
+#'
 #' The `fertility` column will be transformed with the
 #' [fertility_to_factor()] function.
-#' If you do not use the normalisation, the columns will be checked to
-#' be `0` or `1`.
+#'
+#' The `miscarriage` column will be transformed with the
+#' [miscarriage_to_factor()] function.
 #'
 #' @param obj A vector of the individuals identifiers or a data.frame
 #' with the individuals informations.
 #' See [Ped()] for more informations.
+#'
 #' @param rel_df A data.frame with the special relationships between
 #' individuals. See [Rel()] for more informations.
 #' The minimum columns required are `id1`, `id2` and `code`.
@@ -702,9 +698,10 @@ setGeneric("Pedigree", signature = "obj",
 #'         "1", "2", 2
 #'     ), ncol = 3, byrow = TRUE),
 #' )
-setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
-    sex, famid = NA, avail = NULL, affections = NULL, deceased = NULL,
-    fertility = NULL, rel_df =  NULL,
+setMethod("Pedigree", "character_OR_integer", function(
+    obj, dadid, momid, sex, famid = NA, avail = NULL, affections = NULL,
+    fertility = NULL, miscarriage = NULL, deceased = NULL,
+    rel_df =  NULL,
     missid = NA_character_, col_aff = "affection", normalize = TRUE, ...
 ) {
     n <- length(obj)
@@ -717,6 +714,10 @@ setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
     if (length(sex) != n) stop("Mismatched lengths, id and sex")
     if (length(fertility) != n & !is.null(fertility)) {
         stop("Mismatched lengths, id and fertility")
+    }
+
+    if (length(miscarriage) != n & !is.null(miscarriage)) {
+        stop("Mismatched lengths, id and miscarriage")
     }
 
     if (length(avail) != n & !is.null(avail)) {
@@ -769,6 +770,9 @@ setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
     if (any(!is.na(fertility))) {
         ped_df$fertility <- fertility
     }
+    if (any(!is.na(miscarriage))) {
+        ped_df$miscarriage <- miscarriage
+    }
     if (is.null(rel_df)) {
         rel_df <- data.frame(
             id1 = character(),
@@ -797,8 +801,9 @@ setMethod("Pedigree", "data.frame",  function(
         sex = numeric(),
         famid = character(),
         avail = numeric(),
-        deceased = numeric(),
-        fertility = numeric()
+        fertility = numeric(),
+        miscarriage = numeric(),
+        deceased = numeric()
     ),
     rel_df = data.frame(
         id1 = character(),
@@ -813,6 +818,7 @@ setMethod("Pedigree", "data.frame",  function(
         famid = "family",
         sex = "gender",
         fertility = c("sterilisation", "steril"),
+        miscarriage = c("miscarriage", "aborted"),
         affection = "affected",
         avail = "available",
         deceased = c("status", "vitalStatus")
@@ -902,7 +908,10 @@ setMethod("Pedigree", "data.frame",  function(
         rel_df <- norm_rel(rel_df, missid = missid, na_strings = na_strings)
     } else {
         cols_need <- c("id", "dadid", "momid", "sex")
-        cols_to_use <- c("fertility", "avail", "famid", "deceased", "affected")
+        cols_to_use <- c(
+            "fertility", "miscarriage", "avail",
+            "famid", "deceased", "affected"
+        )
         ped_df <- check_columns(
             ped_df, cols_need, "", cols_to_use,
             others_cols = TRUE, cols_to_use_init = TRUE

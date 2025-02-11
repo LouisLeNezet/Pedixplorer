@@ -164,7 +164,7 @@ polygons <- function(nslice = 1) {
             )),
             triangle = list(list(
                 x = c(0, -0.56, 0.56),
-                y = c(0, 1, 1)
+                y = c(0, 0.75, 0.75)
             ))
         )
     } else {
@@ -181,7 +181,7 @@ polygons <- function(nslice = 1) {
         ))
         triangle <- polyfun(nslice, list(
             x = c(-0.56, 0, 0.56),
-            y = c(-0.5, 0.5, -0.5),
+            y = c(-0.25, 0.25, -0.25),
             theta = c(-2, -4, -6) * pi / 3
         ))
         polylist <- list(
