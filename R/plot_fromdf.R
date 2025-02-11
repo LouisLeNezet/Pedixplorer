@@ -105,7 +105,7 @@ plot_fromdf <- function(
         names(polygons(1)), seq_len(max_aff), seq_len(max_aff)
     ), 1, paste, collapse = "_")
 
-    seg <- df[df$type == "segments" & df$id != "dead", ]
+    seg <- df[df$type == "segments" & ! (df$id %in% c("dead", "ECT-TOP")), ]
     if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
@@ -134,7 +134,7 @@ plot_fromdf <- function(
         }
     }
 
-    seg <- df[df$type == "segments" & df$id == "dead", ]
+    seg <- df[df$type == "segments" & df$id %in% c("dead", "ECT-TOP"), ]
     if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,

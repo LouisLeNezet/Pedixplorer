@@ -308,12 +308,20 @@ NULL
 
 #' Gender variable to ordered factor
 #'
-#' @inheritParams Ped
+#' @param sex A character, factor or numeric vector corresponding to
+#' the gender of the individuals. This will be transformed to an ordered factor
+#' with the following levels:
+#' `male` < `female` < `unknown`
+#'
+#' The following values are recognized:
+#' - "male": "m", "male", "man", `1`
+#' - "female": "f", "female", "woman", `2`
+#' - "unknown": "unknown", `3`
 #'
 #' @return an ordered factor vector containing the transformed variable
 #' "male" < "female" < "unknown"
 #' @examples
-#' sex_to_factor(c(1, 2, 3, 4, "f", "m", "man", "female"))
+#' sex_to_factor(c(1, 2, 3, "f", "m", "man", "female"))
 #' @export
 #' @keywords internal
 sex_to_factor <- function(sex) {
@@ -339,19 +347,22 @@ sex_to_factor <- function(sex) {
 #' Fertility variable to factor
 #'
 #' @description Transform a fertility variable to a factor variable
-#' By default, the following values are recognized:
-#'
-#' - "inferile_choice_na" : "infertile_choice", "infertile_na"
-#' - "infertile" : "infertile", "steril", FALSE, 0
-#' - "fertile" : "fertile", "TRUE", `TRUE`, 1, NA
-#'
 #' By default, all other values are transformed to `NA` and considered as
 #' fertile.
 #'
-#' @inheritParams Ped
+#' @param fertility A character, factor or numeric vector corresponding to
+#' the fertility status of the individuals. This will be transformed to an
+#' ordered factor with the following levels:
+#' `infertile_choice_na` < `infertile` < `fertile`
+#'
+#' The following values are recognized:
+#' - "inferile_choice_na" : "infertile_choice", "infertile_na"
+#' - "infertile" : "infertile", "steril", `FALSE`, `0`
+#' - "fertile" : "fertile", `TRUE`, `1`, `NA`
 #'
 #' @return an factor vector containing the transformed variable
 #' "infertile_choice_na" < "infertile" < "fertile"
+#'
 #' @examples
 #' fertility_to_factor(c(
 #'    1, "fertile", TRUE, NA,
@@ -384,6 +395,59 @@ fertility_to_factor <- function(fertility) {
 
     fertility <- factor(fertility, fertility_codes, ordered = TRUE)
     fertility
+}
+
+#' Miscarriage variable to factor
+#'
+#' @description Transform a miscarriage variable to a factor variable
+#' By default, all other values are transformed to `NA` and considered as
+#' `FALSE`. Space and case are ignored.
+#'
+#' @param miscarriage A character, factor or numeric vector corresponding to
+#' the miscarriage status of the individuals. This will be transformed to a
+#' factor with the following levels:
+#' `TOP`, `SAB`, `ECT`, `FALSE`
+#' The following values are recognized:
+#' - "SAB" : "spontaneous", "spontaenous abortion"
+#' - "TOP" : "termination", "terminated", "termination of pregnancy"
+#' - "ECT" : "ectopic", "ectopic pregnancy"
+#' - FALSE : `0`, `FALSE`, "no", `NA`
+#'
+#' @return an factor vector containing the transformed variable
+#' "SAB", "TOP", "ECT", "FALSE"
+#' @examples
+#' miscarriage_to_factor(c(
+#'    "spontaneous", "spontaenous abortion",
+#'   "termination", "terminated", "termination of pregnancy",
+#'   "ectopic", "ectopic pregnancy",
+#'   "0", "false", "no", "NA"
+#' ))
+#' @export
+#' @keywords internal
+miscarriage_to_factor <- function(miscarriage) {
+    if (
+        is.factor(miscarriage)
+        || is.numeric(miscarriage)
+        || is.logical(miscarriage)
+    ) {
+        miscarriage <- as.character(miscarriage)
+    }
+    ## Normalized difference notations for miscarriage
+    miscarriage_equiv <- c(
+        spontaneous = "SAB", spontaenousabortion = "SAB", sab = "SAB",
+        termination = "TOP", terminated = "TOP", terminationofpregnancy = "TOP",
+        top = "TOP", ect = "ECT",
+        ectopic = "ECT", ectopicpregnancy = "ECT",
+        `0` = "FALSE", `false` = "FALSE", no = "FALSE", na = "FALSE"
+    )
+    miscarriage <- as.character(revalue(as.factor(
+        stringr::str_remove_all(casefold(miscarriage, upper = FALSE), " ")
+    ), miscarriage_equiv, warn_missing = FALSE))
+    miscarriage_codes <- c("SAB", "TOP", "ECT", "FALSE")
+    miscarriage[!miscarriage %in% miscarriage_codes] <- "FALSE"
+
+    miscarriage <- factor(miscarriage, miscarriage_codes)
+    miscarriage
 }
 
 #' @importFrom stringr str_remove_all

@@ -11,11 +11,12 @@ sex_to_factor(sex)
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
 \code{male} < \code{female} < \code{unknown}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown"
+\item "male": "m", "male", "man", \code{1}
+\item "female": "f", "female", "woman", \code{2}
+\item "unknown": "unknown", \code{3}
 }}
 }
 \value{
@@ -26,6 +27,6 @@ an ordered factor vector containing the transformed variable
 Gender variable to ordered factor
 }
 \examples{
-sex_to_factor(c(1, 2, 3, 4, "f", "m", "man", "female"))
+sex_to_factor(c(1, 2, 3, "f", "m", "man", "female"))
 }
 \keyword{internal}

@@ -104,13 +104,21 @@ test_that("Supplementary graphical representations", {
     data("sampleped")
     pedi <- Pedigree(sampleped)
 
+    sex(ped(pedi))[id(ped(pedi)) %in% c("1_121")] <- "unknown"
+
     ## Fertility
-    current_ferti <- fertility(ped(pedi))
-    fertility(ped(pedi))[id(ped(pedi)) %in% c("1_139", "1_129")] <- "infertile"
     fertility(ped(pedi))[
-        id(ped(pedi)) %in% c("1_131", "1_111")
-    ] <- "infertile_choice_na"
-    vdiffr::expect_doppelganger("Ped with fertility",
+        match(c("1_139", "1_129", "1_131", "1_111"), id(ped(pedi)))
+    ] <- c(
+        "infertile", "infertile",
+        "infertile_choice_na", "infertile_choice_na"
+    )
+
+    ## Miscarriage
+    miscarriage(ped(pedi))[
+        match(c("1_124", "1_140", "1_133"), id(ped(pedi)))
+    ] <- c("SAB", "TOP", "ECT")
+    vdiffr::expect_doppelganger("Ped with miscarriage and fertility",
         function() {
             plot(pedi)
         }

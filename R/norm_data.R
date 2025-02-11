@@ -27,7 +27,7 @@
 #'
 #' - All sex code are either `male`, `female`,
 #' or `unknown`.
-#' - No parents are infertile.
+#' - No parents are infertile or aborted
 #' - All fathers are male
 #' - All mothers are female
 #'
@@ -56,11 +56,10 @@
 #' The `fertility` column will be transformed to an ordered factor using the
 #' [fertility_to_factor()] function.
 #' `infertile_choice_na` < `infertile` < `fertile`
-#' The following values are recognized:
-#' - character() or factor() : "fertile", "infertile", "steril",
-#' "infertile_choice", "infertile_na", "infertile_choice_na"
-#' - numeric() : 1 = "fertile", 0 = "infertile"
-#' - logical() : `TRUE` = "fertile", `FALSE` = "infertile"
+#'
+#' The `miscarriage` column will be transformed to a using the
+#' [miscarriage_to_factor()] function.
+#' `SAB`, `TOP`, `ECT`, `FALSE`
 #'
 #' @param na_strings Vector of strings to be considered as NA values.
 #' @param try_num Boolean defining if the function should try to convert
@@ -81,7 +80,8 @@
 #'     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
 #'     fertility = c(
 #'       "TRUE", "FALSE", TRUE, FALSE, 1, 0, "fertile", "infertile", 1, "TRUE"
-#'     ), deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
+#'     ), deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
+#'     miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0)
 #' )
 #' tryCatch(
 #'     norm_ped(df),
@@ -100,7 +100,8 @@ norm_ped <- function(
     cols_used_del = FALSE
 ) {
     err_cols <- c(
-        "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrTer", "sexNA",
+        "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
+        "sexErrMisFer", "sexNA",
         "sexError", "idErr", "idErrFa", "idErrMo", "idErrSelf",
         "idErrOwnParent", "idErrBothParent", "idError", "error"
     )
@@ -108,7 +109,7 @@ norm_ped <- function(
     colnames(err) <- err_cols
     cols_need <- c("id", "dadid", "momid", "sex")
     cols_used <- c("error")
-    cols_to_use <- c("avail", "famid", "fertility", "deceased")
+    cols_to_use <- c("avail", "famid", "fertility", "deceased", "miscarriage")
     ped_df <- check_columns(
         ped_df, cols_need, cols_used, cols_to_use, others_cols = TRUE,
         cols_to_use_init = TRUE, cols_used_init = TRUE,
@@ -162,13 +163,26 @@ norm_ped <- function(
             ped_df$fertility <- NA_character_
         }
 
-        ## Normalize infertility column and check for infertil parents
+        ## Normalize infertility column and check for infertile parents
         ped_df$fertility <- fertility_to_factor(
             ped_df$fertility
         )
-        err$sexErrTer[ped_df$fertility != "fertile"
+        err$sexErrFer[ped_df$fertility != "fertile"
             & (is_father | is_mother)
         ] <- "is-infertile-but-is-parent"
+
+        ## Normalize miscarriage column and check for infertile parents
+        ped_df$miscarriage <- miscarriage_to_factor(
+            ped_df$miscarriage
+        )
+        err$sexErrMis[ped_df$miscarriage != "FALSE"
+            & (is_father | is_mother)
+        ] <- "is-aborted-but-is-parent"
+
+        err$sexErrMisFer[ped_df$miscarriage != "FALSE"
+            & ped_df$fertility != "fertile"
+        ] <- "is-aborted-but-has-fertility"
+
 
         ## Check error between sex and parentality
         err$sexNA[!ped_df$sex %in%
@@ -185,8 +199,10 @@ norm_ped <- function(
         ## Unite all sex errors in one column
         err <- tidyr::unite(
             err, "sexError",
-            c("sexNA", "sexErrMoFa", "sexErrMo", "sexErrFa", "sexErrTer"),
-            na.rm = TRUE, sep = "_", remove = TRUE
+            c(
+                "sexNA", "sexErrMoFa", "sexErrMo", "sexErrFa",
+                "sexErrFer", "sexErrMis", "sexErrMisFer"
+            ), na.rm = TRUE, sep = "_", remove = TRUE
         )
         err$sexError[err$sexError == ""] <- NA
 

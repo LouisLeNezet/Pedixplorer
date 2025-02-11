@@ -331,8 +331,13 @@ is_valid_ped <- function(object) {
     # Control values for sex, fertility, deceased, avail and affected
     sex_code <- c("male", "female", "unknown")
     errors <- c(errors, check_values(object@sex, sex_code))
+
     fertility_code <- c("fertile", "infertile", "infertile_choice_na")
     errors <- c(errors, check_values(object@fertility, fertility_code))
+
+    miscarriage_code <- c("SAB", "TOP", "ECT", "FALSE")
+    errors <- c(errors, check_values(object@miscarriage, miscarriage_code))
+
     errors <- c(errors, check_values(object@deceased, c(0, 1, NA)))
     errors <- c(errors, check_values(object@avail, c(0, 1, NA)))
     errors <- c(errors, check_values(object@affected, c(0, 1, NA)))
@@ -342,20 +347,52 @@ is_valid_ped <- function(object) {
     momid <- object@momid
     dadid <- object@dadid
     sex <- object@sex
+    fertility <- object@fertility
+    miscarriage <- object@miscarriage
     is_dad <- id %in% dadid
     is_mom <- id %in% momid
 
     if (any(sex[is_dad] != "male")) {
-        errors <- c(errors, "Some dad are not male")
+        id_wrg <- id[is_dad & sex != "male"]
+        errors <- c(errors, paste(id_wrg, "is dad but not male"))
     }
     if (any(sex[is_mom] != "female")) {
-        errors <- c(errors, "Some mom are not female")
+        id_wrg <- id[is_mom & sex != "female"]
+        errors <- c(errors, paste(id_wrg, "is mom but not female"))
     }
-    if (any(
-        (dadid %in% missid & (! momid %in% missid)) |
-            ((! dadid %in% missid) & momid %in% missid)
-    )) {
-        errors <- c(errors, "Individuals should have both parents or none")
+    not_both_parents <- (dadid %in% missid & (! momid %in% missid)) |
+        ((! dadid %in% missid) & momid %in% missid)
+
+    if (any(not_both_parents)) {
+        id_wrg <- id[not_both_parents]
+        errors <- c(errors, paste(id_wrg, "should have both parents or none"))
+    }
+
+
+    if (any(fertility[is_dad] != "fertile")) {
+        id_wrg <- id[is_dad & fertility != "fertile"]
+        errors <- c(errors, paste(id_wrg, "is dad but not fertile"))
+    }
+    if (any(fertility[is_mom] != "fertile")) {
+        id_wrg <- id[is_mom & fertility != "fertile"]
+        errors <- c(errors, paste(id_wrg, "is mom but not fertile"))
+    }
+
+    if (any(miscarriage[is_dad] != "FALSE")) {
+        id_wrg <- id[is_dad & miscarriage != "FALSE"]
+        errors <- c(errors, paste(id_wrg, "is dad have a miscarriage status"))
+    }
+    if (any(miscarriage[is_mom] != "FALSE")) {
+        id_wrg <- id[is_mom & miscarriage != "FALSE"]
+        errors <- c(errors, paste(id_wrg, "is mom have a miscarriage status"))
+    }
+
+    if (any(miscarriage != "FALSE" & fertility != "fertile")) {
+        id_wrg <- id[miscarriage != "FALSE" & fertility != "fertile"]
+        errors <- c(errors, paste(
+            id_wrg, "is infertile and has a miscarriage status",
+            "only one of the two should be present"
+        ))
     }
 
     if (length(errors) == 0) {

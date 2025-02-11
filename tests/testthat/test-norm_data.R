@@ -1,28 +1,31 @@
 test_that("Norm ped", {
     ped_df <- c(
-        1, 3, 4, 2, FALSE, NA, "1", "None",
-        2, 0, 0, 1, TRUE, 1, 2, "A",
+        1, 3, 4, 2, FALSE, NA, "1", "None", "SAB",
+        2, 0, 0, 1, TRUE, 1, 2, "A", NA,
         3, 8, 7, "man", "infertile_choice", 0, "2", "E",
-        4, 6, 5, "woman", 1, "A", 3, "A",
-        5, 0, 0, "f", "fertile", NA, 7, "E",
-        6, "None", 0, "m", "steril", 0, "NA", "D",
-        7, 0, "0", 1, FALSE, "NA", 6, "A",
-        8, 0, 0, 1, 1, "0", "3", "D",
-        8, 2, 0, 2, TRUE, "None", "3", "A",
-        9, 9, 8, 3, NA, "Ab", "5", "B"
+        "no",
+        4, 6, 5, "woman", 1, "A", 3, "A", "NA",
+        5, 0, 0, "f", "fertile", NA, 7, "E", "ecT",
+        6, "None", 0, "m", "steril", 0, "NA", "D", "TOP",
+        7, 0, "0", 1, FALSE, "NA", 6, "A", "FALSE",
+        8, 0, 0, 1, 1, "0", "3", "D", FALSE,
+        8, 2, 0, 2, TRUE, "None", "3", "A", 0,
+        9, 9, 8, 3, NA, "Ab", "5", "B", "spontaneous"
     )
-    ped_df <- matrix(ped_df, ncol = 8, byrow = TRUE)
+    ped_df <- matrix(ped_df, ncol = 9, byrow = TRUE)
     dimnames(ped_df) <- list(NULL, c(
         "id", "dadid", "momid", "sex",
-        "fertility", "avail", "NumOther", "AffMod"
+        "fertility", "avail", "NumOther", "AffMod",
+        "miscarriage"
     ))
     ped_df <- data.frame(ped_df)
     ped_df <- suppressWarnings(norm_ped(
         ped_df, na_strings = c("None", "NA")
     ))
-    expect_equal(dim(ped_df), c(10, 11))
+    ped_df
+    expect_equal(dim(ped_df), c(10, 12))
     expect_snapshot(ped_df)
-    expect_equal(sum(is.na(ped_df$error)), 4)
+    expect_equal(sum(is.na(ped_df$error)), 2)
 })
 
 test_that("Norm rel", {

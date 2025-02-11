@@ -133,25 +133,27 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     pos <- plist$pos
     # y position
     i <- (seq_len(length(plist$nid)) - 1) %% length(plist$n) + 1
-    # sex of each box
-    sex <- as.numeric(sex(ped(obj)))[id[idx]]
 
     all_aff <- fill(obj)
     n_aff <- length(unique(fill(obj)$order))
     polylist <- polygons(max(1, n_aff))
 
     ped_df <- as.data.frame(ped(obj))
-    # border mods of each box
-    border_mods <- ped_df[id[idx], unique(border(obj)$column_mods)]
-    border_idx <- match(border_mods, border(obj)$mods)
-
     ped_df$tips <- create_text_column(ped_df, id_lab, c(label, tips))
 
     for (aff in seq_len(n_aff)) {
         aff_df <- all_aff[all_aff$order == aff, ]
         aff_mods <- ped_df[id[idx], unique(aff_df[["column_mods"]])]
-        aff_idx <- match(aff_mods, aff_df[["mods"]])
+        aff_norm <- match(aff_mods, aff_df[["mods"]])
 
+        # border mods of each box
+        border_mods <- ped_df[id[idx], unique(border(obj)$column_mods)]
+        border_idx <- match(border_mods, border(obj)$mods)
+
+        # Set sex and miscarriage symbols
+        ped_df$sex <- as.numeric(ped_df$sex)
+        ped_df$sex[ped_df$miscarriage != "FALSE"] <- 4
+        sex <- ped_df$sex[id[idx]]
 
         # mean range of each box for each polygon for each subreg
         poly_aff <- lapply(polylist, "[[", aff)
@@ -161,12 +163,13 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             function(x) mean(range(x * boxw)),
             1
         )
+
         ind <- data.frame(
             x0 = pos[idx], y0 = i[idx],
             type = paste(names(polylist)[sex], n_aff, aff, sep = "_"),
-            fill = aff_df[aff_idx, "fill"],
-            density = aff_df[aff_idx, "density"],
-            angle = aff_df[aff_idx, "angle"],
+            fill = aff_df[aff_norm, "fill"],
+            density = aff_df[aff_norm, "density"],
+            angle = aff_df[aff_norm, "angle"],
             border = border(obj)$border[border_idx],
             cex = lwd, tips = ped_df[id[idx], "tips"],
             id = "polygon"
@@ -183,6 +186,32 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             )
             plot_df <- plyr::rbind.fill(plot_df, aff_mark_df)
         }
+    }
+
+    ## Add miscarriage symbols
+    miscarriage <- ped_df[id[idx], "miscarriage"]
+    idx_mscr <- idx[miscarriage %in% c("ECT", "TOP")]
+    if (length(idx_mscr) > 0) {
+        mscr_df <- data.frame(
+            x0 = pos[idx_mscr] - 0.5 * boxw, y0 = i[idx_mscr] + 1 * boxh,
+            x1 = pos[idx_mscr] + 0.5 * boxw, y1 = i[idx_mscr],
+            type = "segments", fill = "black", cex = lwd,
+            id = "ECT-TOP"
+        )
+        plot_df <- plyr::rbind.fill(plot_df, mscr_df)
+    }
+
+    ## Add ectopic pregnancy symbol symbols
+    idx_mscr_ect <- idx[miscarriage %in% c("ECT")]
+    if (length(idx_mscr_ect) > 0) {
+        mscr_ect_df <- data.frame(
+            x0 = pos[idx_mscr_ect], y0 = i[idx_mscr_ect] + boxh,
+            label = "ECT", fill = "black",
+            type = "text", cex = cex * 0.8,
+            adjx = 0.5, adjy = 1,
+            id = "ECT"
+        )
+        plot_df <- plyr::rbind.fill(plot_df, mscr_ect_df)
     }
 
     ## Add deceased status
@@ -208,16 +237,16 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (length(idx_iftl_all) > 0) {
         iftl_df_vert <- data.frame(
             x0 = pos[idx_iftl_all], y0 = i[idx_iftl_all] + boxh,
-            x1 = pos[idx_iftl_all], y1 = i[idx_iftl_all] + boxh * 1.2,
+            x1 = pos[idx_iftl_all], y1 = i[idx_iftl_all] + boxh * 1.3,
             type = "segments", fill = "black", cex = lwd,
             id = "infertile"
         )
 
         iftl_df_hori <- data.frame(
             x0 = pos[idx_iftl_all] - (boxw / 2) * 0.8,
-            y0 = i[idx_iftl_all] + boxh * 1.2,
+            y0 = i[idx_iftl_all] + boxh * 1.3,
             x1 = pos[idx_iftl_all] + (boxw / 2) * 0.8,
-            y1 = i[idx_iftl_all] + boxh * 1.2,
+            y1 = i[idx_iftl_all] + boxh * 1.3,
             type = "segments", fill = "black", cex = lwd,
             id = "infertile"
         )
@@ -227,9 +256,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         if (length(idx_iftl) > 0) {
             iftl_df_hori_2 <- data.frame(
                 x0 = pos[idx_iftl] - (boxw / 2),
-                y0 = i[idx_iftl] + boxh * 1.3,
+                y0 = i[idx_iftl] + boxh * 1.4,
                 x1 = pos[idx_iftl] + (boxw / 2),
-                y1 = i[idx_iftl] + boxh * 1.3,
+                y1 = i[idx_iftl] + boxh * 1.4,
                 type = "segments", fill = "black", cex = lwd,
                 id = "infertile"
             )

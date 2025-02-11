@@ -39,14 +39,11 @@ The values recognized for those columns are \code{1} or \code{0},
 
 The \code{fertility} column will be transformed to an ordered factor using the
 \code{\link[=fertility_to_factor]{fertility_to_factor()}} function.
-\code{infertile_choice_na} < \code{infertile} < \code{fertile}
-The following values are recognized:
-\itemize{
-\item character() or factor() : "fertile", "infertile", "steril",
-"infertile_choice", "infertile_na", "infertile_choice_na"
-\item numeric() : 1 = "fertile", 0 = "infertile"
-\item logical() : \code{TRUE} = "fertile", \code{FALSE} = "infertile"
-}}
+\code{infertile_choice_na} < \code{infertile} < \code{fertile}#'
+
+The \code{miscarriage} column will be transformed to a using the
+\code{\link[=miscarriage_to_factor]{miscarriage_to_factor()}} function.
+\code{SAB}, \code{TOP}, \code{ECT}, \code{FALSE}}
 
 \item{na_strings}{Vector of strings to be considered as NA values.}
 
@@ -94,7 +91,7 @@ A number of checks are done to ensure the dataframe is correct:
 \itemize{
 \item All sex code are either \code{male}, \code{female},
 or \code{unknown}.
-\item No parents are infertile.
+\item No parents are infertile or aborted
 \item All fathers are male
 \item All mothers are female
 }
@@ -110,7 +107,8 @@ df <- data.frame(
     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
     fertility = c(
       "TRUE", "FALSE", TRUE, FALSE, 1, 0, "fertile", "infertile", 1, "TRUE"
-    ), deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
+    ), deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
+    miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0)
 )
 tryCatch(
     norm_ped(df),

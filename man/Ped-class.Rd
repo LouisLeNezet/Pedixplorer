@@ -32,6 +32,10 @@
 \alias{fertility,Ped-method}
 \alias{fertility<-}
 \alias{fertility<-,Ped,character_OR_integer-method}
+\alias{miscarriage}
+\alias{miscarriage,Ped-method}
+\alias{miscarriage<-}
+\alias{miscarriage<-,Ped,character_OR_integer-method}
 \alias{affected}
 \alias{affected,Ped-method}
 \alias{affected<-}
@@ -74,6 +78,7 @@
   momid,
   famid = NA,
   fertility = NA,
+  miscarriage = NA,
   deceased = NA,
   avail = NA,
   affected = NA,
@@ -97,11 +102,12 @@ should be deleted.}
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
 \code{male} < \code{female} < \code{unknown}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown"
+\item "male": "m", "male", "man", \code{1}
+\item "female": "f", "female", "woman", \code{2}
+\item "unknown": "unknown", \code{3}
 }}
 
 \item{dadid}{A vector containing for each subject, the identifiers of the
@@ -118,12 +124,24 @@ identifiers separated by an underscore.}
 the fertility status of the individuals. This will be transformed to an
 ordered factor with the following levels:
 \code{infertile_choice_na} < \code{infertile} < \code{fertile}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "fertile", "infertile", "steril",
-"infertile_choice", "infertile_na", "infertile_choice_na"
-\item numeric() : 1 = "fertile", 0 = "infertile"
-\item logical() : \code{TRUE} = "fertile", \code{FALSE} = "infertile"
+\item "inferile_choice_na" : "infertile_choice", "infertile_na"
+\item "infertile" : "infertile", "steril", \code{FALSE}, \code{0}
+\item "fertile" : "fertile", \code{TRUE}, \code{1}, \code{NA}
+}}
+
+\item{miscarriage}{A character, factor or numeric vector corresponding to
+the miscarriage status of the individuals. This will be transformed to a
+factor with the following levels:
+\code{TOP}, \code{SAB}, \code{ECT}, \code{FALSE}
+The following values are recognized:
+\itemize{
+\item "SAB" : "spontaneous", "spontaenous abortion"
+\item "TOP" : "termination", "terminated", "termination of pregnancy"
+\item "ECT" : "ectopic", "ectopic pregnancy"
+\item FALSE : \code{0}, \code{FALSE}, "no", \code{NA}
 }}
 
 \item{deceased}{A logical vector with the death status of the
@@ -204,6 +222,13 @@ individuals
 (i.e. \code{infertile_choice_na} = no children by choice or unknown reason,
 \code{infertile} = individual is inferile,
 \code{fertile} = individual is fertile).}
+
+\item{\code{miscarriage}}{A factor vector with the miscarriage status of the
+individuals
+(i.e. \code{TOP} = Termination of Pregnancy,
+\code{SAB} = Spontaneous Abortion,
+\code{ECT} = Ectopic Pregnancy,
+\code{FALSE} = no miscarriage).}
 
 \item{\code{deceased}}{A logical vector with the death status of the
 individuals
@@ -289,6 +314,11 @@ or a data.frame with each elements with the same length as \code{x}.
 
 \itemize{
 \item \code{fertility(x)} : Individuals' fertility status
+}
+
+
+\itemize{
+\item \code{miscarriage(x)} : Individuals' miscarriage status
 }
 
 

@@ -8,14 +8,14 @@
       col_class <character> <character> <character> <ordered> <character> <ordered>
       ID5               ID5        <NA>        <NA>    female        <NA>   fertile
       ID4               ID4        <NA>        <NA>      male        <NA>   fertile
-                 deceased     avail  affected    useful       kin     isinf
-      col_class <logical> <logical> <logical> <logical> <numeric> <logical>
-      ID5            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
-      ID4            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
-                num_child_tot num_child_dir num_child_ind
-      col_class     <numeric>     <numeric>     <numeric>
-      ID5                   0             0             0
-      ID4                   0             0             0
+                miscarriage  deceased     avail  affected    useful       kin
+      col_class    <factor> <logical> <logical> <logical> <logical> <numeric>
+      ID5             FALSE      <NA>      <NA>      <NA>      <NA>      <NA>
+      ID4             FALSE      <NA>      <NA>      <NA>      <NA>      <NA>
+                    isinf num_child_tot num_child_dir num_child_ind
+      col_class <logical>     <numeric>     <numeric>     <numeric>
+      ID5            <NA>             0             0             0
+      ID4            <NA>             0             0             0
 
 # Rel class works
 
