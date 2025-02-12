@@ -174,7 +174,7 @@ setMethod("fix_parents", "character", function(
     }
     data.frame(
         id = id, momid = momid, dadid = dadid,
-        sex = sex, famid = famid
+        sex = sex_to_factor(sex), famid = famid
     )
 })
 
