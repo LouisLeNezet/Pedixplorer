@@ -25,52 +25,85 @@ setClassUnion("missing_OR_NULL", c("missing", "NULL"))
 #' the individuals.
 #' @slot momid A character vector with the id of the mother of
 #' the individuals.
-#' @slot sex An ordered factor vector for the sex of the individuals
-#' (i.e. `male` < `female` < `unknown`).
 #' @slot famid A character vector with the family identifiers of the
 #' individuals (optional).
+#' @slot sex An ordered factor vector for the sex of the individuals
+#' (i.e. `male` < `female` < `unknown`).
 #' @slot fertility A factor vector with the fertility status of the
-#' individuals
+#' individuals (optional).
 #' (i.e. `infertile_choice_na` = no children by choice or unknown reason,
 #' `infertile` = individual is inferile,
 #' `fertile` = individual is fertile).
 #' @slot miscarriage A factor vector with the miscarriage status of the
-#' individuals
+#' individuals (optional).
 #' (i.e. `TOP` = Termination of Pregnancy,
 #' `SAB` = Spontaneous Abortion,
 #' `ECT` = Ectopic Pregnancy,
 #' `FALSE` = no miscarriage).
 #' @slot deceased A logical vector with the death status of the
-#' individuals
+#' individuals (optional).
 #' (i.e. `FALSE` = alive,
 #' `TRUE` = dead,
 #' `NA` = unknown).
 #' @slot avail A logical vector with the availability status of the
-#' individuals
+#' individuals (optional).
 #' (i.e. `FALSE` = not available,
 #' `TRUE` = available,
 #' `NA` = unknown).
+#' @slot evaluated A logical vector with the evaluation status of the
+#' individuals (optional).
+#' (i.e. `FALSE` = documented evaluation not available,
+#' `TRUE` = documented evaluation available).
+#' @slot consultand A logical vector with the consultand status of the
+#' individuals (optional). A consultand being an individual seeking
+#' genetic counseling/testing
+#' (i.e. `FALSE` = not a consultand,
+#' `TRUE` = consultand).
+#' @slot proband A logical vector with the proband status of the
+#' individuals (optional). A proband being an affected family
+#' member coming to medical attention independent of other
+#' family members.
+#' (i.e. `FALSE` = not a proband,
+#' `TRUE` = proband).
 #' @slot affected A logical vector with the affection status of the
-#' individuals
+#' individuals (optional).
 #' (i.e. `FALSE` = not affected,
 #' `TRUE` = affected,
 #' `NA` = unknown).
+#' @slot carrier A logical vector with the carrier status of the
+#' individuals (optional). A carrier being an individual who has
+#' the genetic trait but who is not likely to manifest the
+#' disease regardless of inheritance pattern
+#' (i.e. `FALSE` = not carrier,
+#' `TRUE` = carrier,
+#' `NA` = unknown).
+#' @slot asymptomatic A logical vector with the asymptomatic status of
+#' the individuals (optional). An asymptomatic individual being an individual
+#' clinically unaffected at this time but could later exhibit symptoms.
+#' (i.e. `FALSE` = not asymptomatic,
+#' `TRUE` = asymptomatic,
+#' `NA` = unknown).
+#' @slot adopted A logical vector with the adopted status of the
+#' individuals (optional).
+#' (i.e. `FALSE` = not adopted,
+#' `TRUE` = adopted,
+#' `NA` = unknown).
 #' @slot useful A logical vector with the usefulness status of the
-#' individuals
+#' individuals (computed).
 #' (i.e. `FALSE` = not useful,
 #' `TRUE` = useful).
 #' @slot isinf A logical vector indicating if the individual is informative
-#' or not
+#' or not (computed).
 #' (i.e. `FALSE` = not informative,
 #' `TRUE` = informative).
 #' @slot kin A numeric vector with minimal kinship value between the
-#' individuals and the useful individuals.
+#' individuals and the useful individuals (computed).
 #' @slot num_child_tot A numeric vector with the total number of children
-#' of the individuals.
+#' of the individuals (computed).
 #' @slot num_child_dir A numeric vector with the number of children
-#' of the individuals.
+#' of the individuals (computed).
 #' @slot num_child_ind A numeric vector with the number of children
-#' of the individuals.
+#' of the individuals (computed).
 #' @slot elementMetadata A DataFrame with the additional metadata columns
 #' of the Ped object.
 #' @slot metadata Meta informations about the pedigree.
@@ -84,13 +117,19 @@ setClass("Ped",
         id = "character",
         dadid = "character",
         momid = "character",
-        sex = "factor",
         famid = "character",
+        sex = "factor",
         fertility = "factor",
         miscarriage = "factor",
         deceased = "logical",
         avail = "logical",
+        evaluated = "logical",
+        consultand = "logical",
+        proband = "logical",
         affected = "logical",
+        carrier = "logical",
+        asymptomatic = "logical",
+        adopted = "logical",
         useful = "logical",
         kin = "numeric",
         isinf = "logical",
@@ -104,11 +143,11 @@ setClass("Ped",
 setMethod("parallel_slot_names", "Ped",
     function(x) {
         c(
-            "id", "dadid", "momid", "sex", "famid",
-            "fertility", "miscarriage",
-            "deceased",
-            "avail", "affected",
-            "useful", "kin", "isinf",
+            "id", "dadid", "momid", "famid", "sex",
+            "fertility", "miscarriage", "deceased",
+            "avail", "evaluated", "consultand", "proband",
+            "affected", "carrier", "asymptomatic",
+            "adopted", "useful", "kin", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind",
             callNextMethod()
         )

@@ -505,6 +505,8 @@ rel_code_to_factor <- function(code) {
 #' instead of a numeric vector
 #' (i.e. `0` and `1` becomes
 #' `FALSE` and `TRUE).
+#' @param default The default value to use for the values that are not
+#' recognized. By default, `NA` is used, but it can be `0` or `1`.
 #' @return numeric binary vector of the same size as **vect**
 #' with `0` and `1`
 #' @examples
@@ -513,7 +515,7 @@ rel_code_to_factor <- function(code) {
 #' )
 #' @export
 #' @keywords internal
-vect_to_binary <- function(vect, logical = FALSE) {
+vect_to_binary <- function(vect, logical = FALSE, default = NA) {
     if (length(vect) == 0) {
         return(NA)
     }
@@ -530,8 +532,11 @@ vect_to_binary <- function(vect, logical = FALSE) {
         " "
     ), code_equiv, warn_missing = FALSE
     ))
-    vect[!vect %in% c(0, 1)] <- NA
+    vect[!vect %in% c(0, 1)] <- default
     if (logical) {
+        if (! is.logical(default)) {
+            stop("The default value should be logical")
+        }
         as.logical(vect)
     } else {
         vect

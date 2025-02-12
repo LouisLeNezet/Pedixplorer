@@ -291,6 +291,9 @@ is_valid_scales <- function(object) {
 #' right values
 #' 3. Check that dad are male and mom are female
 #' 4. Check that individuals have both parents or none
+#' 5. Check that proband are affected
+#' 6. Check that proband and consultand are mutually exclusive
+#' 7. Check that asymptomatic individuals are not affected
 #'
 #' @param object A Ped object.
 #'
@@ -349,6 +352,10 @@ is_valid_ped <- function(object) {
     sex <- object@sex
     fertility <- object@fertility
     miscarriage <- object@miscarriage
+    consultand <- object@consultand
+    proband <- object@proband
+    affected <- object@affected
+    asymptomatic <- object@asymptomatic
     is_dad <- id %in% dadid
     is_mom <- id %in% momid
 
@@ -393,6 +400,21 @@ is_valid_ped <- function(object) {
             id_wrg, "is infertile and has a miscarriage status",
             "only one of the two should be present"
         ))
+    }
+
+    if (any(proband & !affected & !is.na(affected))) {
+        id_wrg <- id[proband & !affected & !is.na(affected)]
+        errors <- c(errors, paste(id_wrg, "is proband but not affected"))
+    }
+
+    if (any(consultand & proband)) {
+        id_wrg <- id[consultand & proband]
+        errors <- c(errors, paste(id_wrg, "is consultand and proband"))
+    }
+
+    if (any(asymptomatic & !is.na(asymptomatic) & affected & !is.na(affected))) {
+        id_wrg <- id[asymptomatic & !is.na(asymptomatic) & affected & !is.na(affected)]
+        errors <- c(errors, paste(id_wrg, "is asymptomatic but affected"))
     }
 
     if (length(errors) == 0) {
