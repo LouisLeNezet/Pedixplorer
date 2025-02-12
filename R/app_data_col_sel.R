@@ -71,8 +71,9 @@ check_col_config <- function(col_config) {
     all_alternates <- unlist(lapply(col_config, function(x) x$alternate))
     all_alternates <- all_alternates[!is.na(all_alternates)]
     if (any(duplicated(all_alternates))) {
+        all_alternates <- all_alternates[duplicated(all_alternates)]
         stop(paste(
-            "Duplicate column names detected in 'alternate' lists.",
+            all_alternates, "is duplicated in alternate configuration.",
             "Ensure each column appears in only one definition."
         ))
     }
@@ -153,6 +154,32 @@ validate_and_rename_df <- function(df, selections, col_config, others_cols = TRU
     }
 }
 
+#' Distribute elements by group
+#' 
+#' This function distributes elements by group
+#' for a given number of elements. The
+#' distribution can be done by row or by column.
+#' 
+#' @param nb_group The number of group.
+#' @param nb_elem The number of elements to distribute.
+#' @param by_row A boolean to distribute by row or by column.
+#' @return A vector of group indices.
+#' @examples
+#' distribute_by(3, 10)
+#' distribute_by(3, 10, by_row = TRUE)
+#' @keywords internal
+distribute_by <- function(nb_group, nb_elem, by_row = FALSE) {                
+    if (by_row) {
+        return(rep_len(1:nb_group, nb_elem))
+    }
+
+    base_size <- nb_elem %/% nb_group  # Minimum group size
+    remainder <- nb_elem %% nb_group   # Extra items to distribute
+
+    group_sizes <- rep(base_size, nb_group) + (1:nb_group <= remainder)
+    
+    return(rep(1:nb_group, times = group_sizes))
+}
 
 #' @rdname data_col_sel
 #' @importFrom shiny NS column div uiOutput tagList
@@ -226,10 +253,7 @@ data_col_sel_server <- function(
         tryCatch({
             check_col_config(col_config)
         }, error = function(e) {
-            shinytoastr::toastr_error(
-                title = "Error in columns configuration",
-                message = conditionMessage(e)
-            )
+            error_msg(conditionMessage(e))
             return(NULL)
         })
 
@@ -249,20 +273,20 @@ data_col_sel_server <- function(
             shiny::req(all_cols())
             selectors <- list()
 
+            seq_groups <- distribute_by(ui_col_nb, length(col_config), by_row)
+
             for (i in seq_along(names(col_config))) {
                 col_name <- names(col_config)[i]
-                col_options <- col_config[[col_name]]$alternate
+                col_options <- c(col_config[[col_name]]$alternate, col_name)
                 mandatory <- ifelse(col_config[[col_name]]$mandatory, "*", "")
 
                 # Pre-select a matching column if available
-                selected_col <- intersect(col_options, all_cols())[1]
+                selected_col <- intersect(tolower(col_options), tolower(all_cols()))[1]
+
+                # Restore the original column name casing from all_cols()
+                selected_col <- all_cols()[match(selected_col, tolower(all_cols()))]
                 selected_col <- ifelse(length(selected_col) > 0, selected_col, NA)
 
-                if (by_row) {
-                    group <- (i - 1) %% ui_col_nb + 1  # Group by row index
-                } else {
-                    group <- (i - 1) %/% ui_col_nb + 1  # Group by column index
-                }
                 selectors[[col_name]] <- list(
                     ui = shiny::div(
                         class = "div-null",
@@ -274,7 +298,7 @@ data_col_sel_server <- function(
                             selected = selected_col
                         )
                     ),
-                    group = group
+                    group = seq_groups[i]
                 )
             }
             selectors
@@ -295,7 +319,8 @@ data_col_sel_server <- function(
 
         # Collect user-selected columns
         selected_cols <- shiny::reactive({
-            shiny::req(df(), col_selectors())
+            shiny::req(df())
+            shiny::req(col_selectors())
             selections <- list()
             for (col_name in names(col_config)) {
                 selections[[col_name]] <- input[[paste0("select_", col_name)]]
@@ -305,21 +330,33 @@ data_col_sel_server <- function(
 
         # Rename the columns of the dataframe ---------------------------------
         df_rename <- shiny::reactive({
+            if (is.null(df()) ||
+                is.null(selected_cols()) ||
+                length(selected_cols()) == 0
+            ) {
+                return(NULL)
+            }
+            shiny::req(df(), selected_cols())
             tryCatch({
-                shiny::req(df(), selected_cols())
-                if (length(selected_cols()) == 0) {
-                    return(NULL)
-                }
                 validate_and_rename_df(
                     df(), selected_cols(), col_config, others_cols
                 )
             }, error = function(e) {
-                shinytoastr::toastr_error(
-                    title = "Error in column selection",
-                    message = conditionMessage(e)
-                )
+                error_msg(conditionMessage(e))
                 return(NULL)
             })
+        })
+
+        # Observe error messages and trigger toastr notifications
+        shiny::observeEvent(error_msg(), {
+            if (!is.null(error_msg())) {
+                print(error_msg())
+                shinytoastr::toastr_error(
+                    title = "Error in column selection module",
+                    message = error_msg()
+                )
+                error_msg(NULL)  # Reset error message after showing the popup
+            }
         })
 
         return(df_rename)

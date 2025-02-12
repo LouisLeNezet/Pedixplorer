@@ -134,3 +134,28 @@ test_that("validate_and_rename_df works", {
     df_filtered <- validate_and_rename_df(df, selections, col_config, others_cols = FALSE)
     expect_equal(colnames(df_filtered), c("Column1", "Column2"))
 })
+
+test_that("distribute_by correctly distributes elements", {
+    
+    # Test row-wise distribution (by_row = TRUE)
+    expect_equal(distribute_by(3, 10, TRUE), c(1, 2, 3, 1, 2, 3, 1, 2, 3, 1))
+    expect_equal(distribute_by(2, 7, TRUE), c(1, 2, 1, 2, 1, 2, 1))
+    
+    # Test column-wise distribution (by_row = FALSE)
+    expect_equal(distribute_by(3, 10, FALSE), c(1, 1, 1, 1, 2, 2, 2, 3, 3, 3))
+    expect_equal(distribute_by(3, 15, FALSE), c(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3))
+    expect_equal(distribute_by(4, 10, FALSE), c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4))
+    
+    # Edge case: Only one column
+    expect_equal(distribute_by(1, 5, FALSE), rep(1, 5))
+    
+    # Edge case: More columns than elements
+    expect_equal(distribute_by(10, 5, FALSE), c(1, 2, 3, 4, 5))
+    
+    # Edge case: Zero elements
+    expect_equal(distribute_by(3, 0, FALSE), integer(0))
+    
+    # Edge case: Single element
+    expect_equal(distribute_by(3, 1, FALSE), 1)
+})
+
