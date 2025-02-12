@@ -1,3 +1,4 @@
+#### Test read_data ####
 test_that("read_data works", {
     df_path <- paste0(testthat::test_path(), "/testdata/sampleped.rda")
     df <- read_data(df_path, df_name = "sampleped")
@@ -10,4 +11,126 @@ test_that("read_data works", {
     df_path <- paste0(testthat::test_path(), "/testdata/sampleped.tab")
     df <- read_data(df_path, sep = " ")
     expect_equal(dim(df), c(55, 7))
+})
+
+#### Test check_col_config ####
+test_that("check_col_config works", {
+    ## Valid col_config
+    col_config <- list(
+        Column1 = list(alternate = c("A", "B"), mandatory = TRUE),
+        Column2 = list(alternate = c("C", "D"), mandatory = FALSE)
+    )
+    expect_true(check_col_config(col_config))
+
+    ## col_config must be a list
+    col_config <- "not_a_list"
+    expect_error(check_col_config(col_config), "col_config must be a list.")
+
+    ## No column name duplicate
+    col_config <- list(
+        Column1 = list(alternate = c("A", "B"), mandatory = TRUE),
+        Column1 = list(alternate = c("C", "D"), mandatory = FALSE)
+    )
+    expect_error(
+        check_col_config(col_config),
+        "Ensure each column is defined only once."
+    )
+
+    ## Missing 'mandatory' field fails
+    # No mandatory field
+    col_config <- list(Column1 = list(alternate = c("A", "B")))
+    expect_error(check_col_config(col_config), "Issue with: Column1")
+
+    ## Missing 'alternate' field fails
+    # No alternate field
+    col_config <- list(Column1 = list(mandatory = TRUE))
+    expect_error(check_col_config(col_config), "Issue with: Column1")
+
+    ## 'alternate' field must be a character vector
+    # Not a character vector
+    col_config <- list(Column1 = list(alternate = 123, mandatory = TRUE))
+    expect_error(
+        check_col_config(col_config),
+        paste(
+            "The 'alternate' field for Column1 must be a non-empty",
+            "character vector."
+        )
+    )
+
+    ## 'mandatory' field must be TRUE/FALSE
+    # Not a logical value
+    col_config <- list(
+        Column1 = list(alternate = c("A", "B"), mandatory = "yes")
+    )
+    expect_error(
+        check_col_config(col_config),
+        paste(
+            "The 'mandatory' field for Column1 must be a single",
+            "TRUE/FALSE value."
+        )
+    )
+
+    ## Duplicate column names in 'alternate' fail
+    # "B" is duplicated
+    col_config <- list(
+        Column1 = list(alternate = c("A", "B"), mandatory = TRUE),
+        Column2 = list(alternate = c("B", "C"), mandatory = FALSE)
+    )
+    expect_error(
+        check_col_config(col_config),
+        "Duplicate column names detected in 'alternate' lists."
+    )
+})
+
+
+test_that("validate_and_rename_df works", {
+    # Sample dataframe
+    df <- data.table(A = 1:3, B = 4:6, C = 7:9, D = 10:12)
+
+    # Valid column configuration
+    col_config <- list(
+        Column1 = list(alternate = c("A", "B"), mandatory = TRUE),
+        Column2 = list(alternate = c("C", "D"), mandatory = FALSE)
+    )
+
+    # Valid selections (matching col_config)
+    selections <- list(Column1 = "A", Column2 = "C")
+    df_renamed <- validate_and_rename_df(df, selections, col_config)
+    expect_true(is.data.table(df_renamed))
+    expect_equal(colnames(df_renamed), c("Column1", "B", "Column2", "D"))
+
+    # Missing mandatory column
+    selections <- list(Column2 = "C")
+    expect_null(validate_and_rename_df(df, selections, col_config))
+
+    # Duplicate column selection
+    selections <- list(Column1 = "A", Column2 = "A")
+    expect_error(
+        validate_and_rename_df(df, selections, col_config),
+        "You have selected the same column multiple times."
+    )
+
+    # Selecting a column that doesn't exist
+    selections <- list(Column1 = "X", Column2 = "C")
+    expect_error(
+        validate_and_rename_df(df, selections, col_config),
+        "Selected column is not in the dataframe!"
+    )
+
+    # Input df is not a dataframe
+    expect_error(
+        validate_and_rename_df("not_a_dataframe", selections, col_config),
+        "The input 'df' must be a data frame or data table."
+    )
+
+    # selections is not a named list
+    expect_error(
+        validate_and_rename_df(df, c("A", "B"), col_config),
+        "The 'selections' argument must be a named list."
+    )
+
+    # others_cols = FALSE (Only selected columns should be returned)
+    selections <- list(Column1 = "A", Column2 = "C")
+    df_filtered <- validate_and_rename_df(df, selections, col_config, others_cols = FALSE)
+    expect_equal(colnames(df_filtered), c("Column1", "Column2"))
 })
