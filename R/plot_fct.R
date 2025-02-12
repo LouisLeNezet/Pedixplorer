@@ -329,6 +329,62 @@ draw_arc <- function(
     return(p)
 }
 
+#' Draw arrows
+#'
+#' @inheritParams draw_segment
+#'
+#' @return Plot the arrows to the current device
+#' or add it to a ggplot object
+#' @keywords internal
+#' @keywords Pedigree-plot
+#' @importFrom ggplot2 annotate
+#' @importFrom graphics lines
+draw_arrow <- function(
+    x0, y0, x1, y1,
+    p = NULL, ggplot_gen = FALSE,
+    lwd = par("lwd"), lty = 1, col = "black"
+) {
+    graphics::arrows(
+        x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+        lwd = lwd, lty = lty, col = col, length = 0.1, angle = 30
+    )
+    if (ggplot_gen) {
+        p <- p + suppressWarnings(ggplot2::geom_segment(ggplot2::aes(
+            x = x0, y = y0, xend = x1, yend = y1
+        ), arrow = ggplot2::arrow(length = unit(0.1, "inches")),
+        size = lwd, colour = col))
+    }
+    return(p)
+}
+
+
+#' Draw arrows
+#'
+#' @inheritParams draw_segment
+#'
+#' @return Plot the arrows to the current device
+#' or add it to a ggplot object
+#' @keywords internal
+#' @keywords Pedigree-plot
+#' @importFrom ggplot2 annotate
+#' @importFrom graphics lines
+draw_point <- function(
+    x, y,
+    p = NULL, ggplot_gen = FALSE,
+    cex = par("lwd"), pch = 1, col = "black"
+) {
+    graphics::points(
+        x = x, y = y,
+        cex = cex, pch = pch, col = col
+    )
+    if (ggplot_gen) {
+        p <- p + suppressWarnings(ggplot2::geom_point(ggplot2::aes(
+            x = x, y = y
+        ), size = cex, colour = col))
+    }
+    return(p)
+}
+
 #' Set plotting area
 #'
 #' @param id A character vector with the identifiers of each individuals

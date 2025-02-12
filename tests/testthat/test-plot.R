@@ -118,9 +118,43 @@ test_that("Supplementary graphical representations", {
     miscarriage(ped(pedi))[
         match(c("1_124", "1_140", "1_133"), id(ped(pedi)))
     ] <- c("SAB", "TOP", "ECT")
-    vdiffr::expect_doppelganger("Ped with miscarriage and fertility",
+
+    ## Evaluation
+    evaluated(ped(pedi))[
+        match(c("1_124", "1_140", "1_133"), id(ped(pedi)))
+    ] <- TRUE
+
+    consultand(ped(pedi))[
+        match(c("1_114"), id(ped(pedi)))
+    ] <- TRUE
+
+    proband(ped(pedi))[
+        match(c("1_111"), id(ped(pedi)))
+    ] <- TRUE
+
+    carrier(ped(pedi))[
+        match(c("1_115"), id(ped(pedi)))
+    ] <- TRUE
+    plot(pedi)
+
+    asymptomatic(ped(pedi))[
+        match(c("1_130", "1_126"), id(ped(pedi)))
+    ] <- TRUE
+
+    adopted(ped(pedi))[
+        match(c("1_130", "1_116"), id(ped(pedi)))
+    ] <- TRUE
+
+    vdiffr::expect_doppelganger("Ped with all annotations",
         function() {
             plot(pedi)
         }
     )
+
+    vdiffr::expect_doppelganger("Ped with all annotations ggplot",
+        function() {
+            plot(pedi, ggplot_gen = TRUE)$ggplot
+        }
+    )
 })
+
