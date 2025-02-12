@@ -349,7 +349,6 @@ data_col_sel_server <- function(
         # Observe error messages and trigger toastr notifications
         shiny::observeEvent(error_msg(), {
             if (!is.null(error_msg())) {
-                print(error_msg())
                 shinytoastr::toastr_error(
                     title = "Error in column selection module",
                     message = error_msg()
