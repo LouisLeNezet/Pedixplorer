@@ -96,7 +96,7 @@ test_that("validate_and_rename_df works", {
     # Valid selections (matching col_config)
     selections <- list(Column1 = "A", Column2 = "C")
     df_renamed <- validate_and_rename_df(df, selections, col_config)
-    expect_true(is.data.table(df_renamed))
+    expect_true(is.data.frame(df_renamed))
     expect_equal(colnames(df_renamed), c("Column1", "B", "Column2", "D"))
 
     # Missing mandatory column

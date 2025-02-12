@@ -139,19 +139,18 @@ validate_and_rename_df <- function(df, selections, col_config, others_cols = TRU
     }
 
     # Rename dataframe columns
-    df_new <- data.table::copy(df)
-    data.table::setnames(
-        df_new,
-        old = unlist(selected_valid),
-        new = names(selected_valid)
-    )
+    colnames(df)[match(
+        unlist(selected_valid),
+        colnames(df)
+    )] <- names(selected_valid)
 
     # Return either full or filtered dataframe
     if (others_cols) {
-        return(df_new)
+        return(df)
     } else {
-        return(df_new[, names(selected_valid), with = FALSE])
+        return(df[names(selected_valid)])
     }
+
 }
 
 #' Distribute elements by group
