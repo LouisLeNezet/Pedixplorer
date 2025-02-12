@@ -87,7 +87,7 @@ Nézet</h4>
             
             <h4 data-toc-skip class="date">31/08/2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/Pedixplorer.Rmd" class="external-link"><code>vignettes/Pedixplorer.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/vignettes/Pedixplorer.Rmd" class="external-link"><code>vignettes/Pedixplorer.Rmd</code></a></small>
       <div class="d-none name"><code>Pedixplorer.Rmd</code></div>
     </div>
 
@@ -206,27 +206,34 @@ underscore to create a unique id for each individual in the
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Pedigree object with: </span></span>
 <span><span class="co">## Ped object with 5 individuals and 5 metadata columns:</span></span>
-<span><span class="co">##                    id       dadid       momid       sex       famid fertility miscarriage  deceased</span></span>
-<span><span class="co">## col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;ordered&gt;    &lt;factor&gt; &lt;logical&gt;</span></span>
-<span><span class="co">## 1_103           1_103       1_135       1_136      male           1   fertile       FALSE      &lt;NA&gt;</span></span>
-<span><span class="co">## 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile       FALSE      &lt;NA&gt;</span></span>
-<span><span class="co">## 1_110           1_110       1_103       1_104      male           1   fertile       FALSE      &lt;NA&gt;</span></span>
-<span><span class="co">## 1_135           1_135        &lt;NA&gt;        &lt;NA&gt;      male           1   fertile       FALSE      &lt;NA&gt;</span></span>
-<span><span class="co">## 1_136           1_136        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile       FALSE      &lt;NA&gt;</span></span>
-<span><span class="co">##               avail  affected    useful       kin     isinf num_child_tot num_child_dir</span></span>
-<span><span class="co">## col_class &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;     &lt;numeric&gt;     &lt;numeric&gt;</span></span>
-<span><span class="co">## 1_103         FALSE      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1</span></span>
-<span><span class="co">## 1_104         FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1</span></span>
-<span><span class="co">## 1_110          TRUE      TRUE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             0             0</span></span>
-<span><span class="co">## 1_135         FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1</span></span>
-<span><span class="co">## 1_136         FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1</span></span>
-<span><span class="co">##           num_child_ind |   affection         num       error affection_mods  avail_mods</span></span>
-<span><span class="co">## col_class     &lt;numeric&gt;   &lt;character&gt; &lt;character&gt; &lt;character&gt;    &lt;character&gt; &lt;character&gt;</span></span>
-<span><span class="co">## 1_103                 0             1           2        &lt;NA&gt;              1           0</span></span>
-<span><span class="co">## 1_104                 0             0           4        &lt;NA&gt;              0           0</span></span>
-<span><span class="co">## 1_110                 0             1           2        &lt;NA&gt;              1           1</span></span>
-<span><span class="co">## 1_135                 0          &lt;NA&gt;           5        &lt;NA&gt;             NA           0</span></span>
-<span><span class="co">## 1_136                 0          &lt;NA&gt;           6        &lt;NA&gt;             NA           0</span></span>
+<span><span class="co">##                    id       dadid       momid       famid       sex fertility miscarriage  deceased</span></span>
+<span><span class="co">## col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;ordered&gt;    &lt;factor&gt; &lt;logical&gt;</span></span>
+<span><span class="co">## 1_103           1_103       1_135       1_136           1      male   fertile       FALSE      &lt;NA&gt;</span></span>
+<span><span class="co">## 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;           1    female   fertile       FALSE      &lt;NA&gt;</span></span>
+<span><span class="co">## 1_110           1_110       1_103       1_104           1      male   fertile       FALSE      &lt;NA&gt;</span></span>
+<span><span class="co">## 1_135           1_135        &lt;NA&gt;        &lt;NA&gt;           1      male   fertile       FALSE      &lt;NA&gt;</span></span>
+<span><span class="co">## 1_136           1_136        &lt;NA&gt;        &lt;NA&gt;           1    female   fertile       FALSE      &lt;NA&gt;</span></span>
+<span><span class="co">##               avail evaluated consultand   proband  affected   carrier asymptomatic   adopted</span></span>
+<span><span class="co">## col_class &lt;logical&gt; &lt;logical&gt;  &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt;    &lt;logical&gt; &lt;logical&gt;</span></span>
+<span><span class="co">## 1_103         FALSE     FALSE      FALSE     FALSE      TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_104         FALSE     FALSE      FALSE     FALSE     FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_110          TRUE     FALSE      FALSE     FALSE      TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_135         FALSE     FALSE      FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_136         FALSE     FALSE      FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">##              useful       kin     isinf num_child_tot num_child_dir num_child_ind |   affection</span></span>
+<span><span class="co">## col_class &lt;logical&gt; &lt;numeric&gt; &lt;logical&gt;     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;   &lt;character&gt;</span></span>
+<span><span class="co">## 1_103          &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1             0             1</span></span>
+<span><span class="co">## 1_104          &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1             0             0</span></span>
+<span><span class="co">## 1_110          &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             0             0             0             1</span></span>
+<span><span class="co">## 1_135          &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1             0          &lt;NA&gt;</span></span>
+<span><span class="co">## 1_136          &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;             1             1             0          &lt;NA&gt;</span></span>
+<span><span class="co">##                   num       error affection_mods  avail_mods</span></span>
+<span><span class="co">## col_class &lt;character&gt; &lt;character&gt;    &lt;character&gt; &lt;character&gt;</span></span>
+<span><span class="co">## 1_103               2        &lt;NA&gt;              1           0</span></span>
+<span><span class="co">## 1_104               4        &lt;NA&gt;              0           0</span></span>
+<span><span class="co">## 1_110               2        &lt;NA&gt;              1           1</span></span>
+<span><span class="co">## 1_135               5        &lt;NA&gt;             NA           0</span></span>
+<span><span class="co">## 1_136               6        &lt;NA&gt;             NA           0</span></span>
 <span><span class="co">## Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse:</span></span>
 <span><span class="co">##          id1         id2                     code       famid</span></span>
 <span><span class="co">##  &lt;character&gt; &lt;character&gt; &lt;c("ordered", "factor")&gt; &lt;character&gt;</span></span></code></pre>
@@ -324,21 +331,21 @@ Pedigree.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fixped2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">datped2</span>, <span class="fu"><a href="../reference/fix_parents.html">fix_parents</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">dadid</span>, <span class="va">momid</span>, <span class="va">sex</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">fixped2</span></span></code></pre></div>
-<pre><code><span><span class="co">##     id momid dadid sex famid</span></span>
-<span><span class="co">## 1  201  &lt;NA&gt;  &lt;NA&gt;   1     1</span></span>
-<span><span class="co">## 2  202  &lt;NA&gt;  &lt;NA&gt;   2     1</span></span>
-<span><span class="co">## 3  203  &lt;NA&gt;  &lt;NA&gt;   1     1</span></span>
-<span><span class="co">## 4  204   202   201   2     1</span></span>
-<span><span class="co">## 5  205   202   201   1     1</span></span>
-<span><span class="co">## 6  206   202   201   2     1</span></span>
-<span><span class="co">## 7  207   202   201   2     1</span></span>
-<span><span class="co">## 8  208   202   201   2     1</span></span>
-<span><span class="co">## 9  210   204   203   1     1</span></span>
-<span><span class="co">## 10 211   204   203   1     1</span></span>
-<span><span class="co">## 11 212   208   209   2     1</span></span>
-<span><span class="co">## 12 213   208   209   1     1</span></span>
-<span><span class="co">## 13 214   208   209   1     1</span></span>
-<span><span class="co">## 14 209  &lt;NA&gt;  &lt;NA&gt;   1     1</span></span></code></pre>
+<pre><code><span><span class="co">##     id momid dadid    sex famid</span></span>
+<span><span class="co">## 1  201  &lt;NA&gt;  &lt;NA&gt;   male     1</span></span>
+<span><span class="co">## 2  202  &lt;NA&gt;  &lt;NA&gt; female     1</span></span>
+<span><span class="co">## 3  203  &lt;NA&gt;  &lt;NA&gt;   male     1</span></span>
+<span><span class="co">## 4  204   202   201 female     1</span></span>
+<span><span class="co">## 5  205   202   201   male     1</span></span>
+<span><span class="co">## 6  206   202   201 female     1</span></span>
+<span><span class="co">## 7  207   202   201 female     1</span></span>
+<span><span class="co">## 8  208   202   201 female     1</span></span>
+<span><span class="co">## 9  210   204   203   male     1</span></span>
+<span><span class="co">## 10 211   204   203   male     1</span></span>
+<span><span class="co">## 11 212   208   209 female     1</span></span>
+<span><span class="co">## 12 213   208   209   male     1</span></span>
+<span><span class="co">## 13 214   208   209   male     1</span></span>
+<span><span class="co">## 14 209  &lt;NA&gt;  &lt;NA&gt;   male     1</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ped2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">fixped2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped2</span><span class="op">)</span></span></code></pre></div>

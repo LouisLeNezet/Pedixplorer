@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Compute family id</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/make_famid.R" class="external-link"><code>R/make_famid.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/more_graph/R/make_famid.R" class="external-link"><code>R/make_famid.R</code></a></small>
       <div class="d-none name"><code>make_famid.Rd</code></div>
     </div>
 
@@ -132,32 +132,45 @@ Singleton subjects give a zero for family number.</p>
 <span class="r-in"><span><span class="fu">make_famid</span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pedigree object with: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 55 individuals and 5 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       sex       famid fertility</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;character&gt; &lt;ordered&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           1_101        &lt;NA&gt;        &lt;NA&gt;      male           1   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102           1_102        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           1_103       1_135       1_136      male           1   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;    female           1   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105           1_105        &lt;NA&gt;        &lt;NA&gt;      male           1   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...         ...       ...         ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210           2_210       2_203       2_204      male           2   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211           2_211       2_203       2_204      male           2   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           2_212       2_209       2_208    female           2   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213           2_213       2_209       2_208      male           2   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           2_214       2_209       2_208      male           2   fertile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           miscarriage  deceased     avail  affected    useful       kin</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class    &lt;factor&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           FALSE      &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102           FALSE      &lt;NA&gt;     FALSE      TRUE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           FALSE      &lt;NA&gt;     FALSE      TRUE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104           FALSE      &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105           FALSE      &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...       ...       ...       ...       ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210           FALSE      &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211           FALSE      &lt;NA&gt;      TRUE     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           FALSE      &lt;NA&gt;      TRUE     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213           FALSE      &lt;NA&gt;     FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           FALSE      &lt;NA&gt;      TRUE      TRUE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       famid       sex fertility</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;ordered&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           1_101        &lt;NA&gt;        &lt;NA&gt;           1      male   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102           1_102        &lt;NA&gt;        &lt;NA&gt;           1    female   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           1_103       1_135       1_136           1      male   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104           1_104        &lt;NA&gt;        &lt;NA&gt;           1    female   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105           1_105        &lt;NA&gt;        &lt;NA&gt;           1      male   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...         ...         ...       ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210           2_210       2_203       2_204           2      male   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211           2_211       2_203       2_204           2      male   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           2_212       2_209       2_208           2    female   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213           2_213       2_209       2_208           2      male   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           2_214       2_209       2_208           2      male   fertile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           miscarriage  deceased     avail evaluated consultand   proband</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class    &lt;factor&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt;  &lt;logical&gt; &lt;logical&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...       ...       ...       ...        ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211           FALSE      &lt;NA&gt;      TRUE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212           FALSE      &lt;NA&gt;      TRUE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           FALSE      &lt;NA&gt;      TRUE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            affected   carrier asymptomatic   adopted    useful       kin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt; &lt;logical&gt;    &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101         FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_102          TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_103          TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_104         FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_105          &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...             ...       ...          ...       ...       ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_210         FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_211         FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_212         FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_213         FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2_214          TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE      &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               isinf num_child_tot num_child_dir num_child_ind |   affection</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;logical&gt;     &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;   &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_101          &lt;NA&gt;             1             1             0             0</span>
