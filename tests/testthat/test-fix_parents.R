@@ -37,7 +37,10 @@ test_that("fix_parents works with sex errors", {
     fixped2 <- with(datped2,
         fix_parents(id, dadid, momid, sex, missid = NA_character_)
     )
-    expect_equal(fixped2$sex[fixped2$id == 203], 1)
+    expect_equal(
+        as.character(fixped2$sex[fixped2$id == 203]),
+        "male"
+    )
     expect_contains(fixped2$id, "209")
     expect_no_error(Pedigree(fixped2))
 })
@@ -51,7 +54,7 @@ test_that("fix_parents works with famid", {
     fixped <- fix_parents(datped)
 
     expect_contains(fixped$id, "209")
-    expect_equal(fixped$sex[fixped$id == "209"], 1)
+    expect_equal(as.numeric(fixped$sex[fixped$id == "209"]), 1)
     expect_equal(fixped$famid[fixped$id == "209"], "2")
     expect_no_error(Pedigree(fixped))
 })
