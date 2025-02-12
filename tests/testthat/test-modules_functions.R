@@ -78,14 +78,14 @@ test_that("check_col_config works", {
     )
     expect_error(
         check_col_config(col_config),
-        "Duplicate column names detected in 'alternate' lists."
+        "B is duplicated in alternate configuration."
     )
 })
 
 
 test_that("validate_and_rename_df works", {
     # Sample dataframe
-    df <- data.table(A = 1:3, B = 4:6, C = 7:9, D = 10:12)
+    df <- data.frame(A = 1:3, B = 4:6, C = 7:9, D = 10:12)
 
     # Valid column configuration
     col_config <- list(
