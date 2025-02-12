@@ -171,3 +171,10 @@ test_that("Kinship with 2 different family", {
     kin2fam <- kinship(peds)
     expect_true(all(kin2fam[11:13, 1:10] == 0))
 })
+
+test_that("Kinship with adopted individuals", {
+    data("sampleped")
+    pedi <- Pedigree(sampleped[sampleped$famid %in% 2, ])
+    adopted(ped(pedi))[3] <- TRUE
+    expect_error(kinship(pedi))
+})

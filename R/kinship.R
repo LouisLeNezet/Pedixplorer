@@ -15,6 +15,10 @@ NULL
 #' with an earlier release of the library that was less capable.
 #' Note that when using with a Ped or a vector, any information on
 #' twins is not available to the function.
+#' 
+#' Warning: This function does not work with adopted individuals.
+#' If you have adopted individuals in your pedigree, you should remove them
+#' before calling this function.
 #'
 #' When called with a Pedigree, the routine
 #' will create a block-diagonal-symmetric sparse matrix object of class
@@ -65,6 +69,9 @@ setGeneric("kinship", signature = "obj",
 #' @export
 setMethod("kinship", "Ped",
     function(obj, chrtype = "autosome") {
+        if (any(adopted(obj))){
+            stop("Kinship matrix does not work with adopted individuals")
+        }
         kinship(
             id(obj), dadid(obj), momid(obj),
             sex(obj), chrtype = chrtype
@@ -153,6 +160,9 @@ setMethod("kinship", "character",
 #' @export
 setMethod("kinship", "Pedigree",
     function(obj, chrtype = "autosome") {
+        if (any(adopted(ped(obj)))){
+            stop("Kinship matrix does not work with adopted individuals")
+        }
         famlist <- unique(famid(ped(obj)))
         nfam <- length(famlist)
         matlist <- vector("list", nfam)
