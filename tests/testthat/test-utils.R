@@ -132,3 +132,36 @@ test_that("miscarriage_to_factor", {
         ), levels = c("SAB", "TOP", "ECT", "FALSE"))
     )
 })
+
+test_that("vect_to_binary", {
+    my_vect <- c(
+        0, 1, 2, 3.6,
+        "TRUE", "FALSE", "0", "1", "NA", "B",
+        TRUE, FALSE, NA
+    )
+    my_vect_1 <- suppressWarnings(vect_to_binary(my_vect))
+    expect_equal(
+        my_vect_1, c(
+            0, 1, NA, NA,
+            1, 0, 0, 1, NA, NA,
+            1, 0, NA
+        )
+    )
+    my_vect_1 <- suppressWarnings(vect_to_binary(my_vect, default = FALSE))
+    expect_equal(
+        my_vect_1, c(
+            0, 1, 0, 0,
+            1, 0, 0, 1, 0, 0,
+            1, 0, 0
+        )
+    )
+
+    my_vect_1 <- suppressWarnings(vect_to_binary(my_vect, logical = TRUE, default = TRUE))
+    expect_equal(
+        my_vect_1, c(
+            FALSE, TRUE, TRUE, TRUE,
+            TRUE, FALSE, FALSE, TRUE, TRUE, TRUE,
+            TRUE, FALSE, TRUE
+        )
+    )
+})

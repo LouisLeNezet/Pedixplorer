@@ -19,7 +19,7 @@ test_that("Pedigree works", {
 test_that("Pedigree old usage compatibility", {
     data(sampleped)
     ped1 <- with(sampleped,
-        Pedigree(id, dadid, momid, sex, famid, avail, affections = affection)
+        Pedigree(id, dadid, momid, famid = famid, sex = sex, avail = avail, affections = affection)
     )
     expect_equal(ped1, Pedigree(sampleped[colnames(sampleped) != "num"]))
 
@@ -45,12 +45,10 @@ test_that("Pedigree old usage compatibility", {
     ped2df$avail <- c(0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
     ped2df$deceased <- c(1, 1, 1, 0, 1, 0, 0, 0, 0, 0)
 
-    with(ped2df, cbind(disease, smoker, avail))
-
     ## With vectors
     ped2 <- with(ped2df, Pedigree(
-        id, dadid, momid, sex, famid,
-        avail, affections = cbind(disease, smoker, avail),
+        id, dadid, momid, famid = famid, sex = sex,
+        avail = avail, affections = cbind(disease, smoker, avail),
         deceased = deceased,
         rel_df = matrix(c(8, 9, 1, 1), ncol = 4), missid = "0"
     ))
@@ -69,7 +67,7 @@ test_that("Pedigree from sampleped and affectation", {
     data("sampleped")
     ped1 <- Pedigree(sampleped[sampleped$famid == 1, ])
 
-    expect_equal(dim(as.data.frame(ped(ped1))), c(41, 21))
+    expect_equal(dim(as.data.frame(ped(ped1))), c(41, 27))
     expect_equal(dim(as.data.frame(rel(ped1))), c(0, 4))
 
     expect_error(id(ped(ped1)) <- "1")
@@ -90,11 +88,11 @@ test_that("Pedigree subscripting", {
         "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0", col_aff = "cancer")
     expect_equal(length(minnped), 28081)
-    expect_equal(dim(as.data.frame(ped(minnped))), c(28081, 29))
+    expect_equal(dim(as.data.frame(ped(minnped))), c(28081, 34))
 
     ped8 <- minnped[famid(ped(minnped)) == "8"]
 
-    expect_equal(dim(as.data.frame(ped(ped8))), c(40, 29))
+    expect_equal(dim(as.data.frame(ped(ped8))), c(40, 34))
 
     # Subjects 150, 152, 154, 158 are children,
     # and 143, 162, 149 are parents and a child
@@ -122,7 +120,7 @@ test_that("Pedigree subscripting", {
 test_that("Pedigree generic", {
     data("sampleped")
     pedi <- Pedigree(sampleped)
-    expect_equal(dim(as.data.frame(ped(pedi))), c(55, 21))
+    expect_equal(dim(as.data.frame(ped(pedi))), c(55, 27))
     expect_equal(names(as.list(pedi)), c("ped", "rel", "scales", "hints"))
     expect_equal(length(pedi), 55)
 })

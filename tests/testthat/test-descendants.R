@@ -10,7 +10,7 @@ test_that("descendants works", {
         "1_109", "2_212", "2_213", "2_214",
         "1_121", "1_122", "1_123", "1_124"
     ))
-    ped <- with(sampleped, Ped(id, sex, dadid, momid, famid, missid = "0"))
+    ped <- with(sampleped, Ped(id, dadid, momid, sex = sex, famid = famid, missid = "0"))
     idlist <- c("101", "208")
     expect_equal(descendants(idlist, ped), desc_char)
 })

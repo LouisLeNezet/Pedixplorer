@@ -11,7 +11,7 @@ test_that("bit_size works", {
     )
 
     ped <- with(minnbreast,
-        Ped(id, sex, fatherid, motherid, missid = "0")
+        Ped(id, fatherid, motherid, sex = sex, missid = "0")
     )
     bs_ped <- bit_size(ped)
 

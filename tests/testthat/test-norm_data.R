@@ -22,10 +22,50 @@ test_that("Norm ped", {
     ped_df <- suppressWarnings(norm_ped(
         ped_df, na_strings = c("None", "NA")
     ))
-    ped_df
-    expect_equal(dim(ped_df), c(10, 12))
+    expect_equal(dim(ped_df), c(10, 18))
     expect_snapshot(ped_df)
     expect_equal(sum(is.na(ped_df$error)), 2)
+
+    ped_df <- data.frame(
+        id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+        dadid = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
+        momid = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
+        famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
+        sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f"),
+        fertility = c(
+        "TRUE", "FALSE", TRUE, FALSE, 1,
+        0, "fertile", "infertile", 1, "TRUE"
+        ),
+        miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0),
+        deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
+        avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
+        evaluated = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+        consultand = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+        proband = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+        carrier = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+        asymptomatic = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+        adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0")
+    )
+    ped_df <- suppressWarnings(norm_ped(
+        ped_df, na_strings = c("None", "NA")
+    ))
+    expect_equal(ped_df$sex, factor(
+        c("male", "female", "male", "male", "female", "male", "male", "female", "unknown", "female"),
+        levels = c("male", "female", "unknown"),
+        ordered = TRUE
+    ))
+    expect_equal(ped_df$miscarriage, factor(
+        c("FALSE", "SAB", "FALSE", "FALSE", "ECT", "FALSE", "FALSE", "FALSE", "FALSE", "FALSE"),
+        levels = c("SAB", "TOP", "ECT", "FALSE")
+    ))
+    expect_equal(ped_df$deceased, c(T, F, T, F, T, F, T, F, T, F))
+    expect_equal(ped_df$avail, c(NA, T, F, NA, T, F, T, F, T, F))
+    expect_equal(ped_df$evaluated, c(T, F, T, F, T, F, F, F, F, F))
+    expect_equal(ped_df$consultand, c(T, F, T, F, T, F, F, F, F, F))
+    expect_equal(ped_df$proband, c(T, F, T, F, T, F, F, F, F, F))
+    expect_equal(ped_df$carrier, c(T, F, T, F, T, F, NA, NA, NA, F))
+    expect_equal(ped_df$asymptomatic, c(T, F, T, F, T, F, NA, NA, NA, F))
+    expect_equal(ped_df$adopted, c(T, F, T, F, T, F, F, F, F, F))
 })
 
 test_that("Norm rel", {

@@ -31,7 +31,6 @@ test_that("is_informative works", {
         ),
         c("110", "214")
     )
-    length(id)
     expect_equal(
         is_informative(
             id, avail, affected,
@@ -82,9 +81,11 @@ test_that("is_informative works with Pedigree", {
     )
 
     data(minnbreast)
-    ped <- Pedigree(minnbreast, cols_ren_ped = list(
+    # Need to remove proband due to change in affected
+    ped <- Pedigree(minnbreast[-2], cols_ren_ped = list(
         "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0")
+
     ped <- generate_colors(ped, col_aff = "education",
         threshold = 3, sup_thres_aff = TRUE, keep_full_scale = TRUE,
         add_to_scale = FALSE
