@@ -54,13 +54,21 @@ subregion <- function(df, subreg = NULL) {
 #' circfun(4, 50)
 #' @export
 circfun <- function(nslice, n = 50) {
-    nseg <- ceiling(n / nslice)  # segments of arc per slice
+    if (nslice == 1) {
+        return(list(list(
+            x = 0.5 * cos(seq(0, 2 * pi, length = n)),
+            y = 0.5 * sin(seq(0, 2 * pi, length = n))
+        )))
+    }
 
+    nseg <- ceiling(n / nslice)  # Segments of arc per slice
     theta <- -pi / 2 - seq(0, 2 * pi, length = nslice + 1)
+
     out <- vector("list", nslice)
     for (i in seq_len(nslice)) {
         theta2 <- seq(theta[i], theta[i + 1], length = nseg)
-        out[[i]] <- list(x = c(0, cos(theta2) / 2),
+        out[[i]] <- list(
+            x = c(0, cos(theta2) / 2),
             y = c(0, sin(theta2) / 2) + 0.5
         )
     }
@@ -88,46 +96,50 @@ circfun <- function(nslice, n = 50) {
 #'     theta = -c(3, 5, 7, 9) * pi / 4
 #' ))
 #' @export
-polyfun <- function(nslice, coor) {
-    # make the indirect segments view
-    zmat <- matrix(0, ncol = 4, nrow = length(coor$x))
-    zmat[, 1] <- coor$x
-    zmat[, 2] <- c(coor$x[-1], coor$x[1]) - coor$x
-    zmat[, 3] <- coor$y
-    zmat[, 4] <- c(coor$y[-1], coor$y[1]) - coor$y
 
-    # Find the cutpoint for each angle Yes we could vectorize the loop, but
-    # nslice is never bigger than about 10 (and usually <5), so why be
-    # obscure?
-    ns1 <- nslice + 1
-    theta <- -pi / 2 - seq(0, 2 * pi, length = ns1)
-    x <- y <- double(ns1)
-    for (i in seq_len(ns1)) {
-        z <- (tan(theta[i]) * zmat[, 1] - zmat[, 3]) /
-            (zmat[, 4] - tan(theta[i]) * zmat[, 2])
-        tx <- zmat[, 1] + z * zmat[, 2]
-        ty <- zmat[, 3] + z * zmat[, 4]
-        inner <- tx * cos(theta[i]) + ty * sin(theta[i])
-        indx <- which(is.finite(z) & z >= 0 & z <= 1 & inner > 0)
-        x[i] <- tx[indx]
-        y[i] <- ty[indx]
-    }
-    nvertex <- length(coor$x)
+get_intersection <- function(t, zmat) {
+    z <- (tan(t) * zmat[, 1] - zmat[, 3]) / (zmat[, 4] - tan(t) * zmat[, 2])
+    tx <- round(zmat[, 1] + z * zmat[, 2], 6)
+    ty <- round(zmat[, 3] + z * zmat[, 4], 6)
+    valid <- is.finite(z) & z >= 0 & z <= 1 & (tx * cos(t) + ty * sin(t)) > 0
+
+    # If valid, return the first intersection point, otherwise return NA
+    if (any(valid)) return(c(tx[valid][1], ty[valid][1]))
+    else return(c(NA, NA))
+}
+
+
+polyfun <- function(nslice, coor) {
+    # Return the original coordinates if there's only one slice
+    if (nslice == 1) return(list(coor))
+    # Create a matrix for the differences in x and y coordinates
+    zmat <- cbind(
+        coor$x, c(coor$x[-1], coor$x[1]) - coor$x,
+        coor$y, c(coor$y[-1], coor$y[1]) - coor$y
+    )
+
+    # Generate slicing angles
+    theta <- seq(-pi / 2, 2 * pi - pi / 2, length.out = nslice + 1)
+
+    # Calculate intersection points for each angle using the get_intersection function
+    intersections <- t(sapply(theta, function(t) get_intersection(t, zmat)))
+
+    # Combine intersection points with original coordinates
     temp <- data.frame(
-        indx = c(seq_len(ns1), rep(0, nvertex)),
+        indx = c(seq_len(nslice + 1), rep(0, length(coor$x))),
         theta = c(theta, coor$theta),
-        x = c(x, coor$x), y = c(y, coor$y)
+        x = c(intersections[, 1], coor$x),
+        y = c(intersections[, 2], coor$y)
     )
     temp <- temp[order(-temp$theta), ]
-    out <- vector("list", nslice)
-    for (i in seq_len(nslice)) {
+    print(temp)
+
+    # Create the resulting polygons
+    out <- lapply(seq_len(nslice), function(i) {
         rows <- which(temp$indx == i):which(temp$indx == (i + 1))
-        out[[i]] <- list(
-            x = c(0, temp$x[rows]),
-            y = c(0, temp$y[rows]) + 0.5
-        )
-    }
-    out
+        list(x = c(0, temp$x[rows]), y = c(0, temp$y[rows]))
+    })
+    return(out)
 }
 
 #' List of polygonal elements
@@ -148,48 +160,26 @@ polyfun <- function(nslice, coor) {
 #' polygons(4)
 #' @export
 polygons <- function(nslice = 1) {
-    if (nslice == 1) {
-        polylist <- list(
-            square = list(list(
-                x = c(-1, -1, 1, 1) / 2,
-                y = c(0, 1, 1, 0)
-            )),
-            circle = list(list(
-                x = 0.5 * cos(seq(0, 2 * pi, length = 50)),
-                y = 0.5 * sin(seq(0, 2 * pi, length = 50)) + 0.5
-            )),
-            diamond = list(list(
-                x = c(0, -0.5, 0, 0.5),
-                y = c(0, 0.5, 1, 0.5)
-            )),
-            triangle = list(list(
-                x = c(0, -0.56, 0.56),
-                y = c(0, 0.75, 0.75)
-            ))
-        )
-    } else {
-        square <- polyfun(nslice, list(
-            x = c(-0.5, -0.5, 0.5, 0.5),
-            y = c(-0.5, 0.5, 0.5, -0.5),
-            theta = -c(3, 5, 7, 9) * pi / 4
-        ))
-        circle <- circfun(nslice)
-        diamond <- polyfun(nslice, list(
-            x = c(0, -0.5, 0, 0.5),
-            y = c(-0.5, 0, 0.5, 0),
-            theta = -(seq_len(4)) * pi / 2
-        ))
-        triangle <- polyfun(nslice, list(
-            x = c(-0.56, 0, 0.56),
-            y = c(-0.25, 0.25, -0.25),
-            theta = c(-2, -4, -6) * pi / 3
-        ))
-        polylist <- list(
-            square = square, circle = circle,
-            diamond = diamond, triangle = triangle
-        )
-    }  ## else
-    polylist
+    square <- polyfun(nslice, list(
+        x = c(-0.5, -0.5, 0.5, 0.5),
+        y = c(-0.5, 0.5, 0.5, -0.5),
+        theta = -c(3, 5, 7, 9) * pi / 4
+    ))
+    circle <- circfun(nslice)
+    diamond <- polyfun(nslice, list(
+        x = c(0, -0.5, 0, 0.5),
+        y = c(-0.5, 0, 0.5, 0),
+        theta = -(seq_len(4)) * pi / 2
+    ))
+    triangle <- polyfun(nslice, list(
+        x = c(-0.5, 0, 0.5),
+        y = -c(-0.25, 0.5, -0.25),
+        theta = c(2, 4, 6) * pi / 3
+    ))
+    list(
+        square = square, circle = circle,
+        diamond = diamond, triangle = triangle
+    )
 }
 
 #'@importFrom ggplot2 geom_polygon aes annotate
