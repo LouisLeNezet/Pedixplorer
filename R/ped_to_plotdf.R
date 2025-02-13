@@ -314,7 +314,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
 
     ## Add carriers status
     carrier <- ped_df[id[idx], "carrier"]
-    idx_carrier <- idx[carrier]
+    idx_carrier <- idx[carrier & !is.na(carrier)]
     if (length(idx_carrier) > 0) {
         carrier_df <- data.frame(
             x0 = pos[idx_carrier], y0 = i[idx_carrier] + (boxh / 2),
