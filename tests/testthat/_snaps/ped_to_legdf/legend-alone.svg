@@ -27,6 +27,7 @@
 <g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
 <polygon points='62.82,447.63 62.82,401.43 101.98,401.43 101.98,447.63 ' style='stroke-width: 0.75; fill: #FFFFFF;' />
 <polygon points='101.98,362.93 101.82,359.98 101.34,357.07 100.55,354.26 99.46,351.60 98.09,349.12 96.47,346.86 94.61,344.87 92.55,343.18 90.33,341.81 87.97,340.79 85.53,340.13 83.03,339.85 80.52,339.94 78.04,340.41 75.64,341.25 73.34,342.45 71.20,343.99 69.23,345.83 67.49,347.96 65.99,350.33 64.76,352.91 63.81,355.65 63.18,358.52 62.86,361.45 62.86,364.41 63.18,367.35 63.81,370.21 64.76,372.96 65.99,375.54 67.49,377.91 69.23,380.03 71.20,381.88 73.34,383.41 75.64,384.61 78.04,385.45 80.52,385.93 83.03,386.02 85.53,385.74 87.97,385.08 90.33,384.06 92.55,382.69 94.61,380.99 96.47,379.00 98.09,376.75 99.46,374.27 100.55,371.60 101.34,368.79 101.82,365.89 101.98,362.93 ' style='stroke-width: 0.75; fill: #FFFFFF;' />
+<polygon points='82.40,324.43 62.82,301.33 82.40,278.23 101.98,301.33 ' style='stroke-width: 0.75; fill: #FFFFFF;' />
 <polygon points='168.37,447.63 168.37,401.43 207.53,401.43 207.53,447.63 ' style='stroke-width: 0.75; fill: #FFFFFF;' />
 <polygon points='168.37,386.03 168.37,339.83 207.53,339.83 207.53,386.03 ' style='stroke-width: 0.75; stroke: #00FF00; fill: #FFFFFF;' />
 <polygon points='286.98,447.63 286.98,401.43 326.15,401.43 326.15,447.63 ' style='stroke-width: 0.75; fill: #FFFFFF;' />
@@ -58,6 +59,7 @@
 <text x='568.83' y='494.80' style='font-size: 12.60px; font-family: sans;' textLength='47.64px' lengthAdjust='spacingAndGlyphs'>val_num</text>
 <text x='121.57' y='430.31' style='font-size: 8.40px; font-family: sans;' textLength='18.21px' lengthAdjust='spacingAndGlyphs'>Male</text>
 <text x='121.57' y='368.71' style='font-size: 8.40px; font-family: sans;' textLength='28.01px' lengthAdjust='spacingAndGlyphs'>Female</text>
+<text x='121.57' y='307.11' style='font-size: 8.40px; font-family: sans;' textLength='35.03px' lengthAdjust='spacingAndGlyphs'>Unknown</text>
 <text x='227.12' y='430.31' style='font-size: 8.40px; font-family: sans;' textLength='51.84px' lengthAdjust='spacingAndGlyphs'>Non Available</text>
 <text x='227.12' y='368.71' style='font-size: 8.40px; font-family: sans;' textLength='34.09px' lengthAdjust='spacingAndGlyphs'>Available</text>
 <text x='345.73' y='430.31' style='font-size: 8.40px; font-family: sans;' textLength='63.99px' lengthAdjust='spacingAndGlyphs'>Healthy &lt;= to 0.5</text>
