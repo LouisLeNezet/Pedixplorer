@@ -16,7 +16,7 @@ new_par <- list(
 test_that("Pedigree legend works", {
     data("sampleped")
     sampleped$val_num <- as.numeric(sampleped$id)
-    ped <- Pedigree(sampleped)
+    ped <- Pedigree(sampleped[-c(13, 15)])
     ped <- ped[ped(ped, "famid") == "1"]
     famid(ped(ped))[13] <- "1"
     ped2 <- ped[ped(ped, "id") != "1_113"]

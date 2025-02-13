@@ -19,9 +19,17 @@ test_that("Pedigree works", {
 test_that("Pedigree old usage compatibility", {
     data(sampleped)
     ped1 <- with(sampleped,
-        Pedigree(id, dadid, momid, famid = famid, sex = sex, avail = avail, affections = affection)
+        Pedigree(
+            id, dadid, momid,
+            famid = famid, sex = sex,
+            avail = avail, affections = affection
+        )
     )
-    expect_equal(ped1, Pedigree(sampleped[colnames(sampleped) != "num"]))
+    col_to_keep <- c(
+        "id", "dadid", "momid", "famid",
+        "sex", "avail", "affection"
+    )
+    expect_equal(ped1, Pedigree(sampleped[col_to_keep]))
 
     ped2mat <- matrix(c(
         1, 1, 0, 0, 1,

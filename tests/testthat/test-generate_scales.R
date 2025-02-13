@@ -93,7 +93,8 @@ test_that("generate fill full scale on", {
 
 test_that("generate colors works on Pedigree object", {
     data("sampleped")
-    ped <- Pedigree(sampleped[sampleped$famid == "1", -1])
+    # Remove family and proband
+    ped <- Pedigree(sampleped[sampleped$famid == "1", -c(1, 13, 15)])
     mcols(ped)$"id_num" <- as.numeric(id(ped(ped)))
     ped_aff <- generate_colors(ped, col_aff = "id_num",
         threshold = 120, sup_thres_aff = TRUE, add_to_scale = FALSE
@@ -111,7 +112,7 @@ test_that("generate colors works on Pedigree object", {
 test_that("generate with full scale", {
     data("sampleped")
     sampleped$val_num <- as.numeric(sampleped$id)
-    ped <- Pedigree(sampleped)
+    ped <- Pedigree(sampleped[-c(13, 15)])
     ped <- ped[famid(ped(ped)) == "1"]
     ped <- generate_colors(
         ped, add_to_scale = FALSE, "val_num", threshold = 115,
@@ -127,7 +128,7 @@ test_that("generate with full scale", {
 test_that("generate with full scale", {
     data("sampleped")
     sampleped$val_num <- as.numeric(sampleped$id)
-    ped <- Pedigree(sampleped)
+    ped <- Pedigree(sampleped[-c(13, 15)])
     ped <- ped[famid(ped(ped)) == "1"]
     ped <- generate_colors(
         ped, add_to_scale = FALSE, "val_num", threshold = 240,

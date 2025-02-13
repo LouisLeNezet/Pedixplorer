@@ -5,7 +5,7 @@
 
 #### sampleped ####
 sampleped <- read.delim("inst/extdata/sampleped.tab",
-    header = TRUE, sep = " ", stringsAsFactors = FALSE
+    header = TRUE, sep = "\t", stringsAsFactors = FALSE
 )
 sampleped[c("famid", "id", "dadid", "momid")] <- as.data.frame(
     lapply(sampleped[c("famid", "id", "dadid", "momid")], as.character)
@@ -20,7 +20,7 @@ usethis::use_data(sampleped, overwrite = TRUE)
 
 #### relped ####
 relped <- read.delim("inst/extdata/relped.tab",
-    header = TRUE, sep = " ", stringsAsFactors = FALSE
+    header = TRUE, sep = "\t", stringsAsFactors = FALSE
 )
 relped[c("famid", "id1", "id2", "code")] <- as.data.frame(
     lapply(relped[c("famid", "id1", "id2", "code")], as.character)

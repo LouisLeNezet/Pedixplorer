@@ -42,7 +42,7 @@ test_that("Pedigree plotting test", {
 
     lst <- ped_to_plotdf(ped, precision = 1)
     expect_equal(length(lst), 2)
-    expect_equal(dim(lst$df), c(82, 15))
+    expect_equal(dim(lst$df), c(82, 16))
     expect_snapshot(lst)
     p <- plot(ped, title = "Pedigree", ggplot_gen = TRUE, precision = 1)
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
@@ -125,7 +125,7 @@ test_that("Supplementary graphical representations", {
     ] <- TRUE
 
     consultand(ped(pedi))[
-        match(c("1_114"), id(ped(pedi)))
+        match(c("1_104"), id(ped(pedi)))
     ] <- TRUE
 
     proband(ped(pedi))[
@@ -157,4 +157,3 @@ test_that("Supplementary graphical representations", {
         }
     )
 })
-

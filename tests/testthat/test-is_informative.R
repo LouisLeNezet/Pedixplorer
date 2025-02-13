@@ -14,7 +14,7 @@ test_that("is_informative works", {
     )
     expect_equal(
         length(is_informative(id, avail, affected, informative = "AvOrAf")),
-        35
+        34
     )
     expect_equal(
         length(is_informative(id, avail, affected, informative = "Av")),
@@ -22,7 +22,7 @@ test_that("is_informative works", {
     )
     expect_equal(
         length(is_informative(id, avail, affected, informative = "Af")),
-        23
+        22
     )
     expect_equal(
         is_informative(
