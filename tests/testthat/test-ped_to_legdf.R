@@ -42,7 +42,7 @@ test_that("Pedigree legend works", {
             ))
         }
     )
-
+    plot(ped[!is.na(famid(ped(ped)))])
     vdiffr::expect_doppelganger("Plot with legend",
         function() {
             suppressWarnings(plot(

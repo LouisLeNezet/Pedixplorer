@@ -53,27 +53,33 @@ subregion <- function(df, subreg = NULL) {
 #' circfun(1, 10)
 #' circfun(4, 50)
 #' @export
-circfun <- function(nslice, n = 50) {
-    if (nslice == 1) {
-        return(list(list(
-            x = 0.5 * cos(seq(0, 2 * pi, length = n)),
-            y = 0.5 * sin(seq(0, 2 * pi, length = n))
-        )))
-    }
+circfun <- function(nslice, n = 50, start = 0) {
+    # Compute the degree sequence, adding start to shift the slices
+    degree <- (seq(0, 360, length.out = nslice + 1)[1:nslice] + start) %% 360
+    theta <- degree * pi / 180  # Convert to radians
 
     nseg <- ceiling(n / nslice)  # Segments of arc per slice
-    theta <- -pi / 2 - seq(0, 2 * pi, length = nslice + 1)
-
     out <- vector("list", nslice)
+    
+    # Loop through each slice and create its coordinates
     for (i in seq_len(nslice)) {
-        theta2 <- seq(theta[i], theta[i + 1], length = nseg)
+        # Ensure that the final theta[i + 1] is within valid range
+        theta_end <- if (i == nslice) theta[1] + 2 * pi else theta[i + 1]
+        
+        # Generate angles for this slice, making sure to handle finite values
+        theta2 <- seq(theta[i], theta_end, length = nseg)
+        
+        # Store the coordinates for the slice (with a radius of 0.5)
         out[[i]] <- list(
             x = c(0, cos(theta2) / 2),
-            y = c(0, sin(theta2) / 2) + 0.5
+            y = c(0, sin(theta2) / 2)
         )
     }
+
     out
 }
+
+
 
 
 #' Polygonal element
@@ -96,50 +102,115 @@ circfun <- function(nslice, n = 50) {
 #'     theta = -c(3, 5, 7, 9) * pi / 4
 #' ))
 #' @export
+find_ray_intersections <- function(x0, y0, x1, y1, theta) {
+    if (x0 == x1) {  # Vertical segment
+        x_intersect <- x0  # Intersection occurs at x0
+        y_intersect <- tan(theta) * x0  # Compute y based on the ray equation
+        
+        # Check if y_intersect is within the segment's vertical range
+        within_segment <- (y_intersect >= min(y0, y1) && y_intersect <= max(y0, y1))
+        
+        # Ensure intersection is in the ray's forward direction
+        t <- x0 / cos(theta)
+        in_ray_direction <- (t >= 0)
 
-get_intersection <- function(t, zmat) {
-    z <- (tan(t) * zmat[, 1] - zmat[, 3]) / (zmat[, 4] - tan(t) * zmat[, 2])
-    tx <- round(zmat[, 1] + z * zmat[, 2], 6)
-    ty <- round(zmat[, 3] + z * zmat[, 4], 6)
-    valid <- is.finite(z) & z >= 0 & z <= 1 & (tx * cos(t) + ty * sin(t)) > 0
+        if (within_segment && in_ray_direction) {
+            return(c(x_intersect, y_intersect))
+        } else {
+            return(c(NA, NA))
+        }
+    }
 
-    # If valid, return the first intersection point, otherwise return NA
-    if (any(valid)) return(c(tx[valid][1], ty[valid][1]))
-    else return(c(NA, NA))
+    # Ray slope (direction from origin)
+    m_ray <- tan(theta)
+    
+    # Initialize an empty list to store intersections
+    intersections <- list()
+    
+    # Loop over each segment
+    # Compute the segment slope
+    m_segment <- (y1 - y0) / (x1 - x0)
+
+    # If slopes are equal, they are parallel (or collinear)
+    if (m_segment == m_ray) {
+        return(c(NA, NA))
+    }
+    
+    # Compute the y-intercept of the segment
+    b_segment <- y0 - m_segment * x0
+    
+    # Solve for intersection x where m_segment * x + b_segment = m_ray * x
+    x_intersect <- b_segment / (m_ray - m_segment)
+    y_intersect <- m_ray * x_intersect
+    
+    # Check if the intersection is within the segment bounds
+    within_segment <- (x_intersect >= min(x0, x1) && x_intersect <= max(x0, x1) &&
+                    y_intersect >= min(y0, y1) && y_intersect <= max(y0, y1))
+
+    # Check if the intersection is in the direction of the ray (t >= 0)
+    t <- x_intersect / cos(theta)  # Compute the ray parameter t
+    in_ray_direction <- (t >= 0)
+    
+    if (within_segment && in_ray_direction) {
+        return(c(x_intersect, y_intersect))
+    } else {
+        return(c(NA, NA))
+    }
 }
 
 
-polyfun <- function(nslice, coor) {
-    # Return the original coordinates if there's only one slice
-    if (nslice == 1) return(list(coor))
-    # Create a matrix for the differences in x and y coordinates
-    zmat <- cbind(
-        coor$x, c(coor$x[-1], coor$x[1]) - coor$x,
-        coor$y, c(coor$y[-1], coor$y[1]) - coor$y
+polyfun <- function(nslice, coor, start = 90){
+    if (nslice == 1) {
+        return(list(coor))
+    }
+    coor <- as.data.frame(coor)
+    coor$id <- 1:nrow(coor)
+    theta_rad <- atan2(coor$y, coor$x)
+    coor$degree <- (theta_rad * 180 / pi) %% 360  # Ensure range [0, 360]
+
+    df_seg <- data.frame(
+        x0 = coor$x, y0 = coor$y,
+        x1 = c(coor$x[-1], coor$x[1]), y1 = c(coor$y[-1], coor$y[1])
     )
 
     # Generate slicing angles
-    theta <- seq(-pi / 2, 2 * pi - pi / 2, length.out = nslice + 1)
+    degree <- (seq(0, 360, length.out = nslice + 1)[1:nslice] + start) %% 360
+    df_expanded <- expand.grid(1:nrow(df_seg), degree)
 
-    # Calculate intersection points for each angle using the get_intersection function
-    intersections <- t(sapply(theta, function(t) get_intersection(t, zmat)))
+    # Apply the function to each row
+    results <- t(apply(df_expanded, 1, function(row) {
+        seg_idx <- row[1]  # Get segment index
+        theta <- row[2] * pi / 180  # Get theta in radians
+        
+        # Extract segment data
+        x0 <- df_seg$x0[seg_idx]
+        y0 <- df_seg$y0[seg_idx]
+        x1 <- df_seg$x1[seg_idx]
+        y1 <- df_seg$y1[seg_idx]
 
-    # Combine intersection points with original coordinates
-    temp <- data.frame(
-        indx = c(seq_len(nslice + 1), rep(0, length(coor$x))),
-        theta = c(theta, coor$theta),
-        x = c(intersections[, 1], coor$x),
-        y = c(intersections[, 2], coor$y)
-    )
-    temp <- temp[order(-temp$theta), ]
-    print(temp)
+        # Call the existing function
+        c(seg_idx, row[2], round(find_ray_intersections(x0, y0, x1, y1, theta), 6))
+    })) %>%
+        as.data.frame() %>%
+        setNames(c("seg_idx", "degree", "x", "y"))
+
+    results <- results[!is.na(results$x), ] %>%
+        dplyr::distinct(degree, .keep_all = TRUE)
+    results
+    temp <- rbind.fill(coor, results)
+    temp <- temp[order(temp$degree), ]
+    idx1 <- which(!is.na(temp$seg_idx))[1]
+    temp <- rbind(temp[idx1:nrow(temp), ], temp[0:(idx1 - 1), ])
+    temp <- rbind(temp, temp[1,])
+    rownames(temp) <- NULL
 
     # Create the resulting polygons
-    out <- lapply(seq_len(nslice), function(i) {
-        rows <- which(temp$indx == i):which(temp$indx == (i + 1))
+    i <- 1
+    lapply(seq_len(nslice), function(i) {
+        rows <- which(!is.na(temp$seg_idx))[i:(i + 1)]
+        rows <- rows[1]:rows[2]
         list(x = c(0, temp$x[rows]), y = c(0, temp$y[rows]))
     })
-    return(out)
 }
 
 #' List of polygonal elements
@@ -159,23 +230,20 @@ polyfun <- function(nslice, coor) {
 #' polygons()
 #' polygons(4)
 #' @export
-polygons <- function(nslice = 1) {
+polygons <- function(nslice = 1, start = 90) {
     square <- polyfun(nslice, list(
         x = c(-0.5, -0.5, 0.5, 0.5),
-        y = c(-0.5, 0.5, 0.5, -0.5),
-        theta = -c(3, 5, 7, 9) * pi / 4
-    ))
-    circle <- circfun(nslice)
+        y = c(-0.5, 0.5, 0.5, -0.5)
+    ), start = start)
+    circle <- circfun(nslice, n = 50, start = start)
     diamond <- polyfun(nslice, list(
         x = c(0, -0.5, 0, 0.5),
-        y = c(-0.5, 0, 0.5, 0),
-        theta = -(seq_len(4)) * pi / 2
-    ))
+        y = c(-0.5, 0, 0.5, 0)
+    ), start = start)
     triangle <- polyfun(nslice, list(
         x = c(-0.5, 0, 0.5),
-        y = -c(-0.25, 0.5, -0.25),
-        theta = c(2, 4, 6) * pi / 3
-    ))
+        y = -c(-0.25, 0.5, -0.25)
+    ), start = start)
     list(
         square = square, circle = circle,
         diamond = diamond, triangle = triangle

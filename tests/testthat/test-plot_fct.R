@@ -61,41 +61,6 @@ test_that("plotting functions works", {
         density = 5, p = p, ggplot_gen = TRUE
     )
 
-    load_all()
-    plot(c(0, 10), c(0, 10))
-    grid()
-    max_aff <- 4
-    for (s in seq_len(4)) {
-        for (i in seq_len(max_aff)) {
-            for (n in seq_len(i)) {
-                poly <- poly_n[[i]][[s]][[n]]
-                p <- draw_polygon(
-                    s + poly$x * 0.5,
-                    i + poly$y * 0.5,
-                    p, ggplot_gen = TRUE
-                )
-            }
-        }
-    }
-
-    load_all()
-    plot(c(-2, 2), c(-2, 2), asp = 1)
-    grid()
-    coor <- list(
-        x = c(-1, 0, 1),
-        y = c(1, -1, 1),
-        theta = c(1, 3, 4) * pi / 3
-    )
-    nslice <- 2
-    results <- polyfun(nslice, coor)
-    results[[1]]
-    results[[2]]
-    for (poly in results) {
-        draw_polygon(
-            poly$x, poly$y
-        )
-    }
-
     p <- draw_polygon(
         c(5, 6, 6, 7), c(8, 9, 10, 9),
         fill = "brown", border = "green",
@@ -120,4 +85,25 @@ test_that("set_plot_area works", {
     expect_snapshot(
         set_plot_area(2, c("Test", "Test2"), 3, c(0, 10), 1, 2)
     )
+})
+
+test_that("polygon slicing works", {
+    plot(c(0, 5), c(0, 9))
+    max_aff <- 8
+    poly_n <- lapply(seq_len(max_aff), function(n) polygons(n, 0))
+    p <- ggplot() +
+        ggplot2::geom_point(aes(x = c(0, 5), y = c(0, 9)))
+    for (s in seq_len(4)) {
+        for (i in seq_len(max_aff)) {
+            for (n in seq_len(i)) {
+                poly <- poly_n[[i]][[s]][[n]]
+                p <- draw_polygon(
+                    s + poly$x * 0.5,
+                    i + poly$y * 0.5,
+                    fill = n, p = p, ggplot_gen = TRUE
+                )
+            }
+        }
+    }
+    vdiffr::expect_doppelganger("Polygon slicing", p)
 })
