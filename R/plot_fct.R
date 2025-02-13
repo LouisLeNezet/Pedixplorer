@@ -54,6 +54,14 @@ subregion <- function(df, subreg = NULL) {
 #' circfun(4, 50)
 #' @export
 circfun <- function(nslice, n = 50, start = 0) {
+
+    if (nslice == 1) {
+        return(list(list(
+            x = 0.5 * cos(seq(0, 2 * pi, length = n)),
+            y = 0.5 * sin(seq(0, 2 * pi, length = n))
+        )))
+    }
+
     # Compute the degree sequence, adding start to shift the slices
     degree <- (seq(0, 360, length.out = nslice + 1)[1:nslice] + start) %% 360
     theta <- degree * pi / 180  # Convert to radians
@@ -78,9 +86,6 @@ circfun <- function(nslice, n = 50, start = 0) {
 
     out
 }
-
-
-
 
 #' Polygonal element
 #'

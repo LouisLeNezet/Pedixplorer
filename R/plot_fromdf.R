@@ -66,12 +66,10 @@ plot_fromdf <- function(
 ) {
     if (!add_to_existing) {
         graphics::frame()
-        op <- par(no.readonly = TRUE)
-        if (!is.null(usr)) {
-            graphics::par(usr = usr)
-        }
-    } else {
-        op <- par(no.readonly = TRUE)
+    }
+    op <- par(no.readonly = TRUE)
+    if (!is.null(usr)) {
+        graphics::par(usr = usr)
     }
     p <- ggplot2::ggplot() +
         ggplot2::theme(
@@ -126,7 +124,7 @@ plot_fromdf <- function(
             ]]
             p <- draw_polygon(
                 boxes$x0[i] + poly$x * boxw,
-                boxes$y0[i] + poly$y * boxh,
+                boxes$y0[i] + (poly$y + 0.5) * boxh,
                 p, ggplot_gen,
                 fill = boxes$fill[i], border = boxes$border[i],
                 density = boxes$density[i], angle = boxes$angle[i],
