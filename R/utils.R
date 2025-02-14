@@ -351,17 +351,17 @@ sex_to_factor <- function(sex) {
 #' fertile.
 #'
 #' @param fertility A character, factor or numeric vector corresponding to
-#' the fertility status of the individuals. This will be transformed to an
-#' ordered factor with the following levels:
-#' `infertile_choice_na` < `infertile` < `fertile`
+#' the fertility status of the individuals. This will be transformed to a
+#' factor with the following levels:
+#' `infertile_choice_na`, `infertile`, `fertile`
 #'
 #' The following values are recognized:
 #' - "inferile_choice_na" : "infertile_choice", "infertile_na"
 #' - "infertile" : "infertile", "steril", `FALSE`, `0`
 #' - "fertile" : "fertile", `TRUE`, `1`, `NA`
 #'
-#' @return an factor vector containing the transformed variable
-#' "infertile_choice_na" < "infertile" < "fertile"
+#' @return a factor vector containing the transformed variable
+#' "infertile_choice_na", "infertile", "fertile"
 #'
 #' @examples
 #' fertility_to_factor(c(
@@ -393,7 +393,7 @@ fertility_to_factor <- function(fertility) {
     fertility_codes <- c("infertile_choice_na", "infertile", "fertile")
     fertility[!fertility %in% fertility_codes] <- "fertile"
 
-    fertility <- factor(fertility, fertility_codes, ordered = TRUE)
+    fertility <- factor(fertility, fertility_codes)
     fertility
 }
 

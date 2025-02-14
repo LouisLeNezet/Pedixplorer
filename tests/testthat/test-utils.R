@@ -107,8 +107,7 @@ test_that("fertility_to_factor", {
             "infertile", "infertile", "infertile", "infertile",
             "infertile_choice_na", "infertile_choice_na",
             "infertile_choice_na"
-        ), levels = c("infertile_choice_na", "infertile", "fertile"),
-        ordered = TRUE)
+        ), levels = c("infertile_choice_na", "infertile", "fertile"))
     )
 })
 
