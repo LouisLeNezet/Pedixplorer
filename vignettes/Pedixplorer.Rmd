@@ -483,6 +483,10 @@ To do so you can do as follow:
 
 ```{r, generate_colors, fig.alt = "Pedigree of family 1 with change in colors"}
 scales(ped1)
+# Remove proband and asymptomatic status as they need to be
+# affected and unaffected respectively for the new status
+proband(ped(ped1)) <- FALSE
+asymptomatic(ped(ped1)) <- FALSE
 ped1 <- generate_colors(
     ped1, col_aff = "num",
     add_to_scale = TRUE, is_num = TRUE,
