@@ -111,18 +111,18 @@
       105                  carrier 13.01000000000 4.04150    NA       NA       points
       106             asymptomatic  0.00000000000 3.08300  0.00 3.000000     segments
       107             asymptomatic  7.00000000000 3.08300  7.00 3.000000     segments
-      108                 adoption -0.32000000000 3.09130 -0.32 2.991700     segments
-      109                 adoption  0.32000000000 3.09130  0.32 2.991700     segments
-      110                 adoption 14.68000000000 3.09130 14.68 2.991700     segments
-      111                 adoption 15.32000000000 3.09130 15.32 2.991700     segments
-      112                 adoption  0.32000000000 3.09130  0.24 3.091300     segments
-      113                 adoption  0.32000000000 2.99170  0.24 2.991700     segments
-      114                 adoption -0.32000000000 3.09130 -0.24 3.091300     segments
-      115                 adoption -0.32000000000 2.99170 -0.24 2.991700     segments
-      116                 adoption 15.32000000000 3.09130 15.24 3.091300     segments
-      117                 adoption 15.32000000000 2.99170 15.24 2.991700     segments
-      118                 adoption 14.68000000000 3.09130 14.76 3.091300     segments
-      119                 adoption 14.68000000000 2.99170 14.76 2.991700     segments
+      108                 adoption -0.32000000000 4.09130 -0.32 3.991700     segments
+      109                 adoption  0.32000000000 4.09130  0.32 3.991700     segments
+      110                 adoption  8.68000000000 3.09130  8.68 2.991700     segments
+      111                 adoption  9.32000000000 3.09130  9.32 2.991700     segments
+      112                 adoption  0.32000000000 4.09130  0.24 4.091300     segments
+      113                 adoption  0.32000000000 3.99170  0.24 3.991700     segments
+      114                 adoption -0.32000000000 4.09130 -0.24 4.091300     segments
+      115                 adoption -0.32000000000 3.99170 -0.24 3.991700     segments
+      116                 adoption  9.32000000000 3.09130  9.24 3.091300     segments
+      117                 adoption  9.32000000000 2.99170  9.24 2.991700     segments
+      118                 adoption  8.68000000000 3.09130  8.76 3.091300     segments
+      119                 adoption  8.68000000000 2.99170  8.76 2.991700     segments
       120                       id  3.80000000000 1.13660    NA       NA         text
       121                       id  0.00000000000 2.13660    NA       NA         text
       122                       id  0.00000000000 3.13660    NA       NA         text
