@@ -12,12 +12,14 @@ used to generate `affected`
 - `status` is replaced by `deceased`
 - `steril` is replaced by `fertility` and corresponding symbols is added for
 `infertile` and `infertile_choice_na`
-- `terminated` is deleted
+- `terminated` sex code is replace by `miscarriage` new slot
 - `miscarriage`, `evaluated`, `consultand`, `proband`, `carrier`, `asymptomatic` and
 `adopted` are now recognize and use for plotting
 - Argument order of `Ped()` as changed when using vectors. This choice has been made
 for a better consistency across the package. Please check that your argument are
 properly named (i.e. `sex` has been moved after `famid` and `avail` after `deceased`).
+- Shiny application is updated and improved (aesthetics, errors, warnings,
+functionnalities).
 
 ## Changes in v1.2.0
 
