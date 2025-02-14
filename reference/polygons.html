@@ -66,7 +66,7 @@ The number of slices in each element can be specified.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">polygons</span><span class="op">(</span>nslice <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">polygons</span><span class="op">(</span>nslice <span class="op">=</span> <span class="fl">1</span>, start <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -93,7 +93,7 @@ and theta by slice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.5 -0.5  0.5  0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 1 1 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.5  0.5  0.5 -0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -111,16 +111,16 @@ and theta by slice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [49]  0.49589501  0.50000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.5000000000 0.5639385808 0.6268272920 0.6876335024 0.7453587760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 0.7990552652 0.8478412753 0.8909157412 0.9275713815 0.9572063115</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 0.9793339265 0.9935908917 0.9997431081 0.9976895565 0.9874639561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] 0.9692342110 0.9432996532 0.9100861273 0.8701389985 0.8241141977</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] 0.7727674506 0.7169418696 0.6575541090 0.5955793144 0.5320351100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] 0.4679648900 0.4044206856 0.3424458910 0.2830581304 0.2272325494</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 0.1758858023 0.1298610015 0.0899138727 0.0567003468 0.0307657890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [36] 0.0125360439 0.0023104435 0.0002568919 0.0064091083 0.0206660735</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] 0.0427936885 0.0724286185 0.1090842588 0.1521587247 0.2009447348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [46] 0.2546412240 0.3123664976 0.3731727080 0.4360614192 0.5000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.000000e+00  6.393858e-02  1.268273e-01  1.876335e-01  2.453588e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6]  2.990553e-01  3.478413e-01  3.909157e-01  4.275714e-01  4.572063e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11]  4.793339e-01  4.935909e-01  4.997431e-01  4.976896e-01  4.874640e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16]  4.692342e-01  4.432997e-01  4.100861e-01  3.701390e-01  3.241142e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21]  2.727675e-01  2.169419e-01  1.575541e-01  9.557931e-02  3.203511e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] -3.203511e-02 -9.557931e-02 -1.575541e-01 -2.169419e-01 -2.727675e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] -3.241142e-01 -3.701390e-01 -4.100861e-01 -4.432997e-01 -4.692342e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [36] -4.874640e-01 -4.976896e-01 -4.997431e-01 -4.935909e-01 -4.793339e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] -4.572063e-01 -4.275714e-01 -3.909157e-01 -3.478413e-01 -2.990553e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] -2.453588e-01 -1.876335e-01 -1.268273e-01 -6.393858e-02 -1.224647e-16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -130,17 +130,17 @@ and theta by slice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0 -0.5  0.0  0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.5 1.0 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.5  0.0  0.5  0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[1]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.00 -0.56  0.56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.5  0.0  0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.00 0.75 0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.25 -0.50  0.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -148,34 +148,34 @@ and theta by slice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[1]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00  5.551115e-17 -5.000000e-01 -5.000000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.5 0.5 0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 0.0 0.0 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.0 0.5 0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[2]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00 -5.000000e-01 -5.000000e-01 -1.110223e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0  0.0 -0.5 -0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[2]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 0.5 1.0 1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.5 0.5 0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[3]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00 -1.110223e-16  5.000000e-01  5.000000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0 -0.5 -0.5  0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[3]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 1.0 1.0 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0  0.0 -0.5 -0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[4]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000000e+00 5.000000e-01 5.000000e-01 1.665335e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.0 0.5 0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $square[[4]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 0.5 0.0 0.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0 -0.5 -0.5  0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -187,9 +187,9 @@ and theta by slice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11] -4.619398e-01 -4.829629e-01 -4.957224e-01 -5.000000e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.500000000 0.000000000 0.004277569 0.017037087 0.038060234 0.066987298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.103323330 0.146446609 0.195619285 0.250000000 0.308658284 0.370590477</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.434736904 0.500000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.000000e+00 5.000000e-01 4.957224e-01 4.829629e-01 4.619398e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 4.330127e-01 3.966767e-01 3.535534e-01 3.043807e-01 2.500000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 1.913417e-01 1.294095e-01 6.526310e-02 6.123234e-17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[2]]</span>
@@ -199,99 +199,101 @@ and theta by slice.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11] -1.913417e-01 -1.294095e-01 -6.526310e-02 -9.184851e-17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[2]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.5000000 0.5000000 0.5652631 0.6294095 0.6913417 0.7500000 0.8043807</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.8535534 0.8966767 0.9330127 0.9619398 0.9829629 0.9957224 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.000000e+00  6.123234e-17 -6.526310e-02 -1.294095e-01 -1.913417e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] -2.500000e-01 -3.043807e-01 -3.535534e-01 -3.966767e-01 -4.330127e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] -4.619398e-01 -4.829629e-01 -4.957224e-01 -5.000000e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[3]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.000000e+00 -9.184851e-17  6.526310e-02  1.294095e-01  1.913417e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6]  2.500000e-01  3.043807e-01  3.535534e-01  3.966767e-01  4.330127e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11]  4.619398e-01  4.829629e-01  4.957224e-01  5.000000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.000000e+00 -9.184851e-17 -1.913417e-01 -3.535534e-01 -4.619398e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] -5.000000e-01 -4.619398e-01 -3.535534e-01 -1.913417e-01  3.061617e-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11]  1.913417e-01  3.535534e-01  4.619398e-01  5.000000e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[3]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.5000000 1.0000000 0.9957224 0.9829629 0.9619398 0.9330127 0.8966767</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.8535534 0.8043807 0.7500000 0.6913417 0.6294095 0.5652631 0.5000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.000000e+00 -5.000000e-01 -4.619398e-01 -3.535534e-01 -1.913417e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6]  6.123234e-17  1.913417e-01  3.535534e-01  4.619398e-01  5.000000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11]  4.619398e-01  3.535534e-01  1.913417e-01  0.000000e+00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[4]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.000000e+00 5.000000e-01 4.957224e-01 4.829629e-01 4.619398e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 4.330127e-01 3.966767e-01 3.535534e-01 3.043807e-01 2.500000e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 1.913417e-01 1.294095e-01 6.526310e-02 1.530808e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.000000e+00  5.000000e-01  3.966767e-01  1.294095e-01 -1.913417e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] -4.330127e-01 -4.957224e-01 -3.535534e-01 -6.526310e-02  2.500000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11]  4.619398e-01  4.829629e-01  3.043807e-01  1.530808e-16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $circle[[4]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.500000000 0.500000000 0.434736904 0.370590477 0.308658284 0.250000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.195619285 0.146446609 0.103323330 0.066987298 0.038060234 0.017037087</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.004277569 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.0000000  0.0000000  0.3043807  0.4829629  0.4619398  0.2500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -0.0652631 -0.3535534 -0.4957224 -0.4330127 -0.1913417  0.1294095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  0.3966767  0.5000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[1]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00  5.551115e-17  0.000000e+00 -5.000000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.5 0.0 0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.000000e-01 5.551115e-17 0.000000e+00 5.000000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.0 0.5 0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[2]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00 -5.000000e-01 -5.000000e-01 -1.110223e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0  0.0 -0.5 -0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[2]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 0.5 0.5 1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.5 0.0 0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[3]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00 -1.110223e-16  0.000000e+00  5.000000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0 -0.5  0.0  0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[3]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 1.0 1.0 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0  0.0 -0.5 -0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[4]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000000e+00 5.000000e-01 5.000000e-01 1.665335e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0 0.0 0.5 0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diamond[[4]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.000000e-01 5.000000e-01 5.000000e-01 1.665335e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0 -0.5  0.0  0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[1]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.00  0.00 -0.56 -0.28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000000 0.333333 0.500000 0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[1]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.50 0.25 0.25 0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.00 0.00 0.25 0.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[2]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00 -2.800000e-01  0.000000e+00 -1.110223e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000  0.000000 -0.500000 -0.333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[2]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.50 0.50 0.75 0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.00 0.25 0.25 0.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[3]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000e+00 -1.110223e-16  2.800000e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000 -0.333333  0.000000  0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[3]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.50 0.75 0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0  0.0 -0.5 -0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[4]]$x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000000e+00 2.800000e-01 5.600000e-01 1.110223e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000000 0.000000 0.333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $triangle[[4]]$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.50 0.50 0.25 0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.0 -0.5  0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -302,7 +304,7 @@ and theta by slice.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">

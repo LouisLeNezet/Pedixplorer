@@ -117,11 +117,17 @@ Rel object.</p>
 <span>  <span class="va">momid</span>,</span>
 <span>  <span class="va">sex</span>,</span>
 <span>  famid <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  avail <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  affections <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fertility <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  miscarriage <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  deceased <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  avail <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  evaluated <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  consultand <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  proband <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  affections <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  carrier <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  asymptomatic <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  adopted <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rel_df <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  missid <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  col_aff <span class="op">=</span> <span class="st">"affection"</span>,</span>
@@ -131,14 +137,18 @@ Rel object.</p>
 <span></span>
 <span><span class="co"># S4 method for class 'data.frame'</span></span>
 <span><span class="fu">Pedigree</span><span class="op">(</span></span>
-<span>  obj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, dadid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, momid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, sex <span class="op">=</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, famid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, fertility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, miscarriage</span>
-<span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  obj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, dadid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, momid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, famid <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, fertility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, miscarriage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, evaluated <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="op">)</span>, consultand <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="op">)</span>, proband <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="op">)</span>, affection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="op">)</span>, carrier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    asymptomatic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="op">)</span>, adopted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  rel_df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span>, famid <span class="op">=</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  cols_ren_ped <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"indId"</span>, dadid <span class="op">=</span> <span class="st">"fatherId"</span>, momid <span class="op">=</span> <span class="st">"motherId"</span>, famid <span class="op">=</span></span>
 <span>    <span class="st">"family"</span>, sex <span class="op">=</span> <span class="st">"gender"</span>, fertility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sterilisation"</span>, <span class="st">"steril"</span><span class="op">)</span>, miscarriage <span class="op">=</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"miscarriage"</span>, <span class="st">"aborted"</span><span class="op">)</span>, affection <span class="op">=</span> <span class="st">"affected"</span>, avail <span class="op">=</span> <span class="st">"available"</span>, deceased <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"miscarriage"</span>, <span class="st">"aborted"</span><span class="op">)</span>, avail <span class="op">=</span> <span class="st">"available"</span>, evaluated <span class="op">=</span> <span class="st">"evaluation"</span>,</span>
+<span>    consultand <span class="op">=</span> <span class="st">"consultant"</span>, proband <span class="op">=</span> <span class="st">"proband"</span>, affection <span class="op">=</span> <span class="st">"affected"</span>, carrier <span class="op">=</span></span>
+<span>    <span class="st">"carrier"</span>, asymptomatic <span class="op">=</span> <span class="st">"presymptomatic"</span>, adopted <span class="op">=</span> <span class="st">"adoption"</span>, deceased <span class="op">=</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"status"</span>, <span class="st">"vitalStatus"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  cols_ren_rel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="st">"indId1"</span>, id2 <span class="op">=</span> <span class="st">"indId2"</span>, famid <span class="op">=</span> <span class="st">"family"</span><span class="op">)</span>,</span>
 <span>  hints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>horder <span class="op">=</span> <span class="cn">NULL</span>, spouse <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
@@ -195,23 +205,6 @@ individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.</p></dd>
 
 
-<dt id="arg-avail">avail<a class="anchor" aria-label="anchor" href="#arg-avail"></a></dt>
-<dd><p>A logical vector with the availability status of the
-individuals
-(i.e. <code>FALSE</code> = not available,
-<code>TRUE</code> = available,
-<code>NA</code> = unknown).</p></dd>
-
-
-<dt id="arg-affections">affections<a class="anchor" aria-label="anchor" href="#arg-affections"></a></dt>
-<dd><p>A logical vector with the affections status of the
-individuals
-(i.e. <code>FALSE</code> = unaffected, <code>TRUE</code> = affected, <code>NA</code> = unknown).
-Can also be a data.frame with the same length as <code>obj</code>. If it is a
-matrix, it will be converted to a data.frame and the columns will be
-named after the <code>col_aff</code> argument.</p></dd>
-
-
 <dt id="arg-fertility">fertility<a class="anchor" aria-label="anchor" href="#arg-fertility"></a></dt>
 <dd><p>A character, factor or numeric vector corresponding to
 the fertility status of the individuals. This will be transformed to an
@@ -240,6 +233,74 @@ The following values are recognized:</p><ul><li><p>"SAB" : "spontaneous", "spont
 individuals
 (i.e. <code>FALSE</code> = alive,
 <code>TRUE</code> = dead,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt id="arg-avail">avail<a class="anchor" aria-label="anchor" href="#arg-avail"></a></dt>
+<dd><p>A logical vector with the availability status of the
+individuals
+(i.e. <code>FALSE</code> = not available,
+<code>TRUE</code> = available,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt id="arg-evaluated">evaluated<a class="anchor" aria-label="anchor" href="#arg-evaluated"></a></dt>
+<dd><p>A logical vector with the evaluation status of the
+individuals.
+(i.e. <code>FALSE</code> = documented evaluation not available,
+<code>TRUE</code> = documented evaluation available).</p></dd>
+
+
+<dt id="arg-consultand">consultand<a class="anchor" aria-label="anchor" href="#arg-consultand"></a></dt>
+<dd><p>A logical vector with the consultand status of the
+individuals. A consultand being an individual seeking
+genetic counseling/testing
+(i.e. <code>FALSE</code> = not a consultand,
+<code>TRUE</code> = consultand).</p></dd>
+
+
+<dt id="arg-proband">proband<a class="anchor" aria-label="anchor" href="#arg-proband"></a></dt>
+<dd><p>A logical vector with the proband status of the
+individuals. A proband being an affected family
+member coming to medical attention independent of other
+family members.
+(i.e. <code>FALSE</code> = not a proband,
+<code>TRUE</code> = proband).</p></dd>
+
+
+<dt id="arg-affections">affections<a class="anchor" aria-label="anchor" href="#arg-affections"></a></dt>
+<dd><p>A logical vector with the affections status of the
+individuals
+(i.e. <code>FALSE</code> = unaffected, <code>TRUE</code> = affected, <code>NA</code> = unknown).
+Can also be a data.frame with the same length as <code>obj</code>. If it is a
+matrix, it will be converted to a data.frame and the columns will be
+named after the <code>col_aff</code> argument.</p></dd>
+
+
+<dt id="arg-carrier">carrier<a class="anchor" aria-label="anchor" href="#arg-carrier"></a></dt>
+<dd><p>A logical vector with the carrier status of the
+individuals. A carrier being an individual who has
+the genetic trait but who is not likely to manifest the
+disease regardless of inheritance pattern
+(i.e. <code>FALSE</code> = not carrier,
+<code>TRUE</code> = carrier,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt id="arg-asymptomatic">asymptomatic<a class="anchor" aria-label="anchor" href="#arg-asymptomatic"></a></dt>
+<dd><p>A logical vector with the asymptomatic status of
+the individuals. An asymptomatic individual being an individual
+clinically unaffected at this time but could later exhibit symptoms.
+(i.e. <code>FALSE</code> = not asymptomatic,
+<code>TRUE</code> = asymptomatic,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt id="arg-adopted">adopted<a class="anchor" aria-label="anchor" href="#arg-adopted"></a></dt>
+<dd><p>A logical vector with the adopted status of the
+individuals.
+(i.e. <code>FALSE</code> = not adopted,
+<code>TRUE</code> = adopted,
 <code>NA</code> = unknown).</p></dd>
 
 
@@ -309,13 +370,19 @@ standardized using the function <code><a href="norm_ped.html">norm_ped()</a></co
 <p>If a data.frame is given, the columns names needed are as follow:</p><ul><li><p><code>id</code>: the individual identifier</p></li>
 <li><p><code>dadid</code>: the identifier of the biological father</p></li>
 <li><p><code>momid</code>: the identifier of the biological mother</p></li>
-<li><p><code>sex</code>: the sex of the individual</p></li>
 <li><p><code>famid</code>: the family identifier of the individual</p></li>
+<li><p><code>sex</code>: the sex of the individual</p></li>
 <li><p><code>fertility</code>: the fertility status of the individual</p></li>
 <li><p><code>miscarriage</code>: the miscarriage status of the individual</p></li>
-<li><p><code>available</code>: the availability status of the individual (<code>avail</code>)</p></li>
 <li><p><code>deceased</code>: the death status of the individual</p></li>
+<li><p><code>avail</code>: the availability status of the individual</p></li>
+<li><p><code>evaluated</code>: the evaluation status of the individual</p></li>
+<li><p><code>consultand</code>: the consultand status of the individual</p></li>
+<li><p><code>proband</code>: the proband status of the individual</p></li>
 <li><p><code>affection</code>: the affection status of the individual</p></li>
+<li><p><code>carrier</code>: the carrier status of the individual</p></li>
+<li><p><code>asymptomatic</code>: the asymptomatic status of the individual</p></li>
+<li><p><code>adopted</code>: the adopted status of the individual</p></li>
 <li><p><code>...</code>: other columns that will be stored in the
 <code>elementMetadata</code> slot</p></li>
 </ul><p>The minimum columns required are :</p><ul><li><p><code>id</code></p></li>
@@ -325,8 +392,10 @@ standardized using the function <code><a href="norm_ped.html">norm_ped()</a></co
 </ul><p>The <code>famid</code> column can also be used to specify the
 family of the individuals and will be merge to the
 <code>id</code> field separated by an underscore.</p>
-<p>The columns <code>avail</code>,
-<code>deceased</code>, <code>affected</code>
+<p>The columns <code>deceased</code>, <code>avail</code>,
+<code>evaluated</code>, <code>consultand</code>,
+<code>proband</code>, <code>carrier</code>,
+<code>asymptomatic</code>, <code>adopted</code>
 will be transformed with the <code><a href="vect_to_binary.html">vect_to_binary()</a></code>
 function when the normalisation is selected.</p>
 <p>The <code>fertility</code> column will be transformed with the
@@ -524,7 +593,7 @@ based on the individuals identifiers given.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2_214           2_214       2_209       2_208           2      male   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           miscarriage  deceased     avail evaluated consultand   proband</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class    &lt;factor&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt;  &lt;logical&gt; &lt;logical&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1_101           FALSE      &lt;NA&gt;     FALSE      TRUE      FALSE     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_102           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_103           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_104           FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
@@ -584,7 +653,7 @@ based on the individuals identifiers given.</p></li>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -217,38 +217,38 @@ use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
 <span class="r-in"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span><span class="va">sampleped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">plot_df</span> <span class="op">&lt;-</span> <span class="fu">ped_to_plotdf</span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">plot_df</span><span class="op">$</span><span class="va">df</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id                  x0               y0              x1        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:254         Min.   : 0.000   Min.   :1.000   Min.   : 0.000  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.: 3.000   1st Qu.:2.490   1st Qu.: 3.331  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median : 7.000   Median :3.093   Median : 7.505  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   : 7.296   Mean   :3.096   Mean   : 7.641  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:11.750   3rd Qu.:4.000   3rd Qu.:11.831  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :15.010   Max.   :4.301   Max.   :15.010  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :42       NA's   :42      NA's   :168     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       id                  x0                y0              x1         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:247         Min.   :-0.6272   Min.   :1.000   Min.   :-0.6272  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.: 3.0000   1st Qu.:2.750   1st Qu.: 2.9510  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median : 7.0000   Median :3.093   Median : 7.0100  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   : 7.0617   Mean   :3.154   Mean   : 7.0894  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:11.2500   3rd Qu.:4.000   3rd Qu.:11.1595  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :15.0104   Max.   :4.301   Max.   :15.0100  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       NA's   :135      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        y1            type               fill              border         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :1.093   Length:254         Length:254         Length:254        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:2.356   Class :character   Class :character   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :2.750   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :2.876                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:3.553                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :3.750                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :168                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :1.093   Length:247         Length:247         Length:247        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:2.750   Class :character   Class :character   Class :character  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :3.093   Mode  :character   Mode  :character   Mode  :character  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :3.020                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:3.750                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :4.242                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :135                                                             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      angle        density         cex           label          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   : NA   Min.   : NA   Min.   :1.000   Length:254        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   : NA   Min.   : NA   Min.   :0.800   Length:247        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: NA   1st Qu.: NA   1st Qu.:1.000   Class :character  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Median : NA   Median : NA   Median :1.000   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :NaN   Mean   :NaN   Mean   :1.165                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :NaN   Mean   :NaN   Mean   :1.026                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: NA   3rd Qu.: NA   3rd Qu.:1.000                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : NA   Max.   : NA   Max.   :2.000                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :254   NA's   :254                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      tips                adjx          adjy           lty     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:254         Min.   :0.5   Min.   :0.50   Min.   :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.:0.5   1st Qu.:0.50   1st Qu.:19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median :0.5   Median :0.75   Median :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   :0.5   Mean   :0.75   Mean   :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:0.5   3rd Qu.:1.00   3rd Qu.:19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :0.5   Max.   :1.00   Max.   :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :170   NA's   :170    NA's   :212  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : NA   Max.   : NA   Max.   :2.500                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :247   NA's   :247                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      tips                adjx          adjy             lty     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:247         Min.   :0.5   Min.   :0.5000   Min.   :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.:0.5   1st Qu.:0.5000   1st Qu.:19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median :0.5   Median :0.5000   Median :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   :0.5   Mean   :0.7363   Mean   :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:0.5   3rd Qu.:1.0000   3rd Qu.:19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :0.5   Max.   :1.0000   Max.   :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :156   NA's   :156      NA's   :245  </span>
 <span class="r-in"><span><span class="fu"><a href="plot_fromdf.html">plot_fromdf</a></span><span class="op">(</span><span class="va">plot_df</span><span class="op">$</span><span class="va">df</span>, usr <span class="op">=</span> <span class="va">plot_df</span><span class="op">$</span><span class="va">par_usr</span><span class="op">$</span><span class="va">usr</span>,</span></span>
 <span class="r-in"><span>    boxh <span class="op">=</span> <span class="va">plot_df</span><span class="op">$</span><span class="va">par_usr</span><span class="op">$</span><span class="va">boxh</span>, boxw <span class="op">=</span> <span class="va">plot_df</span><span class="op">$</span><span class="va">par_usr</span><span class="op">$</span><span class="va">boxw</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -260,7 +260,7 @@ use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">

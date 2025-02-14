@@ -79,18 +79,23 @@ The minimum columns required are:</p><ul><li><p><code>id</code> individual ident
 <li><p><code>dadid</code> biological fathers identifiers</p></li>
 <li><p><code>momid</code> biological mothers identifiers</p></li>
 <li><p><code>sex</code> of the individual</p></li>
-<li><p><code>famid</code> family identifiers</p></li>
 </ul><p>The <code>famid</code> column, if provided, will be merged to
 the <em>ids</em> field separated by an underscore using the
 <code><a href="upd_famid.html">upd_famid()</a></code> function.</p>
 <p>The following columns are also recognize and will be transformed with the
-<code><a href="vect_to_binary.html">vect_to_binary()</a></code> function:</p><ul><li><p><code>avail</code> status -&gt; is the individual available</p></li>
-<li><p><code>deceased</code> status -&gt; is the individual dead</p></li>
+<code><a href="vect_to_binary.html">vect_to_binary()</a></code> function:</p><ul><li><p><code>deceased</code> status -&gt; is the individual dead</p></li>
+<li><p><code>avail</code> status -&gt; is the individual available</p></li>
+<li><p><code>evaluated</code> status -&gt; has the individual a documented evaluation</p></li>
+<li><p><code>consultand</code> status -&gt; is the individual the consultand</p></li>
+<li><p><code>proband</code> status -&gt; is the individual the proband</p></li>
+<li><p><code>carrier</code> status -&gt; is the individual a carrier</p></li>
+<li><p><code>asymptomatic</code> status -&gt; is the individual asymptomatic</p></li>
+<li><p><code>adopted</code> status -&gt; is the individual adopted</p></li>
 </ul><p>The values recognized for those columns are <code>1</code> or <code>0</code>,
 <code>TRUE</code> or <code>FALSE</code>.</p>
 <p>The <code>fertility</code> column will be transformed to an ordered factor using the
 <code><a href="fertility_to_factor.html">fertility_to_factor()</a></code> function.
-<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code>#'</p>
+<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code></p>
 <p>The <code>miscarriage</code> column will be transformed to a using the
 <code><a href="miscarriage_to_factor.html">miscarriage_to_factor()</a></code> function.
 <code>SAB</code>, <code>TOP</code>, <code>ECT</code>, <code>FALSE</code></p></dd>
@@ -166,30 +171,60 @@ or <code>unknown</code>.</p></li>
 <span class="r-in"><span>    id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    dadid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    momid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">8</span>, <span class="fl">8</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"f"</span>, <span class="st">"male"</span>, <span class="st">"m"</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="st">"f"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"1"</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    famid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="st">"m"</span>, <span class="st">"man"</span>, <span class="st">"f"</span>, <span class="st">"male"</span>, <span class="st">"m"</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="st">"f"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    fertility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="st">"fertile"</span>, <span class="st">"infertile"</span>, <span class="fl">1</span>, <span class="st">"TRUE"</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span>, deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    miscarriage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TOB"</span>, <span class="st">"SAB"</span>, <span class="cn">NA</span>, <span class="cn">FALSE</span>, <span class="st">"ECT"</span>, <span class="st">"other"</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>      <span class="fl">0</span>, <span class="st">"fertile"</span>, <span class="st">"infertile"</span>, <span class="fl">1</span>, <span class="st">"TRUE"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    miscarriage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TOB"</span>, <span class="st">"SAB"</span>, <span class="cn">NA</span>, <span class="cn">FALSE</span>, <span class="st">"ECT"</span>, <span class="st">"other"</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    deceased <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    avail <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"1"</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    evalutated <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="st">"NA"</span>, <span class="st">"other"</span>, <span class="st">"0"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    consultand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="st">"NA"</span>, <span class="st">"other"</span>, <span class="st">"0"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    proband <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="st">"NA"</span>, <span class="st">"other"</span>, <span class="st">"0"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    carrier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="st">"NA"</span>, <span class="st">"other"</span>, <span class="st">"0"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    asymptomatic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="st">"NA"</span>, <span class="st">"other"</span>, <span class="st">"0"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    adopted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="st">"NA"</span>, <span class="st">"other"</span>, <span class="st">"0"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">norm_ped</span><span class="op">(</span><span class="va">df</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id dadid momid     sex avail famid fertility deceased miscarriage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A   1_0    male    NA     1   fertile     TRUE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2   1_0   1_0  female  TRUE     1 infertile    FALSE         SAB</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1_3   1_1   1_2    male FALSE     1   fertile     TRUE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1_4   1_3   1_2    male    NA     1 infertile    FALSE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5   1_0   1_0  female  TRUE     1   fertile     TRUE         ECT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1_6   1_4   1_5    male FALSE     1 infertile    FALSE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1_7   1_1   1_2    male  TRUE     1   fertile     TRUE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8   2_0   2_0  female FALSE     2 infertile    FALSE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2_9   2_6   2_8 unknown  TRUE     2   fertile     TRUE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2_10   2_6   2_8  female FALSE     2   fertile    FALSE       FALSE</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id dadid momid famid     sex fertility miscarriage deceased avail</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A   1_0     1    male   fertile       FALSE     TRUE    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2   1_0   1_0     1  female infertile         SAB    FALSE  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1_3   1_1   1_2     1    male   fertile       FALSE     TRUE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1_4   1_3   1_2     1    male infertile       FALSE    FALSE    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5   1_0   1_0     1  female   fertile         ECT     TRUE  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1_6   1_4   1_5     1    male infertile       FALSE    FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1_7   1_1   1_2     1    male   fertile       FALSE     TRUE  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8   2_0   2_0     2  female infertile       FALSE    FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2_9   2_6   2_8     2 unknown   fertile       FALSE     TRUE  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2_10   2_6   2_8     2  female   fertile       FALSE    FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    evalutated consultand proband carrier asymptomatic adopted</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        TRUE       TRUE    TRUE    TRUE         TRUE    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       FALSE      FALSE   FALSE   FALSE        FALSE   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        TRUE       TRUE    TRUE    TRUE         TRUE    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       FALSE      FALSE   FALSE   FALSE        FALSE   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           1       TRUE    TRUE    TRUE         TRUE    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           0      FALSE   FALSE   FALSE        FALSE   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        &lt;NA&gt;      FALSE   FALSE      NA           NA   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        &lt;NA&gt;      FALSE   FALSE      NA           NA   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       other      FALSE   FALSE      NA           NA   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10          0      FALSE   FALSE   FALSE        FALSE   FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                               error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  is-infertile-but-is-parent_is-aborted-but-is-parent_is-aborted-but-has-fertility</span>
@@ -201,17 +236,17 @@ or <code>unknown</code>.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                        is-infertile-but-is-parent</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10                                                                             &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    evaluated consultand proband carrier asymptomatic adopted</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      FALSE      FALSE   FALSE      NA           NA   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     FALSE      FALSE   FALSE      NA           NA   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    evaluated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     FALSE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -220,7 +255,7 @@ or <code>unknown</code>.</p></li>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">

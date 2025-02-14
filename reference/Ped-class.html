@@ -99,15 +99,21 @@ to the Ped slots.</p>
 <span><span class="co"># S4 method for class 'character_OR_integer'</span></span>
 <span><span class="fu">Ped</span><span class="op">(</span></span>
 <span>  <span class="va">obj</span>,</span>
-<span>  <span class="va">sex</span>,</span>
 <span>  <span class="va">dadid</span>,</span>
 <span>  <span class="va">momid</span>,</span>
+<span>  <span class="va">sex</span>,</span>
 <span>  famid <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  fertility <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  miscarriage <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  deceased <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  avail <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  evaluated <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  consultand <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  proband <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  affected <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  carrier <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  asymptomatic <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  adopted <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  missid <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  useful <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  isinf <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -134,6 +140,16 @@ should be initialised to NA.</p></dd>
 should be deleted.</p></dd>
 
 
+<dt id="arg-dadid">dadid<a class="anchor" aria-label="anchor" href="#arg-dadid"></a></dt>
+<dd><p>A vector containing for each subject, the identifiers of the
+biologicals fathers.</p></dd>
+
+
+<dt id="arg-momid">momid<a class="anchor" aria-label="anchor" href="#arg-momid"></a></dt>
+<dd><p>A vector containing for each subject, the identifiers of the
+biologicals mothers.</p></dd>
+
+
 <dt id="arg-sex">sex<a class="anchor" aria-label="anchor" href="#arg-sex"></a></dt>
 <dd><p>A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
@@ -143,16 +159,6 @@ with the following levels:
 <li><p>"female": "f", "female", "woman", <code>2</code></p></li>
 <li><p>"unknown": "unknown", <code>3</code></p></li>
 </ul></dd>
-
-
-<dt id="arg-dadid">dadid<a class="anchor" aria-label="anchor" href="#arg-dadid"></a></dt>
-<dd><p>A vector containing for each subject, the identifiers of the
-biologicals fathers.</p></dd>
-
-
-<dt id="arg-momid">momid<a class="anchor" aria-label="anchor" href="#arg-momid"></a></dt>
-<dd><p>A vector containing for each subject, the identifiers of the
-biologicals mothers.</p></dd>
 
 
 <dt id="arg-famid">famid<a class="anchor" aria-label="anchor" href="#arg-famid"></a></dt>
@@ -200,11 +206,62 @@ individuals
 <code>NA</code> = unknown).</p></dd>
 
 
+<dt id="arg-evaluated">evaluated<a class="anchor" aria-label="anchor" href="#arg-evaluated"></a></dt>
+<dd><p>A logical vector with the evaluation status of the
+individuals.
+(i.e. <code>FALSE</code> = documented evaluation not available,
+<code>TRUE</code> = documented evaluation available).</p></dd>
+
+
+<dt id="arg-consultand">consultand<a class="anchor" aria-label="anchor" href="#arg-consultand"></a></dt>
+<dd><p>A logical vector with the consultand status of the
+individuals. A consultand being an individual seeking
+genetic counseling/testing
+(i.e. <code>FALSE</code> = not a consultand,
+<code>TRUE</code> = consultand).</p></dd>
+
+
+<dt id="arg-proband">proband<a class="anchor" aria-label="anchor" href="#arg-proband"></a></dt>
+<dd><p>A logical vector with the proband status of the
+individuals. A proband being an affected family
+member coming to medical attention independent of other
+family members.
+(i.e. <code>FALSE</code> = not a proband,
+<code>TRUE</code> = proband).</p></dd>
+
+
 <dt id="arg-affected">affected<a class="anchor" aria-label="anchor" href="#arg-affected"></a></dt>
 <dd><p>A logical vector with the affection status of the
 individuals
 (i.e. <code>FALSE</code> = unaffected,
 <code>TRUE</code> = affected,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt id="arg-carrier">carrier<a class="anchor" aria-label="anchor" href="#arg-carrier"></a></dt>
+<dd><p>A logical vector with the carrier status of the
+individuals. A carrier being an individual who has
+the genetic trait but who is not likely to manifest the
+disease regardless of inheritance pattern
+(i.e. <code>FALSE</code> = not carrier,
+<code>TRUE</code> = carrier,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt id="arg-asymptomatic">asymptomatic<a class="anchor" aria-label="anchor" href="#arg-asymptomatic"></a></dt>
+<dd><p>A logical vector with the asymptomatic status of
+the individuals. An asymptomatic individual being an individual
+clinically unaffected at this time but could later exhibit symptoms.
+(i.e. <code>FALSE</code> = not asymptomatic,
+<code>TRUE</code> = asymptomatic,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt id="arg-adopted">adopted<a class="anchor" aria-label="anchor" href="#arg-adopted"></a></dt>
+<dd><p>A logical vector with the adopted status of the
+individuals.
+(i.e. <code>FALSE</code> = not adopted,
+<code>TRUE</code> = adopted,
 <code>NA</code> = unknown).</p></dd>
 
 
@@ -261,19 +318,19 @@ the individuals.</p></dd>
 the individuals.</p></dd>
 
 
-<dt><code>sex</code></dt>
-<dd><p>An ordered factor vector for the sex of the individuals
-(i.e. <code>male</code> &lt; <code>female</code> &lt; <code>unknown</code>).</p></dd>
-
-
 <dt><code>famid</code></dt>
 <dd><p>A character vector with the family identifiers of the
 individuals (optional).</p></dd>
 
 
+<dt><code>sex</code></dt>
+<dd><p>An ordered factor vector for the sex of the individuals
+(i.e. <code>male</code> &lt; <code>female</code> &lt; <code>unknown</code>).</p></dd>
+
+
 <dt><code>fertility</code></dt>
 <dd><p>A factor vector with the fertility status of the
-individuals
+individuals (optional).
 (i.e. <code>infertile_choice_na</code> = no children by choice or unknown reason,
 <code>infertile</code> = individual is inferile,
 <code>fertile</code> = individual is fertile).</p></dd>
@@ -281,7 +338,7 @@ individuals
 
 <dt><code>miscarriage</code></dt>
 <dd><p>A factor vector with the miscarriage status of the
-individuals
+individuals (optional).
 (i.e. <code>TOP</code> = Termination of Pregnancy,
 <code>SAB</code> = Spontaneous Abortion,
 <code>ECT</code> = Ectopic Pregnancy,
@@ -290,7 +347,7 @@ individuals
 
 <dt><code>deceased</code></dt>
 <dd><p>A logical vector with the death status of the
-individuals
+individuals (optional).
 (i.e. <code>FALSE</code> = alive,
 <code>TRUE</code> = dead,
 <code>NA</code> = unknown).</p></dd>
@@ -298,52 +355,103 @@ individuals
 
 <dt><code>avail</code></dt>
 <dd><p>A logical vector with the availability status of the
-individuals
+individuals (optional).
 (i.e. <code>FALSE</code> = not available,
 <code>TRUE</code> = available,
 <code>NA</code> = unknown).</p></dd>
 
 
+<dt><code>evaluated</code></dt>
+<dd><p>A logical vector with the evaluation status of the
+individuals (optional).
+(i.e. <code>FALSE</code> = documented evaluation not available,
+<code>TRUE</code> = documented evaluation available).</p></dd>
+
+
+<dt><code>consultand</code></dt>
+<dd><p>A logical vector with the consultand status of the
+individuals (optional). A consultand being an individual seeking
+genetic counseling/testing
+(i.e. <code>FALSE</code> = not a consultand,
+<code>TRUE</code> = consultand).</p></dd>
+
+
+<dt><code>proband</code></dt>
+<dd><p>A logical vector with the proband status of the
+individuals (optional). A proband being an affected family
+member coming to medical attention independent of other
+family members.
+(i.e. <code>FALSE</code> = not a proband,
+<code>TRUE</code> = proband).</p></dd>
+
+
 <dt><code>affected</code></dt>
 <dd><p>A logical vector with the affection status of the
-individuals
+individuals (optional).
 (i.e. <code>FALSE</code> = not affected,
 <code>TRUE</code> = affected,
 <code>NA</code> = unknown).</p></dd>
 
 
+<dt><code>carrier</code></dt>
+<dd><p>A logical vector with the carrier status of the
+individuals (optional). A carrier being an individual who has
+the genetic trait but who is not likely to manifest the
+disease regardless of inheritance pattern
+(i.e. <code>FALSE</code> = not carrier,
+<code>TRUE</code> = carrier,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt><code>asymptomatic</code></dt>
+<dd><p>A logical vector with the asymptomatic status of
+the individuals (optional). An asymptomatic individual being an individual
+clinically unaffected at this time but could later exhibit symptoms.
+(i.e. <code>FALSE</code> = not asymptomatic,
+<code>TRUE</code> = asymptomatic,
+<code>NA</code> = unknown).</p></dd>
+
+
+<dt><code>adopted</code></dt>
+<dd><p>A logical vector with the adopted status of the
+individuals (optional).
+(i.e. <code>FALSE</code> = not adopted,
+<code>TRUE</code> = adopted,
+<code>NA</code> = unknown).</p></dd>
+
+
 <dt><code>useful</code></dt>
 <dd><p>A logical vector with the usefulness status of the
-individuals
+individuals (computed).
 (i.e. <code>FALSE</code> = not useful,
 <code>TRUE</code> = useful).</p></dd>
 
 
 <dt><code>isinf</code></dt>
 <dd><p>A logical vector indicating if the individual is informative
-or not
+or not (computed).
 (i.e. <code>FALSE</code> = not informative,
 <code>TRUE</code> = informative).</p></dd>
 
 
 <dt><code>kin</code></dt>
 <dd><p>A numeric vector with minimal kinship value between the
-individuals and the useful individuals.</p></dd>
+individuals and the useful individuals (computed).</p></dd>
 
 
 <dt><code>num_child_tot</code></dt>
 <dd><p>A numeric vector with the total number of children
-of the individuals.</p></dd>
+of the individuals (computed).</p></dd>
 
 
 <dt><code>num_child_dir</code></dt>
 <dd><p>A numeric vector with the number of children
-of the individuals.</p></dd>
+of the individuals (computed).</p></dd>
 
 
 <dt><code>num_child_ind</code></dt>
 <dd><p>A numeric vector with the number of children
-of the individuals.</p></dd>
+of the individuals (computed).</p></dd>
 
 
 <dt><code>elementMetadata</code></dt>
@@ -375,9 +483,15 @@ or a data.frame with each elements with the same length as <code>x</code>.</p>
 </ul><ul><li><p><code>sex(x)</code> : Individuals' gender</p></li>
 </ul><ul><li><p><code>fertility(x)</code> : Individuals' fertility status</p></li>
 </ul><ul><li><p><code>miscarriage(x)</code> : Individuals' miscarriage status</p></li>
-</ul><ul><li><p><code>affected(x)</code> : Individuals' affection status</p></li>
-</ul><ul><li><p><code>avail(x)</code> : Individuals' availability status</p></li>
 </ul><ul><li><p><code>deceased(x)</code> : Individuals' death status</p></li>
+</ul><ul><li><p><code>avail(x)</code> : Individuals' availability status</p></li>
+</ul><ul><li><p><code>evaluated(x)</code> : Individuals' evaluated status</p></li>
+</ul><ul><li><p><code>consultand(x)</code> : Individuals' consultand status</p></li>
+</ul><ul><li><p><code>proband(x)</code> : Individuals' proband status</p></li>
+</ul><ul><li><p><code>carrier(x)</code> : Individuals' carrier status</p></li>
+</ul><ul><li><p><code>asymptomatic(x)</code> : Individuals' asymptomatic status</p></li>
+</ul><ul><li><p><code>adopted(x)</code> : Individuals' adopted status</p></li>
+</ul><ul><li><p><code>affected(x)</code> : Individuals' affection status</p></li>
 </ul><ul><li><p><code>isinf(x)</code> : Individuals' informativeness status</p></li>
 </ul><ul><li><p><code>kin(x)</code> : Individuals' kinship distance to the
 informative individuals</p></li>
@@ -429,7 +543,7 @@ should be kept or deleted.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 214               214         209         208           2      male   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           miscarriage  deceased     avail evaluated consultand   proband</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_class    &lt;factor&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt;  &lt;logical&gt; &lt;logical&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101             FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101             FALSE      &lt;NA&gt;     FALSE      TRUE      FALSE     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 102             FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 103             FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 104             FALSE      &lt;NA&gt;     FALSE     FALSE      FALSE     FALSE</span>
@@ -527,7 +641,7 @@ should be kept or deleted.</p></li>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">

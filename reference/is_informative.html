@@ -164,19 +164,17 @@ columns.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A" "C" "E"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sampleped"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">ped</a></span><span class="op">(</span><span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu">is_informative</span><span class="op">(</span><span class="va">ped</span>, informative <span class="op">=</span> <span class="st">"Av"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="Ped-class.html">isinf</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE</span>
+<span class="r-in"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu">pedi</span><span class="op">(</span><span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in pedi(Pedigree(sampleped)):</span> could not find function "pedi"</span>
+<span class="r-in"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu">is_informative</span><span class="op">(</span><span class="va">pedi</span>, informative <span class="op">=</span> <span class="st">"Av"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'obj' in selecting a method for function 'is_informative': object 'pedi' not found</span>
+<span class="r-in"><span><span class="fu"><a href="Ped-class.html">isinf</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'isinf': object 'pedi' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sampleped"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu">is_informative</span><span class="op">(</span><span class="va">ped</span>, col_aff <span class="op">=</span> <span class="st">"affection"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="Ped-class.html">isinf</a></span><span class="op">(</span><span class="fu"><a href="Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu">is_informative</span><span class="op">(</span><span class="va">pedi</span>, col_aff <span class="op">=</span> <span class="st">"affection"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Ped-class.html">isinf</a></span><span class="op">(</span><span class="fu"><a href="Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [25] FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
@@ -189,7 +187,7 @@ columns.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">

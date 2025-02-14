@@ -83,7 +83,7 @@
 
       <h1>Pedixplorer tutorial</h1>
                         <h4 data-toc-skip class="author">Louis Le
-Nézet</h4>
+Nezet</h4>
             
             <h4 data-toc-skip class="date">31/08/2023</h4>
       
@@ -190,20 +190,31 @@ underscore to create a unique id for each individual in the
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sampleped"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    famid  id dadid momid sex affection avail num</span></span>
-<span><span class="co">## 1      1 101  &lt;NA&gt;  &lt;NA&gt;   1         0     0   2</span></span>
-<span><span class="co">## 2      1 102  &lt;NA&gt;  &lt;NA&gt;   2         1     0   3</span></span>
-<span><span class="co">## 3      1 103   135   136   1         1     0   2</span></span>
-<span><span class="co">## 4      1 104  &lt;NA&gt;  &lt;NA&gt;   2         0     0   4</span></span>
-<span><span class="co">## 5      1 105  &lt;NA&gt;  &lt;NA&gt;   1        NA     0   6</span></span>
-<span><span class="co">## 6      1 106  &lt;NA&gt;  &lt;NA&gt;   2        NA     0   1</span></span>
-<span><span class="co">## 7      1 107  &lt;NA&gt;  &lt;NA&gt;   1         1     0  NA</span></span>
-<span><span class="co">## 8      1 108  &lt;NA&gt;  &lt;NA&gt;   2         0     0   0</span></span>
-<span><span class="co">## 9      1 109   101   102   2         0     1   3</span></span>
-<span><span class="co">## 10     1 110   103   104   1         1     1   2</span></span></code></pre>
+<pre><code><span><span class="co">##    famid  id dadid momid sex affection avail num fertility miscarriage evaluated consultand proband</span></span>
+<span><span class="co">## 1      1 101  &lt;NA&gt;  &lt;NA&gt;   1         0     0   2                               1         NA        </span></span>
+<span><span class="co">## 2      1 102  &lt;NA&gt;  &lt;NA&gt;   2         1     0   3                                         NA        </span></span>
+<span><span class="co">## 3      1 103   135   136   1         1     0   2                                         NA        </span></span>
+<span><span class="co">## 4      1 104  &lt;NA&gt;  &lt;NA&gt;   2         0     0   4                                         NA        </span></span>
+<span><span class="co">## 5      1 105  &lt;NA&gt;  &lt;NA&gt;   1        NA     0   6                                         NA        </span></span>
+<span><span class="co">## 6      1 106  &lt;NA&gt;  &lt;NA&gt;   2        NA     0   1                                         NA        </span></span>
+<span><span class="co">## 7      1 107  &lt;NA&gt;  &lt;NA&gt;   1         1     0  NA                                         NA        </span></span>
+<span><span class="co">## 8      1 108  &lt;NA&gt;  &lt;NA&gt;   2         0     0   0                                         NA        </span></span>
+<span><span class="co">## 9      1 109   101   102   2         0     1   3                                          1        </span></span>
+<span><span class="co">## 10     1 110   103   104   1         1     1   2                            true         NA        </span></span>
+<span><span class="co">##    carrier asymptomatic adopted</span></span>
+<span><span class="co">## 1       NA           NA      NA</span></span>
+<span><span class="co">## 2       NA           NA      NA</span></span>
+<span><span class="co">## 3       NA           NA      NA</span></span>
+<span><span class="co">## 4       NA           NA      NA</span></span>
+<span><span class="co">## 5       NA           NA      NA</span></span>
+<span><span class="co">## 6       NA           NA      NA</span></span>
+<span><span class="co">## 7       NA           NA      NA</span></span>
+<span><span class="co">## 8       NA           NA      NA</span></span>
+<span><span class="co">## 9       NA            1      NA</span></span>
+<span><span class="co">## 10      NA           NA      NA</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">10</span>, <span class="fl">35</span>, <span class="fl">36</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">10</span>, <span class="fl">35</span>, <span class="fl">36</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Pedigree object with: </span></span>
 <span><span class="co">## Ped object with 5 individuals and 5 metadata columns:</span></span>
 <span><span class="co">##                    id       dadid       momid       famid       sex fertility miscarriage  deceased</span></span>
@@ -217,7 +228,7 @@ underscore to create a unique id for each individual in the
 <span><span class="co">## col_class &lt;logical&gt; &lt;logical&gt;  &lt;logical&gt; &lt;logical&gt; &lt;logical&gt; &lt;logical&gt;    &lt;logical&gt; &lt;logical&gt;</span></span>
 <span><span class="co">## 1_103         FALSE     FALSE      FALSE     FALSE      TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
 <span><span class="co">## 1_104         FALSE     FALSE      FALSE     FALSE     FALSE      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
-<span><span class="co">## 1_110          TRUE     FALSE      FALSE     FALSE      TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
+<span><span class="co">## 1_110          TRUE      TRUE      FALSE     FALSE      TRUE      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
 <span><span class="co">## 1_135         FALSE     FALSE      FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
 <span><span class="co">## 1_136         FALSE     FALSE      FALSE     FALSE      &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;     FALSE</span></span>
 <span><span class="co">##              useful       kin     isinf num_child_tot num_child_dir num_child_ind |   affection</span></span>
@@ -246,13 +257,13 @@ prints the <code>Ped</code> and <code>Rel</code> object of the pedigree.
 The summary method prints a short summary of the pedigree. Finally the
 plot method displays the pedigree.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/Ped-class.html">famid</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/Ped-class.html">famid</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1"</span></span>
 <span><span class="co">## [25] "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "2" "2" "2" "2" "2" "2" "2"</span></span>
 <span><span class="co">## [49] "2" "2" "2" "2" "2" "2" "2"</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="va">ped</span><span class="op">[</span><span class="fu"><a href="../reference/Ped-class.html">famid</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="va">pedi</span><span class="op">[</span><span class="fu"><a href="../reference/Ped-class.html">famid</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Pedigree object with </span></span>
 <span><span class="co">## [1] "Ped object with 41 individuals and 5 metadata columns"</span></span>
@@ -405,8 +416,9 @@ create the kinship matrix, then show a snapshot of them for the two
 families, where the row and columns names are the ids of the
 subject.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
-<span><span class="va">kin_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/kinship.html">kinship</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Ped-class.html">adopted</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span> <span class="co"># Remove adoption status</span></span>
+<span><span class="va">kin_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/kinship.html">kinship</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span></span>
 <span><span class="va">kin_all</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## 9 x 9 sparse Matrix of class "dsCMatrix"</span></span>
 <span><span class="co">##       1_101 1_102 1_103 1_104 1_105 1_106 1_107 1_108 1_109</span></span>
@@ -463,9 +475,9 @@ matrix for these pairs, which are correctly at <em>0.5</em>.</p>
 <span><span class="co">## 7     2 208 204    2</span></span>
 <span><span class="co">## 8     2 212 213    3</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span>, <span class="va">relped</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">kin_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/kinship.html">kinship</a></span><span class="op">(</span><span class="va">ped</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span>, <span class="va">relped</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Ped-class.html">adopted</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span> <span class="co"># Remove adoption status</span></span>
+<span><span class="va">kin_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/kinship.html">kinship</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span></span>
 <span><span class="va">kin_all</span><span class="op">[</span><span class="fl">24</span><span class="op">:</span><span class="fl">27</span>, <span class="fl">24</span><span class="op">:</span><span class="fl">27</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## 4 x 4 sparse Matrix of class "dsCMatrix"</span></span>
 <span><span class="co">##        1_124  1_125  1_126  1_127</span></span>
@@ -507,7 +519,9 @@ the Pedigree plot.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="va">sampleped</span><span class="op">[</span><span class="va">sampleped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="fl">2</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "famid"     "id"        "dadid"     "momid"     "sex"       "affection" "avail"     "num"</span></span></code></pre>
+<pre><code><span><span class="co">##  [1] "famid"        "id"           "dadid"        "momid"        "sex"          "affection"   </span></span>
+<span><span class="co">##  [7] "avail"        "num"          "fertility"    "miscarriage"  "evaluated"    "consultand"  </span></span>
+<span><span class="co">## [13] "proband"      "carrier"      "asymptomatic" "adopted"</span></span></code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span><span class="op">$</span><span class="va">deceased</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ped2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span>
@@ -720,7 +734,11 @@ bordering of the plot.</p>
 <span><span class="co">## 2         avail  avail_mods    1     Available  green</span></span>
 <span><span class="co">## 3         avail  avail_mods    0 Non Available  black</span></span></code></pre>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_colors.html">generate_colors</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="co"># Remove proband and asymptomatic status as they need to be</span></span>
+<span><span class="co"># affected and unaffected respectively for the new status</span></span>
+<span><span class="fu"><a href="../reference/Ped-class.html">proband</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<span><span class="fu"><a href="../reference/Ped-class.html">asymptomatic</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generate_colors.html">generate_colors</a></span><span class="op">(</span></span>
 <span>    <span class="va">ped1</span>, col_aff <span class="op">=</span> <span class="st">"num"</span>,</span>
 <span>    add_to_scale <span class="op">=</span> <span class="cn">TRUE</span>, is_num <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    keep_full_scale <span class="op">=</span> <span class="cn">TRUE</span>, breaks <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -1088,13 +1106,13 @@ subjects: <em>201</em>, <em>204</em>, <em>206</em>, <em>207</em>,
 <span><span class="co">## [37] DT_0.33               cachem_1.1.0          mime_0.12             tidyselect_1.2.1     </span></span>
 <span><span class="co">## [41] digest_0.6.37         stringi_1.8.4         colourpicker_1.3.0    dplyr_1.1.4          </span></span>
 <span><span class="co">## [45] purrr_1.0.4           bookdown_0.42         fastmap_1.2.0         grid_4.4.2           </span></span>
-<span><span class="co">## [49] colorspace_2.1-1      cli_3.6.3             magrittr_2.0.3        withr_3.0.2          </span></span>
+<span><span class="co">## [49] colorspace_2.1-1      cli_3.6.4             magrittr_2.0.3        withr_3.0.2          </span></span>
 <span><span class="co">## [53] scales_1.3.0          promises_1.3.2        rmarkdown_2.29        httr_1.4.7           </span></span>
 <span><span class="co">## [57] gridExtra_2.3         cellranger_1.1.0      ragg_1.3.3            shiny_1.10.0         </span></span>
 <span><span class="co">## [61] evaluate_1.0.3        knitr_1.49            shinycssloaders_1.1.0 miniUI_0.1.1.1       </span></span>
 <span><span class="co">## [65] viridisLite_0.4.2     rlang_1.1.5           Rcpp_1.0.14           xtable_1.8-4         </span></span>
 <span><span class="co">## [69] glue_1.8.0            BiocManager_1.30.25   BiocGenerics_0.50.0   jsonlite_1.8.9       </span></span>
-<span><span class="co">## [73] R6_2.5.1              plyr_1.8.9            systemfonts_1.2.1     fs_1.6.5</span></span></code></pre>
+<span><span class="co">## [73] R6_2.6.0              plyr_1.8.9            systemfonts_1.2.1     fs_1.6.5</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -1103,7 +1121,7 @@ subjects: <em>201</em>, <em>204</em>, <em>206</em>, <em>207</em>,
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">

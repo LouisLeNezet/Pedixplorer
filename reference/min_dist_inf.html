@@ -183,11 +183,11 @@ The <code>isinf</code> slot is also updated with the informative individuals.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span>   2   2 Inf   1   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ped</span> <span class="op">&lt;-</span> <span class="fu"><a href="is_informative.html">is_informative</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="is_informative.html">is_informative</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    informative <span class="op">=</span> <span class="st">"AvAf"</span>, col_aff <span class="op">=</span> <span class="st">"affection"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="Ped-class.html">kin</a></span><span class="op">(</span><span class="fu"><a href="Pedigree-class.html">ped</a></span><span class="op">(</span><span class="fu">min_dist_inf</span><span class="op">(</span><span class="va">ped</span>, col_aff <span class="op">=</span> <span class="st">"affection"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="Ped-class.html">kin</a></span><span class="op">(</span><span class="fu"><a href="Pedigree-class.html">ped</a></span><span class="op">(</span><span class="fu">min_dist_inf</span><span class="op">(</span><span class="va">pedi</span>, col_aff <span class="op">=</span> <span class="st">"affection"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_101 1_102 1_103 1_104 1_105 1_106 1_107 1_108 1_109 1_110 1_111 1_112 1_113 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3     3     2     2     2     2   Inf   Inf     2     1     2     2   Inf </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1_114 1_115 1_116 1_117 1_118 1_119 1_120 1_121 1_122 1_123 1_124 1_125 1_126 </span>
@@ -205,7 +205,7 @@ The <code>isinf</code> slot is also updated with the informative individuals.</p
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">
