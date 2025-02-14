@@ -404,7 +404,7 @@ is_valid_ped <- function(object) {
 
     if (any(proband & !affected & !is.na(affected))) {
         id_wrg <- id[proband & !affected & !is.na(affected)]
-        errors <- c(errors, paste(id_wrg, "is proband but not affected"))
+        warning(paste(id_wrg, "is proband but not affected"))
     }
 
     if (any(consultand & proband)) {
@@ -419,7 +419,7 @@ is_valid_ped <- function(object) {
             asymptomatic & !is.na(asymptomatic)
             & affected & !is.na(affected)
         ]
-        errors <- c(errors, paste(id_wrg, "is asymptomatic but affected"))
+        warning(paste(id_wrg, "is asymptomatic but affected"))
     }
 
     if (length(errors) == 0) {

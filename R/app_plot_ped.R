@@ -140,7 +140,7 @@ plot_ped_server <- function(
                         pedi_val(),
                         aff_mark = TRUE, label = NULL,
                         cex = 1, symbolsize = 1, force = TRUE,
-                        ped_par = list(mar = c(0.5, 0.5, 1.5, 0.5)),
+                        ped_par = list(mar = c(0.5, 0.5, 2, 0.5)),
                         title = mytitle(),
                         precision = precision, lwd = lwd
                     )
@@ -152,9 +152,9 @@ plot_ped_server <- function(
 
         shiny::reactive({
             if (input$interactive) {
-                return(plotly_ped())
+                plotly_ped()
             } else {
-                return(pedi_val())
+                pedi_val()
             }
         })
     })

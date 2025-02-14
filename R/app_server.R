@@ -156,6 +156,12 @@ ped_server <- function(
                     conditionMessage(e)
                 )
                 NULL
+            }, warning = function(w) {
+                shinytoastr::toastr_warning(
+                    title = "Warnings during pedigree creation",
+                    conditionMessage(w)
+                )
+                NULL
             })
         })
 
@@ -259,25 +265,40 @@ ped_server <- function(
             ) {
                 return(NULL)
             }
-            generate_colors(
-                lst_fam()$ped_fam, col_aff = lst_health()$var,
-                add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
-                threshold = lst_health()$threshold,
-                is_num = lst_health()$as_num,
-                sup_thres_aff = lst_health()$sup_threshold,
-                keep_full_scale = input$health_full_scale,
-                colors_aff = unname(unlist(
-                    cols_aff()[c("LeastAffected", "Affected")]
-                )),
-                colors_unaff = unname(unlist(
-                    cols_unaff()[c("Unaffected", "Dubious")]
-                )),
-                colors_na = "grey",
-                colors_avail = unname(unlist(
-                    cols_avail()[c("Avail", "Unavail")]
-                )),
-                breaks = 3
-            )
+            tryCatch({
+                pedi <- generate_colors(
+                    lst_fam()$ped_fam, col_aff = lst_health()$var,
+                    add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
+                    threshold = lst_health()$threshold,
+                    is_num = lst_health()$as_num,
+                    sup_thres_aff = lst_health()$sup_threshold,
+                    keep_full_scale = input$health_full_scale,
+                    colors_aff = unname(unlist(
+                        cols_aff()[c("LeastAffected", "Affected")]
+                    )),
+                    colors_unaff = unname(unlist(
+                        cols_unaff()[c("Unaffected", "Dubious")]
+                    )),
+                    colors_na = "grey",
+                    colors_avail = unname(unlist(
+                        cols_avail()[c("Avail", "Unavail")]
+                    )),
+                    breaks = 3
+                )
+                pedi
+            }, error = function(e) {
+                shinytoastr::toastr_error(
+                    title = "Error during pedigree generation",
+                    conditionMessage(e)
+                )
+                NULL
+            }, warning = function(w) {
+                shinytoastr::toastr_warning(
+                    title = "Warnings during pedigree generation",
+                    conditionMessage(w)
+                )
+                pedi
+            })
         })
 
         ## Family information -------------------------------------------------
@@ -375,7 +396,7 @@ ped_server <- function(
         plot_legend_server(
             "legend", ped_subfam,
             boxw = 0.02, boxh = 0.08, adjx = 0, adjy = 0,
-            leg_loc = c(0.1, 0.7, 0.01, 0.95), lwd = 1.5
+            leg_loc = c(0.1, 0.7, 0.1, 0.8), lwd = 1.5
         )
 
         ## Download data and plot ---------------------------------------------
