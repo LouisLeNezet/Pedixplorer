@@ -120,6 +120,8 @@ plot_legend <- function(
 #' parameteres for the main plot.
 #' @param leg_par default=list().  A list of parameters to use as graphical
 #' parameters for the legend.
+#' @param leg_usr default=NULL. A vector of user coordinates to use for the
+#' legend.
 #' @inheritParams subregion
 #'
 #' @return an invisible list containing

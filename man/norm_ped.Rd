@@ -42,9 +42,9 @@ The following columns are also recognize and will be transformed with the
 The values recognized for those columns are \code{1} or \code{0},
 \code{TRUE} or \code{FALSE}.
 
-The \code{fertility} column will be transformed to an ordered factor using the
+The \code{fertility} column will be transformed to a factor using the
 \code{\link[=fertility_to_factor]{fertility_to_factor()}} function.
-\code{infertile_choice_na} < \code{infertile} < \code{fertile}
+\code{infertile_choice_na}, \code{infertile}, \code{fertile}
 
 The \code{miscarriage} column will be transformed to a using the
 \code{\link[=miscarriage_to_factor]{miscarriage_to_factor()}} function.

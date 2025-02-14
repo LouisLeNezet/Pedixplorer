@@ -164,7 +164,6 @@ splited in multiple families, you can select which to plot.
 - Finally the plot is displayed and you can make it interactive and download
 the resulting image.
 
-
 # Fixing Pedigree Issues
 
 To "break" the pedigree, we can manipulate the sex value to not match

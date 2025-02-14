@@ -23,7 +23,7 @@ with a given number of slices and a list of coordinates
 for the polygon.
 }
 \examples{
-polyfun(2, list(
+Pedixplorer:::polyfun(2, list(
     x = c(-0.5, -0.5, 0.5, 0.5),
     y = c(-0.5, 0.5, 0.5, -0.5)
 ), start = 45)

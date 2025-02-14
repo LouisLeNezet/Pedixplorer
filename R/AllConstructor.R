@@ -16,10 +16,8 @@ NULL
 #' @return A vector with the same length as temp.
 #' @keywords internal
 #' @examples
-#'
-#' na_to_length(NA, rep(0, 4), "NewValue")
-#' na_to_length(c(1, 2, 3, NA), rep(0, 4), "NewValue")
-#' @export
+#' Pedixplorer:::na_to_length(NA, rep(0, 4), "NewValue")
+#' Pedixplorer:::na_to_length(c(1, 2, 3, NA), rep(0, 4), "NewValue")
 na_to_length <- function(x, temp, value) {
     if (all(is.na(x)) || all(is.null(x))) {
         rep(value, length(temp))

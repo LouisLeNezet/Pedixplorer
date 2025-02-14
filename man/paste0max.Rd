@@ -19,4 +19,8 @@ The character vector aggregated until the maximum is reached.
 \description{
 Print0 the elements inside a vector until a maximum is reached.
 }
+\examples{
+x <- 1:10
+Pedixplorer:::paste0max(x, 5)
+}
 \keyword{internal}

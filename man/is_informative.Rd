@@ -82,7 +82,7 @@ is_informative(c("A", "B", "C", "D", "E"),
     informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
 
 data("sampleped")
-pedi <- pedi(Pedigree(sampleped))
+pedi <- ped(Pedigree(sampleped))
 pedi <- is_informative(pedi, informative = "Av")
 isinf(pedi)
 

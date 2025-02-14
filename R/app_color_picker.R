@@ -20,10 +20,10 @@ color_picker_ui <- function(id) {
 #'     color_picker_demo()
 #' }
 #' @rdname color_picker
-#' @keywords internal
 #' @importFrom shiny moduleServer NS req renderUI column
 #' @importFrom shiny reactive
 #' @importFrom colourpicker colourInput
+#' @export
 color_picker_server <- function(
     id, colors = NULL
 ) {

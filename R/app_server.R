@@ -143,23 +143,25 @@ ped_server <- function(
                 ped_df <- ped_df_norm()[is.na(ped_df_norm()$error), ]
             }
             tryCatch({
-                ped_df <- fix_parents(ped_df)
-                Pedigree(
-                    ped_df, rel_df_norm(),
-                    cols_ren_ped = list(),
-                    cols_ren_rel = list(),
-                    normalize = FALSE
-                )
+                withCallingHandlers({
+                    ped_df <- fix_parents(ped_df)
+                    Pedigree(
+                        ped_df, rel_df_norm(),
+                        cols_ren_ped = list(),
+                        cols_ren_rel = list(),
+                        normalize = FALSE
+                    )
+                }, warning = function(w) {
+                    shinytoastr::toastr_warning(
+                        title = "Warnings during pedigree creation",
+                        conditionMessage(w)
+                    )
+                    invokeRestart("muffleWarning")
+                })
             }, error = function(e) {
                 shinytoastr::toastr_error(
                     title = "Couldn't create pedigree object",
                     conditionMessage(e)
-                )
-                NULL
-            }, warning = function(w) {
-                shinytoastr::toastr_warning(
-                    title = "Warnings during pedigree creation",
-                    conditionMessage(w)
                 )
                 NULL
             })
@@ -266,38 +268,39 @@ ped_server <- function(
                 return(NULL)
             }
             tryCatch({
-                pedi <- generate_colors(
-                    lst_fam()$ped_fam, col_aff = lst_health()$var,
-                    add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
-                    threshold = lst_health()$threshold,
-                    is_num = lst_health()$as_num,
-                    sup_thres_aff = lst_health()$sup_threshold,
-                    keep_full_scale = input$health_full_scale,
-                    colors_aff = unname(unlist(
-                        cols_aff()[c("LeastAffected", "Affected")]
-                    )),
-                    colors_unaff = unname(unlist(
-                        cols_unaff()[c("Unaffected", "Dubious")]
-                    )),
-                    colors_na = "grey",
-                    colors_avail = unname(unlist(
-                        cols_avail()[c("Avail", "Unavail")]
-                    )),
-                    breaks = 3
-                )
-                pedi
+                withCallingHandlers({
+                    generate_colors(
+                        lst_fam()$ped_fam, col_aff = lst_health()$var,
+                        add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
+                        threshold = lst_health()$threshold,
+                        is_num = lst_health()$as_num,
+                        sup_thres_aff = lst_health()$sup_threshold,
+                        keep_full_scale = input$health_full_scale,
+                        colors_aff = unname(unlist(
+                            cols_aff()[c("LeastAffected", "Affected")]
+                        )),
+                        colors_unaff = unname(unlist(
+                            cols_unaff()[c("Unaffected", "Dubious")]
+                        )),
+                        colors_na = "grey",
+                        colors_avail = unname(unlist(
+                            cols_avail()[c("Avail", "Unavail")]
+                        )),
+                        breaks = 3
+                    )
+                }, warning = function(w) {
+                    shinytoastr::toastr_warning(
+                        title = "Warnings during pedigree normalization",
+                        conditionMessage(w)
+                    )
+                    invokeRestart("muffleWarning")
+                })
             }, error = function(e) {
                 shinytoastr::toastr_error(
                     title = "Error during pedigree generation",
                     conditionMessage(e)
                 )
                 NULL
-            }, warning = function(w) {
-                shinytoastr::toastr_warning(
-                    title = "Warnings during pedigree generation",
-                    conditionMessage(w)
-                )
-                pedi
             })
         })
 

@@ -82,7 +82,6 @@ test_that("check_col_config works", {
     )
 })
 
-
 test_that("validate_and_rename_df works", {
     # Sample dataframe
     df <- data.frame(A = 1:3, B = 4:6, C = 7:9, D = 10:12)
@@ -90,14 +89,16 @@ test_that("validate_and_rename_df works", {
     # Valid column configuration
     col_config <- list(
         Column1 = list(alternate = c("A", "B"), mandatory = TRUE),
-        Column2 = list(alternate = c("C", "D"), mandatory = FALSE)
+        B = list(alternate = c("C", "D"), mandatory = FALSE),
+        A = list(alternate = c(), mandatory = FALSE),
+        other = list(alternate = c(), mandatory = FALSE)
     )
 
     # Valid selections (matching col_config)
-    selections <- list(Column1 = "A", Column2 = "C")
+    selections <- list(Column1 = "D", B = "C", A = NA, other = NA)
     df_renamed <- validate_and_rename_df(df, selections, col_config)
     expect_true(is.data.frame(df_renamed))
-    expect_equal(colnames(df_renamed), c("Column1", "B", "Column2", "D"))
+    expect_equal(colnames(df_renamed), c("Column1", "B", "A", "other"))
 
     # Missing mandatory column
     selections <- list(Column2 = "C")
@@ -114,7 +115,7 @@ test_that("validate_and_rename_df works", {
     selections <- list(Column1 = "X", Column2 = "C")
     expect_error(
         validate_and_rename_df(df, selections, col_config),
-        "Selected column is not in the dataframe!"
+        "X selected column is not in the dataframe!"
     )
 
     # Input df is not a dataframe

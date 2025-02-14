@@ -20,8 +20,8 @@ and theta for the square, circle, diamond and triangle.
 The number of slices in each element can be specified.
 }
 \examples{
-polygons()
-polygons(4)
+Pedixplorer:::polygons()
+Pedixplorer:::polygons(4)
 }
 \keyword{Pedigree-plot}
 \keyword{internal}

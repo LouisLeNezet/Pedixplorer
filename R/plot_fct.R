@@ -49,10 +49,9 @@ subregion <- function(df, subreg = NULL) {
 #' @keywords Pedigree-plot
 #' @examples
 #'
-#' circfun(1)
-#' circfun(1, 10)
-#' circfun(4, 50)
-#' @export
+#' Pedixplorer:::circfun(1)
+#' Pedixplorer:::circfun(1, 10)
+#' Pedixplorer:::circfun(4, 50)
 circfun <- function(nslice, n = 50, start = 0) {
     if (nslice == 1) {
         return(list(list(
@@ -100,7 +99,7 @@ circfun <- function(nslice, n = 50, start = 0) {
 #' point, or NA if no intersection occurs.
 #' @keywords internal
 #' @examples
-#' find_ray_intersections(0, 0, 1, 1, pi / 4)
+#' Pedixplorer:::find_ray_intersections(0, 0, 1, 1, pi / 4)
 find_ray_intersections <- function(x0, y0, x1, y1, theta) {
     if (x0 == x1) {  # Vertical segment
         x_intersect <- x0  # Intersection occurs at x0
@@ -173,11 +172,10 @@ find_ray_intersections <- function(x0, y0, x1, y1, theta) {
 #' @keywords internal
 #' @keywords Pedigree-plot
 #' @examples
-#' polyfun(2, list(
+#' Pedixplorer:::polyfun(2, list(
 #'     x = c(-0.5, -0.5, 0.5, 0.5),
 #'     y = c(-0.5, 0.5, 0.5, -0.5)
 #' ), start = 45)
-#' @export
 polyfun <- function(nslice, coor, start = 90) {
     if (nslice == 1) {
         return(list(coor))
@@ -250,9 +248,8 @@ polyfun <- function(nslice, coor, start = 90) {
 #' @keywords internal
 #' @keywords Pedigree-plot
 #' @examples
-#' polygons()
-#' polygons(4)
-#' @export
+#' Pedixplorer:::polygons()
+#' Pedixplorer:::polygons(4)
 polygons <- function(nslice = 1, start = 90) {
     square <- polyfun(nslice, list(
         x = c(-0.5, -0.5, 0.5, 0.5),

@@ -27,7 +27,7 @@ The 'mandatory' key must contain a logical value (TRUE/FALSE) to indicate
 whether the column is required to be selected.
 }
 \examples{
-check_col_config(list(
+Pedixplorer:::check_col_config(list(
    ColA = list(alternate = c("A"), mandatory = TRUE),
   ColB = list(alternate = c("B"), mandatory = FALSE)
 ))

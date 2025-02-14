@@ -8,7 +8,7 @@
 
 ## Beware when testing with shinytest2
 ## the package version used will be the one avalailable through
-## `library(Pedixplore)` as an independant R session is launched
+## `library(Pedixplorer)` as an independant R session is launched
 ## To do so you need to `unload("Pedixplorer")`, `build()`
 ## and `install("../Pedixplorer*.tar.gz")` the package before running the tests
 

@@ -27,6 +27,6 @@ from the origin, this function computes the intersection
 point of the ray with the segment.
 }
 \examples{
-find_ray_intersections(0, 0, 1, 1, pi / 4)
+Pedixplorer:::find_ray_intersections(0, 0, 1, 1, pi / 4)
 }
 \keyword{internal}

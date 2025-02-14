@@ -7,6 +7,9 @@
 #' @param ... Additional arguments passed to print0
 #'
 #' @return The character vector aggregated until the maximum is reached.
+#' @examples
+#' x <- 1:10
+#' Pedixplorer:::paste0max(x, 5)
 #' @keywords internal
 paste0max <- function(x, max = 5, sep = "", ...) {
     lgt <- min(length(x), max)

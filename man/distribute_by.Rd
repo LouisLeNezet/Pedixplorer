@@ -22,7 +22,7 @@ for a given number of elements. The
 distribution can be done by row or by column.
 }
 \examples{
-distribute_by(3, 10)
-distribute_by(3, 10, by_row = TRUE)
+Pedixplorer:::distribute_by(3, 10)
+Pedixplorer:::distribute_by(3, 10, by_row = TRUE)
 }
 \keyword{internal}

@@ -41,7 +41,7 @@ NULL
 #'     ColNR1 = 4, ColNR2 = 5
 #' )
 #' tryCatch(
-#'     check_columns(
+#'     Pedixplorer:::check_columns(
 #'         df,
 #'         c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
 #'         c('ColTU1', 'ColTU2')

@@ -5,7 +5,7 @@
     Output
       Ped object with 2 individuals and 0 metadata columns:
                          id       dadid       momid       famid       sex fertility
-      col_class <character> <character> <character> <character> <ordered> <ordered>
+      col_class <character> <character> <character> <character> <ordered>  <factor>
       ID5               ID5        <NA>        <NA>        <NA>    female   fertile
       ID4               ID4        <NA>        <NA>        <NA>      male   fertile
                 miscarriage  deceased     avail evaluated consultand   proband

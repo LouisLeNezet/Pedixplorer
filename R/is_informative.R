@@ -106,7 +106,7 @@ setMethod("is_informative", "character_OR_integer",
 #' @examples
 #'
 #' data("sampleped")
-#' pedi <- pedi(Pedigree(sampleped))
+#' pedi <- ped(Pedigree(sampleped))
 #' pedi <- is_informative(pedi, informative = "Av")
 #' isinf(pedi)
 #' @export

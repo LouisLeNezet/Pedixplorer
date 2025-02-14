@@ -7,6 +7,8 @@
 #' @param x A vector of length **n**
 #' @return A matrix with **n** cols and **n!** rows
 #' @keywords internal
+#' @examples
+#' Pedixplorer:::permute(1:3)
 #' @keywords auto_hint
 permute <- function(x) {
     n <- length(x)

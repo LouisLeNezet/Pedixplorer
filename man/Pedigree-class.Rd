@@ -130,9 +130,9 @@ individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.}
 
 \item{fertility}{A character, factor or numeric vector corresponding to
-the fertility status of the individuals. This will be transformed to an
-ordered factor with the following levels:
-\code{infertile_choice_na} < \code{infertile} < \code{fertile}
+the fertility status of the individuals. This will be transformed to a
+factor with the following levels:
+\code{infertile_choice_na}, \code{infertile}, \code{fertile}
 
 The following values are recognized:
 \itemize{

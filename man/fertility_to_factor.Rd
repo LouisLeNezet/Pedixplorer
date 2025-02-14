@@ -8,9 +8,9 @@ fertility_to_factor(fertility)
 }
 \arguments{
 \item{fertility}{A character, factor or numeric vector corresponding to
-the fertility status of the individuals. This will be transformed to an
-ordered factor with the following levels:
-\code{infertile_choice_na} < \code{infertile} < \code{fertile}
+the fertility status of the individuals. This will be transformed to a
+factor with the following levels:
+\code{infertile_choice_na}, \code{infertile}, \code{fertile}
 
 The following values are recognized:
 \itemize{
@@ -20,8 +20,8 @@ The following values are recognized:
 }}
 }
 \value{
-an factor vector containing the transformed variable
-"infertile_choice_na" < "infertile" < "fertile"
+a factor vector containing the transformed variable
+"infertile_choice_na", "infertile", "fertile"
 }
 \description{
 Transform a fertility variable to a factor variable

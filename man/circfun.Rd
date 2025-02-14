@@ -20,9 +20,9 @@ with a given number of slices.
 }
 \examples{
 
-circfun(1)
-circfun(1, 10)
-circfun(4, 50)
+Pedixplorer:::circfun(1)
+Pedixplorer:::circfun(1, 10)
+Pedixplorer:::circfun(4, 50)
 }
 \keyword{Pedigree-plot}
 \keyword{internal}

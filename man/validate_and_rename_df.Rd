@@ -4,7 +4,13 @@
 \alias{validate_and_rename_df}
 \title{Rename columns in a dataframe}
 \usage{
-validate_and_rename_df(df, selections, col_config, others_cols = TRUE)
+validate_and_rename_df(
+  df,
+  selections,
+  col_config,
+  others_cols = TRUE,
+  na_strings = c("", "NA", "NULL")
+)
 }
 \arguments{
 \item{df}{A dataframe to be modified.}
@@ -31,7 +37,7 @@ the mandatory columns are selected.
 df <- data.frame(
    ColN1 = c(1, 2), ColN2 = 4, ColTU1 = "A", ColTU2 = 3
 )
-validate_and_rename_df(
+Pedixplorer:::validate_and_rename_df(
    df, list(Need1 = "ColN1", Sup2 = "ColTU1"),
    list(
        Need1 = list(alternate = c("ColN1", "ColN3"), mandatory = TRUE),

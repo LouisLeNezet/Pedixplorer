@@ -15,7 +15,7 @@
 #' keys: 'alternate' and 'mandatory'.
 #' @return TRUE if the configuration is valid.
 #' @examples
-#' check_col_config(list(
+#' Pedixplorer:::check_col_config(list(
 #'    ColA = list(alternate = c("A"), mandatory = TRUE),
 #'   ColB = list(alternate = c("B"), mandatory = FALSE)
 #' ))
@@ -100,7 +100,7 @@ check_col_config <- function(col_config) {
 #' df <- data.frame(
 #'    ColN1 = c(1, 2), ColN2 = 4, ColTU1 = "A", ColTU2 = 3
 #' )
-#' validate_and_rename_df(
+#' Pedixplorer:::validate_and_rename_df(
 #'    df, list(Need1 = "ColN1", Sup2 = "ColTU1"),
 #'    list(
 #'        Need1 = list(alternate = c("ColN1", "ColN3"), mandatory = TRUE),
@@ -109,9 +109,17 @@ check_col_config <- function(col_config) {
 #' )
 #' @keywords internal
 validate_and_rename_df <- function(
-    df, selections, col_config, others_cols = TRUE
+    df, selections, col_config, others_cols = TRUE,
+    na_strings = c("", "NA", "NULL")
 ) {
     # Ensure df is a data.table or data.frame
+    selections <- lapply(selections, function(x) {
+        if (x %in% na_strings) {
+            NA
+        } else {
+            x
+        }
+    })
     if (!is.data.frame(df)) {
         stop("The input 'df' must be a data frame or data table.")
     }
@@ -121,11 +129,8 @@ validate_and_rename_df <- function(
         stop("The 'selections' argument must be a named list.")
     }
 
-    # Select only valid columns
-    selected_valid <- selections[selections != "NA"]
-
     # Check for duplicate selections
-    if (any(duplicated(unlist(selected_valid)))) {
+    if (any(duplicated(unlist(selections)) & !is.na(unlist(selections)))) {
         stop("You have selected the same column multiple times.")
     }
 
@@ -133,26 +138,35 @@ validate_and_rename_df <- function(
     mandatory_cols <- names(col_config)[sapply(
         col_config, function(x) x$mandatory
     )]
-    if (any(!mandatory_cols %in% names(selected_valid))) {
+    if (any(!mandatory_cols %in% names(selections))) {
         return(NULL)
     }
 
     # Ensure selected columns exist in df
-    if (any(!unlist(selected_valid) %in% colnames(df))) {
-        stop("Selected column is not in the dataframe!")
+    col_abs <- unlist(selections)
+    col_abs <- !is.na(col_abs) & !col_abs %in% colnames(df)
+    if (any(col_abs)) {
+        stop(paste(
+            selections[col_abs],
+            "selected column is not in the dataframe!"
+        ))
     }
 
     # Rename dataframe columns
-    colnames(df)[match(
-        unlist(selected_valid),
-        colnames(df)
-    )] <- names(selected_valid)
+    sel_cols <- selections[!is.na(selections)]
+    sel_na <- selections[is.na(selections)]
+
+    new_df <- df[match(sel_cols, colnames(df))]
+    colnames(new_df) <- names(sel_cols)
+    new_df[names(sel_na)] <- NA
 
     # Return either full or filtered dataframe
     if (others_cols) {
-        return(df)
+        col_to_add <- !colnames(df) %in% names(new_df) &
+            !colnames(df) %in% sel_cols
+        cbind(new_df, df[col_to_add])
     } else {
-        return(df[names(selected_valid)])
+        new_df
     }
 
 }
@@ -168,8 +182,8 @@ validate_and_rename_df <- function(
 #' @param by_row A boolean to distribute by row or by column.
 #' @return A vector of group indices.
 #' @examples
-#' distribute_by(3, 10)
-#' distribute_by(3, 10, by_row = TRUE)
+#' Pedixplorer:::distribute_by(3, 10)
+#' Pedixplorer:::distribute_by(3, 10, by_row = TRUE)
 #' @keywords internal
 distribute_by <- function(nb_group, nb_elem, by_row = FALSE) {
     if (by_row) {
@@ -208,7 +222,7 @@ data_col_sel_ui <- function(id, ui_col_nb = 1) {
 #' Shiny modules to select columns from a dataframe
 #'
 #' This function allows to select columns from a dataframe
-#' and rename them to the names of cols_needed and cols_supl.
+#' and rename them to a set of names present in a configuration list.
 #' This generate a Shiny module that can be used in a Shiny app.
 #' The function is composed of two parts: the UI and the server.
 #' The UI is called with the function `data_col_sel_ui()` and the server
@@ -216,15 +230,20 @@ data_col_sel_ui <- function(id, ui_col_nb = 1) {
 #'
 #' @param id A string to identify the module.
 #' @param df A reactive dataframe.
-#' @param cols_needed A character vector of the mandatory columns.
-#' @param cols_supl A character vector of the optional columns.
+#' @param col_config A named list of column definitions.
+#' It must contain a list for each column, with the following
+#' keys: 'alternate' and 'mandatory'.
+#' The 'alternate' key must contain a character vector of column names
+#' that can be selected as an alternative to the main column.
+#' The 'mandatory' key must contain a logical value (TRUE/FALSE) to indicate
+#' whether the column is required to be selected.
 #' @param title A string to display in the selectInput.
 #' @param na_omit A boolean to allow or not the selection of NA.
 #' @param others_cols A boolean to authorize other columns to be
 #' present in the output datatable.
 #'
 #' @return A reactive dataframe with the selected columns renamed
-#' to the names of cols_needed and cols_supl.
+#' to the names present in the configuration list.
 #' @examples
 #' if (interactive()) {
 #'     data_col_sel_demo()
@@ -262,7 +281,10 @@ data_col_sel_server <- function(
             shiny::req(df())
             col_names <- colnames(df())
             if (na_omit) {
-                stats::setNames(c("NA", col_names), c("", col_names))
+                stats::setNames(
+                    c("NA_no_selection", col_names),
+                    c("NA", col_names)
+                )
             } else {
                 stats::setNames(col_names, col_names)
             }
@@ -274,7 +296,7 @@ data_col_sel_server <- function(
             selectors <- list()
 
             seq_groups <- distribute_by(ui_col_nb, length(col_config), by_row)
-
+            print(all_cols())
             for (i in seq_along(names(col_config))) {
                 col_name <- names(col_config)[i]
                 col_options <- c(col_config[[col_name]]$alternate, col_name)
@@ -292,7 +314,6 @@ data_col_sel_server <- function(
                 selected_col <- ifelse(
                     length(selected_col) > 0, selected_col, NA
                 )
-
                 selectors[[col_name]] <- list(
                     ui = shiny::div(
                         class = "div-null",
@@ -346,7 +367,8 @@ data_col_sel_server <- function(
             shiny::req(df(), selected_cols())
             tryCatch({
                 validate_and_rename_df(
-                    df(), selected_cols(), col_config, others_cols
+                    df(), selected_cols(), col_config, others_cols,
+                    na_strings = c("", "NA", "NULL", "NA_no_selection")
                 )
             }, error = function(e) {
                 error_msg(conditionMessage(e))

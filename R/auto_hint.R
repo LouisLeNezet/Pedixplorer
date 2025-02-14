@@ -294,7 +294,7 @@ get_twin_rel <- function(obj) {
 #' @examples
 #' data(sampleped)
 #' pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
-#' auto_hint(pedi)
+#' Pedixplorer:::auto_hint(pedi)
 #' @export
 #' @keywords internal, alignment, auto_hint
 #' @usage NULL
