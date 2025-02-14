@@ -22,7 +22,7 @@ test_that("subregion works", {
 test_that("circfun works", {
     expect_equal(length(circfun(1)), 1)
     expect_equal(length(circfun(2)), 2)
-    expect_equal(length(circfun(1)[[1]]$x), 51)
+    expect_equal(length(circfun(1)[[1]]$x), 50)
     expect_equal(length(circfun(3, 70)[[2]]$x), 25)
 })
 

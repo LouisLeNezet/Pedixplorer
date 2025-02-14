@@ -1,8 +1,5 @@
 test_that("useful_inds works", {
     data("sampleped")
-    colnames(sampleped) <- c(
-        "ped", "id", "dadid", "momid", "sex", "affected", "avail"
-    )
     sampleped[c("id", "dadid", "momid")] <- as.data.frame(
         lapply(sampleped[c("id", "dadid", "momid")], as.character)
     )
