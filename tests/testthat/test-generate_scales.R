@@ -118,10 +118,10 @@ test_that("generate with full scale", {
         pedi, add_to_scale = FALSE, "val_num", threshold = 115,
         colors_aff = c("pink", "purple"), keep_full_scale = TRUE
     )
-    expect_equal(fill(ped)$labels[c(1, 4)],
+    expect_equal(fill(pedi)$labels[c(1, 4)],
         c("Healthy <= to 115 : [101,106]", "Affected > to 115 : [116,124]")
     )
-    expect_equal(nrow(fill(ped)), 6)
+    expect_equal(nrow(fill(pedi)), 6)
 })
 
 

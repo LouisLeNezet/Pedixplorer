@@ -45,5 +45,5 @@ test_that("min_dist_inf works with Pedigree", {
     pedi <- is_informative(pedi, col_aff = "affection", informative = "Av")
     mxkin <- min_dist_inf(pedi, col_aff = "affection")
     expect_s4_class(mxkin, "Pedigree")
-    expect_equal(sum(kin(pedi(mxkin)), na.rm = TRUE), 90)
+    expect_equal(sum(kin(ped(mxkin)), na.rm = TRUE), 90)
 })
