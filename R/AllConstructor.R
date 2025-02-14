@@ -845,8 +845,9 @@ setMethod("Pedigree", "character_OR_integer", function(
             affections <- as.data.frame(affections)
             if (is.null(colnames(affections))) {
                 if (length(col_aff) != ncol(affections)) {
-                    stop("The length of col_aff should be equal to the number",
-                        "of columns of affections"
+                    stop(
+                        "The length of col_aff should be equal to ",
+                        "the number of columns of affections"
                     )
                 }
                 colnames(affections) <- col_aff
@@ -854,7 +855,7 @@ setMethod("Pedigree", "character_OR_integer", function(
             ped_df <- cbind(ped_df, affections)
             col_aff <- colnames(affections)
         } else {
-            stop("Affections must be a vector or a data.frame, got:",
+            stop("Affections must be a vector or a data.frame, got: ",
                 class(affections)
             )
         }

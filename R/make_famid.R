@@ -239,7 +239,7 @@ setMethod("upd_famid",
         fid1 <- famid[match(id1(rel(obj)), old_id)]
         fid2 <- famid[match(id2(rel(obj)), old_id)]
         if (any(fid1 != fid2)) {
-            stop("The two individuals in the relationship",
+            stop("The two individuals in the relationship ",
                 "are not in the same family"
             )
         }

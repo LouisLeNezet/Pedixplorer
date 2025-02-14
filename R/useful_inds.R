@@ -101,8 +101,8 @@ setMethod("useful_inds", "Ped", function(obj,
 
     if (!reset & any(!is.na(useful(obj)))) {
         stop(
-            "The useful slot already has values in the Ped object",
-            " and reset is set to FALSE"
+            "The useful slot already has values in the ",
+            "Ped object and reset is set to FALSE"
         )
     }
     useful[is.na(useful)] <- FALSE

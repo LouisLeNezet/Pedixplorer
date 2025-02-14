@@ -56,23 +56,25 @@ check_columns <- function(
     cols_p <- colnames(df)
     cols_needed_missing <- cols_needed[is.na(match(cols_needed, cols_p))]
     if (length(cols_needed_missing) > 0) {
-        stop(paste(
-            "Columns :", paste0(cols_needed_missing, collapse = ", "),
-            "are missing. Could not continu without.\n"
-        ))
+        cols_needed_missing <- paste0(cols_needed_missing, collapse = ", ")
+        stop("Columns : ", cols_needed_missing,
+            " are missing. Could not continu without."
+        )
     }
     cols_use_by_script <- cols_used[cols_used %in% cols_p]
     if (length(cols_use_by_script) > 0) {
+        all_cols <- paste0(cols_use_by_script, collapse = ", ")
         if (!cols_used_del) {
-            stop(paste(
-                "Columns :", paste0(cols_use_by_script, collapse = ", "),
+            stop(
+                "Columns :", all_cols,
                 "are used by the script and would be overwritten.\n"
-            ))
+            )
         }
-        warning(paste(
-            "Columns :", paste0(cols_use_by_script, collapse = ", "),
+        
+        warning(
+            "Columns :", all_cols,
             "are used by the script and will disgarded.\n"
-        ))
+        )
         cols_to_keep <- cols_p[!cols_p %in% cols_use_by_script]
         df <- df[, cols_to_keep]
     }

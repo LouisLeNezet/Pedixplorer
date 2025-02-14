@@ -28,7 +28,7 @@ check_col_config <- function(col_config) {
 
     if (any(duplicated(names(col_config)))) {
         stop(
-            "Duplicate column names detected in col_config.",
+            "Duplicate column names detected in col_config. ",
             "Ensure each column is defined only once."
         )
     }
@@ -40,9 +40,9 @@ check_col_config <- function(col_config) {
             || !"mandatory" %in% names(col_def)
         ) {
             stop(
-                "Each column definition in col_config",
-                "must be a list with 'alternate' and 'mandatory' keys.",
-                "Issue with:", col_name
+                "Each column definition in col_config ",
+                "must be a list with 'alternate' and 'mandatory' keys. ",
+                "Issue with: ", col_name
             )
         }
 
@@ -51,8 +51,8 @@ check_col_config <- function(col_config) {
             || length(col_def$alternate) == 0
         ) {
             stop(
-                "The 'alternate' field for", col_name,
-                "must be a non-empty character vector."
+                "The 'alternate' field for ", col_name,
+                " must be a non-empty character vector."
             )
         }
 
@@ -61,8 +61,8 @@ check_col_config <- function(col_config) {
             || length(col_def$mandatory) != 1
         ) {
             stop(
-                "The 'mandatory' field for", col_name,
-                "must be a single TRUE/FALSE value."
+                "The 'mandatory' field for ", col_name,
+                " must be a single TRUE/FALSE value."
             )
         }
     }
@@ -73,8 +73,8 @@ check_col_config <- function(col_config) {
     if (any(duplicated(all_alternates))) {
         all_alternates <- all_alternates[duplicated(all_alternates)]
         stop(
-            all_alternates, "are/is duplicated in alternate configuration.",
-            "Ensure each column appears in only one definition."
+            all_alternates, " are/is duplicated in alternate configuration.",
+            " Ensure each column appears in only one definition."
         )
     }
 
@@ -148,7 +148,7 @@ validate_and_rename_df <- function(
     if (any(col_abs)) {
         stop(
             selections[col_abs],
-            "selected column(s) are/is not in the dataframe!"
+            " selected column(s) are/is not in the dataframe!"
         )
     }
 

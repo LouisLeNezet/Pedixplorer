@@ -210,7 +210,7 @@ setMethod("kinship", "Pedigree",
                         nomatch = NA
                     )
                     if (any(is.na(id1x)) | any(is.na(id2x))) {
-                        stop("All individuals in relationship matrix",
+                        stop("All individuals in relationship matrix ",
                             "should be present in the pedigree informations"
                         )
                     }
@@ -312,7 +312,7 @@ setMethod("kinship", "Pedigree",
                 kmat
             }, silent = TRUE)
             if ("try-error" %in% class(temp)) {
-                stop("In family", famlist[i_fam], ":", temp)
+                stop("In family ", famlist[i_fam], " : ", temp)
             } else {
                 matlist[[i_fam]] <- temp
             }
