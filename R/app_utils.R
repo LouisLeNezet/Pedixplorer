@@ -31,7 +31,7 @@ get_families_table <- function(df, var) {
     if (var_num) {
         families_table$`Major mod` <- as.numeric(families_table$`Major mod`)
     }
-    return(families_table)
+    families_table
 }
 
 #' Get the title of the family information table

@@ -1,15 +1,15 @@
 #' Check column configuration
-#' 
+#'
 #' This function checks the validity of the column configuration
 #' provided to the `data_col_sel_server` function.
-#' 
+#'
 #' The list names must correspond to the column names of the dataframe
 #' to be selected. Each list must contain two keys: 'alternate' and 'mandatory'.
 #' The 'alternate' key must contain a character vector of column names
 #' that can be selected as an alternative to the main column.
 #' The 'mandatory' key must contain a logical value (TRUE/FALSE) to indicate
 #' whether the column is required to be selected.
-#' 
+#'
 #' @param col_config A list of column definitions.
 #' It must contain a list for each column, with the following
 #' keys: 'alternate' and 'mandatory'.
@@ -37,8 +37,8 @@ check_col_config <- function(col_config) {
     for (col_name in names(col_config)) {
         col_def <- col_config[[col_name]]
         if (!is.list(col_def) || !"alternate" %in% names(col_def)
-            || !"mandatory" %in% names(col_def
-        )) {
+            || !"mandatory" %in% names(col_def)
+        ) {
             stop(paste(
                 "Each column definition in col_config",
                 "must be a list with 'alternate' and 'mandatory' keys.",
@@ -78,18 +78,18 @@ check_col_config <- function(col_config) {
         ))
     }
 
-    return(TRUE)  # If all checks pass, return TRUE
+    TRUE # If all checks pass, return TRUE
 }
 
 #' Rename columns in a dataframe
-#' 
+#'
 #' This function renames the columns of a dataframe based on the
 #' user-selected columns.
 #' It also validates the user-selected columns and ensures that
 #' the mandatory columns are selected.
-#' 
+#'
 #' @param df A dataframe to be modified.
-#' @param selections A named list of user-selected columns, the 
+#' @param selections A named list of user-selected columns, the
 #' names of the list must correspond to the new column names.
 #' @param col_config A list of columns configuration
 #' see [check_col_config()] for more details.
@@ -108,12 +108,14 @@ check_col_config <- function(col_config) {
 #'    )
 #' )
 #' @keywords internal
-validate_and_rename_df <- function(df, selections, col_config, others_cols = TRUE) {
+validate_and_rename_df <- function(
+    df, selections, col_config, others_cols = TRUE
+) {
     # Ensure df is a data.table or data.frame
     if (!is.data.frame(df)) {
         stop("The input 'df' must be a data frame or data table.")
     }
-    
+
     # Ensure selections is a named list
     if (!is.list(selections) || is.null(names(selections))) {
         stop("The 'selections' argument must be a named list.")
@@ -128,7 +130,9 @@ validate_and_rename_df <- function(df, selections, col_config, others_cols = TRU
     }
 
     # Ensure all mandatory columns are selected
-    mandatory_cols <- names(col_config)[sapply(col_config, function(x) x$mandatory)]
+    mandatory_cols <- names(col_config)[sapply(
+        col_config, function(x) x$mandatory
+    )]
     if (any(!mandatory_cols %in% names(selected_valid))) {
         return(NULL)
     }
@@ -154,11 +158,11 @@ validate_and_rename_df <- function(df, selections, col_config, others_cols = TRU
 }
 
 #' Distribute elements by group
-#' 
+#'
 #' This function distributes elements by group
 #' for a given number of elements. The
 #' distribution can be done by row or by column.
-#' 
+#'
 #' @param nb_group The number of group.
 #' @param nb_elem The number of elements to distribute.
 #' @param by_row A boolean to distribute by row or by column.
@@ -167,17 +171,14 @@ validate_and_rename_df <- function(df, selections, col_config, others_cols = TRU
 #' distribute_by(3, 10)
 #' distribute_by(3, 10, by_row = TRUE)
 #' @keywords internal
-distribute_by <- function(nb_group, nb_elem, by_row = FALSE) {                
+distribute_by <- function(nb_group, nb_elem, by_row = FALSE) {
     if (by_row) {
         return(rep_len(1:nb_group, nb_elem))
     }
-
     base_size <- nb_elem %/% nb_group  # Minimum group size
     remainder <- nb_elem %% nb_group   # Extra items to distribute
-
     group_sizes <- rep(base_size, nb_group) + (1:nb_group <= remainder)
-    
-    return(rep(1:nb_group, times = group_sizes))
+    rep(1:nb_group, times = group_sizes)
 }
 
 #' @rdname data_col_sel
@@ -193,7 +194,7 @@ data_col_sel_ui <- function(id, ui_col_nb = 1) {
                     # Distribute UI evenly
                     width = floor(12 / ui_col_nb),
                     shiny::div(
-                        id = ns(paste0("Div_", i)), 
+                        id = ns(paste0("Div_", i)),
                         class = "div-global",
                         style = "margin-top:1.5em",
                         shiny::uiOutput(ns(paste0("col_group_", i)))
@@ -253,7 +254,7 @@ data_col_sel_server <- function(
             check_col_config(col_config)
         }, error = function(e) {
             error_msg(conditionMessage(e))
-            return(NULL)
+            NULL
         })
 
         # Get all column names from df -------------------------------------
@@ -280,11 +281,17 @@ data_col_sel_server <- function(
                 mandatory <- ifelse(col_config[[col_name]]$mandatory, "*", "")
 
                 # Pre-select a matching column if available
-                selected_col <- intersect(tolower(col_options), tolower(all_cols()))[1]
+                selected_col <- intersect(
+                    tolower(col_options), tolower(all_cols())
+                )[1]
 
                 # Restore the original column name casing from all_cols()
-                selected_col <- all_cols()[match(selected_col, tolower(all_cols()))]
-                selected_col <- ifelse(length(selected_col) > 0, selected_col, NA)
+                selected_col <- all_cols()[match(
+                    selected_col, tolower(all_cols())
+                )]
+                selected_col <- ifelse(
+                    length(selected_col) > 0, selected_col, NA
+                )
 
                 selectors[[col_name]] <- list(
                     ui = shiny::div(
@@ -292,8 +299,9 @@ data_col_sel_server <- function(
                         style = "margin-top:-1.5em",
                         shiny::selectInput(
                             ns(paste0("select_", col_name)),
-                            label = shiny::h5(paste(title, col_name, mandatory)),
-                            choices = all_cols(),
+                            label = shiny::h5(paste(
+                                title, col_name, mandatory
+                            )), choices = all_cols(),
                             selected = selected_col
                         )
                     ),
@@ -329,9 +337,9 @@ data_col_sel_server <- function(
 
         # Rename the columns of the dataframe ---------------------------------
         df_rename <- shiny::reactive({
-            if (is.null(df()) ||
-                is.null(selected_cols()) ||
-                length(selected_cols()) == 0
+            if (is.null(df())
+                || is.null(selected_cols())
+                || length(selected_cols()) == 0
             ) {
                 return(NULL)
             }
@@ -342,7 +350,7 @@ data_col_sel_server <- function(
                 )
             }, error = function(e) {
                 error_msg(conditionMessage(e))
-                return(NULL)
+                NULL
             })
         })
 
@@ -357,7 +365,8 @@ data_col_sel_server <- function(
             }
         })
 
-        return(df_rename)
+        # Return the renamed dataframe
+        df_rename
     })
 }
 

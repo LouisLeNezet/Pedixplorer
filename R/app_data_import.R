@@ -327,7 +327,7 @@ data_import_server <- function(
                 shinytoastr::toastr_error(
                     title = "Error while reading the file", conditionMessage(e)
                 )
-                return(NULL)
+                NULL
             })
         })
 
@@ -354,7 +354,7 @@ data_import_server <- function(
         })
 
         # Return the reactive that yields the data frame
-        return(df)
+        df
     })
 }
 

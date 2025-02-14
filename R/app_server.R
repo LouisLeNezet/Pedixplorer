@@ -50,18 +50,34 @@ ped_server <- function(
                 "momid" = list(alternate = c("motherid"), mandatory = TRUE),
                 "sex" = list(alternate = c("gender"), mandatory = TRUE),
                 "famid" = list(alternate = c("family"), mandatory = FALSE),
-                "fertility" = list(alternate = c("steril", "sterilization"), mandatory = FALSE),
-                "miscarriage" = list(alternate = c("aborted"), mandatory = FALSE),
-                "deceased" = list(alternate = c("status", "vitalstatus", "death"), mandatory = FALSE),
+                "fertility" = list(
+                    alternate = c("steril", "sterilization"), mandatory = FALSE
+                ),
+                "miscarriage" = list(
+                    alternate = c("aborted"), mandatory = FALSE
+                ),
+                "deceased" = list(
+                    alternate = c("status", "vitalstatus", "death"),
+                    mandatory = FALSE
+                ),
                 "avail" = list(alternate = c("available"), mandatory = FALSE),
                 "evaluated" = list(alternate = c("eval"), mandatory = FALSE),
-                "consultand" = list(alternate = c(NA_character_), mandatory = FALSE),
-                "proband" = list(alternate = c(NA_character_), mandatory = FALSE),
-                "carrier" = list(alternate = c(NA_character_), mandatory = FALSE),
-                "asymptomatic" = list(alternate = c("presymptomatic"), mandatory = FALSE),
+                "consultand" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "proband" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "carrier" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "asymptomatic" = list(
+                    alternate = c("presymptomatic"), mandatory = FALSE
+                ),
                 "adopted" = list(alternate = c("adoption"), mandatory = FALSE)
             ),
-            title = "Select columns :", na_omit = TRUE, ui_col_nb = 3, by_row = FALSE
+            title = "Select columns :", na_omit = TRUE,
+            ui_col_nb = 3, by_row = FALSE
         )
         ## Rel data import ----------------------------------------------------
         rel_df <- data_import_server(
@@ -128,19 +144,18 @@ ped_server <- function(
             }
             tryCatch({
                 ped_df <- fix_parents(ped_df)
-                ped <- Pedigree(
+                Pedigree(
                     ped_df, rel_df_norm(),
                     cols_ren_ped = list(),
                     cols_ren_rel = list(),
                     normalize = FALSE
                 )
-                return(ped)
             }, error = function(e) {
                 shinytoastr::toastr_error(
                     title = "Couldn't create pedigree object",
                     conditionMessage(e)
                 )
-                return(NULL)
+                NULL
             })
         })
 

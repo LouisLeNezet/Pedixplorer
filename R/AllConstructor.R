@@ -158,9 +158,15 @@ setMethod("Ped", "data.frame",
             df$miscarriage <- miscarriage_to_factor(df$miscarriage)
             df$deceased <- vect_to_binary(df$deceased, logical = TRUE)
             df$avail <- vect_to_binary(df$avail, logical = TRUE)
-            df$evaluated <- vect_to_binary(df$evaluated, logical = TRUE, default = FALSE)
-            df$consultand <- vect_to_binary(df$consultand, logical = TRUE, default = FALSE)
-            df$proband <- vect_to_binary(df$proband, logical = TRUE, default = FALSE)
+            df$evaluated <- vect_to_binary(
+                df$evaluated, logical = TRUE, default = FALSE
+            )
+            df$consultand <- vect_to_binary(
+                df$consultand, logical = TRUE, default = FALSE
+            )
+            df$proband <- vect_to_binary(
+                df$proband, logical = TRUE, default = FALSE
+            )
             df$affected <- vect_to_binary(df$affected, logical = TRUE)
             df$carrier <- vect_to_binary(df$carrier, logical = TRUE)
             df$asymptomatic <- vect_to_binary(df$asymptomatic, logical = TRUE)
@@ -172,9 +178,10 @@ setMethod("Ped", "data.frame",
 
         myped <- with(df, Ped(
             obj = id, sex = sex, dadid = dadid, momid = momid, famid = famid,
-            fertility = fertility, miscarriage = miscarriage, deceased = deceased,
-            avail = avail, evaluated = evaluated, consultand = consultand,
-            proband = proband, affected = affected, carrier = carrier,
+            fertility = fertility, miscarriage = miscarriage,
+            deceased = deceased, avail = avail, evaluated = evaluated,
+            consultand = consultand, proband = proband,
+            affected = affected, carrier = carrier,
             asymptomatic = asymptomatic, adopted = adopted,
             kin = kin, isinf = isinf, useful = useful
         ))

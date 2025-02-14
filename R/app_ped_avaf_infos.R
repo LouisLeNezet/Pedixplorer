@@ -184,7 +184,7 @@ ped_avaf_infos_server <- function(
             }
         })
 
-        return(df_infos)
+        df_infos
     })
 }
 

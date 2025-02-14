@@ -54,7 +54,6 @@ subregion <- function(df, subreg = NULL) {
 #' circfun(4, 50)
 #' @export
 circfun <- function(nslice, n = 50, start = 0) {
-
     if (nslice == 1) {
         return(list(list(
             x = 0.5 * cos(seq(0, 2 * pi, length = n)),
@@ -68,15 +67,13 @@ circfun <- function(nslice, n = 50, start = 0) {
 
     nseg <- ceiling(n / nslice)  # Segments of arc per slice
     out <- vector("list", nslice)
-    
+
     # Loop through each slice and create its coordinates
     for (i in seq_len(nslice)) {
         # Ensure that the final theta[i + 1] is within valid range
         theta_end <- if (i == nslice) theta[1] + 2 * pi else theta[i + 1]
-        
         # Generate angles for this slice, making sure to handle finite values
         theta2 <- seq(theta[i], theta_end, length = nseg)
-        
         # Store the coordinates for the slice (with a radius of 0.5)
         out[[i]] <- list(
             x = c(0, cos(theta2) / 2),
@@ -87,34 +84,33 @@ circfun <- function(nslice, n = 50, start = 0) {
     out
 }
 
-#' Polygonal element
+#' Find intersections of a ray with a segment
 #'
-#' Create a list of x and y coordinates for a polygon
-#' with a given number of slices and a list of coordinates
-#' for the polygon.
+#' Given the coordinates of a segment and the angle of a ray
+#' from the origin, this function computes the intersection
+#' point of the ray with the segment.
 #'
-#' @param nslice Number of slices in the polygon
-#' @param coor Element form which to generate the polygon
-#' containing x and y coordinates and theta
+#' @param x0 x-coordinate of the segment's starting point
+#' @param y0 y-coordinate of the segment's starting point
+#' @param x1 x-coordinate of the segment's ending point
+#' @param y1 y-coordinate of the segment's ending point
+#' @param theta Angle of the ray from the origin (in radians)
 #'
-#' @return a list of x and y coordinates
+#' @return A vector of the x and y coordinates of the intersection
+#' point, or NA if no intersection occurs.
 #' @keywords internal
-#' @keywords Pedigree-plot
 #' @examples
-#' polyfun(2, list(
-#'     x = c(-0.5, -0.5, 0.5, 0.5),
-#'     y = c(-0.5, 0.5, 0.5, -0.5),
-#'     theta = -c(3, 5, 7, 9) * pi / 4
-#' ))
-#' @export
+#' find_ray_intersections(0, 0, 1, 1, pi / 4)
 find_ray_intersections <- function(x0, y0, x1, y1, theta) {
     if (x0 == x1) {  # Vertical segment
         x_intersect <- x0  # Intersection occurs at x0
         y_intersect <- tan(theta) * x0  # Compute y based on the ray equation
-        
+
         # Check if y_intersect is within the segment's vertical range
-        within_segment <- (y_intersect >= min(y0, y1) && y_intersect <= max(y0, y1))
-        
+        within_segment <- (y_intersect >= min(y0, y1)
+            && y_intersect <= max(y0, y1)
+        )
+
         # Ensure intersection is in the ray's forward direction
         t <- x0 / cos(theta)
         in_ray_direction <- (t >= 0)
@@ -128,10 +124,7 @@ find_ray_intersections <- function(x0, y0, x1, y1, theta) {
 
     # Ray slope (direction from origin)
     m_ray <- tan(theta)
-    
-    # Initialize an empty list to store intersections
-    intersections <- list()
-    
+
     # Loop over each segment
     # Compute the segment slope
     m_segment <- (y1 - y0) / (x1 - x0)
@@ -140,36 +133,57 @@ find_ray_intersections <- function(x0, y0, x1, y1, theta) {
     if (m_segment == m_ray) {
         return(c(NA, NA))
     }
-    
+
     # Compute the y-intercept of the segment
     b_segment <- y0 - m_segment * x0
-    
+
     # Solve for intersection x where m_segment * x + b_segment = m_ray * x
     x_intersect <- b_segment / (m_ray - m_segment)
     y_intersect <- m_ray * x_intersect
-    
+
     # Check if the intersection is within the segment bounds
-    within_segment <- (x_intersect >= min(x0, x1) && x_intersect <= max(x0, x1) &&
-                    y_intersect >= min(y0, y1) && y_intersect <= max(y0, y1))
+    within_segment <- (
+        x_intersect >= min(x0, x1) && x_intersect <= max(x0, x1)
+        && y_intersect >= min(y0, y1) && y_intersect <= max(y0, y1)
+    )
 
     # Check if the intersection is in the direction of the ray (t >= 0)
     t <- x_intersect / cos(theta)  # Compute the ray parameter t
     in_ray_direction <- (t >= 0)
-    
+
     if (within_segment && in_ray_direction) {
-        return(c(x_intersect, y_intersect))
+        c(x_intersect, y_intersect)
     } else {
-        return(c(NA, NA))
+        c(NA, NA)
     }
 }
 
-
-polyfun <- function(nslice, coor, start = 90){
+#' Polygonal element
+#'
+#' Create a list of x and y coordinates for a polygon
+#' with a given number of slices and a list of coordinates
+#' for the polygon.
+#'
+#' @param nslice Number of slices in the polygon
+#' @param coor Element form which to generate the polygon
+#' containing x and y coordinates
+#' @param start Starting angle in degree
+#'
+#' @return a list of x and y coordinates
+#' @keywords internal
+#' @keywords Pedigree-plot
+#' @examples
+#' polyfun(2, list(
+#'     x = c(-0.5, -0.5, 0.5, 0.5),
+#'     y = c(-0.5, 0.5, 0.5, -0.5)
+#' ), start = 45)
+#' @export
+polyfun <- function(nslice, coor, start = 90) {
     if (nslice == 1) {
         return(list(coor))
     }
     coor <- as.data.frame(coor)
-    coor$id <- 1:nrow(coor)
+    coor$id <- seq_len(nrow(coor))
     theta_rad <- atan2(coor$y, coor$x)
     coor$degree <- (theta_rad * 180 / pi) %% 360  # Ensure range [0, 360]
 
@@ -179,14 +193,16 @@ polyfun <- function(nslice, coor, start = 90){
     )
 
     # Generate slicing angles
-    degree <- (seq(0, 360, length.out = nslice + 1)[1:nslice] + start) %% 360
-    df_expanded <- expand.grid(1:nrow(df_seg), degree)
+    degree <- (
+        seq(0, 360, length.out = nslice + 1)[seq_len(nslice)] + start
+    ) %% 360
+    df_expanded <- expand.grid(seq_len(nrow(df_seg)), degree)
 
     # Apply the function to each row
     results <- t(apply(df_expanded, 1, function(row) {
         seg_idx <- row[1]  # Get segment index
         theta <- row[2] * pi / 180  # Get theta in radians
-        
+
         # Extract segment data
         x0 <- df_seg$x0[seg_idx]
         y0 <- df_seg$y0[seg_idx]
@@ -194,7 +210,10 @@ polyfun <- function(nslice, coor, start = 90){
         y1 <- df_seg$y1[seg_idx]
 
         # Call the existing function
-        c(seg_idx, row[2], round(find_ray_intersections(x0, y0, x1, y1, theta), 6))
+        c(seg_idx, row[2], round(
+            find_ray_intersections(x0, y0, x1, y1, theta),
+            6
+        ))
     })) %>%
         as.data.frame() %>%
         setNames(c("seg_idx", "degree", "x", "y"))
@@ -206,11 +225,10 @@ polyfun <- function(nslice, coor, start = 90){
     temp <- temp[order(temp$degree), ]
     idx1 <- which(!is.na(temp$seg_idx))[1]
     temp <- rbind(temp[idx1:nrow(temp), ], temp[0:(idx1 - 1), ])
-    temp <- rbind(temp, temp[1,])
+    temp <- rbind(temp, temp[1, ])
     rownames(temp) <- NULL
 
     # Create the resulting polygons
-    i <- 1
     lapply(seq_len(nslice), function(i) {
         rows <- which(!is.na(temp$seg_idx))[i:(i + 1)]
         rows <- rows[1]:rows[2]

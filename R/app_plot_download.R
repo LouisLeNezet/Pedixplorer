@@ -1,9 +1,3 @@
-# This module was created during the
-# St Jude Bio-Hackathon of May 2023 by the team 13.
-# author: Max Qiu (ytqiuhaowen@gmail.com)
-# author: Louis Le Nézet (louislenezet@gmail.com)
-
-#### UI function of the module #### ----------
 #' @rdname plot_download
 #' @importFrom shiny NS uiOutput
 plot_download_ui <- function(id) {
@@ -11,7 +5,6 @@ plot_download_ui <- function(id) {
     shiny::uiOutput(ns("btn_dwld"))
 }
 
-#### Server function of the module #### ----------
 #' Shiny module to export plot
 #'
 #' This module allow to export multiple type of plot from a reactive object.

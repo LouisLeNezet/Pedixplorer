@@ -89,11 +89,17 @@
 #'     miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0),
 #'     deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
 #'     avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
-#'     evalutated = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
-#'     consultand = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     evalutated = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
+#'     consultand = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
 #'     proband = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
 #'     carrier = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
-#'     asymptomatic = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     asymptomatic = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
 #'     adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0")
 #' )
 #' tryCatch(
@@ -259,15 +265,32 @@ norm_ped <- function(
         )
         err$idError[err$idError == ""] <- NA
 
-        #### Deceased, Avail, Evaluated, Consultand, Proband, Carrier, Asymptomatic, Adopted ####
-        ped_df$deceased <- vect_to_binary(ped_df$deceased, logical = TRUE)
-        ped_df$avail <- vect_to_binary(ped_df$avail, logical = TRUE)
-        ped_df$evaluated <- vect_to_binary(ped_df$evaluated, logical = TRUE, default = FALSE)
-        ped_df$consultand <- vect_to_binary(ped_df$consultand, logical = TRUE, default = FALSE)
-        ped_df$proband <- vect_to_binary(ped_df$proband, logical = TRUE, default = FALSE)
-        ped_df$carrier <- vect_to_binary(ped_df$carrier, logical = TRUE)
-        ped_df$asymptomatic <- vect_to_binary(ped_df$asymptomatic, logical = TRUE)
-        ped_df$adopted <- vect_to_binary(ped_df$consultand, logical = TRUE, default = FALSE)
+        ## Deceased, Avail, Evaluated, Consultand, Proband
+        ## Carrier, Asymptomatic, Adopted
+        ped_df$deceased <- vect_to_binary(
+            ped_df$deceased, logical = TRUE
+        )
+        ped_df$avail <- vect_to_binary(
+            ped_df$avail, logical = TRUE
+        )
+        ped_df$evaluated <- vect_to_binary(
+            ped_df$evaluated, logical = TRUE, default = FALSE
+        )
+        ped_df$consultand <- vect_to_binary(
+            ped_df$consultand, logical = TRUE, default = FALSE
+        )
+        ped_df$proband <- vect_to_binary(
+            ped_df$proband, logical = TRUE, default = FALSE
+        )
+        ped_df$carrier <- vect_to_binary(
+            ped_df$carrier, logical = TRUE
+        )
+        ped_df$asymptomatic <- vect_to_binary(
+            ped_df$asymptomatic, logical = TRUE
+        )
+        ped_df$adopted <- vect_to_binary(
+            ped_df$consultand, logical = TRUE, default = FALSE
+        )
 
         #### Convert to num ####
         if (try_num) {

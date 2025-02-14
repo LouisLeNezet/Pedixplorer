@@ -291,6 +291,6 @@ setMethod("get_famid",
         obj[!str_detect(obj, "_")] <- paste0("_", obj[!str_detect(obj, "_")])
         ids <- str_split_fixed(obj, "_", 2)
         ids[ids[, 1] == "", 1] <- NA
-        return(ids[, 1])
+        ids[, 1]
     }
 )

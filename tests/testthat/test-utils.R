@@ -156,7 +156,9 @@ test_that("vect_to_binary", {
         )
     )
 
-    my_vect_1 <- suppressWarnings(vect_to_binary(my_vect, logical = TRUE, default = TRUE))
+    my_vect_1 <- suppressWarnings(vect_to_binary(
+        my_vect, logical = TRUE, default = TRUE
+    ))
     expect_equal(
         my_vect_1, c(
             FALSE, TRUE, TRUE, TRUE,

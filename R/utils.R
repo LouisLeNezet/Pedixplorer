@@ -657,9 +657,9 @@ create_text_column <- function(
                 unlist(lapply(cols, function(col) {
                     value <- as.character(get(col))
                     if (value %in% na_strings) {
-                        return(NULL)
+                        NULL
                     } else {
-                        return(paste("<b>", col, "</b>: ", value, sep = ""))
+                        paste("<b>", col, "</b>: ", value, sep = "")
                     }
                 })), collapse = "<br>", sep = ""
             ), collapse = "<br>", sep = ""
