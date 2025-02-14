@@ -40,7 +40,7 @@ read_data <- function(
         ext <- tools::file_ext(file)
         if (!ext %in% supported_ext) {
             all_ext <- paste(supported_ext, collapse = ", ")
-            stop("Please upload a (", all_ext,") file")
+            stop("Please upload a (", all_ext, ") file")
         }
 
         if (to_char) {

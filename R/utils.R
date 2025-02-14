@@ -70,7 +70,7 @@ check_columns <- function(
                 "are used by the script and would be overwritten.\n"
             )
         }
-        
+
         warning(
             "Columns :", all_cols,
             "are used by the script and will disgarded.\n"
