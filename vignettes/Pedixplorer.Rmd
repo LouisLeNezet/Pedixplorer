@@ -332,7 +332,7 @@ baldness. And add it as a second filling scale for the plot with
 is therefore divided into two equal parts and shaded differently to
 indicate the two affected indicators.
 
-```{r, two_affection, fig.alt = "Pedigree of family 2 with two affection indicators"}
+```{r, two_affection, fig.alt = "Family 2 pedigree with two affections"}
 mcols(ped2)$bald <- as.factor(c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1))
 ped2 <- generate_colors(ped2, col_aff = "bald", add_to_scale = TRUE)
 # Increase down margin for the legend
@@ -369,7 +369,7 @@ The twin relationships are both represented with diverging lines from a
 single point. The monozygotic twins have an additional line connecting
 the diverging lines, while twins of unknown zygosity have a question mark.
 
-```{r, twins, fig.alt = "Pedigree of family 2 with special relationships"}
+```{r, twins, fig.alt = "Family 2 pedigree with special relationships"}
 ## create twin relationships
 data("relped")
 rel(ped2) <- Rel(relped[relped$famid == 2, ])

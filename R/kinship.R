@@ -106,7 +106,7 @@ setMethod("kinship", "character",
             }
             kmat <- diag(c(rep(0.5, n), 0))  # founders
             ## When all unrelateds, pdepth all=0.  Put c(1,) to make guard from
-            ## iter 1:0
+            ## iter 1 to 0
             for (depth in seq_len(max(c(1, pdepth)))) {
                 for (j in (seq_len(n))[pdepth == depth]) {
                     kmatv <- (kmat[mom_row[j], ] + kmat[dad_row[j], ]) / 2

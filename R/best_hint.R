@@ -8,7 +8,7 @@
 #' @return A matrix with **n** cols and **n!** rows
 #' @keywords internal
 #' @examples
-#' Pedixplorer:::permute(1:3)
+#' Pedixplorer:::permute(seq_len(3))
 #' @keywords auto_hint
 permute <- function(x) {
     n <- length(x)

@@ -614,7 +614,9 @@ make_rownames <- function(
 #' @return A character vector of class information
 #' @keywords internal
 #' @examples
-#' Pedixplorer:::make_class_info(list(1, "a", 1:3, list(1, 2)))
+#' Pedixplorer:::make_class_info(list(
+#'     1, "a", 1, 2, 3, list(1, 2)
+#' ))
 #' @importFrom S4Vectors classNameForDisplay
 make_class_info <- function(x) {
     vapply(
@@ -639,7 +641,7 @@ make_class_info <- function(x) {
 #' @return The concatenated text column
 #' @keywords internal
 #' @examples
-#' df <- data.frame(a = 1:3, b = c("4", "NA", 6), c = c("", "A", 2))
+#' df <- data.frame(a = seq_len(3), b = c("4", "NA", 6), c = c("", "A", 2))
 #' Pedixplorer:::create_text_column(df, "a", c("b", "c"))
 #' @importFrom dplyr rowwise mutate ungroup pull
 create_text_column <- function(

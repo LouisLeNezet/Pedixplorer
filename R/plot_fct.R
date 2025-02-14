@@ -61,7 +61,9 @@ circfun <- function(nslice, n = 50, start = 0) {
     }
 
     # Compute the degree sequence, adding start to shift the slices
-    degree <- (seq(0, 360, length.out = nslice + 1)[1:nslice] + start) %% 360
+    degree <- (
+        seq(0, 360, length.out = nslice + 1)[seq_len(nslice)] + start
+    ) %% 360
     theta <- degree * pi / 180  # Convert to radians
 
     nseg <- ceiling(n / nslice)  # Segments of arc per slice

@@ -8,7 +8,7 @@
 #'
 #' @return The character vector aggregated until the maximum is reached.
 #' @examples
-#' x <- 1:10
+#' x <- seq_len(10)
 #' Pedixplorer:::paste0max(x, 5)
 #' @keywords internal
 paste0max <- function(x, max = 5, sep = "", ...) {
@@ -406,8 +406,8 @@ is_valid_ped <- function(object) {
     }
 
     if (any(proband & !affected & !is.na(affected))) {
-        id_wrg <- id[proband & !affected & !is.na(affected)]
-        warning(paste(id_wrg, "is proband but not affected"))
+        id_wrg <- paste(id[proband & !affected & !is.na(affected)])
+        warning(id_wrg, "individual(s) are/is proband but not affected")
     }
 
     if (any(consultand & proband)) {
@@ -418,11 +418,11 @@ is_valid_ped <- function(object) {
     if (any(asymptomatic & !is.na(asymptomatic)
         & affected & !is.na(affected)
     )) {
-        id_wrg <- id[
+        id_wrg <- paste(id[
             asymptomatic & !is.na(asymptomatic)
             & affected & !is.na(affected)
-        ]
-        warning(paste(id_wrg, "is asymptomatic but affected"))
+        ])
+        warning(id_wrg, "individual(s) are/is asymptomatic but affected")
     }
 
     if (length(errors) == 0) {

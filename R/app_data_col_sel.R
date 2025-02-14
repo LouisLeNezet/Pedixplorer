@@ -27,10 +27,10 @@ check_col_config <- function(col_config) {
     }
 
     if (any(duplicated(names(col_config)))) {
-        stop(paste(
+        stop(
             "Duplicate column names detected in col_config.",
             "Ensure each column is defined only once."
-        ))
+        )
     }
 
     # Ensure each element is properly structured
@@ -39,31 +39,31 @@ check_col_config <- function(col_config) {
         if (!is.list(col_def) || !"alternate" %in% names(col_def)
             || !"mandatory" %in% names(col_def)
         ) {
-            stop(paste(
+            stop(
                 "Each column definition in col_config",
                 "must be a list with 'alternate' and 'mandatory' keys.",
                 "Issue with:", col_name
-            ))
+            )
         }
 
         # Check 'alternate' is a character vector
         if (!is.character(col_def$alternate)
             || length(col_def$alternate) == 0
         ) {
-            stop(paste(
+            stop(
                 "The 'alternate' field for", col_name,
                 "must be a non-empty character vector."
-            ))
+            )
         }
 
         # Check 'mandatory' is logical (TRUE/FALSE)
         if (!is.logical(col_def$mandatory)
             || length(col_def$mandatory) != 1
         ) {
-            stop(paste(
+            stop(
                 "The 'mandatory' field for", col_name,
                 "must be a single TRUE/FALSE value."
-            ))
+            )
         }
     }
 
@@ -72,10 +72,10 @@ check_col_config <- function(col_config) {
     all_alternates <- all_alternates[!is.na(all_alternates)]
     if (any(duplicated(all_alternates))) {
         all_alternates <- all_alternates[duplicated(all_alternates)]
-        stop(paste(
-            all_alternates, "is duplicated in alternate configuration.",
+        stop(
+            all_alternates, "are/is duplicated in alternate configuration.",
             "Ensure each column appears in only one definition."
-        ))
+        )
     }
 
     TRUE # If all checks pass, return TRUE
@@ -135,7 +135,7 @@ validate_and_rename_df <- function(
     }
 
     # Ensure all mandatory columns are selected
-    mandatory_cols <- names(col_config)[sapply(
+    mandatory_cols <- names(col_config)[vapply(
         col_config, function(x) x$mandatory
     )]
     if (any(!mandatory_cols %in% names(selections))) {
@@ -146,10 +146,10 @@ validate_and_rename_df <- function(
     col_abs <- unlist(selections)
     col_abs <- !is.na(col_abs) & !col_abs %in% colnames(df)
     if (any(col_abs)) {
-        stop(paste(
+        stop(
             selections[col_abs],
-            "selected column is not in the dataframe!"
-        ))
+            "selected column(s) are/is not in the dataframe!"
+        )
     }
 
     # Rename dataframe columns
@@ -187,12 +187,13 @@ validate_and_rename_df <- function(
 #' @keywords internal
 distribute_by <- function(nb_group, nb_elem, by_row = FALSE) {
     if (by_row) {
-        return(rep_len(1:nb_group, nb_elem))
+        return(rep_len(seq_len(nb_group), nb_elem))
     }
     base_size <- nb_elem %/% nb_group  # Minimum group size
     remainder <- nb_elem %% nb_group   # Extra items to distribute
-    group_sizes <- rep(base_size, nb_group) + (1:nb_group <= remainder)
-    rep(1:nb_group, times = group_sizes)
+    group_sizes <- rep(base_size, nb_group) +
+        (seq_len(nb_group) <= remainder)
+    rep(seq_len(nb_group), times = group_sizes)
 }
 
 #' @rdname data_col_sel
