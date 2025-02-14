@@ -29,3 +29,4 @@ if (interactive()) {
     color_picker_demo()
 }
 }
+\keyword{internal}
