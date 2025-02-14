@@ -155,7 +155,7 @@ setMethod("kinship", "character",
 #' @examples
 #'
 #' data(sampleped)
-#' pedi <- Pedigree(sampleped)
+#' pedi <- Pedigree(sampleped[-16])
 #' kinship(pedi)
 #' @export
 setMethod("kinship", "Pedigree",

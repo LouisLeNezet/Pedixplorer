@@ -102,7 +102,7 @@ kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
 )
 
 data(sampleped)
-pedi <- Pedigree(sampleped)
+pedi <- Pedigree(sampleped[-16])
 kinship(pedi)
 }
 \seealso{
