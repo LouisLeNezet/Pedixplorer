@@ -22,6 +22,9 @@ Multiple checks are done here
 right values
 \item Check that dad are male and mom are female
 \item Check that individuals have both parents or none
+\item Check that proband are affected
+\item Check that proband and consultand are mutually exclusive
+\item Check that asymptomatic individuals are not affected
 }
 }
 \keyword{internal}

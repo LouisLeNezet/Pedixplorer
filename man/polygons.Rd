@@ -4,7 +4,7 @@
 \alias{polygons}
 \title{List of polygonal elements}
 \usage{
-polygons(nslice = 1)
+polygons(nslice = 1, start = 90)
 }
 \arguments{
 \item{nslice}{Number of slices in each element

@@ -36,7 +36,8 @@
   ped_par = list(),
   leg_par = list(),
   tips = NULL,
-  title_cex = 2
+  title_cex = 2,
+  leg_usr = NULL
 )
 }
 \arguments{

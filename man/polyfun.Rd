@@ -4,13 +4,15 @@
 \alias{polyfun}
 \title{Polygonal element}
 \usage{
-polyfun(nslice, coor)
+polyfun(nslice, coor, start = 90)
 }
 \arguments{
 \item{nslice}{Number of slices in the polygon}
 
 \item{coor}{Element form which to generate the polygon
-containing x and y coordinates and theta}
+containing x and y coordinates}
+
+\item{start}{Starting angle in degree}
 }
 \value{
 a list of x and y coordinates
@@ -23,9 +25,8 @@ for the polygon.
 \examples{
 polyfun(2, list(
     x = c(-0.5, -0.5, 0.5, 0.5),
-    y = c(-0.5, 0.5, 0.5, -0.5),
-    theta = -c(3, 5, 7, 9) * pi / 4
-))
+    y = c(-0.5, 0.5, 0.5, -0.5)
+), start = 45)
 }
 \keyword{Pedigree-plot}
 \keyword{internal}

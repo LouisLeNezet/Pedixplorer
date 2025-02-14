@@ -4,7 +4,7 @@
 \alias{circfun}
 \title{Circular element}
 \usage{
-circfun(nslice, n = 50)
+circfun(nslice, n = 50, start = 0)
 }
 \arguments{
 \item{nslice}{Number of slices in the circle}

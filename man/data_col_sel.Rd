@@ -6,28 +6,25 @@
 \alias{data_col_sel_demo}
 \title{Shiny modules to select columns from a dataframe}
 \usage{
-data_col_sel_ui(id)
+data_col_sel_ui(id, ui_col_nb = 1)
 
 data_col_sel_server(
   id,
   df,
-  cols_needed,
-  cols_supl,
+  col_config,
   title,
   na_omit = TRUE,
-  others_cols = TRUE
+  others_cols = TRUE,
+  ui_col_nb = 1,
+  by_row = FALSE
 )
 
-data_col_sel_demo()
+data_col_sel_demo(ui_col_nb = 2, by_row = FALSE)
 }
 \arguments{
 \item{id}{A string to identify the module.}
 
 \item{df}{A reactive dataframe.}
-
-\item{cols_needed}{A character vector of the mandatory columns.}
-
-\item{cols_supl}{A character vector of the optional columns.}
 
 \item{title}{A string to display in the selectInput.}
 
@@ -35,6 +32,10 @@ data_col_sel_demo()
 
 \item{others_cols}{A boolean to authorize other columns to be
 present in the output datatable.}
+
+\item{cols_needed}{A character vector of the mandatory columns.}
+
+\item{cols_supl}{A character vector of the optional columns.}
 }
 \value{
 A reactive dataframe with the selected columns renamed
