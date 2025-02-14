@@ -23,6 +23,7 @@ color_picker_ui <- function(id) {
 #' @importFrom shiny moduleServer NS req renderUI column
 #' @importFrom shiny reactive
 #' @importFrom colourpicker colourInput
+#' @keywords internal
 #' @export
 color_picker_server <- function(
     id, colors = NULL
