@@ -26,22 +26,22 @@ test_that("useful_inds works", {
 
 test_that("useful_inds works with Pedigree", {
     data("sampleped")
-    ped <- Pedigree(sampleped)
-    ped <- is_informative(ped, informative = "Av")
-    ped <- useful_inds(ped, max_dist = 2)
-    expect_equal(id(ped(ped))[useful(ped(ped)) == FALSE],
+    pedi <- Pedigree(sampleped)
+    pedi <- is_informative(pedi, informative = "Av")
+    pedi <- useful_inds(pedi, max_dist = 2)
+    expect_equal(id(ped(pedi))[useful(ped(pedi)) == FALSE],
         c("1_107", "1_108")
     )
 
     expect_snapshot_error(
-        suppressWarnings(useful_inds(ped))
+        suppressWarnings(useful_inds(pedi))
     )
-    ped <- is_informative(
-        ped, informative = "AvOrAf",
+    pedi <- is_informative(
+        pedi, informative = "AvOrAf",
         reset = TRUE, col_aff = "affection"
     )
-    ped <- useful_inds(ped, max_dist = 2, reset = TRUE)
-    expect_equal(id(ped(ped))[useful(ped(ped)) == 0], c("1_108"))
+    pedi <- useful_inds(pedi, max_dist = 2, reset = TRUE)
+    expect_equal(id(ped(pedi))[useful(ped(pedi)) == 0], c("1_108"))
 
     data("minnbreast")
     pedi <- Pedigree(

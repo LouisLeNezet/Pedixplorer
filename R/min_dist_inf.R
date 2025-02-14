@@ -77,11 +77,11 @@ setMethod("min_dist_inf", "character", function(obj,
 #' @examples
 #'
 #' data(sampleped)
-#' ped <- is_informative(
+#' pedi <- is_informative(
 #'     Pedigree(sampleped),
 #'     informative = "AvAf", col_aff = "affection"
 #' )
-#' kin(ped(min_dist_inf(ped, col_aff = "affection")))
+#' kin(ped(min_dist_inf(pedi, col_aff = "affection")))
 #' @export
 setMethod("min_dist_inf", "Pedigree", function(
     obj, reset = FALSE, ...

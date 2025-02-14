@@ -115,8 +115,8 @@ the data from this level onto theirs.
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped)
-align(ped)
+pedi <- Pedigree(sampleped)
+align(pedi)
 
 }
 \seealso{

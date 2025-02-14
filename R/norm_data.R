@@ -289,7 +289,7 @@ norm_ped <- function(
             ped_df$asymptomatic, logical = TRUE
         )
         ped_df$adopted <- vect_to_binary(
-            ped_df$consultand, logical = TRUE, default = FALSE
+            ped_df$adopted, logical = TRUE, default = FALSE
         )
 
         #### Convert to num ####

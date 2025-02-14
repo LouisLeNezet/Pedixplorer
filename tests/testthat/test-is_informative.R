@@ -47,14 +47,14 @@ test_that("is_informative works", {
 test_that("is_informative works with Pedigree", {
     data("sampleped")
 
-    ped <- Pedigree(sampleped[1:7])
-    ped <- generate_colors(ped, col_aff = "affection",
+    pedi <- Pedigree(sampleped[1:7])
+    pedi <- generate_colors(pedi, col_aff = "affection",
         threshold = 0.5, sup_thres_aff = TRUE,
         add_to_scale = FALSE
     )
 
 
-    ped_upd <- is_informative(ped, col_aff = "affection",
+    ped_upd <- is_informative(pedi, col_aff = "affection",
         informative = "AvAf"
     )
 
@@ -65,34 +65,34 @@ test_that("is_informative works with Pedigree", {
             "1_128", "2_201", "2_203", "2_206", "2_207", "2_214"
         )
     )
-    ped <- Pedigree(sampleped[c(2:5, 7)])
+    pedi <- Pedigree(sampleped[c(2:5, 7)])
     expect_snapshot_error(is_informative(
-        ped, col_aff = "test", informative = "AvAf"
+        pedi, col_aff = "test", informative = "AvAf"
     ))
 
-    ped <- generate_colors(ped,
+    pedi <- generate_colors(pedi,
         col_aff = "sex", mods_aff = "male", add_to_scale = FALSE
     )
     expect_equal(
         sum(isinf(ped(is_informative(
-            ped, col_aff = "sex", informative = "Af"
+            pedi, col_aff = "sex", informative = "Af"
         )))),
-        length(ped(ped, "id")[ped(ped, "sex") == "male"])
+        length(ped(pedi, "id")[ped(pedi, "sex") == "male"])
     )
 
     data(minnbreast)
     # Need to remove proband due to change in affected
-    ped <- Pedigree(minnbreast[-2], cols_ren_ped = list(
+    pedi <- Pedigree(minnbreast[-2], cols_ren_ped = list(
         "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0")
 
-    ped <- generate_colors(ped, col_aff = "education",
+    pedi <- generate_colors(pedi, col_aff = "education",
         threshold = 3, sup_thres_aff = TRUE, keep_full_scale = TRUE,
         add_to_scale = FALSE
     )
     expect_equal(
         sum(isinf(ped(is_informative(
-            ped, col_aff = "education", informative = "Af"
+            pedi, col_aff = "education", informative = "Af"
         )))),
         sum(minnbreast$education > 3, na.rm = TRUE)
     )

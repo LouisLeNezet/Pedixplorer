@@ -1080,14 +1080,14 @@ setMethod("Pedigree", "data.frame",  function(
         }
     }
 
-    ped <- Ped(ped_df)
-    rel <- Rel(rel_df)
-    hints <- Hints(hints)
-    scales <- Scales()
+    ped_obj <- Ped(ped_df)
+    rel_obj <- Rel(rel_df)
+    hints_obj <- Hints(hints)
+    scales_obj <- Scales()
     ## Create the object
     pedi <- new("Pedigree",
-        ped = ped, rel = rel,
-        hints = hints, scales = scales
+        ped = ped_obj, rel = rel_obj,
+        hints = hints_obj, scales = scales_obj
     )
 
     if (all(!is.na(col_aff))) {
@@ -1105,9 +1105,8 @@ setMethod("Pedigree", "data.frame",  function(
 #' @rdname Pedigree-class
 #' @usage NULL
 setMethod("Pedigree", "missing", function(obj) {
-    ped <- new("Pedigree",
+    new("Pedigree",
         ped = Ped(), rel = Rel(),
         hints = Hints(), scales = Scales()
     )
-    ped
 })

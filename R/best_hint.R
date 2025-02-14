@@ -74,8 +74,8 @@ permute <- function(x) {
 #' @export
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped[sampleped$famid == 1,])
-#' best_hint(ped)
+#' pedi <- Pedigree(sampleped[sampleped$famid == 1,])
+#' best_hint(pedi)
 #' @include auto_hint.R
 #' @include align.R
 #' @keywords alignment, auto_hint

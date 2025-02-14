@@ -102,8 +102,8 @@ kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
 )
 
 data(sampleped)
-ped <- Pedigree(sampleped)
-kinship(ped)
+pedi <- Pedigree(sampleped)
+kinship(pedi)
 }
 \seealso{
 \code{\link[=make_famid]{make_famid()}}, \code{\link[=kindepth]{kindepth()}}

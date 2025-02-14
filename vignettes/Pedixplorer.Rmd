@@ -112,8 +112,8 @@ object.
 ```{r, Pedigree_creation}
 data("sampleped")
 print(sampleped[1:10, ])
-ped <- Pedigree(sampleped[c(3, 4, 10, 35, 36), ])
-print(ped)
+pedi <- Pedigree(sampleped[c(3, 4, 10, 35, 36), ])
+print(pedi)
 ```
 
 For more information on the `Pedigree()` function, see `help(Pedigree)`.
@@ -125,9 +125,9 @@ the pedigree. The summary method prints a short summary of the pedigree.
 Finally the plot method displays the pedigree.
 
 ```{r, ped1, fig.alt = "Pedigree of family 1", fig.align = "center"}
-ped <- Pedigree(sampleped)
-print(famid(ped(ped)))
-ped1 <- ped[famid(ped(ped)) == "1"]
+pedi <- Pedigree(sampleped)
+print(famid(ped(pedi)))
+ped1 <- pedi[famid(ped(pedi)) == "1"]
 summary(ped1)
 plot(ped1, cex = 0.7)
 ```
@@ -246,8 +246,9 @@ of them for the two families, where the row and columns names are the
 ids of the subject.
 
 ```{r, kin_all}
-ped <- Pedigree(sampleped)
-kin_all <- kinship(ped)
+pedi <- Pedigree(sampleped)
+adopted(ped(pedi)) <- FALSE # Remove adoption status
+kin_all <- kinship(pedi)
 kin_all[1:9, 1:9]
 kin_all[40:43, 40:43]
 kin_all[42:46, 42:46]
@@ -268,9 +269,9 @@ for these pairs, which are correctly at *0.5*.
 ```{r, kin_twins}
 data("relped")
 relped
-ped <- Pedigree(sampleped, relped)
-
-kin_all <- kinship(ped)
+pedi <- Pedigree(sampleped, relped)
+adopted(ped(pedi)) <- FALSE # Remove adoption status
+kin_all <- kinship(pedi)
 kin_all[24:27, 24:27]
 kin_all[46:50, 46:50]
 ```

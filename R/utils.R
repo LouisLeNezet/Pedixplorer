@@ -198,8 +198,8 @@ setMethod("is_parent", "character_OR_integer",
 #' @examples
 #'
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' is_parent(ped(ped))
+#' pedi <- Pedigree(sampleped)
+#' is_parent(ped(pedi))
 #' @export
 setMethod("is_parent", "Ped",
     function(obj, missid = NA_character_) {

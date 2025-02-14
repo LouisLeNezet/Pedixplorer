@@ -149,8 +149,8 @@ library(Pedixplorer)
 data("sampleped")
 cols <- c("sex", "id", "avail")
 summary(sampleped[cols])
-ped <- Pedigree(sampleped)
-summary(as.data.frame(ped(ped))[cols])
+pedi <- Pedigree(sampleped)
+summary(as.data.frame(ped(pedi))[cols])
 ```
 
 ### Errors present after the normalisation process
@@ -266,14 +266,14 @@ The `mcols()` accessors is the one you should use to add more
 informations to your individuals.
 
 ```{r, mcols}
-ped <- Pedigree(sampleped)
-mcols(ped)
+pedi <- Pedigree(sampleped)
+mcols(pedi)
 ## Add new columns as a threshold if identifiers of individuals superior
 ## to a given threshold for example
-mcols(ped)$idth <- ifelse(as.numeric(
-    stringr::str_split_i(id(ped(ped)), "_", 2)
+mcols(pedi)$idth <- ifelse(as.numeric(
+    stringr::str_split_i(id(ped(pedi)), "_", 2)
 ) < 200, "A", "B")
-mcols(ped)$idth
+mcols(pedi)$idth
 ```
 
 
@@ -301,10 +301,10 @@ With this new S4 object comes multiple methods to ease the use of it:
 
 ```{r, pedigree_methods, fig.alt = "Pedigree plot"}
 ## We can change the family name based on an other column
-ped <- upd_famid(ped, mcols(ped)$idth)
+pedi <- upd_famid(pedi, mcols(pedi)$idth)
 
 ## We can substract a given family
-ped_a <- ped[famid(ped(ped)) == "A"]
+ped_a <- pedi[famid(ped(pedi)) == "A"]
 
 ## Plot it
 plot(ped_a, cex = 0.5)
@@ -320,6 +320,7 @@ lst1_s <- shrink(ped_a, max_bits = 10)
 plot(lst1_s$pedObj, cex = 0.5)
 
 ## Compute the kinship individuals matrix
+adopted(ped(ped_a)) <- FALSE # Set adopted to FALSE
 kinship(ped_a)[1:10, 1:10]
 
 ## Get the useful individuals

@@ -94,9 +94,9 @@ test_that("Kinship Claus Ekstrom 09/2012", {
     )
     relation <- data.frame(id1 = c(3), id2 = c(4), famid = c(1), code = c(1))
 
-    ped <- Pedigree(mydata, relation, missid = "0")
+    pedi <- Pedigree(mydata, relation, missid = "0")
 
-    kmat <- kinship(ped)
+    kmat <- kinship(pedi)
     expect_true(all(kmat[3:4, 3:4] == 0.5))
 })
 

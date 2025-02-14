@@ -57,8 +57,8 @@ If during the search, a plot is found with a stress level less than
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped[sampleped$famid == 1,])
-best_hint(ped)
+pedi <- Pedigree(sampleped[sampleped$famid == 1,])
+best_hint(pedi)
 }
 \seealso{
 \code{\link[=auto_hint]{auto_hint()}}, \code{\link[=align]{align()}}

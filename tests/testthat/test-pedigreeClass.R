@@ -1,5 +1,5 @@
 test_that("Pedigree works", {
-    ped <- Pedigree(data.frame(
+    pedi <- Pedigree(data.frame(
         id = character(),
         dadid = character(),
         momid = character(),
@@ -7,13 +7,13 @@ test_that("Pedigree works", {
         famid = character(),
         avail = numeric()
     ))
-    expect_s4_class(ped, "Pedigree")
-    expect_equal(length(ped@ped), 0)
-    expect_equal(length(ped@rel), 0)
-    expect_equal(dim(fill(ped)), c(0, 9))
-    expect_equal(dim(border(ped)), c(0, 5))
-    expect_equal(dim(spouse(ped)), c(0, 3))
-    expect_equal(length(horder(ped)), 0)
+    expect_s4_class(pedi, "Pedigree")
+    expect_equal(length(pedi@ped), 0)
+    expect_equal(length(pedi@rel), 0)
+    expect_equal(dim(fill(pedi)), c(0, 9))
+    expect_equal(dim(border(pedi)), c(0, 5))
+    expect_equal(dim(spouse(pedi)), c(0, 3))
+    expect_equal(length(horder(pedi)), 0)
 })
 
 test_that("Pedigree old usage compatibility", {

@@ -26,8 +26,8 @@
 #'
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' find_avail_affected(ped, affstatus = 1)
+#' pedi <- Pedigree(sampleped)
+#' find_avail_affected(pedi, affstatus = 1)
 #' @seealso [shrink()]
 #' @include bit_size.R
 #' @include utils.R

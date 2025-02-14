@@ -23,12 +23,12 @@ test_that("Pedigree plotting test", {
     ped2df$deceased <- c(1, 1, 1, 0, 1, 0, 0, 8, 0, 0)
 
     rel_df <- data.frame(id1 = 8, id2 = 9, code = 3, famid = 1)
-    ped <- Pedigree(ped2df, rel_df, missid = "0")
+    pedi <- Pedigree(ped2df, rel_df, missid = "0")
     vdiffr::expect_doppelganger("Ped simple affection",
-        function() plot(ped)
+        function() plot(pedi)
     )
     lst <- plot(
-        ped, label = "smoker",
+        pedi, label = "smoker",
         aff_mark = FALSE, ggplot_gen = TRUE,
         precision = 1
     )
@@ -36,15 +36,15 @@ test_that("Pedigree plotting test", {
         function() plot(lst$ggplot)
     )
 
-    ped <- generate_colors(ped, add_to_scale = TRUE,
+    pedi <- generate_colors(pedi, add_to_scale = TRUE,
         col_aff = "smoker", colors_aff = c("#00e6ee", "#c300ff")
     )
 
-    lst <- ped_to_plotdf(ped, precision = 1)
+    lst <- ped_to_plotdf(pedi, precision = 1)
     expect_equal(length(lst), 2)
     expect_equal(dim(lst$df), c(82, 16))
     expect_snapshot(lst)
-    p <- plot(ped, title = "Pedigree", ggplot_gen = TRUE, precision = 1)
+    p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 1)
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
         function() plot(p$ggplot)
     )

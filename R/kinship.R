@@ -155,8 +155,8 @@ setMethod("kinship", "character",
 #' @examples
 #'
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' kinship(ped)
+#' pedi <- Pedigree(sampleped)
+#' kinship(pedi)
 #' @export
 setMethod("kinship", "Pedigree",
     function(obj, chrtype = "autosome") {

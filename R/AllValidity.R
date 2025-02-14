@@ -552,24 +552,24 @@ is_valid_pedigree <- function(object) {
     }
 
     #### Check that the scales columns have the right values ####
-    ped <- as.data.frame(ped(object))
+    ped_df <- as.data.frame(ped(object))
     errors <- c(errors, check_values(
-        fill(object)$column_values, colnames(ped),
+        fill(object)$column_values, colnames(ped_df),
         "fill column_values"
     ))
     errors <- c(errors, check_values(
-        fill(object)$column_mods, colnames(ped),
+        fill(object)$column_mods, colnames(ped_df),
         "fill column_mods"
     ))
     errors <- c(errors, check_values(
-        border(object)$column, colnames(ped),
+        border(object)$column, colnames(ped_df),
         "border column"
     ))
 
     #### Check that all fill modalities are present in the pedigree data ####
     for (col in unique(fill(object)$column)){
         errors <- c(errors, check_values(
-            ped[[col]],
+            ped_df[[col]],
             fill(object)[fill(object)$column_mods == col, "mods"],
             paste("fill column", col)
         ))
@@ -577,7 +577,7 @@ is_valid_pedigree <- function(object) {
     #### Check that all borders modalities are present in the pedigree data ####
     for (col in unique(border(object)$column)){
         errors <- c(errors, check_values(
-            ped[[col]],
+            ped_df[[col]],
             border(object)[border(object)$column == col, "mods"],
             paste("border column", col)
         ))
