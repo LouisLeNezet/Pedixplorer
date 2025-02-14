@@ -22,7 +22,7 @@
 #' is not possible.
 #' @return An integer vector containing the depth for each subject
 #'
-#' @author Terry Therneau, updated by Louis Le Nézet
+#' @author Terry Therneau, updated by Louis Le Nezet
 #' @seealso [align()]
 #' @include AllClass.R
 #' @export

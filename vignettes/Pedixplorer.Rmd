@@ -1,6 +1,6 @@
 ---
 title: "Pedixplorer tutorial"
-author: "Louis Le Nézet"
+author: "Louis Le Nezet"
 date: "31/08/2023"
 url: "https://github.com/LouisLeNezet/Pedixplorer"
 output:

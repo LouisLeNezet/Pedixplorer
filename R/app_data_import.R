@@ -1,8 +1,3 @@
-# This module was created during the St Jude Bio-Hackathon of May 2023
-# by the team 13.
-# author: Max Qiu (maxqiu@unl.edu)
-# author: Louis Le Nézet (louislenezet@gmail.com)
-
 #### Function needed to work #### ----------
 
 #' Read data from file path

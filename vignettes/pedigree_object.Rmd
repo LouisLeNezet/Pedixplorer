@@ -1,6 +1,6 @@
 ---
 title: Pedigree object
-author: Terry Therneau, Elizabeth Atkinson, Louis Le Nézet
+author: Terry Therneau, Elizabeth Atkinson, Louis Le Nezet
 date: '`r format(Sys.time(),"%d %B, %Y")`'
 output:
     BiocStyle::html_document:

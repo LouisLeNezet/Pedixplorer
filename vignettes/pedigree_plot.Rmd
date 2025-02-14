@@ -1,6 +1,6 @@
 ---
 title: Pedigree plotting details
-author: TM Therneau, JP Sinnwell, Louis Le Nézet
+author: TM Therneau, JP Sinnwell, Louis Le Nezet
 date: '`r format(Sys.time(),"%d %B, %Y")`'
 output:
     BiocStyle::html_document:

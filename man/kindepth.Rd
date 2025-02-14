@@ -61,5 +61,5 @@ kindepth(ped1)
 \code{\link[=align]{align()}}
 }
 \author{
-Terry Therneau, updated by Louis Le Nézet
+Terry Therneau, updated by Louis Le Nezet
 }
