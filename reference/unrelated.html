@@ -115,10 +115,10 @@ corresponding accessor from the Ped object.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">fam1</span> <span class="op">&lt;-</span> <span class="va">sampleped</span><span class="op">[</span><span class="va">sampleped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">fam1</span> <span class="op">&lt;-</span> <span class="va">sampleped</span><span class="op">[</span><span class="va">sampleped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">-</span><span class="fl">16</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">fam1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">unrelated</span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .local(obj, ...):</span> Kinship matrix does not work with adopted individuals</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1_109" "1_113" "1_133" "1_141"</span>
 <span class="r-in"><span><span class="co">## some possible vectors</span></span></span>
 <span class="r-in"><span><span class="co">## [1] '110' '113' '133' '109'</span></span></span>
 <span class="r-in"><span><span class="co">## [1] '113' '118' '141' '109'</span></span></span>

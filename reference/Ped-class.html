@@ -169,9 +169,9 @@ identifiers separated by an underscore.</p></dd>
 
 <dt id="arg-fertility">fertility<a class="anchor" aria-label="anchor" href="#arg-fertility"></a></dt>
 <dd><p>A character, factor or numeric vector corresponding to
-the fertility status of the individuals. This will be transformed to an
-ordered factor with the following levels:
-<code>infertile_choice_na</code> &lt; <code>infertile</code> &lt; <code>fertile</code></p>
+the fertility status of the individuals. This will be transformed to a
+factor with the following levels:
+<code>infertile_choice_na</code>, <code>infertile</code>, <code>fertile</code></p>
 <p>The following values are recognized:</p><ul><li><p>"inferile_choice_na" : "infertile_choice", "infertile_na"</p></li>
 <li><p>"infertile" : "infertile", "steril", <code>FALSE</code>, <code>0</code></p></li>
 <li><p>"fertile" : "fertile", <code>TRUE</code>, <code>1</code>, <code>NA</code></p></li>
@@ -529,7 +529,7 @@ should be kept or deleted.</p></li>
 <span class="r-in"><span><span class="fu">Ped</span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 55 individuals and 2 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       famid       sex fertility</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;ordered&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt;  &lt;factor&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 101               101        &lt;NA&gt;        &lt;NA&gt;           1      male   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 102               102        &lt;NA&gt;        &lt;NA&gt;           1    female   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 103               103         135         136           1      male   fertile</span>
@@ -603,7 +603,7 @@ should be kept or deleted.</p></li>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 6 individuals and 0 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       famid       sex fertility</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt; &lt;ordered&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_class &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;ordered&gt;  &lt;factor&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   1           4           5        &lt;NA&gt;      male   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                   2           4           5        &lt;NA&gt;    female   fertile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                   3           6           5        &lt;NA&gt;   unknown   fertile</span>

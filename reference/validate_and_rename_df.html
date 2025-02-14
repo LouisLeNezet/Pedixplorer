@@ -69,7 +69,13 @@ the mandatory columns are selected.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">validate_and_rename_df</span><span class="op">(</span><span class="va">df</span>, <span class="va">selections</span>, <span class="va">col_config</span>, others_cols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">validate_and_rename_df</span><span class="op">(</span></span>
+<span>  <span class="va">df</span>,</span>
+<span>  <span class="va">selections</span>,</span>
+<span>  <span class="va">col_config</span>,</span>
+<span>  others_cols <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  na_strings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"NULL"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -105,14 +111,16 @@ present in the output datatable.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>   ColN1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ColN2 <span class="op">=</span> <span class="fl">4</span>, ColTU1 <span class="op">=</span> <span class="st">"A"</span>, ColTU2 <span class="op">=</span> <span class="fl">3</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">validate_and_rename_df</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">Pedixplorer</span><span class="fu">:::</span><span class="fu">validate_and_rename_df</span><span class="op">(</span></span></span>
 <span class="r-in"><span>   <span class="va">df</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Need1 <span class="op">=</span> <span class="st">"ColN1"</span>, Sup2 <span class="op">=</span> <span class="st">"ColTU1"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>       Need1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alternate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ColN1"</span>, <span class="st">"ColN3"</span><span class="op">)</span>, mandatory <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>       Sup2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alternate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ColTU1"</span>, <span class="st">"ColTU3"</span><span class="op">)</span>, mandatory <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>   <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_and_rename_df(df, list(Need1 = "ColN1", Sup2 = "ColTU1"),     list(Need1 = list(alternate = c("ColN1", "ColN3"), mandatory = TRUE),         Sup2 = list(alternate = c("ColTU1", "ColTU3"), mandatory = FALSE))):</span> could not find function "validate_and_rename_df"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Need1 Sup2 ColN2 ColTU2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1    A     4      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     2    A     4      3</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -92,10 +92,10 @@ distribution can be done by row or by column.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">distribute_by</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in distribute_by(3, 10):</span> could not find function "distribute_by"</span>
-<span class="r-in"><span><span class="fu">distribute_by</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">10</span>, by_row <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in distribute_by(3, 10, by_row = TRUE):</span> could not find function "distribute_by"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">Pedixplorer</span><span class="fu">:::</span><span class="fu">distribute_by</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 1 1 1 2 2 2 3 3 3</span>
+<span class="r-in"><span><span class="fu">Pedixplorer</span><span class="fu">:::</span><span class="fu">distribute_by</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">10</span>, by_row <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 2 3 1 2 3 1 2 3 1</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
