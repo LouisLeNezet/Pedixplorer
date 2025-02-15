@@ -36,10 +36,13 @@ for (devi in all_dev) {
 par_lst <- list(
     "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
     "fin" = c(6, 6), "bg" = "white", "family" = "HersheySans",
-    "usr" = c(0, 1, 0, 1), xaxp = c(0, 1, 5), yaxp = c(0, 1, 5),
-    "fig" = c(0, 1, 0, 1), "mar" = c(1, 1, 1, 1), xpd = TRUE,
-    lwd = 0.5
+    "usr" = c(0, 1, 0, 1), "xaxp" = c(0, 1, 5), "yaxp" = c(0, 1, 5),
+    "fig" = c(0, 1, 0, 1), "mar" = c(1, 1, 1, 1), "xpd" = TRUE,
+    "lwd" = 1
 )
+
+par_old <- par(par_lst)
+
 R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 
 ## Set up the environment
@@ -60,3 +63,4 @@ Sys.setenv("R_TESTS" = "")
 test_check("Pedixplorer")
 
 dev.off()
+par(par_old)
