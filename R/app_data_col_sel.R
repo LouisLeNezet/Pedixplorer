@@ -148,7 +148,7 @@ validate_and_rename_df <- function(
     if (any(col_abs)) {
         stop(
             selections[col_abs],
-            " selected column(s) are/is not in the dataframe!"
+            " selected column absent from dataframe!"
         )
     }
 

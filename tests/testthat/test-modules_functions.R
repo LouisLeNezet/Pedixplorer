@@ -115,7 +115,7 @@ test_that("validate_and_rename_df works", {
     selections <- list(Column1 = "X", Column2 = "C")
     expect_error(
         validate_and_rename_df(df, selections, col_config),
-        "X selected column(s) are/is not in the dataframe!"
+        "X selected column absent from dataframe!"
     )
 
     # Input df is not a dataframe
