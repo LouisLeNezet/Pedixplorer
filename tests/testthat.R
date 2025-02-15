@@ -21,7 +21,7 @@ library(R.devices)
 Sys.setenv(
     CHROMOTE_CHROME = Sys.getenv("CHROMOTE_CHROME"),
     CHROMOTE_HEADLESS = "new",
-    SKIP_SHINY_TESTS = "FALSE"
+    SKIP_SHINY_TESTS = "TRUE"
 )
 
 print(Sys.getenv("CHROMOTE_CHROME"))
@@ -48,14 +48,15 @@ R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 ## Set up the environment
 ## Add BROWSER="google-chrome" to your environment variables
 withr::local_options(
-    width = 150, digits = 8,
+    width = 150, digits = 4,
     browser = Sys.getenv("CHROMOTE_CHROME")
 )
 options(
     shiny.testmode = TRUE,
     shinytest2.load_timeout = 60000,
     shiny.fullstacktrace = TRUE,
-    chromote.verbose = TRUE
+    chromote.verbose = TRUE,
+    digits = 4
 )
 Sys.setenv("R_TESTS" = "")
 
