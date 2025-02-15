@@ -36,7 +36,8 @@
   ped_par = list(),
   leg_par = list(),
   tips = NULL,
-  title_cex = 2
+  title_cex = 2,
+  leg_usr = NULL
 )
 }
 \arguments{
@@ -137,6 +138,9 @@ parameters for the legend.}
 use as tooltips. If \code{NULL}, no tooltips are added.}
 
 \item{title_cex}{The size of the title.}
+
+\item{leg_usr}{default=NULL. A vector of user coordinates to use for the
+legend.}
 }
 \value{
 an invisible list containing

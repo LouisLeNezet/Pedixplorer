@@ -34,8 +34,8 @@
 #'
 #' @examples
 #' data("sampleped")
-#' ped <- Pedigree(sampleped)
-#' leg_df <- ped_to_legdf(ped)
+#' pedi <- Pedigree(sampleped)
+#' leg_df <- ped_to_legdf(pedi)
 #' summary(leg_df$df)
 #' plot_fromdf(leg_df$df, usr = c(-1,15,0,7))
 #' @keywords internal, Pedigree-plot

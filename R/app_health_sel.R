@@ -171,7 +171,7 @@ health_sel_server <- function(
         })
 
         # Return the selected health variable ---------------------------------
-        lst_health <- shiny::reactive({
+        shiny::reactive({
             if (is.null(input$health_var_sel) | is.null(input$health_as_num)) {
                 return(NULL)
             }
@@ -192,8 +192,6 @@ health_sel_server <- function(
                 sup_threshold = sup_threshold
             )
         })
-
-        return(lst_health)
     })
 }
 

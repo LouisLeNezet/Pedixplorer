@@ -3,645 +3,750 @@
     Code
       lst$df
     Output
-                                id            x0      y0    x1      y1       type
-      1                    polygon 3.8000000e+00 1.00000    NA      NA square_1_1
-      2                    polygon 0.0000000e+00 2.00000    NA      NA square_1_1
-      3                    polygon 0.0000000e+00 3.00000    NA      NA circle_1_1
-      4                    polygon 0.0000000e+00 4.00000    NA      NA square_1_1
-      5                    polygon 4.8000000e+00 1.00000    NA      NA circle_1_1
-      6                    polygon 1.0000000e+00 2.00000    NA      NA circle_1_1
-      7                    polygon 1.0000000e+00 3.00000    NA      NA square_1_1
-      8                    polygon 1.0000000e+00 4.00000    NA      NA circle_1_1
-      9                    polygon 2.8000000e+00 2.00000    NA      NA square_1_1
-      10                   polygon 2.0000000e+00 3.00000    NA      NA circle_1_1
-      11                   polygon 2.0000000e+00 4.00000    NA      NA circle_1_1
-      12                   polygon 3.8000000e+00 2.00000    NA      NA circle_1_1
-      13                   polygon 3.0000000e+00 3.00000    NA      NA square_1_1
-      14                   polygon 3.0000000e+00 4.00000    NA      NA square_1_1
-      15                   polygon 4.8000000e+00 2.00000    NA      NA square_1_1
-      16                   polygon 4.0000000e+00 3.00000    NA      NA square_1_1
-      17                   polygon 6.0100000e+00 4.00000    NA      NA square_1_1
-      18                   polygon 5.8000000e+00 2.00000    NA      NA circle_1_1
-      19                   polygon 5.0000000e+00 3.00000    NA      NA square_1_1
-      20                   polygon 7.0100000e+00 4.00000    NA      NA square_1_1
-      21                   polygon 1.1250000e+01 2.00000    NA      NA square_1_1
-      22                   polygon 6.0000000e+00 3.00000    NA      NA circle_1_1
-      23                   polygon 8.0100000e+00 4.00000    NA      NA circle_1_1
-      24                   polygon 1.2250000e+01 2.00000    NA      NA circle_1_1
-      25                   polygon 7.0000000e+00 3.00000    NA      NA circle_1_1
-      26                   polygon 9.0100000e+00 4.00000    NA      NA circle_1_1
-      27                   polygon 1.4010000e+01 2.00000    NA      NA square_1_1
-      28                   polygon 8.0000000e+00 3.00000    NA      NA square_1_1
-      29                   polygon 1.0010000e+01 4.00000    NA      NA square_1_1
-      30                   polygon 1.5010000e+01 2.00000    NA      NA circle_1_1
-      31                   polygon 9.0000000e+00 3.00000    NA      NA circle_1_1
-      32                   polygon 1.1010000e+01 4.00000    NA      NA square_1_1
-      33                   polygon 1.0000000e+01 3.00000    NA      NA square_1_1
-      34                   polygon 1.2010000e+01 4.00000    NA      NA square_1_1
-      35                   polygon 1.1000000e+01 3.00000    NA      NA circle_1_1
-      36                   polygon 1.3010000e+01 4.00000    NA      NA square_1_1
-      37                   polygon 1.2000000e+01 3.00000    NA      NA square_1_1
-      38                   polygon 1.4010000e+01 4.00000    NA      NA circle_1_1
-      39                   polygon 1.3000000e+01 3.00000    NA      NA circle_1_1
-      40                   polygon 1.5010000e+01 4.00000    NA      NA circle_1_1
-      41                   polygon 1.4000000e+01 3.00000    NA      NA square_1_1
-      42                   polygon 1.5000000e+01 3.00000    NA      NA circle_1_1
-      43                  aff_mark 3.8000000e+00 1.04150    NA      NA       text
-      44                  aff_mark 0.0000000e+00 2.04150    NA      NA       text
-      45                  aff_mark 2.0546072e-04 3.04150    NA      NA       text
-      46                  aff_mark 0.0000000e+00 4.04150    NA      NA       text
-      47                  aff_mark 4.8002055e+00 1.04150    NA      NA       text
-      48                  aff_mark 1.0002055e+00 2.04150    NA      NA       text
-      49                  aff_mark 1.0000000e+00 3.04150    NA      NA       text
-      50                  aff_mark 1.0002055e+00 4.04150    NA      NA       text
-      51                  aff_mark 2.8000000e+00 2.04150    NA      NA       text
-      52                  aff_mark 2.0002055e+00 3.04150    NA      NA       text
-      53                  aff_mark 2.0002055e+00 4.04150    NA      NA       text
-      54                  aff_mark 3.8002055e+00 2.04150    NA      NA       text
-      55                  aff_mark 3.0000000e+00 3.04150    NA      NA       text
-      56                  aff_mark 3.0000000e+00 4.04150    NA      NA       text
-      57                  aff_mark 4.8000000e+00 2.04150    NA      NA       text
-      58                  aff_mark 4.0000000e+00 3.04150    NA      NA       text
-      59                  aff_mark 6.0100000e+00 4.04150    NA      NA       text
-      60                  aff_mark 5.8002055e+00 2.04150    NA      NA       text
-      61                  aff_mark 5.0000000e+00 3.04150    NA      NA       text
-      62                  aff_mark 7.0100000e+00 4.04150    NA      NA       text
-      63                  aff_mark 1.1250000e+01 2.04150    NA      NA       text
-      64                  aff_mark 6.0002055e+00 3.04150    NA      NA       text
-      65                  aff_mark 8.0102055e+00 4.04150    NA      NA       text
-      66                  aff_mark 1.2250205e+01 2.04150    NA      NA       text
-      67                  aff_mark 7.0002055e+00 3.04150    NA      NA       text
-      68                  aff_mark 9.0102055e+00 4.04150    NA      NA       text
-      69                  aff_mark 1.4010000e+01 2.04150    NA      NA       text
-      70                  aff_mark 8.0000000e+00 3.04150    NA      NA       text
-      71                  aff_mark 1.0010000e+01 4.04150    NA      NA       text
-      72                  aff_mark 1.5010205e+01 2.04150    NA      NA       text
-      73                  aff_mark 9.0002055e+00 3.04150    NA      NA       text
-      74                  aff_mark 1.1010000e+01 4.04150    NA      NA       text
-      75                  aff_mark 1.0000000e+01 3.04150    NA      NA       text
-      76                  aff_mark 1.2010000e+01 4.04150    NA      NA       text
-      77                  aff_mark 1.1000205e+01 3.04150    NA      NA       text
-      78                  aff_mark 1.3010000e+01 4.04150    NA      NA       text
-      79                  aff_mark 1.2000000e+01 3.04150    NA      NA       text
-      80                  aff_mark 1.4010205e+01 4.04150    NA      NA       text
-      81                  aff_mark 1.3000205e+01 3.04150    NA      NA       text
-      82                  aff_mark 1.5010205e+01 4.04150    NA      NA       text
-      83                  aff_mark 1.4000000e+01 3.04150    NA      NA       text
-      84                  aff_mark 1.5000205e+01 3.04150    NA      NA       text
-      85                        id 3.8000000e+00 1.13660    NA      NA       text
-      86                        id 0.0000000e+00 2.13660    NA      NA       text
-      87                        id 0.0000000e+00 3.13660    NA      NA       text
-      88                        id 0.0000000e+00 4.13660    NA      NA       text
-      89                        id 4.8000000e+00 1.13660    NA      NA       text
-      90                        id 1.0000000e+00 2.13660    NA      NA       text
-      91                        id 1.0000000e+00 3.13660    NA      NA       text
-      92                        id 1.0000000e+00 4.13660    NA      NA       text
-      93                        id 2.8000000e+00 2.13660    NA      NA       text
-      94                        id 2.0000000e+00 3.13660    NA      NA       text
-      95                        id 2.0000000e+00 4.13660    NA      NA       text
-      96                        id 3.8000000e+00 2.13660    NA      NA       text
-      97                        id 3.0000000e+00 3.13660    NA      NA       text
-      98                        id 3.0000000e+00 4.13660    NA      NA       text
-      99                        id 4.8000000e+00 2.13660    NA      NA       text
-      100                       id 4.0000000e+00 3.13660    NA      NA       text
-      101                       id 6.0100000e+00 4.13660    NA      NA       text
-      102                       id 5.8000000e+00 2.13660    NA      NA       text
-      103                       id 5.0000000e+00 3.13660    NA      NA       text
-      104                       id 7.0100000e+00 4.13660    NA      NA       text
-      105                       id 1.1250000e+01 2.13660    NA      NA       text
-      106                       id 6.0000000e+00 3.13660    NA      NA       text
-      107                       id 8.0100000e+00 4.13660    NA      NA       text
-      108                       id 1.2250000e+01 2.13660    NA      NA       text
-      109                       id 7.0000000e+00 3.13660    NA      NA       text
-      110                       id 9.0100000e+00 4.13660    NA      NA       text
-      111                       id 1.4010000e+01 2.13660    NA      NA       text
-      112                       id 8.0000000e+00 3.13660    NA      NA       text
-      113                       id 1.0010000e+01 4.13660    NA      NA       text
-      114                       id 1.5010000e+01 2.13660    NA      NA       text
-      115                       id 9.0000000e+00 3.13660    NA      NA       text
-      116                       id 1.1010000e+01 4.13660    NA      NA       text
-      117                       id 1.0000000e+01 3.13660    NA      NA       text
-      118                       id 1.2010000e+01 4.13660    NA      NA       text
-      119                       id 1.1000000e+01 3.13660    NA      NA       text
-      120                       id 1.3010000e+01 4.13660    NA      NA       text
-      121                       id 1.2000000e+01 3.13660    NA      NA       text
-      122                       id 1.4010000e+01 4.13660    NA      NA       text
-      123                       id 1.3000000e+01 3.13660    NA      NA       text
-      124                       id 1.5010000e+01 4.13660    NA      NA       text
-      125                       id 1.4000000e+01 3.13660    NA      NA       text
-      126                       id 1.5000000e+01 3.13660    NA      NA       text
-      127             line_spouses 4.0000000e+00 1.04150  4.60 1.04150   segments
-      128             line_spouses 2.0000000e-01 2.04150  0.80 2.04150   segments
-      129             line_spouses 2.0000000e-01 3.04150  0.80 3.04150   segments
-      130             line_spouses 3.0000000e+00 2.04150  3.60 2.04150   segments
-      131             line_spouses 5.0000000e+00 2.04150  5.60 2.04150   segments
-      132             line_spouses 1.1450000e+01 2.04150 12.05 2.04150   segments
-      133             line_spouses 1.4210000e+01 2.04150 14.81 2.04150   segments
-      134             line_spouses 8.2000000e+00 3.04150  8.80 3.04150   segments
-      135             line_spouses 1.0200000e+01 3.04150 10.80 3.04150   segments
-      136             line_spouses 1.2200000e+01 3.04150 12.80 3.04150   segments
-      137             line_spouses 1.4200000e+01 3.04150 14.80 3.04150   segments
-      138   line_children_vertical 2.8000000e+00 2.00000  2.80 1.88000   segments
-      139   line_children_vertical 5.8000000e+00 2.00000  5.80 1.88000   segments
-      140 line_children_horizontal 2.8000000e+00 1.88000  5.80 1.88000   segments
-      141          line_parent_mid 4.3000000e+00 1.88000  4.30 1.62845   segments
-      142          line_parent_mid 4.3000000e+00 1.62845  4.30 1.29305   segments
-      143          line_parent_mid 4.3000000e+00 1.29305  4.30 1.04150   segments
-      144   line_children_vertical 0.0000000e+00 3.00000  0.00 2.88000   segments
-      145 line_children_horizontal 0.0000000e+00 2.88000  0.00 2.88000   segments
-      146          line_parent_mid 0.0000000e+00 2.88000  0.00 2.62845   segments
-      147          line_parent_mid 0.0000000e+00 2.62845  0.50 2.29305   segments
-      148          line_parent_mid 5.0000000e-01 2.29305  0.50 2.04150   segments
-      149   line_children_vertical 1.0000000e+00 3.00000  1.00 2.88000   segments
-      150   line_children_vertical 2.0000000e+00 3.00000  2.00 2.88000   segments
-      151   line_children_vertical 3.0000000e+00 3.00000  3.00 2.88000   segments
-      152   line_children_vertical 4.0000000e+00 3.00000  4.00 2.88000   segments
-      153 line_children_horizontal 1.0000000e+00 2.88000  4.00 2.88000   segments
-      154          line_parent_mid 3.3000000e+00 2.88000  3.30 2.62845   segments
-      155          line_parent_mid 3.3000000e+00 2.62845  3.30 2.29305   segments
-      156          line_parent_mid 3.3000000e+00 2.29305  3.30 2.04150   segments
-      157   line_children_vertical 5.0000000e+00 3.00000  5.00 2.88000   segments
-      158   line_children_vertical 6.0000000e+00 3.00000  6.00 2.88000   segments
-      159   line_children_vertical 7.0000000e+00 3.00000  7.00 2.88000   segments
-      160 line_children_horizontal 5.0000000e+00 2.88000  7.00 2.88000   segments
-      161          line_parent_mid 5.5000000e+00 2.88000  5.50 2.62845   segments
-      162          line_parent_mid 5.5000000e+00 2.62845  5.30 2.29305   segments
-      163          line_parent_mid 5.3000000e+00 2.29305  5.30 2.04150   segments
-      164   line_children_vertical 9.0000000e+00 3.00000  9.00 2.88000   segments
-      165   line_children_vertical 1.1000000e+01 3.00000 11.00 2.88000   segments
-      166   line_children_vertical 1.3000000e+01 3.00000 13.00 2.88000   segments
-      167   line_children_vertical 1.4000000e+01 3.00000 14.00 2.88000   segments
-      168 line_children_horizontal 9.0000000e+00 2.88000 14.00 2.88000   segments
-      169          line_parent_mid 1.1750000e+01 2.88000 11.75 2.62845   segments
-      170          line_parent_mid 1.1750000e+01 2.62845 11.75 2.29305   segments
-      171          line_parent_mid 1.1750000e+01 2.29305 11.75 2.04150   segments
-      172   line_children_vertical 1.5000000e+01 3.00000 15.00 2.88000   segments
-      173 line_children_horizontal 1.5000000e+01 2.88000 15.00 2.88000   segments
-      174          line_parent_mid 1.5000000e+01 2.88000 15.00 2.62845   segments
-      175          line_parent_mid 1.5000000e+01 2.62845 14.51 2.29305   segments
-      176          line_parent_mid 1.4510000e+01 2.29305 14.51 2.04150   segments
-      177   line_children_vertical 0.0000000e+00 4.00000  0.00 3.88000   segments
-      178   line_children_vertical 1.0000000e+00 4.00000  1.00 3.88000   segments
-      179   line_children_vertical 2.0000000e+00 4.00000  2.00 3.88000   segments
-      180   line_children_vertical 3.0000000e+00 4.00000  3.00 3.88000   segments
-      181 line_children_horizontal 0.0000000e+00 3.88000  3.00 3.88000   segments
-      182          line_parent_mid 5.0000000e-01 3.88000  0.50 3.62845   segments
-      183          line_parent_mid 5.0000000e-01 3.62845  0.50 3.29305   segments
-      184          line_parent_mid 5.0000000e-01 3.29305  0.50 3.04150   segments
-      185   line_children_vertical 6.0100000e+00 4.00000  6.01 3.88000   segments
-      186   line_children_vertical 7.0100000e+00 4.00000  7.01 3.88000   segments
-      187 line_children_horizontal 6.0100000e+00 3.88000  7.01 3.88000   segments
-      188          line_parent_mid 6.5100000e+00 3.88000  6.51 3.62845   segments
-      189          line_parent_mid 6.5100000e+00 3.62845  8.50 3.29305   segments
-      190          line_parent_mid 8.5000000e+00 3.29305  8.50 3.04150   segments
-      191   line_children_vertical 8.0100000e+00 4.00000  8.01 3.88000   segments
-      192   line_children_vertical 9.0100000e+00 4.00000  9.01 3.88000   segments
-      193 line_children_horizontal 8.0100000e+00 3.88000  9.01 3.88000   segments
-      194          line_parent_mid 8.5100000e+00 3.88000  8.51 3.62845   segments
-      195          line_parent_mid 8.5100000e+00 3.62845 10.50 3.29305   segments
-      196          line_parent_mid 1.0500000e+01 3.29305 10.50 3.04150   segments
-      197   line_children_vertical 1.0010000e+01 4.00000 10.01 3.88000   segments
-      198 line_children_horizontal 1.0010000e+01 3.88000 10.01 3.88000   segments
-      199          line_parent_mid 1.0010000e+01 3.88000 10.01 3.62845   segments
-      200          line_parent_mid 1.0010000e+01 3.62845 12.50 3.29305   segments
-      201          line_parent_mid 1.2500000e+01 3.29305 12.50 3.04150   segments
-      202   line_children_vertical 1.1010000e+01 4.00000 11.01 3.88000   segments
-      203   line_children_vertical 1.2010000e+01 4.00000 12.01 3.88000   segments
-      204   line_children_vertical 1.3010000e+01 4.00000 13.01 3.88000   segments
-      205   line_children_vertical 1.4010000e+01 4.00000 14.01 3.88000   segments
-      206   line_children_vertical 1.5010000e+01 4.00000 15.01 3.88000   segments
-      207 line_children_horizontal 1.1010000e+01 3.88000 15.01 3.88000   segments
-      208          line_parent_mid 1.4500000e+01 3.88000 14.50 3.62845   segments
-      209          line_parent_mid 1.4500000e+01 3.62845 14.50 3.29305   segments
-      210          line_parent_mid 1.4500000e+01 3.29305 14.50 3.04150   segments
-      211                      arc 3.0000000e+00 3.00000 10.00 3.00000        arc
-      212                      arc 4.0000000e+00 3.00000  8.00 3.00000        arc
-           fill border angle density cex label
-      1    grey  black    NA      NA 0.5  <NA>
-      2   white  black    NA      NA 0.5  <NA>
-      3   white  green    NA      NA 0.5  <NA>
-      4     red  black    NA      NA 0.5  <NA>
-      5    grey  black    NA      NA 0.5  <NA>
-      6     red  black    NA      NA 0.5  <NA>
-      7     red  green    NA      NA 0.5  <NA>
-      8   white  black    NA      NA 0.5  <NA>
-      9     red  black    NA      NA 0.5  <NA>
-      10    red  black    NA      NA 0.5  <NA>
-      11  white  black    NA      NA 0.5  <NA>
-      12  white  black    NA      NA 0.5  <NA>
-      13    red  black    NA      NA 0.5  <NA>
-      14    red  green    NA      NA 0.5  <NA>
-      15   grey  black    NA      NA 0.5  <NA>
-      16    red  black    NA      NA 0.5  <NA>
-      17    red  green    NA      NA 0.5  <NA>
-      18   grey  black    NA      NA 0.5  <NA>
-      19    red  black    NA      NA 0.5  <NA>
-      20    red  green    NA      NA 0.5  <NA>
-      21   grey  black    NA      NA 0.5  <NA>
-      22  white  green    NA      NA 0.5  <NA>
-      23  white  green    NA      NA 0.5  <NA>
-      24   grey  black    NA      NA 0.5  <NA>
-      25  white  green    NA      NA 0.5  <NA>
-      26  white  green    NA      NA 0.5  <NA>
-      27    red  black    NA      NA 0.5  <NA>
-      28    red  black    NA      NA 0.5  <NA>
-      29  white  green    NA      NA 0.5  <NA>
-      30  white  black    NA      NA 0.5  <NA>
-      31  white  black    NA      NA 0.5  <NA>
-      32  white  green    NA      NA 0.5  <NA>
-      33    red  black    NA      NA 0.5  <NA>
-      34    red  black    NA      NA 0.5  <NA>
-      35    red  green    NA      NA 0.5  <NA>
-      36  white  black    NA      NA 0.5  <NA>
-      37    red  black    NA      NA 0.5  <NA>
-      38  white  green    NA      NA 0.5  <NA>
-      39    red  green    NA      NA 0.5  <NA>
-      40    red  black    NA      NA 0.5  <NA>
-      41    red  green    NA      NA 0.5  <NA>
-      42  white  black    NA      NA 0.5  <NA>
-      43  black   <NA>    NA      NA 1.0  <NA>
-      44  black   <NA>    NA      NA 1.0     0
-      45  black   <NA>    NA      NA 1.0     0
-      46  black   <NA>    NA      NA 1.0     1
-      47  black   <NA>    NA      NA 1.0  <NA>
-      48  black   <NA>    NA      NA 1.0     1
-      49  black   <NA>    NA      NA 1.0     1
-      50  black   <NA>    NA      NA 1.0     0
-      51  black   <NA>    NA      NA 1.0     1
-      52  black   <NA>    NA      NA 1.0     1
-      53  black   <NA>    NA      NA 1.0     0
-      54  black   <NA>    NA      NA 1.0     0
-      55  black   <NA>    NA      NA 1.0     1
-      56  black   <NA>    NA      NA 1.0     1
-      57  black   <NA>    NA      NA 1.0  <NA>
-      58  black   <NA>    NA      NA 1.0     1
-      59  black   <NA>    NA      NA 1.0     1
-      60  black   <NA>    NA      NA 1.0  <NA>
-      61  black   <NA>    NA      NA 1.0     1
-      62  black   <NA>    NA      NA 1.0     1
-      63  black   <NA>    NA      NA 1.0  <NA>
-      64  black   <NA>    NA      NA 1.0     0
-      65  black   <NA>    NA      NA 1.0     0
-      66  black   <NA>    NA      NA 1.0  <NA>
-      67  black   <NA>    NA      NA 1.0     0
-      68  black   <NA>    NA      NA 1.0     0
-      69  black   <NA>    NA      NA 1.0     1
-      70  black   <NA>    NA      NA 1.0     1
-      71  black   <NA>    NA      NA 1.0     0
-      72  black   <NA>    NA      NA 1.0     0
-      73  black   <NA>    NA      NA 1.0     0
-      74  black   <NA>    NA      NA 1.0     0
-      75  black   <NA>    NA      NA 1.0     1
-      76  black   <NA>    NA      NA 1.0     1
-      77  black   <NA>    NA      NA 1.0     1
-      78  black   <NA>    NA      NA 1.0     0
-      79  black   <NA>    NA      NA 1.0     1
-      80  black   <NA>    NA      NA 1.0     0
-      81  black   <NA>    NA      NA 1.0     1
-      82  black   <NA>    NA      NA 1.0     1
-      83  black   <NA>    NA      NA 1.0     1
-      84  black   <NA>    NA      NA 1.0     0
-      85  black   <NA>    NA      NA 1.0 1_135
-      86  black   <NA>    NA      NA 1.0 1_101
-      87  black   <NA>    NA      NA 1.0 1_109
-      88  black   <NA>    NA      NA 1.0 1_121
-      89  black   <NA>    NA      NA 1.0 1_136
-      90  black   <NA>    NA      NA 1.0 1_102
-      91  black   <NA>    NA      NA 1.0 1_110
-      92  black   <NA>    NA      NA 1.0 1_122
-      93  black   <NA>    NA      NA 1.0 1_103
-      94  black   <NA>    NA      NA 1.0 1_111
-      95  black   <NA>    NA      NA 1.0 1_123
-      96  black   <NA>    NA      NA 1.0 1_104
-      97  black   <NA>    NA      NA 1.0 1_112
-      98  black   <NA>    NA      NA 1.0 1_124
-      99  black   <NA>    NA      NA 1.0 1_137
-      100 black   <NA>    NA      NA 1.0 1_114
-      101 black   <NA>    NA      NA 1.0 1_127
-      102 black   <NA>    NA      NA 1.0 1_138
-      103 black   <NA>    NA      NA 1.0 1_139
-      104 black   <NA>    NA      NA 1.0 1_128
-      105 black   <NA>    NA      NA 1.0 1_105
-      106 black   <NA>    NA      NA 1.0 1_140
-      107 black   <NA>    NA      NA 1.0 1_125
-      108 black   <NA>    NA      NA 1.0 1_106
-      109 black   <NA>    NA      NA 1.0 1_141
-      110 black   <NA>    NA      NA 1.0 1_126
-      111 black   <NA>    NA      NA 1.0 1_107
-      112 black   <NA>    NA      NA 1.0 1_114
-      113 black   <NA>    NA      NA 1.0 1_129
-      114 black   <NA>    NA      NA 1.0 1_108
-      115 black   <NA>    NA      NA 1.0 1_115
-      116 black   <NA>    NA      NA 1.0 1_130
-      117 black   <NA>    NA      NA 1.0 1_112
-      118 black   <NA>    NA      NA 1.0 1_131
-      119 black   <NA>    NA      NA 1.0 1_118
-      120 black   <NA>    NA      NA 1.0 1_132
-      121 black   <NA>    NA      NA 1.0 1_117
-      122 black   <NA>    NA      NA 1.0 1_133
-      123 black   <NA>    NA      NA 1.0 1_116
-      124 black   <NA>    NA      NA 1.0 1_134
-      125 black   <NA>    NA      NA 1.0 1_119
-      126 black   <NA>    NA      NA 1.0 1_120
-      127 black   <NA>    NA      NA 0.5  <NA>
-      128 black   <NA>    NA      NA 0.5  <NA>
-      129 black   <NA>    NA      NA 0.5  <NA>
-      130 black   <NA>    NA      NA 0.5  <NA>
-      131 black   <NA>    NA      NA 0.5  <NA>
-      132 black   <NA>    NA      NA 0.5  <NA>
-      133 black   <NA>    NA      NA 0.5  <NA>
-      134 black   <NA>    NA      NA 0.5  <NA>
-      135 black   <NA>    NA      NA 0.5  <NA>
-      136 black   <NA>    NA      NA 0.5  <NA>
-      137 black   <NA>    NA      NA 0.5  <NA>
-      138 black   <NA>    NA      NA 0.5  <NA>
-      139 black   <NA>    NA      NA 0.5  <NA>
-      140 black   <NA>    NA      NA 0.5  <NA>
-      141 black   <NA>    NA      NA 0.5  <NA>
-      142 black   <NA>    NA      NA 0.5  <NA>
-      143 black   <NA>    NA      NA 0.5  <NA>
-      144 black   <NA>    NA      NA 0.5  <NA>
-      145 black   <NA>    NA      NA 0.5  <NA>
-      146 black   <NA>    NA      NA 0.5  <NA>
-      147 black   <NA>    NA      NA 0.5  <NA>
-      148 black   <NA>    NA      NA 0.5  <NA>
-      149 black   <NA>    NA      NA 0.5  <NA>
-      150 black   <NA>    NA      NA 0.5  <NA>
-      151 black   <NA>    NA      NA 0.5  <NA>
-      152 black   <NA>    NA      NA 0.5  <NA>
-      153 black   <NA>    NA      NA 0.5  <NA>
-      154 black   <NA>    NA      NA 0.5  <NA>
-      155 black   <NA>    NA      NA 0.5  <NA>
-      156 black   <NA>    NA      NA 0.5  <NA>
-      157 black   <NA>    NA      NA 0.5  <NA>
-      158 black   <NA>    NA      NA 0.5  <NA>
-      159 black   <NA>    NA      NA 0.5  <NA>
-      160 black   <NA>    NA      NA 0.5  <NA>
-      161 black   <NA>    NA      NA 0.5  <NA>
-      162 black   <NA>    NA      NA 0.5  <NA>
-      163 black   <NA>    NA      NA 0.5  <NA>
-      164 black   <NA>    NA      NA 0.5  <NA>
-      165 black   <NA>    NA      NA 0.5  <NA>
-      166 black   <NA>    NA      NA 0.5  <NA>
-      167 black   <NA>    NA      NA 0.5  <NA>
-      168 black   <NA>    NA      NA 0.5  <NA>
-      169 black   <NA>    NA      NA 0.5  <NA>
-      170 black   <NA>    NA      NA 0.5  <NA>
-      171 black   <NA>    NA      NA 0.5  <NA>
-      172 black   <NA>    NA      NA 0.5  <NA>
-      173 black   <NA>    NA      NA 0.5  <NA>
-      174 black   <NA>    NA      NA 0.5  <NA>
-      175 black   <NA>    NA      NA 0.5  <NA>
-      176 black   <NA>    NA      NA 0.5  <NA>
-      177 black   <NA>    NA      NA 0.5  <NA>
-      178 black   <NA>    NA      NA 0.5  <NA>
-      179 black   <NA>    NA      NA 0.5  <NA>
-      180 black   <NA>    NA      NA 0.5  <NA>
-      181 black   <NA>    NA      NA 0.5  <NA>
-      182 black   <NA>    NA      NA 0.5  <NA>
-      183 black   <NA>    NA      NA 0.5  <NA>
-      184 black   <NA>    NA      NA 0.5  <NA>
-      185 black   <NA>    NA      NA 0.5  <NA>
-      186 black   <NA>    NA      NA 0.5  <NA>
-      187 black   <NA>    NA      NA 0.5  <NA>
-      188 black   <NA>    NA      NA 0.5  <NA>
-      189 black   <NA>    NA      NA 0.5  <NA>
-      190 black   <NA>    NA      NA 0.5  <NA>
-      191 black   <NA>    NA      NA 0.5  <NA>
-      192 black   <NA>    NA      NA 0.5  <NA>
-      193 black   <NA>    NA      NA 0.5  <NA>
-      194 black   <NA>    NA      NA 0.5  <NA>
-      195 black   <NA>    NA      NA 0.5  <NA>
-      196 black   <NA>    NA      NA 0.5  <NA>
-      197 black   <NA>    NA      NA 0.5  <NA>
-      198 black   <NA>    NA      NA 0.5  <NA>
-      199 black   <NA>    NA      NA 0.5  <NA>
-      200 black   <NA>    NA      NA 0.5  <NA>
-      201 black   <NA>    NA      NA 0.5  <NA>
-      202 black   <NA>    NA      NA 0.5  <NA>
-      203 black   <NA>    NA      NA 0.5  <NA>
-      204 black   <NA>    NA      NA 0.5  <NA>
-      205 black   <NA>    NA      NA 0.5  <NA>
-      206 black   <NA>    NA      NA 0.5  <NA>
-      207 black   <NA>    NA      NA 0.5  <NA>
-      208 black   <NA>    NA      NA 0.5  <NA>
-      209 black   <NA>    NA      NA 0.5  <NA>
-      210 black   <NA>    NA      NA 0.5  <NA>
-      211 black   <NA>    NA      NA 0.5  <NA>
-      212 black   <NA>    NA      NA 0.5  <NA>
-                                                          tips adjx adjy
-      1   <span style='font-size:14px'><b>1_135</b></span><br>   NA   NA
-      2   <span style='font-size:14px'><b>1_101</b></span><br>   NA   NA
-      3   <span style='font-size:14px'><b>1_109</b></span><br>   NA   NA
-      4   <span style='font-size:14px'><b>1_121</b></span><br>   NA   NA
-      5   <span style='font-size:14px'><b>1_136</b></span><br>   NA   NA
-      6   <span style='font-size:14px'><b>1_102</b></span><br>   NA   NA
-      7   <span style='font-size:14px'><b>1_110</b></span><br>   NA   NA
-      8   <span style='font-size:14px'><b>1_122</b></span><br>   NA   NA
-      9   <span style='font-size:14px'><b>1_103</b></span><br>   NA   NA
-      10  <span style='font-size:14px'><b>1_111</b></span><br>   NA   NA
-      11  <span style='font-size:14px'><b>1_123</b></span><br>   NA   NA
-      12  <span style='font-size:14px'><b>1_104</b></span><br>   NA   NA
-      13  <span style='font-size:14px'><b>1_112</b></span><br>   NA   NA
-      14  <span style='font-size:14px'><b>1_124</b></span><br>   NA   NA
-      15  <span style='font-size:14px'><b>1_137</b></span><br>   NA   NA
-      16  <span style='font-size:14px'><b>1_114</b></span><br>   NA   NA
-      17  <span style='font-size:14px'><b>1_127</b></span><br>   NA   NA
-      18  <span style='font-size:14px'><b>1_138</b></span><br>   NA   NA
-      19  <span style='font-size:14px'><b>1_139</b></span><br>   NA   NA
-      20  <span style='font-size:14px'><b>1_128</b></span><br>   NA   NA
-      21  <span style='font-size:14px'><b>1_105</b></span><br>   NA   NA
-      22  <span style='font-size:14px'><b>1_140</b></span><br>   NA   NA
-      23  <span style='font-size:14px'><b>1_125</b></span><br>   NA   NA
-      24  <span style='font-size:14px'><b>1_106</b></span><br>   NA   NA
-      25  <span style='font-size:14px'><b>1_141</b></span><br>   NA   NA
-      26  <span style='font-size:14px'><b>1_126</b></span><br>   NA   NA
-      27  <span style='font-size:14px'><b>1_107</b></span><br>   NA   NA
-      28  <span style='font-size:14px'><b>1_114</b></span><br>   NA   NA
-      29  <span style='font-size:14px'><b>1_129</b></span><br>   NA   NA
-      30  <span style='font-size:14px'><b>1_108</b></span><br>   NA   NA
-      31  <span style='font-size:14px'><b>1_115</b></span><br>   NA   NA
-      32  <span style='font-size:14px'><b>1_130</b></span><br>   NA   NA
-      33  <span style='font-size:14px'><b>1_112</b></span><br>   NA   NA
-      34  <span style='font-size:14px'><b>1_131</b></span><br>   NA   NA
-      35  <span style='font-size:14px'><b>1_118</b></span><br>   NA   NA
-      36  <span style='font-size:14px'><b>1_132</b></span><br>   NA   NA
-      37  <span style='font-size:14px'><b>1_117</b></span><br>   NA   NA
-      38  <span style='font-size:14px'><b>1_133</b></span><br>   NA   NA
-      39  <span style='font-size:14px'><b>1_116</b></span><br>   NA   NA
-      40  <span style='font-size:14px'><b>1_134</b></span><br>   NA   NA
-      41  <span style='font-size:14px'><b>1_119</b></span><br>   NA   NA
-      42  <span style='font-size:14px'><b>1_120</b></span><br>   NA   NA
-      43  <span style='font-size:14px'><b>1_135</b></span><br>  0.5  0.5
-      44  <span style='font-size:14px'><b>1_101</b></span><br>  0.5  0.5
-      45  <span style='font-size:14px'><b>1_109</b></span><br>  0.5  0.5
-      46  <span style='font-size:14px'><b>1_121</b></span><br>  0.5  0.5
-      47  <span style='font-size:14px'><b>1_136</b></span><br>  0.5  0.5
-      48  <span style='font-size:14px'><b>1_102</b></span><br>  0.5  0.5
-      49  <span style='font-size:14px'><b>1_110</b></span><br>  0.5  0.5
-      50  <span style='font-size:14px'><b>1_122</b></span><br>  0.5  0.5
-      51  <span style='font-size:14px'><b>1_103</b></span><br>  0.5  0.5
-      52  <span style='font-size:14px'><b>1_111</b></span><br>  0.5  0.5
-      53  <span style='font-size:14px'><b>1_123</b></span><br>  0.5  0.5
-      54  <span style='font-size:14px'><b>1_104</b></span><br>  0.5  0.5
-      55  <span style='font-size:14px'><b>1_112</b></span><br>  0.5  0.5
-      56  <span style='font-size:14px'><b>1_124</b></span><br>  0.5  0.5
-      57  <span style='font-size:14px'><b>1_137</b></span><br>  0.5  0.5
-      58  <span style='font-size:14px'><b>1_114</b></span><br>  0.5  0.5
-      59  <span style='font-size:14px'><b>1_127</b></span><br>  0.5  0.5
-      60  <span style='font-size:14px'><b>1_138</b></span><br>  0.5  0.5
-      61  <span style='font-size:14px'><b>1_139</b></span><br>  0.5  0.5
-      62  <span style='font-size:14px'><b>1_128</b></span><br>  0.5  0.5
-      63  <span style='font-size:14px'><b>1_105</b></span><br>  0.5  0.5
-      64  <span style='font-size:14px'><b>1_140</b></span><br>  0.5  0.5
-      65  <span style='font-size:14px'><b>1_125</b></span><br>  0.5  0.5
-      66  <span style='font-size:14px'><b>1_106</b></span><br>  0.5  0.5
-      67  <span style='font-size:14px'><b>1_141</b></span><br>  0.5  0.5
-      68  <span style='font-size:14px'><b>1_126</b></span><br>  0.5  0.5
-      69  <span style='font-size:14px'><b>1_107</b></span><br>  0.5  0.5
-      70  <span style='font-size:14px'><b>1_114</b></span><br>  0.5  0.5
-      71  <span style='font-size:14px'><b>1_129</b></span><br>  0.5  0.5
-      72  <span style='font-size:14px'><b>1_108</b></span><br>  0.5  0.5
-      73  <span style='font-size:14px'><b>1_115</b></span><br>  0.5  0.5
-      74  <span style='font-size:14px'><b>1_130</b></span><br>  0.5  0.5
-      75  <span style='font-size:14px'><b>1_112</b></span><br>  0.5  0.5
-      76  <span style='font-size:14px'><b>1_131</b></span><br>  0.5  0.5
-      77  <span style='font-size:14px'><b>1_118</b></span><br>  0.5  0.5
-      78  <span style='font-size:14px'><b>1_132</b></span><br>  0.5  0.5
-      79  <span style='font-size:14px'><b>1_117</b></span><br>  0.5  0.5
-      80  <span style='font-size:14px'><b>1_133</b></span><br>  0.5  0.5
-      81  <span style='font-size:14px'><b>1_116</b></span><br>  0.5  0.5
-      82  <span style='font-size:14px'><b>1_134</b></span><br>  0.5  0.5
-      83  <span style='font-size:14px'><b>1_119</b></span><br>  0.5  0.5
-      84  <span style='font-size:14px'><b>1_120</b></span><br>  0.5  0.5
-      85  <span style='font-size:14px'><b>1_135</b></span><br>  0.5  1.0
-      86  <span style='font-size:14px'><b>1_101</b></span><br>  0.5  1.0
-      87  <span style='font-size:14px'><b>1_109</b></span><br>  0.5  1.0
-      88  <span style='font-size:14px'><b>1_121</b></span><br>  0.5  1.0
-      89  <span style='font-size:14px'><b>1_136</b></span><br>  0.5  1.0
-      90  <span style='font-size:14px'><b>1_102</b></span><br>  0.5  1.0
-      91  <span style='font-size:14px'><b>1_110</b></span><br>  0.5  1.0
-      92  <span style='font-size:14px'><b>1_122</b></span><br>  0.5  1.0
-      93  <span style='font-size:14px'><b>1_103</b></span><br>  0.5  1.0
-      94  <span style='font-size:14px'><b>1_111</b></span><br>  0.5  1.0
-      95  <span style='font-size:14px'><b>1_123</b></span><br>  0.5  1.0
-      96  <span style='font-size:14px'><b>1_104</b></span><br>  0.5  1.0
-      97  <span style='font-size:14px'><b>1_112</b></span><br>  0.5  1.0
-      98  <span style='font-size:14px'><b>1_124</b></span><br>  0.5  1.0
-      99  <span style='font-size:14px'><b>1_137</b></span><br>  0.5  1.0
-      100 <span style='font-size:14px'><b>1_114</b></span><br>  0.5  1.0
-      101 <span style='font-size:14px'><b>1_127</b></span><br>  0.5  1.0
-      102 <span style='font-size:14px'><b>1_138</b></span><br>  0.5  1.0
-      103 <span style='font-size:14px'><b>1_139</b></span><br>  0.5  1.0
-      104 <span style='font-size:14px'><b>1_128</b></span><br>  0.5  1.0
-      105 <span style='font-size:14px'><b>1_105</b></span><br>  0.5  1.0
-      106 <span style='font-size:14px'><b>1_140</b></span><br>  0.5  1.0
-      107 <span style='font-size:14px'><b>1_125</b></span><br>  0.5  1.0
-      108 <span style='font-size:14px'><b>1_106</b></span><br>  0.5  1.0
-      109 <span style='font-size:14px'><b>1_141</b></span><br>  0.5  1.0
-      110 <span style='font-size:14px'><b>1_126</b></span><br>  0.5  1.0
-      111 <span style='font-size:14px'><b>1_107</b></span><br>  0.5  1.0
-      112 <span style='font-size:14px'><b>1_114</b></span><br>  0.5  1.0
-      113 <span style='font-size:14px'><b>1_129</b></span><br>  0.5  1.0
-      114 <span style='font-size:14px'><b>1_108</b></span><br>  0.5  1.0
-      115 <span style='font-size:14px'><b>1_115</b></span><br>  0.5  1.0
-      116 <span style='font-size:14px'><b>1_130</b></span><br>  0.5  1.0
-      117 <span style='font-size:14px'><b>1_112</b></span><br>  0.5  1.0
-      118 <span style='font-size:14px'><b>1_131</b></span><br>  0.5  1.0
-      119 <span style='font-size:14px'><b>1_118</b></span><br>  0.5  1.0
-      120 <span style='font-size:14px'><b>1_132</b></span><br>  0.5  1.0
-      121 <span style='font-size:14px'><b>1_117</b></span><br>  0.5  1.0
-      122 <span style='font-size:14px'><b>1_133</b></span><br>  0.5  1.0
-      123 <span style='font-size:14px'><b>1_116</b></span><br>  0.5  1.0
-      124 <span style='font-size:14px'><b>1_134</b></span><br>  0.5  1.0
-      125 <span style='font-size:14px'><b>1_119</b></span><br>  0.5  1.0
-      126 <span style='font-size:14px'><b>1_120</b></span><br>  0.5  1.0
-      127                                                 <NA>   NA   NA
-      128                                                 <NA>   NA   NA
-      129                                                 <NA>   NA   NA
-      130                                                 <NA>   NA   NA
-      131                                                 <NA>   NA   NA
-      132                                                 <NA>   NA   NA
-      133                                                 <NA>   NA   NA
-      134                                                 <NA>   NA   NA
-      135                                                 <NA>   NA   NA
-      136                                                 <NA>   NA   NA
-      137                                                 <NA>   NA   NA
-      138                                                 <NA>   NA   NA
-      139                                                 <NA>   NA   NA
-      140                                                 <NA>   NA   NA
-      141                                                 <NA>   NA   NA
-      142                                                 <NA>   NA   NA
-      143                                                 <NA>   NA   NA
-      144                                                 <NA>   NA   NA
-      145                                                 <NA>   NA   NA
-      146                                                 <NA>   NA   NA
-      147                                                 <NA>   NA   NA
-      148                                                 <NA>   NA   NA
-      149                                                 <NA>   NA   NA
-      150                                                 <NA>   NA   NA
-      151                                                 <NA>   NA   NA
-      152                                                 <NA>   NA   NA
-      153                                                 <NA>   NA   NA
-      154                                                 <NA>   NA   NA
-      155                                                 <NA>   NA   NA
-      156                                                 <NA>   NA   NA
-      157                                                 <NA>   NA   NA
-      158                                                 <NA>   NA   NA
-      159                                                 <NA>   NA   NA
-      160                                                 <NA>   NA   NA
-      161                                                 <NA>   NA   NA
-      162                                                 <NA>   NA   NA
-      163                                                 <NA>   NA   NA
-      164                                                 <NA>   NA   NA
-      165                                                 <NA>   NA   NA
-      166                                                 <NA>   NA   NA
-      167                                                 <NA>   NA   NA
-      168                                                 <NA>   NA   NA
-      169                                                 <NA>   NA   NA
-      170                                                 <NA>   NA   NA
-      171                                                 <NA>   NA   NA
-      172                                                 <NA>   NA   NA
-      173                                                 <NA>   NA   NA
-      174                                                 <NA>   NA   NA
-      175                                                 <NA>   NA   NA
-      176                                                 <NA>   NA   NA
-      177                                                 <NA>   NA   NA
-      178                                                 <NA>   NA   NA
-      179                                                 <NA>   NA   NA
-      180                                                 <NA>   NA   NA
-      181                                                 <NA>   NA   NA
-      182                                                 <NA>   NA   NA
-      183                                                 <NA>   NA   NA
-      184                                                 <NA>   NA   NA
-      185                                                 <NA>   NA   NA
-      186                                                 <NA>   NA   NA
-      187                                                 <NA>   NA   NA
-      188                                                 <NA>   NA   NA
-      189                                                 <NA>   NA   NA
-      190                                                 <NA>   NA   NA
-      191                                                 <NA>   NA   NA
-      192                                                 <NA>   NA   NA
-      193                                                 <NA>   NA   NA
-      194                                                 <NA>   NA   NA
-      195                                                 <NA>   NA   NA
-      196                                                 <NA>   NA   NA
-      197                                                 <NA>   NA   NA
-      198                                                 <NA>   NA   NA
-      199                                                 <NA>   NA   NA
-      200                                                 <NA>   NA   NA
-      201                                                 <NA>   NA   NA
-      202                                                 <NA>   NA   NA
-      203                                                 <NA>   NA   NA
-      204                                                 <NA>   NA   NA
-      205                                                 <NA>   NA   NA
-      206                                                 <NA>   NA   NA
-      207                                                 <NA>   NA   NA
-      208                                                 <NA>   NA   NA
-      209                                                 <NA>   NA   NA
-      210                                                 <NA>   NA   NA
-      211                                                 <NA>   NA   NA
-      212                                                 <NA>   NA   NA
+                                id         x0    y0     x1    y1         type  fill
+      1                    polygon  3.8000000 1.000     NA    NA   square_1_1  grey
+      2                    polygon  0.0000000 2.000     NA    NA   square_1_1 white
+      3                    polygon  0.0000000 3.000     NA    NA   circle_1_1 white
+      4                    polygon  0.0000000 4.000     NA    NA  diamond_1_1  grey
+      5                    polygon  4.8000000 1.000     NA    NA   circle_1_1  grey
+      6                    polygon  1.0000000 2.000     NA    NA   circle_1_1   red
+      7                    polygon  1.0000000 3.000     NA    NA   square_1_1   red
+      8                    polygon  1.0000000 4.000     NA    NA triangle_1_1 white
+      9                    polygon  2.8000000 2.000     NA    NA   square_1_1   red
+      10                   polygon  2.0000000 3.000     NA    NA   circle_1_1   red
+      11                   polygon  2.0000000 4.000     NA    NA   circle_1_1 white
+      12                   polygon  3.8000000 2.000     NA    NA   circle_1_1 white
+      13                   polygon  3.0000000 3.000     NA    NA   square_1_1   red
+      14                   polygon  3.0000000 4.000     NA    NA   square_1_1   red
+      15                   polygon  4.8000000 2.000     NA    NA   square_1_1  grey
+      16                   polygon  4.0000000 3.000     NA    NA   square_1_1   red
+      17                   polygon  6.0100000 4.000     NA    NA   square_1_1   red
+      18                   polygon  5.8000000 2.000     NA    NA   circle_1_1  grey
+      19                   polygon  5.0000000 3.000     NA    NA   square_1_1   red
+      20                   polygon  7.0100000 4.000     NA    NA   square_1_1   red
+      21                   polygon 11.2500000 2.000     NA    NA   square_1_1  grey
+      22                   polygon  6.0000000 3.000     NA    NA   circle_1_1 white
+      23                   polygon  8.0100000 4.000     NA    NA   circle_1_1 white
+      24                   polygon 12.2500000 2.000     NA    NA   circle_1_1  grey
+      25                   polygon  7.0000000 3.000     NA    NA   circle_1_1 white
+      26                   polygon  9.0100000 4.000     NA    NA triangle_1_1  grey
+      27                   polygon 14.0100000 2.000     NA    NA   square_1_1   red
+      28                   polygon  8.0000000 3.000     NA    NA   square_1_1   red
+      29                   polygon 10.0100000 4.000     NA    NA   square_1_1 white
+      30                   polygon 15.0100000 2.000     NA    NA   circle_1_1 white
+      31                   polygon  9.0000000 3.000     NA    NA   circle_1_1 white
+      32                   polygon 11.0100000 4.000     NA    NA   square_1_1 white
+      33                   polygon 10.0000000 3.000     NA    NA   square_1_1   red
+      34                   polygon 12.0100000 4.000     NA    NA   square_1_1   red
+      35                   polygon 11.0000000 3.000     NA    NA   circle_1_1   red
+      36                   polygon 13.0100000 4.000     NA    NA   square_1_1 white
+      37                   polygon 12.0000000 3.000     NA    NA   square_1_1   red
+      38                   polygon 14.0100000 4.000     NA    NA triangle_1_1 white
+      39                   polygon 13.0000000 3.000     NA    NA   circle_1_1   red
+      40                   polygon 15.0100000 4.000     NA    NA  diamond_1_1   red
+      41                   polygon 14.0000000 3.000     NA    NA   square_1_1   red
+      42                   polygon 15.0000000 3.000     NA    NA   circle_1_1 white
+      43                  aff_mark  3.8000000 1.065     NA    NA         text black
+      44                  aff_mark  0.0000000 2.065     NA    NA         text black
+      45                  aff_mark  0.0003185 3.065     NA    NA         text black
+      46                  aff_mark  0.0000000 4.065     NA    NA         text black
+      47                  aff_mark  4.8003185 1.065     NA    NA         text black
+      48                  aff_mark  1.0003185 2.065     NA    NA         text black
+      49                  aff_mark  1.0000000 3.065     NA    NA         text black
+      50                  aff_mark  1.0000000 4.065     NA    NA         text black
+      51                  aff_mark  2.8000000 2.065     NA    NA         text black
+      52                  aff_mark  2.0003185 3.065     NA    NA         text black
+      53                  aff_mark  2.0003185 4.065     NA    NA         text black
+      54                  aff_mark  3.8003185 2.065     NA    NA         text black
+      55                  aff_mark  3.0000000 3.065     NA    NA         text black
+      56                  aff_mark  3.0000000 4.065     NA    NA         text black
+      57                  aff_mark  4.8000000 2.065     NA    NA         text black
+      58                  aff_mark  4.0000000 3.065     NA    NA         text black
+      59                  aff_mark  6.0100000 4.065     NA    NA         text black
+      60                  aff_mark  5.8003185 2.065     NA    NA         text black
+      61                  aff_mark  5.0000000 3.065     NA    NA         text black
+      62                  aff_mark  7.0100000 4.065     NA    NA         text black
+      63                  aff_mark 11.2500000 2.065     NA    NA         text black
+      64                  aff_mark  6.0003185 3.065     NA    NA         text black
+      65                  aff_mark  8.0103185 4.065     NA    NA         text black
+      66                  aff_mark 12.2503185 2.065     NA    NA         text black
+      67                  aff_mark  7.0003185 3.065     NA    NA         text black
+      68                  aff_mark  9.0100000 4.065     NA    NA         text black
+      69                  aff_mark 14.0100000 2.065     NA    NA         text black
+      70                  aff_mark  8.0000000 3.065     NA    NA         text black
+      71                  aff_mark 10.0100000 4.065     NA    NA         text black
+      72                  aff_mark 15.0103185 2.065     NA    NA         text black
+      73                  aff_mark  9.0003185 3.065     NA    NA         text black
+      74                  aff_mark 11.0100000 4.065     NA    NA         text black
+      75                  aff_mark 10.0000000 3.065     NA    NA         text black
+      76                  aff_mark 12.0100000 4.065     NA    NA         text black
+      77                  aff_mark 11.0003185 3.065     NA    NA         text black
+      78                  aff_mark 13.0100000 4.065     NA    NA         text black
+      79                  aff_mark 12.0000000 3.065     NA    NA         text black
+      80                  aff_mark 14.0100000 4.065     NA    NA         text black
+      81                  aff_mark 13.0003185 3.065     NA    NA         text black
+      82                  aff_mark 15.0100000 4.065     NA    NA         text black
+      83                  aff_mark 14.0000000 3.065     NA    NA         text black
+      84                  aff_mark 15.0003185 3.065     NA    NA         text black
+      85                 infertile  2.0000000 3.130  2.000 3.169     segments black
+      86                 infertile  8.0100000 4.130  8.010 4.169     segments black
+      87                 infertile  1.7520000 3.169  2.248 3.169     segments black
+      88                 infertile  7.7620000 4.169  8.258 4.169     segments black
+      89                 infertile  1.6900000 3.182  2.310 3.182     segments black
+      90                   ECT-TOP  0.6900000 4.130  1.310 4.000     segments black
+      91                   ECT-TOP 13.7000000 4.130 14.320 4.000     segments black
+      92                       ECT 14.0100000 4.130     NA    NA         text black
+      93                 evaluated  0.4340000 1.987     NA    NA         text black
+      94                 evaluated  1.4340000 2.987     NA    NA         text black
+      95                 evaluated  8.4440000 3.987     NA    NA         text black
+      96        consultand-proband -0.4960000 3.182 -0.310 3.140       arrows black
+      97        consultand-proband  3.5040000 3.182  3.690 3.140       arrows black
+      98        consultand-proband  7.5040000 3.182  7.690 3.140       arrows black
+      99        consultand-proband 11.5040000 3.182 11.690 3.140       arrows black
+      100       consultand-proband 14.5040000 3.182 14.690 3.140       arrows black
+      101                  proband  3.3800000 3.169     NA    NA         text black
+      102                  proband  7.3800000 3.169     NA    NA         text black
+      103                  proband 11.3800000 3.169     NA    NA         text black
+      104                  carrier  6.0000000 3.065     NA    NA       points black
+      105                  carrier 13.0100000 4.065     NA    NA       points black
+      106             asymptomatic  0.0000000 3.130  0.000 3.000     segments black
+      107             asymptomatic  7.0000000 3.130  7.000 3.000     segments black
+      108                 adoption -0.4960000 4.143 -0.496 3.987     segments black
+      109                 adoption  0.4960000 4.143  0.496 3.987     segments black
+      110                 adoption  8.5040000 3.143  8.504 2.987     segments black
+      111                 adoption  9.4960000 3.143  9.496 2.987     segments black
+      112                 adoption  0.4960000 4.143  0.372 4.143     segments black
+      113                 adoption  0.4960000 3.987  0.372 3.987     segments black
+      114                 adoption -0.4960000 4.143 -0.372 4.143     segments black
+      115                 adoption -0.4960000 3.987 -0.372 3.987     segments black
+      116                 adoption  9.4960000 3.143  9.372 3.143     segments black
+      117                 adoption  9.4960000 2.987  9.372 2.987     segments black
+      118                 adoption  8.5040000 3.143  8.628 3.143     segments black
+      119                 adoption  8.5040000 2.987  8.628 2.987     segments black
+      120                       id  3.8000000 1.214     NA    NA         text black
+      121                       id  0.0000000 2.214     NA    NA         text black
+      122                       id  0.0000000 3.214     NA    NA         text black
+      123                       id  0.0000000 4.214     NA    NA         text black
+      124                       id  4.8000000 1.214     NA    NA         text black
+      125                       id  1.0000000 2.214     NA    NA         text black
+      126                       id  1.0000000 3.214     NA    NA         text black
+      127                       id  1.0000000 4.214     NA    NA         text black
+      128                       id  2.8000000 2.214     NA    NA         text black
+      129                       id  2.0000000 3.214     NA    NA         text black
+      130                       id  2.0000000 4.214     NA    NA         text black
+      131                       id  3.8000000 2.214     NA    NA         text black
+      132                       id  3.0000000 3.214     NA    NA         text black
+      133                       id  3.0000000 4.214     NA    NA         text black
+      134                       id  4.8000000 2.214     NA    NA         text black
+      135                       id  4.0000000 3.214     NA    NA         text black
+      136                       id  6.0100000 4.214     NA    NA         text black
+      137                       id  5.8000000 2.214     NA    NA         text black
+      138                       id  5.0000000 3.214     NA    NA         text black
+      139                       id  7.0100000 4.214     NA    NA         text black
+      140                       id 11.2500000 2.214     NA    NA         text black
+      141                       id  6.0000000 3.214     NA    NA         text black
+      142                       id  8.0100000 4.214     NA    NA         text black
+      143                       id 12.2500000 2.214     NA    NA         text black
+      144                       id  7.0000000 3.214     NA    NA         text black
+      145                       id  9.0100000 4.214     NA    NA         text black
+      146                       id 14.0100000 2.214     NA    NA         text black
+      147                       id  8.0000000 3.214     NA    NA         text black
+      148                       id 10.0100000 4.214     NA    NA         text black
+      149                       id 15.0100000 2.214     NA    NA         text black
+      150                       id  9.0000000 3.214     NA    NA         text black
+      151                       id 11.0100000 4.214     NA    NA         text black
+      152                       id 10.0000000 3.214     NA    NA         text black
+      153                       id 12.0100000 4.214     NA    NA         text black
+      154                       id 11.0000000 3.214     NA    NA         text black
+      155                       id 13.0100000 4.214     NA    NA         text black
+      156                       id 12.0000000 3.214     NA    NA         text black
+      157                       id 14.0100000 4.214     NA    NA         text black
+      158                       id 13.0000000 3.214     NA    NA         text black
+      159                       id 15.0100000 4.214     NA    NA         text black
+      160                       id 14.0000000 3.214     NA    NA         text black
+      161                       id 15.0000000 3.214     NA    NA         text black
+      162             line_spouses  4.1100000 1.065  4.490 1.065     segments black
+      163             line_spouses  0.3100000 2.065  0.690 2.065     segments black
+      164             line_spouses  0.3100000 3.065  0.690 3.065     segments black
+      165             line_spouses  3.1100000 2.065  3.490 2.065     segments black
+      166             line_spouses  5.1100000 2.065  5.490 2.065     segments black
+      167             line_spouses 11.5600000 2.065 11.940 2.065     segments black
+      168             line_spouses 14.3200000 2.065 14.700 2.065     segments black
+      169             line_spouses  8.3100000 3.065  8.690 3.065     segments black
+      170             line_spouses 10.3100000 3.065 10.690 3.065     segments black
+      171             line_spouses 12.3100000 3.065 12.690 3.065     segments black
+      172             line_spouses 14.3100000 3.065 14.690 3.065     segments black
+      173   line_children_vertical  2.8000000 2.000  2.800 1.800     segments black
+      174   line_children_vertical  5.8000000 2.000  5.800 1.800     segments black
+      175 line_children_horizontal  2.8000000 1.800  5.800 1.800     segments black
+      176          line_parent_mid  4.3000000 1.800  4.300 1.579     segments black
+      177          line_parent_mid  4.3000000 1.579  4.300 1.285     segments black
+      178          line_parent_mid  4.3000000 1.285  4.300 1.065     segments black
+      179   line_children_vertical  0.0000000 3.000  0.000 2.800     segments black
+      180 line_children_horizontal  0.0000000 2.800  0.000 2.800     segments black
+      181          line_parent_mid  0.0000000 2.800  0.000 2.579     segments black
+      182          line_parent_mid  0.0000000 2.579  0.500 2.285     segments black
+      183          line_parent_mid  0.5000000 2.285  0.500 2.065     segments black
+      184   line_children_vertical  1.0000000 3.000  1.000 2.800     segments black
+      185   line_children_vertical  2.0000000 3.000  2.000 2.800     segments black
+      186   line_children_vertical  3.0000000 3.000  3.000 2.800     segments black
+      187   line_children_vertical  4.0000000 3.000  4.000 2.800     segments black
+      188 line_children_horizontal  1.0000000 2.800  4.000 2.800     segments black
+      189          line_parent_mid  3.3000000 2.800  3.300 2.579     segments black
+      190          line_parent_mid  3.3000000 2.579  3.300 2.285     segments black
+      191          line_parent_mid  3.3000000 2.285  3.300 2.065     segments black
+      192   line_children_vertical  5.0000000 3.000  5.000 2.800     segments black
+      193   line_children_vertical  6.0000000 3.000  6.000 2.800     segments black
+      194   line_children_vertical  7.0000000 3.000  7.000 2.800     segments black
+      195 line_children_horizontal  5.0000000 2.800  7.000 2.800     segments black
+      196          line_parent_mid  5.5000000 2.800  5.500 2.579     segments black
+      197          line_parent_mid  5.5000000 2.579  5.300 2.285     segments black
+      198          line_parent_mid  5.3000000 2.285  5.300 2.065     segments black
+      199   line_children_vertical  9.0000000 3.000  9.000 2.800     segments black
+      200   line_children_vertical 11.0000000 3.000 11.000 2.800     segments black
+      201   line_children_vertical 13.0000000 3.000 13.000 2.800     segments black
+      202   line_children_vertical 14.0000000 3.000 14.000 2.800     segments black
+      203 line_children_horizontal  9.0000000 2.800 14.000 2.800     segments black
+      204          line_parent_mid 11.7500000 2.800 11.750 2.579     segments black
+      205          line_parent_mid 11.7500000 2.579 11.750 2.285     segments black
+      206          line_parent_mid 11.7500000 2.285 11.750 2.065     segments black
+      207   line_children_vertical 15.0000000 3.000 15.000 2.800     segments black
+      208 line_children_horizontal 15.0000000 2.800 15.000 2.800     segments black
+      209          line_parent_mid 15.0000000 2.800 15.000 2.579     segments black
+      210          line_parent_mid 15.0000000 2.579 14.510 2.285     segments black
+      211          line_parent_mid 14.5100000 2.285 14.510 2.065     segments black
+      212   line_children_vertical  0.0000000 4.000  0.000 3.800     segments black
+      213   line_children_vertical  1.0000000 4.000  1.000 3.800     segments black
+      214   line_children_vertical  2.0000000 4.000  2.000 3.800     segments black
+      215   line_children_vertical  3.0000000 4.000  3.000 3.800     segments black
+      216 line_children_horizontal  0.0000000 3.800  3.000 3.800     segments black
+      217          line_parent_mid  0.5000000 3.800  0.500 3.579     segments black
+      218          line_parent_mid  0.5000000 3.579  0.500 3.285     segments black
+      219          line_parent_mid  0.5000000 3.285  0.500 3.065     segments black
+      220   line_children_vertical  6.0100000 4.000  6.010 3.800     segments black
+      221   line_children_vertical  7.0100000 4.000  7.010 3.800     segments black
+      222 line_children_horizontal  6.0100000 3.800  7.010 3.800     segments black
+      223          line_parent_mid  6.5100000 3.800  6.510 3.579     segments black
+      224          line_parent_mid  6.5100000 3.579  8.500 3.285     segments black
+      225          line_parent_mid  8.5000000 3.285  8.500 3.065     segments black
+      226   line_children_vertical  8.0100000 4.000  8.010 3.800     segments black
+      227   line_children_vertical  9.0100000 4.000  9.010 3.800     segments black
+      228 line_children_horizontal  8.0100000 3.800  9.010 3.800     segments black
+      229          line_parent_mid  8.5100000 3.800  8.510 3.579     segments black
+      230          line_parent_mid  8.5100000 3.579 10.500 3.285     segments black
+      231          line_parent_mid 10.5000000 3.285 10.500 3.065     segments black
+      232   line_children_vertical 10.0100000 4.000 10.010 3.800     segments black
+      233 line_children_horizontal 10.0100000 3.800 10.010 3.800     segments black
+      234          line_parent_mid 10.0100000 3.800 10.010 3.579     segments black
+      235          line_parent_mid 10.0100000 3.579 12.500 3.285     segments black
+      236          line_parent_mid 12.5000000 3.285 12.500 3.065     segments black
+      237   line_children_vertical 11.0100000 4.000 11.010 3.800     segments black
+      238   line_children_vertical 12.0100000 4.000 12.010 3.800     segments black
+      239   line_children_vertical 13.0100000 4.000 13.010 3.800     segments black
+      240   line_children_vertical 14.0100000 4.000 14.010 3.800     segments black
+      241   line_children_vertical 15.0100000 4.000 15.010 3.800     segments black
+      242 line_children_horizontal 11.0100000 3.800 15.010 3.800     segments black
+      243          line_parent_mid 14.5000000 3.800 14.500 3.579     segments black
+      244          line_parent_mid 14.5000000 3.579 14.500 3.285     segments black
+      245          line_parent_mid 14.5000000 3.285 14.500 3.065     segments black
+      246                      arc  3.0000000 3.000 10.000 3.000          arc black
+      247                      arc  4.0000000 3.000  8.000 3.000          arc black
+          border angle density cex label
+      1    black    NA      NA 1.0  <NA>
+      2    black    NA      NA 1.0  <NA>
+      3    green    NA      NA 1.0  <NA>
+      4    black    NA      NA 1.0  <NA>
+      5    black    NA      NA 1.0  <NA>
+      6    black    NA      NA 1.0  <NA>
+      7    green    NA      NA 1.0  <NA>
+      8    black    NA      NA 1.0  <NA>
+      9    black    NA      NA 1.0  <NA>
+      10   black    NA      NA 1.0  <NA>
+      11   black    NA      NA 1.0  <NA>
+      12   black    NA      NA 1.0  <NA>
+      13   black    NA      NA 1.0  <NA>
+      14   green    NA      NA 1.0  <NA>
+      15   black    NA      NA 1.0  <NA>
+      16   black    NA      NA 1.0  <NA>
+      17   green    NA      NA 1.0  <NA>
+      18   black    NA      NA 1.0  <NA>
+      19   black    NA      NA 1.0  <NA>
+      20   green    NA      NA 1.0  <NA>
+      21   black    NA      NA 1.0  <NA>
+      22   green    NA      NA 1.0  <NA>
+      23   green    NA      NA 1.0  <NA>
+      24   black    NA      NA 1.0  <NA>
+      25   green    NA      NA 1.0  <NA>
+      26   green    NA      NA 1.0  <NA>
+      27   black    NA      NA 1.0  <NA>
+      28   black    NA      NA 1.0  <NA>
+      29   green    NA      NA 1.0  <NA>
+      30   black    NA      NA 1.0  <NA>
+      31   black    NA      NA 1.0  <NA>
+      32   green    NA      NA 1.0  <NA>
+      33   black    NA      NA 1.0  <NA>
+      34   black    NA      NA 1.0  <NA>
+      35   green    NA      NA 1.0  <NA>
+      36   black    NA      NA 1.0  <NA>
+      37   black    NA      NA 1.0  <NA>
+      38   green    NA      NA 1.0  <NA>
+      39   green    NA      NA 1.0  <NA>
+      40   black    NA      NA 1.0  <NA>
+      41   green    NA      NA 1.0  <NA>
+      42   black    NA      NA 1.0  <NA>
+      43    <NA>    NA      NA 1.0  <NA>
+      44    <NA>    NA      NA 1.0     0
+      45    <NA>    NA      NA 1.0     0
+      46    <NA>    NA      NA 1.0  <NA>
+      47    <NA>    NA      NA 1.0  <NA>
+      48    <NA>    NA      NA 1.0     1
+      49    <NA>    NA      NA 1.0     1
+      50    <NA>    NA      NA 1.0     0
+      51    <NA>    NA      NA 1.0     1
+      52    <NA>    NA      NA 1.0     1
+      53    <NA>    NA      NA 1.0     0
+      54    <NA>    NA      NA 1.0     0
+      55    <NA>    NA      NA 1.0     1
+      56    <NA>    NA      NA 1.0     1
+      57    <NA>    NA      NA 1.0  <NA>
+      58    <NA>    NA      NA 1.0     1
+      59    <NA>    NA      NA 1.0     1
+      60    <NA>    NA      NA 1.0  <NA>
+      61    <NA>    NA      NA 1.0     1
+      62    <NA>    NA      NA 1.0     1
+      63    <NA>    NA      NA 1.0  <NA>
+      64    <NA>    NA      NA 1.0     0
+      65    <NA>    NA      NA 1.0     0
+      66    <NA>    NA      NA 1.0  <NA>
+      67    <NA>    NA      NA 1.0     0
+      68    <NA>    NA      NA 1.0  <NA>
+      69    <NA>    NA      NA 1.0     1
+      70    <NA>    NA      NA 1.0     1
+      71    <NA>    NA      NA 1.0     0
+      72    <NA>    NA      NA 1.0     0
+      73    <NA>    NA      NA 1.0     0
+      74    <NA>    NA      NA 1.0     0
+      75    <NA>    NA      NA 1.0     1
+      76    <NA>    NA      NA 1.0     1
+      77    <NA>    NA      NA 1.0     1
+      78    <NA>    NA      NA 1.0     0
+      79    <NA>    NA      NA 1.0     1
+      80    <NA>    NA      NA 1.0     0
+      81    <NA>    NA      NA 1.0     1
+      82    <NA>    NA      NA 1.0     1
+      83    <NA>    NA      NA 1.0     1
+      84    <NA>    NA      NA 1.0     0
+      85    <NA>    NA      NA 1.0  <NA>
+      86    <NA>    NA      NA 1.0  <NA>
+      87    <NA>    NA      NA 1.0  <NA>
+      88    <NA>    NA      NA 1.0  <NA>
+      89    <NA>    NA      NA 1.0  <NA>
+      90    <NA>    NA      NA 1.0  <NA>
+      91    <NA>    NA      NA 1.0  <NA>
+      92    <NA>    NA      NA 0.8   ECT
+      93    <NA>    NA      NA 1.5     *
+      94    <NA>    NA      NA 1.5     *
+      95    <NA>    NA      NA 1.5     *
+      96    <NA>    NA      NA 1.0  <NA>
+      97    <NA>    NA      NA 1.0  <NA>
+      98    <NA>    NA      NA 1.0  <NA>
+      99    <NA>    NA      NA 1.0  <NA>
+      100   <NA>    NA      NA 1.0  <NA>
+      101   <NA>    NA      NA 1.0     P
+      102   <NA>    NA      NA 1.0     P
+      103   <NA>    NA      NA 1.0     P
+      104   <NA>    NA      NA 2.0  <NA>
+      105   <NA>    NA      NA 2.0  <NA>
+      106   <NA>    NA      NA 2.5  <NA>
+      107   <NA>    NA      NA 2.5  <NA>
+      108   <NA>    NA      NA 1.0  <NA>
+      109   <NA>    NA      NA 1.0  <NA>
+      110   <NA>    NA      NA 1.0  <NA>
+      111   <NA>    NA      NA 1.0  <NA>
+      112   <NA>    NA      NA 1.0  <NA>
+      113   <NA>    NA      NA 1.0  <NA>
+      114   <NA>    NA      NA 1.0  <NA>
+      115   <NA>    NA      NA 1.0  <NA>
+      116   <NA>    NA      NA 1.0  <NA>
+      117   <NA>    NA      NA 1.0  <NA>
+      118   <NA>    NA      NA 1.0  <NA>
+      119   <NA>    NA      NA 1.0  <NA>
+      120   <NA>    NA      NA 1.0 1_135
+      121   <NA>    NA      NA 1.0 1_101
+      122   <NA>    NA      NA 1.0 1_109
+      123   <NA>    NA      NA 1.0 1_121
+      124   <NA>    NA      NA 1.0 1_136
+      125   <NA>    NA      NA 1.0 1_102
+      126   <NA>    NA      NA 1.0 1_110
+      127   <NA>    NA      NA 1.0 1_122
+      128   <NA>    NA      NA 1.0 1_103
+      129   <NA>    NA      NA 1.0 1_111
+      130   <NA>    NA      NA 1.0 1_123
+      131   <NA>    NA      NA 1.0 1_104
+      132   <NA>    NA      NA 1.0 1_112
+      133   <NA>    NA      NA 1.0 1_124
+      134   <NA>    NA      NA 1.0 1_137
+      135   <NA>    NA      NA 1.0 1_114
+      136   <NA>    NA      NA 1.0 1_127
+      137   <NA>    NA      NA 1.0 1_138
+      138   <NA>    NA      NA 1.0 1_139
+      139   <NA>    NA      NA 1.0 1_128
+      140   <NA>    NA      NA 1.0 1_105
+      141   <NA>    NA      NA 1.0 1_140
+      142   <NA>    NA      NA 1.0 1_125
+      143   <NA>    NA      NA 1.0 1_106
+      144   <NA>    NA      NA 1.0 1_141
+      145   <NA>    NA      NA 1.0 1_126
+      146   <NA>    NA      NA 1.0 1_107
+      147   <NA>    NA      NA 1.0 1_114
+      148   <NA>    NA      NA 1.0 1_129
+      149   <NA>    NA      NA 1.0 1_108
+      150   <NA>    NA      NA 1.0 1_115
+      151   <NA>    NA      NA 1.0 1_130
+      152   <NA>    NA      NA 1.0 1_112
+      153   <NA>    NA      NA 1.0 1_131
+      154   <NA>    NA      NA 1.0 1_118
+      155   <NA>    NA      NA 1.0 1_132
+      156   <NA>    NA      NA 1.0 1_117
+      157   <NA>    NA      NA 1.0 1_133
+      158   <NA>    NA      NA 1.0 1_116
+      159   <NA>    NA      NA 1.0 1_134
+      160   <NA>    NA      NA 1.0 1_119
+      161   <NA>    NA      NA 1.0 1_120
+      162   <NA>    NA      NA 1.0  <NA>
+      163   <NA>    NA      NA 1.0  <NA>
+      164   <NA>    NA      NA 1.0  <NA>
+      165   <NA>    NA      NA 1.0  <NA>
+      166   <NA>    NA      NA 1.0  <NA>
+      167   <NA>    NA      NA 1.0  <NA>
+      168   <NA>    NA      NA 1.0  <NA>
+      169   <NA>    NA      NA 1.0  <NA>
+      170   <NA>    NA      NA 1.0  <NA>
+      171   <NA>    NA      NA 1.0  <NA>
+      172   <NA>    NA      NA 1.0  <NA>
+      173   <NA>    NA      NA 1.0  <NA>
+      174   <NA>    NA      NA 1.0  <NA>
+      175   <NA>    NA      NA 1.0  <NA>
+      176   <NA>    NA      NA 1.0  <NA>
+      177   <NA>    NA      NA 1.0  <NA>
+      178   <NA>    NA      NA 1.0  <NA>
+      179   <NA>    NA      NA 1.0  <NA>
+      180   <NA>    NA      NA 1.0  <NA>
+      181   <NA>    NA      NA 1.0  <NA>
+      182   <NA>    NA      NA 1.0  <NA>
+      183   <NA>    NA      NA 1.0  <NA>
+      184   <NA>    NA      NA 1.0  <NA>
+      185   <NA>    NA      NA 1.0  <NA>
+      186   <NA>    NA      NA 1.0  <NA>
+      187   <NA>    NA      NA 1.0  <NA>
+      188   <NA>    NA      NA 1.0  <NA>
+      189   <NA>    NA      NA 1.0  <NA>
+      190   <NA>    NA      NA 1.0  <NA>
+      191   <NA>    NA      NA 1.0  <NA>
+      192   <NA>    NA      NA 1.0  <NA>
+      193   <NA>    NA      NA 1.0  <NA>
+      194   <NA>    NA      NA 1.0  <NA>
+      195   <NA>    NA      NA 1.0  <NA>
+      196   <NA>    NA      NA 1.0  <NA>
+      197   <NA>    NA      NA 1.0  <NA>
+      198   <NA>    NA      NA 1.0  <NA>
+      199   <NA>    NA      NA 1.0  <NA>
+      200   <NA>    NA      NA 1.0  <NA>
+      201   <NA>    NA      NA 1.0  <NA>
+      202   <NA>    NA      NA 1.0  <NA>
+      203   <NA>    NA      NA 1.0  <NA>
+      204   <NA>    NA      NA 1.0  <NA>
+      205   <NA>    NA      NA 1.0  <NA>
+      206   <NA>    NA      NA 1.0  <NA>
+      207   <NA>    NA      NA 1.0  <NA>
+      208   <NA>    NA      NA 1.0  <NA>
+      209   <NA>    NA      NA 1.0  <NA>
+      210   <NA>    NA      NA 1.0  <NA>
+      211   <NA>    NA      NA 1.0  <NA>
+      212   <NA>    NA      NA 1.0  <NA>
+      213   <NA>    NA      NA 1.0  <NA>
+      214   <NA>    NA      NA 1.0  <NA>
+      215   <NA>    NA      NA 1.0  <NA>
+      216   <NA>    NA      NA 1.0  <NA>
+      217   <NA>    NA      NA 1.0  <NA>
+      218   <NA>    NA      NA 1.0  <NA>
+      219   <NA>    NA      NA 1.0  <NA>
+      220   <NA>    NA      NA 1.0  <NA>
+      221   <NA>    NA      NA 1.0  <NA>
+      222   <NA>    NA      NA 1.0  <NA>
+      223   <NA>    NA      NA 1.0  <NA>
+      224   <NA>    NA      NA 1.0  <NA>
+      225   <NA>    NA      NA 1.0  <NA>
+      226   <NA>    NA      NA 1.0  <NA>
+      227   <NA>    NA      NA 1.0  <NA>
+      228   <NA>    NA      NA 1.0  <NA>
+      229   <NA>    NA      NA 1.0  <NA>
+      230   <NA>    NA      NA 1.0  <NA>
+      231   <NA>    NA      NA 1.0  <NA>
+      232   <NA>    NA      NA 1.0  <NA>
+      233   <NA>    NA      NA 1.0  <NA>
+      234   <NA>    NA      NA 1.0  <NA>
+      235   <NA>    NA      NA 1.0  <NA>
+      236   <NA>    NA      NA 1.0  <NA>
+      237   <NA>    NA      NA 1.0  <NA>
+      238   <NA>    NA      NA 1.0  <NA>
+      239   <NA>    NA      NA 1.0  <NA>
+      240   <NA>    NA      NA 1.0  <NA>
+      241   <NA>    NA      NA 1.0  <NA>
+      242   <NA>    NA      NA 1.0  <NA>
+      243   <NA>    NA      NA 1.0  <NA>
+      244   <NA>    NA      NA 1.0  <NA>
+      245   <NA>    NA      NA 1.0  <NA>
+      246   <NA>    NA      NA 1.0  <NA>
+      247   <NA>    NA      NA 1.0  <NA>
+                                                          tips adjx adjy lty
+      1   <span style='font-size:14px'><b>1_135</b></span><br>   NA   NA  NA
+      2   <span style='font-size:14px'><b>1_101</b></span><br>   NA   NA  NA
+      3   <span style='font-size:14px'><b>1_109</b></span><br>   NA   NA  NA
+      4   <span style='font-size:14px'><b>1_121</b></span><br>   NA   NA  NA
+      5   <span style='font-size:14px'><b>1_136</b></span><br>   NA   NA  NA
+      6   <span style='font-size:14px'><b>1_102</b></span><br>   NA   NA  NA
+      7   <span style='font-size:14px'><b>1_110</b></span><br>   NA   NA  NA
+      8   <span style='font-size:14px'><b>1_122</b></span><br>   NA   NA  NA
+      9   <span style='font-size:14px'><b>1_103</b></span><br>   NA   NA  NA
+      10  <span style='font-size:14px'><b>1_111</b></span><br>   NA   NA  NA
+      11  <span style='font-size:14px'><b>1_123</b></span><br>   NA   NA  NA
+      12  <span style='font-size:14px'><b>1_104</b></span><br>   NA   NA  NA
+      13  <span style='font-size:14px'><b>1_112</b></span><br>   NA   NA  NA
+      14  <span style='font-size:14px'><b>1_124</b></span><br>   NA   NA  NA
+      15  <span style='font-size:14px'><b>1_137</b></span><br>   NA   NA  NA
+      16  <span style='font-size:14px'><b>1_114</b></span><br>   NA   NA  NA
+      17  <span style='font-size:14px'><b>1_127</b></span><br>   NA   NA  NA
+      18  <span style='font-size:14px'><b>1_138</b></span><br>   NA   NA  NA
+      19  <span style='font-size:14px'><b>1_139</b></span><br>   NA   NA  NA
+      20  <span style='font-size:14px'><b>1_128</b></span><br>   NA   NA  NA
+      21  <span style='font-size:14px'><b>1_105</b></span><br>   NA   NA  NA
+      22  <span style='font-size:14px'><b>1_140</b></span><br>   NA   NA  NA
+      23  <span style='font-size:14px'><b>1_125</b></span><br>   NA   NA  NA
+      24  <span style='font-size:14px'><b>1_106</b></span><br>   NA   NA  NA
+      25  <span style='font-size:14px'><b>1_141</b></span><br>   NA   NA  NA
+      26  <span style='font-size:14px'><b>1_126</b></span><br>   NA   NA  NA
+      27  <span style='font-size:14px'><b>1_107</b></span><br>   NA   NA  NA
+      28  <span style='font-size:14px'><b>1_114</b></span><br>   NA   NA  NA
+      29  <span style='font-size:14px'><b>1_129</b></span><br>   NA   NA  NA
+      30  <span style='font-size:14px'><b>1_108</b></span><br>   NA   NA  NA
+      31  <span style='font-size:14px'><b>1_115</b></span><br>   NA   NA  NA
+      32  <span style='font-size:14px'><b>1_130</b></span><br>   NA   NA  NA
+      33  <span style='font-size:14px'><b>1_112</b></span><br>   NA   NA  NA
+      34  <span style='font-size:14px'><b>1_131</b></span><br>   NA   NA  NA
+      35  <span style='font-size:14px'><b>1_118</b></span><br>   NA   NA  NA
+      36  <span style='font-size:14px'><b>1_132</b></span><br>   NA   NA  NA
+      37  <span style='font-size:14px'><b>1_117</b></span><br>   NA   NA  NA
+      38  <span style='font-size:14px'><b>1_133</b></span><br>   NA   NA  NA
+      39  <span style='font-size:14px'><b>1_116</b></span><br>   NA   NA  NA
+      40  <span style='font-size:14px'><b>1_134</b></span><br>   NA   NA  NA
+      41  <span style='font-size:14px'><b>1_119</b></span><br>   NA   NA  NA
+      42  <span style='font-size:14px'><b>1_120</b></span><br>   NA   NA  NA
+      43  <span style='font-size:14px'><b>1_135</b></span><br>  0.5  0.5  NA
+      44  <span style='font-size:14px'><b>1_101</b></span><br>  0.5  0.5  NA
+      45  <span style='font-size:14px'><b>1_109</b></span><br>  0.5  0.5  NA
+      46  <span style='font-size:14px'><b>1_121</b></span><br>  0.5  0.5  NA
+      47  <span style='font-size:14px'><b>1_136</b></span><br>  0.5  0.5  NA
+      48  <span style='font-size:14px'><b>1_102</b></span><br>  0.5  0.5  NA
+      49  <span style='font-size:14px'><b>1_110</b></span><br>  0.5  0.5  NA
+      50  <span style='font-size:14px'><b>1_122</b></span><br>  0.5  0.5  NA
+      51  <span style='font-size:14px'><b>1_103</b></span><br>  0.5  0.5  NA
+      52  <span style='font-size:14px'><b>1_111</b></span><br>  0.5  0.5  NA
+      53  <span style='font-size:14px'><b>1_123</b></span><br>  0.5  0.5  NA
+      54  <span style='font-size:14px'><b>1_104</b></span><br>  0.5  0.5  NA
+      55  <span style='font-size:14px'><b>1_112</b></span><br>  0.5  0.5  NA
+      56  <span style='font-size:14px'><b>1_124</b></span><br>  0.5  0.5  NA
+      57  <span style='font-size:14px'><b>1_137</b></span><br>  0.5  0.5  NA
+      58  <span style='font-size:14px'><b>1_114</b></span><br>  0.5  0.5  NA
+      59  <span style='font-size:14px'><b>1_127</b></span><br>  0.5  0.5  NA
+      60  <span style='font-size:14px'><b>1_138</b></span><br>  0.5  0.5  NA
+      61  <span style='font-size:14px'><b>1_139</b></span><br>  0.5  0.5  NA
+      62  <span style='font-size:14px'><b>1_128</b></span><br>  0.5  0.5  NA
+      63  <span style='font-size:14px'><b>1_105</b></span><br>  0.5  0.5  NA
+      64  <span style='font-size:14px'><b>1_140</b></span><br>  0.5  0.5  NA
+      65  <span style='font-size:14px'><b>1_125</b></span><br>  0.5  0.5  NA
+      66  <span style='font-size:14px'><b>1_106</b></span><br>  0.5  0.5  NA
+      67  <span style='font-size:14px'><b>1_141</b></span><br>  0.5  0.5  NA
+      68  <span style='font-size:14px'><b>1_126</b></span><br>  0.5  0.5  NA
+      69  <span style='font-size:14px'><b>1_107</b></span><br>  0.5  0.5  NA
+      70  <span style='font-size:14px'><b>1_114</b></span><br>  0.5  0.5  NA
+      71  <span style='font-size:14px'><b>1_129</b></span><br>  0.5  0.5  NA
+      72  <span style='font-size:14px'><b>1_108</b></span><br>  0.5  0.5  NA
+      73  <span style='font-size:14px'><b>1_115</b></span><br>  0.5  0.5  NA
+      74  <span style='font-size:14px'><b>1_130</b></span><br>  0.5  0.5  NA
+      75  <span style='font-size:14px'><b>1_112</b></span><br>  0.5  0.5  NA
+      76  <span style='font-size:14px'><b>1_131</b></span><br>  0.5  0.5  NA
+      77  <span style='font-size:14px'><b>1_118</b></span><br>  0.5  0.5  NA
+      78  <span style='font-size:14px'><b>1_132</b></span><br>  0.5  0.5  NA
+      79  <span style='font-size:14px'><b>1_117</b></span><br>  0.5  0.5  NA
+      80  <span style='font-size:14px'><b>1_133</b></span><br>  0.5  0.5  NA
+      81  <span style='font-size:14px'><b>1_116</b></span><br>  0.5  0.5  NA
+      82  <span style='font-size:14px'><b>1_134</b></span><br>  0.5  0.5  NA
+      83  <span style='font-size:14px'><b>1_119</b></span><br>  0.5  0.5  NA
+      84  <span style='font-size:14px'><b>1_120</b></span><br>  0.5  0.5  NA
+      85                                                  <NA>   NA   NA  NA
+      86                                                  <NA>   NA   NA  NA
+      87                                                  <NA>   NA   NA  NA
+      88                                                  <NA>   NA   NA  NA
+      89                                                  <NA>   NA   NA  NA
+      90                                                  <NA>   NA   NA  NA
+      91                                                  <NA>   NA   NA  NA
+      92                                                  <NA>  0.5  1.0  NA
+      93                                                  <NA>  0.5  0.5  NA
+      94                                                  <NA>  0.5  0.5  NA
+      95                                                  <NA>  0.5  0.5  NA
+      96                                                  <NA>   NA   NA  NA
+      97                                                  <NA>   NA   NA  NA
+      98                                                  <NA>   NA   NA  NA
+      99                                                  <NA>   NA   NA  NA
+      100                                                 <NA>   NA   NA  NA
+      101                                                 <NA>  0.5  0.5  NA
+      102                                                 <NA>  0.5  0.5  NA
+      103                                                 <NA>  0.5  0.5  NA
+      104                                                 <NA>   NA   NA  19
+      105                                                 <NA>   NA   NA  19
+      106                                                 <NA>   NA   NA  NA
+      107                                                 <NA>   NA   NA  NA
+      108                                                 <NA>   NA   NA  NA
+      109                                                 <NA>   NA   NA  NA
+      110                                                 <NA>   NA   NA  NA
+      111                                                 <NA>   NA   NA  NA
+      112                                                 <NA>   NA   NA  NA
+      113                                                 <NA>   NA   NA  NA
+      114                                                 <NA>   NA   NA  NA
+      115                                                 <NA>   NA   NA  NA
+      116                                                 <NA>   NA   NA  NA
+      117                                                 <NA>   NA   NA  NA
+      118                                                 <NA>   NA   NA  NA
+      119                                                 <NA>   NA   NA  NA
+      120 <span style='font-size:14px'><b>1_135</b></span><br>  0.5  1.0  NA
+      121 <span style='font-size:14px'><b>1_101</b></span><br>  0.5  1.0  NA
+      122 <span style='font-size:14px'><b>1_109</b></span><br>  0.5  1.0  NA
+      123 <span style='font-size:14px'><b>1_121</b></span><br>  0.5  1.0  NA
+      124 <span style='font-size:14px'><b>1_136</b></span><br>  0.5  1.0  NA
+      125 <span style='font-size:14px'><b>1_102</b></span><br>  0.5  1.0  NA
+      126 <span style='font-size:14px'><b>1_110</b></span><br>  0.5  1.0  NA
+      127 <span style='font-size:14px'><b>1_122</b></span><br>  0.5  1.0  NA
+      128 <span style='font-size:14px'><b>1_103</b></span><br>  0.5  1.0  NA
+      129 <span style='font-size:14px'><b>1_111</b></span><br>  0.5  1.0  NA
+      130 <span style='font-size:14px'><b>1_123</b></span><br>  0.5  1.0  NA
+      131 <span style='font-size:14px'><b>1_104</b></span><br>  0.5  1.0  NA
+      132 <span style='font-size:14px'><b>1_112</b></span><br>  0.5  1.0  NA
+      133 <span style='font-size:14px'><b>1_124</b></span><br>  0.5  1.0  NA
+      134 <span style='font-size:14px'><b>1_137</b></span><br>  0.5  1.0  NA
+      135 <span style='font-size:14px'><b>1_114</b></span><br>  0.5  1.0  NA
+      136 <span style='font-size:14px'><b>1_127</b></span><br>  0.5  1.0  NA
+      137 <span style='font-size:14px'><b>1_138</b></span><br>  0.5  1.0  NA
+      138 <span style='font-size:14px'><b>1_139</b></span><br>  0.5  1.0  NA
+      139 <span style='font-size:14px'><b>1_128</b></span><br>  0.5  1.0  NA
+      140 <span style='font-size:14px'><b>1_105</b></span><br>  0.5  1.0  NA
+      141 <span style='font-size:14px'><b>1_140</b></span><br>  0.5  1.0  NA
+      142 <span style='font-size:14px'><b>1_125</b></span><br>  0.5  1.0  NA
+      143 <span style='font-size:14px'><b>1_106</b></span><br>  0.5  1.0  NA
+      144 <span style='font-size:14px'><b>1_141</b></span><br>  0.5  1.0  NA
+      145 <span style='font-size:14px'><b>1_126</b></span><br>  0.5  1.0  NA
+      146 <span style='font-size:14px'><b>1_107</b></span><br>  0.5  1.0  NA
+      147 <span style='font-size:14px'><b>1_114</b></span><br>  0.5  1.0  NA
+      148 <span style='font-size:14px'><b>1_129</b></span><br>  0.5  1.0  NA
+      149 <span style='font-size:14px'><b>1_108</b></span><br>  0.5  1.0  NA
+      150 <span style='font-size:14px'><b>1_115</b></span><br>  0.5  1.0  NA
+      151 <span style='font-size:14px'><b>1_130</b></span><br>  0.5  1.0  NA
+      152 <span style='font-size:14px'><b>1_112</b></span><br>  0.5  1.0  NA
+      153 <span style='font-size:14px'><b>1_131</b></span><br>  0.5  1.0  NA
+      154 <span style='font-size:14px'><b>1_118</b></span><br>  0.5  1.0  NA
+      155 <span style='font-size:14px'><b>1_132</b></span><br>  0.5  1.0  NA
+      156 <span style='font-size:14px'><b>1_117</b></span><br>  0.5  1.0  NA
+      157 <span style='font-size:14px'><b>1_133</b></span><br>  0.5  1.0  NA
+      158 <span style='font-size:14px'><b>1_116</b></span><br>  0.5  1.0  NA
+      159 <span style='font-size:14px'><b>1_134</b></span><br>  0.5  1.0  NA
+      160 <span style='font-size:14px'><b>1_119</b></span><br>  0.5  1.0  NA
+      161 <span style='font-size:14px'><b>1_120</b></span><br>  0.5  1.0  NA
+      162                                                 <NA>   NA   NA  NA
+      163                                                 <NA>   NA   NA  NA
+      164                                                 <NA>   NA   NA  NA
+      165                                                 <NA>   NA   NA  NA
+      166                                                 <NA>   NA   NA  NA
+      167                                                 <NA>   NA   NA  NA
+      168                                                 <NA>   NA   NA  NA
+      169                                                 <NA>   NA   NA  NA
+      170                                                 <NA>   NA   NA  NA
+      171                                                 <NA>   NA   NA  NA
+      172                                                 <NA>   NA   NA  NA
+      173                                                 <NA>   NA   NA  NA
+      174                                                 <NA>   NA   NA  NA
+      175                                                 <NA>   NA   NA  NA
+      176                                                 <NA>   NA   NA  NA
+      177                                                 <NA>   NA   NA  NA
+      178                                                 <NA>   NA   NA  NA
+      179                                                 <NA>   NA   NA  NA
+      180                                                 <NA>   NA   NA  NA
+      181                                                 <NA>   NA   NA  NA
+      182                                                 <NA>   NA   NA  NA
+      183                                                 <NA>   NA   NA  NA
+      184                                                 <NA>   NA   NA  NA
+      185                                                 <NA>   NA   NA  NA
+      186                                                 <NA>   NA   NA  NA
+      187                                                 <NA>   NA   NA  NA
+      188                                                 <NA>   NA   NA  NA
+      189                                                 <NA>   NA   NA  NA
+      190                                                 <NA>   NA   NA  NA
+      191                                                 <NA>   NA   NA  NA
+      192                                                 <NA>   NA   NA  NA
+      193                                                 <NA>   NA   NA  NA
+      194                                                 <NA>   NA   NA  NA
+      195                                                 <NA>   NA   NA  NA
+      196                                                 <NA>   NA   NA  NA
+      197                                                 <NA>   NA   NA  NA
+      198                                                 <NA>   NA   NA  NA
+      199                                                 <NA>   NA   NA  NA
+      200                                                 <NA>   NA   NA  NA
+      201                                                 <NA>   NA   NA  NA
+      202                                                 <NA>   NA   NA  NA
+      203                                                 <NA>   NA   NA  NA
+      204                                                 <NA>   NA   NA  NA
+      205                                                 <NA>   NA   NA  NA
+      206                                                 <NA>   NA   NA  NA
+      207                                                 <NA>   NA   NA  NA
+      208                                                 <NA>   NA   NA  NA
+      209                                                 <NA>   NA   NA  NA
+      210                                                 <NA>   NA   NA  NA
+      211                                                 <NA>   NA   NA  NA
+      212                                                 <NA>   NA   NA  NA
+      213                                                 <NA>   NA   NA  NA
+      214                                                 <NA>   NA   NA  NA
+      215                                                 <NA>   NA   NA  NA
+      216                                                 <NA>   NA   NA  NA
+      217                                                 <NA>   NA   NA  NA
+      218                                                 <NA>   NA   NA  NA
+      219                                                 <NA>   NA   NA  NA
+      220                                                 <NA>   NA   NA  NA
+      221                                                 <NA>   NA   NA  NA
+      222                                                 <NA>   NA   NA  NA
+      223                                                 <NA>   NA   NA  NA
+      224                                                 <NA>   NA   NA  NA
+      225                                                 <NA>   NA   NA  NA
+      226                                                 <NA>   NA   NA  NA
+      227                                                 <NA>   NA   NA  NA
+      228                                                 <NA>   NA   NA  NA
+      229                                                 <NA>   NA   NA  NA
+      230                                                 <NA>   NA   NA  NA
+      231                                                 <NA>   NA   NA  NA
+      232                                                 <NA>   NA   NA  NA
+      233                                                 <NA>   NA   NA  NA
+      234                                                 <NA>   NA   NA  NA
+      235                                                 <NA>   NA   NA  NA
+      236                                                 <NA>   NA   NA  NA
+      237                                                 <NA>   NA   NA  NA
+      238                                                 <NA>   NA   NA  NA
+      239                                                 <NA>   NA   NA  NA
+      240                                                 <NA>   NA   NA  NA
+      241                                                 <NA>   NA   NA  NA
+      242                                                 <NA>   NA   NA  NA
+      243                                                 <NA>   NA   NA  NA
+      244                                                 <NA>   NA   NA  NA
+      245                                                 <NA>   NA   NA  NA
+      246                                                 <NA>   NA   NA  NA
+      247                                                 <NA>   NA   NA  NA
 
 # set_plot_area works
 
@@ -649,7 +754,7 @@
       set_plot_area(2, c("Test", "Test2"), 3, c(0, 10), 1, 2)
     Output
       $usr
-      [1] -0.4000000 10.4000000  3.4285714  1.0000000
+      [1] -0.400 10.400  3.429  1.000
       
       $old_par
       $old_par$xpd

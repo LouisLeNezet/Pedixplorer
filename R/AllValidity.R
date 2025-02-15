@@ -7,6 +7,9 @@
 #' @param ... Additional arguments passed to print0
 #'
 #' @return The character vector aggregated until the maximum is reached.
+#' @examples
+#' x <- seq_len(10)
+#' Pedixplorer:::paste0max(x, 5)
 #' @keywords internal
 paste0max <- function(x, max = 5, sep = "", ...) {
     lgt <- min(length(x), max)
@@ -291,6 +294,9 @@ is_valid_scales <- function(object) {
 #' right values
 #' 3. Check that dad are male and mom are female
 #' 4. Check that individuals have both parents or none
+#' 5. Check that proband are affected
+#' 6. Check that proband and consultand are mutually exclusive
+#' 7. Check that asymptomatic individuals are not affected
 #'
 #' @param object A Ped object.
 #'
@@ -349,6 +355,10 @@ is_valid_ped <- function(object) {
     sex <- object@sex
     fertility <- object@fertility
     miscarriage <- object@miscarriage
+    consultand <- object@consultand
+    proband <- object@proband
+    affected <- object@affected
+    asymptomatic <- object@asymptomatic
     is_dad <- id %in% dadid
     is_mom <- id %in% momid
 
@@ -393,6 +403,26 @@ is_valid_ped <- function(object) {
             id_wrg, "is infertile and has a miscarriage status",
             "only one of the two should be present"
         ))
+    }
+
+    if (any(proband & !affected & !is.na(affected))) {
+        id_wrg <- paste(id[proband & !affected & !is.na(affected)])
+        warning(id_wrg, "individual(s) are/is proband but not affected")
+    }
+
+    if (any(consultand & proband)) {
+        id_wrg <- id[consultand & proband]
+        errors <- c(errors, paste(id_wrg, "is consultand and proband"))
+    }
+
+    if (any(asymptomatic & !is.na(asymptomatic)
+        & affected & !is.na(affected)
+    )) {
+        id_wrg <- paste(id[
+            asymptomatic & !is.na(asymptomatic)
+            & affected & !is.na(affected)
+        ])
+        warning(id_wrg, "individual(s) are/is asymptomatic but affected")
     }
 
     if (length(errors) == 0) {
@@ -525,24 +555,24 @@ is_valid_pedigree <- function(object) {
     }
 
     #### Check that the scales columns have the right values ####
-    ped <- as.data.frame(ped(object))
+    ped_df <- as.data.frame(ped(object))
     errors <- c(errors, check_values(
-        fill(object)$column_values, colnames(ped),
+        fill(object)$column_values, colnames(ped_df),
         "fill column_values"
     ))
     errors <- c(errors, check_values(
-        fill(object)$column_mods, colnames(ped),
+        fill(object)$column_mods, colnames(ped_df),
         "fill column_mods"
     ))
     errors <- c(errors, check_values(
-        border(object)$column, colnames(ped),
+        border(object)$column, colnames(ped_df),
         "border column"
     ))
 
     #### Check that all fill modalities are present in the pedigree data ####
     for (col in unique(fill(object)$column)){
         errors <- c(errors, check_values(
-            ped[[col]],
+            ped_df[[col]],
             fill(object)[fill(object)$column_mods == col, "mods"],
             paste("fill column", col)
         ))
@@ -550,7 +580,7 @@ is_valid_pedigree <- function(object) {
     #### Check that all borders modalities are present in the pedigree data ####
     for (col in unique(border(object)$column)){
         errors <- c(errors, check_values(
-            ped[[col]],
+            ped_df[[col]],
             border(object)[border(object)$column == col, "mods"],
             paste("border column", col)
         ))

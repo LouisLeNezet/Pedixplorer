@@ -46,7 +46,7 @@ corresponding accessor from the Ped object.
 \examples{
 
 data(sampleped)
-fam1 <- sampleped[sampleped$famid == 1, ]
+fam1 <- sampleped[sampleped$famid == 1, -16]
 ped1 <- Pedigree(fam1)
 unrelated(ped1)
 ## some possible vectors

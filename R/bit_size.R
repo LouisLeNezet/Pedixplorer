@@ -28,8 +28,8 @@
 #' @include AllClass.R
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' bit_size(ped)
+#' pedi <- Pedigree(sampleped)
+#' bit_size(pedi)
 #' @export
 #' @keywords shrink
 #' @usage NULL

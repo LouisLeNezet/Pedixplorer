@@ -49,24 +49,115 @@ subregion <- function(df, subreg = NULL) {
 #' @keywords Pedigree-plot
 #' @examples
 #'
-#' circfun(1)
-#' circfun(1, 10)
-#' circfun(4, 50)
-#' @export
-circfun <- function(nslice, n = 50) {
-    nseg <- ceiling(n / nslice)  # segments of arc per slice
+#' Pedixplorer:::circfun(1)
+#' Pedixplorer:::circfun(1, 10)
+#' Pedixplorer:::circfun(4, 50)
+circfun <- function(nslice, n = 50, start = 0) {
+    if (nslice == 1) {
+        return(list(list(
+            x = 0.5 * cos(seq(0, 2 * pi, length = n)),
+            y = 0.5 * sin(seq(0, 2 * pi, length = n))
+        )))
+    }
 
-    theta <- -pi / 2 - seq(0, 2 * pi, length = nslice + 1)
+    # Compute the degree sequence, adding start to shift the slices
+    degree <- (
+        seq(0, 360, length.out = nslice + 1)[seq_len(nslice)] + start
+    ) %% 360
+    theta <- degree * pi / 180  # Convert to radians
+
+    nseg <- ceiling(n / nslice)  # Segments of arc per slice
     out <- vector("list", nslice)
+
+    # Loop through each slice and create its coordinates
     for (i in seq_len(nslice)) {
-        theta2 <- seq(theta[i], theta[i + 1], length = nseg)
-        out[[i]] <- list(x = c(0, cos(theta2) / 2),
-            y = c(0, sin(theta2) / 2) + 0.5
+        # Ensure that the final theta[i + 1] is within valid range
+        theta_end <- if (i == nslice) theta[1] + 2 * pi else theta[i + 1]
+        # Generate angles for this slice, making sure to handle finite values
+        theta2 <- seq(theta[i], theta_end, length = nseg)
+        # Store the coordinates for the slice (with a radius of 0.5)
+        out[[i]] <- list(
+            x = c(0, cos(theta2) / 2),
+            y = c(0, sin(theta2) / 2)
         )
     }
+
     out
 }
 
+#' Find intersections of a ray with a segment
+#'
+#' Given the coordinates of a segment and the angle of a ray
+#' from the origin, this function computes the intersection
+#' point of the ray with the segment.
+#'
+#' @param x0 x-coordinate of the segment's starting point
+#' @param y0 y-coordinate of the segment's starting point
+#' @param x1 x-coordinate of the segment's ending point
+#' @param y1 y-coordinate of the segment's ending point
+#' @param theta Angle of the ray from the origin (in radians)
+#'
+#' @return A vector of the x and y coordinates of the intersection
+#' point, or NA if no intersection occurs.
+#' @keywords internal
+#' @examples
+#' Pedixplorer:::find_ray_intersections(0, 0, 1, 1, pi / 4)
+find_ray_intersections <- function(x0, y0, x1, y1, theta) {
+    if (x0 == x1) {  # Vertical segment
+        x_intersect <- x0  # Intersection occurs at x0
+        y_intersect <- tan(theta) * x0  # Compute y based on the ray equation
+
+        # Check if y_intersect is within the segment's vertical range
+        within_segment <- (y_intersect >= min(y0, y1)
+            && y_intersect <= max(y0, y1)
+        )
+
+        # Ensure intersection is in the ray's forward direction
+        t <- x0 / cos(theta)
+        in_ray_direction <- (t >= 0)
+
+        if (within_segment && in_ray_direction) {
+            return(c(x_intersect, y_intersect))
+        } else {
+            return(c(NA, NA))
+        }
+    }
+
+    # Ray slope (direction from origin)
+    m_ray <- tan(theta)
+
+    # Loop over each segment
+    # Compute the segment slope
+    m_segment <- (y1 - y0) / (x1 - x0)
+
+    # If slopes are equal, they are parallel (or collinear)
+    if (m_segment == m_ray) {
+        return(c(NA, NA))
+    }
+
+    # Compute the y-intercept of the segment
+    b_segment <- y0 - m_segment * x0
+
+    # Solve for intersection x where m_segment * x + b_segment = m_ray * x
+    x_intersect <- b_segment / (m_ray - m_segment)
+    y_intersect <- m_ray * x_intersect
+
+    # Check if the intersection is within the segment bounds
+    within_segment <- (
+        x_intersect >= min(x0, x1) && x_intersect <= max(x0, x1)
+        && y_intersect >= min(y0, y1) && y_intersect <= max(y0, y1)
+    )
+
+    # Check if the intersection is in the direction of the ray (t >= 0)
+    t <- x_intersect / cos(theta)  # Compute the ray parameter t
+    in_ray_direction <- (t >= 0)
+
+    if (within_segment && in_ray_direction) {
+        c(x_intersect, y_intersect)
+    } else {
+        c(NA, NA)
+    }
+}
 
 #' Polygonal element
 #'
@@ -76,58 +167,73 @@ circfun <- function(nslice, n = 50) {
 #'
 #' @param nslice Number of slices in the polygon
 #' @param coor Element form which to generate the polygon
-#' containing x and y coordinates and theta
+#' containing x and y coordinates
+#' @param start Starting angle in degree
 #'
 #' @return a list of x and y coordinates
 #' @keywords internal
 #' @keywords Pedigree-plot
 #' @examples
-#' polyfun(2, list(
+#' Pedixplorer:::polyfun(2, list(
 #'     x = c(-0.5, -0.5, 0.5, 0.5),
-#'     y = c(-0.5, 0.5, 0.5, -0.5),
-#'     theta = -c(3, 5, 7, 9) * pi / 4
-#' ))
-#' @export
-polyfun <- function(nslice, coor) {
-    # make the indirect segments view
-    zmat <- matrix(0, ncol = 4, nrow = length(coor$x))
-    zmat[, 1] <- coor$x
-    zmat[, 2] <- c(coor$x[-1], coor$x[1]) - coor$x
-    zmat[, 3] <- coor$y
-    zmat[, 4] <- c(coor$y[-1], coor$y[1]) - coor$y
+#'     y = c(-0.5, 0.5, 0.5, -0.5)
+#' ), start = 45)
+polyfun <- function(nslice, coor, start = 90) {
+    if (nslice == 1) {
+        return(list(coor))
+    }
+    coor <- as.data.frame(coor)
+    coor$id <- seq_len(nrow(coor))
+    theta_rad <- atan2(coor$y, coor$x)
+    coor$degree <- (theta_rad * 180 / pi) %% 360  # Ensure range [0, 360]
 
-    # Find the cutpoint for each angle Yes we could vectorize the loop, but
-    # nslice is never bigger than about 10 (and usually <5), so why be
-    # obscure?
-    ns1 <- nslice + 1
-    theta <- -pi / 2 - seq(0, 2 * pi, length = ns1)
-    x <- y <- double(ns1)
-    for (i in seq_len(ns1)) {
-        z <- (tan(theta[i]) * zmat[, 1] - zmat[, 3]) /
-            (zmat[, 4] - tan(theta[i]) * zmat[, 2])
-        tx <- zmat[, 1] + z * zmat[, 2]
-        ty <- zmat[, 3] + z * zmat[, 4]
-        inner <- tx * cos(theta[i]) + ty * sin(theta[i])
-        indx <- which(is.finite(z) & z >= 0 & z <= 1 & inner > 0)
-        x[i] <- tx[indx]
-        y[i] <- ty[indx]
-    }
-    nvertex <- length(coor$x)
-    temp <- data.frame(
-        indx = c(seq_len(ns1), rep(0, nvertex)),
-        theta = c(theta, coor$theta),
-        x = c(x, coor$x), y = c(y, coor$y)
+    df_seg <- data.frame(
+        x0 = coor$x, y0 = coor$y,
+        x1 = c(coor$x[-1], coor$x[1]), y1 = c(coor$y[-1], coor$y[1])
     )
-    temp <- temp[order(-temp$theta), ]
-    out <- vector("list", nslice)
-    for (i in seq_len(nslice)) {
-        rows <- which(temp$indx == i):which(temp$indx == (i + 1))
-        out[[i]] <- list(
-            x = c(0, temp$x[rows]),
-            y = c(0, temp$y[rows]) + 0.5
-        )
-    }
-    out
+
+    # Generate slicing angles
+    degree <- (
+        seq(0, 360, length.out = nslice + 1)[seq_len(nslice)] + start
+    ) %% 360
+    df_expanded <- expand.grid(seq_len(nrow(df_seg)), degree)
+
+    # Apply the function to each row
+    results <- t(apply(df_expanded, 1, function(row) {
+        seg_idx <- row[1]  # Get segment index
+        theta <- row[2] * pi / 180  # Get theta in radians
+
+        # Extract segment data
+        x0 <- df_seg$x0[seg_idx]
+        y0 <- df_seg$y0[seg_idx]
+        x1 <- df_seg$x1[seg_idx]
+        y1 <- df_seg$y1[seg_idx]
+
+        # Call the existing function
+        c(seg_idx, row[2], round(
+            find_ray_intersections(x0, y0, x1, y1, theta),
+            6
+        ))
+    })) %>%
+        as.data.frame() %>%
+        setNames(c("seg_idx", "degree", "x", "y"))
+
+    results <- results[!is.na(results$x), ] %>%
+        dplyr::distinct(degree, .keep_all = TRUE)
+    results
+    temp <- rbind.fill(coor, results)
+    temp <- temp[order(temp$degree), ]
+    idx1 <- which(!is.na(temp$seg_idx))[1]
+    temp <- rbind(temp[idx1:nrow(temp), ], temp[0:(idx1 - 1), ])
+    temp <- rbind(temp, temp[1, ])
+    rownames(temp) <- NULL
+
+    # Create the resulting polygons
+    lapply(seq_len(nslice), function(i) {
+        rows <- which(!is.na(temp$seg_idx))[i:(i + 1)]
+        rows <- rows[1]:rows[2]
+        list(x = c(0, temp$x[rows]), y = c(0, temp$y[rows]))
+    })
 }
 
 #' List of polygonal elements
@@ -144,52 +250,26 @@ polyfun <- function(nslice, coor) {
 #' @keywords internal
 #' @keywords Pedigree-plot
 #' @examples
-#' polygons()
-#' polygons(4)
-#' @export
-polygons <- function(nslice = 1) {
-    if (nslice == 1) {
-        polylist <- list(
-            square = list(list(
-                x = c(-1, -1, 1, 1) / 2,
-                y = c(0, 1, 1, 0)
-            )),
-            circle = list(list(
-                x = 0.5 * cos(seq(0, 2 * pi, length = 50)),
-                y = 0.5 * sin(seq(0, 2 * pi, length = 50)) + 0.5
-            )),
-            diamond = list(list(
-                x = c(0, -0.5, 0, 0.5),
-                y = c(0, 0.5, 1, 0.5)
-            )),
-            triangle = list(list(
-                x = c(0, -0.56, 0.56),
-                y = c(0, 0.75, 0.75)
-            ))
-        )
-    } else {
-        square <- polyfun(nslice, list(
-            x = c(-0.5, -0.5, 0.5, 0.5),
-            y = c(-0.5, 0.5, 0.5, -0.5),
-            theta = -c(3, 5, 7, 9) * pi / 4
-        ))
-        circle <- circfun(nslice)
-        diamond <- polyfun(nslice, list(
-            x = c(0, -0.5, 0, 0.5),
-            y = c(-0.5, 0, 0.5, 0),
-            theta = -(seq_len(4)) * pi / 2
-        ))
-        triangle <- polyfun(nslice, list(
-            x = c(-0.56, 0, 0.56),
-            y = c(-0.25, 0.25, -0.25),
-            theta = c(-2, -4, -6) * pi / 3
-        ))
-        polylist <- list(
-            square = square, circle = circle,
-            diamond = diamond, triangle = triangle
-        )
-    }  ## else
-    polylist
+#' Pedixplorer:::polygons()
+#' Pedixplorer:::polygons(4)
+polygons <- function(nslice = 1, start = 90) {
+    square <- polyfun(nslice, list(
+        x = c(-0.5, -0.5, 0.5, 0.5),
+        y = c(-0.5, 0.5, 0.5, -0.5)
+    ), start = start)
+    circle <- circfun(nslice, n = 50, start = start)
+    diamond <- polyfun(nslice, list(
+        x = c(0, -0.5, 0, 0.5),
+        y = c(-0.5, 0, 0.5, 0)
+    ), start = start)
+    triangle <- polyfun(nslice, list(
+        x = c(-0.5, 0, 0.5),
+        y = -c(-0.25, 0.5, -0.25)
+    ), start = start)
+    list(
+        square = square, circle = circle,
+        diamond = diamond, triangle = triangle
+    )
 }
 
 #'@importFrom ggplot2 geom_polygon aes annotate
@@ -329,6 +409,62 @@ draw_arc <- function(
     return(p)
 }
 
+#' Draw arrows
+#'
+#' @inheritParams draw_segment
+#'
+#' @return Plot the arrows to the current device
+#' or add it to a ggplot object
+#' @keywords internal
+#' @keywords Pedigree-plot
+#' @importFrom ggplot2 annotate
+#' @importFrom graphics lines
+draw_arrow <- function(
+    x0, y0, x1, y1,
+    p = NULL, ggplot_gen = FALSE,
+    lwd = par("lwd"), lty = 1, col = "black"
+) {
+    graphics::arrows(
+        x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+        lwd = lwd, lty = lty, col = col, length = 0.1, angle = 30
+    )
+    if (ggplot_gen) {
+        p <- p + suppressWarnings(ggplot2::geom_segment(ggplot2::aes(
+            x = x0, y = y0, xend = x1, yend = y1
+        ), arrow = ggplot2::arrow(length = unit(0.1, "inches")),
+        size = lwd, colour = col))
+    }
+    return(p)
+}
+
+
+#' Draw arrows
+#'
+#' @inheritParams draw_segment
+#'
+#' @return Plot the arrows to the current device
+#' or add it to a ggplot object
+#' @keywords internal
+#' @keywords Pedigree-plot
+#' @importFrom ggplot2 annotate
+#' @importFrom graphics lines
+draw_point <- function(
+    x, y,
+    p = NULL, ggplot_gen = FALSE,
+    cex = par("lwd"), pch = 1, col = "black"
+) {
+    graphics::points(
+        x = x, y = y,
+        cex = cex, pch = pch, col = col
+    )
+    if (ggplot_gen) {
+        p <- p + suppressWarnings(ggplot2::geom_point(ggplot2::aes(
+            x = x, y = y
+        ), size = cex, colour = col))
+    }
+    return(p)
+}
+
 #' Set plotting area
 #'
 #' @param id A character vector with the identifiers of each individuals
@@ -348,7 +484,7 @@ draw_arc <- function(
 set_plot_area <- function(
     cex, id, maxlev, xrange, symbolsize, precision = 3, ...
 ) {
-    old_par <- graphics::par(xpd = TRUE, ...)  ## took out mar=mar
+    op <- graphics::par(xpd = TRUE, ...)  ## took out mar=mar
     psize <- signif(graphics::par("pin"), precision)  # plot region in inches
     stemp1 <- signif(graphics::strwidth(
         "ABC", units = "inches", cex = cex
@@ -391,7 +527,7 @@ set_plot_area <- function(
     usr <- c(xrange[1] - boxw / 2, xrange[2] + boxw / 2,
         maxlev + boxh + stemp3 / vscale + stemp2 / vscale, 1
     )
-    list(usr = usr, old_par = old_par, boxw = boxw,
+    list(usr = usr, old_par = op, boxw = boxw,
         boxh = boxh, labh = labh, legh = legh
     )
 }

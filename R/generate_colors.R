@@ -370,9 +370,9 @@ setMethod("generate_colors", "numeric",
 #' for the affection status.
 #' @examples
 #' data("sampleped")
-#' ped <- Pedigree(sampleped)
-#' ped <- generate_colors(ped, "affection", add_to_scale=FALSE)
-#' scales(ped)
+#' pedi <- Pedigree(sampleped)
+#' pedi <- generate_colors(pedi, "affection", add_to_scale=FALSE)
+#' scales(pedi)
 #' @rdname generate_colors
 #' @include AllClass.R
 #' @export

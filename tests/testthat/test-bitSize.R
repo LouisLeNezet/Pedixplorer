@@ -10,10 +10,10 @@ test_that("bit_size works", {
         missid = "0"
     )
 
-    ped <- with(minnbreast,
-        Ped(id, sex, fatherid, motherid, missid = "0")
+    pedi <- with(minnbreast,
+        Ped(id, fatherid, motherid, sex = sex, missid = "0")
     )
-    bs_ped <- bit_size(ped)
+    bs_ped <- bit_size(pedi)
 
     expect_equal(bs_ped, bs_char)
     expect_equal(bs_pedi, bs_char)

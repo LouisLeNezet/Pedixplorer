@@ -32,18 +32,18 @@ test_that("min_dist_inf works", {
     mxkin <- with(sampleped,
         min_dist_inf(id, dadid, momid, sex, id_inf)
     )
-    expect_equal(sum(mxkin, na.rm = TRUE), 76)
+    expect_equal(sum(mxkin, na.rm = TRUE), 77)
 })
 
 test_that("min_dist_inf works with Pedigree", {
     data("sampleped")
-    ped <- Pedigree(sampleped)
-    ped <- generate_colors(ped, col_aff = "affection",
+    pedi <- Pedigree(sampleped)
+    pedi <- generate_colors(pedi, col_aff = "affection",
         threshold = 0.5, sup_thres_aff = TRUE
     )
-    expect_equal(sum(affected(ped(ped)), na.rm = TRUE), 23)
-    ped <- is_informative(ped, col_aff = "affection", informative = "Av")
-    mxkin <- min_dist_inf(ped, col_aff = "affection")
+    expect_equal(sum(affected(ped(pedi)), na.rm = TRUE), 22)
+    pedi <- is_informative(pedi, col_aff = "affection", informative = "Av")
+    mxkin <- min_dist_inf(pedi, col_aff = "affection")
     expect_s4_class(mxkin, "Pedigree")
     expect_equal(sum(kin(ped(mxkin)), na.rm = TRUE), 90)
 })

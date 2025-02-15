@@ -113,7 +113,7 @@ setMethod("fix_parents", "character", function(
     if (any(duplicated(id))) {
         duplist <- id[duplicated(id)]
         msg_nb <- min(length(duplist), 6)
-        stop("Duplicate subject id:", duplist[seq_len(msg_nb)])
+        stop("Duplicate subject id: ", duplist[seq_len(msg_nb)])
     }
     findex <- match(dadid, id, nomatch = 0)
     mindex <- match(momid, id, nomatch = 0)
@@ -174,7 +174,7 @@ setMethod("fix_parents", "character", function(
     }
     data.frame(
         id = id, momid = momid, dadid = dadid,
-        sex = sex, famid = famid
+        sex = sex_to_factor(sex), famid = famid
     )
 })
 

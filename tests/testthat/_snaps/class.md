@@ -4,14 +4,18 @@
       ped2
     Output
       Ped object with 2 individuals and 0 metadata columns:
-                         id       dadid       momid       sex       famid fertility
-      col_class <character> <character> <character> <ordered> <character> <ordered>
-      ID5               ID5        <NA>        <NA>    female        <NA>   fertile
-      ID4               ID4        <NA>        <NA>      male        <NA>   fertile
-                miscarriage  deceased     avail  affected    useful       kin
-      col_class    <factor> <logical> <logical> <logical> <logical> <numeric>
-      ID5             FALSE      <NA>      <NA>      <NA>      <NA>      <NA>
-      ID4             FALSE      <NA>      <NA>      <NA>      <NA>      <NA>
+                         id       dadid       momid       famid       sex fertility
+      col_class <character> <character> <character> <character> <ordered>  <factor>
+      ID5               ID5        <NA>        <NA>        <NA>    female   fertile
+      ID4               ID4        <NA>        <NA>        <NA>      male   fertile
+                miscarriage  deceased     avail evaluated consultand   proband
+      col_class    <factor> <logical> <logical> <logical>  <logical> <logical>
+      ID5             FALSE      <NA>      <NA>     FALSE      FALSE     FALSE
+      ID4             FALSE      <NA>      <NA>     FALSE      FALSE     FALSE
+                 affected   carrier asymptomatic   adopted    useful       kin
+      col_class <logical> <logical>    <logical> <logical> <logical> <numeric>
+      ID5            <NA>      <NA>         <NA>      <NA>      <NA>      <NA>
+      ID4            <NA>      <NA>         <NA>      <NA>      <NA>      <NA>
                     isinf num_child_tot num_child_dir num_child_ind
       col_class <logical>     <numeric>     <numeric>     <numeric>
       ID5            <NA>             0             0             0

@@ -4,7 +4,7 @@
 \alias{circfun}
 \title{Circular element}
 \usage{
-circfun(nslice, n = 50)
+circfun(nslice, n = 50, start = 0)
 }
 \arguments{
 \item{nslice}{Number of slices in the circle}
@@ -20,9 +20,9 @@ with a given number of slices.
 }
 \examples{
 
-circfun(1)
-circfun(1, 10)
-circfun(4, 50)
+Pedixplorer:::circfun(1)
+Pedixplorer:::circfun(1, 10)
+Pedixplorer:::circfun(4, 50)
 }
 \keyword{Pedigree-plot}
 \keyword{internal}

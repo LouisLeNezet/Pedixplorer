@@ -293,8 +293,8 @@ get_twin_rel <- function(obj) {
 #' @seealso [Hints-class]
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped[sampleped$famid == 1, ])
-#' auto_hint(ped)
+#' pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
+#' Pedixplorer:::auto_hint(pedi)
 #' @export
 #' @keywords internal, alignment, auto_hint
 #' @usage NULL

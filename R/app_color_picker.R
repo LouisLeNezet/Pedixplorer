@@ -20,10 +20,11 @@ color_picker_ui <- function(id) {
 #'     color_picker_demo()
 #' }
 #' @rdname color_picker
-#' @keywords internal
 #' @importFrom shiny moduleServer NS req renderUI column
 #' @importFrom shiny reactive
 #' @importFrom colourpicker colourInput
+#' @keywords internal
+#' @export
 color_picker_server <- function(
     id, colors = NULL
 ) {
@@ -51,15 +52,13 @@ color_picker_server <- function(
         })
 
         lst_cols <- list()
-        col_select_list <- shiny::reactive({
+        shiny::reactive({
             shiny::req(colors)
             for (col in names(colors)) {
                 lst_cols[[col]] <- input[[paste0("select_", col)]]
             }
             return(lst_cols)
         })
-
-        return(col_select_list)
     })
 }
 

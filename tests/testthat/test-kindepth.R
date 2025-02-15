@@ -2,23 +2,23 @@ test_that("Kindepth works", {
     data("sampleped")
     datped2 <- sampleped[sampleped$famid %in% 2, ]
     ## this gets an error
-    ped <- Pedigree(datped2)
+    pedi <- Pedigree(datped2)
 
     expect_equal(
-        kindepth(ped, align_parents = TRUE),
+        kindepth(pedi, align_parents = TRUE),
         c(0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2)
     )
     expect_equal(
-        kindepth(ped, align_parents = FALSE),
+        kindepth(pedi, align_parents = FALSE),
         c(0, 0, 0, 1, 1, 1, 1, 1, 0, 2, 2, 2, 2, 2)
     )
 
     data(minnbreast)
-    ped <- Pedigree(minnbreast, cols_ren_ped = list(
+    pedi <- Pedigree(minnbreast, cols_ren_ped = list(
         "dadid" = "fatherid", "momid" = "motherid"
     ), missid = "0")
-    expect_equal(sum(kindepth(ped)), 33147)
-    expect_equal(sum(kindepth(ped, align_parents = TRUE)), 39091)
+    expect_equal(sum(kindepth(pedi)), 33147)
+    expect_equal(sum(kindepth(pedi, align_parents = TRUE)), 39091)
 
     df <- data.frame(
         id = 1:7,

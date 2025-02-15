@@ -72,8 +72,8 @@ The rule thus is to not add any 1 element tree whose value
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped)
-align(ped)
+pedi <- Pedigree(sampleped)
+align(pedi)
 
 }
 \seealso{

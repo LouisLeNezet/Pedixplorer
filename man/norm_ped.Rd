@@ -20,7 +20,6 @@ The minimum columns required are:
 \item \code{dadid} biological fathers identifiers
 \item \code{momid} biological mothers identifiers
 \item \code{sex} of the individual
-\item \code{famid} family identifiers
 }
 
 The \code{famid} column, if provided, will be merged to
@@ -30,16 +29,22 @@ the \emph{ids} field separated by an underscore using the
 The following columns are also recognize and will be transformed with the
 \code{\link[=vect_to_binary]{vect_to_binary()}} function:
 \itemize{
-\item \code{avail} status -> is the individual available
 \item \code{deceased} status -> is the individual dead
+\item \code{avail} status -> is the individual available
+\item \code{evaluated} status -> has the individual a documented evaluation
+\item \code{consultand} status -> is the individual the consultand
+\item \code{proband} status -> is the individual the proband
+\item \code{carrier} status -> is the individual a carrier
+\item \code{asymptomatic} status -> is the individual asymptomatic
+\item \code{adopted} status -> is the individual adopted
 }
 
 The values recognized for those columns are \code{1} or \code{0},
 \code{TRUE} or \code{FALSE}.
 
-The \code{fertility} column will be transformed to an ordered factor using the
+The \code{fertility} column will be transformed to a factor using the
 \code{\link[=fertility_to_factor]{fertility_to_factor()}} function.
-\code{infertile_choice_na} < \code{infertile} < \code{fertile}#'
+\code{infertile_choice_na}, \code{infertile}, \code{fertile}
 
 The \code{miscarriage} column will be transformed to a using the
 \code{\link[=miscarriage_to_factor]{miscarriage_to_factor()}} function.
@@ -102,13 +107,27 @@ df <- data.frame(
     id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
     dadid = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
     momid = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
-    sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f"),
-    avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
+    sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f"),
     fertility = c(
-      "TRUE", "FALSE", TRUE, FALSE, 1, 0, "fertile", "infertile", 1, "TRUE"
-    ), deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
-    miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0)
+      "TRUE", "FALSE", TRUE, FALSE, 1,
+      0, "fertile", "infertile", 1, "TRUE"
+    ),
+    miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0),
+    deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
+    avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
+    evalutated = c(
+        "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+    ),
+    consultand = c(
+        "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+    ),
+    proband = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+    carrier = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+    asymptomatic = c(
+        "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+    ),
+    adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0")
 )
 tryCatch(
     norm_ped(df),

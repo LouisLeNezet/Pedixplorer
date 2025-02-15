@@ -174,6 +174,7 @@ ped_avaf_infos_server <- function(
         })
         # Display the title ---------------------------------------------------
         output$ped_avaf_infos_title <- shiny::renderText({
+            shiny::req(pedi())
             if (!is.null(pedi())) {
                 paste(
                     "Health & Availability data representation for family",
@@ -184,7 +185,7 @@ ped_avaf_infos_server <- function(
             }
         })
 
-        return(df_infos)
+        df_infos
     })
 }
 

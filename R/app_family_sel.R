@@ -107,7 +107,7 @@ family_sel_server <- function(
         ), server = TRUE
         )
 
-        lst_fam <- reactive({
+        reactive({
             shiny::req(input$families_var_sel)
             shiny::req(input$families_table_rows_selected)
             if (is.null(input$families_table_rows_selected)) {
@@ -127,7 +127,6 @@ family_sel_server <- function(
                 NULL
             }
         })
-        return(lst_fam)
     })
 }
 

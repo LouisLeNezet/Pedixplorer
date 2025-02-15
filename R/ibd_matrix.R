@@ -48,7 +48,7 @@ ibd_matrix <- function(id1, id2, ibd, idmap, diagonal) {
     if (!is.null(ncol(id1))) {
         # can be a matrix or a data frame
         if (ncol(id1) != 3) {
-            stop("Argument id1 is a matrix or dataframe ",
+            stop("Argument id1 is a matrix or dataframe, ",
                 "but does not have 3 columns"
             )
         }
@@ -58,7 +58,7 @@ ibd_matrix <- function(id1, id2, ibd, idmap, diagonal) {
             )
         }
         if (!missing(ibd)) {
-            stop("First argument is a matrix or dataframe,",
+            stop("First argument is a matrix or dataframe, ",
                 "but ibd argument is present"
             )
         }

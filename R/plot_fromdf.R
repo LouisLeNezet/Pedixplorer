@@ -66,12 +66,10 @@ plot_fromdf <- function(
 ) {
     if (!add_to_existing) {
         graphics::frame()
-        op <- par(no.readonly = TRUE)
-        if (!is.null(usr)) {
-            graphics::par(usr = usr)
-        }
-    } else {
-        op <- par(no.readonly = TRUE)
+    }
+    op <- par(no.readonly = TRUE)
+    if (!is.null(usr)) {
+        graphics::par(usr = usr)
     }
     p <- ggplot2::ggplot() +
         ggplot2::theme(
@@ -105,7 +103,8 @@ plot_fromdf <- function(
         names(polygons(1)), seq_len(max_aff), seq_len(max_aff)
     ), 1, paste, collapse = "_")
 
-    seg <- df[df$type == "segments" & ! (df$id %in% c("dead", "ECT-TOP")), ]
+    seg_forward <- c("dead", "ECT-TOP", "asymptomatic", "adoption")
+    seg <- df[df$type == "segments" & ! (df$id %in% seg_forward), ]
     if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
@@ -125,7 +124,7 @@ plot_fromdf <- function(
             ]]
             p <- draw_polygon(
                 boxes$x0[i] + poly$x * boxw,
-                boxes$y0[i] + poly$y * boxh,
+                boxes$y0[i] + (poly$y + 0.5) * boxh,
                 p, ggplot_gen,
                 fill = boxes$fill[i], border = boxes$border[i],
                 density = boxes$density[i], angle = boxes$angle[i],
@@ -134,7 +133,7 @@ plot_fromdf <- function(
         }
     }
 
-    seg <- df[df$type == "segments" & df$id %in% c("dead", "ECT-TOP"), ]
+    seg <- df[df$type == "segments" & df$id %in% seg_forward, ]
     if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
@@ -152,11 +151,22 @@ plot_fromdf <- function(
         }
     }
 
+    arrows_df <- df[df$type == "arrows", ]
+    if (!is.null(arrows_df) && nrow(arrows_df) > 0) {
+        for (it in seq_len(nrow(arrows_df))){
+            arrow <- arrows_df[it, ]
+            p <- draw_arrow(
+                x0 = arrow$x0, y0 = arrow$y0,
+                x1 = arrow$x1, y1 = arrow$y1,
+                p, ggplot_gen, lwd = arrow$cex, col = arrow$fill
+            )
+        }
+    }
 
-    txt <- df[df$type == "text" & !is.na(df$label), ]
-    if (!is.null(txt) && nrow(txt) > 0) {
-        for (adjx in unique(txt$adjx)) {
-            txt_x <- txt[txt$adjx == adjx, ]
+    txt_df <- df[df$type == "text" & !is.na(df$label), ]
+    if (!is.null(txt_df) && nrow(txt_df) > 0) {
+        for (adjx in unique(txt_df$adjx)) {
+            txt_x <- txt_df[txt_df$adjx == adjx, ]
             for (adjy in unique(txt_x$adjy)) {
                 txt_xy <- txt_x[txt_x$adjy == adjy, ]
                 p <- draw_text(
@@ -166,6 +176,15 @@ plot_fromdf <- function(
                 )
             }
         }
+    }
+
+    points_df <- df[df$type == "points", ]
+    if (!is.null(points_df) && nrow(points_df) > 0) {
+        p <- draw_point(
+            x = points_df$x0, y = points_df$y0,
+            p = p, ggplot_gen = ggplot_gen, cex = points_df$cex,
+            col = points_df$fill, pch = points_df$lty
+        )
     }
     par(op)
     invisible(p)

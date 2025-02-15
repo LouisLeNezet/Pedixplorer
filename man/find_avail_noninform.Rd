@@ -45,8 +45,8 @@ corresponding Ped accessor.
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped)
-find_avail_noninform(ped)
+pedi <- Pedigree(sampleped)
+find_avail_noninform(pedi)
 
 }
 \seealso{

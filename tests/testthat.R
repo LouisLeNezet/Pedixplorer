@@ -8,7 +8,7 @@
 
 ## Beware when testing with shinytest2
 ## the package version used will be the one avalailable through
-## `library(Pedixplore)` as an independant R session is launched
+## `library(Pedixplorer)` as an independant R session is launched
 ## To do so you need to `unload("Pedixplorer")`, `build()`
 ## and `install("../Pedixplorer*.tar.gz")` the package before running the tests
 
@@ -21,7 +21,8 @@ library(R.devices)
 Sys.setenv(
     CHROMOTE_CHROME = Sys.getenv("CHROMOTE_CHROME"),
     CHROMOTE_HEADLESS = "new",
-    SKIP_SHINY_TESTS = "FALSE"
+    SKIP_SHINY_TESTS = "FALSE",
+    R_TESTS = ""
 )
 
 print(Sys.getenv("CHROMOTE_CHROME"))
@@ -34,29 +35,33 @@ for (devi in all_dev) {
 
 ## Set up the plotting device
 par_lst <- list(
-    "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
+    "pin" = c(8, 8), "cex" = 1,
     "fin" = c(6, 6), "bg" = "white", "family" = "HersheySans",
-    "usr" = c(0, 1, 0, 1), xaxp = c(0, 1, 5), yaxp = c(0, 1, 5),
-    "fig" = c(0, 1, 0, 1), "mar" = c(1, 1, 1, 1), xpd = TRUE,
-    lwd = 0.5
+    "usr" = c(0, 1, 0, 1), "xaxp" = c(0, 1, 5), "yaxp" = c(0, 1, 5),
+    "fig" = c(0, 1, 0, 1), "mar" = rep(1, 4), "xpd" = TRUE,
+    "lwd" = 1, "oma" = rep(1, 4)
 )
+
+op <- par(par_lst)
+
 R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 
 ## Set up the environment
 ## Add BROWSER="google-chrome" to your environment variables
 withr::local_options(
-    width = 150, digits = 8,
+    width = 150, digits = 4,
     browser = Sys.getenv("CHROMOTE_CHROME")
 )
 options(
     shiny.testmode = TRUE,
     shinytest2.load_timeout = 60000,
     shiny.fullstacktrace = TRUE,
-    chromote.verbose = TRUE
+    chromote.verbose = TRUE,
+    digits = 4
 )
-Sys.setenv("R_TESTS" = "")
 
 ## Run the tests
 test_check("Pedixplorer")
 
 dev.off()
+par(op)

@@ -16,10 +16,8 @@ NULL
 #' @return A vector with the same length as temp.
 #' @keywords internal
 #' @examples
-#'
-#' na_to_length(NA, rep(0, 4), "NewValue")
-#' na_to_length(c(1, 2, 3, NA), rep(0, 4), "NewValue")
-#' @export
+#' Pedixplorer:::na_to_length(NA, rep(0, 4), "NewValue")
+#' Pedixplorer:::na_to_length(c(1, 2, 3, NA), rep(0, 4), "NewValue")
 na_to_length <- function(x, temp, value) {
     if (all(is.na(x)) || all(is.null(x))) {
         rep(value, length(temp))
@@ -64,10 +62,43 @@ na_to_length <- function(x, temp, value) {
 #' (i.e. `FALSE` = not available,
 #' `TRUE` = available,
 #' `NA` = unknown).
+#' @param evaluated A logical vector with the evaluation status of the
+#' individuals.
+#' (i.e. `FALSE` = documented evaluation not available,
+#' `TRUE` = documented evaluation available).
+#' @param consultand A logical vector with the consultand status of the
+#' individuals. A consultand being an individual seeking
+#' genetic counseling/testing
+#' (i.e. `FALSE` = not a consultand,
+#' `TRUE` = consultand).
+#' @param proband A logical vector with the proband status of the
+#' individuals. A proband being an affected family
+#' member coming to medical attention independent of other
+#' family members.
+#' (i.e. `FALSE` = not a proband,
+#' `TRUE` = proband).
 #' @param affected A logical vector with the affection status of the
 #' individuals
 #' (i.e. `FALSE` = unaffected,
 #' `TRUE` = affected,
+#' `NA` = unknown).
+#' @param carrier A logical vector with the carrier status of the
+#' individuals. A carrier being an individual who has
+#' the genetic trait but who is not likely to manifest the
+#' disease regardless of inheritance pattern
+#' (i.e. `FALSE` = not carrier,
+#' `TRUE` = carrier,
+#' `NA` = unknown).
+#' @param asymptomatic A logical vector with the asymptomatic status of
+#' the individuals. An asymptomatic individual being an individual
+#' clinically unaffected at this time but could later exhibit symptoms.
+#' (i.e. `FALSE` = not asymptomatic,
+#' `TRUE` = asymptomatic,
+#' `NA` = unknown).
+#' @param adopted A logical vector with the adopted status of the
+#' individuals.
+#' (i.e. `FALSE` = not adopted,
+#' `TRUE` = adopted,
 #' `NA` = unknown).
 #' @param missid A character vector with the missing values identifiers.
 #' All the id, dadid and momid corresponding to those values will be set
@@ -103,8 +134,10 @@ setMethod("Ped", "data.frame",
     function(obj, cols_used_init = FALSE, cols_used_del = FALSE) {
         col_need <- c("id", "sex", "dadid", "momid")
         col_to_use <- c(
-            "famid", "fertility", "miscarriage", "deceased", "avail",
-            "kin", "isinf", "useful", "affected"
+            "famid", "fertility", "miscarriage", "deceased",
+            "avail", "evaluated", "consultand", "proband",
+            "affected", "carrier", "asymptomatic", "adopted",
+            "kin", "isinf", "useful"
         )
         col_used <- c(
             "num_child_tot", "num_child_dir", "num_child_ind",
@@ -123,7 +156,19 @@ setMethod("Ped", "data.frame",
             df$miscarriage <- miscarriage_to_factor(df$miscarriage)
             df$deceased <- vect_to_binary(df$deceased, logical = TRUE)
             df$avail <- vect_to_binary(df$avail, logical = TRUE)
+            df$evaluated <- vect_to_binary(
+                df$evaluated, logical = TRUE, default = FALSE
+            )
+            df$consultand <- vect_to_binary(
+                df$consultand, logical = TRUE, default = FALSE
+            )
+            df$proband <- vect_to_binary(
+                df$proband, logical = TRUE, default = FALSE
+            )
             df$affected <- vect_to_binary(df$affected, logical = TRUE)
+            df$carrier <- vect_to_binary(df$carrier, logical = TRUE)
+            df$asymptomatic <- vect_to_binary(df$asymptomatic, logical = TRUE)
+            df$adopted <- vect_to_binary(df$adopted, logical = TRUE)
             df$isinf <- vect_to_binary(df$isinf, logical = TRUE)
             df$useful <- vect_to_binary(df$useful, logical = TRUE)
             df$kin <- na_to_length(df$kin, df$id, NA_real_)
@@ -132,8 +177,10 @@ setMethod("Ped", "data.frame",
         myped <- with(df, Ped(
             obj = id, sex = sex, dadid = dadid, momid = momid, famid = famid,
             fertility = fertility, miscarriage = miscarriage,
-            deceased = deceased, avail = avail,
-            affected = affected,
+            deceased = deceased, avail = avail, evaluated = evaluated,
+            consultand = consultand, proband = proband,
+            affected = affected, carrier = carrier,
+            asymptomatic = asymptomatic, adopted = adopted,
             kin = kin, isinf = isinf, useful = useful
         ))
         mcols(myped) <- df[,
@@ -157,10 +204,13 @@ setMethod("Ped", "data.frame",
 #' @export
 setMethod("Ped", "character_OR_integer",
     function(
-        obj, sex, dadid, momid, famid = NA,
+        obj, dadid, momid, sex, famid = NA,
         fertility = NA, miscarriage = NA,
-        deceased = NA, avail = NA,
-        affected = NA, missid = NA_character_,
+        deceased = NA,
+        avail = NA, evaluated = NA,
+        consultand = NA, proband = NA,
+        affected = NA, carrier = NA, asymptomatic = NA,
+        adopted = NA, missid = NA_character_,
         useful = NA, isinf = NA, kin = NA_real_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
@@ -181,8 +231,18 @@ setMethod("Ped", "character_OR_integer",
             na_to_length(miscarriage, id, NA)
         )
         deceased <- na_to_length(deceased, id, NA)
+
         avail <- na_to_length(avail, id, NA)
+        evaluated <- na_to_length(evaluated, id, FALSE)
+        consultand <- na_to_length(consultand, id, FALSE)
+        proband <- na_to_length(proband, id, FALSE)
+
         affected <- na_to_length(affected, id, NA)
+        carrier <- na_to_length(carrier, id, NA)
+        asymptomatic <- na_to_length(asymptomatic, id, NA)
+
+        adopted <- na_to_length(adopted, id, NA)
+
         useful <- na_to_length(useful, id, NA)
         isinf <- na_to_length(isinf, id, NA)
         kin <- na_to_length(kin, id, NA_real_)
@@ -193,7 +253,10 @@ setMethod("Ped", "character_OR_integer",
             "Ped",
             id = id, dadid = dadid, momid = momid, famid = famid,
             sex = sex, fertility = fertility, miscarriage = miscarriage,
-            deceased = deceased, avail = avail, affected = affected,
+            deceased = deceased, avail = avail, evaluated = evaluated,
+            consultand = consultand, proband = proband,
+            affected = affected, carrier = carrier,
+            asymptomatic = asymptomatic, adopted = adopted,
             useful = useful, kin = kin, isinf = isinf,
             num_child_tot = df_child$num_child_tot,
             num_child_dir = df_child$num_child_dir,
@@ -589,13 +652,19 @@ setMethod("Scales",
 #' - `id`: the individual identifier
 #' - `dadid`: the identifier of the biological father
 #' - `momid`: the identifier of the biological mother
-#' - `sex`: the sex of the individual
 #' - `famid`: the family identifier of the individual
+#' - `sex`: the sex of the individual
 #' - `fertility`: the fertility status of the individual
 #' - `miscarriage`: the miscarriage status of the individual
-#' - `available`: the availability status of the individual (`avail`)
 #' - `deceased`: the death status of the individual
+#' - `avail`: the availability status of the individual
+#' - `evaluated`: the evaluation status of the individual
+#' - `consultand`: the consultand status of the individual
+#' - `proband`: the proband status of the individual
 #' - `affection`: the affection status of the individual
+#' - `carrier`: the carrier status of the individual
+#' - `asymptomatic`: the asymptomatic status of the individual
+#' - `adopted`: the adopted status of the individual
 #' - `...`: other columns that will be stored in the
 #' `elementMetadata` slot
 #'
@@ -609,8 +678,10 @@ setMethod("Scales",
 #' family of the individuals and will be merge to the
 #' `id` field separated by an underscore.
 #'
-#' The columns `avail`,
-#' `deceased`, `affected`
+#' The columns `deceased`, `avail`,
+#' `evaluated`, `consultand`,
+#' `proband`, `carrier`,
+#' `asymptomatic`, `adopted`
 #' will be transformed with the [vect_to_binary()]
 #' function when the normalisation is selected.
 #'
@@ -699,9 +770,11 @@ setGeneric("Pedigree", signature = "obj",
 #'     ), ncol = 3, byrow = TRUE),
 #' )
 setMethod("Pedigree", "character_OR_integer", function(
-    obj, dadid, momid, sex, famid = NA, avail = NULL, affections = NULL,
+    obj, dadid, momid, sex, famid = NA,
     fertility = NULL, miscarriage = NULL, deceased = NULL,
-    rel_df =  NULL,
+    avail = NULL, evaluated = NULL, consultand = NULL,
+    proband = NULL, affections = NULL, carrier = NULL,
+    asymptomatic = NULL, adopted = NULL, rel_df = NULL,
     missid = NA_character_, col_aff = "affection", normalize = TRUE, ...
 ) {
     n <- length(obj)
@@ -720,11 +793,36 @@ setMethod("Pedigree", "character_OR_integer", function(
         stop("Mismatched lengths, id and miscarriage")
     }
 
+    if (length(deceased) != n & !is.null(deceased)) {
+        stop("Mismatched lengths, id and deceased")
+    }
+
     if (length(avail) != n & !is.null(avail)) {
         stop("Mismatched lengths, id and avail")
     }
-    if (length(deceased) != n & !is.null(deceased)) {
-        stop("Mismatched lengths, id and deceased")
+
+    if (length(evaluated) != n & !is.null(evaluated)) {
+        stop("Mismatched lengths, id and evaluated")
+    }
+
+    if (length(consultand) != n & !is.null(consultand)) {
+        stop("Mismatched lengths, id and consultand")
+    }
+
+    if (length(proband) != n & !is.null(proband)) {
+        stop("Mismatched lengths, id and proband")
+    }
+
+    if (length(carrier) != n & !is.null(carrier)) {
+        stop("Mismatched lengths, id and carrier")
+    }
+
+    if (length(asymptomatic) != n & !is.null(asymptomatic)) {
+        stop("Mismatched lengths, id and asymptomatic")
+    }
+
+    if (length(adopted) != n & !is.null(adopted)) {
+        stop("Mismatched lengths, id and adopted")
     }
 
     ped_df <- data.frame(
@@ -747,8 +845,9 @@ setMethod("Pedigree", "character_OR_integer", function(
             affections <- as.data.frame(affections)
             if (is.null(colnames(affections))) {
                 if (length(col_aff) != ncol(affections)) {
-                    stop("The length of col_aff should be equal to the number",
-                        "of columns of affections"
+                    stop(
+                        "The length of col_aff should be equal to ",
+                        "the number of columns of affections"
                     )
                 }
                 colnames(affections) <- col_aff
@@ -756,22 +855,40 @@ setMethod("Pedigree", "character_OR_integer", function(
             ped_df <- cbind(ped_df, affections)
             col_aff <- colnames(affections)
         } else {
-            stop("Affections must be a vector or a data.frame, got:",
+            stop("Affections must be a vector or a data.frame, got: ",
                 class(affections)
             )
         }
-    }
-    if (any(!is.na(avail))) {
-        ped_df$avail <- avail
-    }
-    if (any(!is.na(deceased))) {
-        ped_df$deceased <- deceased
     }
     if (any(!is.na(fertility))) {
         ped_df$fertility <- fertility
     }
     if (any(!is.na(miscarriage))) {
         ped_df$miscarriage <- miscarriage
+    }
+    if (any(!is.na(deceased))) {
+        ped_df$deceased <- deceased
+    }
+    if (any(!is.na(avail))) {
+        ped_df$avail <- avail
+    }
+    if (any(!is.na(evaluated))) {
+        ped_df$evaluated <- evaluated
+    }
+    if (any(!is.na(consultand))) {
+        ped_df$consultand <- consultand
+    }
+    if (any(!is.na(proband))) {
+        ped_df$proband <- proband
+    }
+    if (any(!is.na(carrier))) {
+        ped_df$carrier <- carrier
+    }
+    if (any(!is.na(asymptomatic))) {
+        ped_df$asymptomatic <- asymptomatic
+    }
+    if (any(!is.na(adopted))) {
+        ped_df$adopted <- adopted
     }
     if (is.null(rel_df)) {
         rel_df <- data.frame(
@@ -798,12 +915,19 @@ setMethod("Pedigree", "data.frame",  function(
         id = character(),
         dadid = character(),
         momid = character(),
-        sex = numeric(),
         famid = character(),
-        avail = numeric(),
+        sex = numeric(),
         fertility = numeric(),
         miscarriage = numeric(),
-        deceased = numeric()
+        deceased = numeric(),
+        avail = numeric(),
+        evaluated = logical(),
+        consultand = logical(),
+        proband = logical(),
+        affection = logical(),
+        carrier = logical(),
+        asymptomatic = logical(),
+        adopted = logical()
     ),
     rel_df = data.frame(
         id1 = character(),
@@ -819,8 +943,14 @@ setMethod("Pedigree", "data.frame",  function(
         sex = "gender",
         fertility = c("sterilisation", "steril"),
         miscarriage = c("miscarriage", "aborted"),
-        affection = "affected",
         avail = "available",
+        evaluated = "evaluation",
+        consultand = "consultant",
+        proband = "proband",
+        affection = "affected",
+        carrier = "carrier",
+        asymptomatic = "presymptomatic",
+        adopted = "adoption",
         deceased = c("status", "vitalStatus")
     ),
     cols_ren_rel = list(
@@ -909,8 +1039,9 @@ setMethod("Pedigree", "data.frame",  function(
     } else {
         cols_need <- c("id", "dadid", "momid", "sex")
         cols_to_use <- c(
-            "fertility", "miscarriage", "avail",
-            "famid", "deceased", "affected"
+            "famid", "fertility", "miscarriage", "deceased",
+            "avail", "evaluated", "consultand", "proband",
+            "affected", "carrier", "asymptomatic", "adopted"
         )
         ped_df <- check_columns(
             ped_df, cols_need, "", cols_to_use,
@@ -948,20 +1079,22 @@ setMethod("Pedigree", "data.frame",  function(
         }
     }
 
-    ped <- Ped(ped_df)
-    rel <- Rel(rel_df)
-    hints <- Hints(hints)
-    scales <- Scales()
+    ped_obj <- Ped(ped_df)
+    rel_obj <- Rel(rel_df)
+    hints_obj <- Hints(hints)
+    scales_obj <- Scales()
     ## Create the object
     pedi <- new("Pedigree",
-        ped = ped, rel = rel,
-        hints = hints, scales = scales
+        ped = ped_obj, rel = rel_obj,
+        hints = hints_obj, scales = scales_obj
     )
 
     if (all(!is.na(col_aff))) {
         pedi <- generate_colors(pedi, col_aff = col_aff, ...)
     } else if (length(col_aff) > 1) {
         stop("One of the affection columns is NA")
+    } else {
+        validObject(pedi)
     }
     return(pedi)
 }
@@ -971,9 +1104,8 @@ setMethod("Pedigree", "data.frame",  function(
 #' @rdname Pedigree-class
 #' @usage NULL
 setMethod("Pedigree", "missing", function(obj) {
-    ped <- new("Pedigree",
+    new("Pedigree",
         ped = Ped(), rel = Rel(),
         hints = Hints(), scales = Scales()
     )
-    ped
 })

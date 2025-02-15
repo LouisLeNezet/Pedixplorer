@@ -93,9 +93,10 @@ test_that("generate fill full scale on", {
 
 test_that("generate colors works on Pedigree object", {
     data("sampleped")
-    ped <- Pedigree(sampleped[sampleped$famid == "1", -1])
-    mcols(ped)$"id_num" <- as.numeric(id(ped(ped)))
-    ped_aff <- generate_colors(ped, col_aff = "id_num",
+    # Remove family and proband
+    pedi <- Pedigree(sampleped[sampleped$famid == "1", -c(1, 13, 15)])
+    mcols(pedi)$"id_num" <- as.numeric(id(ped(pedi)))
+    ped_aff <- generate_colors(pedi, col_aff = "id_num",
         threshold = 120, sup_thres_aff = TRUE, add_to_scale = FALSE
     )
     expect_equal(mcols(ped_aff)$id_num_mods, c(rep(0, 20), rep(1, 21)))
@@ -111,30 +112,30 @@ test_that("generate colors works on Pedigree object", {
 test_that("generate with full scale", {
     data("sampleped")
     sampleped$val_num <- as.numeric(sampleped$id)
-    ped <- Pedigree(sampleped)
-    ped <- ped[famid(ped(ped)) == "1"]
-    ped <- generate_colors(
-        ped, add_to_scale = FALSE, "val_num", threshold = 115,
+    pedi <- Pedigree(sampleped[-c(13, 15)])
+    pedi <- pedi[famid(ped(pedi)) == "1"]
+    pedi <- generate_colors(
+        pedi, add_to_scale = FALSE, "val_num", threshold = 115,
         colors_aff = c("pink", "purple"), keep_full_scale = TRUE
     )
-    expect_equal(fill(ped)$labels[c(1, 4)],
+    expect_equal(fill(pedi)$labels[c(1, 4)],
         c("Healthy <= to 115 : [101,106]", "Affected > to 115 : [116,124]")
     )
-    expect_equal(nrow(fill(ped)), 6)
+    expect_equal(nrow(fill(pedi)), 6)
 })
 
 
 test_that("generate with full scale", {
     data("sampleped")
     sampleped$val_num <- as.numeric(sampleped$id)
-    ped <- Pedigree(sampleped)
-    ped <- ped[famid(ped(ped)) == "1"]
-    ped <- generate_colors(
-        ped, add_to_scale = FALSE, "val_num", threshold = 240,
+    pedi <- Pedigree(sampleped[-c(13, 15)])
+    pedi <- pedi[famid(ped(pedi)) == "1"]
+    pedi <- generate_colors(
+        pedi, add_to_scale = FALSE, "val_num", threshold = 240,
         colors_aff = c("pink", "purple"), keep_full_scale = TRUE
     )
-    expect_equal(fill(ped)$labels[c(1, 4)],
+    expect_equal(fill(pedi)$labels[c(1, 4)],
         c("Healthy <= to 240 : (128,141]", NA)
     )
-    expect_equal(nrow(fill(ped)), 3)
+    expect_equal(nrow(fill(pedi)), 3)
 })

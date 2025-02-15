@@ -35,7 +35,7 @@ given a Pedigree object.
 }
 \examples{
 data("sampleped")
-ped <- Pedigree(sampleped)
-descendants(c("1_101", "2_208"), ped)
+pedi <- Pedigree(sampleped)
+descendants(c("1_101", "2_208"), pedi)
 }
 \keyword{internal}

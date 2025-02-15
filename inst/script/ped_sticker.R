@@ -32,7 +32,7 @@ plot(ped1trim$pedObj,
     lwd = 8
 )
 
-par(oma = c(0, 0, 0, 0), mar = c(0.5, 0.5, 0.5, 0.5))
+op <- par(oma = c(0, 0, 0, 0), mar = c(0.5, 0.5, 0.5, 0.5))
 plot_legend(
     ped1trim$pedObj, cex = 0.8, add_to_existing = TRUE,
     leg_loc = c(0.2, 5.5, 4.1, 5), boxw = 0.2, boxh = 0.18,

@@ -1,8 +1,3 @@
-# This module was created during the
-# St Jude Bio-Hackathon of May 2023 by the team 13.
-# Author: Louis Le Nézet (louislenezet@gmail.com)
-
-#### UI function of the module #### ----------
 #' @rdname plot_ped
 #' @importFrom shiny NS tagList uiOutput checkboxInput
 plot_ped_ui <- function(id) {
@@ -17,7 +12,6 @@ plot_ped_ui <- function(id) {
     )
 }
 
-#### Server function of the module #### ----------
 #' Shiny module to generate pedigree graph.
 #'
 #' This module allows to plot a pedigree object. The plot can be interactive.
@@ -146,7 +140,7 @@ plot_ped_server <- function(
                         pedi_val(),
                         aff_mark = TRUE, label = NULL,
                         cex = 1, symbolsize = 1, force = TRUE,
-                        ped_par = list(mar = c(0.5, 0.5, 1.5, 0.5)),
+                        ped_par = list(mar = c(0.5, 0.5, 2, 0.5)),
                         title = mytitle(),
                         precision = precision, lwd = lwd
                     )
@@ -156,18 +150,16 @@ plot_ped_server <- function(
             }
         })
 
-        plot_ped <- shiny::reactive({
+        shiny::reactive({
             if (input$interactive) {
-                return(plotly_ped())
+                plotly_ped()
             } else {
-                return(pedi_val())
+                pedi_val()
             }
         })
-        return(plot_ped)
     })
 }
 
-#### Demo function of the module #### ----------
 #' @rdname plot_ped
 #' @export
 #' @importFrom shiny shinyApp fluidPage

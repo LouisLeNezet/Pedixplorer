@@ -25,17 +25,17 @@
       8                                       self-id-duplicated_is-mother-and-father_is-father-but-not-male
       9                                       self-id-duplicated_is-mother-and-father_is-father-but-not-male
       10                                         momid-duplicated_is-its-own-parent_is-aborted-but-is-parent
-         famid deceased
-      1   <NA>       NA
-      2   <NA>       NA
-      3   <NA>       NA
-      4   <NA>       NA
-      5   <NA>       NA
-      6   <NA>       NA
-      7   <NA>       NA
-      8   <NA>       NA
-      9   <NA>       NA
-      10  <NA>       NA
+         famid deceased evaluated consultand proband carrier asymptomatic adopted
+      1   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      2   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      3   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      4   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      5   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      6   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      7   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      8   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      9   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      10  <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
 
 # Norm rel
 

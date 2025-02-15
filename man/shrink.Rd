@@ -74,6 +74,6 @@ shrink(ped1, max_bits = 12)
 }
 \author{
 Original by Dan Schaid,
-updated by Jason Sinnwell and Louis Le Nézet
+updated by Jason Sinnwell and Louis Le Nezet
 }
 \keyword{shrink}

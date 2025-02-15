@@ -1,8 +1,3 @@
-# This module was created during the St Jude Bio-Hackathon of May 2023
-# by the team 13.
-# author: Max Qiu (maxqiu@unl.edu)
-# author: Louis Le Nézet (louislenezet@gmail.com)
-
 #### Function needed to work #### ----------
 
 #' Read data from file path
@@ -44,11 +39,8 @@ read_data <- function(
     if (!is.null(file)) {
         ext <- tools::file_ext(file)
         if (!ext %in% supported_ext) {
-            stop(paste(
-                "Please upload a (",
-                paste0(supported_ext, collapse = ","),
-                ") file"
-            ))
+            all_ext <- paste(supported_ext, collapse = ", ")
+            stop("Please upload a (", all_ext, ") file")
         }
 
         if (to_char) {
@@ -327,7 +319,7 @@ data_import_server <- function(
                 shinytoastr::toastr_error(
                     title = "Error while reading the file", conditionMessage(e)
                 )
-                return(NULL)
+                NULL
             })
         })
 
@@ -354,7 +346,7 @@ data_import_server <- function(
         })
 
         # Return the reactive that yields the data frame
-        return(df)
+        df
     })
 }
 

@@ -110,8 +110,8 @@ For more information you can read the associated vignette:
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped)
-align(ped)
+pedi <- Pedigree(sampleped)
+align(pedi)
 
 }
 \seealso{

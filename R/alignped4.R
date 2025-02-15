@@ -73,8 +73,8 @@
 #'
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' align(ped)
+#' pedi <- Pedigree(sampleped)
+#' align(pedi)
 #'
 #' @seealso [align()]
 #' @keywords internal, alignment
@@ -155,10 +155,10 @@ alignped4 <- function(rval, spouse, level, width, align, precision = 2) {
         )
     }, warning = function(w) {
         message("Solve QP ended with", w)
-        return(NA)
+        NA
     }, error = function(e) {
         message("Solve QP ended with", e)
-        return(NA)
+        NA
     })
 
     newpos <- rval$pos

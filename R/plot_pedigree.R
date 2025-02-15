@@ -120,6 +120,8 @@ plot_legend <- function(
 #' parameteres for the main plot.
 #' @param leg_par default=list().  A list of parameters to use as graphical
 #' parameters for the legend.
+#' @param leg_usr default=NULL. A vector of user coordinates to use for the
+#' legend.
 #' @inheritParams subregion
 #'
 #' @return an invisible list containing
@@ -157,7 +159,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
         lwd = par("lwd"), ped_par = list(), leg_par = list(),
-        tips = NULL, title_cex = 2
+        tips = NULL, title_cex = 2, leg_usr = NULL
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -187,7 +189,6 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             lst$df <- subregion(lst$df, subreg)
             lst$par_usr$usr <- subreg[c(1, 2, 4, 3)]
         }
-
         p <- plot_fromdf(
             df = lst$df, usr = lst$par_usr$usr,
             title = title, title_cex = title_cex, ggplot_gen = ggplot_gen,
@@ -208,7 +209,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
                 adjx = leg_adjx, adjy = leg_adjy,
-                leg_loc = leg_loc, add_to_existing = TRUE
+                leg_loc = leg_loc, add_to_existing = TRUE,
+                usr = leg_usr, lwd = lwd
             )
             par(op)
         }

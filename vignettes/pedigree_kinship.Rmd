@@ -182,8 +182,8 @@ family/subject.
 ```{r, kinship}
 library(Pedixplorer)
 data(sampleped)
-ped <- Pedigree(sampleped)
-kinship(ped)[35:48, 35:48]
+pedi <- Pedigree(sampleped[, -16]) # Remove adoption field
+kinship(pedi)[35:48, 35:48]
 ```
 
 ## MakeKinship
@@ -243,10 +243,10 @@ rel <- data.frame(
     id2 = c(2, 2, 5, 3),
     code = c(1, 1, 1, 1)
 )
-ped <- Pedigree(df, rel)
-plot(ped)
+pedi <- Pedigree(df, rel)
+plot(pedi)
 twins <- c(1, 2, 3, 7, 5, 6)
-kinship(ped)[twins, twins]
+kinship(pedi)[twins, twins]
 ```
 
 Session information

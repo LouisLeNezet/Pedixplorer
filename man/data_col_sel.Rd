@@ -6,28 +6,33 @@
 \alias{data_col_sel_demo}
 \title{Shiny modules to select columns from a dataframe}
 \usage{
-data_col_sel_ui(id)
+data_col_sel_ui(id, ui_col_nb = 1)
 
 data_col_sel_server(
   id,
   df,
-  cols_needed,
-  cols_supl,
+  col_config,
   title,
   na_omit = TRUE,
-  others_cols = TRUE
+  others_cols = TRUE,
+  ui_col_nb = 1,
+  by_row = FALSE
 )
 
-data_col_sel_demo()
+data_col_sel_demo(ui_col_nb = 2, by_row = FALSE)
 }
 \arguments{
 \item{id}{A string to identify the module.}
 
 \item{df}{A reactive dataframe.}
 
-\item{cols_needed}{A character vector of the mandatory columns.}
-
-\item{cols_supl}{A character vector of the optional columns.}
+\item{col_config}{A named list of column definitions.
+It must contain a list for each column, with the following
+keys: 'alternate' and 'mandatory'.
+The 'alternate' key must contain a character vector of column names
+that can be selected as an alternative to the main column.
+The 'mandatory' key must contain a logical value (TRUE/FALSE) to indicate
+whether the column is required to be selected.}
 
 \item{title}{A string to display in the selectInput.}
 
@@ -38,11 +43,11 @@ present in the output datatable.}
 }
 \value{
 A reactive dataframe with the selected columns renamed
-to the names of cols_needed and cols_supl.
+to the names present in the configuration list.
 }
 \description{
 This function allows to select columns from a dataframe
-and rename them to the names of cols_needed and cols_supl.
+and rename them to a set of names present in a configuration list.
 This generate a Shiny module that can be used in a Shiny app.
 The function is composed of two parts: the UI and the server.
 The UI is called with the function \code{data_col_sel_ui()} and the server

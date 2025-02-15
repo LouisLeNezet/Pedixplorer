@@ -17,5 +17,8 @@ Given a vector of length \strong{n}, generate all possible permutations of
 the numbers 1 to \strong{n}.
 This is a recursive routine, and is not very efficient.
 }
+\examples{
+Pedixplorer:::permute(1:3)
+}
 \keyword{auto_hint}
 \keyword{internal}

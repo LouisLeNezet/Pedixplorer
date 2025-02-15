@@ -162,7 +162,7 @@ inf_sel_server <- function(id, pedi) {
         }
 
         # Informative individuals pedigree selection --------------------------
-        lst_inf <- shiny::reactive({
+        shiny::reactive({
             shiny::req(inf_inds_selected())
             list(
                 inf_txt = inf_inds_sel_txt(),
@@ -171,8 +171,6 @@ inf_sel_server <- function(id, pedi) {
                 keep_parents = input$keep_parents
             )
         })
-
-        return(lst_inf)
     })
 }
 

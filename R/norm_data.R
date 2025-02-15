@@ -38,7 +38,6 @@
 #' - `dadid` biological fathers identifiers
 #' - `momid` biological mothers identifiers
 #' - `sex` of the individual
-#' - `famid` family identifiers
 #'
 #' The `famid` column, if provided, will be merged to
 #' the *ids* field separated by an underscore using the
@@ -47,15 +46,21 @@
 #' The following columns are also recognize and will be transformed with the
 #' [vect_to_binary()] function:
 #'
-#' - `avail` status -> is the individual available
 #' - `deceased` status -> is the individual dead
+#' - `avail` status -> is the individual available
+#' - `evaluated` status -> has the individual a documented evaluation
+#' - `consultand` status -> is the individual the consultand
+#' - `proband` status -> is the individual the proband
+#' - `carrier` status -> is the individual a carrier
+#' - `asymptomatic` status -> is the individual asymptomatic
+#' - `adopted` status -> is the individual adopted
 #'
 #' The values recognized for those columns are `1` or `0`,
 #' `TRUE` or `FALSE`.
 #'
-#' The `fertility` column will be transformed to an ordered factor using the
+#' The `fertility` column will be transformed to a factor using the
 #' [fertility_to_factor()] function.
-#' `infertile_choice_na` < `infertile` < `fertile`
+#' `infertile_choice_na`, `infertile`, `fertile`
 #'
 #' The `miscarriage` column will be transformed to a using the
 #' [miscarriage_to_factor()] function.
@@ -75,13 +80,27 @@
 #'     id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
 #'     dadid = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
 #'     momid = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
-#'     sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f"),
-#'     avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
 #'     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
+#'     sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f"),
 #'     fertility = c(
-#'       "TRUE", "FALSE", TRUE, FALSE, 1, 0, "fertile", "infertile", 1, "TRUE"
-#'     ), deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
-#'     miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0)
+#'       "TRUE", "FALSE", TRUE, FALSE, 1,
+#'       0, "fertile", "infertile", 1, "TRUE"
+#'     ),
+#'     miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0),
+#'     deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
+#'     avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
+#'     evalutated = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
+#'     consultand = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
+#'     proband = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     carrier = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     asymptomatic = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
+#'     adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0")
 #' )
 #' tryCatch(
 #'     norm_ped(df),
@@ -103,13 +122,18 @@ norm_ped <- function(
         "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
         "sexErrMisFer", "sexNA",
         "sexError", "idErr", "idErrFa", "idErrMo", "idErrSelf",
-        "idErrOwnParent", "idErrBothParent", "idError", "error"
+        "idErrOwnParent", "idErrBothParent", "idError",
+        "error"
     )
     err <- data.frame(matrix(NA, nrow = nrow(ped_df), ncol = length(err_cols)))
     colnames(err) <- err_cols
     cols_need <- c("id", "dadid", "momid", "sex")
     cols_used <- c("error")
-    cols_to_use <- c("avail", "famid", "fertility", "deceased", "miscarriage")
+    cols_to_use <- c(
+        "famid", "fertility", "miscarriage", "deceased",
+        "avail", "evaluated", "consultand", "proband", "carrier",
+        "asymptomatic", "adopted"
+    )
     ped_df <- check_columns(
         ped_df, cols_need, cols_used, cols_to_use, others_cols = TRUE,
         cols_to_use_init = TRUE, cols_used_init = TRUE,
@@ -241,14 +265,32 @@ norm_ped <- function(
         )
         err$idError[err$idError == ""] <- NA
 
-        #### Available ####
-        if ("avail" %in% colnames(ped_df)) {
-            ped_df$avail <- vect_to_binary(ped_df$avail, logical = TRUE)
-        }
-        #### Deceased ####
-        if ("deceased" %in% colnames(ped_df)) {
-            ped_df$deceased <- vect_to_binary(ped_df$deceased, logical = TRUE)
-        }
+        ## Deceased, Avail, Evaluated, Consultand, Proband
+        ## Carrier, Asymptomatic, Adopted
+        ped_df$deceased <- vect_to_binary(
+            ped_df$deceased, logical = TRUE
+        )
+        ped_df$avail <- vect_to_binary(
+            ped_df$avail, logical = TRUE
+        )
+        ped_df$evaluated <- vect_to_binary(
+            ped_df$evaluated, logical = TRUE, default = FALSE
+        )
+        ped_df$consultand <- vect_to_binary(
+            ped_df$consultand, logical = TRUE, default = FALSE
+        )
+        ped_df$proband <- vect_to_binary(
+            ped_df$proband, logical = TRUE, default = FALSE
+        )
+        ped_df$carrier <- vect_to_binary(
+            ped_df$carrier, logical = TRUE
+        )
+        ped_df$asymptomatic <- vect_to_binary(
+            ped_df$asymptomatic, logical = TRUE
+        )
+        ped_df$adopted <- vect_to_binary(
+            ped_df$adopted, logical = TRUE, default = FALSE
+        )
 
         #### Convert to num ####
         if (try_num) {

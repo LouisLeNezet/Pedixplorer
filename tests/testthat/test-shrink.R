@@ -59,8 +59,8 @@ test_that("Pedigree shrink works", {
 test_that("Pedigree shrink error if missing info", {
     ## use sampleped from the package
     data("sampleped")
-    ped <- Pedigree(sampleped)
-    ped2 <- ped[famid(ped(ped)) == "2"]
+    pedi <- Pedigree(sampleped)
+    ped2 <- pedi[famid(ped(pedi)) == "2"]
     sex(ped(ped2))[c(13, 12)] <- "unknown"
 
     ## set 2nd col of affected to NA
@@ -72,8 +72,8 @@ test_that("Pedigree shrink error if missing info", {
 test_that("Pedigree shrink avail test", {
     ## use sampleped from the package
     data("sampleped")
-    ped <- Pedigree(sampleped)
-    ped1 <- ped[famid(ped(ped)) == "1"]
+    pedi <- Pedigree(sampleped)
+    ped1 <- pedi[famid(ped(pedi)) == "1"]
 
     set.seed(10)
     ped1_s_av_32 <- shrink(ped1, max_bits = 32)
@@ -91,7 +91,7 @@ test_that("Pedigree shrink avail test", {
     expect_equal(ped1_s_av_25$id_trim,
         paste("1", c(
             101, 102, 107, 108, 111, 113, 121,
-            122, 123, 131, 132, 134, 139, 140, 141
+            122, 123, 131, 132, 134, 139, 126, 125
         ), sep = "_")
     )
 })
@@ -100,8 +100,8 @@ test_that("Pedigree shrink with character", {
     ## use sampleped from the package
     data("sampleped")
     sampleped$famid[sampleped$famid == 1] <- "A"
-    ped <- Pedigree(sampleped)
-    ped1 <- ped[famid(ped(ped)) == "A"]
+    pedi <- Pedigree(sampleped)
+    ped1 <- pedi[famid(ped(pedi)) == "A"]
 
     set.seed(100)
     ped1_s_av_32 <- shrink(ped1, max_bits = 32)
@@ -117,14 +117,14 @@ test_that("Pedigree shrink with character", {
         "A_101", "A_102", "A_107", "A_108",
         "A_111", "A_113", "A_121", "A_122",
         "A_123", "A_131", "A_132", "A_134",
-        "A_139", "A_133", "A_141"
+        "A_139", "A_126", "A_125"
     ))
 })
 
 test_that("Shrink works", {
     data("sampleped")
-    ped <- Pedigree(sampleped)
-    ped2 <- ped[famid(ped(ped)) == "2"]
+    pedi <- Pedigree(sampleped)
+    ped2 <- pedi[famid(ped(pedi)) == "2"]
     ped2_s <- shrink(ped2)
 
     vdiffr::expect_doppelganger("Whole ped",

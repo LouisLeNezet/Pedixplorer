@@ -106,9 +106,9 @@ setMethod("is_informative", "character_OR_integer",
 #' @examples
 #'
 #' data("sampleped")
-#' ped <- ped(Pedigree(sampleped))
-#' ped <- is_informative(ped, informative = "Av")
-#' isinf(ped)
+#' pedi <- ped(Pedigree(sampleped))
+#' pedi <- is_informative(pedi, informative = "Av")
+#' isinf(pedi)
 #' @export
 setMethod("is_informative", "Ped", function(
     obj, informative = "AvAf", reset = FALSE
@@ -138,9 +138,9 @@ setMethod("is_informative", "Ped", function(
 #' @examples
 #'
 #' data("sampleped")
-#' ped <- Pedigree(sampleped)
-#' ped <- is_informative(ped, col_aff = "affection")
-#' isinf(ped(ped))
+#' pedi <- Pedigree(sampleped)
+#' pedi <- is_informative(pedi, col_aff = "affection")
+#' isinf(ped(pedi))
 #' @export
 setMethod("is_informative", "Pedigree", function(
     obj, col_aff = NULL,

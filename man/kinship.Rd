@@ -61,6 +61,10 @@ with an earlier release of the library that was less capable.
 Note that when using with a Ped or a vector, any information on
 twins is not available to the function.
 
+Warning: This function does not work with adopted individuals.
+If you have adopted individuals in your pedigree, you should remove them
+before calling this function.
+
 When called with a Pedigree, the routine
 will create a block-diagonal-symmetric sparse matrix object of class
 \code{dsCMatrix}.  Since the \verb{[i, j]} value of the result is 0 for any two
@@ -98,8 +102,8 @@ kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
 )
 
 data(sampleped)
-ped <- Pedigree(sampleped)
-kinship(ped)
+pedi <- Pedigree(sampleped[-16])
+kinship(pedi)
 }
 \seealso{
 \code{\link[=make_famid]{make_famid()}}, \code{\link[=kindepth]{kindepth()}}

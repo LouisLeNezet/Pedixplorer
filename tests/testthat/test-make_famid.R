@@ -59,37 +59,37 @@ test_that("make_famid works", {
 test_that("make_famid works with Pedigree", {
     ## Simple case with no family id
     data("sampleped")
-    ped <- Pedigree(sampleped[-1], rel_df[c(1:3)])
-    ped <- make_famid(ped)
+    pedi <- Pedigree(sampleped[-1], rel_df[c(1:3)])
+    pedi <- make_famid(pedi)
 
     ## Expected values
     fam <- sampleped$famid
     fam[sampleped$id == "113"] <- NA # singleton
     id <- paste(fam, c(101:141, 201:214), sep = "_")
     id[id == "NA_113"] <- "113"
-    expect_equal(id(ped(ped)), id)
-    expect_equal(id1(rel(ped)), c("2_213", "2_210", "1_140", "1_133"))
+    expect_equal(id(ped(pedi)), id)
+    expect_equal(id1(rel(pedi)), c("2_213", "2_210", "1_140", "1_133"))
 
     ## Updating already present family id
     data("sampleped")
     sampleped$famid[sampleped$famid == "2"] <- 3
     rel_df[c(1:3)]
-    ped <- Pedigree(sampleped, rel_df)
+    pedi <- Pedigree(sampleped, rel_df)
 
-    ped <- make_famid(ped)
-    expect_equal(id(ped(ped)), id)
-    expect_equal(id1(rel(ped)), c("2_213", "2_210", "1_140", "1_133"))
+    pedi <- make_famid(pedi)
+    expect_equal(id(ped(pedi)), id)
+    expect_equal(id1(rel(pedi)), c("2_213", "2_210", "1_140", "1_133"))
 })
 
 test_that("Family check works", {
     data("sampleped")
-    ped <- Pedigree(sampleped)
+    pedi <- Pedigree(sampleped)
 
     ## check them giving separate ped ids
     fcheck_df_sep <- with(sampleped,
         family_check(id, dadid, momid, famid)
     )
-    fcheck_ped_sep <- family_check(ped)
+    fcheck_ped_sep <- family_check(pedi)
     expect_equal(as.numeric(as.vector(fcheck_df_sep[1, ])), c(1, 41, 1, 1, 0))
     expect_equal(as.numeric(as.vector(fcheck_ped_sep[1, ])), c(1, 41, 1, 1, 0))
 
@@ -98,8 +98,8 @@ test_that("Family check works", {
         as.character(id), dadid, momid, rep(1, nrow(sampleped))
     ))
     sampleped$famid[sampleped$famid == "2"] <- 1
-    ped <- Pedigree(sampleped)
-    fcheck_ped_combined <- family_check(ped)
+    pedi <- Pedigree(sampleped)
+    fcheck_ped_combined <- family_check(pedi)
     expect_equal(as.numeric(as.vector(fcheck_df_combined[1, ])),
         c(1, 55, 1, 2, 0)
     )
@@ -108,8 +108,8 @@ test_that("Family check works", {
     )
 
     ## Correct the family id with make_famid
-    ped <- make_famid(ped)
-    fcheck_ped_corrected <- family_check(ped)
+    pedi <- make_famid(pedi)
+    fcheck_ped_corrected <- family_check(pedi)
     expect_equal(as.numeric(as.vector(fcheck_ped_corrected[1, ])),
         c(1, 40, 0, 1, 0)
     )

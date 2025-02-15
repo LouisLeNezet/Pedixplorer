@@ -49,8 +49,8 @@ Where \code{NbNonFounders} is the number of non founders in the Pedigree
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped)
-bit_size(ped)
+pedi <- Pedigree(sampleped)
+bit_size(pedi)
 }
 \seealso{
 \code{\link[=shrink]{shrink()}}

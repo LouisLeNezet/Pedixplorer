@@ -45,19 +45,39 @@ ped_server <- function(
         ped_df_rename <- data_col_sel_server(
             "data_ped_col_sel", ped_df,
             list(
-                "id" = c("indid", "indId", "id", "IndId"),
-                "dadid" = c("dadid", "fatherid", "fatherId", "FatherId"),
-                "momid" = c("momid", "motherid", "motherId", "MotherId"),
-                "sex" = c("gender", "sex", "Gender")
+                "id" = list(alternate = c("indid"), mandatory = TRUE),
+                "dadid" = list(alternate = c("fatherid"), mandatory = TRUE),
+                "momid" = list(alternate = c("motherid"), mandatory = TRUE),
+                "sex" = list(alternate = c("gender"), mandatory = TRUE),
+                "famid" = list(alternate = c("family"), mandatory = FALSE),
+                "fertility" = list(
+                    alternate = c("steril", "sterilization"), mandatory = FALSE
+                ),
+                "miscarriage" = list(
+                    alternate = c("aborted"), mandatory = FALSE
+                ),
+                "deceased" = list(
+                    alternate = c("status", "vitalstatus", "death"),
+                    mandatory = FALSE
+                ),
+                "avail" = list(alternate = c("available"), mandatory = FALSE),
+                "evaluated" = list(alternate = c("eval"), mandatory = FALSE),
+                "consultand" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "proband" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "carrier" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "asymptomatic" = list(
+                    alternate = c("presymptomatic"), mandatory = FALSE
+                ),
+                "adopted" = list(alternate = c("adoption"), mandatory = FALSE)
             ),
-            list(
-                "famid" = c("family", "famid"),
-                "fertility" = c("steril", "sterilization"),
-                "miscarriage" = c("miscarriage", "aborted"),
-                "avail" = c("avail", "available"),
-                "deceased" = c("status", "vitalStatus", "death", "deceased")
-            ),
-            "Select columns :", na_omit = TRUE
+            title = "Select columns :", na_omit = TRUE,
+            ui_col_nb = 3, by_row = FALSE
         )
         ## Rel data import ----------------------------------------------------
         rel_df <- data_import_server(
@@ -68,13 +88,12 @@ ped_server <- function(
         rel_df_rename <- data_col_sel_server(
             "data_rel_col_sel", rel_df,
             list(
-                "id1" = c("id1", "indId1"),
-                "id2" = c("id2", "indId2"),
-                "code" = c("code")
-            ), list(
-                "famid" = c("family", "famid")
+                "id1" = list(alternate = c("indId1"), mandatory = TRUE),
+                "id2" = list(alternate = c("indId2"), mandatory = TRUE),
+                "code" = list(alternate = c(NA_character_), mandatory = TRUE),
+                "famid" = list(alternate = c("family"), mandatory = FALSE)
             ),
-            "Select columns :", na_omit = TRUE
+            "Select columns :", na_omit = TRUE, ui_col_nb = 1, by_row = FALSE
         )
 
         ## Ped families object creation ---------------------------------------
@@ -124,20 +143,27 @@ ped_server <- function(
                 ped_df <- ped_df_norm()[is.na(ped_df_norm()$error), ]
             }
             tryCatch({
-                ped_df <- fix_parents(ped_df)
-                Pedigree(
-                    ped_df, rel_df_norm(),
-                    cols_ren_ped = list(),
-                    cols_ren_rel = list(),
-                    normalize = FALSE
-                )
+                withCallingHandlers({
+                    ped_df <- fix_parents(ped_df)
+                    Pedigree(
+                        ped_df, rel_df_norm(),
+                        cols_ren_ped = list(),
+                        cols_ren_rel = list(),
+                        normalize = FALSE
+                    )
+                }, warning = function(w) {
+                    shinytoastr::toastr_warning(
+                        title = "Warnings during pedigree creation",
+                        conditionMessage(w)
+                    )
+                    invokeRestart("muffleWarning")
+                })
             }, error = function(e) {
-                print(e)
                 shinytoastr::toastr_error(
                     title = "Couldn't create pedigree object",
                     conditionMessage(e)
                 )
-                return(NULL)
+                NULL
             })
         })
 
@@ -241,25 +267,41 @@ ped_server <- function(
             ) {
                 return(NULL)
             }
-            generate_colors(
-                lst_fam()$ped_fam, col_aff = lst_health()$var,
-                add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
-                threshold = lst_health()$threshold,
-                is_num = lst_health()$as_num,
-                sup_thres_aff = lst_health()$sup_threshold,
-                keep_full_scale = input$health_full_scale,
-                colors_aff = unname(unlist(
-                    cols_aff()[c("LeastAffected", "Affected")]
-                )),
-                colors_unaff = unname(unlist(
-                    cols_unaff()[c("Unaffected", "Dubious")]
-                )),
-                colors_na = "grey",
-                colors_avail = unname(unlist(
-                    cols_avail()[c("Avail", "Unavail")]
-                )),
-                breaks = 3
-            )
+            tryCatch({
+                withCallingHandlers({
+                    generate_colors(
+                        lst_fam()$ped_fam, col_aff = lst_health()$var,
+                        add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
+                        threshold = lst_health()$threshold,
+                        is_num = lst_health()$as_num,
+                        sup_thres_aff = lst_health()$sup_threshold,
+                        keep_full_scale = input$health_full_scale,
+                        colors_aff = unname(unlist(
+                            cols_aff()[c("LeastAffected", "Affected")]
+                        )),
+                        colors_unaff = unname(unlist(
+                            cols_unaff()[c("Unaffected", "Dubious")]
+                        )),
+                        colors_na = "grey",
+                        colors_avail = unname(unlist(
+                            cols_avail()[c("Avail", "Unavail")]
+                        )),
+                        breaks = 3
+                    )
+                }, warning = function(w) {
+                    shinytoastr::toastr_warning(
+                        title = "Warnings during pedigree normalization",
+                        conditionMessage(w)
+                    )
+                    invokeRestart("muffleWarning")
+                })
+            }, error = function(e) {
+                shinytoastr::toastr_error(
+                    title = "Error during pedigree generation",
+                    conditionMessage(e)
+                )
+                NULL
+            })
         })
 
         ## Family information -------------------------------------------------
@@ -357,7 +399,7 @@ ped_server <- function(
         plot_legend_server(
             "legend", ped_subfam,
             boxw = 0.02, boxh = 0.08, adjx = 0, adjy = 0,
-            leg_loc = c(0.1, 0.7, 0.01, 0.95), lwd = 1.5
+            leg_loc = c(0.1, 0.7, 0.1, 0.8), lwd = 1.5
         )
 
         ## Download data and plot ---------------------------------------------

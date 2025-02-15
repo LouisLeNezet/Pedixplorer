@@ -1,6 +1,6 @@
 ---
 title: Pedigree plotting details
-author: TM Therneau, JP Sinnwell, Louis Le Nézet
+author: TM Therneau, JP Sinnwell, Louis Le Nezet
 date: '`r format(Sys.time(),"%d %B, %Y")`'
 output:
     BiocStyle::html_document:
@@ -187,8 +187,9 @@ and $(x2, y2)$ whose height is 1/2 unit above a straight line connection.
 
 ### Symbols
 
-There are three main symbols corresponding to the three sex codes: square = male,
-circle = female, diamond= unknown. A triangle is use to represent miscarriage.
+There are three main symbols corresponding to the three sex codes:
+square = male, circle = female, diamond= unknown.
+A triangle is use to represent miscarriage.
 This triangle is crossed in the case of Termination of Pregnancy (TOB) contrary
 to Spontaneous Abortion (SAB).  
 They are shaded according to the value(s) of affected status for each

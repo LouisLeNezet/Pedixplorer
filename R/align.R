@@ -102,8 +102,8 @@ ancestors <- function(idx, momx, dadx) {
 #'
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' align(ped)
+#' pedi <- Pedigree(sampleped)
+#' align(pedi)
 #'
 #' @seealso [alignped1()],
 #' [alignped2()],
