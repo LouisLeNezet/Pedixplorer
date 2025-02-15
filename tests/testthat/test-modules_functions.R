@@ -78,7 +78,7 @@ test_that("check_col_config works", {
     )
     expect_error(
         check_col_config(col_config),
-        "B is duplicated in alternate configuration."
+        "B are/is duplicated in alternate configuration."
     )
 })
 
@@ -115,7 +115,7 @@ test_that("validate_and_rename_df works", {
     selections <- list(Column1 = "X", Column2 = "C")
     expect_error(
         validate_and_rename_df(df, selections, col_config),
-        "X selected column is not in the dataframe!"
+        "X selected column(s) are/is not in the dataframe!"
     )
 
     # Input df is not a dataframe

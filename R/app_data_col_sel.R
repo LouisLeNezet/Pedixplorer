@@ -136,7 +136,7 @@ validate_and_rename_df <- function(
 
     # Ensure all mandatory columns are selected
     mandatory_cols <- names(col_config)[vapply(
-        col_config, function(x) x$mandatory
+        col_config, function(x) x$mandatory, FALSE
     )]
     if (any(!mandatory_cols %in% names(selections))) {
         return(NULL)
