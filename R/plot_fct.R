@@ -484,7 +484,7 @@ draw_point <- function(
 set_plot_area <- function(
     cex, id, maxlev, xrange, symbolsize, precision = 3, ...
 ) {
-    old_par <- graphics::par(xpd = TRUE, ...)  ## took out mar=mar
+    op <- graphics::par(xpd = TRUE, ...)  ## took out mar=mar
     psize <- signif(graphics::par("pin"), precision)  # plot region in inches
     stemp1 <- signif(graphics::strwidth(
         "ABC", units = "inches", cex = cex
@@ -527,7 +527,7 @@ set_plot_area <- function(
     usr <- c(xrange[1] - boxw / 2, xrange[2] + boxw / 2,
         maxlev + boxh + stemp3 / vscale + stemp2 / vscale, 1
     )
-    list(usr = usr, old_par = old_par, boxw = boxw,
+    list(usr = usr, old_par = op, boxw = boxw,
         boxh = boxh, labh = labh, legh = legh
     )
 }

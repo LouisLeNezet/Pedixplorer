@@ -21,7 +21,8 @@ library(R.devices)
 Sys.setenv(
     CHROMOTE_CHROME = Sys.getenv("CHROMOTE_CHROME"),
     CHROMOTE_HEADLESS = "new",
-    SKIP_SHINY_TESTS = "TRUE"
+    SKIP_SHINY_TESTS = "TRUE",
+    R_TESTS = ""
 )
 
 print(Sys.getenv("CHROMOTE_CHROME"))
@@ -34,14 +35,14 @@ for (devi in all_dev) {
 
 ## Set up the plotting device
 par_lst <- list(
-    "pin" = c(8, 8), "cex" = 1, "mai" = c(1, 1, 1, 1),
+    "pin" = c(8, 8), "cex" = 1,
     "fin" = c(6, 6), "bg" = "white", "family" = "HersheySans",
     "usr" = c(0, 1, 0, 1), "xaxp" = c(0, 1, 5), "yaxp" = c(0, 1, 5),
-    "fig" = c(0, 1, 0, 1), "mar" = c(1, 1, 1, 1), "xpd" = TRUE,
-    "lwd" = 1
+    "fig" = c(0, 1, 0, 1), "mar" = rep(1, 4), "xpd" = TRUE,
+    "lwd" = 1, "oma" = rep(1, 4)
 )
 
-par_old <- par(par_lst)
+op <- par(par_lst)
 
 R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 
@@ -58,10 +59,9 @@ options(
     chromote.verbose = TRUE,
     digits = 4
 )
-Sys.setenv("R_TESTS" = "")
 
 ## Run the tests
 test_check("Pedixplorer")
 
 dev.off()
-par(par_old)
+par(op)

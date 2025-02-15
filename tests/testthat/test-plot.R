@@ -77,12 +77,12 @@ test_that("Fix of vertical scaling", {
     vdiffr::expect_doppelganger("Ped scaling multiple label",
         function() {
             # Plot
-            old_par <- par(mar = rep(2, 4), oma = rep(1, 4))
+            op <- par(mar = rep(2, 4), oma = rep(1, 4))
             plot(
                 pedi, id_lab = "labels",
                 ped_par = list(mar = rep(2, 4), oma = rep(1, 4))
             )
-            par(old_par)
+            par(op)
         }
     )
 })
