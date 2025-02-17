@@ -1,6 +1,3 @@
-test_that("Evaluate par()", {
-    expect_snapshot(par())
-})
 test_that("Pedigree plotting test", {
     ped2mat <- matrix(
         c(

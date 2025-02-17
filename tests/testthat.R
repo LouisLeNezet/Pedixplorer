@@ -47,17 +47,13 @@ op <- par(par_lst)
 R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 
 ## Set up the environment
-## Add BROWSER="google-chrome" to your environment variables
-withr::local_options(
-    width = 150, digits = 4,
-    browser = Sys.getenv("CHROMOTE_CHROME")
-)
 options(
     shiny.testmode = TRUE,
     shinytest2.load_timeout = 60000,
     shiny.fullstacktrace = TRUE,
     chromote.verbose = TRUE,
-    digits = 4
+    digits = 4, width = 150,
+    browser = Sys.getenv("CHROMOTE_CHROME")
 )
 
 ## Run the tests
