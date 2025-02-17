@@ -74,7 +74,13 @@ ped_server <- function(
                 "asymptomatic" = list(
                     alternate = c("presymptomatic"), mandatory = FALSE
                 ),
-                "adopted" = list(alternate = c("adoption"), mandatory = FALSE)
+                "adopted" = list(alternate = c("adoption"), mandatory = FALSE),
+                "dateofbirth" = list(
+                    alternate = c("dob", "birth"), mandatory = FALSE
+                ),
+                "dateofdeath" = list(
+                    alternate = c("dod"), mandatory = FALSE
+                ),
             ),
             title = "Select columns :", na_omit = TRUE,
             ui_col_nb = 3, by_row = FALSE
