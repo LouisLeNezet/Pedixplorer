@@ -138,7 +138,10 @@ validate_and_rename_df <- function(
     mandatory_cols <- names(col_config)[vapply(
         col_config, function(x) x$mandatory, FALSE
     )]
-    if (any(is.na(selections[mandatory_cols]))) {
+
+    if (! mandatory_cols %in% names(selections)
+        || any(is.na(selections[mandatory_cols]))
+    ) {
         return(NULL)
     }
 
