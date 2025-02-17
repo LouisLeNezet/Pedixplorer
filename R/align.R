@@ -132,7 +132,7 @@ setMethod("align", "Pedigree",
     function(
         obj, packed = TRUE, width = 10,
         align = TRUE, hints = NULL, missid = "NA_character_",
-        align_parents = TRUE, force = FALSE, precision = 2
+        align_parents = TRUE, force = FALSE, precision = 4
     ) {
         famlist <- unique(famid(ped(obj)))
         famlist <- famlist[!is.na(famlist)]

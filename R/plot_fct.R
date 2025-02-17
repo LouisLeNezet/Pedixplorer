@@ -482,7 +482,7 @@ draw_point <- function(
 #' @keywords Pedigree-plot
 #' @importFrom graphics par strwidth strheight
 set_plot_area <- function(
-    cex, id, maxlev, xrange, symbolsize, precision = 3, ...
+    cex, id, maxlev, xrange, symbolsize, precision = 4, ...
 ) {
     op <- graphics::par(xpd = TRUE, ...)  ## took out mar=mar
     psize <- signif(graphics::par("pin"), precision)  # plot region in inches

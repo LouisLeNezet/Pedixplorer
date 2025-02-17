@@ -14,7 +14,7 @@
 plot_legend <- function(
     obj, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
-    lwd = par("lwd"), precision = 8
+    lwd = par("lwd"), precision = 4
 ) {
     leg <- ped_to_legdf(
         obj, cex = cex,
@@ -157,7 +157,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         align_parents = TRUE, force = FALSE, width = 6,
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
-        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 8,
+        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 4,
         lwd = par("lwd"), ped_par = list(), leg_par = list(),
         tips = NULL, title_cex = 2, leg_usr = NULL
     ) {
