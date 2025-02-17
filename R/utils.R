@@ -682,10 +682,9 @@ create_text_column <- function(
 #' @examples
 #' Pedixplorer:::char_to_date("2020-01-01", "%Y-%m-%d")
 #' Pedixplorer:::char_to_date("01/01/20", "%d/%m/%y")
-#' @importFrom base as.Date
 char_to_date <- function(date, date_pattern = "%Y-%m-%d") {
     if (is.factor(date) || is.numeric(date)) {
         date <- as.character(date)
     }
-    as.Date(date, format = date_pattern)
+    base::as.Date(date, format = date_pattern)
 }
