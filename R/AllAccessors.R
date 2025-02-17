@@ -631,7 +631,7 @@ setMethod("carrier<-",
     }
 )
 
-##### asymptomatic Accessors #####
+##### Asymptomatic Accessors #####
 
 #' @rdname Ped-class
 #' @usage NULL
@@ -794,7 +794,7 @@ setMethod("dateofbirth", signature(x = "Ped"), function(x) {
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("dateofbirth<-", function(x, value, date_pattern) {
+setGeneric("dateofbirth<-", function(x, value, ...) {
     standardGeneric("dateofbirth<-")
 })
 
@@ -802,8 +802,8 @@ setGeneric("dateofbirth<-", function(x, value, date_pattern) {
 #' @usage NULL
 #' @export
 setMethod("dateofbirth<-",
-    signature(x = "Ped", value = "ANY", date_pattern = "character"),
-    function(x, value, date_pattern) {
+    signature(x = "Ped", value = "ANY"),
+    function(x, value, date_pattern = "%Y-%m-%d") {
         if (length(value) != length(x)) {
             if (length(value) == 1) {
                 value <- rep(value, length(x))
@@ -842,7 +842,7 @@ setMethod("dateofdeath", signature(x = "Ped"), function(x) {
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("dateofdeath<-", function(x, value, date_pattern) {
+setGeneric("dateofdeath<-", function(x, value, ...) {
     standardGeneric("dateofdeath<-")
 })
 
@@ -850,8 +850,8 @@ setGeneric("dateofdeath<-", function(x, value, date_pattern) {
 #' @usage NULL
 #' @export
 setMethod("dateofdeath<-",
-    signature(x = "Ped", value = "ANY", date_pattern = "character"),
-    function(x, value, date_pattern) {
+    signature(x = "Ped", value = "ANY"),
+    function(x, value, date_pattern = "%Y-%m-%d") {
         if (length(value) != length(x)) {
             if (length(value) == 1) {
                 value <- rep(value, length(x))
