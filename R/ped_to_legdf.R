@@ -54,7 +54,7 @@ setGeneric(
 setMethod("ped_to_legdf", "Pedigree", function(
     obj, boxh = 1, boxw = 1,
     cex = 1, adjx = 0, adjy = 0, lwd = par("lwd"),
-    precision = 3
+    precision = 8
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)
     plot_df <- data.frame(
