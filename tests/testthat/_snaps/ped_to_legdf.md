@@ -6,55 +6,55 @@
       $df
                           id    x0     y0 x1 y1        type    fill border angle
       1               titles 0.000 0.0000 NA NA        text   black   <NA>    NA
-      2               titles 2.055 0.0000 NA NA        text   black   <NA>    NA
-      3               titles 4.139 0.0000 NA NA        text   black   <NA>    NA
-      4               titles 6.256 0.0000 NA NA        text   black   <NA>    NA
-      5               titles 8.371 0.0000 NA NA        text   black   <NA>    NA
+      2               titles 2.057 0.0000 NA NA        text   black   <NA>    NA
+      3               titles 4.143 0.0000 NA NA        text   black   <NA>    NA
+      4               titles 6.264 0.0000 NA NA        text   black   <NA>    NA
+      5               titles 8.383 0.0000 NA NA        text   black   <NA>    NA
       6                  sex 0.000 0.8333 NA NA  square_1_1   white  black    NA
-      7                  sex 0.000 2.1667 NA NA  circle_1_1   white  black    NA
+      7                  sex 0.000 2.1670 NA NA  circle_1_1   white  black    NA
       8                  sex 0.000 3.5000 NA NA diamond_1_1   white  black    NA
-      9            sex_label 1.000 1.3333 NA NA        text   black   <NA>    NA
-      10           sex_label 1.000 2.6667 NA NA        text   black   <NA>    NA
+      9            sex_label 1.000 1.3330 NA NA        text   black   <NA>    NA
+      10           sex_label 1.000 2.6670 NA NA        text   black   <NA>    NA
       11           sex_label 1.000 4.0000 NA NA        text   black   <NA>    NA
-      12              border 2.055 0.8333 NA NA  square_1_1   white  black    NA
-      13              border 2.055 2.1667 NA NA  square_1_1   white  green    NA
-      14        border_label 3.055 1.3333 NA NA        text   black   <NA>    NA
-      15        border_label 3.055 2.6667 NA NA        text   black   <NA>    NA
-      16         aff_bkg_1_0 4.139 0.8333 NA NA  square_1_1   white  black    NA
-      17         aff_bkg_1_1 4.139 2.1667 NA NA  square_1_1   white  black    NA
-      18        aff_bkg_1_NA 4.139 3.5000 NA NA  square_1_1   white  black    NA
-      19        affected_1_0 4.139 0.8333 NA NA  square_3_1   white  black    NA
-      20        affected_1_1 4.139 2.1667 NA NA  square_3_1     red  black    NA
-      21       affected_1_NA 4.139 3.5000 NA NA  square_3_1    grey  black    NA
-      22  affected_label_1_0 5.139 1.3333 NA NA        text   black   <NA>    NA
-      23  affected_label_1_1 5.139 2.6667 NA NA        text   black   <NA>    NA
-      24 affected_label_1_NA 5.139 4.0000 NA NA        text   black   <NA>    NA
-      25         aff_bkg_2_0 6.256 0.8333 NA NA  square_1_1   white  black    NA
-      26         aff_bkg_2_1 6.256 2.1667 NA NA  square_1_1   white  black    NA
-      27        affected_2_0 6.256 0.8333 NA NA  square_3_2   white  black    NA
-      28        affected_2_1 6.256 2.1667 NA NA  square_3_2     red  black    NA
-      29  affected_label_2_0 7.256 1.3333 NA NA        text   black   <NA>    NA
-      30  affected_label_2_1 7.256 2.6667 NA NA        text   black   <NA>    NA
-      31         aff_bkg_3_1 8.371 0.8333 NA NA  square_1_1   white  black    NA
-      32         aff_bkg_3_2 8.371 2.1667 NA NA  square_1_1   white  black    NA
-      33         aff_bkg_3_3 8.371 3.5000 NA NA  square_1_1   white  black    NA
-      34         aff_bkg_3_4 8.371 4.8333 NA NA  square_1_1   white  black    NA
-      35         aff_bkg_3_5 8.371 6.1667 NA NA  square_1_1   white  black    NA
-      36         aff_bkg_3_6 8.371 7.5000 NA NA  square_1_1   white  black    NA
-      37        affected_3_1 8.371 0.8333 NA NA  square_3_3 #FFFFFF  black    NA
-      38        affected_3_2 8.371 2.1667 NA NA  square_3_3 #9AB1C4  black    NA
-      39        affected_3_3 8.371 3.5000 NA NA  square_3_3 #36648B  black    NA
-      40        affected_3_4 8.371 4.8333 NA NA  square_3_3 #FFC0CB  black    NA
-      41        affected_3_5 8.371 6.1667 NA NA  square_3_3 #CF70DD  black    NA
-      42        affected_3_6 8.371 7.5000 NA NA  square_3_3 #A020F0  black    NA
-      43  affected_label_3_1 9.371 1.3333 NA NA        text   black   <NA>    NA
-      44  affected_label_3_2 9.371 2.6667 NA NA        text   black   <NA>    NA
-      45  affected_label_3_3 9.371 4.0000 NA NA        text   black   <NA>    NA
-      46  affected_label_3_4 9.371 5.3333 NA NA        text   black   <NA>    NA
-      47  affected_label_3_5 9.371 6.6667 NA NA        text   black   <NA>    NA
-      48  affected_label_3_6 9.371 8.0000 NA NA        text   black   <NA>    NA
+      12              border 2.057 0.8333 NA NA  square_1_1   white  black    NA
+      13              border 2.057 2.1670 NA NA  square_1_1   white  green    NA
+      14        border_label 3.057 1.3330 NA NA        text   black   <NA>    NA
+      15        border_label 3.057 2.6670 NA NA        text   black   <NA>    NA
+      16         aff_bkg_1_0 4.143 0.8333 NA NA  square_1_1   white  black    NA
+      17         aff_bkg_1_1 4.143 2.1670 NA NA  square_1_1   white  black    NA
+      18        aff_bkg_1_NA 4.143 3.5000 NA NA  square_1_1   white  black    NA
+      19        affected_1_0 4.143 0.8333 NA NA  square_3_1   white  black    NA
+      20        affected_1_1 4.143 2.1670 NA NA  square_3_1     red  black    NA
+      21       affected_1_NA 4.143 3.5000 NA NA  square_3_1    grey  black    NA
+      22  affected_label_1_0 5.143 1.3330 NA NA        text   black   <NA>    NA
+      23  affected_label_1_1 5.143 2.6670 NA NA        text   black   <NA>    NA
+      24 affected_label_1_NA 5.143 4.0000 NA NA        text   black   <NA>    NA
+      25         aff_bkg_2_0 6.264 0.8333 NA NA  square_1_1   white  black    NA
+      26         aff_bkg_2_1 6.264 2.1670 NA NA  square_1_1   white  black    NA
+      27        affected_2_0 6.264 0.8333 NA NA  square_3_2   white  black    NA
+      28        affected_2_1 6.264 2.1670 NA NA  square_3_2     red  black    NA
+      29  affected_label_2_0 7.264 1.3330 NA NA        text   black   <NA>    NA
+      30  affected_label_2_1 7.264 2.6670 NA NA        text   black   <NA>    NA
+      31         aff_bkg_3_1 8.383 0.8333 NA NA  square_1_1   white  black    NA
+      32         aff_bkg_3_2 8.383 2.1670 NA NA  square_1_1   white  black    NA
+      33         aff_bkg_3_3 8.383 3.5000 NA NA  square_1_1   white  black    NA
+      34         aff_bkg_3_4 8.383 4.8330 NA NA  square_1_1   white  black    NA
+      35         aff_bkg_3_5 8.383 6.1670 NA NA  square_1_1   white  black    NA
+      36         aff_bkg_3_6 8.383 7.5000 NA NA  square_1_1   white  black    NA
+      37        affected_3_1 8.383 0.8333 NA NA  square_3_3 #FFFFFF  black    NA
+      38        affected_3_2 8.383 2.1670 NA NA  square_3_3 #9AB1C4  black    NA
+      39        affected_3_3 8.383 3.5000 NA NA  square_3_3 #36648B  black    NA
+      40        affected_3_4 8.383 4.8330 NA NA  square_3_3 #FFC0CB  black    NA
+      41        affected_3_5 8.383 6.1670 NA NA  square_3_3 #CF70DD  black    NA
+      42        affected_3_6 8.383 7.5000 NA NA  square_3_3 #A020F0  black    NA
+      43  affected_label_3_1 9.383 1.3330 NA NA        text   black   <NA>    NA
+      44  affected_label_3_2 9.383 2.6670 NA NA        text   black   <NA>    NA
+      45  affected_label_3_3 9.383 4.0000 NA NA        text   black   <NA>    NA
+      46  affected_label_3_4 9.383 5.3330 NA NA        text   black   <NA>    NA
+      47  affected_label_3_5 9.383 6.6670 NA NA        text   black   <NA>    NA
+      48  affected_label_3_6 9.383 8.0000 NA NA        text   black   <NA>    NA
       49             max_lim 0.000 0.0000 NA NA        text    <NA>  black    NA
-      50             max_lim 8.371 8.0000 NA NA        text    <NA>  black    NA
+      50             max_lim 8.383 8.0000 NA NA        text    <NA>  black    NA
          density cex                         label tips adjx adjy
       1       NA 1.2                           Sex <NA>    0    1
       2       NA 1.2                        Border <NA>    0    1
@@ -118,7 +118,7 @@
       [1] 0.8
       
       $par_usr$usr
-      [1] 0.000 9.371 0.000 8.000
+      [1] 0.000 9.383 0.000 8.000
       
       
 
