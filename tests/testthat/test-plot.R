@@ -30,7 +30,7 @@ test_that("Pedigree plotting test", {
     lst <- plot(
         pedi, label = "smoker",
         aff_mark = FALSE, ggplot_gen = TRUE,
-        precision = 1
+        precision = 4
     )
     vdiffr::expect_doppelganger("Ped simple affection ggplot",
         function() plot(lst$ggplot)
@@ -40,12 +40,13 @@ test_that("Pedigree plotting test", {
         col_aff = "smoker", colors_aff = c("#00e6ee", "#c300ff")
     )
 
-    lst <- ped_to_plotdf(pedi, precision = 1)
+    lst <- ped_to_plotdf(pedi, precision = 4)
     expect_equal(length(lst), 2)
     expect_equal(dim(lst$df), c(82, 16))
     expect_snapshot(lst)
-    expect_equal(lst$par_usr$usr, c(-0.035, 3.035, 4.200, 1.000))
-    p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 1)
+    expect_equal(round(lst$par_usr$usr, 4), c(-0.0415, 3.0415, 4.16, 1))
+
+    p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 4)
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
         function() plot(p$ggplot)
     )
@@ -57,13 +58,13 @@ test_that("Pedigree fails to line up", {
     df1 <- sampleped[sampleped$famid == "1", ]
     ped1 <- Pedigree(df1)
     vdiffr::expect_doppelganger("ped1",
-        function() plot(ped1, precision = 1)
+        function() plot(ped1, precision = 4)
     )
     # With reordering it's better
     df1reord <- df1[c(35:41, 1:34), ]
     ped1reord <- Pedigree(df1reord)
     vdiffr::expect_doppelganger("ped1reorder",
-        function() plot(ped1reord, precision = 1)
+        function() plot(ped1reord, precision = 4)
     )
 })
 
@@ -92,7 +93,7 @@ test_that("Tooltip works", {
     data(sampleped)
     pedi <- Pedigree(sampleped)
     p <- plot(
-        pedi, ggplot_gen = TRUE, precision = 1,
+        pedi, ggplot_gen = TRUE, precision = 4,
         label = "num", tips = c("momid"), symbolsize = 1.5
     )$ggplot
 

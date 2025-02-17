@@ -187,7 +187,7 @@ test_that("plot_ped works", {
     app <- shinytest2::AppDriver$new(
         plot_ped_demo(
             pedi = pedi,
-            precision = 2,
+            precision = 4,
             tips = c("id", "momid", "num")
         ), name = "plotped",
         variant = shinytest2::platform_variant()
