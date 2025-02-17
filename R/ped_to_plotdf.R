@@ -559,5 +559,12 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         }
     }
 
+    plot_df <- plot_df %>%
+        mutate(
+            x0 = signif(x0, precision), y0 = signif(y0, precision),
+            x1 = signif(x1, precision), y1 = signif(y1, precision)
+        )
+
+
     list(df = plot_df, par_usr = params_plot)
 })

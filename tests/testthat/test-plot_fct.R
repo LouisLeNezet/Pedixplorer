@@ -7,7 +7,8 @@ test_that("subregion works", {
 
     data("sampleped")
     pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
-    lst <- ped_to_plotdf(pedi, precision = 2)
+    lst <- ped_to_plotdf(pedi, precision = 3)
+
     expect_snapshot(lst$df)
     df_subreg <- subregion(lst$df, c(6, 14, 2, 3))
     expect_equal(max(df_subreg$x1, na.rm = TRUE), 14)
