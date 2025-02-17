@@ -67,8 +67,8 @@ setMethod("show", "Ped",
             if ("|" %in% colnames(m)) {
                 m[, "|"] <- ""
             }
+            print(m, quote = FALSE, right = TRUE)
         }
-        print(m, quote = FALSE, right = TRUE)
         invisible(NULL)
     }
 )

@@ -44,6 +44,7 @@ test_that("Pedigree plotting test", {
     expect_equal(length(lst), 2)
     expect_equal(dim(lst$df), c(82, 16))
     expect_snapshot(lst)
+    expect_equal(lst$par_usr$usr, c(-0.035, 3.035, 4.200, 1.000))
     p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 1)
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
         function() plot(p$ggplot)

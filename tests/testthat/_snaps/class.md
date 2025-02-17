@@ -12,14 +12,18 @@
       col_class    <factor> <logical> <logical> <logical>  <logical> <logical>
       ID5             FALSE      <NA>      <NA>     FALSE      FALSE     FALSE
       ID4             FALSE      <NA>      <NA>     FALSE      FALSE     FALSE
-                 affected   carrier asymptomatic   adopted    useful       kin
-      col_class <logical> <logical>    <logical> <logical> <logical> <numeric>
-      ID5            <NA>      <NA>         <NA>      <NA>      <NA>      <NA>
-      ID4            <NA>      <NA>         <NA>      <NA>      <NA>      <NA>
-                    isinf num_child_tot num_child_dir num_child_ind
-      col_class <logical>     <numeric>     <numeric>     <numeric>
-      ID5            <NA>             0             0             0
-      ID4            <NA>             0             0             0
+                 affected   carrier asymptomatic   adopted dateofbirth dateofdeath
+      col_class <logical> <logical>    <logical> <logical> <character> <character>
+      ID5            <NA>      <NA>         <NA>      <NA>        <NA>        <NA>
+      ID4            <NA>      <NA>         <NA>      <NA>        <NA>        <NA>
+                   useful       kin     isinf num_child_tot num_child_dir
+      col_class <logical> <numeric> <logical>     <numeric>     <numeric>
+      ID5            <NA>      <NA>      <NA>             0             0
+      ID4            <NA>      <NA>      <NA>             0             0
+                num_child_ind
+      col_class     <numeric>
+      ID5                   0
+      ID4                   0
 
 # Rel class works
 

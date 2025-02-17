@@ -36,6 +36,17 @@
       8   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
       9   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
       10  <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+         dateofbirth dateofdeath
+      1         <NA>        <NA>
+      2         <NA>        <NA>
+      3         <NA>        <NA>
+      4         <NA>        <NA>
+      5         <NA>        <NA>
+      6         <NA>        <NA>
+      7         <NA>        <NA>
+      8         <NA>        <NA>
+      9         <NA>        <NA>
+      10        <NA>        <NA>
 
 # Norm rel
 

@@ -100,6 +100,10 @@ na_to_length <- function(x, temp, value) {
 #' (i.e. `FALSE` = not adopted,
 #' `TRUE` = adopted,
 #' `NA` = unknown).
+#' @param dateofbirth A character vector with the date of birth of the
+#' individuals.
+#' @param dateofdeath A character vector with the date of death of the
+#' individuals.
 #' @param missid A character vector with the missing values identifiers.
 #' All the id, dadid and momid corresponding to those values will be set
 #' to `NA_character_`.
@@ -115,6 +119,7 @@ na_to_length <- function(x, temp, value) {
 #' @inheritParams sex_to_factor
 #' @inheritParams fertility_to_factor
 #' @inheritParams miscarriage_to_factor
+#' @inheritParams char_to_date
 #' @return A Ped object.
 #' @rdname Ped-class
 #' @export
@@ -131,12 +136,16 @@ setGeneric("Ped", signature = "obj", function(obj, ...) {
 #' Ped(sampleped)
 #' @export
 setMethod("Ped", "data.frame",
-    function(obj, cols_used_init = FALSE, cols_used_del = FALSE) {
+    function(
+        obj, cols_used_init = FALSE, cols_used_del = FALSE,
+        date_pattern = "%Y-%m-%d"
+    ) {
         col_need <- c("id", "sex", "dadid", "momid")
         col_to_use <- c(
             "famid", "fertility", "miscarriage", "deceased",
             "avail", "evaluated", "consultand", "proband",
             "affected", "carrier", "asymptomatic", "adopted",
+            "dateofbirth", "dateofdeath",
             "kin", "isinf", "useful"
         )
         col_used <- c(
@@ -169,6 +178,8 @@ setMethod("Ped", "data.frame",
             df$carrier <- vect_to_binary(df$carrier, logical = TRUE)
             df$asymptomatic <- vect_to_binary(df$asymptomatic, logical = TRUE)
             df$adopted <- vect_to_binary(df$adopted, logical = TRUE)
+            df$dateofbirth <- char_to_date(df$dateofbirth, date_pattern)
+            df$dateofdeath <- char_to_date(df$dateofdeath, date_pattern)
             df$isinf <- vect_to_binary(df$isinf, logical = TRUE)
             df$useful <- vect_to_binary(df$useful, logical = TRUE)
             df$kin <- na_to_length(df$kin, df$id, NA_real_)
@@ -181,6 +192,7 @@ setMethod("Ped", "data.frame",
             consultand = consultand, proband = proband,
             affected = affected, carrier = carrier,
             asymptomatic = asymptomatic, adopted = adopted,
+            dateofbirth = dateofbirth, dateofdeath = dateofdeath,
             kin = kin, isinf = isinf, useful = useful
         ))
         mcols(myped) <- df[,
@@ -210,7 +222,8 @@ setMethod("Ped", "character_OR_integer",
         avail = NA, evaluated = NA,
         consultand = NA, proband = NA,
         affected = NA, carrier = NA, asymptomatic = NA,
-        adopted = NA, missid = NA_character_,
+        adopted = NA, dateofbirth = NA, dateofdeath = NA,
+        missid = NA_character_,
         useful = NA, isinf = NA, kin = NA_real_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
@@ -242,6 +255,8 @@ setMethod("Ped", "character_OR_integer",
         asymptomatic <- na_to_length(asymptomatic, id, NA)
 
         adopted <- na_to_length(adopted, id, NA)
+        dateofbirth <- na_to_length(dateofbirth, id, NA_character_)
+        dateofdeath <- na_to_length(dateofdeath, id, NA_character_)
 
         useful <- na_to_length(useful, id, NA)
         isinf <- na_to_length(isinf, id, NA)
@@ -257,6 +272,7 @@ setMethod("Ped", "character_OR_integer",
             consultand = consultand, proband = proband,
             affected = affected, carrier = carrier,
             asymptomatic = asymptomatic, adopted = adopted,
+            dateofbirth = dateofbirth, dateofdeath = dateofdeath,
             useful = useful, kin = kin, isinf = isinf,
             num_child_tot = df_child$num_child_tot,
             num_child_dir = df_child$num_child_dir,
@@ -665,6 +681,8 @@ setMethod("Scales",
 #' - `carrier`: the carrier status of the individual
 #' - `asymptomatic`: the asymptomatic status of the individual
 #' - `adopted`: the adopted status of the individual
+#' - `dateofbirth`: the date of birth of the individual
+#' - `dateofdeath`: the date of death of the individual
 #' - `...`: other columns that will be stored in the
 #' `elementMetadata` slot
 #'
@@ -690,6 +708,9 @@ setMethod("Scales",
 #'
 #' The `miscarriage` column will be transformed with the
 #' [miscarriage_to_factor()] function.
+#'
+#' The `dateofbirth` and `dateofdeath` columns will be transformed
+#' with the [char_to_date()] function.
 #'
 #' @param obj A vector of the individuals identifiers or a data.frame
 #' with the individuals informations.
@@ -774,8 +795,10 @@ setMethod("Pedigree", "character_OR_integer", function(
     fertility = NULL, miscarriage = NULL, deceased = NULL,
     avail = NULL, evaluated = NULL, consultand = NULL,
     proband = NULL, affections = NULL, carrier = NULL,
-    asymptomatic = NULL, adopted = NULL, rel_df = NULL,
-    missid = NA_character_, col_aff = "affection", normalize = TRUE, ...
+    asymptomatic = NULL, adopted = NULL,
+    dateofbirth = NULL, dateofdeath = NULL, rel_df = NULL,
+    missid = NA_character_, col_aff = "affection", date_pattern = "%Y-%m-%d",
+    normalize = TRUE, ...
 ) {
     n <- length(obj)
     ## Code transferred from noweb to markdown vignette.
@@ -823,6 +846,14 @@ setMethod("Pedigree", "character_OR_integer", function(
 
     if (length(adopted) != n & !is.null(adopted)) {
         stop("Mismatched lengths, id and adopted")
+    }
+
+    if (length(dateofbirth) != n & !is.null(dateofbirth)) {
+        stop("Mismatched lengths, id and dateofbirth")
+    }
+
+    if (length(dateofdeath) != n & !is.null(dateofdeath)) {
+        stop("Mismatched lengths, id and dateofdeath")
     }
 
     ped_df <- data.frame(
@@ -890,6 +921,12 @@ setMethod("Pedigree", "character_OR_integer", function(
     if (any(!is.na(adopted))) {
         ped_df$adopted <- adopted
     }
+    if (any(!is.na(dateofbirth))) {
+        ped_df$dateofbirth <- dateofbirth
+    }
+    if (any(!is.na(dateofdeath))) {
+        ped_df$dateofdeath <- dateofdeath
+    }
     if (is.null(rel_df)) {
         rel_df <- data.frame(
             id1 = character(),
@@ -900,7 +937,8 @@ setMethod("Pedigree", "character_OR_integer", function(
     }
     Pedigree(ped_df, rel_df = rel_df,
         missid = missid, col_aff = col_aff,
-        normalize = normalize, ...
+        normalize = normalize, date_pattern = date_pattern,
+        ...
     )
 })
 
@@ -927,7 +965,9 @@ setMethod("Pedigree", "data.frame",  function(
         affection = logical(),
         carrier = logical(),
         asymptomatic = logical(),
-        adopted = logical()
+        adopted = logical(),
+        dateofbirth = character(),
+        dateofdeath = character()
     ),
     rel_df = data.frame(
         id1 = character(),
@@ -943,6 +983,7 @@ setMethod("Pedigree", "data.frame",  function(
         sex = "gender",
         fertility = c("sterilisation", "steril"),
         miscarriage = c("miscarriage", "aborted"),
+        deceased = c("status", "dead", "vitalStatus"),
         avail = "available",
         evaluated = "evaluation",
         consultand = "consultant",
@@ -951,7 +992,8 @@ setMethod("Pedigree", "data.frame",  function(
         carrier = "carrier",
         asymptomatic = "presymptomatic",
         adopted = "adoption",
-        deceased = c("status", "vitalStatus")
+        dateofbirth = c("dob", "birth"),
+        dateofdeath = c("dod", "death")
     ),
     cols_ren_rel = list(
         id1 = "indId1",
@@ -965,6 +1007,7 @@ setMethod("Pedigree", "data.frame",  function(
     normalize = TRUE,
     missid = NA_character_,
     col_aff = "affection",
+    date_pattern = "%Y-%m-%d",
     na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),
     ...
 ) {
@@ -1034,14 +1077,18 @@ setMethod("Pedigree", "data.frame",  function(
 
     ## Normalise the data before creating the object
     if (normalize) {
-        ped_df <- norm_ped(ped_df, missid = missid, na_strings = na_strings)
+        ped_df <- norm_ped(
+            ped_df, missid = missid,
+            na_strings = na_strings, date_pattern = date_pattern
+        )
         rel_df <- norm_rel(rel_df, missid = missid, na_strings = na_strings)
     } else {
         cols_need <- c("id", "dadid", "momid", "sex")
         cols_to_use <- c(
             "famid", "fertility", "miscarriage", "deceased",
             "avail", "evaluated", "consultand", "proband",
-            "affected", "carrier", "asymptomatic", "adopted"
+            "affected", "carrier", "asymptomatic", "adopted",
+            "dateofbirth", "dateofdeath"
         )
         ped_df <- check_columns(
             ped_df, cols_need, "", cols_to_use,

@@ -166,3 +166,29 @@ test_that("vect_to_binary", {
         )
     )
 })
+
+test_that("char_to_date", {
+    my_vect <- c(
+        "2020-01-01", "2020-01-01 12:00:00", "2020/01/01",
+        "01/01/2020", "01/01/2020 12:00:00", "01-01-2020",
+        "01/01/20", "01/01/20 12:00:00", "01-01-20"
+    )
+    pattern <- c(
+        "%Y-%m-%d", "%Y-%m-%d %H:%M:%S", "%Y/%m/%d",
+        "%m/%d/%Y", "%m/%d/%Y %H:%M:%S", "%m-%d-%Y",
+        "%m/%d/%y", "%m/%d/%y %H:%M:%S", "%m-%d-%y"
+    )
+    my_vect_1 <- char_to_date(my_vect, pattern)
+    expect_equal(
+        my_vect_1, as.Date(rep("2020-01-01", 9))
+    )
+
+    my_vect <- c(
+        "2020-01-01", "", "2020/01/01",
+        "NA", "wrong-date", " "
+    )
+    my_vect_1 <- char_to_date(my_vect, "%Y-%m-%d")
+    expect_equal(
+        my_vect_1, as.Date(c("2020-01-01", NA, NA, NA, NA, NA))
+    )
+})
