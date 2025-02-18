@@ -228,9 +228,6 @@
       $CBoundsCheck
       [1] FALSE
       
-      $HTTPUserAgent
-      [1] "R (4.4.1 x86_64-w64-mingw32 x86_64 mingw32)"
-      
       $OutDec
       [1] "."
       
@@ -253,12 +250,6 @@
       function (cond) 
       NULL
       <environment: R_EmptyEnv>
-      
-      $browser
-      [1] "C:/Program Files/Google/Chrome/Application/chrome.exe"
-      
-      $browserNLdisabled
-      [1] FALSE
       
       $catch.script.errors
       [1] FALSE
@@ -379,12 +370,6 @@
       
       
       
-      $devtools.install.args
-      [1] ""
-      
-      $devtools.path
-      [1] "~/R-dev"
-      
       $digits
       [1] 4
       
@@ -393,9 +378,6 @@
       
       $echo
       [1] TRUE
-      
-      $editor
-      [1] "notepad"
       
       $encoding
       [1] "native.enc"
@@ -412,17 +394,11 @@
       $help.try.all.packages
       [1] FALSE
       
-      $help_type
-      [1] "html"
-      
       $httr_oauth_cache
       [1] NA
       
       $httr_oob_default
       [1] FALSE
-      
-      $install.packages.compile.from.source
-      [1] "interactive"
       
       $internet.info
       [1] 2
@@ -473,7 +449,7 @@
       [1] "a4"
       
       $pkgType
-      [1] "both"
+      [1] "source"
       
       $prompt
       [1] "> "
@@ -507,7 +483,7 @@
       [1] TRUE
       
       $showErrorCalls
-      [1] FALSE
+      [1] TRUE
       
       $showNCalls
       [1] 50
@@ -592,7 +568,7 @@
       [1] "test-parameters.R"
       
       $timeout
-      [1] 60
+      [1] 600
       
       $ts.S.compat
       [1] FALSE
@@ -608,53 +584,6 @@
       
       $verbose
       [1] FALSE
-      
-      $vsc.browser
-      [1] "Active"
-      
-      $vsc.dev.args
-      $vsc.dev.args$width
-      [1] 800
-      
-      $vsc.dev.args$height
-      [1] 1200
-      
-      
-      $vsc.globalenv
-      [1] TRUE
-      
-      $vsc.helpPanel
-      [1] "Two"
-      
-      $vsc.object_length_limit
-      [1] 2000
-      
-      $vsc.object_timeout
-      [1] 50
-      
-      $vsc.plot
-      [1] "Two"
-      
-      $vsc.row_limit
-      [1] 0
-      
-      $vsc.rstudioapi
-      [1] TRUE
-      
-      $vsc.show_object_size
-      [1] FALSE
-      
-      $vsc.str.max.level
-      [1] 0
-      
-      $vsc.use_httpgd
-      [1] TRUE
-      
-      $vsc.use_webserver
-      [1] FALSE
-      
-      $vsc.view
-      [1] "Two"
       
       $warn
       [1] 0
@@ -673,8 +602,5 @@
       
       $width
       [1] 80
-      
-      $windowsTimeouts
-      [1] 100 500
       
 

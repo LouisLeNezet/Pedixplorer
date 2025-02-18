@@ -53,7 +53,14 @@ options(
     shiny.fullstacktrace = TRUE,
     chromote.verbose = TRUE,
     digits = 4, width = 150,
-    browser = Sys.getenv("CHROMOTE_CHROME")
+    browser = Sys.getenv("CHROMOTE_CHROME"),
+    keep.source = TRUE,
+    pager = "internal",
+    papersize = "a4",
+    pkgType = "source",
+    showErrorCalls = TRUE,
+    timeout = 600,
+    unzip = "internal"
 )
 
 ## Run the tests

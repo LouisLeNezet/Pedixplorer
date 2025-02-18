@@ -10,7 +10,14 @@ test_that("Evaluate options()", {
         "callr.condition_handler_cli_message",
         "page_viewer", "viewer",
         "device", "diffobj\\.*",
-        "devtools.ellipsis_action"
+        "devtools.ellipsis_action",
+        "vsc\\.*", "HTTPUserAgent",
+        "bitmapType", "browser",
+        "devtools\\.*", "dvipscmd",
+        "editor", "help_type",
+        "install.packages.compile.from.source",
+        "printcmd", "rl_word_breaks",
+        "texi2dvi", "windowsTimeouts"
     )
     library(stringr)
     opts$str$formatNum <- NA
