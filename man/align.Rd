@@ -15,7 +15,7 @@
   missid = "NA_character_",
   align_parents = TRUE,
   force = FALSE,
-  precision = 2
+  precision = 4
 )
 }
 \arguments{

@@ -7,7 +7,7 @@
 ped_shiny(
   port = getOption("shiny.port"),
   host = getOption("shiny.host", "127.0.0.1"),
-  precision = 2
+  precision = 6
 )
 }
 \arguments{

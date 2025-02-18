@@ -14,7 +14,8 @@ plot_legend(
   leg_loc = c(0, 1, 0, 1),
   add_to_existing = FALSE,
   usr = NULL,
-  lwd = par("lwd")
+  lwd = par("lwd"),
+  precision = 4
 )
 }
 \arguments{

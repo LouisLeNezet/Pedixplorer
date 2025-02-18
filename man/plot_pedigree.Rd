@@ -31,7 +31,7 @@
   leg_loc = NULL,
   leg_adjx = 0,
   leg_adjy = 0,
-  precision = 2,
+  precision = 4,
   lwd = par("lwd"),
   ped_par = list(),
   leg_par = list(),

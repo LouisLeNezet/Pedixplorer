@@ -12,7 +12,8 @@
   cex = 1,
   adjx = 0,
   adjy = 0,
-  lwd = par("lwd")
+  lwd = par("lwd"),
+  precision = 4
 )
 }
 \arguments{

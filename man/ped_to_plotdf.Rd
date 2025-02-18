@@ -19,7 +19,7 @@
   aff_mark = TRUE,
   id_lab = "id",
   label = NULL,
-  precision = 3,
+  precision = 4,
   lwd = par("lwd"),
   tips = NULL,
   ...

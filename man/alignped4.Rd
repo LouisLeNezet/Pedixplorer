@@ -4,7 +4,7 @@
 \alias{alignped4}
 \title{Alignment fourth routine}
 \usage{
-alignped4(rval, spouse, level, width, align, precision = 2)
+alignped4(rval, spouse, level, width, align, precision = 4)
 }
 \arguments{
 \item{rval}{A list with components \code{n}, \code{nid},

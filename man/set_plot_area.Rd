@@ -4,7 +4,7 @@
 \alias{set_plot_area}
 \title{Set plotting area}
 \usage{
-set_plot_area(cex, id, maxlev, xrange, symbolsize, precision = 3, ...)
+set_plot_area(cex, id, maxlev, xrange, symbolsize, precision = 4, ...)
 }
 \arguments{
 \item{cex}{Character expansion of the text}
