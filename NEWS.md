@@ -20,6 +20,11 @@ for a better consistency across the package. Please check that your argument are
 properly named (i.e. `sex` has been moved after `famid` and `avail` after `deceased`).
 - Shiny application is updated and improved (aesthetics, errors, warnings,
 functionnalities).
+- Add `dateofbirth` and `dateofdeath` to the `Ped` object
+- Changee from `round` to `signif` for the `precision` argument
+- Improve stability of test by adding and controlling the `options()` and `par()` arguments
+in the unittests.
+- `Carrier` symbols is proportional to the mean of the box size
 
 ## Changes in v1.2.0
 
