@@ -33,6 +33,9 @@ of the labels in the legend.}
 
 \item{lwd}{default=par("lwd").  Controls the bordering line width of the
 elements in the legend.}
+
+\item{precision}{The number of significatif numbers to round the
+numbers to.}
 }
 \value{
 A list containing the legend data frame and the user coordinates.

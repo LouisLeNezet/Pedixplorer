@@ -123,7 +123,8 @@ the legend.}
 \item{leg_adjy}{default=0.  Controls the vertical labels adjustment
 of the legend.}
 
-\item{precision}{The number of decimal places to round the solution to.}
+\item{precision}{The number of significatif numbers to round the
+solution to.}
 
 \item{lwd}{default=par("lwd"). Controls the line width of the
 segments, arcs and polygons.}
