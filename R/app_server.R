@@ -26,7 +26,7 @@
 #' }
 #' @keywords internal
 ped_server <- function(
-    input, output, session, precision = 2
+    input, output, session, precision = 6
 ) {
     shiny::shinyServer(function(input, output, session) {
 
