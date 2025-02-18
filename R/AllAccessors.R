@@ -771,8 +771,6 @@ setMethod("affected<-",
         x
     }
 )
-
-
 ##### Date Of Birth Accessors #####
 
 setClassUnion("Date_OR_character", c("Date", "character"))
@@ -821,8 +819,6 @@ setMethod("dateofbirth<-",
         x
     }
 )
-
-
 ##### Date Of Death Accessors #####
 
 #' @rdname Ped-class
