@@ -19,7 +19,8 @@ test_that("Evaluate options()", {
         "printcmd", "rl_word_breaks",
         "texi2dvi", "windowsTimeouts",
         "testthat.snapshotter",
-        "datatable\\.*"
+        "datatable\\.*",
+        "covr\\.*"
     )
     opts$str$formatNum <- NA
     for (i in seq_along(no_check)) {
