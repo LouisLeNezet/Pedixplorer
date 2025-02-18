@@ -300,7 +300,6 @@ data_col_sel_server <- function(
             selectors <- list()
 
             seq_groups <- distribute_by(ui_col_nb, length(col_config), by_row)
-            print(all_cols())
             for (i in seq_along(names(col_config))) {
                 col_name <- names(col_config)[i]
                 col_options <- c(col_config[[col_name]]$alternate, col_name)
