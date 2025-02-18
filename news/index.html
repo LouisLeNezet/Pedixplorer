@@ -78,6 +78,11 @@
 <code>miscarriage</code>, <code>evaluated</code>, <code>consultand</code>, <code>proband</code>, <code>carrier</code>, <code>asymptomatic</code> and <code>adopted</code> are now recognize and use for plotting</li>
 <li>Argument order of <code><a href="../reference/Ped-class.html">Ped()</a></code> as changed when using vectors. This choice has been made for a better consistency across the package. Please check that your argument are properly named (i.e. <code>sex</code> has been moved after <code>famid</code> and <code>avail</code> after <code>deceased</code>).</li>
 <li>Shiny application is updated and improved (aesthetics, errors, warnings, functionnalities).</li>
+<li>Add <code>dateofbirth</code> and <code>dateofdeath</code> to the <code>Ped</code> object</li>
+<li>Changee from <code>round</code> to <code>signif</code> for the <code>precision</code> argument</li>
+<li>Improve stability of test by adding and controlling the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> and <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code> arguments in the unittests.</li>
+<li>
+<code>Carrier</code> symbols is proportional to the mean of the box size</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="changes-in-v120">Changes in v1.2.0<a class="anchor" aria-label="anchor" href="#changes-in-v120"></a></h2>
