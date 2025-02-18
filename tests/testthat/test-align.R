@@ -5,8 +5,6 @@ test_that("align works", {
     plist1 <- align(ped1)
     expect_equal(plist1$n, c(2, 10, 16, 14))
 
-    as.data.frame(ped(pedi))
-
     ped2 <- pedi[famid(ped(pedi)) == 2]
     plist2 <- align(ped2)
     expect_equal(plist2$n, c(2, 7, 5))
