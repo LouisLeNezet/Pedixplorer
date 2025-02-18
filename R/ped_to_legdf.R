@@ -28,6 +28,8 @@
 #' of the labels in the legend.
 #' @param lwd default=par("lwd").  Controls the bordering line width of the
 #' elements in the legend.
+#' @param precision The number of significatif numbers to round the
+#' numbers to.
 #'
 #' @return
 #' A list containing the legend data frame and the user coordinates.

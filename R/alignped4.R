@@ -65,7 +65,8 @@
 #' `pos`, and `fam`.
 #' @param spouse A boolean matrix with one row per level representing if
 #' the subject is a spouse or not.
-#' @param precision The number of decimal places to round the solution to.
+#' @param precision The number of significatif numbers to round the
+#' solution to.
 #' @inheritParams align
 #' @inheritParams alignped1
 #' @importFrom quadprog solve.QP

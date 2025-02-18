@@ -794,7 +794,7 @@ setMethod("dateofbirth", signature(x = "Ped"), function(x) {
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("dateofbirth<-", function(x, value, ...) {
+setGeneric("dateofbirth<-", function(x, value) {
     standardGeneric("dateofbirth<-")
 })
 
@@ -803,7 +803,7 @@ setGeneric("dateofbirth<-", function(x, value, ...) {
 #' @export
 setMethod("dateofbirth<-",
     signature(x = "Ped", value = "ANY"),
-    function(x, value, date_pattern = "%Y-%m-%d") {
+    function(x, value) {
         if (length(value) != length(x)) {
             if (length(value) == 1) {
                 value <- rep(value, length(x))
@@ -814,7 +814,7 @@ setMethod("dateofbirth<-",
                 )
             }
         }
-        x@dateofbirth <- char_to_date(value, date_pattern)
+        x@dateofbirth <- char_to_date(value, date_pattern = "%Y-%m-%d")
         validObject(x)
         x
     }
@@ -842,7 +842,7 @@ setMethod("dateofdeath", signature(x = "Ped"), function(x) {
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("dateofdeath<-", function(x, value, ...) {
+setGeneric("dateofdeath<-", function(x, value) {
     standardGeneric("dateofdeath<-")
 })
 
@@ -851,7 +851,7 @@ setGeneric("dateofdeath<-", function(x, value, ...) {
 #' @export
 setMethod("dateofdeath<-",
     signature(x = "Ped", value = "ANY"),
-    function(x, value, date_pattern = "%Y-%m-%d") {
+    function(x, value) {
         if (length(value) != length(x)) {
             if (length(value) == 1) {
                 value <- rep(value, length(x))
@@ -862,7 +862,7 @@ setMethod("dateofdeath<-",
                 )
             }
         }
-        x@dateofdeath <- char_to_date(value, date_pattern)
+        x@dateofdeath <- char_to_date(value, date_pattern = "%Y-%m-%d")
         validObject(x)
         x
     }
