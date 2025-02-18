@@ -124,7 +124,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     labh <- params_plot$labh
     legh <- params_plot$legh
 
-    ## Get all boxes to plot
+    #### Get all boxes to plot ####
     # idx is the index of the boxes in the alignment
     idx <- which(plist$nid > 0)
     # index value in the ped of each box
@@ -188,7 +188,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         }
     }
 
-    ## Add infertility status
+    #### Add infertility status ####
     infertile <- ped_df[id[idx], "fertility"]
     idx_iftl_all <- idx[infertile != "fertile"]
     idx_iftl <- idx[infertile == "infertile"]
@@ -225,7 +225,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         }
     }
 
-    ## Add miscarriage symbols
+    #### Add miscarriage symbols ####
     miscarriage <- ped_df[id[idx], "miscarriage"]
     idx_mscr <- idx[miscarriage %in% c("ECT", "TOP")]
     if (length(idx_mscr) > 0) {
@@ -238,7 +238,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, mscr_df)
     }
 
-    ## Add ectopic pregnancy symbol symbols
+    #### Add ectopic pregnancy symbol symbols ####
     idx_mscr_ect <- idx[miscarriage %in% c("ECT")]
     if (length(idx_mscr_ect) > 0) {
         mscr_ect_df <- data.frame(
@@ -251,7 +251,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, mscr_ect_df)
     }
 
-    ## Add deceased status
+    #### Add deceased status ####
     deceased <- ped_df[id[idx], "deceased"]
     idx_dead <- idx[deceased == 1 & !is.na(deceased)]
 
@@ -266,7 +266,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, dead_df)
     }
 
-    ## Add evaluated status
+    #### Add evaluated status ####
     evaluated <- ped_df[id[idx], "evaluated"]
     idx_eval <- idx[evaluated]
 
@@ -281,7 +281,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, eval_df)
     }
 
-    ## Add consultband and proband status
+    #### Add consultband and proband status ####
     consultand <- ped_df[id[idx], "consultand"]
     proband <- ped_df[id[idx], "proband"]
     idx_cons <- idx[consultand | proband]
@@ -312,7 +312,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, prob_df)
     }
 
-    ## Add carriers status
+    #### Add carriers status ####
     carrier <- ped_df[id[idx], "carrier"]
     idx_carrier <- idx[carrier & !is.na(carrier)]
     if (length(idx_carrier) > 0) {
@@ -326,7 +326,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, carrier_df)
     }
 
-    ## Add asymptomatic status
+    #### Add asymptomatic status ####
     asymptomatic <- ped_df[id[idx], "asymptomatic"]
     idx_asym <- idx[asymptomatic & !is.na(asymptomatic)]
     if (length(idx_asym) > 0) {
@@ -341,7 +341,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, asym_df)
     }
 
-    ## Add adopted status
+    #### Add adopted status ####
     adopted <- ped_df[id[idx], "adopted"]
     idx_adop <- idx[adopted]
     if (length(idx_asym) > 0) {
@@ -372,7 +372,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, adop_df_v, adop_df_h)
     }
 
-    ## Add ids
+    #### Add ids ####
     id_df <- data.frame(
         x0 = pos[idx], y0 = i[idx] + boxh * 1.2 + labh,
         label = ped_df[id[idx], id_lab], fill = "black",
@@ -381,12 +381,35 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     )
     plot_df <- plyr::rbind.fill(plot_df, id_df)
 
+    #### Add dates ####
+    dates <- ped_df[id[idx], c("id", "dateofbirth", "dateofdeath")]
+    idx_dates <- idx[!is.na(dates$dateofbirth) | !is.na(dates$dateofdeath)]
 
-    ## Add a label if given
+    if (length(idx_dates) > 0) {
+        dates_char <- with(ped_df[id[idx_dates], ], paste(
+            ifelse(
+                is.na(dateofbirth), "",
+                format(as.Date(dateofbirth), "%Y")
+            ),
+            ifelse(
+                is.na(dateofdeath), "",
+                format(as.Date(dateofdeath), "%Y")
+            ), sep = " - "
+        ))
+        dates_df <- data.frame(
+            x0 = pos[idx_dates], y0 = i[idx_dates] + boxh * 1.2 + labh * 3,
+            label = dates_char, fill = "black",
+            type = "text", cex = cex * 0.7, adjx = 0.5, adjy = 1,
+            id = "id", tips = ped_df[id[idx_dates], "tips"]
+        )
+        plot_df <- plyr::rbind.fill(plot_df, dates_df)
+    }
+
+    #### Add a label if given ####
     if (!is.null(label)) {
         check_columns(ped_df, label)
         label <- data.frame(
-            x0 = pos[idx], y0 = i[idx] + boxh * 1.2 + labh * 3,
+            x0 = pos[idx], y0 = i[idx] + boxh * 1.2 + labh * 5,
             label = ped_df[id[idx], label],
             fill = "black", adjy = 1, adjx = 0.5,
             type = "text", cex = cex,
@@ -395,7 +418,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, label)
     }
 
-    ## Add lines between spouses
+    #### Add lines between spouses ####
     spouses <- which(plist$spouse > 0)
     l_spouses_i <- i[spouses] + boxh / 2
     pos_sp1 <- pos[spouses] + boxw / 2
@@ -409,7 +432,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     )
     plot_df <- plyr::rbind.fill(plot_df, l_spouses)
 
-    ## Add doubles mariage
+    #### Add doubles mariage ####
     spouses2 <- which(plist$spouse == 2)
     if (length(spouses2) > 0) {
         l_spouses2_i <- i[spouses2] + boxh / 2 + boxh / 10
@@ -426,7 +449,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         plot_df <- plyr::rbind.fill(plot_df, l_spouses2)
     }
 
-    ## Children to parents lines
+    #### Children to parents lines ####
     for (gen in seq_len(maxlev)) {
         zed <- unique(plist$fam[gen, ])
         zed <- zed[zed > 0]  # list of family ids
@@ -559,6 +582,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         }
     }
 
+    #### Keep only significant numbers ####
     x0 <- y0 <- x1 <- y1 <- numeric()
     plot_df <- plot_df %>%
         mutate(
