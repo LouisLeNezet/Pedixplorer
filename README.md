@@ -124,6 +124,7 @@ pedi <- Pedigree(sampleped, relped, missid = NA) %>%
     )
 
 proband(ped(pedi)) <- isinf(ped(pedi)) # Set informative individuals as proband
+
 png("MyPedigree.png", width = 1000, height = 600)
 plot(
     pedi,
@@ -136,7 +137,9 @@ plot(
 dev.off()
 ```
 
-<img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"/>
+<p align="center">
+    <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"/>
+</p>
 
 ## Documentation and News
 
