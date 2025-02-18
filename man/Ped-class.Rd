@@ -75,11 +75,11 @@
 \alias{dateofbirth}
 \alias{dateofbirth,Ped-method}
 \alias{dateofbirth<-}
-\alias{dateofbirth<-,Ped-method}
+\alias{dateofbirth<-,Ped,Date_OR_character-method}
 \alias{dateofdeath}
 \alias{dateofdeath,Ped-method}
 \alias{dateofdeath<-}
-\alias{dateofdeath<-,Ped-method}
+\alias{dateofdeath<-,Ped,Date_OR_character-method}
 \alias{isinf}
 \alias{isinf,Ped-method}
 \alias{isinf<-}
