@@ -21,10 +21,9 @@ test_that("Evaluate options()", {
         "testthat.snapshotter",
         "datatable\\.*"
     )
-    library(stringr)
     opts$str$formatNum <- NA
     for (i in seq_along(no_check)) {
-        opts <- opts[!str_detect(names(opts), no_check[i])]
+        opts <- opts[!stringr::str_detect(names(opts), no_check[i])]
     }
     expect_snapshot(opts)
 })

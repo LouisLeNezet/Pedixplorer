@@ -239,6 +239,11 @@ jobs:
           )
           covr::to_cobertura(cov)
         shell: Rscript {0}
+      
+      - name: Debug failed tests
+        if: failure()
+        run: cat /__w/_temp/package/Pedixplorer/Pedixplorer-tests/testthat.Rout.fail
+        shell: bash
 
       - uses: codecov/codecov-action@v4
         if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
