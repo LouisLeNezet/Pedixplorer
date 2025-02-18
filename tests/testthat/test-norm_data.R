@@ -110,15 +110,15 @@ test_that("Norm ped", {
         FALSE, FALSE, FALSE, FALSE, FALSE
     ))
 
-    expect_equal(ped_df$dateofbirth, as.Date(c(
+    expect_equal(ped_df$dateofbirth, c(
         "1978-01-01", NA, "1982-01-01", "1984-01-01",
         NA, "1988-01-01", NA, "1992-01-01",
         "1994-01-01", NA
-    )))
-    expect_equal(ped_df$dateofdeath, as.Date(c(
+    ))
+    expect_equal(ped_df$dateofdeath, c(
         "2020-01-01", "2018-01-01", NA, NA, NA, NA,
         NA, NA, NA, NA
-    )))
+    ))
 })
 
 test_that("Norm rel", {

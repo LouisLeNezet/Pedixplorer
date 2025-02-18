@@ -686,5 +686,5 @@ char_to_date <- function(date, date_pattern = "%Y-%m-%d") {
     if (is.factor(date) || is.numeric(date)) {
         date <- as.character(date)
     }
-    base::as.Date(date, format = date_pattern)
+    as.character(base::as.Date(date, format = date_pattern))
 }

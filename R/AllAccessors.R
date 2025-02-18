@@ -775,6 +775,8 @@ setMethod("affected<-",
 
 ##### Date Of Birth Accessors #####
 
+setClassUnion("Date_OR_character", c("Date", "character"))
+
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
@@ -802,7 +804,7 @@ setGeneric("dateofbirth<-", function(x, value) {
 #' @usage NULL
 #' @export
 setMethod("dateofbirth<-",
-    signature(x = "Ped", value = "ANY"),
+    signature(x = "Ped", value = "Date_OR_character"),
     function(x, value) {
         if (length(value) != length(x)) {
             if (length(value) == 1) {
@@ -850,7 +852,7 @@ setGeneric("dateofdeath<-", function(x, value) {
 #' @usage NULL
 #' @export
 setMethod("dateofdeath<-",
-    signature(x = "Ped", value = "ANY"),
+    signature(x = "Ped", value = "Date_OR_character"),
     function(x, value) {
         if (length(value) != length(x)) {
             if (length(value) == 1) {

@@ -180,7 +180,7 @@ test_that("char_to_date", {
     )
     my_vect_1 <- char_to_date(my_vect, pattern)
     expect_equal(
-        my_vect_1, as.Date(rep("2020-01-01", 9))
+        my_vect_1, rep("2020-01-01", 9)
     )
 
     my_vect <- c(
@@ -189,6 +189,6 @@ test_that("char_to_date", {
     )
     my_vect_1 <- char_to_date(my_vect, "%Y-%m-%d")
     expect_equal(
-        my_vect_1, as.Date(c("2020-01-01", NA, NA, NA, NA, NA))
+        my_vect_1, c("2020-01-01", NA, NA, NA, NA, NA)
     )
 })
