@@ -300,54 +300,6 @@
       $crayon.enabled
       [1] FALSE
       
-      $datatable.alloccol
-      [1] 1024
-      
-      $datatable.allow.cartesian
-      [1] FALSE
-      
-      $datatable.auto.index
-      [1] TRUE
-      
-      $datatable.dfdispatchwarn
-      [1] TRUE
-      
-      $datatable.optimize
-      [1] Inf
-      
-      $datatable.print.class
-      [1] TRUE
-      
-      $datatable.print.colnames
-      [1] "auto"
-      
-      $datatable.print.keys
-      [1] TRUE
-      
-      $datatable.print.nrows
-      [1] 100
-      
-      $datatable.print.rownames
-      [1] TRUE
-      
-      $datatable.print.topn
-      [1] 5
-      
-      $datatable.print.trunc.cols
-      [1] FALSE
-      
-      $datatable.show.indices
-      [1] FALSE
-      
-      $datatable.use.index
-      [1] TRUE
-      
-      $datatable.verbose
-      [1] FALSE
-      
-      $datatable.warnredundantby
-      [1] TRUE
-      
       $defaultPackages
       [1] "datasets"  "utils"     "grDevices" "graphics"  "stats"     "methods"  
       

@@ -18,7 +18,8 @@ test_that("Evaluate options()", {
         "install.packages.compile.from.source",
         "printcmd", "rl_word_breaks",
         "texi2dvi", "windowsTimeouts",
-        "testthat.snapshotter"
+        "testthat.snapshotter",
+        "datatable\\.*"
     )
     library(stringr)
     opts$str$formatNum <- NA
