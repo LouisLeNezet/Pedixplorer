@@ -347,6 +347,23 @@ is_valid_ped <- function(object) {
     errors <- c(errors, check_values(object@deceased, c(0, 1, NA)))
     errors <- c(errors, check_values(object@avail, c(0, 1, NA)))
     errors <- c(errors, check_values(object@affected, c(0, 1, NA)))
+    errors <- c(errors, check_values(object@adopted, c(0, 1, NA)))
+
+    dateofbirth <- as.Date(object@dateofbirth)
+    dateofdeath <- as.Date(object@dateofdeath)
+    if (any(is.na(dateofbirth) & !is.na(dateofbirth))) {
+        id_wrong <- object@id[is.na(dateofbirth) & !is.na(dateofbirth)]
+        errors <- c(errors, paste(
+            id_wrong, "has a date of birth but it is not a date"
+        ))
+    }
+
+    if (any(is.na(dateofdeath) & !is.na(dateofdeath))) {
+        id_wrong <- object@id[is.na(dateofdeath) & !is.na(dateofdeath)]
+        errors <- c(errors, paste(
+            id_wrong, "has a date of birth but it is not a date"
+        ))
+    }
 
     # Control sex for parents
     id <- object@id
@@ -361,6 +378,8 @@ is_valid_ped <- function(object) {
     asymptomatic <- object@asymptomatic
     is_dad <- id %in% dadid
     is_mom <- id %in% momid
+    deceased <- object@deceased
+    dateofdeath <- object@dateofdeath
 
     if (any(sex[is_dad] != "male")) {
         id_wrg <- id[is_dad & sex != "male"]
@@ -377,7 +396,6 @@ is_valid_ped <- function(object) {
         id_wrg <- id[not_both_parents]
         errors <- c(errors, paste(id_wrg, "should have both parents or none"))
     }
-
 
     if (any(fertility[is_dad] != "fertile")) {
         id_wrg <- id[is_dad & fertility != "fertile"]
@@ -424,6 +442,14 @@ is_valid_ped <- function(object) {
         ])
         warning(id_wrg, "individual(s) are/is asymptomatic but affected")
     }
+
+    if (any(!deceased & !is.na(dateofdeath))) {
+        id_wrg <- id[!deceased & !is.na(dateofdeath)]
+        errors <- c(errors, paste(
+            id_wrg, "is not deceased but has a date of death"
+        ))
+    }
+
 
     if (length(errors) == 0) {
         TRUE

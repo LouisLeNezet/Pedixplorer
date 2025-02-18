@@ -23,7 +23,7 @@ Aggregate multiple columns into a single text column
 separated by a newline character.
 }
 \examples{
-df <- data.frame(a = 1:3, b = c("4", "NA", 6), c = c("", "A", 2))
+df <- data.frame(a = seq_len(3), b = c("4", "NA", 6), c = c("", "A", 2))
 Pedixplorer:::create_text_column(df, "a", c("b", "c"))
 }
 \keyword{internal}

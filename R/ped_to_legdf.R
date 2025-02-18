@@ -28,6 +28,8 @@
 #' of the labels in the legend.
 #' @param lwd default=par("lwd").  Controls the bordering line width of the
 #' elements in the legend.
+#' @param precision The number of significatif numbers to round the
+#' numbers to.
 #'
 #' @return
 #' A list containing the legend data frame and the user coordinates.
@@ -53,7 +55,8 @@ setGeneric(
 #' @importFrom graphics strwidth
 setMethod("ped_to_legdf", "Pedigree", function(
     obj, boxh = 1, boxw = 1,
-    cex = 1, adjx = 0, adjy = 0, lwd = par("lwd")
+    cex = 1, adjx = 0, adjy = 0, lwd = par("lwd"),
+    precision = 4
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)
     plot_df <- data.frame(
@@ -203,6 +206,14 @@ setMethod("ped_to_legdf", "Pedigree", function(
         min(plot_df$x0), max(plot_df$x0),
         min(plot_df$y0), max(plot_df$y0)
     )
+
+    x0 <- y0 <- x1 <- y1 <- numeric()
+    plot_df <- plot_df %>%
+        mutate(
+            x0 = signif(x0, precision), y0 = signif(y0, precision),
+            x1 = signif(x1, precision), y1 = signif(y1, precision)
+        )
+
     list(df = plot_df, par_usr = par_usr)
 }
 )

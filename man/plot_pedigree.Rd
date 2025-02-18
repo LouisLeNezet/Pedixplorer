@@ -31,7 +31,7 @@
   leg_loc = NULL,
   leg_adjx = 0,
   leg_adjy = 0,
-  precision = 2,
+  precision = 4,
   lwd = par("lwd"),
   ped_par = list(),
   leg_par = list(),
@@ -123,7 +123,8 @@ the legend.}
 \item{leg_adjy}{default=0.  Controls the vertical labels adjustment
 of the legend.}
 
-\item{precision}{The number of decimal places to round the solution to.}
+\item{precision}{The number of significatif numbers to round the
+solution to.}
 
 \item{lwd}{default=par("lwd"). Controls the line width of the
 segments, arcs and polygons.}

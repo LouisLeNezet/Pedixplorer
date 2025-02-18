@@ -22,7 +22,7 @@ test_that("Norm ped", {
     ped_df <- suppressWarnings(norm_ped(
         ped_df, na_strings = c("None", "NA")
     ))
-    expect_equal(dim(ped_df), c(10, 18))
+    expect_equal(dim(ped_df), c(10, 20))
     expect_snapshot(ped_df)
     expect_equal(sum(is.na(ped_df$error)), 2)
 
@@ -50,7 +50,16 @@ test_that("Norm ped", {
         asymptomatic = c(
             "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
         ),
-        adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0")
+        adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+        dateofbirth = c(
+            "1978-01-01", "1980/01/01", "1982-01-01", "1984-01-01",
+            "NA", "1988-01-01", "", "1992-01-01",
+            "1994-01-01", NA
+        ),
+        dateofdeath = c(
+            "2020-01-01", "2018-01-01", "NA", "NA", "NA", "NA",
+            "NA", "NA", "NA", "NA"
+        )
     )
     ped_df <- suppressWarnings(norm_ped(
         ped_df, na_strings = c("None", "NA")
@@ -99,6 +108,16 @@ test_that("Norm ped", {
     expect_equal(ped_df$adopted, c(
         TRUE, FALSE, TRUE, FALSE, TRUE,
         FALSE, FALSE, FALSE, FALSE, FALSE
+    ))
+
+    expect_equal(ped_df$dateofbirth, c(
+        "1978-01-01", NA, "1982-01-01", "1984-01-01",
+        NA, "1988-01-01", NA, "1992-01-01",
+        "1994-01-01", NA
+    ))
+    expect_equal(ped_df$dateofdeath, c(
+        "2020-01-01", "2018-01-01", NA, NA, NA, NA,
+        NA, NA, NA, NA
     ))
 })
 

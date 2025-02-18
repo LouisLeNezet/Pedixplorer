@@ -15,7 +15,7 @@
   missid = "NA_character_",
   align_parents = TRUE,
   force = FALSE,
-  precision = 2
+  precision = 4
 )
 }
 \arguments{
@@ -54,7 +54,8 @@ It helps the drawing program by lining up pedigrees that
 \code{min(depth)} if \code{depth} reach a state with no founders
 is not possible.}
 
-\item{precision}{The number of decimal places to round the solution to.}
+\item{precision}{The number of significatif numbers to round the
+solution to.}
 }
 \value{
 A list with components

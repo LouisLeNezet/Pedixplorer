@@ -9,7 +9,8 @@ norm_ped(
   na_strings = c("NA", ""),
   missid = NA_character_,
   try_num = FALSE,
-  cols_used_del = FALSE
+  cols_used_del = FALSE,
+  date_pattern = "\%Y-\%m-\%d"
 )
 }
 \arguments{
@@ -48,7 +49,10 @@ The \code{fertility} column will be transformed to a factor using the
 
 The \code{miscarriage} column will be transformed to a using the
 \code{\link[=miscarriage_to_factor]{miscarriage_to_factor()}} function.
-\code{SAB}, \code{TOP}, \code{ECT}, \code{FALSE}}
+\code{SAB}, \code{TOP}, \code{ECT}, \code{FALSE}
+
+The \code{dateofbirth} and \code{dateofdeath} columns will be transformed to
+a date object using the \code{\link[=char_to_date]{char_to_date()}} function.}
 
 \item{na_strings}{Vector of strings to be considered as NA values.}
 
@@ -61,6 +65,8 @@ all the columns to numeric.}
 
 \item{cols_used_del}{Boolean defining if the columns that will be used
 should be deleted.}
+
+\item{date_pattern}{The pattern of the date}
 }
 \value{
 A dataframe with different variable correctly standardized
@@ -127,7 +133,16 @@ df <- data.frame(
     asymptomatic = c(
         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
     ),
-    adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0")
+    adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+    dateofbirth = c(
+         "1978-01-01", "1980-01-01", "1982-01-01", "1984-01-01",
+         "1986-01-01", "1988-01-01", "1990-01-01", "1992-01-01",
+         "1994-01-01", "1996-01-01"
+    ),
+    dateofdeath = c(
+        "2000-01-01", "2002-01-01", "2004-01-01", NA, "date-not-recognize",
+        "NA", "", NA, "2008/01/01", NA
+    )
 )
 tryCatch(
     norm_ped(df),

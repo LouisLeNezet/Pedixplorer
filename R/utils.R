@@ -671,3 +671,20 @@ create_text_column <- function(
         dplyr::ungroup() %>%
         dplyr::pull(text)
 }
+
+#' Convert a character to a date
+#'
+#' @param date A character vector of dates
+#' @param date_pattern The pattern of the date
+#'
+#' @return A date vector
+#' @keywords internal
+#' @examples
+#' Pedixplorer:::char_to_date("2020-01-01", "%Y-%m-%d")
+#' Pedixplorer:::char_to_date("01/01/20", "%d/%m/%y")
+char_to_date <- function(date, date_pattern = "%Y-%m-%d") {
+    if (is.factor(date) || is.numeric(date)) {
+        date <- as.character(date)
+    }
+    as.character(base::as.Date(date, format = date_pattern))
+}

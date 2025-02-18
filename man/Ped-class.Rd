@@ -72,6 +72,14 @@
 \alias{affected,Ped-method}
 \alias{affected<-}
 \alias{affected<-,Ped,numeric_OR_logical-method}
+\alias{dateofbirth}
+\alias{dateofbirth,Ped-method}
+\alias{dateofbirth<-}
+\alias{dateofbirth<-,Ped,Date_OR_character-method}
+\alias{dateofdeath}
+\alias{dateofdeath,Ped-method}
+\alias{dateofdeath<-}
+\alias{dateofdeath<-,Ped,Date_OR_character-method}
 \alias{isinf}
 \alias{isinf,Ped-method}
 \alias{isinf<-}
@@ -93,7 +101,12 @@
 \alias{subset,Ped-method}
 \title{Ped object}
 \usage{
-\S4method{Ped}{data.frame}(obj, cols_used_init = FALSE, cols_used_del = FALSE)
+\S4method{Ped}{data.frame}(
+  obj,
+  cols_used_init = FALSE,
+  cols_used_del = FALSE,
+  date_pattern = "\%Y-\%m-\%d"
+)
 
 \S4method{Ped}{character_OR_integer}(
   obj,
@@ -112,6 +125,8 @@
   carrier = NA,
   asymptomatic = NA,
   adopted = NA,
+  dateofbirth = NA,
+  dateofdeath = NA,
   missid = NA_character_,
   useful = NA,
   isinf = NA,
@@ -127,6 +142,8 @@ should be initialised to NA.}
 
 \item{cols_used_del}{Boolean defining if the columns that will be used
 should be deleted.}
+
+\item{date_pattern}{The pattern of the date}
 
 \item{dadid}{A vector containing for each subject, the identifiers of the
 biologicals fathers.}
@@ -230,6 +247,12 @@ individuals.
 (i.e. \code{FALSE} = not adopted,
 \code{TRUE} = adopted,
 \code{NA} = unknown).}
+
+\item{dateofbirth}{A character vector with the date of birth of the
+individuals.}
+
+\item{dateofdeath}{A character vector with the date of death of the
+individuals.}
 
 \item{missid}{A character vector with the missing values identifiers.
 All the id, dadid and momid corresponding to those values will be set
@@ -356,6 +379,12 @@ individuals (optional).
 \code{TRUE} = adopted,
 \code{NA} = unknown).}
 
+\item{\code{dateofbirth}}{A date vector with the birth date of the
+individuals (optional).}
+
+\item{\code{dateofdeath}}{A date vector with the death date of the
+individuals (optional).}
+
 \item{\code{useful}}{A logical vector with the usefulness status of the
 individuals (computed).
 (i.e. \code{FALSE} = not useful,
@@ -472,6 +501,16 @@ or a data.frame with each elements with the same length as \code{x}.
 
 \itemize{
 \item \code{affected(x)} : Individuals' affection status
+}
+
+
+\itemize{
+\item \code{dateofbirth(x)} : Individuals' birth dates
+}
+
+
+\itemize{
+\item \code{dateofdeath(x)} : Individuals' death dates
 }
 
 

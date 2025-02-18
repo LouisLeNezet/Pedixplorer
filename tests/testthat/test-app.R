@@ -5,7 +5,7 @@ if (Sys.getenv("SKIP_SHINY_TESTS") == "TRUE") {
 
 test_that("ped_shiny works", {
     app <- shinytest2::AppDriver$new(
-        ped_shiny(precision = 1), name = "ped_shiny",
+        ped_shiny(precision = 4), name = "ped_shiny",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)

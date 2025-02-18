@@ -66,6 +66,9 @@
 #' [miscarriage_to_factor()] function.
 #' `SAB`, `TOP`, `ECT`, `FALSE`
 #'
+#' The `dateofbirth` and `dateofdeath` columns will be transformed to
+#' a date object using the [char_to_date()] function.
+#'
 #' @param na_strings Vector of strings to be considered as NA values.
 #' @param try_num Boolean defining if the function should try to convert
 #' all the columns to numeric.
@@ -100,7 +103,16 @@
 #'     asymptomatic = c(
 #'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
 #'     ),
-#'     adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0")
+#'     adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     dateofbirth = c(
+#'          "1978-01-01", "1980-01-01", "1982-01-01", "1984-01-01",
+#'          "1986-01-01", "1988-01-01", "1990-01-01", "1992-01-01",
+#'          "1994-01-01", "1996-01-01"
+#'     ),
+#'     dateofdeath = c(
+#'         "2000-01-01", "2002-01-01", "2004-01-01", NA, "date-not-recognize",
+#'         "NA", "", NA, "2008/01/01", NA
+#'     )
 #' )
 #' tryCatch(
 #'     norm_ped(df),
@@ -116,14 +128,14 @@
 #' @importFrom tidyr unite
 norm_ped <- function(
     ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
-    cols_used_del = FALSE
+    cols_used_del = FALSE, date_pattern = "%Y-%m-%d"
 ) {
     err_cols <- c(
         "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
         "sexErrMisFer", "sexNA",
         "sexError", "idErr", "idErrFa", "idErrMo", "idErrSelf",
         "idErrOwnParent", "idErrBothParent", "idError",
-        "error"
+        "dodErr", "error"
     )
     err <- data.frame(matrix(NA, nrow = nrow(ped_df), ncol = length(err_cols)))
     colnames(err) <- err_cols
@@ -132,7 +144,7 @@ norm_ped <- function(
     cols_to_use <- c(
         "famid", "fertility", "miscarriage", "deceased",
         "avail", "evaluated", "consultand", "proband", "carrier",
-        "asymptomatic", "adopted"
+        "asymptomatic", "adopted", "dateofbirth", "dateofdeath"
     )
     ped_df <- check_columns(
         ped_df, cols_need, cols_used, cols_to_use, others_cols = TRUE,
@@ -292,6 +304,18 @@ norm_ped <- function(
             ped_df$adopted, logical = TRUE, default = FALSE
         )
 
+        #### Convert to date ####
+        ped_df$dateofbirth <- char_to_date(
+            ped_df$dateofbirth, date_pattern = date_pattern
+        )
+        ped_df$dateofdeath <- char_to_date(
+            ped_df$dateofdeath, date_pattern = date_pattern
+        )
+
+        err$dodErr[!is.na(ped_df$dateofdeath) &
+                is.na(ped_df$deceased)
+        ] <- "dod-not-deceased"
+
         #### Convert to num ####
         if (try_num) {
             col_to_num <- colnames(ped_df)[
@@ -307,7 +331,7 @@ norm_ped <- function(
         }
 
         ped_df$error <- tidyr::unite(
-            err, "error", c("idError", "sexError"),
+            err, "error", c("idError", "sexError", "dodErr"),
             na.rm = TRUE, sep = "_", remove = TRUE
         )$error
         ped_df$error[ped_df$error == ""] <- NA

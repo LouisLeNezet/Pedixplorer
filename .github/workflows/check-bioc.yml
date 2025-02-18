@@ -78,6 +78,7 @@ jobs:
       TZ: UTC
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_LIBS_USER: ${{ github.workspace }}/_temp/Library
 
     steps:
       ## For linux add dependencies
@@ -88,7 +89,8 @@ jobs:
           sudo apt-get install -y libgtk-3-dev
 
       ## Set up Chrome for shinytest
-      - uses: browser-actions/setup-chrome@v1
+      - id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 120
           install-dependencies: true
@@ -135,7 +137,7 @@ jobs:
           restore-keys: ${{ env.cache-version }}-${{ runner.os }}-biocversion-RELEASE_3_19-r-4.4-
 
       - name: Cache R packages on Linux
-        if: "!contains(github.event.head_commit.message, '/nocache') && runner.os == 'Linux' "
+        if: "!contains(github.event.head_commit.message, '/nocache') && runner.os == 'Linux'"
         uses: actions/cache@v3
         with:
           path: /home/runner/work/_temp/Library

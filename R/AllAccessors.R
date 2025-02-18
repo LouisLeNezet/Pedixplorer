@@ -631,7 +631,7 @@ setMethod("carrier<-",
     }
 )
 
-##### asymptomatic Accessors #####
+##### Asymptomatic Accessors #####
 
 #' @rdname Ped-class
 #' @usage NULL
@@ -767,6 +767,104 @@ setMethod("affected<-",
             }
         }
         x@affected <- vect_to_binary(value, logical = TRUE)
+        validObject(x)
+        x
+    }
+)
+
+
+##### Date Of Birth Accessors #####
+
+setClassUnion("Date_OR_character", c("Date", "character"))
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofbirth", function(x) {
+    standardGeneric("dateofbirth")
+})
+
+#' @section Accessors:
+#' - `dateofbirth(x)` : Individuals' birth dates
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofbirth", signature(x = "Ped"), function(x) {
+    x@dateofbirth
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofbirth<-", function(x, value) {
+    standardGeneric("dateofbirth<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofbirth<-",
+    signature(x = "Ped", value = "Date_OR_character"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new birth dates should be: ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@dateofbirth <- char_to_date(value, date_pattern = "%Y-%m-%d")
+        validObject(x)
+        x
+    }
+)
+
+
+##### Date Of Death Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofdeath", function(x) {
+    standardGeneric("dateofdeath")
+})
+
+#' @section Accessors:
+#' - `dateofdeath(x)` : Individuals' death dates
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofdeath", signature(x = "Ped"), function(x) {
+    x@dateofdeath
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofdeath<-", function(x, value) {
+    standardGeneric("dateofdeath<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofdeath<-",
+    signature(x = "Ped", value = "Date_OR_character"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new death dates should be: ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@dateofdeath <- char_to_date(value, date_pattern = "%Y-%m-%d")
         validObject(x)
         x
     }

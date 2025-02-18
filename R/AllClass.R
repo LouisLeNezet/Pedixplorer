@@ -88,6 +88,10 @@ setClassUnion("missing_OR_NULL", c("missing", "NULL"))
 #' (i.e. `FALSE` = not adopted,
 #' `TRUE` = adopted,
 #' `NA` = unknown).
+#' @slot dateofbirth A date vector with the birth date of the
+#' individuals (optional).
+#' @slot dateofdeath A date vector with the death date of the
+#' individuals (optional).
 #' @slot useful A logical vector with the usefulness status of the
 #' individuals (computed).
 #' (i.e. `FALSE` = not useful,
@@ -130,6 +134,8 @@ setClass("Ped",
         carrier = "logical",
         asymptomatic = "logical",
         adopted = "logical",
+        dateofbirth = "character",
+        dateofdeath = "character",
         useful = "logical",
         kin = "numeric",
         isinf = "logical",
@@ -147,7 +153,8 @@ setMethod("parallel_slot_names", "Ped",
             "fertility", "miscarriage", "deceased",
             "avail", "evaluated", "consultand", "proband",
             "affected", "carrier", "asymptomatic",
-            "adopted", "useful", "kin", "isinf",
+            "adopted", "dateofbirth", "dateofdeath",
+            "useful", "kin", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind",
             callNextMethod()
         )

@@ -66,9 +66,12 @@ Pedigree(obj, ...)
   carrier = NULL,
   asymptomatic = NULL,
   adopted = NULL,
+  dateofbirth = NULL,
+  dateofdeath = NULL,
   rel_df = NULL,
   missid = NA_character_,
   col_aff = "affection",
+  date_pattern = "\%Y-\%m-\%d",
   normalize = TRUE,
   ...
 )
@@ -78,20 +81,23 @@ Pedigree(obj, ...)
     character(), sex = numeric(), fertility = numeric(), miscarriage = numeric(),
     deceased = numeric(), avail = numeric(), evaluated = logical(), consultand =
     logical(), proband = logical(), affection = logical(), carrier = logical(),
-    asymptomatic = logical(), adopted = logical()),
+    asymptomatic = logical(), adopted = logical(), dateofbirth = character(), dateofdeath
+    = character()),
   rel_df = data.frame(id1 = character(), id2 = character(), code = numeric(), famid =
     character()),
   cols_ren_ped = list(id = "indId", dadid = "fatherId", momid = "motherId", famid =
     "family", sex = "gender", fertility = c("sterilisation", "steril"), miscarriage =
-    c("miscarriage", "aborted"), avail = "available", evaluated = "evaluation",
-    consultand = "consultant", proband = "proband", affection = "affected", carrier =
-    "carrier", asymptomatic = "presymptomatic", adopted = "adoption", deceased =
-    c("status", "vitalStatus")),
+    c("miscarriage", "aborted"), deceased = c("status", "dead", "vitalStatus"), avail =
+    "available", evaluated = "evaluation", consultand = "consultant", proband =
+    "proband", affection = "affected", carrier = "carrier", asymptomatic =
+    "presymptomatic", adopted = "adoption", dateofbirth = c("dob", "birth"), dateofdeath
+    = c("dod", "death")),
   cols_ren_rel = list(id1 = "indId1", id2 = "indId2", famid = "family"),
   hints = list(horder = NULL, spouse = NULL),
   normalize = TRUE,
   missid = NA_character_,
   col_aff = "affection",
+  date_pattern = "\%Y-\%m-\%d",
   na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),
   ...
 )
@@ -211,6 +217,12 @@ individuals.
 \code{TRUE} = adopted,
 \code{NA} = unknown).}
 
+\item{dateofbirth}{A character vector with the date of birth of the
+individuals.}
+
+\item{dateofdeath}{A character vector with the date of death of the
+individuals.}
+
 \item{rel_df}{A data.frame with the special relationships between
 individuals. See \code{\link[=Rel]{Rel()}} for more informations.
 The minimum columns required are \code{id1}, \code{id2} and \code{code}.
@@ -235,6 +247,8 @@ to \code{NA_character_}.}
 
 \item{col_aff}{A character vector with the name of the column to be used
 for the affection status.}
+
+\item{date_pattern}{The pattern of the date}
 
 \item{normalize}{A logical to know if the data should be normalised.}
 
@@ -297,6 +311,8 @@ If a data.frame is given, the columns names needed are as follow:
 \item \code{carrier}: the carrier status of the individual
 \item \code{asymptomatic}: the asymptomatic status of the individual
 \item \code{adopted}: the adopted status of the individual
+\item \code{dateofbirth}: the date of birth of the individual
+\item \code{dateofdeath}: the date of death of the individual
 \item \code{...}: other columns that will be stored in the
 \code{elementMetadata} slot
 }
@@ -325,6 +341,9 @@ The \code{fertility} column will be transformed with the
 
 The \code{miscarriage} column will be transformed with the
 \code{\link[=miscarriage_to_factor]{miscarriage_to_factor()}} function.
+
+The \code{dateofbirth} and \code{dateofdeath} columns will be transformed
+with the \code{\link[=char_to_date]{char_to_date()}} function.
 
 If \code{affections} is a data.frame, \strong{col_aff} will be
 overwritten by the column names of the data.frame.

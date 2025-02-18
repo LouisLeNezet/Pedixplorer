@@ -1,18 +1,3 @@
-new_par <- list(
-    bg = "transparent",
-    usr = c(0, 1, 0, 1),
-    fig = c(0, 1, 0, 1),
-    mai = c(0, 0, 0, 0),
-    mar = c(0, 0, 0, 0),
-    pin = c(7, 7),
-    plt = c(0, 1, 0, 1),
-    xaxp = c(0, 4, 4),
-    xpd = FALSE,
-    yaxp = c(2, 2, 1),
-    fin = c(7, 7),
-    pty = "m"
-)
-
 test_that("Pedigree legend works", {
     data("sampleped")
     sampleped$val_num <- as.numeric(sampleped$id)
@@ -33,6 +18,7 @@ test_that("Pedigree legend works", {
     )
     lst <- ped_to_legdf(pedi, boxh = 1, boxw = 1, cex = 0.8)
     expect_snapshot(lst)
+    expect_equal(round(lst$par_usr$usr, 3), c(0.000, 9.389, 0.000, 8.000))
 
     vdiffr::expect_doppelganger("Legend alone",
         function() {
