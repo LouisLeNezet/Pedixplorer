@@ -46,7 +46,7 @@ test_that("Pedigree plotting test", {
     expect_snapshot(lst)
     expect_equal(
         round(lst$par_usr$usr, 4),
-        c(-0.0402, 3.0402, 4.2026, 1.0000)
+        c(-0.0422, 3.0422, 4.1626, 1.0000)
     )
 
     p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 4)

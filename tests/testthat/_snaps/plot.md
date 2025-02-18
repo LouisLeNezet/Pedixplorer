@@ -4,89 +4,89 @@
       lst
     Output
       $df
-                               id       x0    y0      x1     y1       type    fill
-      1                   polygon  1.00000 1.000      NA     NA square_2_1     red
-      2                   polygon  0.00000 2.000      NA     NA square_2_1   white
-      3                   polygon  0.70710 3.000      NA     NA circle_2_1   white
-      4                   polygon  1.20700 4.000      NA     NA circle_2_1   white
-      5                   polygon  2.00000 1.000      NA     NA circle_2_1   white
-      6                   polygon  1.00000 2.000      NA     NA circle_2_1     red
-      7                   polygon  1.70700 3.000      NA     NA square_2_1     red
-      8                   polygon  2.00000 2.000      NA     NA square_2_1   white
-      9                   polygon  2.70700 3.000      NA     NA square_2_1   white
-      10                  polygon  3.00000 2.000      NA     NA circle_2_1     red
-      11                 aff_mark  0.97990 1.054      NA     NA       text   black
-      12                 aff_mark -0.02009 2.054      NA     NA       text   black
-      13                 aff_mark  0.68700 3.054      NA     NA       text   black
-      14                 aff_mark  1.18700 4.054      NA     NA       text   black
-      15                 aff_mark  1.98000 1.054      NA     NA       text   black
-      16                 aff_mark  0.97990 2.054      NA     NA       text   black
-      17                 aff_mark  1.68700 3.054      NA     NA       text   black
-      18                 aff_mark  1.98000 2.054      NA     NA       text   black
-      19                 aff_mark  2.68700 3.054      NA     NA       text   black
-      20                 aff_mark  2.98000 2.054      NA     NA       text   black
-      21                  polygon  1.00000 1.000      NA     NA square_2_2   white
-      22                  polygon  0.00000 2.000      NA     NA square_2_2   white
-      23                  polygon  0.70710 3.000      NA     NA circle_2_2 #c300ff
-      24                  polygon  1.20700 4.000      NA     NA circle_2_2   white
-      25                  polygon  2.00000 1.000      NA     NA circle_2_2    grey
-      26                  polygon  1.00000 2.000      NA     NA circle_2_2 #c300ff
-      27                  polygon  1.70700 3.000      NA     NA square_2_2   white
-      28                  polygon  2.00000 2.000      NA     NA square_2_2 #c300ff
-      29                  polygon  2.70700 3.000      NA     NA square_2_2   white
-      30                  polygon  3.00000 2.000      NA     NA circle_2_2   white
-      31                 aff_mark  1.02000 1.054      NA     NA       text   black
-      32                 aff_mark  0.02009 2.054      NA     NA       text   black
-      33                 aff_mark  0.72720 3.054      NA     NA       text   black
-      34                 aff_mark  1.22700 4.054      NA     NA       text   black
-      35                 aff_mark  2.02000 1.054      NA     NA       text   black
-      36                 aff_mark  1.02000 2.054      NA     NA       text   black
-      37                 aff_mark  1.72700 3.054      NA     NA       text   black
-      38                 aff_mark  2.02000 2.054      NA     NA       text   black
-      39                 aff_mark  2.72700 3.054      NA     NA       text   black
-      40                 aff_mark  3.02000 2.054      NA     NA       text   black
-      41                     dead  0.95180 1.119 1.04800 0.9892   segments   black
-      42                     dead -0.04822 2.119 0.04822 1.9890   segments   black
-      43                     dead  1.95200 1.119 2.04800 0.9892   segments   black
-      44                     dead  0.95180 2.119 1.04800 1.9890   segments   black
-      45                       id  1.00000 1.177      NA     NA       text   black
-      46                       id  0.00000 2.177      NA     NA       text   black
-      47                       id  0.70710 3.177      NA     NA       text   black
-      48                       id  1.20700 4.177      NA     NA       text   black
-      49                       id  2.00000 1.177      NA     NA       text   black
-      50                       id  1.00000 2.177      NA     NA       text   black
-      51                       id  1.70700 3.177      NA     NA       text   black
-      52                       id  2.00000 2.177      NA     NA       text   black
-      53                       id  2.70700 3.177      NA     NA       text   black
-      54                       id  3.00000 2.177      NA     NA       text   black
-      55             line_spouses  1.04000 1.054 1.96000 1.0540   segments   black
-      56             line_spouses  0.04018 2.054 0.95980 2.0540   segments   black
-      57             line_spouses  0.74730 3.054 1.66700 3.0540   segments   black
-      58             line_spouses  2.04000 2.054 2.96000 2.0540   segments   black
-      59            line_spouses2  0.74730 3.065 1.66700 3.0650   segments   black
-      60   line_children_vertical  0.00000 2.000 0.00000 1.8380   segments   black
-      61   line_children_vertical  3.00000 2.000 3.00000 1.8380   segments   black
-      62 line_children_horizontal  0.00000 1.838 3.00000 1.8380   segments   black
-      63          line_parent_mid  1.50000 1.838 1.50000 1.6030   segments   black
-      64          line_parent_mid  1.50000 1.603 1.50000 1.2890   segments   black
-      65          line_parent_mid  1.50000 1.289 1.50000 1.0540   segments   black
-      66   line_children_vertical  0.70710 3.000 0.70710 2.8380   segments   black
-      67 line_children_horizontal  0.70710 2.838 0.70710 2.8380   segments   black
-      68          line_parent_mid  0.70710 2.838 0.70710 2.6030   segments   black
-      69          line_parent_mid  0.70710 2.603 0.50000 2.2890   segments   black
-      70          line_parent_mid  0.50000 2.289 0.50000 2.0540   segments   black
-      71   line_children_vertical  1.70700 3.000 2.20700 2.8380   segments   black
-      72   line_children_vertical  2.70700 3.000 2.20700 2.8380   segments   black
-      73     label_children_twin3  2.20700 2.919      NA     NA       text   black
-      74 line_children_horizontal  2.20700 2.838 2.20700 2.8380   segments   black
-      75          line_parent_mid  2.20700 2.838 2.20700 2.6030   segments   black
-      76          line_parent_mid  2.20700 2.603 2.50000 2.2890   segments   black
-      77          line_parent_mid  2.50000 2.289 2.50000 2.0540   segments   black
-      78   line_children_vertical  1.20700 4.000 1.20700 3.8380   segments   black
-      79 line_children_horizontal  1.20700 3.838 1.20700 3.8380   segments   black
-      80          line_parent_mid  1.20700 3.838 1.20700 3.6030   segments   black
-      81          line_parent_mid  1.20700 3.603 1.20700 3.2890   segments   black
-      82          line_parent_mid  1.20700 3.289 1.20700 3.0540   segments   black
+                               id       x0    y0     x1     y1       type    fill
+      1                   polygon  1.00000 1.000     NA     NA square_2_1     red
+      2                   polygon  0.00000 2.000     NA     NA square_2_1   white
+      3                   polygon  0.70710 3.000     NA     NA circle_2_1   white
+      4                   polygon  1.20700 4.000     NA     NA circle_2_1   white
+      5                   polygon  2.00000 1.000     NA     NA circle_2_1   white
+      6                   polygon  1.00000 2.000     NA     NA circle_2_1     red
+      7                   polygon  1.70700 3.000     NA     NA square_2_1     red
+      8                   polygon  2.00000 2.000     NA     NA square_2_1   white
+      9                   polygon  2.70700 3.000     NA     NA square_2_1   white
+      10                  polygon  3.00000 2.000     NA     NA circle_2_1     red
+      11                 aff_mark  0.97890 1.043     NA     NA       text   black
+      12                 aff_mark -0.02108 2.043     NA     NA       text   black
+      13                 aff_mark  0.68600 3.043     NA     NA       text   black
+      14                 aff_mark  1.18600 4.043     NA     NA       text   black
+      15                 aff_mark  1.97900 1.043     NA     NA       text   black
+      16                 aff_mark  0.97890 2.043     NA     NA       text   black
+      17                 aff_mark  1.68600 3.043     NA     NA       text   black
+      18                 aff_mark  1.97900 2.043     NA     NA       text   black
+      19                 aff_mark  2.68600 3.043     NA     NA       text   black
+      20                 aff_mark  2.97900 2.043     NA     NA       text   black
+      21                  polygon  1.00000 1.000     NA     NA square_2_2   white
+      22                  polygon  0.00000 2.000     NA     NA square_2_2   white
+      23                  polygon  0.70710 3.000     NA     NA circle_2_2 #c300ff
+      24                  polygon  1.20700 4.000     NA     NA circle_2_2   white
+      25                  polygon  2.00000 1.000     NA     NA circle_2_2    grey
+      26                  polygon  1.00000 2.000     NA     NA circle_2_2 #c300ff
+      27                  polygon  1.70700 3.000     NA     NA square_2_2   white
+      28                  polygon  2.00000 2.000     NA     NA square_2_2 #c300ff
+      29                  polygon  2.70700 3.000     NA     NA square_2_2   white
+      30                  polygon  3.00000 2.000     NA     NA circle_2_2   white
+      31                 aff_mark  1.02100 1.043     NA     NA       text   black
+      32                 aff_mark  0.02108 2.043     NA     NA       text   black
+      33                 aff_mark  0.72820 3.043     NA     NA       text   black
+      34                 aff_mark  1.22800 4.043     NA     NA       text   black
+      35                 aff_mark  2.02100 1.043     NA     NA       text   black
+      36                 aff_mark  1.02100 2.043     NA     NA       text   black
+      37                 aff_mark  1.72800 3.043     NA     NA       text   black
+      38                 aff_mark  2.02100 2.043     NA     NA       text   black
+      39                 aff_mark  2.72800 3.043     NA     NA       text   black
+      40                 aff_mark  3.02100 2.043     NA     NA       text   black
+      41                     dead  0.94940 1.095 1.0510 0.9914   segments   black
+      42                     dead -0.05060 2.095 0.0506 1.9910   segments   black
+      43                     dead  1.94900 1.095 2.0510 0.9914   segments   black
+      44                     dead  0.94940 2.095 1.0510 1.9910   segments   black
+      45                       id  1.00000 1.142     NA     NA       text   black
+      46                       id  0.00000 2.142     NA     NA       text   black
+      47                       id  0.70710 3.142     NA     NA       text   black
+      48                       id  1.20700 4.142     NA     NA       text   black
+      49                       id  2.00000 1.142     NA     NA       text   black
+      50                       id  1.00000 2.142     NA     NA       text   black
+      51                       id  1.70700 3.142     NA     NA       text   black
+      52                       id  2.00000 2.142     NA     NA       text   black
+      53                       id  2.70700 3.142     NA     NA       text   black
+      54                       id  3.00000 2.142     NA     NA       text   black
+      55             line_spouses  1.04200 1.043 1.9580 1.0430   segments   black
+      56             line_spouses  0.04217 2.043 0.9578 2.0430   segments   black
+      57             line_spouses  0.74930 3.043 1.6650 3.0430   segments   black
+      58             line_spouses  2.04200 2.043 2.9580 2.0430   segments   black
+      59            line_spouses2  0.74930 3.052 1.6650 3.0520   segments   black
+      60   line_children_vertical  0.00000 2.000 0.0000 1.8700   segments   black
+      61   line_children_vertical  3.00000 2.000 3.0000 1.8700   segments   black
+      62 line_children_horizontal  0.00000 1.870 3.0000 1.8700   segments   black
+      63          line_parent_mid  1.50000 1.870 1.5000 1.6220   segments   black
+      64          line_parent_mid  1.50000 1.622 1.5000 1.2910   segments   black
+      65          line_parent_mid  1.50000 1.291 1.5000 1.0430   segments   black
+      66   line_children_vertical  0.70710 3.000 0.7071 2.8700   segments   black
+      67 line_children_horizontal  0.70710 2.870 0.7071 2.8700   segments   black
+      68          line_parent_mid  0.70710 2.870 0.7071 2.6220   segments   black
+      69          line_parent_mid  0.70710 2.622 0.5000 2.2910   segments   black
+      70          line_parent_mid  0.50000 2.291 0.5000 2.0430   segments   black
+      71   line_children_vertical  1.70700 3.000 2.2070 2.8700   segments   black
+      72   line_children_vertical  2.70700 3.000 2.2070 2.8700   segments   black
+      73     label_children_twin3  2.20700 2.935     NA     NA       text   black
+      74 line_children_horizontal  2.20700 2.870 2.2070 2.8700   segments   black
+      75          line_parent_mid  2.20700 2.870 2.2070 2.6220   segments   black
+      76          line_parent_mid  2.20700 2.622 2.5000 2.2910   segments   black
+      77          line_parent_mid  2.50000 2.291 2.5000 2.0430   segments   black
+      78   line_children_vertical  1.20700 4.000 1.2070 3.8700   segments   black
+      79 line_children_horizontal  1.20700 3.870 1.2070 3.8700   segments   black
+      80          line_parent_mid  1.20700 3.870 1.2070 3.6220   segments   black
+      81          line_parent_mid  1.20700 3.622 1.2070 3.2910   segments   black
+      82          line_parent_mid  1.20700 3.291 1.2070 3.0430   segments   black
          border angle density cex label
       1   black    NA      NA   1  <NA>
       2   green    NA      NA   1  <NA>
@@ -256,7 +256,7 @@
       
       $par_usr
       $par_usr$usr
-      [1] -0.04018  3.04018  4.20262  1.00000
+      [1] -0.04217  3.04217  4.16260  1.00000
       
       $par_usr$old_par
       $par_usr$old_par$xpd
@@ -264,16 +264,16 @@
       
       
       $par_usr$boxw
-      [1] 0.08036
+      [1] 0.08434
       
       $par_usr$boxh
-      [1] 0.1078
+      [1] 0.08649
       
       $par_usr$labh
-      [1] 0.04741
+      [1] 0.03805
       
       $par_usr$legh
-      [1] 0.1617
+      [1] 0.1297
       
       
 

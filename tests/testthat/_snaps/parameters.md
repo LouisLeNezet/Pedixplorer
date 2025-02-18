@@ -223,7 +223,7 @@
 # Evaluate options()
 
     Code
-      opts[!names(opts) %in% no_check]
+      opts
     Output
       $CBoundsCheck
       [1] FALSE
@@ -259,20 +259,6 @@
       
       $browserNLdisabled
       [1] FALSE
-      
-      $callr.condition_handler_cli_message
-      function (msg) 
-      {
-          custom_handler <- getOption("cli.default_handler")
-          if (is.function(custom_handler)) {
-              custom_handler(msg)
-          }
-          else {
-              cli_server_default(msg)
-          }
-      }
-      <bytecode: 0x00000200a4e25770>
-      <environment: namespace:cli>
       
       $catch.script.errors
       [1] FALSE
@@ -393,159 +379,11 @@
       
       
       
-      $device
-      function(...) {
-              httpgd::hgd(
-                  silent = TRUE
-              )
-              .vsc$request("httpgd", url = httpgd::hgd_url())
-          }
-      <environment: 0x00000200a5d9e008>
-      
-      $device.ask.default
-      [1] FALSE
-      
-      $devtools.ellipsis_action
-      function (message = NULL, class = NULL, ..., body = NULL, footer = NULL, 
-          parent = NULL, use_cli_format = NULL, .inherit = NULL, .frequency = c("always", 
-              "regularly", "once"), .frequency_id = NULL, .subclass = deprecated()) 
-      {
-          message <- validate_signal_args(message, class, NULL, .subclass, 
-              "warn")
-          message_info <- cnd_message_info(message, body, footer, caller_env(), 
-              use_cli_format = use_cli_format)
-          message <- message_info$message
-          extra_fields <- message_info$extra_fields
-          use_cli_format <- message_info$use_cli_format
-          .frequency <- arg_match0(.frequency, c("always", "regularly", 
-              "once"))
-          if (!needs_signal(.frequency, .frequency_id, warning_freq_env, 
-              "rlib_warning_verbosity")) {
-              return(invisible(NULL))
-          }
-          if (!is_null(parent)) {
-              if (is_null(.inherit)) {
-                  .inherit <- !inherits(parent, "error")
-              }
-              extra_fields$rlang <- c(extra_fields$rlang, list(inherit = .inherit))
-          }
-          cnd <- warning_cnd(class, message = message, !!!extra_fields, 
-              use_cli_format = use_cli_format, parent = parent, ...)
-          cnd$footer <- c(cnd$footer, message_freq(message, .frequency, 
-              "warning"))
-          local_long_messages()
-          warning(cnd)
-      }
-      <bytecode: 0x00000200a28bc318>
-      <environment: namespace:rlang>
-      
       $devtools.install.args
       [1] ""
       
       $devtools.path
       [1] "~/R-dev"
-      
-      $diffobj.align.count.alnum.only
-      [1] TRUE
-      
-      $diffobj.align.min.chars
-      [1] 3
-      
-      $diffobj.align.threshold
-      [1] 0.25
-      
-      $diffobj.brightness
-      [1] "neutral"
-      
-      $diffobj.color.mode
-      [1] "yb"
-      
-      $diffobj.context
-      [1] 2
-      
-      $diffobj.context.auto.max
-      [1] 10
-      
-      $diffobj.context.auto.min
-      [1] 1
-      
-      $diffobj.convert.hz.white.space
-      [1] TRUE
-      
-      $diffobj.disp.width
-      [1] 0
-      
-      $diffobj.format
-      [1] "auto"
-      
-      $diffobj.guides
-      [1] TRUE
-      
-      $diffobj.html.escape.html.entities
-      [1] TRUE
-      
-      $diffobj.html.output
-      [1] "auto"
-      
-      $diffobj.html.scale
-      [1] TRUE
-      
-      $diffobj.hunk.limit
-      [1] -1
-      
-      $diffobj.ignore.white.space
-      [1] TRUE
-      
-      $diffobj.less.flags
-      [1] "R"
-      
-      $diffobj.line.limit
-      [1] -1
-      
-      $diffobj.max.diffs
-      [1] 50000
-      
-      $diffobj.mode
-      [1] "auto"
-      
-      $diffobj.pager
-      [1] "auto"
-      
-      $diffobj.pager.file.keep
-      [1] FALSE
-      
-      $diffobj.pager.file.path
-      [1] NA
-      
-      $diffobj.pager.mode
-      [1] "threshold"
-      
-      $diffobj.pager.threshold
-      [1] -1
-      
-      $diffobj.rds
-      [1] TRUE
-      
-      $diffobj.silent
-      [1] FALSE
-      
-      $diffobj.style
-      [1] "auto"
-      
-      $diffobj.tab.stops
-      [1] 8
-      
-      $diffobj.trim
-      [1] TRUE
-      
-      $diffobj.unwrap.atomic
-      [1] TRUE
-      
-      $diffobj.warn
-      [1] TRUE
-      
-      $diffobj.word.diff
-      [1] TRUE
       
       $digits
       [1] 4
@@ -628,29 +466,11 @@
       $nwarnings
       [1] 50
       
-      $page_viewer
-      function(url, title = NULL, ...,
-                                   viewer = getOption("vsc.page_viewer", "Active")) {
-          if (is.null(title)) {
-              expr <- substitute(url)
-              if (is.character(url)) {
-                  title <- "Page Viewer"
-              } else {
-                  title <- deparse(expr, nlines = 1)
-              }
-          }
-          show_webview(url = url, title = title, ..., viewer = viewer)
-      }
-      <environment: 0x00000200a5d9e008>
-      
       $pager
       [1] "internal"
       
       $papersize
       [1] "a4"
-      
-      $pdfviewer
-      [1] "C:/PROGRA~1/R/R-44~1.1/bin/x64/open.exe"
       
       $pkgType
       [1] "both"
@@ -715,9 +535,7 @@
       [1] TRUE
       
       $str$formatNum
-      function (x, ...) 
-      format(x, trim = TRUE, drop0trailing = TRUE, ...)
-      <environment: 0x00000200a2cc3b60>
+      [1] NA
       
       
       $str.dendrogram.last
@@ -791,21 +609,6 @@
       $verbose
       [1] FALSE
       
-      $viewer
-      function(url, title = NULL, ...,
-                              viewer = getOption("vsc.viewer", "Two")) {
-          if (is.null(title)) {
-              expr <- substitute(url)
-              if (is.character(url)) {
-                  title <- "Viewer"
-              } else {
-                  title <- deparse(expr, nlines = 1)
-              }
-          }
-          show_webview(url = url, title = title, ..., viewer = viewer)
-      }
-      <environment: 0x00000200a5d9e008>
-      
       $vsc.browser
       [1] "Active"
       
@@ -829,9 +632,6 @@
       $vsc.object_timeout
       [1] 50
       
-      $vsc.page_viewer
-      [1] "Active"
-      
       $vsc.plot
       [1] "Two"
       
@@ -854,9 +654,6 @@
       [1] FALSE
       
       $vsc.view
-      [1] "Two"
-      
-      $vsc.viewer
       [1] "Two"
       
       $warn

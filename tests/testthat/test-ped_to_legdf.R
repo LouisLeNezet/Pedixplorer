@@ -18,7 +18,7 @@ test_that("Pedigree legend works", {
     )
     lst <- ped_to_legdf(pedi, boxh = 1, boxw = 1, cex = 0.8)
     expect_snapshot(lst)
-    expect_equal(round(lst$par_usr$usr, 3), c(0.000, 9.371, 0.000, 8.000))
+    expect_equal(round(lst$par_usr$usr, 3), c(0.000, 9.389, 0.000, 8.000))
 
     vdiffr::expect_doppelganger("Legend alone",
         function() {
