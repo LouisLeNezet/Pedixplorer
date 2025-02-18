@@ -205,6 +205,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         min(plot_df$y0), max(plot_df$y0)
     )
 
+    x0 <- y0 <- x1 <- y1 <- numeric()
     plot_df <- plot_df %>%
         mutate(
             x0 = signif(x0, precision), y0 = signif(y0, precision),
