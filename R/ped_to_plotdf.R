@@ -319,7 +319,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         carrier_df <- data.frame(
             x0 = pos[idx_carrier], y0 = i[idx_carrier] + (boxh / 2),
             type = "points", fill = "black", lty = 19,
-            cex = lwd * 2,
+            cex = lwd * (boxh + boxw) / 2 * 5,
             id = "carrier"
         )
 
