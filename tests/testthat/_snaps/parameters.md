@@ -223,13 +223,13 @@
 # Evaluate options()
 
     Code
-      options()
+      opts[!names(opts) %in% no_check]
     Output
       $CBoundsCheck
       [1] FALSE
       
       $HTTPUserAgent
-      [1] "R (4.4.2 x86_64-conda-linux-gnu x86_64 linux-gnu)"
+      [1] "R (4.4.1 x86_64-w64-mingw32 x86_64 mingw32)"
       
       $OutDec
       [1] "."
@@ -254,11 +254,8 @@
       NULL
       <environment: R_EmptyEnv>
       
-      $bitmapType
-      [1] "cairo"
-      
       $browser
-      [1] ""
+      [1] "C:/Program Files/Google/Chrome/Application/chrome.exe"
       
       $browserNLdisabled
       [1] FALSE
@@ -274,7 +271,7 @@
               cli_server_default(msg)
           }
       }
-      <bytecode: 0x5cc98a98b210>
+      <bytecode: 0x00000200a4e25770>
       <environment: namespace:cli>
       
       $catch.script.errors
@@ -398,13 +395,12 @@
       
       $device
       function(...) {
-                  pdf(NULL,
-                      width = null_dev_size[[1L]],
-                      height = null_dev_size[[2L]],
-                      bg = "white")
-                  dev.control(displaylist = "enable")
-              }
-      <environment: 0x5cc98a88ecf8>
+              httpgd::hgd(
+                  silent = TRUE
+              )
+              .vsc$request("httpgd", url = httpgd::hgd_url())
+          }
+      <environment: 0x00000200a5d9e008>
       
       $device.ask.default
       [1] FALSE
@@ -440,7 +436,7 @@
           local_long_messages()
           warning(cnd)
       }
-      <bytecode: 0x5cc98ba7a598>
+      <bytecode: 0x00000200a28bc318>
       <environment: namespace:rlang>
       
       $devtools.install.args
@@ -557,14 +553,11 @@
       $dplyr.show_progress
       [1] TRUE
       
-      $dvipscmd
-      [1] "dvips"
-      
       $echo
       [1] TRUE
       
       $editor
-      [1] "vi"
+      [1] "notepad"
       
       $encoding
       [1] "native.enc"
@@ -589,6 +582,9 @@
       
       $httr_oob_default
       [1] FALSE
+      
+      $install.packages.compile.from.source
+      [1] "interactive"
       
       $internet.info
       [1] 2
@@ -645,22 +641,19 @@
           }
           show_webview(url = url, title = title, ..., viewer = viewer)
       }
-      <environment: 0x5cc98a88ecf8>
+      <environment: 0x00000200a5d9e008>
       
       $pager
-      [1] "/home/llenezet/mambaforge/lib/R/bin/pager"
+      [1] "internal"
       
       $papersize
-      [1] "letter"
+      [1] "a4"
       
       $pdfviewer
-      [1] ""
+      [1] "C:/PROGRA~1/R/R-44~1.1/bin/x64/open.exe"
       
       $pkgType
-      [1] "source"
-      
-      $printcmd
-      [1] ""
+      [1] "both"
       
       $prompt
       [1] "> "
@@ -669,14 +662,8 @@
           CRAN 
       "@CRAN@" 
       
-      $rl_word_breaks
-      [1] " \t\n\"\\'`><=%;,|&{()}"
-      
       $rlang_interactive
       [1] FALSE
-      
-      $rlang_trace_top_env
-      <environment: 0x5cc99ba88df0>
       
       $scipen
       [1] 0
@@ -730,7 +717,7 @@
       $str$formatNum
       function (x, ...) 
       format(x, trim = TRUE, drop0trailing = TRUE, ...)
-      <environment: 0x5cc98875cc60>
+      <environment: 0x00000200a2cc3b60>
       
       
       $str.dendrogram.last
@@ -767,7 +754,7 @@
           out: NULL
           rstudio: TRUE
           rule: function (...) 
-          snap_dir: /home/llenezet/Documents/repositories/Pedixplorer/tests/ ...
+          snap_dir: C:\Users\llenezet\Documents\Repositories\Pedixplorer\tes ...
           snap_file_seen: align/sampleped-withrel.svg align/sampleped-withrel.svg  ...
           snap_files: function () 
           start_context: function (context) 
@@ -786,29 +773,8 @@
       $testthat_path
       [1] "test-parameters.R"
       
-      $testthat_topenv
-      <environment: 0x5cc99ba88df0>
-      
-      $texi2dvi
-      [1] "/home/conda/feedstock_root/build_artifacts/r-base-split_1734433466103/_build_env/bin/texi2dvi"
-      
       $timeout
       [1] 60
-      
-      $topLevelEnvironment
-      <environment: 0x5cc99d1dbc98>
-      attr(,"name")
-      [1] "imports:Pedixplorer"
-      
-      $try.outFile
-      A connection with                    
-      description ""      
-      class       "file"  
-      mode        "w+b"   
-      text        "binary"
-      opened      "opened"
-      can read    "yes"   
-      can write   "yes"   
       
       $ts.S.compat
       [1] FALSE
@@ -817,7 +783,7 @@
       [1] 1e-05
       
       $unzip
-      [1] ""
+      [1] "internal"
       
       $useFancyQuotes
       [1] FALSE
@@ -838,7 +804,7 @@
           }
           show_webview(url = url, title = title, ..., viewer = viewer)
       }
-      <environment: 0x5cc98a88ecf8>
+      <environment: 0x00000200a5d9e008>
       
       $vsc.browser
       [1] "Active"
@@ -882,7 +848,7 @@
       [1] 0
       
       $vsc.use_httpgd
-      [1] FALSE
+      [1] TRUE
       
       $vsc.use_webserver
       [1] FALSE
@@ -910,5 +876,8 @@
       
       $width
       [1] 80
+      
+      $windowsTimeouts
+      [1] 100 500
       
 

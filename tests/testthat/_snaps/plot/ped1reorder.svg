@@ -267,7 +267,7 @@
 <text x='602.87' y='371.18' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='33.37px' lengthAdjust='spacingAndGlyphs'>1_116</text>
 <text x='640.98' y='371.18' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='33.37px' lengthAdjust='spacingAndGlyphs'>1_119</text>
 <text x='679.09' y='371.18' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='33.37px' lengthAdjust='spacingAndGlyphs'>1_120</text>
-<circle cx='107.44' cy='340.30' r='5.40' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='603.25' cy='475.78' r='5.40' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='107.44' cy='340.30' r='4.67' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='603.25' cy='475.78' r='4.67' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 </svg>

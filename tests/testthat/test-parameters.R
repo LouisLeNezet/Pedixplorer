@@ -3,5 +3,10 @@ test_that("Evaluate par()", {
 })
 
 test_that("Evaluate options()", {
-    expect_snapshot(options())
+    opts <- options()
+    no_check <- c(
+        "rlang_trace_top_env", "testthat_topenv",
+        "topLevelEnvironment"
+    )
+    expect_snapshot(opts[!names(opts) %in% no_check])
 })

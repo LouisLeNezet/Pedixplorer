@@ -260,7 +260,7 @@
 <text x='679.48' y='506.66' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='33.37px' lengthAdjust='spacingAndGlyphs'>1_134</text>
 <text x='638.42' y='371.18' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='33.37px' lengthAdjust='spacingAndGlyphs'>1_119</text>
 <text x='679.07' y='371.18' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='33.37px' lengthAdjust='spacingAndGlyphs'>1_120</text>
-<circle cx='313.22' cy='340.30' r='5.40' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='598.18' cy='475.78' r='5.40' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='313.22' cy='340.30' r='4.44' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='598.18' cy='475.78' r='4.44' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 </svg>

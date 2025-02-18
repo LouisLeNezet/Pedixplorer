@@ -294,8 +294,8 @@
 <text x='51.22' y='136.26' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>*</text>
 <text x='94.68' y='248.43' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>*</text>
 <text x='399.23' y='360.60' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>*</text>
-<circle cx='294.61' cy='258.28' r='5.40' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='599.17' cy='370.45' r='5.40' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='294.61' cy='258.28' r='5.32' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='599.17' cy='370.45' r='5.32' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <polygon points='17.28,558.72 702.72,558.72 702.72,17.28 17.28,17.28 ' style='stroke-width: 0.75; stroke: none; fill: none;' />
