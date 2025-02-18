@@ -517,53 +517,6 @@
       $str.dendrogram.last
       [1] "`"
       
-      $testthat.snapshotter
-      <SnapshotReporter>
-        Inherits from: <Reporter>
-        Public:
-          .context: NULL
-          .start_context: function (context) 
-          add_result: function (context, test, result) 
-          announce_file_snapshot: function (name) 
-          capabilities: list
-          cat_line: function (...) 
-          cat_tight: function (...) 
-          clone: function (deep = FALSE) 
-          crayon: TRUE
-          cur_snaps: FileSnaps, R6
-          end_context: function (context) 
-          end_context_if_started: function (context) 
-          end_file: function () 
-          end_reporter: function () 
-          end_test: function (context, test) 
-          fail_on_new: FALSE
-          file: parameters
-          hyperlinks: TRUE
-          initialize: function (snap_dir = "_snaps", fail_on_new = FALSE) 
-          is_active: function () 
-          is_full: function () 
-          local_user_output: function (.env = parent.frame()) 
-          new_snaps: FileSnaps, R6
-          old_snaps: FileSnaps, R6
-          out: NULL
-          rstudio: TRUE
-          rule: function (...) 
-          snap_dir: C:\Users\llenezet\Documents\Repositories\Pedixplorer\tes ...
-          snap_file_seen: align/sampleped-withrel.svg align/sampleped-withrel.svg  ...
-          snap_files: function () 
-          start_context: function (context) 
-          start_file: function (path, test = NULL) 
-          start_reporter: function () 
-          start_test: function (context, test) 
-          take_file_snapshot: function (name, path, file_equal, variant = NULL, trace_env = NULL) 
-          take_snapshot: function (value, save = identity, load = identity, ..., tolerance = testthat_tolerance(), 
-          test: Evaluate options()
-          test_file_seen: align app bitSize class descendants fix_parents generate ...
-          unicode: TRUE
-          update: function () 
-          variants_changed: 
-          width: 80
-      
       $testthat_path
       [1] "test-parameters.R"
       

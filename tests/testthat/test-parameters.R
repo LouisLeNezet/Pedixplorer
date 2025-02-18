@@ -17,7 +17,8 @@ test_that("Evaluate options()", {
         "editor", "help_type",
         "install.packages.compile.from.source",
         "printcmd", "rl_word_breaks",
-        "texi2dvi", "windowsTimeouts"
+        "texi2dvi", "windowsTimeouts",
+        "testthat.snapshotter"
     )
     library(stringr)
     opts$str$formatNum <- NA
