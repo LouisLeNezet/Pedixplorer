@@ -193,9 +193,10 @@ test_that("plot_ped works", {
         ), name = "plotped",
         variant = shinytest2::platform_variant()
     )
-    Sys.sleep(5)
-    app$set_window_size(width = 1611, height = 956)
+    message("Waiting for app to become idle...")
     app$wait_for_idle()
+    message("App is idle. Setting inputs...")
+    app$set_window_size(width = 1611, height = 956)
     app$set_inputs(`plotped-interactive` = TRUE)
     Sys.sleep(5)
     app$wait_for_idle()

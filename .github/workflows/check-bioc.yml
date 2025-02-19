@@ -185,7 +185,7 @@ jobs:
         run: Rscript -e 'install.packages("chromote", repos = "https://cloud.r-project.org")'
 
       - name: Install covr
-        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
+        if: env.run_covr == 'true' && runner.os == 'Linux'
         run: |
           remotes::install_cran("covr")
         shell: Rscript {0}
@@ -200,6 +200,7 @@ jobs:
       - name: Run CMD check
         env:
           CHROMOTE_CHROME: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMOTE_HEADLESS: "1"
           _R_CHECK_CRAN_INCOMING_: false
           DISPLAY: 99.0
         run: |
@@ -211,6 +212,11 @@ jobs:
               check_dir = "check"
           )
         shell: Rscript {0}
+
+      - name: Debug failed tests
+        if: failure()
+        run: cat /__w/Pedixplorer/Pedixplorer/check/Pedixplorer.Rcheck/00check.log
+        shell: bash
 
       - name: Reveal testthat details
         if:  env.has_testthat == 'true'
@@ -230,7 +236,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Test coverage
-        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
+        if: env.run_covr == 'true' && runner.os == 'Linux'
         env:
           SKIP_SHINY_TESTS: "TRUE"
         run: |
@@ -248,7 +254,7 @@ jobs:
         shell: bash
 
       - uses: codecov/codecov-action@v4
-        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true' && runner.os == 'Linux'
+        if: env.run_covr == 'true' && runner.os == 'Linux'
         with:
           file: ./cobertura.xml
           plugin: noop
