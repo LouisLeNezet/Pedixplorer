@@ -170,7 +170,7 @@ is_valid_hints <- function(object) {
             ))
         }
     } else {
-        if (nrow(spouse(object)) > 0) {
+        if (nrow(object@spouse) > 0) {
             errors <- c(errors, paste(
                 "horder slot should be non empty if spouse slot is non empty"
             ))
@@ -349,19 +349,19 @@ is_valid_ped <- function(object) {
     errors <- c(errors, check_values(object@affected, c(0, 1, NA)))
     errors <- c(errors, check_values(object@adopted, c(0, 1, NA)))
 
-    dateofbirth <- as.Date(object@dateofbirth)
-    dateofdeath <- as.Date(object@dateofdeath)
-    if (any(is.na(dateofbirth) & !is.na(dateofbirth))) {
-        id_wrong <- object@id[is.na(dateofbirth) & !is.na(dateofbirth)]
+    dateofbirth <- as.Date(object@dateofbirth, format = "%Y-%m-%d")
+    dateofdeath <- as.Date(object@dateofdeath, format = "%Y-%m-%d")
+    if (any(is.na(dateofbirth) & !is.na(object@dateofbirth))) {
+        id_wrong <- object@id[is.na(dateofbirth) & !is.na(object@dateofbirth)]
         errors <- c(errors, paste(
             id_wrong, "has a date of birth but it is not a date"
         ))
     }
 
-    if (any(is.na(dateofdeath) & !is.na(dateofdeath))) {
-        id_wrong <- object@id[is.na(dateofdeath) & !is.na(dateofdeath)]
+    if (any(is.na(dateofdeath) & !is.na(object@dateofdeath))) {
+        id_wrong <- object@id[is.na(dateofdeath) & !is.na(object@dateofdeath)]
         errors <- c(errors, paste(
-            id_wrong, "has a date of birth but it is not a date"
+            id_wrong, "has a date of death but it is not a date"
         ))
     }
 
@@ -425,7 +425,7 @@ is_valid_ped <- function(object) {
 
     if (any(proband & !affected & !is.na(affected))) {
         id_wrg <- paste(id[proband & !affected & !is.na(affected)])
-        warning(id_wrg, "individual(s) are/is proband but not affected")
+        warning(id_wrg, " individual(s) are/is proband but not affected")
     }
 
     if (any(consultand & proband)) {
@@ -440,11 +440,12 @@ is_valid_ped <- function(object) {
             asymptomatic & !is.na(asymptomatic)
             & affected & !is.na(affected)
         ])
-        warning(id_wrg, "individual(s) are/is asymptomatic but affected")
+        warning(id_wrg, " individual(s) are/is asymptomatic but affected")
     }
 
-    if (any(!deceased & !is.na(dateofdeath))) {
-        id_wrg <- id[!deceased & !is.na(dateofdeath)]
+    mis_deceased <- (is.na(deceased) | !deceased) & !is.na(dateofdeath)
+    if (any(mis_deceased)) {
+        id_wrg <- id[mis_deceased]
         errors <- c(errors, paste(
             id_wrg, "is not deceased but has a date of death"
         ))
@@ -490,9 +491,9 @@ is_valid_rel <- function(object) {
         id1e <- object@id1[object@id1 == object@id2]
         id2e <- object@id2[object@id1 == object@id2]
         errors <- c(errors, paste(
-            "id1 '", paste0(id1e, collapse = "', '"),
-            "' should be different to id2 '", paste0(id2e, collapse = "', '"),
-            "'.", sep = ""
+            "id1'", paste0(id1e, collapse = "', '"),
+            "'should be different to id2'",
+            paste0(id2e, collapse = "', '")
         ))
     }
 
@@ -501,9 +502,9 @@ is_valid_rel <- function(object) {
         id1b <- object@id1[object@id1 > object@id2]
         id2b <- object@id2[object@id1 > object@id2]
         errors <- c(errors, paste(
-            "id1 '", paste0(id1b, collapse = "', '"),
-            "' should be smaller than id2 '", paste0(id2b, collapse = "', '"),
-            "'.", sep = ""
+            "id1'", paste0(id1b, collapse = "', '"),
+            "'should be smaller than id2'",
+            paste0(id2b, collapse = "', '")
         ))
     }
 
@@ -511,9 +512,9 @@ is_valid_rel <- function(object) {
     idr <- paste(object@id1, object@id2, sep = "_")
     if (any(duplicated(idr))) {
         idd <- idr[duplicated(idr)]
-        errors <- c(errors, paste(
+        errors <- c(errors, paste0(
             "Pairs of individuals should be unique",
-            " ('", paste0(idd, collapse = "', '"), "').", sep = ""
+            " ('", paste0(idd, collapse = "', '"), "')."
         ))
     }
 
@@ -591,12 +592,12 @@ is_valid_pedigree <- function(object) {
         "fill column_mods"
     ))
     errors <- c(errors, check_values(
-        border(object)$column, colnames(ped_df),
-        "border column"
+        border(object)$column_values, colnames(ped_df),
+        "border column_values"
     ))
 
     #### Check that all fill modalities are present in the pedigree data ####
-    for (col in unique(fill(object)$column)){
+    for (col in unique(fill(object)$column_mods)){
         errors <- c(errors, check_values(
             ped_df[[col]],
             fill(object)[fill(object)$column_mods == col, "mods"],
@@ -604,10 +605,10 @@ is_valid_pedigree <- function(object) {
         ))
     }
     #### Check that all borders modalities are present in the pedigree data ####
-    for (col in unique(border(object)$column)){
+    for (col in unique(border(object)$column_mods)){
         errors <- c(errors, check_values(
             ped_df[[col]],
-            border(object)[border(object)$column == col, "mods"],
+            border(object)[border(object)$column_mods == col, "mods"],
             paste("border column", col)
         ))
     }

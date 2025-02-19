@@ -51,7 +51,7 @@ setMethod("id<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for id should be: ",
+                "The length of the new values for 'id' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -96,7 +96,7 @@ setMethod("dadid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for dadid should be: ",
+                "The length of the new values for 'dadid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -142,7 +142,7 @@ setMethod("momid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for momid should be: ",
+                "The length of the new values for 'momid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -188,7 +188,7 @@ setMethod("famid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for famid should be: ",
+                "The length of the new values for 'famid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -239,7 +239,7 @@ setMethod("sex<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for sex should be: ",
+                "The length of the new values for 'sex' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -289,7 +289,7 @@ setMethod("fertility<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for fertility should be: ",
+                "The length of the new values for 'fertility' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -339,7 +339,7 @@ setMethod("miscarriage<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for miscarriage should be: ",
+                "The length of the new values for 'miscarriage' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -385,7 +385,7 @@ setMethod("deceased<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for avail should be: ",
+                    "The length of the new values for 'deceased' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -432,7 +432,7 @@ setMethod("avail<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for avail should be: ",
+                    "The length of the new values for avail should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -479,7 +479,7 @@ setMethod("evaluated<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for evaluated should be: ",
+                    "The length of the new values for evaluated should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -526,7 +526,7 @@ setMethod("consultand<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for consultand should be: ",
+                    "The length of the new values for 'consultand' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -573,7 +573,7 @@ setMethod("proband<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for proband should be: ",
+                    "The length of the new values for 'proband' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -620,7 +620,7 @@ setMethod("carrier<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for carrier should be: ",
+                    "The length of the new values for 'carrier' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -667,7 +667,7 @@ setMethod("asymptomatic<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for asymptomatic should be: ",
+                    "The length of the new values for 'asymptomatic' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -714,7 +714,7 @@ setMethod("adopted<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for adopted should be: ",
+                    "The length of the new values for 'adopted' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -761,7 +761,7 @@ setMethod("affected<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for affected should be: ",
+                    "The length of the new values for 'affected' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -809,7 +809,7 @@ setMethod("dateofbirth<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new birth dates should be: ",
+                    "The length of the new values for 'dateofbirth' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -855,7 +855,7 @@ setMethod("dateofdeath<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new death dates should be: ",
+                    "The length of the new values for 'dateofdeath' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -902,7 +902,7 @@ setMethod("isinf<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for isinf should be: ",
+                    "The length of the new values for 'isinf' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -950,7 +950,7 @@ setMethod("kin<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for kin should be: ",
+                    "The length of the new values for 'kin' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -997,7 +997,7 @@ setMethod("useful<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for useful should be: ",
+                    "The length of the new values for 'useful' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -1118,7 +1118,7 @@ setMethod("famid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for famid should be: ",
+                "The length of the new values for 'famid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -1192,7 +1192,9 @@ setMethod(
     function(object, slot, value) {
         ped_slots <- c(
             "id", "dadid", "momid", "sex", "famid",
-            "fertility", "miscarriage", "deceased", "avail", "affected",
+            "fertility", "miscarriage", "deceased",
+            "avail", "proband", "consultand", "evaluated",
+            "affected", "carrier", "asymptomatic", "adopted",
             "kin", "useful", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind"
         )
@@ -1201,7 +1203,7 @@ setMethod(
         }
         if (length(value) != length(object)) {
             stop(
-                "The length of the new value should be: ",
+                "The length of the new value should be ",
                 "equal to the length of the pedigree"
             )
         }
@@ -1316,10 +1318,10 @@ setMethod(
         if (! slot %in% rel_cols) {
             stop("slot selected: ", slot, " is not a relationship column")
         }
-        if (length(value) != length(object)) {
+        if (length(value) != length(rel(object))) {
             stop(
-                "The length of the new value should be: ",
-                "equal to the length of the pedigree"
+                "The length of the new value should be equal to the",
+                " length of the relation ship data.frame of the pedigree"
             )
         }
         slot(object@rel, slot) <- value
@@ -1628,11 +1630,8 @@ setMethod(
     "horder<-",
     signature(object = "Pedigree", value = "ANY"),
     function(object, value) {
-        if (length(value) != length(object)) {
-            stop(
-                "The length of the new value should be: ",
-                "equal to the length of the pedigree"
-            )
+        if (length(value) > 0 && is.null(names(value))) {
+            stop("horder must be named")
         }
         horder(hints(object)) <- value
         validObject(object)

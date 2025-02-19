@@ -106,6 +106,21 @@ test_that("Tooltip works", {
     expect_snapshot(html_plot)
 })
 
+test_that("Unpacked pedigree works", {
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    vdiffr::expect_doppelganger("Ped packed vs unpacked",
+        function() {
+            # Plot
+            op <- par(mar = rep(0.75, 4), oma = rep(0.75, 4), mfrow = c(1, 2))
+            plot(pedi, precision = 4, packed = FALSE, title = "Unpacked")
+            par(new = TRUE)
+            plot(pedi, precision = 4, packed = TRUE, title = "Packed")
+            par(op)
+        }
+    )
+})
+
 test_that("Supplementary graphical representations", {
     data("sampleped")
     pedi <- Pedigree(sampleped)
