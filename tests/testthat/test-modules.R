@@ -108,6 +108,7 @@ test_that("inf_sel works", {
         inf_sel_demo(pedi), name = "inf_sel",
         variant = shinytest2::platform_variant()
     )
+    Sys.sleep(5)
     # Update output value
     app$set_window_size(width = 1611, height = 956)
     app$expect_values(export = TRUE)
@@ -192,9 +193,11 @@ test_that("plot_ped works", {
         ), name = "plotped",
         variant = shinytest2::platform_variant()
     )
+    Sys.sleep(5)
     app$set_window_size(width = 1611, height = 956)
     app$wait_for_idle()
     app$set_inputs(`plotped-interactive` = TRUE)
+    Sys.sleep(5)
     app$wait_for_idle()
     app$click("saveped-download")
     app$wait_for_idle()

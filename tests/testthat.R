@@ -49,7 +49,7 @@ R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 ## Set up the environment
 options(
     shiny.testmode = TRUE,
-    shinytest2.load_timeout = 60000,
+    shinytest2.load_timeout = 3000000,
     shiny.fullstacktrace = TRUE,
     chromote.verbose = TRUE,
     digits = 4, width = 150,

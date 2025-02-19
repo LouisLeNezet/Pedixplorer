@@ -22,6 +22,33 @@ test_that("fix_parents works with character", {
         fix_parents(id, dadid, momid, sex, missid = "0")
     )
     expect_no_error(Pedigree(test1newmom, missid = "0"))
+    expect_error(
+        with(test1char, fix_parents(
+            id, dadid, momid,
+            sex = c("male", "female")[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2)]
+        )), "Mismatched lengths, id and sex"
+    )
+    expect_error(
+        with(test1char, fix_parents(
+            id, dadid, momid,
+            sex = c(5, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6)
+        )),
+        "Invalid values for 'sex'"
+    )
+    expect_error(
+        with(test1char, fix_parents(
+            obj = c(paste("fam", 101:110, sep = ""), " "),
+            dadid, momid, sex
+        )),
+        "A blank or empty string is not allowed as the id variable"
+    )
+    expect_error(
+        with(test1char, fix_parents(
+            obj = c(paste("fam", 101:110, sep = ""), "fam101"),
+            dadid, momid, sex
+        )),
+        "Duplicate subject id: fam101"
+    )
 })
 
 test_that("fix_parents works with sex errors", {
@@ -57,4 +84,25 @@ test_that("fix_parents works with famid", {
     expect_equal(as.numeric(fixped$sex[fixped$id == "209"]), 1)
     expect_equal(fixped$famid[fixped$id == "209"], "2")
     expect_no_error(Pedigree(fixped))
+})
+
+test_that("fix_parents throw errors", {
+    data("sampleped")
+    sampleped$filter <- "A"
+    expect_error(
+        fix_parents(sampleped, filter = "filter"),
+        "Filtering values must be only TRUE or FALSE"
+    )
+
+    expect_error(
+        fix_parents(sampleped, del_parents = "wrong"),
+        "'del_parents' parameter. Must be 'one', 'both' or NULL"
+    )
+
+    expect_no_error(
+        fix_parents(
+            sampleped, filter = sampleped$id == 209,
+            del_parents = "one"
+        )
+    )
 })
