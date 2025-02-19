@@ -86,7 +86,8 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev gnupg2
+          sudo apt-get install -y libgtk-3-dev gnupg2 npm
+          npm install jquery
 
       ## Set up Chrome for shinytest
       - id: setup-chrome

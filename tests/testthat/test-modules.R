@@ -104,11 +104,24 @@ test_that("inf_sel works", {
     pedi <- shiny::reactive({
         Pedigree(sampleped[sampleped$famid == "1", ])
     })
+
+    message("Waiting for app to become idle...")
     app <- shinytest2::AppDriver$new(
         inf_sel_demo(pedi), name = "inf_sel",
         variant = shinytest2::platform_variant()
     )
-    Sys.sleep(5)
+
+    on.exit({
+        if (testthat::is_testing()) {
+            # If a test fails, keep the app open for debugging
+            message("Test failed!")
+            message(rlang::last_error()$app)
+            testthat::skip("Test failed. Debugging...")
+        }
+        app$stop() # Ensure the app is stopped on success
+    })
+
+    message("App is idle. Setting inputs...")
     # Update output value
     app$set_window_size(width = 1611, height = 956)
     app$expect_values(export = TRUE)
@@ -185,6 +198,7 @@ test_that("plot_ped works", {
         Pedigree(data_env[["sampleped"]])
     })
 
+    message("Waiting for app to become idle...")
     app <- shinytest2::AppDriver$new(
         plot_ped_demo(
             pedi = pedi,
@@ -193,12 +207,20 @@ test_that("plot_ped works", {
         ), name = "plotped",
         variant = shinytest2::platform_variant()
     )
-    message("Waiting for app to become idle...")
-    app$wait_for_idle()
+
+    on.exit({
+        if (testthat::is_testing()) {
+            # If a test fails, keep the app open for debugging
+            message("Test failed!")
+            message(rlang::last_error()$app)
+            testthat::skip("Test failed. Debugging...")
+        }
+        app$stop() # Ensure the app is stopped on success
+    })
     message("App is idle. Setting inputs...")
     app$set_window_size(width = 1611, height = 956)
+    rlang::last_error()$app
     app$set_inputs(`plotped-interactive` = TRUE)
-    Sys.sleep(5)
     app$wait_for_idle()
     app$click("saveped-download")
     app$wait_for_idle()
