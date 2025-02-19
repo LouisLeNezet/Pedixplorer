@@ -423,7 +423,7 @@
       [1] TRUE
       
       $shinytest2.load_timeout
-      [1] 60000
+      [1] 1200000
       
       $show.coef.Pvalues
       [1] TRUE
