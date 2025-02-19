@@ -22,6 +22,7 @@ Sys.setenv(
     CHROMOTE_CHROME = Sys.getenv("CHROMOTE_CHROME"),
     CHROMOTE_HEADLESS = Sys.getenv("CHROMOTE_HEADLESS"),
     SKIP_SHINY_TESTS = Sys.getenv("SKIP_SHINY_TESTS"),
+    CHROMOTE_ARGS = Sys.getenv("CHROMOTE_ARGS"),
     R_TESTS = ""
 )
 
@@ -49,7 +50,7 @@ R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 ## Set up the environment
 options(
     shiny.testmode = TRUE,
-    shinytest2.load_timeout = 1200000,
+    shinytest2.load_timeout = 120000,
     shiny.fullstacktrace = TRUE,
     shiny.port = 3929,
     chromote.verbose = TRUE,

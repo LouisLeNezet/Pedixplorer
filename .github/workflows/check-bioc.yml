@@ -201,6 +201,7 @@ jobs:
         env:
           CHROMOTE_CHROME: ${{ steps.setup-chrome.outputs.chrome-path }}
           CHROMOTE_HEADLESS: "1"
+          CHROMOTE_ARGS : "--no-sandbox --disable-gpu"
           _R_CHECK_CRAN_INCOMING_: false
           DISPLAY: 99.0
         run: |
