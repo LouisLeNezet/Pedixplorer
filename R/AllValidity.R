@@ -490,10 +490,10 @@ is_valid_rel <- function(object) {
     if (any(object@id1 == object@id2)) {
         id1e <- object@id1[object@id1 == object@id2]
         id2e <- object@id2[object@id1 == object@id2]
-        errors <- c(errors, paste(
-            "id1'", paste0(id1e, collapse = "', '"),
-            "'should be different to id2'",
-            paste0(id2e, collapse = "', '")
+        errors <- c(errors, paste0(
+            "id1 '", paste0(id1e, collapse = "', '"),
+            "' should be different to id2 '",
+            paste0(id2e, collapse = "', '"), "'"
         ))
     }
 
@@ -501,20 +501,20 @@ is_valid_rel <- function(object) {
     if (any(object@id1 > object@id2)) {
         id1b <- object@id1[object@id1 > object@id2]
         id2b <- object@id2[object@id1 > object@id2]
-        errors <- c(errors, paste(
-            "id1'", paste0(id1b, collapse = "', '"),
-            "'should be smaller than id2'",
-            paste0(id2b, collapse = "', '")
+        errors <- c(errors, paste0(
+            "id1 '", paste0(id1b, collapse = "', '"),
+            "' should be smaller than id2 '",
+            paste0(id2b, collapse = "', '"), "'"
         ))
     }
 
     #### Check absence of duplicate ####
-    idr <- paste(object@id1, object@id2, sep = "_")
+    idr <- paste(object@id1, object@id2, sep = "-")
     if (any(duplicated(idr))) {
         idd <- idr[duplicated(idr)]
         errors <- c(errors, paste0(
             "Pairs of individuals should be unique",
-            " ('", paste0(idd, collapse = "', '"), "')."
+            " ('", paste0(idd, collapse = "', '"), "')"
         ))
     }
 

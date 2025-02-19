@@ -298,14 +298,14 @@ test_that("is_valid_rel throw errors", {
     reli@id2[1] <- "1_140"
     reli@id1[2] <- "1_140"
     reli@id2[2] <- "1_139"
-    reli@id1[3] <- "1_140"
-    reli@id2[3] <- "1_139"
+    reli@id1[3] <- "2_204"
+    reli@id2[3] <- "2_208"
     expect_equal(
         is_valid_rel(reli),
         c(
             "id1 '1_140' should be different to id2 '1_140'",
-            "id1' 1_140 'should be smaller than id2' 1_139",
-            "Pairs of individuals should be unique ('1_140_1_139')"
+            "id1 '1_140' should be smaller than id2 '1_139'",
+            "Pairs of individuals should be unique ('2_204-2_208')"
         )
     )
 
@@ -350,5 +350,4 @@ test_that("is_valid_pedigree throw errors", {
             "Hints spouse(s) A_B not female, male"
         )
     )
-
 })

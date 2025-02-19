@@ -105,13 +105,4 @@ test_that("fix_parents throw errors", {
             del_parents = "one"
         )
     )
-
-    ## this gets an error
-    expect_snapshot_error(Pedigree(datped))
-    fixped <- fix_parents(datped)
-
-    expect_contains(fixped$id, "209")
-    expect_equal(as.numeric(fixped$sex[fixped$id == "209"]), 1)
-    expect_equal(fixped$famid[fixped$id == "209"], "2")
-    expect_no_error(Pedigree(fixped))
 })

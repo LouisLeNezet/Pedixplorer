@@ -667,8 +667,8 @@ setMethod("asymptomatic<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for 'asymptomatic' should be ",
-                    "equal to the length of the Ped object"
+                    "The length of the new values for 'asymptomatic' should",
+                    " be equal to the length of the Ped object"
                 )
             }
         }
