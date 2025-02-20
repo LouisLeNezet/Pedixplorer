@@ -112,12 +112,9 @@ test_that("inf_sel works", {
         )
     }, error = function(e) {
         message("App failed to start. Skipping test...")
+        message(rlang::last_error()$app)
         message(e)
 
-        if (!is.null(rlang::last_error())) {
-            message("Captured error details:")
-            print(rlang::last_error()$app)
-        }
         if (!is.null(app)) {
             app$stop()
         }
@@ -211,12 +208,9 @@ test_that("plot_ped works", {
         )
     }, error = function(e) {
         message("App failed to start. Skipping test...")
+        message(rlang::last_error()$app)
         message(e)
 
-        if (!is.null(rlang::last_error())) {
-            message("Captured error details:")
-            print(rlang::last_error()$app)
-        }
         if (!is.null(app)) {
             app$stop()
         }
