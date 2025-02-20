@@ -219,7 +219,6 @@ test_that("plot_ped works", {
     })
     message("App is idle. Setting inputs...")
     app$set_window_size(width = 1611, height = 956)
-    rlang::last_error()$app
     app$set_inputs(`plotped-interactive` = TRUE)
     app$wait_for_idle()
     app$click("saveped-download")
