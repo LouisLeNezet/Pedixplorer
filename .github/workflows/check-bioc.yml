@@ -216,7 +216,8 @@ jobs:
         shell: Rscript {0}
 
       - name: Debug check
-        run: cat ${{ github.workspace }}/Pedixplorer/check/Pedixplorer.Rcheck/00check.log
+        if : runner.os == 'Linux'
+        run: cat ${{ github.workspace }}/check/Pedixplorer.Rcheck/00check.log
         shell: bash
 
       - name: Reveal testthat details
@@ -250,7 +251,7 @@ jobs:
         shell: Rscript {0}
       
       - name: Debug failed tests
-        if: failure()
+        if: failure() && env.run_covr == 'true' && runner.os == 'Linux'
         run: cat ${{ runner.temp }}/package/Pedixplorer/Pedixplorer-tests/testthat.Rout.fail
         shell: bash
 
