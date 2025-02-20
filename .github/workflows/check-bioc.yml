@@ -216,7 +216,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Debug check
-        if : runner.os == 'Linux'
+        if : failure() && runner.os == 'Linux'
         run: cat ${{ github.workspace }}/check/Pedixplorer.Rcheck/00check.log
         shell: bash
 
