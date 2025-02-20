@@ -112,11 +112,13 @@ test_that("inf_sel works", {
     )
 
     on.exit({
-        if (testthat::is_testing() && !is.null(rlang::last_error()$app)) {
-            # If a test fails, keep the app open for debugging
-            message("Test failed!")
-            message(rlang::last_error()$app)
-            testthat::skip("Test failed. Debugging...")
+        if (testthat::is_testing() && !is.null(rlang::last_error())) {
+            if (!is.null(rlang::last_error()$app)) {
+                # If a test fails, keep the app open for debugging
+                message("Test failed!")
+                message(rlang::last_error()$app)
+                testthat::skip("Test failed. Debugging...")
+            }
         }
         app$stop() # Ensure the app is stopped on success
     })
@@ -209,14 +211,17 @@ test_that("plot_ped works", {
     )
 
     on.exit({
-        if (testthat::is_testing() && !is.null(rlang::last_error()$app)) {
-            # If a test fails, keep the app open for debugging
-            message("Test failed!")
-            message(rlang::last_error()$app)
-            testthat::skip("Test failed. Debugging...")
+        if (testthat::is_testing() && !is.null(rlang::last_error())) {
+            if (!is.null(rlang::last_error()$app)) {
+                # If a test fails, keep the app open for debugging
+                message("Test failed!")
+                message(rlang::last_error()$app)
+                testthat::skip("Test failed. Debugging...")
+            }
         }
         app$stop() # Ensure the app is stopped on success
     })
+
     message("App is idle. Setting inputs...")
     app$set_window_size(width = 1611, height = 956)
     app$set_inputs(`plotped-interactive` = TRUE)
