@@ -216,7 +216,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Debug check
-        run: cat /__w/Pedixplorer/Pedixplorer/check/Pedixplorer.Rcheck/00check.log
+        run: cat ${{ github.workspace }}/Pedixplorer/check/Pedixplorer.Rcheck/00check.log
         shell: bash
 
       - name: Reveal testthat details
@@ -251,7 +251,7 @@ jobs:
       
       - name: Debug failed tests
         if: failure()
-        run: cat /__w/_temp/package/Pedixplorer/Pedixplorer-tests/testthat.Rout.fail
+        run: cat ${{ RUNNER_TEMP }}/package/Pedixplorer/Pedixplorer-tests/testthat.Rout.fail
         shell: bash
 
       - uses: codecov/codecov-action@v4
