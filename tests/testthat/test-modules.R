@@ -111,10 +111,16 @@ test_that("inf_sel works", {
             variant = shinytest2::platform_variant()
         )
     }, error = function(e) {
-        message(e)
         message("App failed to start. Skipping test...")
-        message(rlang::last_error()$app)
-        app$stop()
+        message(e)
+
+        if (!is.null(rlang::last_error())) {
+            message("Captured error details:")
+            print(rlang::last_error()$app)
+        }
+        if (!is.null(app)) {
+            app$stop()
+        }
         testthat::skip("Test failed. Debugging...")
     })
 
@@ -193,7 +199,7 @@ test_that("plot_ped works", {
         data("sampleped", envir = data_env)
         Pedigree(data_env[["sampleped"]])
     })
-
+    app <- NULL
     tryCatch({
         app <- shinytest2::AppDriver$new(
             plot_ped_demo(
@@ -204,10 +210,16 @@ test_that("plot_ped works", {
             variant = shinytest2::platform_variant()
         )
     }, error = function(e) {
-        message(e)
         message("App failed to start. Skipping test...")
-        message(rlang::last_error()$app)
-        app$stop()
+        message(e)
+
+        if (!is.null(rlang::last_error())) {
+            message("Captured error details:")
+            print(rlang::last_error()$app)
+        }
+        if (!is.null(app)) {
+            app$stop()
+        }
         testthat::skip("Test failed. Debugging...")
     })
 
