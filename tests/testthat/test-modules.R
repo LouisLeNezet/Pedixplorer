@@ -112,7 +112,7 @@ test_that("inf_sel works", {
     )
 
     on.exit({
-        if (testthat::is_testing() && !is.null(rlang::last_error())) {
+        if (testthat::is_testing() && !is.null(rlang::last_error()$app)) {
             # If a test fails, keep the app open for debugging
             message("Test failed!")
             message(rlang::last_error()$app)
@@ -209,7 +209,7 @@ test_that("plot_ped works", {
     )
 
     on.exit({
-        if (testthat::is_testing() && !is.null(rlang::last_error())) {
+        if (testthat::is_testing() && !is.null(rlang::last_error()$app)) {
             # If a test fails, keep the app open for debugging
             message("Test failed!")
             message(rlang::last_error()$app)
