@@ -217,7 +217,7 @@ jobs:
 
       - name: Debug check
         if : failure() && runner.os == 'Linux'
-        run: cat ${{ github.workspace }}/check/Pedixplorer.Rcheck/00check.log
+        run: cat /__w/Pedixplorer/Pedixplorer/check/Pedixplorer.Rcheck/00check.log
         shell: bash
 
       - name: Reveal testthat details
