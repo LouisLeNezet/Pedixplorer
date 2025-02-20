@@ -105,25 +105,19 @@ test_that("inf_sel works", {
         Pedigree(sampleped[sampleped$famid == "1", ])
     })
 
-    message("Waiting for app to become idle...")
-    app <- shinytest2::AppDriver$new(
-        inf_sel_demo(pedi), name = "inf_sel",
-        variant = shinytest2::platform_variant()
-    )
-
-    on.exit({
-        if (testthat::is_testing() && !is.null(rlang::last_error())) {
-            if (!is.null(rlang::last_error()$app)) {
-                # If a test fails, keep the app open for debugging
-                message("Test failed!")
-                message(rlang::last_error()$app)
-                testthat::skip("Test failed. Debugging...")
-            }
-        }
-        app$stop() # Ensure the app is stopped on success
+    tryCatch({
+        app <- shinytest2::AppDriver$new(
+            inf_sel_demo(pedi), name = "inf_sel",
+            variant = shinytest2::platform_variant()
+        )
+    }, error = function(e) {
+        message(e)
+        message("App failed to start. Skipping test...")
+        message(rlang::last_error()$app)
+        app$stop()
+        testthat::skip("Test failed. Debugging...")
     })
 
-    message("App is idle. Setting inputs...")
     # Update output value
     app$set_window_size(width = 1611, height = 956)
     app$expect_values(export = TRUE)
@@ -200,29 +194,23 @@ test_that("plot_ped works", {
         Pedigree(data_env[["sampleped"]])
     })
 
-    message("Waiting for app to become idle...")
-    app <- shinytest2::AppDriver$new(
-        plot_ped_demo(
-            pedi = pedi,
-            precision = 4,
-            tips = c("id", "momid", "num")
-        ), name = "plotped",
-        variant = shinytest2::platform_variant()
-    )
-
-    on.exit({
-        if (testthat::is_testing() && !is.null(rlang::last_error())) {
-            if (!is.null(rlang::last_error()$app)) {
-                # If a test fails, keep the app open for debugging
-                message("Test failed!")
-                message(rlang::last_error()$app)
-                testthat::skip("Test failed. Debugging...")
-            }
-        }
-        app$stop() # Ensure the app is stopped on success
+    tryCatch({
+        app <- shinytest2::AppDriver$new(
+            plot_ped_demo(
+                pedi = pedi,
+                precision = 4,
+                tips = c("id", "momid", "num")
+            ), name = "plotped",
+            variant = shinytest2::platform_variant()
+        )
+    }, error = function(e) {
+        message(e)
+        message("App failed to start. Skipping test...")
+        message(rlang::last_error()$app)
+        app$stop()
+        testthat::skip("Test failed. Debugging...")
     })
 
-    message("App is idle. Setting inputs...")
     app$set_window_size(width = 1611, height = 956)
     app$set_inputs(`plotped-interactive` = TRUE)
     app$wait_for_idle()

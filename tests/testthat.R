@@ -62,7 +62,10 @@ options(
     pkgType = "source",
     showErrorCalls = TRUE,
     timeout = 600,
-    unzip = "internal"
+    unzip = "internal",
+    error = rlang::entrace,
+    rlang_backtrace_on_error_report = "full",
+    rlang_backtrace_on_warning_report = "full"
 )
 
 ## Run the tests
