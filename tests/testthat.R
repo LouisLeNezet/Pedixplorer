@@ -15,6 +15,7 @@
 library(Pedixplorer)
 library(shinytest2)
 library(R.devices)
+library(rlang)
 
 ## Set up the environment
 
