@@ -193,7 +193,6 @@ test_that("plot_ped works", {
         ), name = "plotped",
         variant = shinytest2::platform_variant()
     )
-
     app$set_window_size(width = 1611, height = 956)
     app$set_inputs(`plotped-interactive` = TRUE)
     app$wait_for_idle()
@@ -207,21 +206,3 @@ test_that("plot_ped works", {
     expect_equal(tools::file_ext(path), "html")
     app$click("saveped-close")
 })
-
-last_err <- NULL
-
-tryCatch({
-    last_err <- rlang::last_error()
-}, error = function(e) {
-    message("Couldn't capture the error message.")
-    message(e)
-    message(last_trace())
-})
-
-if (!is.null(last_err)) {
-    message("Captured error details from rlang:")
-    message(last_err)
-    message(last_err$app)
-} else {
-    message("No error recorded yet.")
-}

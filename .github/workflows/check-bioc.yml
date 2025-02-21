@@ -219,6 +219,11 @@ jobs:
         if : failure() && runner.os == 'Linux'
         run: cat /__w/Pedixplorer/Pedixplorer/check/Pedixplorer.Rcheck/00check.log
         shell: bash
+      
+      - name: Debug check
+        if : failure() && runner.os == 'Linux'
+        run: rlang::last_error()
+        shell: Rscript {0}
 
       - name: Reveal testthat details
         if:  env.has_testthat == 'true'
