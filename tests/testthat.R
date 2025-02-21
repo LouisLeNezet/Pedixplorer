@@ -75,7 +75,12 @@ test_check("Pedixplorer")
 dev.off()
 par(op)
 
-last_err <- rlang::last_error()
+tryCatch({
+    last_err <- rlang::last_error()
+}, error = function(e) {
+    message(e)
+    last_err <- NULL
+})
 
 if (!is.null(last_err)) {
     message("Captured error details from rlang:")
