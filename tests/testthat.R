@@ -75,8 +75,12 @@ test_check("Pedixplorer")
 dev.off()
 par(op)
 
-if (!is.null(rlang::last_error())) {
+last_err <- rlang::last_error()
+
+if (!is.null(last_err)) {
     message("Captured error details from rlang:")
-    message(rlang::last_error())
-    message(rlang::last_error()$app)
+    message(last_err)
+    message(last_err$app)
+} else {
+    message("No error recorded yet.")
 }
