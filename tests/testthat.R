@@ -69,24 +69,10 @@ options(
     rlang_backtrace_on_warning_report = "full"
 )
 
+rlang::global_entrace()
+
 ## Run the tests
 test_check("Pedixplorer")
 
 dev.off()
 par(op)
-
-last_err <- NULL
-
-tryCatch({
-    last_err <- rlang::last_error()
-}, error = function(e) {
-    message(e)
-})
-
-if (!is.null(last_err)) {
-    message("Captured error details from rlang:")
-    message(last_err)
-    message(last_err$app)
-} else {
-    message("No error recorded yet.")
-}
