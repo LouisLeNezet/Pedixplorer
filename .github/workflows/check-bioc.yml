@@ -213,6 +213,7 @@ jobs:
               error_on = "warning",
               check_dir = "check"
           )
+          rlang::last_error()
         shell: Rscript {0}
 
       - name: Debug check
