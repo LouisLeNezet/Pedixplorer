@@ -74,3 +74,9 @@ test_check("Pedixplorer")
 
 dev.off()
 par(op)
+
+if (!is.null(rlang::last_error())) {
+    message("Captured error details from rlang:")
+    message(rlang::last_error())
+    message(rlang::last_error()$app)
+}
