@@ -98,7 +98,7 @@ jobs:
           echo ".libPaths('$R_LIBS_USER')" > ${{ github.workspace }}/.Rprofile
           echo "Sys.setenv(CHROMOTE_CHROME = '${{ steps.setup-chrome.outputs.chrome-path }}')" >> ${{ github.workspace }}/.Rprofile
           echo "Sys.setenv(CHROMOTE_HEADLESS = '1')" >> ${{ github.workspace }}/.Rprofile
-          echo "Sys.setenv(CHROMOTE_ARGS = '--no-sandbox --disable-gpu'" >> ${{ github.workspace }}/.Rprofile
+          echo "Sys.setenv(CHROMOTE_ARGS = '--no-sandbox --disable-gpu')" >> ${{ github.workspace }}/.Rprofile
         shell: bash
 
       ## Most of these steps are the same as the ones in
