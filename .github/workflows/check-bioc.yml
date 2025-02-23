@@ -127,13 +127,13 @@ jobs:
           remotes::install_cran("BiocManager", lib = '${{ env.R_LIBS_USER }}')
         shell: Rscript {0}
 
-      - name: Set BiocVersion
+      - name: Set BiocVersion & install check packages
         run: |
           BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = FALSE, update = FALSE)
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           install.packages(
-            c("rcmdcheck", "BiocCheck"),
+            c("rcmdcheck", "BiocCheck", "covr"),
             repos = c(RSPM = "${{ matrix.config.rspm }}", BiocManager::repositories()),
             lib = '${{ env.R_LIBS_USER }}'
           )
