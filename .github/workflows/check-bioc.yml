@@ -91,7 +91,7 @@ jobs:
       - name: Set R Library home on Linux
         if: runner.os == 'Linux'
         run: |
-          export R_LIBS_USER="${{ github.workspace }}/_temp/Library"
+          export R_LIBS_USER="${{ runner.temp }}/Library"
           echo "R_LIBS_USER=$R_LIBS_USER" >> $GITHUB_ENV
           mkdir -p "$R_LIBS_USER"
           # Add to .Rprofile
