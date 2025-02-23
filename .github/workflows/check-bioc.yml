@@ -94,8 +94,8 @@ jobs:
 
       - name: Set R Library home
         run: |
-          export R_LIBS_USER=$(echo "${{ runner.temp }}/Library" | sed 's/\\/\//g')
-          echo "R_LIBS_USER='$R_LIBS_USER'" >> $GITHUB_ENV
+          export R_LIBS_USER="${{ runner.temp }}/Library")
+          echo "R_LIBS_USER=$R_LIBS_USER" >> $GITHUB_ENV
           mkdir -p "$R_LIBS_USER"
         shell: bash
 
@@ -110,7 +110,7 @@ jobs:
 
       - name: Query dependencies
         run: |
-          install.packages('remotes', lib = "${{ env.R_LIBS_USER }}")
+          install.packages('remotes', lib = '${{ env.R_LIBS_USER }}')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
         shell: Rscript {0}
 
@@ -125,7 +125,7 @@ jobs:
       - name: Install BiocManager
         run: |
           message(paste('****', Sys.time(), 'installing BiocManager ****'))
-          remotes::install_cran("BiocManager", lib = "${{ env.R_LIBS_USER }}")
+          remotes::install_cran("BiocManager", lib = '${{ env.R_LIBS_USER }}')
         shell: Rscript {0}
 
       - name: Set BiocVersion
@@ -135,7 +135,7 @@ jobs:
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           install.packages(
             c("rcmdcheck", "BiocCheck"), repos = BiocManager::repositories(),
-            lib = "${{ env.R_LIBS_USER }}"
+            lib = '${{ env.R_LIBS_USER }}'
           )
         shell: Rscript {0}
 
@@ -149,7 +149,7 @@ jobs:
           remotes::install_local(
             dependencies = TRUE, repos = BiocManager::repositories(),
             build_vignettes = FALSE, upgrade = TRUE,
-            lib = "${{ env.R_LIBS_USER }}"
+            lib = '${{ env.R_LIBS_USER }}'
           )
         continue-on-error: true
         shell: Rscript {0}
@@ -161,14 +161,14 @@ jobs:
           remotes::install_local(
             dependencies = TRUE, repos = BiocManager::repositories(),
             build_vignettes = TRUE, upgrade = TRUE, force = TRUE,
-            lib = "${{ env.R_LIBS_USER }}"
+            lib = '${{ env.R_LIBS_USER }}'
           )
         shell: Rscript {0}
 
       - name: Install covr
         if: env.run_covr == 'true' && runner.os == 'Linux'
         run: |
-          remotes::install_cran("covr", lib = "${{ env.R_LIBS_USER }}")
+          remotes::install_cran("covr", lib = '${{ env.R_LIBS_USER }}')
         shell: Rscript {0}
 
       - name: Session info
