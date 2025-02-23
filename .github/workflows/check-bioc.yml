@@ -76,7 +76,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev gnupg2 npm libboost-all-dev
+          sudo apt-get install -y libgtk-3-dev gnupg2 npm
           npm install jquery
 
       ## Set up Chrome for shinytest
@@ -91,13 +91,10 @@ jobs:
       - name: Set R Library home on Linux
         if: runner.os == 'Linux'
         run: |
-          if [[ "$ACT" == "true" ]]; then
-            export R_LIBS_USER="$RUNNER_TEMP/R-library"
-          else
-            export R_LIBS_USER="${{ github.workspace }}/_temp/Library"
-          fi
+          export R_LIBS_USER="${{ github.workspace }}/_temp/Library"
           echo "R_LIBS_USER=$R_LIBS_USER" >> $GITHUB_ENV
           mkdir -p "$R_LIBS_USER"
+          # Add to .Rprofile
           echo ".libPaths('$R_LIBS_USER')" > ${{ github.workspace }}/.Rprofile
           echo "Sys.setenv(CHROMOTE_CHROME = ${{ steps.setup-chrome.outputs.chrome-path }})" >> ${{ github.workspace }}/.Rprofile
           echo "Sys.setenv(CHROMOTE_HEADLESS = '1')" >> ${{ github.workspace }}/.Rprofile
