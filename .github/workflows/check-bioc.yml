@@ -69,7 +69,6 @@ jobs:
       TZ: UTC
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      R_LIBS_USER: ${{ runner.temp }}/Library
 
     steps:
       ## For linux add dependencies
@@ -93,9 +92,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set R Library home on Linux
-        if: runner.os == 'Linux'
+      - name: Set R Library home
         run: |
+          export R_LIBS_USER=${{ runner.temp }}/Library
           echo "R_LIBS_USER=$R_LIBS_USER" >> $GITHUB_ENV
           mkdir -p "$R_LIBS_USER"
         shell: bash
