@@ -100,11 +100,6 @@ jobs:
           export R_LIBS_USER="${{ runner.temp }}/Library"
           echo "R_LIBS_USER=$R_LIBS_USER" >> $GITHUB_ENV
           mkdir -p "$R_LIBS_USER"
-          # Add to .Rprofile
-          echo ".libPaths('$R_LIBS_USER')" > ${{ github.workspace }}/.Rprofile
-          echo "Sys.setenv(CHROMOTE_CHROME = '${{ steps.setup-chrome.outputs.chrome-path }}')" >> ${{ github.workspace }}/.Rprofile
-          echo "Sys.setenv(CHROMOTE_HEADLESS = '1')" >> ${{ github.workspace }}/.Rprofile
-          echo "Sys.setenv(CHROMOTE_ARGS = '--no-sandbox --disable-gpu')" >> ${{ github.workspace }}/.Rprofile
         shell: bash
 
       - name: Setup R from r-lib
