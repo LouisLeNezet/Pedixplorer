@@ -96,7 +96,7 @@ jobs:
           mkdir -p "$R_LIBS_USER"
           # Add to .Rprofile
           echo ".libPaths('$R_LIBS_USER')" > ${{ github.workspace }}/.Rprofile
-          echo "Sys.setenv(CHROMOTE_CHROME = ${{ steps.setup-chrome.outputs.chrome-path }})" >> ${{ github.workspace }}/.Rprofile
+          echo "Sys.setenv(CHROMOTE_CHROME = '${{ steps.setup-chrome.outputs.chrome-path }})'" >> ${{ github.workspace }}/.Rprofile
           echo "Sys.setenv(CHROMOTE_HEADLESS = '1')" >> ${{ github.workspace }}/.Rprofile
           echo "Sys.setenv(CHROMOTE_ARGS = '--no-sandbox --disable-gpu'" >> ${{ github.workspace }}/.Rprofile
         shell: bash
@@ -140,7 +140,7 @@ jobs:
 
       - name: Set BiocVersion
         run: |
-          BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = FALSE)
+          BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = FALSE, update = FALSE)
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           install.packages(c("rcmdcheck", "BiocCheck"), repos = BiocManager::repositories())
