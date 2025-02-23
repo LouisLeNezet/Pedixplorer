@@ -94,7 +94,7 @@ jobs:
 
       - name: Set R Library home
         run: |
-          export R_LIBS_USER="${{ runner.temp }}/Library")
+          export R_LIBS_USER="${{ runner.temp }}/Library"
           echo "R_LIBS_USER=$R_LIBS_USER" >> $GITHUB_ENV
           mkdir -p "$R_LIBS_USER"
         shell: bash
