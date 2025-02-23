@@ -59,8 +59,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-latest, r: '4.4', bioc: '3.20' , cont: "bioconductor/bioconductor_docker:RELEASE_3_20", rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest" }
-          - { os: windows-latest, r: '4.4', bioc: '3.20'}
+          - { os: ubuntu-latest, r: '4.4', bioc: '3.20' }
+          - { os: windows-latest, r: '4.4', bioc: '3.20' }
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -76,7 +76,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev gnupg2 npm
+          sudo apt-get install -y libgtk-3-dev gnupg2 npm libicu-dev
           npm install jquery
 
       ## Set up Chrome for shinytest
@@ -103,14 +103,12 @@ jobs:
         shell: bash
 
       - name: Setup R from r-lib
-        if: runner.os != 'Linux'
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
       - name: Setup pandoc from r-lib
-        if: runner.os != 'Linux'
         uses: r-lib/actions/setup-pandoc@v2
 
       - name: Query dependencies
@@ -135,7 +133,7 @@ jobs:
 
       - name: Set BiocVersion
         run: |
-          BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = FALSE, update = FALSE)
+          BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = TRUE, update = TRUE)
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           install.packages(c("rcmdcheck", "BiocCheck"), repos = BiocManager::repositories())
