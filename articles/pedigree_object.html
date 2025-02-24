@@ -6,15 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Pedigree object • Pedixplorer</title>
-<script src="../lightswitch.js"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><link href="../deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
-<script src="../deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Pedigree object">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="../deps/MathJax-3.2.2/tex-chtml.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Pedigree object">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -85,9 +84,9 @@
                         <h4 data-toc-skip class="author">Terry Therneau,
 Elizabeth Atkinson, Louis Le Nezet</h4>
             
-            <h4 data-toc-skip class="date">23 February, 2025</h4>
+            <h4 data-toc-skip class="date">24 February, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/math/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_object.Rmd</code></div>
     </div>
 
@@ -142,7 +141,7 @@ can also be supplied containing the above; the string may be truncated
 and of arbitrary case.</li>
 <li>
 <code>fertility</code> Optional, will be transformed to an ordered
-factor using the [fertility_to_factor()] function.
+factor using the <code><a href="../reference/fertility_to_factor.html">fertility_to_factor()</a></code> function.
 <code>infertile_choice_na</code>, <code>infertile</code>,
 <code>fertile</code> The following values are recognized:
 <ul>
@@ -155,9 +154,9 @@ factor using the [fertility_to_factor()] function.
 </li>
 <li>
 <code>miscarriage</code> Optional, will be transformed to an factor
-using the [miscarriage_to_factor()] function. <code>TOP</code>,
-<code>SAB</code>, <code>ECT</code>, <code>FALSE</code> The following
-values are recognized:
+using the <code><a href="../reference/miscarriage_to_factor.html">miscarriage_to_factor()</a></code> function.
+<code>TOP</code>, <code>SAB</code>, <code>ECT</code>, <code>FALSE</code>
+The following values are recognized:
 <ul>
 <li>character() or factor() : “spontaneous”, “spontaenous abortion”,
 “termination”, “terminated”, “termination of pregnancy”, “ectopic”,
@@ -239,11 +238,11 @@ identifier. All of their special properties as compared to a character
 variable turn out to be backwards for this case, in particular a memory
 of the original level set when subscripting is done.</p>
 <p>However, due to the awful decision early on in S to automatically
-turn every character into a factor — unless you stood at the door with a
-club to head the package off — most users have become ingrained to the
+turn every character into a factor, unless you stood at the door with a
+club to head the package off, most users have become ingrained to the
 idea of using them for every character variable.</p>
 <p>(I encourage you to set the global option
-<code>stringsAsFactors = FALSE</code> to turn off autoconversion – it
+<code>stringsAsFactors = FALSE</code> to turn off autoconversion, it
 will measurably improve your R experience).</p>
 <p>Therefore, to avoid unnecessary hassle for our users the code will
 accept a factor as input for the id variables, but the final structure
@@ -367,12 +366,12 @@ only contains 0, 1 or NA values</li>
 <div class="section level2">
 <h2 id="pedigree-class">Pedigree Class<a class="anchor" aria-label="anchor" href="#pedigree-class"></a>
 </h2>
-<p>After validation an <span class="math inline">S4</span> object is
+<p>After validation an <span class="math inline">\(S4\)</span> object is
 generated. This new concept make it possible to easily setup methods for
 this new type of object. The controls of the parameters is also more
 precise.</p>
 <p>The <code>Pedigree</code> object contains 4 slots, each of them
-contains a different <span class="math inline">S4</span> object
+contains a different <span class="math inline">\(S4\)</span> object
 containing a specific type of information used for the Pedigree
 construction.</p>
 <ul>
@@ -438,10 +437,9 @@ individuals plotting</li>
 <div class="section level2">
 <h2 id="pedigree-accessors">Pedigree accessors<a class="anchor" aria-label="anchor" href="#pedigree-accessors"></a>
 </h2>
-<p>As the Pedigree object is now an <span class="math inline">S4</span>
-class, we have made available a number of accessors. Most of them can be
-used as a getter or as a setter to modify a value in the correponding
-slot of the object</p>
+<p>As the Pedigree object is now an <span class="math inline">\(S4\)</span> class, we have made available a number
+of accessors. Most of them can be used as a getter or as a setter to
+modify a value in the correponding slot of the object</p>
 <div class="section level3">
 <h3 id="for-the-pedigree-object">For the Pedigree object<a class="anchor" aria-label="anchor" href="#for-the-pedigree-object"></a>
 </h3>

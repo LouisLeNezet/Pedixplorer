@@ -6,15 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Pedigree plotting details • Pedixplorer</title>
-<script src="../lightswitch.js"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><link href="../deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
-<script src="../deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Pedigree plotting details">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="../deps/MathJax-3.2.2/tex-chtml.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Pedigree plotting details">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -85,9 +84,9 @@
                         <h4 data-toc-skip class="author">TM Therneau, JP
 Sinnwell, Louis Le Nezet</h4>
             
-            <h4 data-toc-skip class="date">23 February, 2025</h4>
+            <h4 data-toc-skip class="date">24 February, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_plot.Rmd" class="external-link"><code>vignettes/pedigree_plot.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/math/vignettes/pedigree_plot.Rmd" class="external-link"><code>vignettes/pedigree_plot.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_plot.Rmd</code></div>
     </div>
 
@@ -165,30 +164,29 @@ The <code>stemp3</code> variable is the height of labels: users may use
 multi-line ones. Our constraints then are</p>
 <ol style="list-style-type: decimal">
 <li>
-<span class="math inline">(box height + label height) \times maxlev
-\le height</span> : the boxes and labels have to fit vertically</li>
+<span class="math inline">\((box height + label height) \times
+maxlev \le height\)</span> : the boxes and labels have to fit
+vertically</li>
 <li>
-<span class="math inline">(box height) \times (maxlev +
-(maxlev-1)/2) \le height</span> : at least 1/2 a box of space between
+<span class="math inline">\((box height) \times (maxlev +
+(maxlev-1)/2) \le height\)</span> : at least 1/2 a box of space between
 each row of boxes</li>
 <li>
-<span class="math inline">(box width) \le stemp1</span> in
+<span class="math inline">\((box width) \le stemp1\)</span> in
 inches</li>
 <li>
-<span class="math inline">(box width) \le 0.8</span> unit in user
-coordinates, otherwise they appear to touch</li>
-<li>User coordinates go from <span class="math inline">min(xrange)- 1/2
-box width</span> to <span class="math inline">max(xrange) + 1/2 box
-width</span>.</li>
+<span class="math inline">\((box width) \le 0.8\)</span> unit in
+user coordinates, otherwise they appear to touch</li>
+<li>User coordinates go from <span class="math inline">\(min(xrange)-
+1/2 box width\)</span> to <span class="math inline">\(max(xrange) + 1/2
+box width\)</span>.</li>
 <li>the box is square (in inches)</li>
 </ol>
 <p>The first 3 of these are easy. The fourth comes into play only for
 very packed pedigrees. Assume that the box were the maximum size of .8
-units, i.e., minimal spacing between them. Then <span class="math inline">xmin -.45</span> to <span class="math inline">xmax +
-.45</span> covers the plot region, the scaling between user coordinates
-and inches is <span class="math inline">(.8 + xmax-xmin)</span> and the
-box is <span class="math inline">.8 \times (figure width) / (.8 +
-xmax-xmin)</span>. The transformation from user units to inches
+units, i.e., minimal spacing between them. Then <span class="math inline">\(xmin -.45\)</span> to <span class="math inline">\(xmax + .45\)</span> covers the plot region, the
+scaling between user coordinates and inches is <span class="math inline">\((.8 + xmax-xmin)\)</span> and the box is <span class="math inline">\(.8 \times (figure width) / (.8 +
+xmax-xmin)\)</span>. The transformation from user units to inches
 horizontally depends on the box size, since we need to allow for 1/2 a
 box on the left and right.<br>
 Vertically the range from 1 to nrow spans the tops of the symbols, which
@@ -278,8 +276,9 @@ for a twin on my right, 0 otherwise.</p>
 <p>The last set of lines are dotted arcs that connect mulitiple
 instances of a subject on the same line. These instances may or may not
 be on the same line. The arrcconect function draws a quadratic arc
-between locations <span class="math inline">(x1, y1)</span> and <span class="math inline">(x2, y2)</span> whose height is 1/2 unit above a
-straight line connection.</p>
+between locations <span class="math inline">\((x1, y1)\)</span> and
+<span class="math inline">\((x2, y2)\)</span> whose height is 1/2 unit
+above a straight line connection.</p>
 </div>
 </div>
 <div class="section level2">
@@ -324,30 +323,30 @@ connect back to the center.</p>
 <h4 id="polyfun">Polyfun<a class="anchor" aria-label="anchor" href="#polyfun"></a>
 </h4>
 <p>Now for the interesting one — dividing a polygon into ‘’pie slices’’.
-In computing this we can’t use the usual <span class="math inline">y= a
-+ bx</span> formula for a line, because it doesn’t work for vertical
+In computing this we can’t use the usual <span class="math inline">\(y=
+a + bx\)</span> formula for a line, because it doesn’t work for vertical
 ones (like the sides of the square). Instead we use the alternate
-formulation in terms of a dummy variable <span class="math inline">z</span>.</p>
-<p><span class="math display">\begin{eqnarray*}
+formulation in terms of a dummy variable <span class="math inline">\(z\)</span>.</p>
+<p><span class="math display">\[\begin{eqnarray*}
     x &amp;=&amp; a + bz \\
     y &amp;=&amp; c + dz \\
-\end{eqnarray*}</span></p>
-<p>Furthermore, we choose the constants <span class="math inline">a</span>, <span class="math inline">b</span>, <span class="math inline">c</span>, and <span class="math inline">d</span> so
-that the side of our polygon correspond to <span class="math inline">0
-\le z \le 1</span>. The intersection of a particular ray at angle theta
-with a particular side will satisfy</p>
-<p><span class="math display">\begin{eqnarray}
+\end{eqnarray*}\]</span></p>
+<p>Furthermore, we choose the constants <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> so that the side of our polygon
+correspond to <span class="math inline">\(0 \le z \le 1\)</span>. The
+intersection of a particular ray at angle theta with a particular side
+will satisfy</p>
+<p><span class="math display">\[\begin{eqnarray}
     theta &amp;=&amp; y/x = \frac{a + bz}{c+dz} \nonumber \\
     z &amp;=&amp; \frac{a\theta -c}{b - d\theta} \\
-\end{eqnarray}</span></p>
-<p>Equation <span class="math inline">z</span> will lead to a division
-by zero if the ray from the origin does not intersect a side, e.g., a
-vertical divider will be parallel to the sides of a square symbol. The
-only solutions we want have <span class="math inline">0 \le z \le
-1</span> and are in the ‘’forward’’’ part of the ray. This latter is
-true if the inner product <span class="math inline">x \cos(\theta) + y
-\sin(\theta) &gt;0</span>. Exactly one of the polygon sides will satisfy
-both conditions.</p>
+\end{eqnarray}\]</span></p>
+<p>Equation <span class="math inline">\(z\)</span> will lead to a
+division by zero if the ray from the origin does not intersect a side,
+e.g., a vertical divider will be parallel to the sides of a square
+symbol. The only solutions we want have <span class="math inline">\(0
+\le z \le 1\)</span> and are in the ‘’forward’’’ part of the ray. This
+latter is true if the inner product <span class="math inline">\(x
+\cos(\theta) + y \sin(\theta) &gt;0\)</span>. Exactly one of the polygon
+sides will satisfy both conditions.</p>
 </div>
 </div>
 </div>
