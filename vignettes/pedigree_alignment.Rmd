@@ -138,12 +138,9 @@ matrices:
 right is my spouse (1), a double marriage (2), or neither (0).
 - $fam$ matrix, link upward to my parents, or 0 if no link.
 
-```{r, auto_hint1, echo = FALSE,
-    fig.dim = c(10, 8),
-    fig.alt="Comparison of auto_hint on a simple pedigree"}
-#
+```{r, auto_hint1, echo = FALSE, fig.dim = c(10, 8), fig.alt="Comparison of auto_hint on a simple pedigree"}
+
 # A simple Pedigree to illustrate autohint's code
-#
 test1 <- data.frame(id = 1:11,
     sex = c("m", "f")[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1)],
     dadid = c(0, 0, 1, 1, 1, 0, 0, 6, 6, 6, 9),
@@ -158,7 +155,7 @@ temp2 <- Pedigree(test1, missid = "0", hints = list(
     )
 ))
 
-par(mfrow = c(1, 2))
+par(mfrow = c(2, 1))
 plot(temp2, title = "Before auto_hint")
 plot(ped1, title = "After auto_hint")
 ```
@@ -219,9 +216,7 @@ matrix.
 In this particular case the final element could be a 1 or a 2, since both
 are connected to their parents.
 
-```{r, align2, echo = FALSE,
-    fig.dim = c(10, 8),
-    fig.alt = "Comparison of auto_hint on a more complex pedigree"}
+```{r, align2, echo = FALSE, fig.dim = c(10, 8), fig.alt = "Comparison of auto_hint on a more complex pedigree"}
 #
 # The second, more complex test Pedigree
 #
@@ -243,7 +238,7 @@ ped2 <- Pedigree(test2, missid = "0")
 ped2a <- Pedigree(test2, missid = "0", hints = list(
     horder = setNames(seq_along(test2$id), test2$id)
 ))
-par(mfrow = c(1, 2))
+par(mfrow = c(2, 1))
 plot(ped2a, title = "Before auto_hint")
 plot(ped2, title = "After auto_hint")
 ```
@@ -301,15 +296,13 @@ child who can be reached from multiple founders, we only want to find
 the child once.) 
 
 The double marry-in found in the figure, subject 11, leads
-to value of `(2,2)` for the [anchor] variable. The proper addition to
+to value of `(2,2)` for the $anchor$ variable. The proper addition to
 the $sptemp$ matrix in this case will be two rows, `(5, 11, 1)` indicating
 that 5 should be plotted left of 11 for the 5-11 marriage, with the first
 partner as the anchor, and a second row `(11, 9, 2)`.
 This will cause the common spouse to be plotted in the middle.
 
-```{r, align3, echo = FALSE,
-    fig.dim = c(10, 8),
-    fig.alt = "Horizontal ordering impact"}
+```{r, align3, echo = FALSE, fig.dim = c(10, 8), fig.alt = "Horizontal ordering impact"}
 #
 # A simple pedigree to illustrate autohint's code
 #
@@ -318,8 +311,7 @@ test3 <- data.frame(id = 1:14,
         2, 1, 2, 1, 2, 2, 1
     )],
     dadid = c(0, 6, 2, 2, 2, 0, 0, 11, 0, 9, 6, 0, 6, 11),
-    momid = c(0, 7, 1, 1, 1, 0, 0, 12, 0, 1, 7, 0, 7, 12),
-    affected = c(0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+    momid = c(0, 7, 1, 1, 1, 0, 0, 12, 0, 1, 7, 0, 7, 12)
 )
 ped3 <- Pedigree(test3, missid = "0", hints = list(
     horder = setNames(1:14, 1:14)
@@ -341,7 +333,7 @@ ped4 <- Pedigree(test4, missid = "0", hints = list(
     horder = setNames(1:17, 1:17)
 ))
 
-par(mfrow = c(1, 2))
+par(mfrow = c(2, 1))
 plot(ped4)
 plot(ped3)
 ```
@@ -409,7 +401,7 @@ subject id (ignoring the actual id label).
     - Anchor: 1 = left member, 2 = right member, 0 = not yet determined
 
 As the routine proceeds a spousal pair can be encountered
-multiple times; we take them out of this list when the ``connected''
+multiple times; we take them out of this list when the "connected"
 member is added to the Pedigree so that no marriage gets added
 twice.
 
@@ -635,13 +627,13 @@ true in this problem.
 
 There are two important parameters for the function. One is the user specified
 maximum width. The smallest possible width is the maximum number of subjects
-on a line, if the user suggestion is too low it is increased to that 1+ that
+on a line, if the user suggestion is too low it is increased to that 1 + that
 amount (to give just a little wiggle room). The other is a vector of 2
 alignment parameters $a$ and $b$. For each set of siblings $x$ with parents
 at $p_1$ and $p_2$ the alignment penalty is
 
 $$
-    (1/k^a)\sum{i=1}{k} (x_i - (p_1 + p_2)^2
+    (1/k^a)\sum{i=1}{k} (x_i - \frac{(p_1 + p_2)}{2})^2
 $$
 
 where $k$ is the number of siblings in the set.

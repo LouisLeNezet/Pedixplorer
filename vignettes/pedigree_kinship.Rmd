@@ -40,9 +40,9 @@ which may of either maternal or paternal origin.
 $$
 \begin{align}
     K(i,j) &= P(\mbox{$g$ maternal}) * K(m(i), j) + 
-                P(\mbox{$g$ paternal}) * K(f(i), j) \label{recur0} \\
-            &= 1/2 K(m(i), j) + 1/2 K(f(i), j) \label{recur1} \\
-    K(i,i) &= 1/2(1 + K(m(i), f(i))) \label{self} 
+                P(\mbox{$g$ paternal}) * K(f(i), j) \\
+            &= \frac{1}{2} K(m(i), j) + \frac{1}{2} K(f(i), j) \\
+    K(i,i) &= \frac{1}{2}(1 + K(m(i), f(i))) 
 \end{align}
 $$
 
