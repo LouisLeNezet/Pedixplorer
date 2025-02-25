@@ -77,13 +77,14 @@ Our constraints then are
 
 1. $(box height + label height) \times maxlev \le height$ : the boxes and
     labels have to fit vertically
-2. $(box height) \times (maxlev + (maxlev-1)/2) \le height$ : at least 1/2
+    \frac{(p_1 + p_2)}{2}
+2. $(box height) \times (maxlev + \frac{(maxlev-1)}{2}) \le height$ : at least 1/2
     a box of space between each row of boxes
 3. $(box width) \le stemp1$ in inches 
 4. $(box width) \le 0.8$ unit in user coordinates, otherwise they appear 
     to touch
-5. User coordinates go from $min(xrange)- 1/2 box width$ to 
-    $max(xrange) + 1/2 box width$.
+5. User coordinates go from $min(xrange)- \frac{box width}{2}$ to 
+    $max(xrange) + \frac{box width}{2}$.
 6. the box is square (in inches)
 
 The first 3 of these are easy. The fourth comes into play only for very packed

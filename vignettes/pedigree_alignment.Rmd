@@ -420,11 +420,11 @@ might modify the output, the spouselist format easier for the code.
 
 The [align] routine does the alignment using 3 co-routines:
 
-- $alignped1$ called with a single subject, returns the subtree
+- [alignped1] called with a single subject, returns the subtree
 founded on this subject, as though it were the only tree
-- $alignped2$ called with a set of sibs, calls alignped1 and 
-alignped3 multiple times to create a joint Pedigree
-- $alignped3$ given two side by side plotting structures, merge them
+- [alignped2] called with a set of sibs, calls [alignped1] and 
+[alignped3] multiple times to create a joint Pedigree
+- [alignped3] given two side by side plotting structures, merge them
 into a single one
 
 Call [alignped1] sequentially with each founder pair and merge the
