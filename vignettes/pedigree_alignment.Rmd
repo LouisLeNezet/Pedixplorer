@@ -155,7 +155,7 @@ temp2 <- Pedigree(test1, missid = "0", hints = list(
     )
 ))
 
-par(mfrow = c(2, 1))
+par(mfrow = c(1, 2))
 plot(temp2, title = "Before auto_hint")
 plot(ped1, title = "After auto_hint")
 ```
