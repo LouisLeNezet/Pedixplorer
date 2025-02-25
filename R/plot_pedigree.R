@@ -123,6 +123,7 @@ plot_legend <- function(
 #' @param leg_usr default=NULL. A vector of user coordinates to use for the
 #' legend.
 #' @inheritParams subregion
+#' @inheritParams plot_fromdf
 #'
 #' @return an invisible list containing
 #' - df : the data.frame used to plot the Pedigree
