@@ -395,7 +395,7 @@ marriage (2), or neither (0).</li>
 parents, or 0 if no link.</li>
 </ul>
 <div class="section level3">
-<h3 id="setup1--align">Setup1 -align<a class="anchor" aria-label="anchor" href="#setup1--align"></a>
+<h3 id="align---setup">Align - Setup<a class="anchor" aria-label="anchor" href="#align---setup"></a>
 </h3>
 <p>Start with some setup. Throughout this routine the row number is used
 as a subject id (ignoring the actual id label).</p>
@@ -431,7 +431,7 @@ auto_hint format is more congenial to users, who might modify the
 output, the spouselist format easier for the code.</p>
 </div>
 <div class="section level3">
-<h3 id="align-founders">Align-founders<a class="anchor" aria-label="anchor" href="#align-founders"></a>
+<h3 id="align---founders">Align - founders<a class="anchor" aria-label="anchor" href="#align---founders"></a>
 </h3>
 <p>The <a href="#align">align</a> routine does the alignment using 3
 co-routines:</p>
@@ -453,7 +453,7 @@ founder pair and merge the results. A founder pair is a married pair,
 neither of which has a father.</p>
 </div>
 <div class="section level3">
-<h3 id="align-finish">Align-finish<a class="anchor" aria-label="anchor" href="#align-finish"></a>
+<h3 id="align---finish">Align - finish<a class="anchor" aria-label="anchor" href="#align---finish"></a>
 </h3>
 <p>Now finish up. There are 4 tasks to do:</p>
 <ul>
@@ -702,7 +702,7 @@ penalty matrix will not be positive definite; solve.QP does not like
 this. We add a tiny amount of leftward pull to the widest line.</p>
 </div>
 <div class="section level3">
-<h3 id="alignped4-part2">alignped4: part2<a class="anchor" aria-label="anchor" href="#alignped4-part2"></a>
+<h3 id="alignped4---part2">alignped4 - part2<a class="anchor" aria-label="anchor" href="#alignped4---part2"></a>
 </h3>
 <p>Next come the constraints. If there are <span class="math inline">\(k\)</span> subjects on a line there will be <span class="math inline">\(k+1\)</span> constraints for that line. The first
 point must be <span class="math inline">\(\ge 0\)</span>, each
