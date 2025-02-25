@@ -221,7 +221,7 @@ marriage (2), or neither (0).</li>
 <span class="math inline">\(fam\)</span> matrix, link upward to my
 parents, or 0 if no link.</li>
 </ul>
-<p><img src="pedigree_alignment_files/figure-html/auto_hint1-1.png" alt="Comparison of auto_hint on a simple pedigree" width="960"><img src="pedigree_alignment_files/figure-html/auto_hint1-2.png" alt="Comparison of auto_hint on a simple pedigree" width="960"></p>
+<p><img src="pedigree_alignment_files/figure-html/auto_hint1-1.png" alt="Comparison of auto_hint on a simple pedigree" width="600px" height="300px" style="display: block; margin: auto;"><img src="pedigree_alignment_files/figure-html/auto_hint1-2.png" alt="Comparison of auto_hint on a simple pedigree" width="600px" height="300px" style="display: block; margin: auto;"></p>
 <p>Now, walk down through the levels one by one. A candidate subject is
 one who appears twice on the level, once under his/her parents and once
 somewhere else as a spouse. Move this person and spouse the the ends of
@@ -276,7 +276,7 @@ be listed in the order 9, 8, 10.</p>
 and 5 are reordered, and finally the line <code>(4,9,1)</code> is added
 to the sptemp matrix. In this particular case the final element could be
 a 1 or a 2, since both are connected to their parents.</p>
-<p><img src="pedigree_alignment_files/figure-html/align2-1.png" alt="Comparison of auto_hint on a more complex pedigree" width="960"><img src="pedigree_alignment_files/figure-html/align2-2.png" alt="Comparison of auto_hint on a more complex pedigree" width="960"></p>
+<p><img src="pedigree_alignment_files/figure-html/align2-1.png" alt="Comparison of auto_hint on a more complex pedigree" width="600px" height="400px" style="display: block; margin: auto;"><img src="pedigree_alignment_files/figure-html/align2-2.png" alt="Comparison of auto_hint on a more complex pedigree" width="600px" height="400px" style="display: block; margin: auto;"></p>
 <p>The figure above shows a more complex case with several arcs. In the
 upper left is a double marry-in. The <span class="math inline">\(anchor\)</span> variable in the above code will be
 <code>(2,2)</code> since both copies have an anchored spouse. The left
@@ -315,8 +315,8 @@ as well, and is much simpler than findspouse.</p>
 <div class="section level3">
 <h3 id="fixup2">Fixup2<a class="anchor" aria-label="anchor" href="#fixup2"></a>
 </h3>
-<p>At this point the most common situation will be what is shown in
-figure. The variable <span class="math inline">\(anchor\)</span> is
+<p>At this point the most common situation will be what is shown in the
+next figure. The variable <span class="math inline">\(anchor\)</span> is
 <code>(2,1)</code> showing that the left hand copy of subject 9 is
 connected to an anchored spouse and the right hand copy is himself
 anchored. The proper addition to the spouselist is
@@ -332,21 +332,20 @@ be two rows, <code>(5, 11, 1)</code> indicating that 5 should be plotted
 left of 11 for the 5-11 marriage, with the first partner as the anchor,
 and a second row <code>(11, 9, 2)</code>. This will cause the common
 spouse to be plotted in the middle.</p>
-<p><img src="pedigree_alignment_files/figure-html/align3-1.png" alt="Horizontal ordering impact" width="960"><img src="pedigree_alignment_files/figure-html/align3-2.png" alt="Horizontal ordering impact" width="960"></p>
-<p>Multiple marriages can lead to unanchored subjects. In the left hand
-portion of the figure above we have two double marriages, one on the
-left and one on the right with anchor values of <code>(0,2)</code> and
-<code>(2,0)</code>, respectively. We add two marriages to the return
-list to ensure that both print in the correct left-right order; the 14-4
-one is correct by default but it is easier to output a line than check
-sex orders.</p>
-<p>The left panel of the figure above shows a case where subject 11
-marries into the Pedigree but also has a second spouse. The <span class="math inline">\(anchor\)</span> variable for this case will be
+<p><img src="pedigree_alignment_files/figure-html/align3-1.png" alt="Horizontal ordering impact" width="600px" height="300px" style="display: block; margin: auto;"><img src="pedigree_alignment_files/figure-html/align3-2.png" alt="Horizontal ordering impact" width="600px" height="300px" style="display: block; margin: auto;"></p>
+<p>Multiple marriages can lead to unanchored subjects. In the first plot
+above we have two double marriages, one on the left and one on the right
+with anchor values of <code>(0,2)</code> and <code>(2,0)</code>,
+respectively. We add two marriages to the return list to ensure that
+both print in the correct left-right order; the 14-4 one is correct by
+default but it is easier to output a line than check sex orders.</p>
+<p>The first plot shows a case where subject 11 marries into the
+Pedigree but also has a second spouse. The <span class="math inline">\(anchor\)</span> variable for this case will be
 <code>(2, 0)</code>; the first instance of 11 has a spouse tied into the
 tree above, the second instance has no upward connections. In the top
 row, subject 6 has values of <code>(0, 0)</code> since neither
-connection has an upward parent. In the right hand panel subject 2 has
-an anchor variable of <code>(0,1)</code>.</p>
+connection has an upward parent. In the second plot, subject 2 has an
+anchor variable of <code>(0,1)</code>.</p>
 </div>
 </div>
 <div class="section level2">
