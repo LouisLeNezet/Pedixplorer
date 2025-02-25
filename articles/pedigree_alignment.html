@@ -437,16 +437,16 @@ output, the spouselist format easier for the code.</p>
 co-routines:</p>
 <ul>
 <li>
-<span class="math inline">\(alignped1\)</span> called with a single
-subject, returns the subtree founded on this subject, as though it were
-the only tree</li>
+<a href="#alignped1">alignped1</a> called with a single subject,
+returns the subtree founded on this subject, as though it were the only
+tree</li>
 <li>
-<span class="math inline">\(alignped2\)</span> called with a set of
-sibs, calls alignped1 and alignped3 multiple times to create a joint
+<a href="#alignped2">alignped2</a> called with a set of sibs, calls
+<a href="#alignped1">alignped1</a> and <a href="#alignped3">alignped3</a> multiple times to create a joint
 Pedigree</li>
 <li>
-<span class="math inline">\(alignped3\)</span> given two side by
-side plotting structures, merge them into a single one</li>
+<a href="#alignped3">alignped3</a> given two side by side plotting
+structures, merge them into a single one</li>
 </ul>
 <p>Call <a href="#alignped1">alignped1</a> sequentially with each
 founder pair and merge the results. A founder pair is a married pair,

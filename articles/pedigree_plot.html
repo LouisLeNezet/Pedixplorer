@@ -165,12 +165,12 @@ multi-line ones. Our constraints then are</p>
 <ol style="list-style-type: decimal">
 <li>
 <span class="math inline">\((box height + label height) \times
-maxlev \le height\)</span> : the boxes and labels have to fit
-vertically</li>
+maxlev \le height\)</span> : the boxes and labels have to fit vertically
+</li>
 <li>
 <span class="math inline">\((box height) \times (maxlev +
-(maxlev-1)/2) \le height\)</span> : at least 1/2 a box of space between
-each row of boxes</li>
+\frac{(maxlev-1)}{2}) \le height\)</span> : at least 1/2 a box of space
+between each row of boxes</li>
 <li>
 <span class="math inline">\((box width) \le stemp1\)</span> in
 inches</li>
@@ -178,8 +178,8 @@ inches</li>
 <span class="math inline">\((box width) \le 0.8\)</span> unit in
 user coordinates, otherwise they appear to touch</li>
 <li>User coordinates go from <span class="math inline">\(min(xrange)-
-1/2 box width\)</span> to <span class="math inline">\(max(xrange) + 1/2
-box width\)</span>.</li>
+\frac{box width}{2}\)</span> to <span class="math inline">\(max(xrange)
++ \frac{box width}{2}\)</span>.</li>
 <li>the box is square (in inches)</li>
 </ol>
 <p>The first 3 of these are easy. The fourth comes into play only for
