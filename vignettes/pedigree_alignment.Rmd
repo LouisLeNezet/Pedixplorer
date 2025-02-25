@@ -333,7 +333,7 @@ ped4 <- Pedigree(test4, missid = "0", hints = list(
     horder = setNames(1:17, 1:17)
 ))
 
-par(mfrow = c(2, 1))
+par(mfrow = c(1, 2))
 plot(ped4)
 plot(ped3)
 ```
