@@ -238,7 +238,7 @@ ped2 <- Pedigree(test2, missid = "0")
 ped2a <- Pedigree(test2, missid = "0", hints = list(
     horder = setNames(seq_along(test2$id), test2$id)
 ))
-par(mfrow = c(2, 1))
+par(mfrow = c(1, 2))
 plot(ped2a, title = "Before auto_hint")
 plot(ped2, title = "After auto_hint")
 ```
