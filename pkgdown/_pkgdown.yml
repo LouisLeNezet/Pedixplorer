@@ -15,7 +15,6 @@ template:
     base_font: {google: "Roboto"}
     heading_font: {google: "Roboto Slab"}
     code_font: {google: "JetBrains Mono"}
-  package: BiocStyle
 
 news:
   releases:

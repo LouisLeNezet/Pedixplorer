@@ -324,7 +324,7 @@ With this new S4 object comes multiple methods to ease the use of it:
 - `unrelated()`
 - `useful_inds()`
 
-```{r, pedigree_methods, fig.alt = "Pedigree plot"}
+```{r, pedigree_methods, fig.alt = "Pedigree plot", fig.align = 'center'}
 ## We can change the family name based on an other column
 pedi <- upd_famid(pedi, mcols(pedi)$idth)
 
