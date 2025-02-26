@@ -137,8 +137,8 @@ You can add a title and a legend to the plot with the following command:
 ```{r, ped1_title, fig.alt = "Pedigree of family 1 with legend"}
 plot(
     ped1, title = "Pedigree 1",
-    legend = TRUE, leg_loc = c(7, 16, 1.05, 1.9),
-    cex = 0.7
+    legend = TRUE, leg_loc = c(0.45, 0.9, 0.8, 1),
+    cex = 0.7, leg_symbolsize = 0.04
 )
 ```
 

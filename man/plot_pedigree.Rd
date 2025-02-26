@@ -37,7 +37,8 @@
   leg_par = list(),
   tips = NULL,
   title_cex = 2,
-  leg_usr = NULL
+  leg_usr = NULL,
+  add_to_existing = FALSE
 )
 }
 \arguments{
@@ -142,6 +143,9 @@ use as tooltips. If \code{NULL}, no tooltips are added.}
 
 \item{leg_usr}{default=NULL. A vector of user coordinates to use for the
 legend.}
+
+\item{add_to_existing}{If \code{TRUE}, the plot will be added to the current
+plot.}
 }
 \value{
 an invisible list containing
