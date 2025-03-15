@@ -125,6 +125,7 @@ pedi <- Pedigree(sampleped, relped, missid = NA) %>%
 
 proband(ped(pedi)) <- isinf(ped(pedi)) # Set informative individuals as proband
 
+png("MyPedigree.png", width = 1000, height = 600)
 plot_list <- plot(
     pedi,
     symbolsize = 1.5, # Increase the symbole size
@@ -140,7 +141,9 @@ plot_list <- plot(
         "num", "dateofbirth"
     ) # Add some information in the tooltip
 )
+dev.off()
 
+# Plot the Pedigree with plotly to have an interactive plot
 plotly::ggplotly(
     plot_list$ggplot,
     tooltip = "text"
@@ -149,7 +152,8 @@ plotly::ggplotly(
 ```
 
 <p align="center">
-    <iframe src="https://github.com/LouisLeNezet/Pedixplorer/raw/fix_plot/inst/figures/interactive_pedigree.html" alt="MyPedigree" height="400" style="height:400px;"></iframe>
+    <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"/>
+    <a href="https://louislenezet.github.io/Pedixplorer/interactive_pedigree.html" alt="MyPedigree">View Interactive Pedigree</a>
 </p>
 
 ## Documentation and News
