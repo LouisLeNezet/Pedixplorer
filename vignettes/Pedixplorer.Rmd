@@ -69,6 +69,8 @@ BiocManager::install("Pedixplorer")
 The package can then be loaded with the following command:
 
 ```{r, library_charge}
+library(plotly)
+library(dplyr)
 library(Pedixplorer)
 ```
 
@@ -507,6 +509,36 @@ plot(
     ped1, cex = 0.7, legend = TRUE,
     leg_loc = c(6, 16, 1, 1.8), leg_cex = 0.5,
 )
+```
+
+## Render interactive
+
+The plot can be made interactive by setting the `ggplot_gen` argument to `TRUE`.
+This will generate a ggplot object that can be passed down to `plotly::ggplotly()`
+to make the plot interactive.
+
+```{r, prepare_interactive, fig.show='hide'}
+plot_list <- plot(
+    ped1,
+    symbolsize = 0.8, # Reduce the symbole size
+    title = "My pedigree", # Add a title
+    lwd = 0.5, # Set the line width
+    cex = 0.8, # Set the text size
+    ggplot_gen = TRUE, # Use ggplot2 to draw the Pedigree
+    tips = c(
+        "id", "avail",
+        "affection",
+        "num"
+    ) # Add some information in the tooltip
+)
+```
+
+```{r, interactive, fig.alt = "Interactive Pedigree of family 1"}
+plotly::ggplotly(
+    plot_list$ggplot,
+    tooltip = "text"
+) %>%
+    plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
 ```
 
 # Pedigree Utility Functions

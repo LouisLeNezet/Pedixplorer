@@ -126,19 +126,35 @@ pedi <- Pedigree(sampleped, relped, missid = NA) %>%
 proband(ped(pedi)) <- isinf(ped(pedi)) # Set informative individuals as proband
 
 png("MyPedigree.png", width = 1000, height = 600)
-plot(
+plot_list <- plot(
     pedi,
-    symbolsize = 2, # Increase the symbole size
+    symbolsize = 1.5, # Increase the symbole size
     title = "My pedigree", # Add a title
     legend = TRUE, # Add the legend
     leg_symbolsize = 0.02, # Set the symbole size of the legend
-    leg_loc = c(0.5, 0.9, 0.8, 1.1) # Specify the legend location
+    leg_loc = c(0.5, 0.9, 0.8, 1.1), # Specify the legend location
+    lwd = 0.5, # Set the line width
+    ggplot_gen = TRUE, # Use ggplot2 to draw the Pedigree
+    tips = c(
+        "id", "avail",
+        "affection",
+        "num", "dateofbirth"
+    ) # Add some information in the tooltip
 )
 dev.off()
+
+# Plot the Pedigree with plotly to have an interactive plot
+plotly::ggplotly(
+    plot_list$ggplot,
+    tooltip = "text"
+) %>%
+    plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
 ```
 
 <p align="center">
     <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"/>
+    <br>
+    <a href="https://louislenezet.github.io/assets/img/pedixplorer/pedigree_interactive.html" alt="MyPedigree">View Interactive Pedigree</a>
 </p>
 
 ## Documentation and News

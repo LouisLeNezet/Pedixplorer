@@ -104,20 +104,9 @@ plot_ped_server <- function(
                 precision = precision, lwd = lwd / 3
             )
 
-            ggp <- ped_plot_lst$ggplot + ggplot2::scale_y_reverse() +
-                ggplot2::theme(
-                    panel.grid.major =  ggplot2::element_blank(),
-                    panel.grid.minor =  ggplot2::element_blank(),
-                    axis.title.x =  ggplot2::element_blank(),
-                    axis.text.x =  ggplot2::element_blank(),
-                    axis.ticks.x =  ggplot2::element_blank(),
-                    axis.ticks.y =  ggplot2::element_blank(),
-                    axis.title.y =  ggplot2::element_blank(),
-                    axis.text.y =  ggplot2::element_blank()
-                )
             ## To make it interactive
             plotly::ggplotly(
-                ggp +
+                ped_plot_lst$ggplot +
                     ggplot2::theme(legend.position = "none"),
                 tooltip = "text"
             ) %>%

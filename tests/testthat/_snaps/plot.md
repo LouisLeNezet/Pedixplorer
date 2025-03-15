@@ -49,16 +49,16 @@
       42                     dead -0.07614 2.145 0.07614 1.9870   segments   black
       43                     dead  1.92400 1.145 2.07600 0.9868   segments   black
       44                     dead  0.92390 2.145 1.07600 1.9870   segments   black
-      45                       id  1.00000 1.216      NA     NA       text   black
-      46                       id  0.00000 2.216      NA     NA       text   black
-      47                       id  0.70710 3.216      NA     NA       text   black
-      48                       id  1.20700 4.216      NA     NA       text   black
-      49                       id  2.00000 1.216      NA     NA       text   black
-      50                       id  1.00000 2.216      NA     NA       text   black
-      51                       id  1.70700 3.216      NA     NA       text   black
-      52                       id  2.00000 2.216      NA     NA       text   black
-      53                       id  2.70700 3.216      NA     NA       text   black
-      54                       id  3.00000 2.216      NA     NA       text   black
+      45                       id  1.00000 1.243      NA     NA       text   black
+      46                       id  0.00000 2.243      NA     NA       text   black
+      47                       id  0.70710 3.243      NA     NA       text   black
+      48                       id  1.20700 4.243      NA     NA       text   black
+      49                       id  2.00000 1.243      NA     NA       text   black
+      50                       id  1.00000 2.243      NA     NA       text   black
+      51                       id  1.70700 3.243      NA     NA       text   black
+      52                       id  2.00000 2.243      NA     NA       text   black
+      53                       id  2.70700 3.243      NA     NA       text   black
+      54                       id  3.00000 2.243      NA     NA       text   black
       55             line_spouses  1.06300 1.066 1.93700 1.0660   segments   black
       56             line_spouses  0.06345 2.066 0.93660 2.0660   segments   black
       57             line_spouses  0.77060 3.066 1.64400 3.0660   segments   black

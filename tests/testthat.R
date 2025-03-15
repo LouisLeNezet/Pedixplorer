@@ -18,7 +18,6 @@ library(R.devices)
 library(rlang)
 
 ## Set up the environment
-
 Sys.setenv(
     CHROMOTE_CHROME = Sys.getenv("CHROMOTE_CHROME"),
     CHROMOTE_HEADLESS = Sys.getenv("CHROMOTE_HEADLESS"),

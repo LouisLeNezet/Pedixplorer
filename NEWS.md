@@ -1,3 +1,9 @@
+## Changes in v1.3.4
+
+- Add example of interactivness in vignette
+- Fix label adjusting position in plot functions
+- Fix arrow size in ggplot
+
 ## Changes in v1.3.1
 
 - Add support for `.ped`, `.tsv` files in data import
