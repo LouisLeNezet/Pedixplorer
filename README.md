@@ -154,7 +154,7 @@ plotly::ggplotly(
 <p align="center">
     <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"/>
     <br>
-    <a href="https://louislenezet.github.io/Pedixplorer/interactive_pedigree.html" alt="MyPedigree">View Interactive Pedigree</a>
+    <a href="https://louislenezet.github.io/assets/img/pedixplorer/pedigree_interactive.html" alt="MyPedigree">View Interactive Pedigree</a>
 </p>
 
 ## Documentation and News
