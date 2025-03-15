@@ -15,12 +15,12 @@
       8                   polygon  2.00000 2.000      NA     NA square_2_1   white
       9                   polygon  2.70700 3.000      NA     NA square_2_1   white
       10                  polygon  3.00000 2.000      NA     NA circle_2_1     red
-      11                 aff_mark  0.96830 1.066      NA     NA       text   black
-      12                 aff_mark -0.03173 2.066      NA     NA       text   black
-      13                 aff_mark  0.67540 3.066      NA     NA       text   black
+      11                 aff_mark  0.96820 1.066      NA     NA       text   black
+      12                 aff_mark -0.03177 2.066      NA     NA       text   black
+      13                 aff_mark  0.67530 3.066      NA     NA       text   black
       14                 aff_mark  1.17500 4.066      NA     NA       text   black
       15                 aff_mark  1.96800 1.066      NA     NA       text   black
-      16                 aff_mark  0.96830 2.066      NA     NA       text   black
+      16                 aff_mark  0.96820 2.066      NA     NA       text   black
       17                 aff_mark  1.67500 3.066      NA     NA       text   black
       18                 aff_mark  1.96800 2.066      NA     NA       text   black
       19                 aff_mark  2.67500 3.066      NA     NA       text   black
@@ -36,8 +36,8 @@
       29                  polygon  2.70700 3.000      NA     NA square_2_2   white
       30                  polygon  3.00000 2.000      NA     NA circle_2_2   white
       31                 aff_mark  1.03200 1.066      NA     NA       text   black
-      32                 aff_mark  0.03173 2.066      NA     NA       text   black
-      33                 aff_mark  0.73880 3.066      NA     NA       text   black
+      32                 aff_mark  0.03177 2.066      NA     NA       text   black
+      33                 aff_mark  0.73890 3.066      NA     NA       text   black
       34                 aff_mark  1.23900 4.066      NA     NA       text   black
       35                 aff_mark  2.03200 1.066      NA     NA       text   black
       36                 aff_mark  1.03200 2.066      NA     NA       text   black
@@ -45,25 +45,25 @@
       38                 aff_mark  2.03200 2.066      NA     NA       text   black
       39                 aff_mark  2.73900 3.066      NA     NA       text   black
       40                 aff_mark  3.03200 2.066      NA     NA       text   black
-      41                     dead  0.92390 1.145 1.07600 0.9868   segments   black
-      42                     dead -0.07614 2.145 0.07614 1.9870   segments   black
+      41                     dead  0.92370 1.145 1.07600 0.9868   segments   black
+      42                     dead -0.07626 2.145 0.07626 1.9870   segments   black
       43                     dead  1.92400 1.145 2.07600 0.9868   segments   black
-      44                     dead  0.92390 2.145 1.07600 1.9870   segments   black
-      45                       id  1.00000 1.216      NA     NA       text   black
-      46                       id  0.00000 2.216      NA     NA       text   black
-      47                       id  0.70710 3.216      NA     NA       text   black
-      48                       id  1.20700 4.216      NA     NA       text   black
-      49                       id  2.00000 1.216      NA     NA       text   black
-      50                       id  1.00000 2.216      NA     NA       text   black
-      51                       id  1.70700 3.216      NA     NA       text   black
-      52                       id  2.00000 2.216      NA     NA       text   black
-      53                       id  2.70700 3.216      NA     NA       text   black
-      54                       id  3.00000 2.216      NA     NA       text   black
-      55             line_spouses  1.06300 1.066 1.93700 1.0660   segments   black
-      56             line_spouses  0.06345 2.066 0.93660 2.0660   segments   black
-      57             line_spouses  0.77060 3.066 1.64400 3.0660   segments   black
-      58             line_spouses  2.06300 2.066 2.93700 2.0660   segments   black
-      59            line_spouses2  0.77060 3.079 1.64400 3.0790   segments   black
+      44                     dead  0.92370 2.145 1.07600 1.9870   segments   black
+      45                       id  1.00000 1.243      NA     NA       text   black
+      46                       id  0.00000 2.243      NA     NA       text   black
+      47                       id  0.70710 3.243      NA     NA       text   black
+      48                       id  1.20700 4.243      NA     NA       text   black
+      49                       id  2.00000 1.243      NA     NA       text   black
+      50                       id  1.00000 2.243      NA     NA       text   black
+      51                       id  1.70700 3.243      NA     NA       text   black
+      52                       id  2.00000 2.243      NA     NA       text   black
+      53                       id  2.70700 3.243      NA     NA       text   black
+      54                       id  3.00000 2.243      NA     NA       text   black
+      55             line_spouses  1.06400 1.066 1.93600 1.0660   segments   black
+      56             line_spouses  0.06355 2.066 0.93640 2.0660   segments   black
+      57             line_spouses  0.77060 3.066 1.64300 3.0660   segments   black
+      58             line_spouses  2.06400 2.066 2.93600 2.0660   segments   black
+      59            line_spouses2  0.77060 3.079 1.64300 3.0790   segments   black
       60   line_children_vertical  0.00000 2.000 0.00000 1.8020   segments   black
       61   line_children_vertical  3.00000 2.000 3.00000 1.8020   segments   black
       62 line_children_horizontal  0.00000 1.802 3.00000 1.8020   segments   black
@@ -256,7 +256,7 @@
       
       $par_usr
       $par_usr$usr
-      [1] -0.06345  3.06345  4.24778  1.00000
+      [1] -0.06355  3.06355  4.24816  1.00000
       
       $par_usr$old_par
       $par_usr$old_par$xpd
@@ -264,16 +264,16 @@
       
       
       $par_usr$boxw
-      [1] 0.1269
+      [1] 0.1271
       
       $par_usr$boxh
-      [1] 0.1318
+      [1] 0.132
       
       $par_usr$labh
-      [1] 0.05799
+      [1] 0.05808
       
       $par_usr$legh
-      [1] 0.1977
+      [1] 0.198
       
       
 
