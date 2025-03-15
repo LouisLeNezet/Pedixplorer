@@ -26,8 +26,6 @@
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/auto_hint.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/best_hint.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/bit_size.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/char_to_date.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/check_col_config.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/check_columns.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/check_num_na.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/check_slot_fd.html</loc></url>
@@ -39,10 +37,7 @@
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/data_download.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/data_import.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/descendants.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/distribute_by.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/draw_arc.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/draw_arrow.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/draw_point.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/draw_polygon.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/draw_segment.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/draw_text.html</loc></url>
@@ -52,10 +47,8 @@
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/family_check.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/family_infos_table.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/family_sel.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/fertility_to_factor.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/find_avail_affected.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/find_avail_noninform.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/find_ray_intersections.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/find_unavailable.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/findsibs.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/findspouse.html</loc></url>
@@ -89,7 +82,6 @@
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/make_rownames.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/min_dist_inf.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/minnbreast.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/miscarriage_to_factor.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/na_to_length.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/norm_ped.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/norm_rel.html</loc></url>
@@ -119,12 +111,11 @@
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/sex_to_factor.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/shift.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/shrink.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/sketch_family_table.html</loc></url>
+<url><loc>https://louislenezet.github.io/Pedixplorer/reference/sketch.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/subregion.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/unrelated.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/upd_famid.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/useful_inds.html</loc></url>
-<url><loc>https://louislenezet.github.io/Pedixplorer/reference/validate_and_rename_df.html</loc></url>
 <url><loc>https://louislenezet.github.io/Pedixplorer/reference/vect_to_binary.html</loc></url>
 </urlset>
 
