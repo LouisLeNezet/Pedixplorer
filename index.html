@@ -6,15 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Pedixplorer - A BioConductor R package for pedigree creation, filtering and drawing • Pedixplorer</title>
-<script src="lightswitch.js"></script><script src="katex-auto.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><link href="deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
-<script src="deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Pedixplorer - A BioConductor R package for pedigree creation, filtering and drawing">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><script src="deps/MathJax-3.2.2/tex-chtml.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Pedixplorer - A BioConductor R package for pedigree creation, filtering and drawing">
 <meta name="description" content="Routines to handle family data with a Pedigree object.">
 <meta property="og:description" content="Routines to handle family data with a Pedigree object.">
 </head>
@@ -26,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,7 +125,7 @@
 <div class="section level3">
 <h3 id="the-pedigree-function">The <code>Pedigree()</code> Function<a class="anchor" aria-label="anchor" href="#the-pedigree-function"></a>
 </h3>
-<p><code><a href="reference/Pedigree-class.html">Pedigree()</a></code> is a function that creates an S4 class Pedigree object. The core slot of the Pedigree object is the <code>ped</code> slot built from having a row per person, linked by the father id and mother id. Other relationships can be specified, and affection status can be a matrix of multiple categories in the <code>rel</code> slot. All the informations about affection and availability are be stored respectively in <code>scales$fill</code> and <code>scales$border</code> slots and are therefore used to fill and color the border for each elements of the Pedigree graph.</p>
+<p><code><a href="reference/Pedigree-class.html">Pedigree()</a></code> is a function that creates an S4 class Pedigree object. The core slot of the Pedigree object is the <code>ped</code> slot built from having a row per person, linked by the father id and mother id. Other relationships can be specified, and affection status can be a matrix of multiple categories in the <code>rel</code> slot. All the informations about how the affection and availability have to be draw are stored respectively in <code>scales$fill</code> and <code>scales$border</code> slots They are used to fill and color the border for each elements of the Pedigree graph.</p>
 </div>
 <div class="section level3">
 <h3 id="the-generate_colors-function">The <code>generate_colors()</code> Function<a class="anchor" aria-label="anchor" href="#the-generate_colors-function"></a>
@@ -134,9 +133,9 @@
 <p><code><a href="reference/generate_colors.html">generate_colors()</a></code> is a function that generates a color palette for an affection status. This function is used by the <code><a href="reference/Pedigree-class.html">Pedigree()</a></code> function to generate the <code>scales$fill</code> and <code>scales$border</code> slots. The user can also use this function to generate a color palette for a specific affection status that will be added to the Pedigree object.</p>
 </div>
 <div class="section level3">
-<h3 id="the-plotpedigree-method">The <code>plot.Pedigree()</code> Method<a class="anchor" aria-label="anchor" href="#the-plotpedigree-method"></a>
+<h3 id="the-plot-method">The <code>plot()</code> Method<a class="anchor" aria-label="anchor" href="#the-plot-method"></a>
 </h3>
-<p><code><a href="reference/plot_pedigree.html">plot.Pedigree()</a></code> is a method for a Pedigree object that plots as a “family tree”, with relatives of the same generation on the same row, and affection statuses divided over the plot symbol for each person. This function is designed in two steps:</p>
+<p>A Pedigreee <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> S4 method is available to plot the object as a “family tree”, with relatives of the same generation on the same row, and affection statuses divided over the plot symbol for each person. This function is designed in two steps:</p>
 <ol style="list-style-type: decimal">
 <li>First the Pedigree object is converted into a data frame with all the elements needed to plot the Pedigree (i.e. boxes, lines, text, etc.). This is done by the <code><a href="reference/ped_to_plotdf.html">ped_to_plotdf()</a></code> function.</li>
 <li>Then the data frame is plotted using the <code><a href="reference/plot_fromdf.html">plot_fromdf()</a></code> function.</li>
@@ -165,80 +164,74 @@
 <h3 id="other-notable-functions">Other Notable Functions<a class="anchor" aria-label="anchor" href="#other-notable-functions"></a>
 </h3>
 <ul>
+<li><p><code>useful_ind()</code> automatically find the individuals close to a given set of individuals, allowing to split the Pedigree in smaller family for an easier representation.</p></li>
 <li><p><code><a href="reference/shrink.html">shrink()</a></code> will shrink a Pedigree to a given size, keeping the most informative individuals for a single affection variable.</p></li>
 <li><p><code><a href="reference/fix_parents.html">fix_parents()</a></code> will add parents for children who have a mother or dad listed that is not already included. It will also fix the sex status for the parent if it is mis-specified. This is useful to use before creating the <strong>Pedigree</strong> object.</p></li>
 </ul>
 </div>
-</div>
-<div class="section level2">
-<h2 id="diagrams">Diagrams<a class="anchor" aria-label="anchor" href="#diagrams"></a>
-</h2>
-<p>The diagrams below show the main functions of the package and how they are related.</p>
-<div class="float">
-<img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/Pedixplorer_diagram.png" alt="Pedixplorer Diagram"><div class="figcaption">Pedixplorer Diagram</div>
-</div>
 <div class="section level3">
-<h3 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
+<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
-<p>Here is the details of the different parts of the diagram.</p>
-<table class="table">
-<colgroup>
-<col width="30%">
-<col width="38%">
-<col width="30%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">Process</th>
-<th align="center">Flow chart</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left"><strong>S4 Pedixplorer creation</strong></td>
-<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/pedigreeobj.png" alt="pedigreeobj" width="800" style="width:800px;"></td>
-<td>The <em>Pedigree S4 object</em> creation is done by the <strong>Pedigree()</strong> constructor function. It mainly normalise a <em>ped_df</em> dataframe containing the information of each individuals with the <strong>norm_ped()</strong> function and the <em>rel_df</em> dataframe containing the special relationship (i.e. twins, spouse with no child) with the <strong>norm_rel()</strong> function. Thereafter It calls the <strong>generate_colors()</strong> function to create the colors scales (i.e. filling and border) before validating the object with <strong>is_valid()</strong>
-</td>
-</tr>
-<tr class="even">
-<td align="left"><strong>Alignment</strong></td>
-<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/alignment.png" alt="alignment" width="800" style="width:800px;"></td>
-<td>The alignment process is used to create a <strong>plist</strong> stroing the graphical disposition of the different individuals and their relation between them. The <em>hints</em> information used by <strong>auto_hint()</strong>, <strong>align()</strong> can be used by the user to force the ordering of some indiviuals</td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>Plotting</strong></td>
-<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/plotting.png" alt="plotting" width="800" style="width:800px;"></td>
-<td>The plotting process is now separated in three distinct steps: <br> - <strong>ped_to_plotdf()</strong> is first called to convert the <em>S4 Pedigree object</em> into a dataframe listing all the graphical elements and their caracteristic. <br> - <strong>ped_to_legdf()</strong> does the same but for the legend informations. <br> - <strong>plot_fromdf()</strong> take as input such resulting dataframe and iteratively plot the elements based on their given characteristics. <br> All those steps are merge in one step with the <strong>plot.Pedigree()</strong> method.</td>
-</tr>
-<tr class="even">
-<td align="left"><strong>Shrinking</strong></td>
-<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/shrinking.png" alt="shrinking" width="800" style="width:800px;"></td>
-<td>This process is useful when you want to reduce a huge Pedigree into a more simple version. The <strong>shrink()</strong> method will remove iteratively the less informative individuals from the Pedigree until it reach the <em>max_bits</em> size awaited</td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>Informations</strong></td>
-<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/infos.png" alt="infos" width="800"></td>
-<td>From a <em>S4 Pedigree object</em> it is possible to extract a lot of informations about the individuals, such as their shared relatedness <strong>kinship()</strong>, the number of direct and indirect child <strong>num_child()</strong>, their informativeness based on a set variable <strong>is_informative()</strong>, …</td>
-</tr>
-<tr class="even">
-<td align="left"><strong>Checking columns</strong></td>
-<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/checkingcol.png" alt="checkingcol" height="200" style="height:200px;"></td>
-<td>The <strong>check_col()</strong> function is used to check the presence absence of columns in a designated <em>data.frame</em>
-</td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>Legend</strong></td>
-<td align="center"><img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/legend.png" alt="legend" height="200" style="height:200px;"></td>
-<td>The diagrams listed here follow this rules</td>
-</tr>
-</tbody>
-</table>
+<p>Here is a simple example that show how to represent a complex pedigree with a lot of different information.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://louislenezet.github.io/Pedixplorer/">Pedixplorer</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sampleped"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"relped"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create the Pedigree object</span></span>
+<span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span>, <span class="va">relped</span>, missid <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="reference/generate_colors.html">generate_colors</a></span><span class="op">(</span> <span class="co"># Add a new affection information</span></span>
+<span>        col_aff <span class="op">=</span> <span class="st">"num"</span>, is_num <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        keep_full_scale <span class="op">=</span> <span class="cn">TRUE</span>, breaks <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>        threshold <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>        colors_aff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#8B7355"</span>, <span class="st">"#FFA500"</span><span class="op">)</span>,</span>
+<span>        colors_unaff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#8aca25"</span>, <span class="st">"#3fb7db"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="reference/is_informative.html">is_informative</a></span><span class="op">(</span> <span class="co"># Set which individuals are informative</span></span>
+<span>        col_aff <span class="op">=</span> <span class="st">"num"</span>, informative <span class="op">=</span> <span class="st">"AvAf"</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="reference/useful_inds.html">useful_inds</a></span><span class="op">(</span></span>
+<span>        keep_infos <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Keep available or affected parents </span></span>
+<span>        max_dist <span class="op">=</span> <span class="fl">2</span> <span class="co"># Maximum distance from informative individuals</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/Ped-class.html">proband</a></span><span class="op">(</span><span class="fu"><a href="reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/Ped-class.html">isinf</a></span><span class="op">(</span><span class="fu"><a href="reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span> <span class="co"># Set informative individuals as proband</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="st">"MyPedigree.png"</span>, width <span class="op">=</span> <span class="fl">1000</span>, height <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span>
+<span><span class="va">plot_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>    <span class="va">pedi</span>,</span>
+<span>    symbolsize <span class="op">=</span> <span class="fl">1.5</span>, <span class="co"># Increase the symbole size</span></span>
+<span>    title <span class="op">=</span> <span class="st">"My pedigree"</span>, <span class="co"># Add a title</span></span>
+<span>    legend <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Add the legend</span></span>
+<span>    leg_symbolsize <span class="op">=</span> <span class="fl">0.02</span>, <span class="co"># Set the symbole size of the legend</span></span>
+<span>    leg_loc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>, <span class="fl">1.1</span><span class="op">)</span>, <span class="co"># Specify the legend location</span></span>
+<span>    lwd <span class="op">=</span> <span class="fl">0.5</span>, <span class="co"># Set the line width</span></span>
+<span>    ggplot_gen <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Use ggplot2 to draw the Pedigree</span></span>
+<span>    tips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>        <span class="st">"id"</span>, <span class="st">"avail"</span>,</span>
+<span>        <span class="st">"affection"</span>,</span>
+<span>        <span class="st">"num"</span>, <span class="st">"dateofbirth"</span></span>
+<span>    <span class="op">)</span> <span class="co"># Add some information in the tooltip</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the Pedigree with plotly to have an interactive plot</span></span>
+<span><span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span></span>
+<span>    <span class="va">plot_list</span><span class="op">$</span><span class="va">ggplot</span>,</span>
+<span>    tooltip <span class="op">=</span> <span class="st">"text"</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">plotly</span><span class="fu">::</span><span class="fu">layout</span><span class="op">(</span>hoverlabel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bgcolor <span class="op">=</span> <span class="st">"darkgrey"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p align="center">
+<img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"><br><a href="https://louislenezet.github.io/assets/img/pedixplorer/pedigree_interactive.html" alt="MyPedigree" class="external-link">View Interactive Pedigree</a>
+</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="documentation-and-news">Documentation and News<a class="anchor" aria-label="anchor" href="#documentation-and-news"></a>
 </h2>
 <p>To view documentation start R and enter:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://louislenezet.github.io/Pedixplorer/">Pedixplorer</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"Pedixplorer"</span><span class="op">)</span></span>
 <span></span>
@@ -277,7 +270,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Louis Le Nézet <br><small class="roles"> Author, maintainer, contributor </small> <a href="https://orcid.org/0009-0000-0202-2703" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Louis Le Nezet <br><small class="roles"> Author, maintainer, contributor </small> <a href="https://orcid.org/0009-0000-0202-2703" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Jason Sinnwell <br><small class="roles"> Author </small>  </li>
 <li>Terry Therneau <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">More about authors...</a></li>
@@ -300,7 +293,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Louis Le Nézet, Jason Sinnwell, Terry Therneau.</p>
+  <p>Developed by Louis Le Nezet, Jason Sinnwell, Terry Therneau.</p>
 </div>
 
 <div class="pkgdown-footer-right">
