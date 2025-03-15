@@ -14,13 +14,25 @@
   avail,
   affected,
   num_child_tot,
-  informative = "AvAf",
+  id_inf,
   keep_infos = FALSE
 )
 
-\S4method{useful_inds}{Pedigree}(obj, informative = "AvAf", keep_infos = FALSE, reset = FALSE)
+\S4method{useful_inds}{Pedigree}(
+  obj,
+  informative = "AvAf",
+  keep_infos = FALSE,
+  reset = FALSE,
+  max_dist = NULL
+)
 
-\S4method{useful_inds}{Ped}(obj, informative = "AvAf", keep_infos = FALSE, reset = FALSE)
+\S4method{useful_inds}{Ped}(
+  obj,
+  informative = "AvAf",
+  keep_infos = FALSE,
+  reset = FALSE,
+  max_dist = NULL
+)
 }
 \arguments{
 \item{obj}{A character vector with the id of the individuals or a
@@ -34,14 +46,23 @@ biologicals mothers.}
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = unaffected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 
 \item{num_child_tot}{A numeric vector of the number of children of each
 individuals}
+
+\item{id_inf}{An identifiers vector of informative individuals.}
+
+\item{keep_infos}{Boolean to indicate if parents with unknown status
+but available or reverse should be kept}
 
 \item{informative}{Informative individuals selection can take 5 values:
 \itemize{
@@ -54,10 +75,9 @@ individuals}
 \item A boolean
 }}
 
-\item{keep_infos}{Boolean to indicate if individuals with unknown status
-but available or reverse should be kept}
-
 \item{reset}{Boolean to indicate if the \code{useful} column should be reset}
+
+\item{max_dist}{The maximum distance to informative individuals}
 }
 \value{
 \subsection{When obj is a vector}{
@@ -78,7 +98,7 @@ Compute the usefulness of individuals
 Check for the informativeness of the individuals based on the
 informative parameter given, the number of children and the usefulness
 of their parents. A \code{useful} slot is added to the Ped object with the
-usefulness of the individual. This boolean is hereditary.
+usefulness of the individual.
 }
 \examples{
 

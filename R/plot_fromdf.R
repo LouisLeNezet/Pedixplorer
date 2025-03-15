@@ -8,7 +8,7 @@ NULL
 #' @description
 #' This function is used to create a plot from a data.frame.
 #'
-#' If `ggplot_gen = TRUE`, the plot will be generated with ggplot2 and 
+#' If `ggplot_gen = TRUE`, the plot will be generated with ggplot2 and
 #' will be returned invisibly.
 #'
 #' @param df A data.frame with the following columns:
@@ -47,43 +47,56 @@ NULL
 #' data(sampleped)
 #' ped1 <- Pedigree(sampleped[sampleped$famid == 1,])
 #' lst <- ped_to_plotdf(ped1)
-#' #plot_fromdf(lst$df, lst$par_usr$usr,
-#' #     boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
-#' #)
-#'
+#' if (interactive()) {
+#'     plot_fromdf(lst$df, lst$par_usr$usr,
+#'         boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
+#'     )
+#' }
 #' @return an invisible ggplot object and a plot on the current plotting device
 #' @keywords internal, Pedigree-plot
+#' @importFrom graphics frame par
+#' @importFrom ggplot2 ggplot theme element_blank element_rect
+#' @importFrom ggplot2 unit scale_y_reverse ggtitle
+#' @importFrom stringr str_split_i
 #' @export
 plot_fromdf <- function(
     df, usr = NULL, title = NULL, ggplot_gen = FALSE, boxw = 1,
     boxh = 1, add_to_existing = FALSE
 ) {
     if (!add_to_existing) {
-        frame()
+        graphics::frame()
+        op <- par(no.readonly = TRUE)
         if (!is.null(usr)) {
-            par(usr = usr)
+            graphics::par(usr = usr)
         }
+    } else {
+        op <- par(no.readonly = TRUE)
     }
-
-    p <- ggplot() +
-        theme(
-            plot.margin = unit(c(0, 0, 0, 0), "cm"),
-            panel.background = element_rect(fill = "transparent", color = NA),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
-            axis.ticks = element_blank(),
-            axis.text = element_blank(),
-            axis.title = element_blank()
+    p <- ggplot2::ggplot() +
+        ggplot2::theme(
+            plot.margin = ggplot2::unit(c(0, 0, 0, 0), "cm"),
+            panel.background = ggplot2::element_rect(
+                fill = "transparent", color = NA
+            ), panel.grid.major = ggplot2::element_blank(),
+            panel.grid.minor = ggplot2::element_blank(),
+            axis.ticks = ggplot2::element_blank(),
+            axis.text = ggplot2::element_blank(),
+            axis.title = ggplot2::element_blank()
         ) +
-        scale_y_reverse()
+        ggplot2::scale_y_reverse()
 
     ## Add title if exists
     if (!is.null(title)) {
         title(title)
-        p <- p + ggtitle(title)
+        p <- p + ggplot2::ggtitle(title)
     }
 
-    max_aff <- max(as.numeric(str_split_i(df$type, "_", 2)), na.rm = TRUE)
+    aff <- as.numeric(stringr::str_split_i(df$type, "_", 2))
+    if (all(is.na(aff))) {
+        max_aff <- 1
+    } else {
+        max_aff <- max(aff, na.rm = TRUE)
+    }
 
     ## Add boxes
     poly_n <- lapply(seq_len(max_aff), polygons)
@@ -91,38 +104,45 @@ plot_fromdf <- function(
         names(polygons(1)), seq_len(max_aff), seq_len(max_aff)
     ), 1, paste, collapse = "_")
 
-    boxes <- df[df$type %in% all_types, ]
-    boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(boxes$type, "_", 3)
-    boxes$angle[boxes$angle == "NA"] <- 45
-    for (i in seq_len(dim(boxes)[1])){
-        poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
-            as.numeric(boxes$naff[i])
-        ]]
-        p <- draw_polygon(
-            boxes$x0[i] + poly$x * boxw,
-            boxes$y0[i] + poly$y * boxh,
-            p, ggplot_gen,
-            boxes$fill[i], boxes$border[i], boxes$density[i], boxes$angle[i]
-        )
-    }
-    txt <- df[df$type == "text" & !is.na(df$label), ]
-    if (nrow(txt) > 0) {
-        p <- draw_text(
-            txt$x0, txt$y0, txt$label,
-            p, ggplot_gen, txt$cex, txt$fill, txt$adjx, txt$adjy
+    seg <- df[df$type == "segments" & df$id != "dead", ]
+    if (!is.null(seg) && nrow(seg) > 0) {
+        p <- draw_segment(
+            seg$x0, seg$y0, seg$x1, seg$y1,
+            p, ggplot_gen, col = seg$fill, lwd = seg$cex
         )
     }
 
-    seg <- df[df$type == "segments", ]
-    if (nrow(seg) > 0) {
+    boxes <- df[df$type %in% all_types, ]
+    if (!is.null(boxes) && nrow(boxes) > 0) {
+        boxes[c("poly", "polydiv", "naff")] <- str_split_fixed(
+            boxes$type, "_", 3
+        )
+        boxes$angle[boxes$angle == "NA"] <- 45
+        for (i in seq_len(dim(boxes)[1])){
+            poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
+                as.numeric(boxes$naff[i])
+            ]]
+            p <- draw_polygon(
+                boxes$x0[i] + poly$x * boxw,
+                boxes$y0[i] + poly$y * boxh,
+                p, ggplot_gen,
+                fill = boxes$fill[i], border = boxes$border[i],
+                density = boxes$density[i], angle = boxes$angle[i],
+                lwd = boxes$cex[i], tips = boxes$tips[i]
+            )
+        }
+    }
+
+    seg <- df[df$type == "segments" & df$id == "dead", ]
+    if (!is.null(seg) && nrow(seg) > 0) {
         p <- draw_segment(
             seg$x0, seg$y0, seg$x1, seg$y1,
-            p, ggplot_gen, seg$fill, seg$cex
+            p, ggplot_gen, col = seg$fill, lwd = seg$cex
         )
     }
 
     arcs <- df[df$type == "arc", ]
-    if (nrow(arcs) > 0) {
+    if (!is.null(arcs) && nrow(arcs) > 0) {
         for (it in seq_len(nrow(arcs))){
             arc <- arcs[it, ]
             p <- draw_arc(arc$x0, arc$y0, arc$x1, arc$y1,
@@ -131,5 +151,21 @@ plot_fromdf <- function(
         }
     }
 
+
+    txt <- df[df$type == "text" & !is.na(df$label), ]
+    if (!is.null(txt) && nrow(txt) > 0) {
+        for (adjx in unique(txt$adjx)) {
+            txt_x <- txt[txt$adjx == adjx, ]
+            for (adjy in unique(txt_x$adjy)) {
+                txt_xy <- txt_x[txt_x$adjy == adjy, ]
+                p <- draw_text(
+                    txt_xy$x0, txt_xy$y0, txt_xy$label,
+                    p, ggplot_gen, txt_xy$cex, txt_xy$fill,
+                    adjx, adjy, tips = txt_xy$tips
+                )
+            }
+        }
+    }
+    par(op)
     invisible(p)
 }

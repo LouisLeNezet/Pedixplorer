@@ -1,15 +1,14 @@
 Package: Pedixplorer
-Version: 1.1.0
-Date: 2023-11-15
+Version: 1.2.0
+Date: 2024-10-01
 Title: Pedigree Functions
 Authors@R: c(
     person("Louis", "Le Nézet", email="louislenezet@gmail.com",
-        role=c("aut","cre"), comment = c(ORCID = "0009-0000-0202-2703")),
+        role=c("aut","cre","ctb"), comment = c(ORCID = "0009-0000-0202-2703")),
 	person("Jason", "Sinnwell", email="sinnwell.jason@mayo.edu", role="aut"),
 	person("Terry", "Therneau", role="aut"),
 	person("Daniel", "Schaid", role="ctb"),
-	person("Elizabeth", "Atkinson", role="ctb"),
-	person("Louis", "Le Nezet", role='ctb'))
+	person("Elizabeth", "Atkinson", role="ctb"))
 Depends: 
 	R (>= 4.3.0)
 Imports: 
@@ -26,31 +25,50 @@ Imports:
     quadprog,
     Matrix,
     S4Vectors,
-    testthat
-Description: Routines to handle family data with a Pedigree object. The initial purpose
-    was to create correlation structures that describe family relationships such 
-    as kinship and identity-by-descent, which can be used to model family data 
-    in mixed effects models, such as in the coxme function. Also includes a tool
-    for Pedigree drawing which is focused on producing compact layouts without 
-    intervention. Recent additions include utilities to trim the Pedigree object
-    with various criteria, and kinship for the X chromosome.
+    shiny,
+    readxl,
+    shinyWidgets,
+    htmlwidgets,
+    DT,
+    gridExtra,
+    data.table,
+    plotly,
+    colourpicker,
+    shinytoastr,
+    scales,
+    shinycssloaders
+Description: Routines to handle family data with a Pedigree object. The initial
+    purpose was to create correlation structures that describe family
+    relationships such as kinship and identity-by-descent, which can be used to
+    model family data in mixed effects models, such as in the coxme function.
+    Also includes a tool for Pedigree drawing which is focused on producing
+    compact layouts without intervention. Recent additions include utilities to
+    trim the Pedigree object with various criteria, and kinship for the X
+    chromosome.
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 
     diffviewer,
+    testthat (>= 3.0.0),
     vdiffr,
     rmarkdown,
     BiocStyle,
     knitr,
     withr,
+    qpdf,
+    shinytest2,
+    covr,
+    devtools,
+    R.devices,
+    usethis,
     magick
 Config/testthat/edition: 3
-biocViews: Software, DataRepresentation, Genetics, Alignment
-BugReports: https://github.com/LouisLeLezet/Pedixplorer/issues
-URL: https://github.com/LouisLeNezet/Pedixplorer
+biocViews: Software, DataRepresentation, Genetics, GraphAndNetwork, Visualization
+BugReports: https://github.com/LouisLeNezet/Pedixplorer/issues
+URL: https://louislenezet.github.io/Pedixplorer/
 BiocType: Software
 Collate: 
     'AllValidity.R'
@@ -68,6 +86,21 @@ Collate:
     'alignped1.R'
     'auto_hint.R'
     'align.R'
+    'app.R'
+    'app_color_picker.R'
+    'app_data_col_sel.R'
+    'app_data_download.R'
+    'app_data_import.R'
+    'app_utils.R'
+    'app_family_sel.R'
+    'app_health_sel.R'
+    'app_inf_sel.R'
+    'app_ped_avaf_infos.R'
+    'app_plot_download.R'
+    'app_plot_legend.R'
+    'app_plot_ped.R'
+    'app_server.R'
+    'app_ui.R'
     'best_hint.R'
     'bit_size.R'
     'data.R'
@@ -89,7 +122,7 @@ Collate:
     'ped_to_plotdf.R'
     'plot_fct.R'
     'plot_fromdf.R'
-    'plot.R'
+    'plot_pedigree.R'
     'shrink.R'
     'unrelated.R'
     'useful_inds.R'

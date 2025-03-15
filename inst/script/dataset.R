@@ -16,3 +16,14 @@ sampleped <- mutate_if(
 )
 summary(sampleped)
 usethis::use_data(sampleped, overwrite = TRUE)
+
+
+#### relped ####
+relped <- read.delim("inst/extdata/relped.tab",
+    header = TRUE, sep = " ", stringsAsFactors = FALSE
+)
+relped[c("famid", "id1", "id2", "code")] <- as.data.frame(
+    lapply(relped[c("famid", "id1", "id2", "code")], as.character)
+)
+summary(relped)
+usethis::use_data(relped, overwrite = TRUE)

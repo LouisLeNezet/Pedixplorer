@@ -17,9 +17,9 @@ NULL
 #'
 #' ## If the variable is `numeric`:
 #'
-#' In this case the affected state will be `TRUE` if the value of the individual
-#' is above the **threshold** if **sup_thres_aff** is `TRUE` and `FALSE`
-#' otherwise.
+#' In this case the affected state will be `TRUE` if the value of
+#' the individual is above the **threshold** if **sup_thres_aff**
+#' is `TRUE` and `FALSE` otherwise.
 #'
 #' @param values Vector containing the values of the column to process.
 #' @param mods_aff Vector of modality to consider as affected in the case
@@ -32,7 +32,7 @@ NULL
 #' if the value of `values` is stricly above the `threshold`.
 #' If `FALSE`, the individuals will be considered affected if the
 #' value is stricly under the `threshold`.
-#'
+#' @inheritParams generate_fill
 #' @return A dataframe with the `affected` column processed accordingly.
 #' The different columns are:
 #' - `mods`: The different modalities of the column
@@ -43,12 +43,19 @@ NULL
 #' generate_aff_inds(c(1, 2, 3, 4, 5), threshold = 3, sup_thres_aff = TRUE)
 #' generate_aff_inds(c("A", "B", "C", "A", "V", "B"), mods_aff = c("A", "B"))
 #' @author Louis Le Nézet
-#' @keywords generate_scales
+#' @keywords generate_scales, internal
 #' @export
 generate_aff_inds <- function(values, mods_aff = NULL,
-    threshold = NULL, sup_thres_aff = NULL
+    threshold = NULL, sup_thres_aff = NULL, is_num = NULL
 ) {
     mods <- rep(NA, length(values))
+    if (!is.null(is_num)) {
+        if (is_num) {
+            values <- as.numeric(values)
+        } else {
+            values <- as.character(values)
+        }
+    }
     if (is.numeric(values)) {
         if (is.null(threshold) || is.na(threshold)) {
             stop("Variable is numeric but threshold not correctly defined")
@@ -83,8 +90,14 @@ generate_aff_inds <- function(values, mods_aff = NULL,
             mods_aff <- "None"
         }
 
-        aff_lab <- paste("Affected are", paste(mods_aff, collapse = "/"))
-        healthy_lab <- paste("Healthy are", paste(mods_non_aff, collapse = "/"))
+        aff_lab <- paste(
+            "Affected are",
+            paste(mods_aff, collapse = " / ")
+        )
+        healthy_lab <- paste(
+            "Healthy are",
+            paste(mods_non_aff, collapse = " / ")
+        )
 
         mods[!is.na(values)] <- 0
         mods[values %in% mods_aff & !is.na(values)] <- 1

@@ -7,12 +7,14 @@
 draw_polygon(
   x,
   y,
-  p,
+  p = NULL,
   ggplot_gen = FALSE,
   fill = "grey",
-  border = NULL,
+  border = "black",
   density = NULL,
-  angle = 45
+  angle = 45,
+  lwd = par("lwd"),
+  tips = NULL
 )
 }
 \arguments{
@@ -31,6 +33,10 @@ draw_polygon(
 \item{density}{Density of shading}
 
 \item{angle}{Angle of shading}
+
+\item{lwd}{Line width}
+
+\item{tips}{Text to be displayed when hovering over the polygon}
 }
 \value{
 Plot the polygon  to the current device
@@ -40,4 +46,4 @@ or add it to a ggplot object
 Draw a polygon
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

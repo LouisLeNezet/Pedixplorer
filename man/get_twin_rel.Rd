@@ -30,4 +30,4 @@ It is used by \code{auto_hint()}.
 \code{\link[=auto_hint]{auto_hint()}}
 }
 \keyword{auto_hint}
-\keyword{internal,}
+\keyword{internal}

@@ -30,4 +30,4 @@ It finds the spouse of a subject.
 \code{\link[=auto_hint]{auto_hint()}}
 }
 \keyword{auto_hint}
-\keyword{internal,}
+\keyword{internal}

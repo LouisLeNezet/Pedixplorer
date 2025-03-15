@@ -30,3 +30,4 @@ Relationship code variable to ordered factor
 \examples{
 rel_code_to_factor(c(1, 2, 3, 4, "MZ twin", "DZ twin", "UZ twin", "Spouse"))
 }
+\keyword{internal}

@@ -11,7 +11,7 @@
 #' additional functionality and bug fixes.
 #'
 #' The package download, NEWS, and README are available on CRAN:
-#' \\url{https://cran.r-project.org/package=kinship2} for the
+#' [Kinship2](https://cran.r-project.org/package=kinship2) for the
 #' previous version of the package.
 #'
 #' @section Functions:
@@ -29,10 +29,12 @@
 #' object into a graphical plot.
 #' Allows extra information to be included in the id under the
 #' plot symbol.
-#' This method use the [plot_fromdf()] function to transform the Pedigree
-#' object into a data frame of graphical elements, the same is done for the
+#' This method use the [plot_fromdf()] function to
+#' transform the Pedigree object into a data frame
+#' of graphical elements, the same is done for the
 #' legend with the [ped_to_legdf()] function.
-#' When done, the data frames are plotted with the [plot_fromdf()] function.
+#' When done, the data frames are plotted with the
+#' [plot_fromdf()] function.
 #'
 #' [shrink()]: Shrink a Pedigree to a specific bit size,
 #' removing non-informative members first.

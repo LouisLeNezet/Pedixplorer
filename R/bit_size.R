@@ -7,7 +7,7 @@
 #' The bit size of a Pedigree is defined as :
 #'
 #' \deqn{
-#'   2 \times NbNonFounders - NbFounders
+#'     2 \times NbNonFounders - NbFounders
 #' }
 #'
 #' Where `NbNonFounders` is the number of non founders in the Pedigree
@@ -31,7 +31,7 @@
 #' ped <- Pedigree(sampleped)
 #' bit_size(ped)
 #' @export
-#' @keywords internal, shrink
+#' @keywords shrink
 #' @usage NULL
 setGeneric("bit_size", signature = "obj",
     function(obj, ...) standardGeneric("bit_size")

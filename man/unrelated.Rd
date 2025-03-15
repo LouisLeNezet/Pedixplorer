@@ -15,7 +15,9 @@
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 }
 \value{
 A vector of the ids of subjects that are unrelated.

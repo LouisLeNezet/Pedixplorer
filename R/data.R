@@ -40,7 +40,8 @@
 #' the data set; zero otherwise
 #' - `famid` : Family identifier
 #' - `endage` : Age at last follow-up or incident cancer
-#' - `cancer` : `1` = breast cancer (females) or prostate cancer (males),
+#' - `cancer` : `1` = breast cancer (females) or
+#' prostate cancer (males),
 #' `0` = censored
 #' - `yob` : Year of birth
 #' - `education` : Amount of education: 1-8 years, 9-12 years, high
@@ -85,15 +86,17 @@
 #' @examples
 #' data(minnbreast)
 #' breastped <- Pedigree(minnbreast,
-#'    cols_ren_ped = list(
-#'        "indId" = "id", "fatherId" = "fatherid",
-#'        "motherId" = "motherid", "gender" = "sex", "family" = "famid"
-#'    ), missid = "0", col_aff = "cancer"
+#'     cols_ren_ped = list(
+#'         "indId" = "id", "fatherId" = "fatherid",
+#'         "motherId" = "motherid", "gender" = "sex", "family" = "famid"
+#'     ), missid = "0", col_aff = "cancer"
 #' )
 #' summary(breastped)
 #' scales(breastped)
 #' #plot family 8, proband is solid, slash for cancers
-#' #plot(breastped[famid(breastped) == "8"])
+#' if (interactive()) {
+#'     plot(breastped[famid(ped(breastped)) == "8"], aff_mark = TRUE)
+#' }
 "minnbreast"
 
 #' Sampleped data
@@ -115,13 +118,44 @@
 #' - `sex` : `1` for male or `2` for female
 #' - `affected` : `1` or `0`
 #' - `avail` : `1` or `0`
+#' - `num` : Numerical test variable from 0 to 6 randomly distributed
 #'
 #' @usage
 #' data("sampleped")
 #'
 #' @examples
 #' data("sampleped")
-#' ped <- Pedigree(sampleped)
-#' summary(ped)
-#' #plot(ped)
+#' pedi <- Pedigree(sampleped)
+#' summary(pedi)
+#' if (interactive()) { plot(pedi) }
 "sampleped"
+
+#' Relped data
+#'
+#' @description Small set of related individuals for testing purposes.
+#'
+#' @details This is a small fictive data set of relation that accompanies
+#' the sampleped data set.
+#' The aim was to create a data set with a variety of relationships.
+#' There is 8 relations with 4 different types of relationships.
+#'
+#' @format The dataframe is composed of 4 columns:
+#' - `id1` : the first individual identifier,
+#' - `id2` : the second individual identifier,
+#' - `code` : the relationship between the two individuals,
+#' - `famid` : the family identifier.
+#' The relationship codes are:
+#' - `1` for Monozygotic twin
+#' - `2` for Dizygotic twin
+#' - `3` for Twin of unknown zygosity
+#' - `4` for Spouse relationship
+#' @usage
+#' data("relped")
+#'
+#' @examples
+#' data("relped")
+#' data("sampleped")
+#' pedi <- Pedigree(sampleped, relped)
+#' summary(pedi)
+#' if (interactive()) { plot(pedi) }
+"relped"

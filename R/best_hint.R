@@ -6,7 +6,8 @@
 #'
 #' @param x A vector of length **n**
 #' @return A matrix with **n** cols and **n!** rows
-#' @keywords internal, auto_hint
+#' @keywords internal
+#' @keywords auto_hint
 permute <- function(x) {
     n <- length(x)
     if (n == 1) {
@@ -34,10 +35,10 @@ permute <- function(x) {
 #' with the least **stress**.
 #'
 #' @details
-#' The [auto_hint()] routine will rearrange sibling order, but not
-#' founder order.
-#' This calls [auto_hint()] with every possible founder order, and finds that
-#' plot with the least "stress".
+#' The [auto_hint()] routine will rearrange sibling order,
+#' but not founder order.
+#' This calls [auto_hint()] with every possible founder
+#' order, and finds that plot with the least "stress".
 #' The stress is computed as a weighted sum of three error measures:
 #'
 #' - nbArcs The number of duplicate individuals in the plot
@@ -47,9 +48,9 @@ permute <- function(x) {
 #'   the center of the children and the parents
 #'
 #' \deqn{stress =
-#'      wt[1] * nbArcs +
-#'      wt[2] * lgArcs +
-#'      wt[3] * lgParentsChilds
+#'     wt[1] * nbArcs +
+#'     wt[2] * lgArcs +
+#'     wt[3] * lgParentsChilds
 #'}
 #'
 #' If during the search, a plot is found with a stress level less than
@@ -87,6 +88,7 @@ setGeneric(
 )
 
 #' @rdname best_hint
+#' @importFrom stats setNames
 setMethod(
     "best_hint", "Pedigree",
     function(obj, wt = c(1000, 10, 1), tolerance = 0) {
@@ -119,7 +121,7 @@ setMethod(
             # this fixes up marriages and such
             newhint <- auto_hint(
                 obj, hints = Hints(
-                    horder = setNames(hint[, 1], id(ped(obj)))
+                    horder = stats::setNames(hint[, 1], id(ped(obj)))
                 ), reset = TRUE
             )
             plist <- align(

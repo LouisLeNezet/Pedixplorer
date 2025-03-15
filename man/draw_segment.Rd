@@ -9,8 +9,8 @@ draw_segment(
   y0,
   x1,
   y1,
-  p,
-  ggplot_gen,
+  p = NULL,
+  ggplot_gen = FALSE,
   col = par("fg"),
   lwd = par("lwd"),
   lty = par("lty")
@@ -43,4 +43,4 @@ or add it to a ggplot object
 Draw segments
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

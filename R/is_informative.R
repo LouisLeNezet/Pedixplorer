@@ -38,66 +38,100 @@ setGeneric("is_informative", signature = "obj",
 
 #' @rdname is_informative
 #' @examples
-#'
 #' is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 #' is_informative(c("A", "B", "C", "D", "E"), informative = c(1, 2))
 #' is_informative(c("A", "B", "C", "D", "E"), informative = c("A", "B"))
 #' is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-#'   affected = c(0, 1, 0, 1, 1), informative = "AvAf")
+#'     affected = c(0, 1, 0, 1, 1), informative = "AvAf")
 #' is_informative(c("A", "B", "C", "D", "E"), avail = c(1, 0, 0, 1, 1),
-#'   affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
+#'     affected = c(0, 1, 0, 1, 1), informative = "AvOrAf")
 #' is_informative(c("A", "B", "C", "D", "E"),
-#'      informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
+#'     informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
 #' @export
-setMethod("is_informative", "character_OR_integer", function(
-    obj, avail, affected, informative = "AvAf"
-) {
-    id <- obj
-    # Selection of all informative individuals depending of the informative
-    # parameter
-    if (length(informative) > 1) {
-        if (is.character(informative)) {
-            id_inf <- id[match(id, informative, nomatch = 0) != 0]
+setMethod("is_informative", "character_OR_integer",
+    function(
+        obj, avail, affected, informative = "AvAf"
+    ) {
+        id <- obj
+        # Selection of all informative individuals depending of the informative
+        # parameter
+        if (length(informative) > 1) {
+            if (is.character(informative)) {
+                id_inf <- id[match(id, informative, nomatch = 0) != 0]
+            } else if (is.numeric(informative)) {
+                id_inf <- id[informative]
+            } else if (is.logical(informative)) {
+                if (length(informative) != length(id)) {
+                    stop("The length of a logical informative parameter ",
+                        "must be equal to the length of the id vector"
+                    )
+                }
+                id_inf <- id[informative]
+            } else {
+                stop("The informative parameter must be a character, ",
+                    "logical or numeric"
+                )
+            }
         } else if (is.numeric(informative)) {
             id_inf <- id[informative]
         } else if (is.logical(informative)) {
-            if (length(informative) != length(id)) {
-                stop("The length of a logical informative parameter must be",
-                    "equal to the length of the id vector"
-                )
+            id_inf <- ifelse(informative, id, NA)
+            id_inf <- id_inf[!is.na(id_inf)]
+        } else {
+            if (informative == "AvOrAf") {
+                id_inf <- id[(avail == 1 & !is.na(avail)) |
+                        (affected == 1 & !is.na(affected))
+                ]
+            } else if (informative == "Av") {
+                id_inf <- id[avail == 1 & !is.na(avail)]
+            } else if (informative == "Af") {
+                id_inf <- id[affected == 1 & !is.na(affected)]
+            } else if (informative == "AvAf") {
+                id_inf <- id[(avail == 1 & !is.na(avail)) &
+                        (affected == 1 & !is.na(affected))
+                ]
+            } else if (informative == "All") {
+                id_inf <- id
+            } else {
+                id_inf <- id[match(id, informative, nomatch = 0) != 0]
             }
-            id_inf <- id[informative]
-        } else {
-            stop("The informative parameter must be a character, ",
-                "logical or numeric"
-            )
         }
-    } else if (is.numeric(informative)) {
-        id_inf <- id[informative]
-    } else if (is.logical(informative)) {
-        id_inf <- ifelse(informative, id, NA)
-        id_inf <- id_inf[!is.na(id_inf)]
-    } else {
-        if (informative == "AvOrAf") {
-            id_inf <- id[(avail == 1 & !is.na(avail)) |
-                    (affected == 1 & !is.na(affected))
-            ]
-        } else if (informative == "Av") {
-            id_inf <- id[avail == 1 & !is.na(avail)]
-        } else if (informative == "Af") {
-            id_inf <- id[affected == 1 & !is.na(affected)]
-        } else if (informative == "AvAf") {
-            id_inf <- id[(avail == 1 & !is.na(avail)) &
-                    (affected == 1 & !is.na(affected))
-            ]
-        } else if (informative == "All") {
-            id_inf <- id
-        } else {
-            id_inf <- id[match(id, informative, nomatch = 0) != 0]
-        }
+        unique(id_inf)
     }
-    unique(id_inf)
+)
+
+
+#' @rdname is_informative
+#' @param reset If `TRUE`, the `isinf` slot is reset
+#' @examples
+#'
+#' data("sampleped")
+#' ped <- Pedigree(sampleped)
+#' ped <- is_informative(ped, col_aff = "affection_mods")
+#' isinf(ped(ped))
+#' @export
+setMethod("is_informative", "Ped", function(
+    obj, informative = "AvAf", reset = FALSE
+) {
+    if (!reset & any(!is.na(isinf(obj)))) {
+        warning(
+            "The isinf slot already has values in the Ped object",
+            " and reset is set to FALSE"
+        )
+        return(obj)
+    }
+
+    id_inf <- is_informative(id(obj), avail(obj), affected(obj),
+        informative = informative
+    )
+
+    isinf(obj) <- vect_to_binary(
+        ifelse(id(obj) %in% id_inf, 1, 0), logical = TRUE
+    )
+    obj
 })
+
+
 
 #' @rdname is_informative
 #' @param reset If `TRUE`, the `isinf` slot is reset
@@ -109,7 +143,8 @@ setMethod("is_informative", "character_OR_integer", function(
 #' isinf(ped(ped))
 #' @export
 setMethod("is_informative", "Pedigree", function(
-    obj, col_aff = NULL, informative = "AvAf", reset = FALSE
+    obj, col_aff = NULL,
+    informative = "AvAf", reset = FALSE
 ) {
     if (!reset & any(!is.na(isinf(ped(obj))))) {
         warning(

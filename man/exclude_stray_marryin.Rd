@@ -25,5 +25,5 @@ Exclude any founders who are not parents.
 \seealso{
 \code{\link[=shrink]{shrink()}}
 }
-\keyword{internal,}
+\keyword{internal}
 \keyword{shrink}

@@ -17,7 +17,9 @@ biologicals mothers.}
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{missid}{A character vector with the missing values identifiers.
 All the id, dadid and momid corresponding to those values will be set
@@ -39,5 +41,5 @@ Exclude any unavailable founders.
 \seealso{
 \code{\link[=shrink]{shrink()}}
 }
-\keyword{internal,}
+\keyword{internal}
 \keyword{shrink}

@@ -1,6 +1,4 @@
 # Automatically generated from all.nw using noweb
-#' @importFrom quadprog solve.QP
-NULL
 
 #' Alignment fourth routine
 #'
@@ -17,17 +15,17 @@ NULL
 #' There are two important parameters for the function:
 #' 1. The maximum width specified.
 #'    The smallest possible width is the maximum number of subjects on a
-#'    line, if the user suggestion is too low it is increased to that
-#'    1 + that amount (to give just a little wiggle room).
+#'    line. If the user suggestion is too low it is increased to that
+#'    amount plus one (to give just a little wiggle room).
 #' 2. The align vector of 2 alignment parameters `a` and `b`.
 #'    For each set of siblings `x` with parents at `p_1` and `p_2`
-#'    the alignment penalty is :
+#'    the alignment penalty is:
 #'
-#'    \deqn{(1/k^a)\sum{i=1}{k} (x_i - (p_1 + p_2)^2}
+#'    \deqn{(1/k^a)\sum_{i=1}^{k} (x_i - (p_1 + p_2)/2)^2}
 #'
 #'    where `k` is the number of siblings in the set.
 #'
-#'Using the fact that when `a = 1` :
+#' Using the fact that when `a = 1` :
 #'
 #' \deqn{\sum(x_i-c)^2 = \sum(x_i-\mu)^2 + k(c-\mu)^2}
 #'
@@ -36,12 +34,13 @@ NULL
 #' two sibs out of place.
 #'
 #' If `a = 0` then large sibships are harder to move
-#' than small ones, with the default value `a = 1.5` they are slightly easier
+#' than small ones.
+#' With the default value `a = 1.5`, they are slightly easier
 #' to move than small ones.
 #' The rationale for the default is as long as the
 #' parents are somewhere between the first and last siblings the result looks
 #' fairly good, so we are more flexible with the spacing of a large family.
-#' By tethering all the sibs to a single spot they tend are kept close to
+#' By tethering all the sibs to a single spot they tend to be kept close to
 #' each other.
 #'
 #' The alignment penalty for spouses is \eqn{b(x_1 - x_2)^2}, which tends to
@@ -51,24 +50,25 @@ NULL
 #' 1. We start by adding in these penalties.
 #'    The total number of parameters in the alignment problem
 #'    (what we hand to quadprog) is the set of `sum(n)` positions.
-#'    A work array myid keeps track of the parameter number for each position so
-#'    that it is easy to find. There is one extra penalty added at the end.
+#'    A work array myid keeps track of the parameter number for each position
+#'    so that it is easy to find. There is one extra penalty added at the end.
 #'    Because the penalty amount would be the same if all the final positions
 #'    were shifted by a constant, the penalty matrix will not be positive
 #'    definite; `solve.QP()` does not like this.
 #'    We add a tiny amount of leftward pull to the widest line.
 #' 2. If there are `k` subjects on a line there will
 #'    be `k+1` constraints for that line.  The first point must be
-#'    \eqn{\ge 0}, each subesquent one must be at least 1 unit to the right,
+#'    \eqn{\ge 0}, each subsequent one must be at least 1 unit to the right,
 #'    and the final point must be \eqn{\le} the max width.
 #'
 #' @param rval A list with components `n`, `nid`,
 #' `pos`, and `fam`.
 #' @param spouse A boolean matrix with one row per level representing if
 #' the subject is a spouse or not.
+#' @param precision The number of decimal places to round the solution to.
 #' @inheritParams align
 #' @inheritParams alignped1
-#'
+#' @importFrom quadprog solve.QP
 #' @return The updated position matrix
 #'
 #' @examples
@@ -78,10 +78,11 @@ NULL
 #'
 #' @seealso [align()]
 #' @keywords internal, alignment
-alignped4 <- function(rval, spouse, level, width, align) {
+alignped4 <- function(rval, spouse, level, width, align, precision = 2) {
     ## Doc: alignped4 -part1, spacing across page
-    if (is.logical(align))
+    if (is.logical(align)) {
         align <- c(1.5, 2)  # defaults
+    }
     maxlev <- nrow(rval$nid)
     width <- max(width, rval$n + 0.01)  # width must be > the longest row
 
@@ -128,7 +129,7 @@ alignped4 <- function(rval, spouse, level, width, align) {
     pmat[nrow(pmat), myid[maxrow, 1]] <- 1e-05
     ncon <- n + maxlev  # number of constraints
     cmat <- matrix(0, nrow = ncon, ncol = n)
-    coff <- 0  # cumulative constraint lines so var
+    coff <- 0  # cumulative constraint lines so far
     dvec <- rep(1, ncon)
     for (lev in seq_len(maxlev)) {
         nn <- rval$n[lev]
@@ -146,8 +147,12 @@ alignped4 <- function(rval, spouse, level, width, align) {
     }
 
     pp <- t(pmat) %*% pmat + 1e-08 * diag(ncol(pmat))
+
     fit <- tryCatch({
-        solve.QP(pp, rep(0, n), t(cmat), dvec)
+        quadprog::solve.QP(
+            pp, rep(0, n), t(cmat), dvec,
+            meq = 0, factorized = FALSE
+        )
     }, warning = function(w) {
         message("Solve QP ended with", w)
         return(NA)
@@ -157,13 +162,14 @@ alignped4 <- function(rval, spouse, level, width, align) {
     })
 
     newpos <- rval$pos
-    # fit <- lsei(pmat, rep(0, nrow(pmat)), G=cmat, H=dvec) newpos[myid>0] <-
-    # fit$X[myid]
 
     if (length(fit) > 1) {
-        newpos[myid > 0] <- fit$solution[myid]
+        # Set to zero when the solution is too small
+        # This is a workaround for the fact that quadprog
+        # returns different small negative values
+        # on different platforms
+        fit$solution[fit$solution < 0.0001] <- 0
+        newpos[myid > 0] <- round(fit$solution[myid], precision)
     }
-
     newpos
 }
-TRUE

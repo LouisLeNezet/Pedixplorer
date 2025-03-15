@@ -24,4 +24,4 @@ polygons()
 polygons(4)
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

@@ -25,24 +25,51 @@ setMethod("summary", "Ped",
 #' - `show(x)`: Convert the Ped object to a data.frame
 #' and print it with its summary.
 #' @export
-#' @importFrom S4Vectors cbind_mcols_for_display
 #' @importFrom methods show
-#' @importFrom S4Vectors makeClassinfoRowForCompactPrinting
+#' @importFrom S4Vectors cbind_mcols_for_display
+#' @importFrom S4Vectors get_showHeadLines get_showHeadLines
+#' @importFrom S4Vectors makeNakedCharacterMatrixForDisplay
+#' @importFrom utils head tail
 #' @rdname Ped-class
 #' @usage NULL
+#' @include utils.R
 setMethod("show", "Ped",
     function(object) {
         cat(summary(object), ":\n", sep = "")
         df <- as.data.frame(object)
         df <- df[, !colnames(df) %in% colnames(mcols(object))]
-        out <- S4Vectors::cbind_mcols_for_display(df, object)
-        class_df <- lapply(df, class)
-        classinfo <- S4Vectors::makeClassinfoRowForCompactPrinting(
-            object, class_df
-        )
-        stopifnot(identical(colnames(classinfo), colnames(out)))
-        out <- rbind(classinfo, out)
-        print(out, quote = FALSE, right = TRUE)
+        df <- S4Vectors::cbind_mcols_for_display(df, object)
+        nhead <- S4Vectors::get_showHeadLines()
+        ntail <- S4Vectors::get_showTailLines()
+        x_nrow <- nrow(df)
+        x_ncol <- ncol(df)
+        if (x_nrow != 0L && x_ncol != 0L) {
+            x_rownames <- rownames(df)
+            if (x_nrow <= nhead + ntail + 1L) {
+                m <- S4Vectors::makeNakedCharacterMatrixForDisplay(df)
+                if (!is.null(x_rownames))
+                    rownames(m) <- x_rownames
+            } else {
+                m <- rbind(
+                    S4Vectors::makeNakedCharacterMatrixForDisplay(
+                        utils::head(df, nhead)
+                    ), rbind(rep.int("...", x_ncol)),
+                    S4Vectors::makeNakedCharacterMatrixForDisplay(
+                        utils::tail(df, ntail)
+                    )
+                )
+                rownames(m) <- make_rownames(
+                    x_rownames, x_nrow, nhead, ntail
+                )
+            }
+            col_class <- make_class_info(df)
+            m <- rbind(col_class, m)
+            if ("|" %in% colnames(m)) {
+                m[, "|"] <- ""
+            }
+        }
+        print(m, quote = FALSE, right = TRUE)
+        invisible(NULL)
     }
 )
 
@@ -88,7 +115,7 @@ setMethod("as.data.frame", "Ped", function(x) {
 #' - `subset(x, i, del_parents = FALSE, keep = TRUE)`: Subset a Ped object
 #' based on the individuals identifiers given.
 #'      - `i` : A vector of individuals identifiers to keep.
-#'      - `del_parents` : A logical value indicating if the parents
+#'      - `del_parents` : A value indicating if the parents
 #'      of the individuals should be deleted.
 #'      - `keep` : A logical value indicating if the individuals
 #'      should be kept or deleted.
@@ -96,29 +123,40 @@ setMethod("as.data.frame", "Ped", function(x) {
 #' @importFrom S4Vectors subset
 #' @export
 #' @usage NULL
-setMethod("subset", "Ped", function(x, i, del_parents = FALSE, keep = TRUE) {
+setMethod("subset", "Ped", function(x, i, del_parents = NULL, keep = TRUE) {
     if (is.factor(i)) {
         i <- as.character(i)
     }
     if (is.character(i)) {
         i <- x@id %in% i
-    } else if (!is.numeric(i) & !is.logical(i)) {
+    } else if (is.numeric(i)) {
+        i <- seq_along(x@id) %in% i
+    } else if (!is.logical(i)) {
         stop("i must be a character, an integer or a logical vector")
     }
+
+    if (any(is.na(i))) {
+        warning("NA found while subsetting, removing them")
+        i[is.na(i)] <- FALSE
+    }
+
     if (!keep) {
         i <- !i
     }
     col_computed <- c(
         "num_child_tot", "num_child_dir", "num_child_ind"
     )
-    ped_df <- as.data.frame(x)[i, ]
-    ped_df <- ped_df[, ! colnames(ped_df) %in% col_computed]
-
-    if (del_parents) {
-        ped_df$dadid[!ped_df$dadid %in% ped_df$id] <- NA_character_
-        ped_df$momid[!ped_df$momid %in% ped_df$id] <- NA_character_
+    if (all(i == FALSE)) {
+        return(Ped(
+            as.data.frame(x)[
+                NULL, ! colnames(as.data.frame(x)) %in% col_computed
+            ]
+        ))
     }
-    new_ped <- Ped(ped_df)
+
+    ped_df <- as.data.frame(x)[, ! colnames(as.data.frame(x)) %in% col_computed]
+    ped_df_fixed <- fix_parents(ped_df, del_parents = del_parents, filter = i)
+    new_ped <- Ped(ped_df_fixed)
     validObject(new_ped)
     new_ped
 })
@@ -373,7 +411,7 @@ setMethod("as.list", "Pedigree", function(x) {
 #' @export
 #' @usage NULL
 setMethod("subset", "Pedigree",
-    function(x, i, del_parents = FALSE, keep = TRUE) {
+    function(x, i, del_parents = NULL, keep = TRUE) {
         new_ped <- subset(ped(x), i, del_parents = del_parents, keep = keep)
         all_id <- id(new_ped)
         new_rel <- subset(rel(x), all_id)
@@ -395,8 +433,8 @@ setMethod("subset", "Pedigree",
 #' @importFrom S4Vectors subset
 #' @export
 #' @usage NULL
-setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing"),
-    function(x, i, j, del_parents = FALSE, keep = TRUE, drop = TRUE) {
-        subset(x, i, del_parents, keep)
+setMethod("[", c(x = "Pedigree", i = "ANY", j = "missing", drop = "ANY"),
+    function(x, i, j, ..., drop = TRUE) {
+        subset(x, i, ...)
     }
 )

@@ -1,11 +1,11 @@
 test_that("align works", {
     data("sampleped")
     pedi <- Pedigree(sampleped)
-    ped1 <- pedi[famid(pedi) == "1"]
+    ped1 <- pedi[famid(ped(pedi)) == "1"]
     plist1 <- align(ped1)
     expect_equal(plist1$n, c(2, 10, 16, 14))
 
-    ped2 <- pedi[famid(pedi) == 2]
+    ped2 <- pedi[famid(ped(pedi)) == 2]
     plist2 <- align(ped2)
     expect_equal(plist2$n, c(2, 7, 5))
 
@@ -36,7 +36,7 @@ test_that("test auto_hint works", {
     pedi <- Pedigree(sampleped[-1], rel_df)
     newhint <- auto_hint(pedi)
     expect_equal(horder(newhint),
-        setNames(c(
+        stats::setNames(c(
             1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 3, 2, 1, 4, 1,
             3, 9, 2, 4, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
             11, 12, 13, 14, 2, 3, 10, 11, 11, 12, 13, 4,
@@ -116,7 +116,7 @@ test_that("Alignment with spouse", {
         )
     )
     expect_equal(horder(hints),
-        setNames(c(
+        stats::setNames(c(
             1, 2, 3, 4, 5, 6, 7, 8, 1, 1,
             2, 3, 1, 4, 1, 3, 9, 2, 4, 10,
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10,

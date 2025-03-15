@@ -27,7 +27,9 @@ biologicals mothers.}
 
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
-with the following levels: \code{male} < \code{female} < \code{unknown} < `terminated
+with the following levels:
+\code{male} < \code{female} <
+\code{unknown} < \code{terminated}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
@@ -92,7 +94,7 @@ kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
     c("E", "E", "0", "0", "0"), sex = c(1, 2, 1, 2, 1))
 kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
     c("E", "E", "0", "0", "0"), sex = c(1, 2, 1, 2, 1),
-   chrtype = "x"
+    chrtype = "x"
 )
 
 data(sampleped)

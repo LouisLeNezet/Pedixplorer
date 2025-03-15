@@ -64,7 +64,7 @@ setGeneric("kinship", signature = "obj",
 #' @rdname kinship
 #' @export
 setMethod("kinship", "Ped",
-    function(obj, chrtype = "autosome"){
+    function(obj, chrtype = "autosome") {
         kinship(
             id(obj), dadid(obj), momid(obj),
             sex(obj), chrtype = chrtype
@@ -79,7 +79,7 @@ setMethod("kinship", "Ped",
 #'     c("E", "E", "0", "0", "0"), sex = c(1, 2, 1, 2, 1))
 #' kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
 #'     c("E", "E", "0", "0", "0"), sex = c(1, 2, 1, 2, 1),
-#'    chrtype = "x"
+#'     chrtype = "x"
 #' )
 #' @export
 setMethod("kinship", "character",
@@ -153,7 +153,7 @@ setMethod("kinship", "character",
 #' @export
 setMethod("kinship", "Pedigree",
     function(obj, chrtype = "autosome") {
-        famlist <- unique(famid(obj))
+        famlist <- unique(famid(ped(obj)))
         nfam <- length(famlist)
         matlist <- vector("list", nfam)
         ## The possibly reorderd list of id values
@@ -161,10 +161,10 @@ setMethod("kinship", "Pedigree",
 
         for (i_fam in seq_along(famlist)) {
             if (is.na(famlist[i_fam])) { # If no family provided
-                tped <- obj[is.na(famid(obj))]
+                tped <- obj[is.na(famid(ped(obj)))]
             } else {
                 ## Pedigree for this family
-                tped <- obj[famid(obj) == famlist[i_fam]]
+                tped <- obj[famid(ped(obj)) == famlist[i_fam]]
             }
             temp <- try({
                 chrtype <- match.arg(casefold(chrtype), c("autosome", "x"))

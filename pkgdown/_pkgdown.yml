@@ -1,0 +1,106 @@
+url: https://louislenezet.github.io/Pedixplorer
+
+home:
+  title: Pedixplorer - A BioConductor R package for pedigree creation, filtering and drawing
+  description: Routines to handle family data with a Pedigree object.
+  links:
+    - text: "Test the shiny app"
+      href: https://pedixplorer.univ-rennes.fr/
+
+template:
+  bootstrap: 5
+  light-switch: true
+  math-rendering: katex
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
+
+news:
+  releases:
+  - text: "Latest devel release : Version 1.1.5"
+    href: "https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.1.5"
+  - text: "Latest main release : Version 1.0.0"
+    href: https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html
+
+reference:
+  - title: "Pedixplorer"
+    url: https://bioconductor.org/packages/Pedixplorer
+    desc: "Pedixplorer a BioConductor package to create, filter and draw pedigrees."
+    contents:
+      - Pedixplorer
+      - Pedixplorer-package
+
+  - title: "Pedigree S4 object"
+    desc : "The Pedigree object is a S4 class that contains the pedigree data."
+    contents:
+      - Pedigree
+      - Ped
+      - Rel
+      - Scales
+      - Hints
+  
+  - title: "Pedigree construction"
+    desc : "How to fix pedigree data and normalize it"
+    contents:
+      - fix_parents
+      - norm_ped
+      - norm_rel
+
+  - title: "Shiny app"
+    desc : "The Pedixplorer package comes with a shiny app to interact with the Pedigree object."
+    contents:
+      - ped_shiny
+
+  - title: "Pedigree drawing and legend"
+    desc : "The Pedigree object can be drawn using the plot method."
+    contents:
+      - plot,Pedigree,missing-method
+      - ped_to_plotdf
+      - ped_to_legdf
+      - plot_fromdf
+      - generate_colors
+
+  - title: "Pedigree informations"
+    desc: "Informations about the pedigree."
+    contents:
+      - kinship
+      - ibd_matrix
+      - num_child
+      - is_informative
+      - family_infos_table
+      - unrelated
+      - parent_of
+      - is_parent
+      - make_famid
+      - upd_famid
+
+  - title: "Pedigree filtering"
+    desc: "Filtering methods to select a subset of individuals in a pedigree."
+    contents:
+      - useful_inds
+      - min_dist_inf
+      - shrink
+      - bit_size
+      - find_avail_affected
+      - find_avail_noninform
+      - find_unavailable
+
+  - title: "Pedigree datasets"
+    desc : "Different datasets are available to test the package."
+    contents:
+      - minnbreast
+      - sampleped
+      - relped
+
+  - title: "Pedigree alignment"
+    desc: "Alignment methods to organize graphical representation of pedigrees."
+    contents:
+      - align
+      - alignped1
+      - alignped2
+      - alignped3
+      - alignped4
+      - auto_hint
+      - best_hint
+      - kindepth

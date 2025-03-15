@@ -9,8 +9,9 @@
 #' Given a family id vector, also compute the familial grouping from first
 #' principles using the parenting data, and compare the results.
 #'
-#' The [make_famid()] function is used to create a de novo family id from the
-#' parentage data, and this is compared to the family id given in the data.
+#' The [make_famid()] function is used to create a
+#' de novo family id from the parentage data,
+#' and this is compared to the family id given in the data.
 #'
 #' If there are any joins, then an attribute 'join' is attached.
 #' It will be a matrix with family as row labels, new-family-id as the columns,
@@ -77,22 +78,23 @@ setMethod("family_check", "character_OR_integer",
             stop("Invalid length for newfam")
         }
 
-        xtab <- table(famid, newfam)
-        if (any(newfam == 0)) {
-            unrelated <- xtab[, 1]
-            xtab <- xtab[, -1, drop = FALSE]
-            ## bug fix suggested by Amanda Blackford 6/2011
+        xtab <- table(famid, newfam, useNA = "ifany")
+        if (any(is.na(newfam))) {
+            unrelated <- xtab[, is.na(colnames(xtab))]
         } else {
             unrelated <- rep(0, nfam)
         }
 
-        splits <- apply(xtab > 0, 1, sum)
+        splits <- apply(
+            xtab[, !is.na(colnames(xtab)), drop = FALSE] > 0,
+            1, sum
+        )
         joins <- apply(xtab > 0, 2, sum)
-
         temp <- apply((xtab > 0) * outer(rep(1, nfam), joins - 1), 1, sum)
 
         out <- data.frame(famid = dimnames(xtab)[[1]],
-            n = as.vector(table(famid)), unrelated = as.vector(unrelated),
+            n = as.vector(table(famid, useNA = "ifany")),
+            unrelated = as.vector(unrelated),
             split = as.vector(splits), join = temp, row.names = seq_len(nfam)
         )
         if (any(joins > 1)) {

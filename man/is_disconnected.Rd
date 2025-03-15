@@ -27,9 +27,9 @@ all the other individuals is \code{0}.
 }
 \examples{
 is_disconnected(
-     c("1", "2", "3", "4", "5"),
-     c("3", "3", NA, NA, NA),
-     c("4", "4", NA, NA, NA)
+    c("1", "2", "3", "4", "5"),
+    c("3", "3", NA, NA, NA),
+    c("4", "4", NA, NA, NA)
 )
 }
 \keyword{internal}

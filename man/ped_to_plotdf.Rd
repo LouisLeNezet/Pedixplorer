@@ -10,13 +10,18 @@
   packed = TRUE,
   width = 6,
   align = c(1.5, 2),
-  subreg = NULL,
+  align_parents = TRUE,
+  force = FALSE,
   cex = 1,
   symbolsize = cex,
   pconnect = 0.5,
   branch = 0.6,
   aff_mark = TRUE,
+  id_lab = "id",
   label = NULL,
+  precision = 3,
+  lwd = par("lwd"),
+  tips = NULL,
   ...
 )
 }
@@ -40,10 +45,15 @@ parameters, or a logical value.
 If \code{TRUE}, the default is \code{c(1.5, 2)}, or if numeric the routine
 \code{alignped4()} will be called.}
 
-\item{subreg}{A 4-element vector for (min x, max x, min depth, max depth),
-used to edit away portions of the plot coordinates returned by
-\code{\link[=align]{align()}}.
-This is useful for zooming in on a particular region of the Pedigree.}
+\item{align_parents}{If \code{align_parents = TRUE}, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
 
 \item{cex}{Character expansion of the text}
 
@@ -61,15 +71,26 @@ nuclear families.}
 \item{aff_mark}{If \code{TRUE}, add a aff_mark to each box corresponding to the
 value of the affection column for each filling scale.}
 
-\item{label}{If not \code{NULL}, add a label to each box corresponding to the
-value of the column given.}
+\item{id_lab}{The column name of the id for each individuals.}
+
+\item{label}{If not \code{NULL}, add a label to each box under the id
+corresponding to the value of the column given.}
+
+\item{precision}{The number of decimal places to round the solution to.}
+
+\item{lwd}{default=par("lwd"). Controls the line width of the
+segments, arcs and polygons.}
+
+\item{tips}{A character vector of the column names of the data frame to
+use as tooltips. If \code{NULL}, no tooltips are added.}
 }
 \value{
 A list containing the data frame and the user coordinates.
 }
 \description{
 Convert a Pedigree to a data frame with all the elements and their
-characteristic for them to be plotted afterwards with \code{\link[=plot_fromdf]{plot_fromdf()}}.
+characteristic for them to be plotted afterwards with
+\code{\link[=plot_fromdf]{plot_fromdf()}}.
 }
 \details{
 The data frame contains the following columns:
@@ -87,7 +108,8 @@ The data frame contains the following columns:
 \item \code{adjy}: vertical text adjustment of the labels
 }
 
-All those columns are used by \code{\link[=plot_fromdf]{plot_fromdf()}} to plot the graph.
+All those columns are used by
+\code{\link[=plot_fromdf]{plot_fromdf()}} to plot the graph.
 }
 \examples{
 
@@ -98,7 +120,6 @@ summary(plot_df$df)
 plot_fromdf(plot_df$df, usr = plot_df$par_usr$usr,
     boxh = plot_df$par_usr$boxh, boxw = plot_df$par_usr$boxw
 )
-
 }
 \seealso{
 \code{\link[=plot_fromdf]{plot_fromdf()}}

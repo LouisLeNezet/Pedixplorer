@@ -3,7 +3,7 @@ NULL
 
 #' NA to specific length
 #'
-#' Check if all value in a vector is `NA`.
+#' Check if all value in a vector is `NA` or `NULL`.
 #' If so set all of them to a new value matching the length
 #' of the template.
 #' If not check that the size of the vector is equal to
@@ -21,7 +21,7 @@ NULL
 #' na_to_length(c(1, 2, 3, NA), rep(0, 4), "NewValue")
 #' @export
 na_to_length <- function(x, temp, value) {
-    if (length(x) == 1 && all(is.na(x))) {
+    if (all(is.na(x)) || all(is.null(x))) {
         rep(value, length(temp))
     } else {
         if (length(x) != length(temp)) {
@@ -56,26 +56,44 @@ na_to_length <- function(x, temp, value) {
 #' identifiers separated by an underscore.
 #' @param sex A character, factor or numeric vector corresponding to
 #' the gender of the individuals. This will be transformed to an ordered factor
-#' with the following levels: `male` < `female` < `unknown` < `terminated
+#' with the following levels:
+#' `male` < `female` <
+#' `unknown` < `terminated`
 #' The following values are recognized:
 #' - character() or factor() : "f", "m", "woman", "man", "male", "female",
 #' "unknown", "terminated"
 #' - numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
 #' @param steril A logical vector with the sterilisation status of the
 #' individuals
-#' (i.e. `FALSE` = not sterilised, `TRUE` = sterilised, `NA` = unknown).
+#' (i.e. `FALSE` = not sterilised,
+#' `TRUE` = sterilised,
+#' `NA` = unknown).
 #' @param status A logical vector with the affection status of the
 #' individuals
-#' (i.e. `FALSE` = alive, `TRUE` = dead, `NA` = unknown).
+#' (i.e. `FALSE` = alive,
+#' `TRUE` = dead,
+#' `NA` = unknown).
 #' @param avail A logical vector with the availability status of the
 #' individuals
-#' (i.e. `FALSE` = not available, `TRUE` = available, `NA` = unknown).
+#' (i.e. `FALSE` = not available,
+#' `TRUE` = available,
+#' `NA` = unknown).
 #' @param affected A logical vector with the affection status of the
 #' individuals
-#' (i.e. `FALSE` = unaffected, `TRUE` = affected, `NA` = unknown).
+#' (i.e. `FALSE` = unaffected,
+#' `TRUE` = affected,
+#' `NA` = unknown).
 #' @param missid A character vector with the missing values identifiers.
 #' All the id, dadid and momid corresponding to those values will be set
 #' to `NA_character_`.
+#' @param useful A logical vector with the usefulness status of the
+#' individuals (i.e. `FALSE` = not useful,
+#' `TRUE` = useful).
+#' @param isinf A logical vector indicating if the individual is informative
+#' or not (i.e. `FALSE` = not informative,
+#' `TRUE` = informative).
+#' @param kin A numeric vector with minimal kinship value between the
+#' individuals and the informative individuals.
 #' @inheritParams check_columns
 #' @return A Ped object.
 #' @rdname Ped-class
@@ -115,11 +133,15 @@ setMethod("Ped", "data.frame",
         df$status <- vect_to_binary(df$status, logical = TRUE)
         df$avail <- vect_to_binary(df$avail, logical = TRUE)
         df$affected <- vect_to_binary(df$affected, logical = TRUE)
+        df$isinf <- vect_to_binary(df$isinf, logical = TRUE)
+        df$useful <- vect_to_binary(df$useful, logical = TRUE)
+        df$kin <- na_to_length(df$kin, df$id, NA_real_)
         myped <- with(df, Ped(
             obj = id, sex = sex, dadid = dadid, momid = momid,
             famid = famid,
             steril = steril, status = status, avail = avail,
-            affected = affected
+            affected = affected,
+            kin = kin, isinf = isinf, useful = useful
         ))
         mcols(myped) <- df[,
             colnames(df)[!colnames(df) %in% slotNames(myped)]
@@ -144,7 +166,8 @@ setMethod("Ped", "character_OR_integer",
     function(
         obj, sex, dadid, momid, famid = NA,
         steril = NA, status = NA, avail = NA,
-        affected = NA, missid = NA_character_
+        affected = NA, missid = NA_character_,
+        useful = NA, isinf = NA, kin = NA_real_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
         id <- as.character(obj)
@@ -161,9 +184,9 @@ setMethod("Ped", "character_OR_integer",
         status <- na_to_length(status, id, NA)
         avail <- na_to_length(avail, id, NA)
         affected <- na_to_length(affected, id, NA)
-        useful <- na_to_length(NA, id, NA)
-        isinf <- na_to_length(NA, id, NA)
-        kin <- na_to_length(NA, id, NA_real_)
+        useful <- na_to_length(useful, id, NA)
+        isinf <- na_to_length(isinf, id, NA)
+        kin <- na_to_length(kin, id, NA_real_)
 
         df_child <- num_child(id, dadid, momid, rel_df = NULL)
 
@@ -198,10 +221,11 @@ setMethod("Ped", "missing",
 #' You either need to provide a vector of the same size for each slot
 #' or a `data.frame` with the corresponding columns.
 #'
-#' @param obj A character vector with the id of the first individuals of each
-#' pairs or a `data.frame` with all the informations in corresponding columns.
-#' @param id2 A character vector with the id of the second individuals of each
-#' pairs
+#' @param obj A character vector with the id of the first individuals
+#' of each pairs or a `data.frame` with all the informations in
+#' corresponding columns.
+#' @param id2 A character vector with the id of the second individuals
+#' of each pairs
 #' @param code A character, factor or numeric vector corresponding to
 #' the relation code of the individuals:
 #' - MZ twin = Monozygotic twin
@@ -227,9 +251,9 @@ setGeneric("Rel", signature = "obj", function(obj, ...) {
 #' @examples
 #'
 #' rel_df <- data.frame(
-#'    id1 = c("1", "2", "3"),
-#'    id2 = c("2", "3", "4"),
-#'    code = c(1, 2, 3)
+#'     id1 = c("1", "2", "3"),
+#'     id2 = c("2", "3", "4"),
+#'     code = c(1, 2, 3)
 #' )
 #' Rel(rel_df)
 setMethod("Rel", "data.frame",
@@ -252,9 +276,9 @@ setMethod("Rel", "data.frame",
 #' @examples
 #'
 #' Rel(
-#'    obj = c("1", "2", "3"),
-#'    id2 = c("2", "3", "4"),
-#'    code = c(1, 2, 3)
+#'     obj = c("1", "2", "3"),
+#'     id2 = c("2", "3", "4"),
+#'     code = c(1, 2, 3)
 #' )
 setMethod("Rel", "character_OR_integer",
     function(
@@ -276,7 +300,7 @@ setMethod("Rel", "character_OR_integer",
             "Rel",
             id1 = id1o, id2 = id2o, code = code, famid = famid
         )
-        rel
+        upd_famid(rel)
     }
 )
 
@@ -334,14 +358,14 @@ setMethod("Hints",
 #' @examples
 #'
 #' Hints(
-#'   list(
-#'       horder = c("1" = 1, "2" = 2, "3" = 3),
-#'       spouse = data.frame(
-#'           idl = c("1", "2"),
-#'           idr = c("2", "3"),
-#'           anchor = c(1, 2)
-#'      )
-#'   )
+#'     list(
+#'         horder = c("1" = 1, "2" = 2, "3" = 3),
+#'         spouse = data.frame(
+#'             idl = c("1", "2"),
+#'             idr = c("2", "3"),
+#'             anchor = c(1, 2)
+#'         )
+#'     )
 #' )
 setMethod("Hints",
     signature(horder = "list", spouse = "missing_OR_NULL"),
@@ -370,12 +394,12 @@ setMethod("Hints",
 #' @examples
 #'
 #' Hints(
-#'   horder = c("1" = 1, "2" = 2, "3" = 3),
-#'   spouse = data.frame(
-#'       idl = c("1", "2"),
-#'       idr = c("2", "3"),
-#'       anchor = c(1, 2)
-#'   )
+#'     horder = c("1" = 1, "2" = 2, "3" = 3),
+#'     spouse = data.frame(
+#'         idl = c("1", "2"),
+#'         idr = c("2", "3"),
+#'         anchor = c(1, 2)
+#'     )
 #' )
 setMethod("Hints",
     signature(horder = "numeric", spouse = "data.frame"),
@@ -399,7 +423,7 @@ setMethod("Hints",
 #' @examples
 #'
 #' Hints(
-#'   horder = c("1" = 1, "2" = 2, "3" = 3)
+#'     horder = c("1" = 1, "2" = 2, "3" = 3)
 #' )
 setMethod("Hints",
     signature(horder = "numeric", spouse = "missing_OR_NULL"),
@@ -435,8 +459,10 @@ setMethod("Hints",
 #'
 #' ## Constructor :
 #'
-#' You need to provide both **fill** and **border** in the dedicated parameters.
-#' However this is usually done using the [generate_colors()] function with a
+#' You need to provide both **fill** and **border**
+#' in the dedicated parameters.
+#' However this is usually done using the
+#' [generate_colors()] function with a
 #' Pedigree object.
 #'
 #' @param fill A data.frame with the informations for the affection status.
@@ -448,12 +474,13 @@ setMethod("Hints",
 #' values in the Ped object
 #' - 'mods': all the different mods
 #' - 'labels': the corresponding labels of each mods
-#' - 'affected': a logical value indicating if the mod correspond to an affected
-#' individuals
+#' - 'affected': a logical value indicating if the mod
+#' correspond to an affected individuals
 #' - 'fill': the color to use for this mods
 #' - 'density': the density of the shading
 #' - 'angle': the angle of the shading
-#' @param border A data.frame with the informations for the availability status.
+#' @param border A data.frame with the informations for the availability
+#' status.
 #' The columns needed are:
 #' - 'column_values': name of the column containing the raw values in the
 #' Ped object
@@ -476,24 +503,24 @@ setGeneric("Scales", function(fill, border) {
 #' @examples
 #'
 #' Scales(
-#'    fill = data.frame(
-#'       order = 1,
-#'       column_values = "affected",
-#'       column_mods = "affected_mods",
-#'       mods = c(0, 1),
-#'       labels = c("unaffected", "affected"),
-#'       affected = c(FALSE, TRUE),
-#'       fill = c("white", "red"),
-#'       density = c(NA, 20),
-#'       angle = c(NA, 45)
-#'    ),
-#'    border = data.frame(
-#'       column_values = "avail",
-#'       column_mods = "avail_mods",
-#'       mods = c(0, 1),
-#'       labels = c("not available", "available"),
-#'       border = c("black", "blue")
-#'    )
+#'     fill = data.frame(
+#'         order = 1,
+#'         column_values = "affected",
+#'         column_mods = "affected_mods",
+#'         mods = c(0, 1),
+#'         labels = c("unaffected", "affected"),
+#'         affected = c(FALSE, TRUE),
+#'         fill = c("white", "red"),
+#'         density = c(NA, 20),
+#'         angle = c(NA, 45)
+#'     ),
+#'     border = data.frame(
+#'         column_values = "avail",
+#'         column_mods = "avail_mods",
+#'         mods = c(0, 1),
+#'         labels = c("not available", "available"),
+#'         border = c("black", "blue")
+#'     )
 #' )
 setMethod("Scales",
     signature(fill = "data.frame", border = "data.frame"),
@@ -568,11 +595,13 @@ setMethod("Scales",
 #' - `motherId`: the identifier of the biological mother (`momid`)
 #' - `gender`: the sex of the individual (`sex`)
 #' - `family`: the family identifier of the individual (`famid`)
-#' - `sterilisation`: the sterilisation status of the individual (`steril`)
+#' - `sterilisation`: the sterilisation status of the individual
+#' (`steril`)
 #' - `available`: the availability status of the individual (`avail`)
 #' - `vitalStatus`: the death status of the individual (`status`)
 #' - `affection`: the affection status of the individual (`affected`)
-#' - `...`: other columns that will be stored in the `elementMetadata` slot
+#' - `...`: other columns that will be stored in the
+#' `elementMetadata` slot
 #'
 #' The minimum columns required are :
 #' - `indID` / `id`
@@ -580,17 +609,19 @@ setMethod("Scales",
 #' - `motherId` / `momid`
 #' - `gender` / `sex`
 #'
-#' The `family` / `famid` column can also be used to specify the family of the
-#' individuals and will be merge to the `indId` / `id` field separated by an
-#' underscore.
-#' The columns `sterilisation`, `available`, `vitalStatus`, `affection`
-#' will be transformed with the [vect_to_binary()] function when the
-#' normalisation is selected.
+#' The `family` / `famid` column can also be used to specify the
+#' family of the individuals and will be merge to the
+#' `indId` / `id` field separated by an underscore.
+#' The columns `sterilisation`, `available`,
+#' `vitalStatus`, `affection`
+#' will be transformed with the [vect_to_binary()]
+#' function when the normalisation is selected.
 #' If you do not use the normalisation, the columns will be checked to
 #' be `0` or `1`.
 #'
 #' @param obj A vector of the individuals identifiers or a data.frame
-#' with the individuals informations. See [Ped()] for more informations.
+#' with the individuals informations.
+#' See [Ped()] for more informations.
 #' @param rel_df A data.frame with the special relationships between
 #' individuals. See [Rel()] for more informations.
 #' The minimum columns required are `id1`, `id2` and `code`.
@@ -626,7 +657,10 @@ setMethod("Scales",
 #' @return A Pedigree object.
 #' @export
 #' @rdname Pedigree-class
-#' @seealso [Ped()], [Rel()], [Scales()]
+#' @seealso
+#' [Ped()]
+#' [Rel()]
+#' [Scales()]
 setGeneric("Pedigree", signature = "obj",
     function(obj, ...) standardGeneric("Pedigree")
 )
@@ -640,26 +674,27 @@ setGeneric("Pedigree", signature = "obj",
 #' matrix, it will be converted to a data.frame and the columns will be
 #' named after the `col_aff` argument.
 #' @details
-#' If `affected` is a data.frame, **col_aff** will be overwritten by the column
-#' names of the data.frame.
+#' If `affected` is a data.frame, **col_aff** will be
+#' overwritten by the column names of the data.frame.
 #' @inheritParams generate_colors
+#' @inheritParams norm_ped
 #' @examples
 #'
 #' Pedigree(
-#'    obj = c("1", "2", "3", "4", "5", "6"),
-#'    dadid = c("4", "4", "6", "0", "0", "0"),
-#'    momid = c("5", "5", "5", "0", "0", "0"),
-#'    sex = c(1, 2, 3, 1, 2, 1),
-#'    avail = c(0, 1, 0, 1, 0, 1),
-#'    affected = matrix(c(
-#'        0, 1, 0, 1, 0, 1,
-#'        1, 1, 1, 1, 1, 1
-#'    ), ncol = 2),
-#'    col_aff = c("aff1", "aff2"),
-#'    missid = "0",
-#'    rel_df = matrix(c(
-#'       "1", "2", 2
-#'    ), ncol = 3, byrow = TRUE),
+#'     obj = c("1", "2", "3", "4", "5", "6"),
+#'     dadid = c("4", "4", "6", "0", "0", "0"),
+#'     momid = c("5", "5", "5", "0", "0", "0"),
+#'     sex = c(1, 2, 3, 1, 2, 1),
+#'     avail = c(0, 1, 0, 1, 0, 1),
+#'     affected = matrix(c(
+#'         0, 1, 0, 1, 0, 1,
+#'         1, 1, 1, 1, 1, 1
+#'     ), ncol = 2),
+#'     col_aff = c("aff1", "aff2"),
+#'     missid = "0",
+#'     rel_df = matrix(c(
+#'         "1", "2", 2
+#'     ), ncol = 3, byrow = TRUE),
 #' )
 setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
     sex, famid = NA, avail = NULL, affected = NULL, status = NULL,
@@ -737,7 +772,8 @@ setMethod("Pedigree", "character_OR_integer", function(obj, dadid, momid,
         )
     }
     Pedigree(ped_df, rel_df = rel_df,
-        missid = missid, col_aff = col_aff, ...
+        missid = missid, col_aff = col_aff,
+        normalize = normalize, ...
     )
 })
 
@@ -788,11 +824,21 @@ setMethod("Pedigree", "data.frame",  function(
     normalize = TRUE,
     missid = NA_character_,
     col_aff = "affection",
+    na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),
     ...
 ) {
     ped_df <- obj
     if (!is.data.frame(ped_df)) {
         stop("ped_df must be a data.frame")
+    }
+
+    if (is.null(rel_df)) {
+        rel_df <- data.frame(
+            id1 = character(),
+            id2 = character(),
+            code = numeric(),
+            family = character()
+        )
     }
 
     if (is.matrix(rel_df)) {
@@ -832,8 +878,8 @@ setMethod("Pedigree", "data.frame",  function(
 
     ## Normalise the data before creating the object
     if (normalize) {
-        ped_df <- norm_ped(ped_df, missid = missid)
-        rel_df <- norm_rel(rel_df, missid = missid)
+        ped_df <- norm_ped(ped_df, missid = missid, na_strings = na_strings)
+        rel_df <- norm_rel(rel_df, missid = missid, na_strings = na_strings)
     } else {
         cols_need <- c("id", "dadid", "momid", "sex")
         cols_to_use <- c("steril", "avail", "famid", "status", "affected")
@@ -862,18 +908,16 @@ setMethod("Pedigree", "data.frame",  function(
         )
         return(rel_df)
     }
-
     ped <- Ped(ped_df)
     rel <- Rel(rel_df)
     hints <- Hints(hints)
     scales <- Scales()
-
     ## Create the object
-    ped <- new("Pedigree",
+    pedi <- new("Pedigree",
         ped = ped, rel = rel,
         hints = hints, scales = scales
     )
-    generate_colors(ped, col_aff = col_aff, ...)
+    generate_colors(pedi, col_aff = col_aff, ...)
 }
 )
 

@@ -18,4 +18,4 @@ the numbers 1 to \strong{n}.
 This is a recursive routine, and is not very efficient.
 }
 \keyword{auto_hint}
-\keyword{internal,}
+\keyword{internal}

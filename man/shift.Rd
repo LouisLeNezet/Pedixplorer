@@ -38,4 +38,4 @@ together within the set of twins.
 \code{\link[=auto_hint]{auto_hint()}}
 }
 \keyword{auto_hint}
-\keyword{internal,}
+\keyword{internal}

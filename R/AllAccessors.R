@@ -11,9 +11,9 @@ NULL
 #' Each getters return a vector of the same length as `x` with the values
 #' of the corresponding slot. For each getter, you have a setter with the
 #' same name, to be use as `slot(x) <- value`.
-#' The `value` parameter is a vector of the same length as `x`, except
-#' for the `mcols()` accessors where `value` is a list or a data.frame with
-#' each elements with the same length as `x`.
+#' The `value` parameter is a vector of the same length as `x`,
+#' except for the `mcols()` accessors where `value` is a list
+#' or a data.frame with each elements with the same length as `x`.
 
 ##### Id Accessors #####
 
@@ -193,7 +193,7 @@ setMethod("famid<-",
             )
         }
         x@famid <- as.character(value)
-        x <- upd_famid_id(x)
+        x <- upd_famid(x)
         validObject(x)
         x
     }
@@ -647,7 +647,7 @@ setMethod("famid<-",
             )
         }
         x@famid <- as.character(value)
-        x <- upd_famid_id(x)
+        x <- upd_famid(x)
         validObject(x)
         x
     }
@@ -659,17 +659,7 @@ setMethod("famid<-",
 #' For all the following accessors, the `x` parameters is a Pedigree object.
 #' Each getters return a vector of the same length as `x` with the values
 #' of the corresponding slot.
-
-#' @section Accessors:
-#' - `famid(x)` : Get the family identifiers of a Pedigree object. This
-#' function is a wrapper around `famid(ped(x))`.
-#'
-#' @rdname Pedigree-class
-#' @usage NULL
-#' @export
-setMethod("famid", signature(x = "Pedigree"), function(x) {
-    famid(ped(x))
-})
+NULL
 
 ##### S4 ped Accessors #####
 
@@ -1030,6 +1020,7 @@ setGeneric("border<-", function(object, value) {
 
 #' @section Accessors:
 #' - `border(x) <- value` : Set the border data.frame
+#' from the Scales object.
 #' @rdname Scales-class
 #' @usage NULL
 #' @export
@@ -1044,7 +1035,8 @@ setMethod(
 )
 
 #' @section Accessors:
-#' - `border(x) <- value` : Set the border data.frame from the Scales object.
+#' - `border(x) <- value` : Set the border data.frame
+#' from the Scales object.
 #' Wrapper of `border(scales(x)) <- value`
 #' @rdname Pedigree-class
 #' @usage NULL
@@ -1225,7 +1217,8 @@ setMethod(
 )
 
 #' @section Accessors:
-#' - `spouse(x) <- value` : Set the spouse data.frame from the Hints object.
+#' - `spouse(x) <- value` : Set the spouse data.frame
+#' from the Hints object.
 #' Wrapper of `spouse(hints(x)) <- value`.
 #' @rdname Pedigree-class
 #' @usage NULL

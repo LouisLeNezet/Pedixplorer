@@ -61,14 +61,17 @@ The last two types of columns can be initialised to NA if needed.
 }
 \examples{
 data.frame
-df <- data.frame(ColN1 = c(1, 2), ColN2 = 4,
-         ColU1 = 'B', ColU2 = '1',
-         ColTU1 = 'A', ColTU2 = 3,
-         ColNR1 = 4, ColNR2 = 5)
+df <- data.frame(
+    ColN1 = c(1, 2), ColN2 = 4,
+    ColU1 = 'B', ColU2 = '1',
+    ColTU1 = 'A', ColTU2 = 3,
+    ColNR1 = 4, ColNR2 = 5
+)
 tryCatch(
-     check_columns(df,
-         c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
-         c('ColTU1', 'ColTU2')
+    check_columns(
+        df,
+        c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
+        c('ColTU1', 'ColTU2')
 ), error = function(e) print(e))
 
 }

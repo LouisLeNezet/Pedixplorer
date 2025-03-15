@@ -5,16 +5,19 @@
 \alias{generate_colors,character-method}
 \alias{generate_colors,numeric-method}
 \alias{generate_colors,Pedigree-method}
-\title{Process the filling and border colors based on affection and availability}
+\title{Process the filling and border colors based on affection and
+availability}
 \usage{
 \S4method{generate_colors}{character}(
   obj,
   avail,
   mods_aff = NULL,
+  is_num = FALSE,
   keep_full_scale = FALSE,
   colors_aff = c("yellow2", "red"),
   colors_unaff = c("white", "steelblue4"),
-  colors_avail = c("green", "black")
+  colors_avail = c("green", "black"),
+  colors_na = "grey"
 )
 
 \S4method{generate_colors}{numeric}(
@@ -22,11 +25,13 @@
   avail,
   threshold = 0.5,
   sup_thres_aff = TRUE,
+  is_num = TRUE,
   keep_full_scale = FALSE,
   breaks = 3,
   colors_aff = c("yellow2", "red"),
   colors_unaff = c("white", "steelblue4"),
-  colors_avail = c("green", "black")
+  colors_avail = c("green", "black"),
+  colors_na = "grey"
 )
 
 \S4method{generate_colors}{Pedigree}(
@@ -34,6 +39,7 @@
   col_aff = "affected",
   add_to_scale = TRUE,
   col_avail = "avail",
+  is_num = NULL,
   mods_aff = NULL,
   threshold = 0.5,
   sup_thres_aff = TRUE,
@@ -42,6 +48,7 @@
   colors_aff = c("yellow2", "red"),
   colors_unaff = c("white", "steelblue4"),
   colors_avail = c("green", "black"),
+  colors_na = "grey",
   reset = TRUE
 )
 }
@@ -51,10 +58,15 @@ each individuals. The affection status can be numeric or a character.}
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{mods_aff}{Vector of modality to consider as affected in the case
 where the \code{values} is a factor.}
+
+\item{is_num}{Boolean defining if the values need to be considered as
+numeric.}
 
 \item{keep_full_scale}{Boolean defining if the affection values need to
 be set as a scale. If \code{values} is numeric the filling scale will be
@@ -71,6 +83,8 @@ unaffected individuls.}
 individual. The first color will be used for available individual
 (\code{avail == 1}) and the second for the unavailable individual
 (\code{avail == 0}).}
+
+\item{colors_na}{Color to use for individuals with no informations.}
 
 \item{threshold}{Numeric value separating the affected and healthy subject
 in the case where the \code{values} is numeric.}
@@ -120,15 +134,17 @@ the colors for the filling and the border of the individuals based
 on the affection and availability status.
 }
 \details{
-The colors will be set using the \code{\link[=generate_fill]{generate_fill()}} and the
-\code{\link[=generate_border]{generate_border()}} functions respectively for the filling and the border.
+The colors will be set using the
+generate_fill()] and the
+\code{\link[=generate_border]{generate_border()}} functions respectively for
+the filling and the border.
 }
 \examples{
 
 generate_colors(
     c("A", "B", "A", "B", NA, "A", "B", "A", "B", NA),
     c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA),
-    mods_aff = "A",
+    mods_aff = "A"
 )
 
 generate_colors(

@@ -20,8 +20,8 @@ test_that("Unrelated detection works", {
 
     ped <- Pedigree(sampleped)
 
-    ped1 <- ped[famid(ped) == 1]
-    ped2 <- ped[famid(ped) == 2]
+    ped1 <- ped[famid(ped(ped)) == 1]
+    ped2 <- ped[famid(ped(ped)) == 2]
 
     set.seed(10)
     expect_equal(unrelated(ped1),

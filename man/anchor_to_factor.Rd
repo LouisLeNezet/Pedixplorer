@@ -22,5 +22,6 @@ An ordered factor vector containing the transformed variable
 Anchor variable to ordered factor
 }
 \examples{
-anchor_to_factor(c(1, 2, 0, "left", "right", "either"))
+Pedixplorer:::anchor_to_factor(c(1, 2, 0, "left", "right", "either"))
 }
+\keyword{internal}

@@ -73,7 +73,10 @@
   status = NA,
   avail = NA,
   affected = NA,
-  missid = NA_character_
+  missid = NA_character_,
+  useful = NA,
+  isinf = NA,
+  kin = NA_real_
 )
 }
 \arguments{
@@ -88,7 +91,9 @@ should be deleted.}
 
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
-with the following levels: \code{male} < \code{female} < \code{unknown} < `terminated
+with the following levels:
+\code{male} < \code{female} <
+\code{unknown} < \code{terminated}
 The following values are recognized:
 \itemize{
 \item character() or factor() : "f", "m", "woman", "man", "male", "female",
@@ -108,23 +113,42 @@ identifiers separated by an underscore.}
 
 \item{steril}{A logical vector with the sterilisation status of the
 individuals
-(i.e. \code{FALSE} = not sterilised, \code{TRUE} = sterilised, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not sterilised,
+\code{TRUE} = sterilised,
+\code{NA} = unknown).}
 
 \item{status}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = alive, \code{TRUE} = dead, \code{NA} = unknown).}
+(i.e. \code{FALSE} = alive,
+\code{TRUE} = dead,
+\code{NA} = unknown).}
 
 \item{avail}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{affected}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = unaffected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 
 \item{missid}{A character vector with the missing values identifiers.
 All the id, dadid and momid corresponding to those values will be set
 to \code{NA_character_}.}
+
+\item{useful}{A logical vector with the usefulness status of the
+individuals (i.e. \code{FALSE} = not useful,
+\code{TRUE} = useful).}
+
+\item{isinf}{A logical vector indicating if the individual is informative
+or not (i.e. \code{FALSE} = not informative,
+\code{TRUE} = informative).}
+
+\item{kin}{A numeric vector with minimal kinship value between the
+individuals and the informative individuals.}
 }
 \value{
 A Ped object.
@@ -143,7 +167,8 @@ to the Ped slots.
 }
 }
 \details{
-The minimal needed informations are \code{id}, \code{dadid}, \code{momid} and \code{sex}.
+The minimal needed informations are \code{id}, \code{dadid},
+\code{momid} and \code{sex}.
 The other slots are used to store recognized informations.
 Additional columns can be added to the Ped object and will be
 stored in the \code{elementMetadata} slot of the Ped object.
@@ -153,9 +178,11 @@ stored in the \code{elementMetadata} slot of the Ped object.
 \describe{
 \item{\code{id}}{A character vector with the id of the individuals.}
 
-\item{\code{dadid}}{A character vector with the id of the father of the individuals.}
+\item{\code{dadid}}{A character vector with the id of the father of
+the individuals.}
 
-\item{\code{momid}}{A character vector with the id of the mother of the individuals.}
+\item{\code{momid}}{A character vector with the id of the mother of
+the individuals.}
 
 \item{\code{sex}}{An ordered factor vector for the sex of the individuals
 (i.e. \code{male} < \code{female} < \code{unknown} < \code{terminated}).}
@@ -165,27 +192,37 @@ individuals (optional).}
 
 \item{\code{steril}}{A logical vector with the sterilisation status of the
 individuals
-(i.e. \code{FALSE} = not sterilised, \code{TRUE} = sterilised, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not sterilised,
+\code{TRUE} = sterilised,
+\code{NA} = unknown).}
 
 \item{\code{status}}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = alive, \code{TRUE} = dead, \code{NA} = unknown).}
+(i.e. \code{FALSE} = alive,
+\code{TRUE} = dead,
+\code{NA} = unknown).}
 
 \item{\code{avail}}{A logical vector with the availability status of the
 individuals
-(i.e. \code{FALSE} = not available, \code{TRUE} = available, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not available,
+\code{TRUE} = available,
+\code{NA} = unknown).}
 
 \item{\code{affected}}{A logical vector with the affection status of the
 individuals
-(i.e. \code{FALSE} = not affected, \code{TRUE} = affected, \code{NA} = unknown).}
+(i.e. \code{FALSE} = not affected,
+\code{TRUE} = affected,
+\code{NA} = unknown).}
 
 \item{\code{useful}}{A logical vector with the usefulness status of the
 individuals
-(i.e. \code{FALSE} = not useful, \code{TRUE} = useful).}
+(i.e. \code{FALSE} = not useful,
+\code{TRUE} = useful).}
 
 \item{\code{isinf}}{A logical vector indicating if the individual is informative
 or not
-(i.e. \code{FALSE} = not informative, \code{TRUE} = informative).}
+(i.e. \code{FALSE} = not informative,
+\code{TRUE} = informative).}
 
 \item{\code{kin}}{A numeric vector with minimal kinship value between the
 individuals and the useful individuals.}
@@ -211,9 +248,9 @@ For all the following accessors, the \code{x} parameters is a Ped object.
 Each getters return a vector of the same length as \code{x} with the values
 of the corresponding slot. For each getter, you have a setter with the
 same name, to be use as \code{slot(x) <- value}.
-The \code{value} parameter is a vector of the same length as \code{x}, except
-for the \code{mcols()} accessors where \code{value} is a list or a data.frame with
-each elements with the same length as \code{x}.
+The \code{value} parameter is a vector of the same length as \code{x},
+except for the \code{mcols()} accessors where \code{value} is a list
+or a data.frame with each elements with the same length as \code{x}.
 
 
 \itemize{
@@ -307,7 +344,7 @@ the metadata columns at the end.
 based on the individuals identifiers given.
 \itemize{
 \item \code{i} : A vector of individuals identifiers to keep.
-\item \code{del_parents} : A logical value indicating if the parents
+\item \code{del_parents} : A value indicating if the parents
 of the individuals should be deleted.
 \item \code{keep} : A logical value indicating if the individuals
 should be kept or deleted.

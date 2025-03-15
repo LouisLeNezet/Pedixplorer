@@ -5,7 +5,8 @@ NULL
 #'
 #' @description
 #' Convert a Pedigree to a data frame with all the elements and their
-#' characteristic for them to be plotted afterwards with [plot_fromdf()].
+#' characteristic for them to be plotted afterwards with
+#' [plot_fromdf()].
 #'
 #' @details The data frame contains the following columns:
 #' - `x0`, `y0`, `x1`, `y1`: coordinates of the elements
@@ -20,7 +21,8 @@ NULL
 #' - `adjx`: horizontal text adjustment of the labels
 #' - `adjy`: vertical text adjustment of the labels
 #'
-#' All those columns are used by [plot_fromdf()] to plot the graph.
+#' All those columns are used by
+#' [plot_fromdf()] to plot the graph.
 #'
 #' @inheritParams align
 #' @param pconnect When connecting parent to children the program will try to
@@ -32,11 +34,16 @@ NULL
 #' nuclear families.
 #' @param aff_mark If `TRUE`, add a aff_mark to each box corresponding to the
 #' value of the affection column for each filling scale.
-#' @param label If not `NULL`, add a label to each box corresponding to the
-#' value of the column given.
+#' @param id_lab The column name of the id for each individuals.
+#' @param label If not `NULL`, add a label to each box under the id
+#' corresponding to the value of the column given.
+#' @param lwd default=par("lwd"). Controls the line width of the
+#' segments, arcs and polygons.
+#' @param tips A character vector of the column names of the data frame to
+#' use as tooltips. If `NULL`, no tooltips are added.
 #' @param ... Other arguments passed to [par()]
-#' @inheritParams subregion
 #' @inheritParams set_plot_area
+#' @inheritParams kindepth
 #'
 #' @return A list containing the data frame and the user coordinates.
 #'
@@ -49,7 +56,7 @@ NULL
 #' plot_fromdf(plot_df$df, usr = plot_df$par_usr$usr,
 #'     boxh = plot_df$par_usr$boxh, boxw = plot_df$par_usr$boxw
 #' )
-#'
+#' @importFrom plyr rbind.fill
 #' @seealso
 #' [plot_fromdf()]
 #' [ped_to_legdf()]
@@ -65,20 +72,25 @@ setGeneric(
 
 #' @rdname ped_to_plotdf
 #' @export
+#' @importFrom plyr rbind.fill
 setMethod("ped_to_plotdf", "Pedigree", function(
-    obj, packed = TRUE, width = 6, align = c(1.5, 2),
-    subreg = NULL, cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
-    aff_mark = TRUE, label = NULL, ...
+    obj, packed = TRUE, width = 6,
+    align = c(1.5, 2), align_parents = TRUE, force = FALSE,
+    cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
+    aff_mark = TRUE, id_lab = "id", label = NULL, precision = 3,
+    lwd = par("lwd"), tips = NULL, ...
 ) {
 
-    famlist <- unique(famid(obj))
+    famlist <- unique(famid(ped(obj)))
+    famlist <- famlist[!is.na(famlist)]
     if (length(famlist) > 1) {
-        nfam <- length(famlist)
-        all_df <- vector("list", nfam)
+        message("Multiple families present, computing each family separately")
+        all_df <- list()
         for (i_fam in famlist) {
-            ped_fam <- obj[famid(obj) == i_fam]
+            ped_fam <- obj[famid(ped(obj)) == i_fam]
             all_df[[i_fam]] <- ped_to_plotdf(ped_fam, packed, width, align,
-                subreg, cex, symbolsize, ...
+                align_parents, force,
+                cex, symbolsize, ...
             )
         }
         return(all_df)
@@ -92,16 +104,19 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         label = character(), tips = character(),
         adjx = numeric(), adjy = numeric()
     )
-    plist <- align(obj, packed = packed, width = width, align = align)
+    plist <- align(
+        obj, packed = packed, width = width,
+        align = align, align_parents = align_parents,
+        force = force, precision = precision
+    )
 
-    if (!is.null(subreg)) {
-        plist <- subregion(plist, subreg)
-    }
     xrange <- range(plist$pos[plist$nid > 0])
     maxlev <- nrow(plist$pos)
 
+    labels <- unname(unlist(as.data.frame(ped(obj))[c(id_lab, label)]))
+
     params_plot <- set_plot_area(
-        cex, id(ped(obj)), maxlev, xrange, symbolsize, ...
+        cex, labels, maxlev, xrange, symbolsize, precision, ...
     )
 
     boxw <- params_plot$boxw
@@ -130,6 +145,8 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     border_mods <- ped_df[id[idx], unique(border(obj)$column_mods)]
     border_idx <- match(border_mods, border(obj)$mods)
 
+    ped_df$tips <- create_text_column(ped_df, id_lab, c(label, tips))
+
     for (aff in seq_len(n_aff)) {
         aff_df <- all_aff[all_aff$order == aff, ]
         aff_mods <- ped_df[id[idx], unique(aff_df[["column_mods"]])]
@@ -139,13 +156,8 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         # mean range of each box for each polygon for each subreg
         poly_aff <- lapply(polylist, "[[", aff)
         poly_aff_x <- lapply(poly_aff, "[[", "x")
-        poly_aff_y <- lapply(poly_aff, "[[", "y")
 
         poly_aff_x_mr <- vapply(poly_aff_x,
-            function(x) mean(range(x * boxw)),
-            1
-        )
-        poly_aff_y_mr <- vapply(poly_aff_y,
             function(x) mean(range(x * boxw)),
             1
         )
@@ -156,19 +168,20 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             density = aff_df[aff_idx, "density"],
             angle = aff_df[aff_idx, "angle"],
             border = border(obj)$border[border_idx],
+            cex = lwd, tips = ped_df[id[idx], "tips"],
             id = "polygon"
         )
-        plot_df <- rbind.fill(plot_df, ind)
+        plot_df <- plyr::rbind.fill(plot_df, ind)
         if (aff_mark) {
             aff_mark_df <- data.frame(
                 x0 = pos[idx] + poly_aff_x_mr[sex],
                 y0 = i[idx] + boxh / 2,
                 label = ped_df[id[idx], unique(aff_df[["column_values"]])],
-                fill = "black",
-                type = "text", cex = cex,
+                fill = "black", adjx = 0.5, adjy = 0.5,
+                type = "text", cex = cex, tips = ped_df[id[idx], "tips"],
                 id = "aff_mark"
             )
-            plot_df <- rbind.fill(plot_df, aff_mark_df)
+            plot_df <- plyr::rbind.fill(plot_df, aff_mark_df)
         }
     }
 
@@ -180,7 +193,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         dead_df <- data.frame(
             x0 = pos[idx_dead] - 0.6 * boxw, y0 = i[idx_dead] + 1.1 * boxh,
             x1 = pos[idx_dead] + 0.6 * boxw, y1 = i[idx_dead] - 0.1 * boxh,
-            type = "segments", fill = "black", cex = cex,
+            type = "segments", fill = "black", cex = lwd,
             id = "dead"
         )
 
@@ -189,10 +202,10 @@ setMethod("ped_to_plotdf", "Pedigree", function(
 
     ## Add ids
     id_df <- data.frame(
-        x0 = pos[idx], y0 = i[idx] + boxh + labh * 1.2,
-        label = ped_df[id[idx], "id"], fill = "black",
-        type = "text", cex = cex,
-        id = "id"
+        x0 = pos[idx], y0 = i[idx] + boxh + labh,
+        label = ped_df[id[idx], id_lab], fill = "black",
+        type = "text", cex = cex, adjx = 0.5, adjy = 1,
+        id = "id", tips = ped_df[id[idx], "tips"]
     )
     plot_df <- rbind.fill(plot_df, id_df)
 
@@ -201,11 +214,11 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (!is.null(label)) {
         check_columns(ped_df, label)
         label <- data.frame(
-            x0 = pos[idx], y0 = i[idx] + boxh + labh * 2.8,
+            x0 = pos[idx], y0 = i[idx] + boxh + labh * 3,
             label = ped_df[id[idx], label],
-            fill = "black",
+            fill = "black", adjy = 1, adjx = 0.5,
             type = "text", cex = cex,
-            id = "label"
+            id = "label", tips = ped_df[id[idx], "tips"]
         )
         plot_df <- rbind.fill(plot_df, label)
     }
@@ -215,10 +228,11 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     l_spouses_i <- i[spouses] + boxh / 2
     pos_sp1 <- pos[spouses] + boxw / 2
     pos_sp2 <- pos[spouses + maxlev] - boxw / 2
+
     l_spouses <- data.frame(
         x0 = pos_sp1, y0 = l_spouses_i,
         x1 = pos_sp2, y1 = l_spouses_i,
-        type = "segments", fill = "black", cex = cex,
+        type = "segments", fill = "black", cex = lwd,
         id = "line_spouses"
     )
     plot_df <- rbind.fill(plot_df, l_spouses)
@@ -234,7 +248,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             y0 = l_spouses2_i,
             x1 = pos_sp22 - boxw / 2,
             y1 = l_spouses2_i,
-            type = "segments", fill = "black", cex = cex,
+            type = "segments", fill = "black", cex = lwd,
             id = "line_spouses2"
         )
         plot_df <- rbind.fill(plot_df, l_spouses2)
@@ -269,7 +283,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             vert <- data.frame(
                 x0 = pos[gen, who], y0 = yy,
                 x1 = target, y1 = yy - legh,
-                type = "segments", fill = "black", cex = cex,
+                type = "segments", fill = "black", cex = lwd,
                 id = "line_children_vertical"
             )
             plot_df <- rbind.fill(plot_df, vert)
@@ -284,7 +298,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 twin_l <- data.frame(
                     x0 = temp1, y0 = yy,
                     x1 = temp2, y1 = yy,
-                    type = "segments", fill = "black", cex = cex,
+                    type = "segments", fill = "black", cex = lwd,
                     id = "line_children_twin1"
                 )
                 plot_df <- rbind.fill(plot_df, twin_l)
@@ -300,6 +314,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                     x0 = (temp1 + temp2) / 2, y0 = yy,
                     label = "?", fill = "black",
                     type = "text", cex = cex,
+                    adjx = 0.5, adjy = 0.5,
                     id = "label_children_twin3"
                 )
                 plot_df <- rbind.fill(plot_df, twin_lab)
@@ -309,7 +324,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             hori <- data.frame(
                 x0 = min(target), y0 = gen - legh,
                 x1 = max(target), y1 = gen - legh,
-                type = "segments", fill = "black", cex = cex,
+                type = "segments", fill = "black", cex = lwd,
                 id = "line_children_horizontal"
             )
             plot_df <- rbind.fill(plot_df, hori)
@@ -331,7 +346,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 l_child_par <- data.frame(
                     x0 = x1, y0 = y1,
                     x1 = parentx, y1 = (gen - 1) + boxh / 2,
-                    type = "segments", fill = "black", cex = cex,
+                    type = "segments", fill = "black", cex = lwd,
                     id = "line_parent_mid"
                 )
             } else {
@@ -341,7 +356,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 l_child_par <- data.frame(
                     x0 = c(x1, x1, x2), y0 = c(y1, y1 + ydelta, y2 - ydelta),
                     x1 = c(x1, x2, x2), y1 = c(y1 + ydelta, y2 - ydelta, y2),
-                    type = "segments", fill = "black", cex = cex,
+                    type = "segments", fill = "black", cex = lwd,
                     id = "line_parent_mid"
                 )
             }
@@ -364,12 +379,13 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 arc <- data.frame(
                     x0 = tx[j + 0], y0 = ty[j + 0],
                     x1 = tx[j + 1], y1 = ty[j + 1],
-                    type = "arc", fill = "black", cex = cex,
+                    type = "arc", fill = "black", cex = lwd,
                     id = "arc"
                 )
                 plot_df <- rbind.fill(plot_df, arc)
             }
         }
     }
+
     list(df = plot_df, par_usr = params_plot)
 })

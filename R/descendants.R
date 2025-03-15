@@ -27,8 +27,10 @@ setGeneric("descendants",
 
 #' @rdname descendants
 setMethod("descendants",
-    signature(idlist = "character_OR_integer", obj = "character_OR_integer"),
-    function(idlist, obj, dadid, momid) {
+    signature(
+        idlist = "character_OR_integer",
+        obj = "character_OR_integer"
+    ), function(idlist, obj, dadid, momid) {
         id <- as.character(obj)
         idlist <- as.character(idlist)
 
@@ -60,7 +62,10 @@ setMethod("descendants",
 
 #' @rdname descendants
 setMethod("descendants",
-    signature(idlist = "character_OR_integer", obj = "Pedigree"),
+    signature(
+        idlist = "character_OR_integer",
+        obj = "Pedigree"
+    ),
     function(idlist, obj) {
         descendants(idlist, ped(obj))
     }
@@ -68,7 +73,10 @@ setMethod("descendants",
 
 #' @rdname descendants
 setMethod("descendants",
-    signature(idlist = "character_OR_integer", obj = "Ped"),
+    signature(
+        idlist = "character_OR_integer",
+        obj = "Ped"
+    ),
     function(idlist, obj) {
         descendants(as.character(idlist), id(obj), dadid(obj), momid(obj))
     }

@@ -4,7 +4,7 @@
 \alias{set_plot_area}
 \title{Set plotting area}
 \usage{
-set_plot_area(cex, id, maxlev, xrange, symbolsize, ...)
+set_plot_area(cex, id, maxlev, xrange, symbolsize, precision = 3, ...)
 }
 \arguments{
 \item{cex}{Character expansion of the text}
@@ -17,6 +17,8 @@ set_plot_area(cex, id, maxlev, xrange, symbolsize, ...)
 
 \item{symbolsize}{Size of the symbols}
 
+\item{precision}{The number of significant digits to round the solution to.}
+
 \item{...}{Other arguments passed to \code{\link[=par]{par()}}}
 }
 \value{
@@ -27,4 +29,4 @@ label height and leg height
 Set plotting area
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

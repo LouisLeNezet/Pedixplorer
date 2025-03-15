@@ -4,7 +4,17 @@
 \alias{draw_arc}
 \title{Draw arcs}
 \usage{
-draw_arc(x0, y0, x1, y1, p, ggplot_gen = FALSE, lwd = 1, col = "black")
+draw_arc(
+  x0,
+  y0,
+  x1,
+  y1,
+  p = NULL,
+  ggplot_gen = FALSE,
+  lwd = par("lwd"),
+  lty = 2,
+  col = "black"
+)
 }
 \arguments{
 \item{x0}{x coordinate of the first point}
@@ -21,6 +31,8 @@ draw_arc(x0, y0, x1, y1, p, ggplot_gen = FALSE, lwd = 1, col = "black")
 
 \item{lwd}{Line width}
 
+\item{lty}{Line type}
+
 \item{col}{Line color}
 }
 \value{
@@ -31,4 +43,4 @@ or add it to a ggplot object
 Draw arcs
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

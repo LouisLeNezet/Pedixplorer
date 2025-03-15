@@ -8,12 +8,13 @@ draw_text(
   x,
   y,
   label,
-  p,
+  p = NULL,
   ggplot_gen = FALSE,
   cex = 1,
   col = NULL,
-  adjx = 0,
-  adjy = 0
+  adjx = 0.5,
+  adjy = 0.5,
+  tips = NULL
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ draw_text(
 \item{adjx}{x adjustment}
 
 \item{adjy}{y adjustment}
+
+\item{tips}{Text to be displayed when hovering over the text}
 }
 \value{
 Plot the text to the current device
@@ -43,4 +46,4 @@ or add it to a ggplot object
 Draw texts
 }
 \keyword{Pedigree-plot}
-\keyword{internal,}
+\keyword{internal}

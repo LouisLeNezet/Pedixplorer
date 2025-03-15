@@ -59,8 +59,9 @@ Error check for a family classification
 Given a family id vector, also compute the familial grouping from first
 principles using the parenting data, and compare the results.
 
-The \code{\link[=make_famid]{make_famid()}} function is used to create a de novo family id from the
-parentage data, and this is compared to the family id given in the data.
+The \code{\link[=make_famid]{make_famid()}} function is used to create a
+de novo family id from the parentage data,
+and this is compared to the family id given in the data.
 
 If there are any joins, then an attribute 'join' is attached.
 It will be a matrix with family as row labels, new-family-id as the columns,

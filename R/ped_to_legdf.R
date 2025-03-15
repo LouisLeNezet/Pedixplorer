@@ -17,7 +17,8 @@
 #' - `adjx`: horizontal text adjustment of the labels
 #' - `adjy`: vertical text adjustment of the labels
 #'
-#' All those columns are used by [plot_fromdf()] to plot the graph.
+#' All those columns are used by
+#' [plot_fromdf()] to plot the graph.
 #' @param obj A Pedigree object
 #' @param cex Character expansion of the text
 #' @inheritParams plot_fromdf
@@ -25,6 +26,8 @@
 #' the labels in the legend.
 #' @param adjy default=0.  Controls the vertical text adjustment
 #' of the labels in the legend.
+#' @param lwd default=par("lwd").  Controls the bordering line width of the
+#' elements in the legend.
 #'
 #' @return
 #' A list containing the legend data frame and the user coordinates.
@@ -47,9 +50,10 @@ setGeneric(
 
 #' @rdname ped_to_legdf
 #' @export
-setMethod("ped_to_legdf", "Pedigree", function(obj,
-    boxh = 1, boxw = 1, cex = 1,
-    adjx = 0, adjy = 0
+#' @importFrom graphics strwidth
+setMethod("ped_to_legdf", "Pedigree", function(
+    obj, boxh = 1, boxw = 1,
+    cex = 1, adjx = 0, adjy = 0, lwd = par("lwd")
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)
     plot_df <- data.frame(
@@ -67,33 +71,30 @@ setMethod("ped_to_legdf", "Pedigree", function(obj,
     })
 
     all_lab <- c(all_lab, all_aff)
-
     max_lab <- lapply(lapply(
-        all_lab, strwidth,
-        units = "inches", cex = cex
+        all_lab, graphics::strwidth,
+        units = "figure", cex = cex
     ), max)
 
-    posx <- unlist(lapply(max_lab, function(x) {
-        c(c(boxw, boxw, boxw / 5), x * 3)
-    }))
-    posx <- cumsum(posx) - boxw
-    posx <- c(posx[seq_along(posx) %% 2 == 1], posx[length(posx)])
+    posx_all <- cumsum(unlist(max_lab) + boxw * 2)
+    posx <- c(0, posx_all[seq_len((length(posx_all) - 1))])
 
     n_max <- max(unlist(lapply(all_lab, function(x) {
         length(x)
     })))
 
-    posy <- rep(boxh, n_max * 2)
-    posy <- cumsum(posy) - boxh
+    posy <- rep(c(boxh, boxh / 3), n_max)
+    posy <- cumsum(posy)
     posy <- posy[seq_along(posy) %% 2 == 0]
 
     all_aff <- fill(obj)
     n_aff <- length(unique(all_aff$order))
 
+    # Categories titles
     lab_title <- c("Sex", "Border", unique(all_aff$column_values))
     titles <- data.frame(
-        x0 = posx[seq_along(posx) %% 2 == 0] - boxw, y0 = 0,
-        type = "text", label = lab_title,
+        x0 = posx, y0  = 0,
+        type = "text", label = lab_title, adjx = 0.5, adjy = 0,
         fill = "black", cex = cex * 1.5,
         id = "titles"
     )
@@ -101,22 +102,23 @@ setMethod("ped_to_legdf", "Pedigree", function(obj,
 
     ## Get ped_df
     ped_df <- as.data.frame(ped(obj))
+
     # Sex
     poly1 <- polygons(1)
     all_sex <- unique(as.numeric(ped_df$sex))
     sex <- data.frame(
-        x0 = posx[1], y0 = posy[all_sex],
+        x0 = posx[1], y0 = posy[all_sex] - boxh / 2,
         type = paste(names(poly1)[all_sex], 1, 1, sep = "_"),
         fill = "white",
         border = "black",
-        id = "sex"
+        id = "sex", cex = lwd
     )
 
     sex_label <- data.frame(
-        x0 = posx[2] + adjx,
-        y0 = posy[all_sex] + boxh / 2 + adjy,
+        x0 = posx[1] + boxw + adjx,
+        y0 = posy[all_sex] + adjy,
         label = sex_equiv[all_sex], cex = cex,
-        type = "text",
+        type = "text", adjx = 0, adjy = 0.5,
         fill = "black",
         id = "sex_label"
     )
@@ -126,18 +128,19 @@ setMethod("ped_to_legdf", "Pedigree", function(obj,
     # Border
     border_mods <- unique(ped_df[, unique(border(obj)$column_mods)])
     border <- data.frame(
-        x0 = posx[3], y0 = posy[seq_along(border_mods)],
+        x0 = posx[2],
+        y0 = posy[seq_along(border_mods)] - boxh / 2,
         type = rep("square_1_1", length(border_mods)),
         border = border(obj)$border[match(border_mods, border(obj)$mods)],
         fill = "white",
-        id = "border"
+        id = "border", cex = lwd
     )
     lab <- border(obj)$labels[match(border_mods, border(obj)$mods)]
     lab[is.na(lab)] <- "NA"
     border_label <- data.frame(
-        x0 = posx[4] + adjx,
-        y0 = posy[seq_along(border_mods)] + boxh / 2  + adjy,
-        label = lab, cex = cex,
+        x0 = posx[2] + boxw + adjx,
+        y0 = posy[seq_along(border_mods)] + adjy,
+        label = lab, cex = cex, adjx = 0, adjy = 0.5,
         type = "text",
         fill = "black",
         id = "border_label"
@@ -148,33 +151,35 @@ setMethod("ped_to_legdf", "Pedigree", function(obj,
     ## Affected
     for (aff in seq_len(n_aff)) {
         aff_df <- all_aff[all_aff$order == aff, ]
-        aff_mods <- unique(ped_df[, unique(aff_df[["column_mods"]])])
+        aff_mods <- aff_df$mods
         aff_bkg <- data.frame(
-            x0 = posx[3 + aff * 2], y0 = posy[seq_along(aff_mods)],
+            x0 = posx[2 + aff],
+            y0 = posy[seq_along(aff_mods)] - boxh / 2,
             type = rep(paste("square", 1, 1, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black",
-            fill = "white",
+            border = "black", fill = "white", cex = lwd,
             id = paste("aff_bkg", aff, aff_mods, sep = "_")
         )
 
         affected <- data.frame(
-            x0 = posx[3 + aff * 2], y0 = posy[seq_along(aff_mods)],
+            x0 = posx[2 + aff],
+            y0 = posy[seq_along(aff_mods)] - boxh / 2,
             type = rep(paste("square", n_aff, aff, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black",
-            fill = aff_df$fill[match(aff_mods, aff_df$mods)],
+            border = "black", cex = lwd,
+            fill = aff_df$fill,
             id = paste("affected", aff, aff_mods, sep = "_")
         )
 
-        lab <- aff_df$labels[match(aff_mods, aff_df$mods)]
+        lab <- aff_df$labels
         lab[is.na(lab)] <- "NA"
+
         affected_label <- data.frame(
-            x0 = posx[4 + aff * 2] + adjx,
-            y0 = posy[seq_along(aff_mods)] + boxh / 2 + adjy,
-            label = lab, cex = cex,
+            x0 = posx[2 + aff] + boxw + adjx,
+            y0 = posy[seq_along(aff_mods)] + adjy,
+            label = lab, cex = cex, adjx = 0, adjy = 0.5,
             type = "text",
             fill = "black",
             id = paste("affected_label", aff, aff_mods, sep = "_")

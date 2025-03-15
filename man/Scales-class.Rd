@@ -33,14 +33,15 @@ Ped object
 values in the Ped object
 \item 'mods': all the different mods
 \item 'labels': the corresponding labels of each mods
-\item 'affected': a logical value indicating if the mod correspond to an affected
-individuals
+\item 'affected': a logical value indicating if the mod
+correspond to an affected individuals
 \item 'fill': the color to use for this mods
 \item 'density': the density of the shading
 \item 'angle': the angle of the shading
 }}
 
-\item{border}{A data.frame with the informations for the availability status.
+\item{border}{A data.frame with the informations for the availability
+status.
 The columns needed are:
 \itemize{
 \item 'column_values': name of the column containing the raw values in the
@@ -65,8 +66,10 @@ pedigree plot.
 
 \subsection{Constructor :}{
 
-You need to provide both \strong{fill} and \strong{border} in the dedicated parameters.
-However this is usually done using the \code{\link[=generate_colors]{generate_colors()}} function with a
+You need to provide both \strong{fill} and \strong{border}
+in the dedicated parameters.
+However this is usually done using the
+\code{\link[=generate_colors]{generate_colors()}} function with a
 Pedigree object.
 }
 }
@@ -83,14 +86,15 @@ Ped object
 values in the Ped object
 \item 'mods': all the different mods
 \item 'labels': the corresponding labels of each mods
-\item 'affected': a logical value indicating if the mod correspond to an affected
-individuals
+\item 'affected': a logical value indicating if the mod
+correspond to an affected individuals
 \item 'fill': the color to use for this mods
 \item 'density': the density of the shading
 \item 'angle': the angle of the shading
 }}
 
-\item{\code{border}}{A data.frame with the informations for the availability status.
+\item{\code{border}}{A data.frame with the informations for the availability
+status.
 The columns needed are:
 \itemize{
 \item 'column_values': name of the column containing the raw values in the
@@ -122,6 +126,7 @@ values in the Ped object
 
 \itemize{
 \item \code{border(x) <- value} : Set the border data.frame
+from the Scales object.
 }
 }
 
@@ -135,24 +140,24 @@ values in the Ped object
 \examples{
 
 Scales(
-   fill = data.frame(
-      order = 1,
-      column_values = "affected",
-      column_mods = "affected_mods",
-      mods = c(0, 1),
-      labels = c("unaffected", "affected"),
-      affected = c(FALSE, TRUE),
-      fill = c("white", "red"),
-      density = c(NA, 20),
-      angle = c(NA, 45)
-   ),
-   border = data.frame(
-      column_values = "avail",
-      column_mods = "avail_mods",
-      mods = c(0, 1),
-      labels = c("not available", "available"),
-      border = c("black", "blue")
-   )
+    fill = data.frame(
+        order = 1,
+        column_values = "affected",
+        column_mods = "affected_mods",
+        mods = c(0, 1),
+        labels = c("unaffected", "affected"),
+        affected = c(FALSE, TRUE),
+        fill = c("white", "red"),
+        density = c(NA, 20),
+        angle = c(NA, 45)
+    ),
+    border = data.frame(
+        column_values = "avail",
+        column_mods = "avail_mods",
+        mods = c(0, 1),
+        labels = c("not available", "available"),
+        border = c("black", "blue")
+    )
 )
 }
 \seealso{

@@ -16,7 +16,7 @@ additional functionality and bug fixes.
 }
 \details{
 The package download, NEWS, and README are available on CRAN:
-\\url{https://cran.r-project.org/package=kinship2} for the
+\href{https://cran.r-project.org/package=kinship2}{Kinship2} for the
 previous version of the package.
 }
 \section{Functions}{
@@ -35,10 +35,12 @@ be the same via IBD.
 object into a graphical plot.
 Allows extra information to be included in the id under the
 plot symbol.
-This method use the \code{\link[=plot_fromdf]{plot_fromdf()}} function to transform the Pedigree
-object into a data frame of graphical elements, the same is done for the
+This method use the \code{\link[=plot_fromdf]{plot_fromdf()}} function to
+transform the Pedigree object into a data frame
+of graphical elements, the same is done for the
 legend with the \code{\link[=ped_to_legdf]{ped_to_legdf()}} function.
-When done, the data frames are plotted with the \code{\link[=plot_fromdf]{plot_fromdf()}} function.
+When done, the data frames are plotted with the
+\code{\link[=plot_fromdf]{plot_fromdf()}} function.
 
 \code{\link[=shrink]{shrink()}}: Shrink a Pedigree to a specific bit size,
 removing non-informative members first.
@@ -65,13 +67,13 @@ library(Pedixplorer)
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/LouisLeNezet/Pedixplorer}
-  \item Report bugs at \url{https://github.com/LouisLeLezet/Pedixplorer/issues}
+  \item \url{https://louislenezet.github.io/Pedixplorer/}
+  \item Report bugs at \url{https://github.com/LouisLeNezet/Pedixplorer/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Louis Le Nézet \email{louislenezet@gmail.com} (\href{https://orcid.org/0009-0000-0202-2703}{ORCID})
+\strong{Maintainer}: Louis Le Nézet \email{louislenezet@gmail.com} (\href{https://orcid.org/0009-0000-0202-2703}{ORCID}) [contributor]
 
 Authors:
 \itemize{
@@ -83,7 +85,6 @@ Other contributors:
 \itemize{
   \item Daniel Schaid [contributor]
   \item Elizabeth Atkinson [contributor]
-  \item Louis Le Nezet [contributor]
 }
 
 }

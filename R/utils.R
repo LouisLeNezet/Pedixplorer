@@ -34,14 +34,17 @@ NULL
 #'
 #' @examples
 #' data.frame
-#' df <- data.frame(ColN1 = c(1, 2), ColN2 = 4,
-#'          ColU1 = 'B', ColU2 = '1',
-#'          ColTU1 = 'A', ColTU2 = 3,
-#'          ColNR1 = 4, ColNR2 = 5)
+#' df <- data.frame(
+#'     ColN1 = c(1, 2), ColN2 = 4,
+#'     ColU1 = 'B', ColU2 = '1',
+#'     ColTU1 = 'A', ColTU2 = 3,
+#'     ColNR1 = 4, ColNR2 = 5
+#' )
 #' tryCatch(
-#'      check_columns(df,
-#'          c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
-#'          c('ColTU1', 'ColTU2')
+#'     check_columns(
+#'         df,
+#'         c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
+#'         c('ColTU1', 'ColTU2')
 #' ), error = function(e) print(e))
 #'
 #' @keywords internal
@@ -163,7 +166,6 @@ check_num_na <- function(var, na_as_num = TRUE) {
 #' @return A vector of boolean of the same size as **obj**
 #' with TRUE if the individual is a parent and FALSE otherwise
 #' @inheritParams Ped
-#' @keywords internal
 #' @usage NULL
 setGeneric("is_parent", signature = "obj",
     function(obj, ...) standardGeneric("is_parent")
@@ -175,7 +177,10 @@ setGeneric("is_parent", signature = "obj",
 #' is_parent(c("1", "2", "3", "4"), c("3", "3", NA, NA), c("4", "4", NA, NA))
 #' @export
 setMethod("is_parent", "character_OR_integer",
-    function(obj, dadid, momid, missid = NA_character_) {
+    function(
+        obj, dadid, momid,
+        missid = NA_character_
+    ) {
         # determine subjects who are parents assume input of
         # dadid/momid indices, not ids
 
@@ -237,11 +242,12 @@ is_founder <- function(momid, dadid, missid = NA_character_) {
 #' @keywords internal
 #' @examples
 #' is_disconnected(
-#'      c("1", "2", "3", "4", "5"),
-#'      c("3", "3", NA, NA, NA),
-#'      c("4", "4", NA, NA, NA)
+#'     c("1", "2", "3", "4", "5"),
+#'     c("3", "3", NA, NA, NA),
+#'     c("4", "4", NA, NA, NA)
 #' )
 #' @export
+#' @keywords internal
 is_disconnected <- function(id, dadid, momid) {
     # check to see if any subjects are disconnected in Pedigree by checking for
     # kinship = 0 for all subjects excluding self
@@ -249,6 +255,53 @@ is_disconnected <- function(id, dadid, momid) {
     diag(kin_mat) <- 0
     apply(kin_mat == 0, 1, all)
 }
+
+#' Get parents of individuals
+#'
+#' @description Get the parents of individuals.
+#'
+#' @inheritParams Ped
+#' @param id2 A vector of individuals identifiers to get the parents from
+#' @return A vector of individuals identifiers corresponding to the parents
+#' of the individuals in **id2**
+#'
+#' @examples
+#' data(sampleped)
+#' ped <- Pedigree(sampleped)
+#' parent_of(ped, "1_121")
+#' @export
+#' @rdname parent_of
+#' @usage NULL
+setGeneric("parent_of", signature = "obj",
+    function(obj, ...) standardGeneric("parent_of")
+)
+
+#' @rdname parent_of
+#' @export
+setMethod("parent_of", "character_OR_integer",
+    function(obj, dadid, momid, id2) {
+        id <- obj
+        dadid2 <- dadid[match(id2, id)]
+        momid2 <- momid[match(id2, id)]
+        unique(c(dadid2, momid2))
+    }
+)
+
+#' @rdname parent_of
+#' @export
+setMethod("parent_of", "Ped",
+    function(obj, id2) {
+        parent_of(id(obj), dadid(obj), momid(obj), id2)
+    }
+)
+
+#' @rdname parent_of
+#' @export
+setMethod("parent_of", "Pedigree",
+    function(obj, id2) {
+        parent_of(ped(obj), id2)
+    }
+)
 
 #' @importFrom plyr revalue
 NULL
@@ -262,6 +315,7 @@ NULL
 #' @examples
 #' sex_to_factor(c(1, 2, 3, 4, "f", "m", "man", "female"))
 #' @export
+#' @keywords internal
 sex_to_factor <- function(sex) {
     if (is.factor(sex) || is.numeric(sex)) {
         sex <- as.character(sex)
@@ -294,6 +348,7 @@ NULL
 #' @examples
 #' rel_code_to_factor(c(1, 2, 3, 4, "MZ twin", "DZ twin", "UZ twin", "Spouse"))
 #' @export
+#' @keywords internal
 rel_code_to_factor <- function(code) {
     if (is.factor(code) || is.numeric(code)) {
         code <- as.character(code)
@@ -318,8 +373,8 @@ rel_code_to_factor <- function(code) {
 #' Vector variable to binary vector
 #'
 #' @description Transform a vector to a binary vector.
-#' All values that are not `0`, `1`, `TRUE`, `FALSE`, or `NA`
-#' are transformed to `NA`.
+#' All values that are not `0`, `1`, `TRUE`,
+#' `FALSE`, or `NA` are transformed to `NA`.
 #'
 #' @param vect A character, factor, logical or numeric vector corresponding to
 #' a binary variable (i.e. `0` or `1`).
@@ -328,17 +383,22 @@ rel_code_to_factor <- function(code) {
 #' respectively transformed to `1`, `0`, `0`, `1`, `NA`.
 #' Spaces and case are ignored.
 #' All other values will be transformed to NA.
-#' - numeric() : `0` and `1` are kept, all other values are transformed to NA.
-#' - logical() : `TRUE` and `FALSE` are tansformed to `1` and `0`.
+#' - numeric() : `0` and `1` are kept, all other values
+#' are transformed to NA.
+#' - logical() : `TRUE` and `FALSE` are tansformed to
+#' `1` and`0`.
 #' @param logical Boolean defining if the output should be a logical vector
-#' instead of a numeric vector (i.e. `0` and `1` becomes `FALSE` and `TRUE).
+#' instead of a numeric vector
+#' (i.e. `0` and `1` becomes
+#' `FALSE` and `TRUE).
 #' @return numeric binary vector of the same size as **vect**
 #' with `0` and `1`
 #' @examples
 #' vect_to_binary(
-#'    c(0, 1, 2, 3.6, "TRUE", "FALSE", "0", "1", "NA", "B", TRUE, FALSE, NA)
+#'     c(0, 1, 2, 3.6, "TRUE", "FALSE", "0", "1", "NA", "B", TRUE, FALSE, NA)
 #' )
 #' @export
+#' @keywords internal
 vect_to_binary <- function(vect, logical = FALSE) {
     if (is.factor(vect) || is.numeric(vect) || is.logical(vect)) {
         vect <- as.character(vect)
@@ -371,8 +431,8 @@ vect_to_binary <- function(vect, logical = FALSE) {
 #' @return An ordered factor vector containing the transformed variable
 #' "either" < "left" < "right"
 #' @examples
-#' anchor_to_factor(c(1, 2, 0, "left", "right", "either"))
-#' @export
+#' Pedixplorer:::anchor_to_factor(c(1, 2, 0, "left", "right", "either"))
+#' @keywords internal
 anchor_to_factor <- function(anchor) {
     if (is.factor(anchor) || is.numeric(anchor)) {
         anchor <- as.character(anchor)
@@ -395,4 +455,93 @@ anchor_to_factor <- function(anchor) {
     }
 
     factor(anchor, anchor_codes, ordered = TRUE)
+}
+
+
+#' Make rownames for rectangular data display
+#' @param x_rownames The rownames of the data
+#' @param nrow The number of rows in the data
+#' @param nhead The number of rownames to display at the beginning
+#' @param ntail The number of rownames to display at the end
+#' @return A character vector of rownames
+#' @keywords internal
+#' @examples
+#' Pedixplorer:::make_rownames(rownames(mtcars), nrow(mtcars), 3, 3)
+make_rownames <- function(
+    x_rownames, nrow, nhead, ntail
+) {
+    p1 <- ifelse(nhead == 0L, 0L, 1L)
+    p2 <- ifelse(ntail == 0L, 0L, ntail - 1L)
+    s1 <- s2 <- character(0)
+    if (is.null(x_rownames)) {
+        if (nhead > 0L)
+            s1 <- paste0(as.character(p1:nhead))
+        if (ntail > 0L)
+            s2 <- paste0(as.character((nrow - p2):nrow))
+    } else {
+        if (nhead > 0L)
+            s1 <- paste0(head(x_rownames, nhead))
+        if (ntail > 0L)
+            s2 <- paste0(tail(x_rownames, ntail))
+    }
+    c(s1, "...", s2)
+}
+
+#' Make class information
+#' @param x A list of class
+#' @return A character vector of class information
+#' @keywords internal
+#' @examples
+#' Pedixplorer:::make_class_info(list(1, "a", 1:3, list(1, 2)))
+#' @importFrom S4Vectors classNameForDisplay
+make_class_info <- function(x) {
+    vapply(
+        x,
+        function(xi) {
+            paste0("<", S4Vectors::classNameForDisplay(xi), ">")
+        },
+        character(1), USE.NAMES = FALSE
+    )
+}
+
+
+#' Create a text column
+#'
+#' Aggregate multiple columns into a single text column
+#' separated by a newline character.
+#'
+#' @param df A dataframe
+#' @param title The title of the text column
+#' @param cols A vector of columns to concatenate
+#' @param na_strings A vector of strings that should be considered as NA
+#' @return The concatenated text column
+#' @keywords internal
+#' @examples
+#' df <- data.frame(a = 1:3, b = c("4", "NA", 6), c = c("", "A", 2))
+#' Pedixplorer:::create_text_column(df, "a", c("b", "c"))
+#' @importFrom dplyr rowwise mutate ungroup pull
+create_text_column <- function(
+    df, title = NULL, cols = NULL, na_strings = c("", "NA")
+) {
+    check_columns(df, c(title, cols), NULL, others_cols = TRUE)
+    df %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(text = paste(
+            paste(
+                "<span style='font-size:14px'><b>",
+                as.character(get(title)),
+                "</b></span><br>", sep = ""
+            ), paste(
+                unlist(lapply(cols, function(col) {
+                    value <- as.character(get(col))
+                    if (value %in% na_strings) {
+                        return(NULL)
+                    } else {
+                        return(paste("<b>", col, "</b>: ", value, sep = ""))
+                    }
+                })), collapse = "<br>", sep = ""
+            ), collapse = "<br>", sep = ""
+        )) %>%
+        dplyr::ungroup() %>%
+        dplyr::pull(text)
 }

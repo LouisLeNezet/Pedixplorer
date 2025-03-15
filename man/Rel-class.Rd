@@ -28,11 +28,12 @@
 \S4method{Rel}{character_OR_integer}(obj, id2, code, famid = NA_character_)
 }
 \arguments{
-\item{obj}{A character vector with the id of the first individuals of each
-pairs or a \code{data.frame} with all the informations in corresponding columns.}
+\item{obj}{A character vector with the id of the first individuals
+of each pairs or a \code{data.frame} with all the informations in
+corresponding columns.}
 
-\item{id2}{A character vector with the id of the second individuals of each
-pairs}
+\item{id2}{A character vector with the id of the second individuals
+of each pairs}
 
 \item{code}{A character, factor or numeric vector corresponding to
 the relation code of the individuals:
@@ -67,7 +68,8 @@ or a \code{data.frame} with the corresponding columns.
 A Rel object is a list of special relationships
 between individuals in the pedigree.
 It is used to create a Pedigree object.
-The minimal needed informations are \code{id1}, \code{id2} and \code{code}.
+The minimal needed informations are \code{id1}, \code{id2}
+and \code{code}.
 
 If a \code{famid} is provided, the individuals \code{id} will be aggregated
 to the \code{famid} character to ensure the uniqueness of the \code{id}.
@@ -161,16 +163,16 @@ should be kept or deleted.
 \examples{
 
 rel_df <- data.frame(
-   id1 = c("1", "2", "3"),
-   id2 = c("2", "3", "4"),
-   code = c(1, 2, 3)
+    id1 = c("1", "2", "3"),
+    id2 = c("2", "3", "4"),
+    code = c(1, 2, 3)
 )
 Rel(rel_df)
 
 Rel(
-   obj = c("1", "2", "3"),
-   id2 = c("2", "3", "4"),
-   code = c(1, 2, 3)
+    obj = c("1", "2", "3"),
+    id2 = c("2", "3", "4"),
+    code = c(1, 2, 3)
 )
 }
 \seealso{

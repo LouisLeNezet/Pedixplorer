@@ -5,8 +5,9 @@
 #' status.
 #'
 #' @details
-#' When used within [shrink()], this function is called with the first
-#' affected indicator, if the affected item in the Pedigree is a matrix of
+#' When used within [shrink()], this function is called
+#' with the first affected indicator,
+#' if the affected item in the Pedigree is a matrix of
 #' multiple affected indicators.
 #'
 #' If **avail** or **affected** is null, then the function will use the
@@ -74,7 +75,7 @@ setMethod("find_avail_affected", "Ped",
             tmp_avail <- avail
             tmp_avail[id(obj) == id_trim] <- FALSE
             id_rm <- find_unavailable(obj, tmp_avail)
-            new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = TRUE)
+            new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = "both")
             trim_dat <- rbind(trim_dat, c(id = id_trim,
                 bit_size = bit_size(new_ped)$bit_size
             ))
@@ -94,7 +95,7 @@ setMethod("find_avail_affected", "Ped",
 
         avail[id(obj) == id_trim] <- FALSE
         id_rm <- find_unavailable(obj, avail)
-        new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = TRUE)
+        new_ped <- subset(obj, id_rm, keep = FALSE, del_parents = "both")
         new_size <- bit_size(new_ped)$bit_size
         avail <- avail[!(id(obj) %in% id_rm)]
 
@@ -107,7 +108,10 @@ setMethod("find_avail_affected", "Ped",
 #' @rdname find_avail_affected
 #' @export
 setMethod("find_avail_affected", "Pedigree",
-    function(obj, avail = NULL, affected = NULL, affstatus = NA) {
+    function(
+        obj, avail = NULL,
+        affected = NULL, affstatus = NA
+    ) {
         find_avail_affected(ped(obj), avail, affected, affstatus)
     }
 )
