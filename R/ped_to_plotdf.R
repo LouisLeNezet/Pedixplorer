@@ -292,7 +292,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             y0 = i[idx_cons] + boxh * 1.4,
             x1 = pos[idx_cons] - (boxw / 2),
             y1 = i[idx_cons] + boxh * 1.075,
-            type = "arrows", cex = cex,
+            type = "arrows", cex = lwd,
             id = "consultand-proband", fill = "black"
         )
 
@@ -373,8 +373,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     }
 
     #### Add ids ####
+    id_pos <- 1.4
     id_df <- data.frame(
-        x0 = pos[idx], y0 = i[idx] + boxh * 1.2 + labh,
+        x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh,
         label = ped_df[id[idx], id_lab], fill = "black",
         type = "text", cex = cex, adjx = 0.5, adjy = 1,
         id = "id", tips = ped_df[id[idx], "tips"]
@@ -397,7 +398,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             ), sep = " - "
         ))
         dates_df <- data.frame(
-            x0 = pos[idx_dates], y0 = i[idx_dates] + boxh * 1.2 + labh * 3,
+            x0 = pos[idx_dates], y0 = i[idx_dates] + boxh * id_pos + labh * 3,
             label = dates_char, fill = "black",
             type = "text", cex = cex * 0.7, adjx = 0.5, adjy = 1,
             id = "id", tips = ped_df[id[idx_dates], "tips"]
@@ -409,7 +410,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (!is.null(label)) {
         check_columns(ped_df, label)
         label <- data.frame(
-            x0 = pos[idx], y0 = i[idx] + boxh * 1.2 + labh * 5,
+            x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh * 5,
             label = ped_df[id[idx], label],
             fill = "black", adjy = 1, adjx = 0.5,
             type = "text", cex = cex,
