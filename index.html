@@ -198,6 +198,7 @@
 <span></span>
 <span><span class="fu"><a href="reference/Ped-class.html">proband</a></span><span class="op">(</span><span class="fu"><a href="reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/Ped-class.html">isinf</a></span><span class="op">(</span><span class="fu"><a href="reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span> <span class="co"># Set informative individuals as proband</span></span>
 <span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="st">"MyPedigree.png"</span>, width <span class="op">=</span> <span class="fl">1000</span>, height <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span>
 <span><span class="va">plot_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>    <span class="va">pedi</span>,</span>
 <span>    symbolsize <span class="op">=</span> <span class="fl">1.5</span>, <span class="co"># Increase the symbole size</span></span>
@@ -213,15 +214,16 @@
 <span>        <span class="st">"num"</span>, <span class="st">"dateofbirth"</span></span>
 <span>    <span class="op">)</span> <span class="co"># Add some information in the tooltip</span></span>
 <span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Plot the Pedigree with plotly to have an interactive plot</span></span>
 <span><span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span></span>
 <span>    <span class="va">plot_list</span><span class="op">$</span><span class="va">ggplot</span>,</span>
 <span>    tooltip <span class="op">=</span> <span class="st">"text"</span></span>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">plotly</span><span class="fu">::</span><span class="fu">layout</span><span class="op">(</span>hoverlabel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bgcolor <span class="op">=</span> <span class="st">"darkgrey"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p align="center">
-<iframe src="https://github.com/LouisLeNezet/Pedixplorer/raw/fix_plot/inst/figures/interactive_pedigree.html" alt="MyPedigree" height="400" style="height:400px;">
-</iframe>
+<img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"><a href="https://louislenezet.github.io/Pedixplorer/interactive_pedigree.html" alt="MyPedigree">View Interactive Pedigree</a>
 </p>
 </div>
 </div>
