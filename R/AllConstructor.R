@@ -344,7 +344,8 @@ setMethod("Rel", "data.frame",
         )
 
         with(df, Rel(
-            obj = id1, id2 = id2, code = code, famid = as.character(famid)
+            obj = id1, id2 = id2, code = code,
+            famid = as.character(famid)
         ))
     }
 )
@@ -360,7 +361,7 @@ setMethod("Rel", "data.frame",
 #' )
 setMethod("Rel", "character_OR_integer",
     function(
-        obj, id2, code, famid = NA_character_
+        obj, id2, code, famid = NA_character_, group = NA_character_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
         id1 <- as.character(obj)
@@ -373,11 +374,14 @@ setMethod("Rel", "character_OR_integer",
         id2o <- pmax(id1, id2)
 
         code <- rel_code_to_factor(code)
+        df <- data.frame(id1 = id1o, id2 = id2o, code = code, famid = famid) %>%
+            complete_twins()
 
-        rel <- new(
+        rel <- with(df, new(
             "Rel",
-            id1 = id1o, id2 = id2o, code = code, famid = famid
-        )
+            id1 = id1, id2 = id2, code = code,
+            famid = as.character(famid), group = group
+        ))
         upd_famid(rel)
     }
 )

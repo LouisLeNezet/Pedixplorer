@@ -87,6 +87,8 @@ relationship.
 (i.e. \verb{MZ twin} < \verb{DZ twin} < \verb{UZ twin} < \code{Spouse}).}
 
 \item{\code{famid}}{A character vector with the famid of the individuals.}
+
+\item{\code{group}}{A numeric vector with the set number for twins.}
 }}
 
 \section{Accessors}{

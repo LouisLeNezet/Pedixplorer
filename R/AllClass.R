@@ -185,6 +185,7 @@ setValidity("Ped", is_valid_ped)
 #'
 #' (i.e. `MZ twin` < `DZ twin` < `UZ twin` < `Spouse`).
 #' @slot famid A character vector with the famid of the individuals.
+#' @slot group A numeric vector with the set number for twins.
 #'
 #' @seealso [Pedigree()]
 #' @name Rel-class
@@ -195,14 +196,15 @@ setClass("Rel",
         id1 = "character",
         id2 = "character",
         code = "factor",
-        famid = "character"
+        famid = "character",
+        group = "numeric"
     )
 )
 
 setMethod("parallel_slot_names", "Rel",
     function(x) {
         c(
-            "id1", "id2", "code", "famid",
+            "id1", "id2", "code", "famid", "group",
             callNextMethod()
         )
     }
