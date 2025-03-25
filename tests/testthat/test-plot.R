@@ -61,8 +61,14 @@ test_that("Pedigree fails to line up", {
     df1 <- sampleped[sampleped$famid == "1", ]
     ped1 <- Pedigree(df1)
     vdiffr::expect_doppelganger("ped1",
-        function() plot(ped1, precision = 4)
+        function() suppressWarnings(plot(ped1, precision = 4))
     )
+
+    expect_equal(
+        suppressWarnings(plot(ped1, precision = 4))$ind_not_plot,
+        c("1_113")
+    )
+
     # With reordering it's better
     df1reord <- df1[c(35:41, 1:34), ]
     ped1reord <- Pedigree(df1reord)

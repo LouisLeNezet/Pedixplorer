@@ -219,9 +219,15 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         }
 
         if (ggplot_gen) {
-            invisible(list(df = lst$df, par_usr = lst$par_usr, ggplot = p))
+            invisible(list(
+                df = lst$df, par_usr = lst$par_usr,
+                ggplot = p, ind_not_plot = lst$ind_not_plot
+            ))
         } else {
-            invisible(list(df = lst$df, par_usr = lst$par_usr))
+            invisible(list(
+                df = lst$df, par_usr = lst$par_usr,
+                ind_not_plot = lst$ind_not_plot
+            ))
         }
     }
 )
