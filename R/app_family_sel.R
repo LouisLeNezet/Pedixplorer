@@ -39,14 +39,26 @@ family_sel_ui <- function(id) {
 #' @importFrom stats setNames
 family_sel_server <- function(
     id, pedi,
-    fam_var = NULL, fam_sel = NULL, title = "Family selection"
+    fam_var = NULL, fam_sel = NULL, title = "Family selection",
+    help_text = NULL, help_title = "Family selection",
+    help_colour = "grey", help_type = "inline"
 ) {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
         # Create the title ----------------------------------------------------
         output$title_fam <- renderUI({
-            h3(title)
+            if (!is.null(help_text)) {
+                h3(title) |>
+                    shinyhelper::helper(
+                        type = help_type,
+                        title = help_title,
+                        content = help_text,
+                        colour = help_colour
+                    )
+            } else {
+                h3(title)
+            }
         })
 
         # Get all columns for family identification ---------------------------

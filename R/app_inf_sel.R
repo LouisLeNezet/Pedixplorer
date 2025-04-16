@@ -10,11 +10,7 @@ inf_sel_ui <- function(id) {
         shiny::uiOutput(ns("inf_custvar_textinput")),
         ## Filtering options --------------------------------------------------
         shiny::h3("Filtering options"),
-        shiny::numericInput(
-            ns("kin_max"),
-            label = h5(strong("Max kinship")),
-            value = 3, min = 1
-        ),
+        shiny::uiOutput(ns("kin_max_selector")),
         shiny::checkboxInput(
             ns("keep_parents"),
             label = "Keep informative parents (available or affected)",
@@ -52,7 +48,7 @@ inf_sel_ui <- function(id) {
 #' @importFrom shiny h5 strong req textAreaInput reactive isolate
 #' @importFrom shinytoastr toastr_error
 #' @importFrom stats setNames
-inf_sel_server <- function(id, pedi) {
+inf_sel_server <- function(id, pedi, help_colour = "grey") {
     stopifnot(shiny::is.reactive(pedi))
     ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
@@ -71,7 +67,13 @@ inf_sel_server <- function(id, pedi) {
                     "Available and Affected" = "AvAf",
                     "Custom" = "Cust"
                 ), selected = "All"
-            )
+            )|>
+                shinyhelper::helper(
+                    type = "markdown",
+                    content = "app_filter_inf_var",
+                    size = "m",
+                    colour = help_colour
+                )
         })
 
         # Custom variable selector --------------------------------------------
@@ -110,6 +112,22 @@ inf_sel_server <- function(id, pedi) {
                 NULL
             }
         })
+
+        # Kinship max selector ------------------------------------------------
+        output$kin_max_selector <- shiny::renderUI({
+            shiny::numericInput(
+                ns("kin_max"),
+                label = h5(strong("Max kinship")),
+                value = 3, min = 0
+            ) |>
+                shinyhelper::helper(
+                    type = "markdown",
+                    content = "app_filter_max_kinship",
+                    size = "m",
+                    colour = help_colour
+                )
+        })
+
         # Informative individuals selection -----------------------------------
         inf_inds_selected <- shiny::reactive({
             shiny::req(pedi())

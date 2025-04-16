@@ -32,74 +32,153 @@ ped_server <- function(
 
         height_family_infos <- "auto"
 
+        ## Title and logo ---------------------------------------------------
+        log_path <- paste0(
+            "https://github.com/LouisLeNezet/Pedixplorer/",
+            "raw/devel/inst/figures/"
+        )
+        output$github_logo <- shiny::renderImage({
+            expr = list(
+                src = paste0(log_path, "/icon_github.png"),
+                height = 50, width = 50,
+                alt = "Github repository"
+            )
+        }, deleteFile = FALSE)
+        output$github_repo <- renderUI({
+            shiny::tags$a(imageOutput(
+                "github_logo", height = 50, width = 50,
+            ), href="https://github.com/LouisLeNezet/Pedixplorer")
+        })
+
+
         data_env <- new.env(parent = emptyenv())
         utils::data("sampleped", envir = data_env, package = "Pedixplorer")
         utils::data("relped", envir = data_env, package = "Pedixplorer")
+
+        ## Helper observers for the help button -------------------------------
+        shinyhelper::observe_helpers(withMathJax = TRUE)
 
         ## Ped data import ----------------------------------------------------
         ped_df <- data_import_server(
             id = "data_ped_import",
             label = "Select pedigree file :",
-            dftest = data_env[["sampleped"]]
+            help_type = "markdown",
+            help_data = "app_pedigree_data",
+            help_test_data = "app_pedigree_testdata",
+            dftest = data_env[["sampleped"]],
+            help_colour = "#8aca25"
         )
         ped_df_rename <- data_col_sel_server(
-            "data_ped_col_sel", ped_df,
-            list(
-                "id" = list(alternate = c("indid"), mandatory = TRUE),
-                "dadid" = list(alternate = c("fatherid"), mandatory = TRUE),
-                "momid" = list(alternate = c("motherid"), mandatory = TRUE),
-                "sex" = list(alternate = c("gender"), mandatory = TRUE),
-                "famid" = list(alternate = c("family"), mandatory = FALSE),
+            id = "data_ped_col_sel", df = ped_df,
+            help_type = "markdown",
+            col_config = list(
+                "id" = list(
+                    alternate = c("indid"), mandatory = TRUE,
+                    help = "app_pedigree_id"
+                ),
+                "dadid" = list(
+                    alternate = c("fatherid"), mandatory = TRUE,
+                    help = "app_pedigree_dadid"
+                ),
+                "momid" = list(
+                    alternate = c("motherid"), mandatory = TRUE,
+                    help = "app_pedigree_momid"
+                ),
+                "sex" = list(
+                    alternate = c("gender"), mandatory = TRUE,
+                    help = "app_pedigree_sex"
+                ),
+                "famid" = list(
+                    alternate = c("family"), mandatory = FALSE,
+                    help = "app_pedigree_famid"
+                ),
                 "fertility" = list(
-                    alternate = c("steril", "sterilization"), mandatory = FALSE
+                    alternate = c("steril", "sterilization"), mandatory = FALSE,
+                    help = "app_pedigree_fertility"
                 ),
                 "miscarriage" = list(
-                    alternate = c("aborted"), mandatory = FALSE
+                    alternate = c("aborted"), mandatory = FALSE,
+                    help = "app_pedigree_miscarriage"
                 ),
                 "deceased" = list(
                     alternate = c("status", "vitalstatus", "death"),
-                    mandatory = FALSE
+                    mandatory = FALSE,
+                    help = "app_pedigree_deceased"
                 ),
-                "avail" = list(alternate = c("available"), mandatory = FALSE),
-                "evaluated" = list(alternate = c("eval"), mandatory = FALSE),
+                "avail" = list(
+                    alternate = c("available"), mandatory = FALSE,
+                    help = "app_pedigree_avail"
+                ),
+                "evaluated" = list(
+                    alternate = c("eval"), mandatory = FALSE,
+                    help = "app_pedigree_evaluated"
+                ),
                 "consultand" = list(
-                    alternate = c(NA_character_), mandatory = FALSE
+                    alternate = c(NA_character_), mandatory = FALSE,
+                    help = "app_pedigree_consultand"
                 ),
                 "proband" = list(
-                    alternate = c(NA_character_), mandatory = FALSE
+                    alternate = c(NA_character_), mandatory = FALSE,
+                    help = "app_pedigree_proband"
                 ),
                 "carrier" = list(
-                    alternate = c(NA_character_), mandatory = FALSE
+                    alternate = c(NA_character_), mandatory = FALSE,
+                    help = "app_pedigree_carrier"
                 ),
                 "asymptomatic" = list(
-                    alternate = c("presymptomatic"), mandatory = FALSE
+                    alternate = c("presymptomatic"), mandatory = FALSE,
+                    help = "app_pedigree_asymptomatic"
                 ),
-                "adopted" = list(alternate = c("adoption"), mandatory = FALSE),
+                "adopted" = list(
+                    alternate = c("adoption"), mandatory = FALSE,
+                    help = "app_pedigree_adopted"
+                ),
                 "dateofbirth" = list(
-                    alternate = c("dob", "birth"), mandatory = FALSE
+                    alternate = c("dob", "birth"), mandatory = FALSE,
+                    help = "app_pedigree_dateofbirth"
                 ),
                 "dateofdeath" = list(
-                    alternate = c("dod"), mandatory = FALSE
+                    alternate = c("dod"), mandatory = FALSE,
+                    help = "app_pedigree_dateofdeath"
                 )
             ),
             title = "Select columns :", na_omit = TRUE,
-            ui_col_nb = 3, by_row = FALSE
+            ui_col_nb = 3, by_row = FALSE,
+            help_style = "margin-top:0.5em;", help_colour = "#3792ad"
         )
         ## Rel data import ----------------------------------------------------
         rel_df <- data_import_server(
             id = "data_rel_import",
             label = "Select relationship file :",
-            dftest = data_env[["relped"]]
+            help_type = "markdown",
+            help_data = "app_rel_data",
+            help_test_data = "app_rel_testdata",
+            dftest = data_env[["relped"]],
+            help_colour = "#8aca25"
         )
         rel_df_rename <- data_col_sel_server(
-            "data_rel_col_sel", rel_df,
-            list(
-                "id1" = list(alternate = c("indId1"), mandatory = TRUE),
-                "id2" = list(alternate = c("indId2"), mandatory = TRUE),
-                "code" = list(alternate = c(NA_character_), mandatory = TRUE),
-                "famid" = list(alternate = c("family"), mandatory = FALSE)
+            id = "data_rel_col_sel", df = rel_df,
+            help_type = "markdown",
+            col_config = list(
+                "id1" = list(
+                    alternate = c("indId1"), mandatory = TRUE,
+                    help = "app_rel_id1"
+                ),
+                "id2" = list(
+                    alternate = c("indId2"), mandatory = TRUE,
+                    help = "app_rel_id2"
+                ),
+                "code" = list(
+                    alternate = c(NA_character_), mandatory = TRUE,
+                    help = "app_rel_code"
+                ),
+                "famid" = list(
+                    alternate = c("family"), mandatory = FALSE,
+                    help = "app_rel_famid"
+                )
             ),
-            "Select columns :", na_omit = TRUE, ui_col_nb = 1, by_row = FALSE
+            title = "Select columns :", na_omit = TRUE, ui_col_nb = 1, by_row = FALSE,
+            help_style = "margin-top:0.5em", help_colour = "#3792ad"
         )
 
         ## Ped families object creation ---------------------------------------
@@ -232,12 +311,17 @@ ped_server <- function(
                 "health_full_scale",
                 label = "Full scale color",
                 value = FALSE
+            ) |> shinyhelper::helper(
+                type = "markdown",
+                content = "app_full_scale_color",
+                size = "m",
+                colour = "#3792ad"
             )
         })
 
         cols_aff <- color_picker_server("col_aff",
             list(
-                "LeastAffected" = "#ecbd00",
+                "Least_Affected" = "#ecbd00",
                 "Affected" = "#c40000"
             )
         )
@@ -255,7 +339,11 @@ ped_server <- function(
 
         ## Families selection -------------------------------------------------
         lst_fam <- family_sel_server(
-            "family_sel", ped_all, "family", 1
+            "family_sel", ped_all, "family", 1,
+            help_type = "markdown",
+            help_text = "app_family_selection",
+            help_colour = "#3792ad",
+            help_title = ""
         )
 
         ## Pedigree affected --------------------------------------------------
@@ -283,7 +371,7 @@ ped_server <- function(
                         sup_thres_aff = lst_health()$sup_threshold,
                         keep_full_scale = input$health_full_scale,
                         colors_aff = unname(unlist(
-                            cols_aff()[c("LeastAffected", "Affected")]
+                            cols_aff()[c("Least_Affected", "Affected")]
                         )),
                         colors_unaff = unname(unlist(
                             cols_unaff()[c("Unaffected", "Dubious")]
@@ -342,7 +430,11 @@ ped_server <- function(
 
         lst_subfam <- family_sel_server(
             "subfamily_sel", ped_subfamilies,
-            fam_var = "family", fam_sel = 1, title = "Subfamily selection"
+            fam_var = "family", fam_sel = 1, title = "Subfamily selection",
+            help_type = "markdown",
+            help_text = "app_subfamily_selection",
+            help_colour = "#3792ad",
+            help_title = ""
         )
 
         ped_subfam <- shiny::reactive({
@@ -388,7 +480,13 @@ ped_server <- function(
                 label = "Select columns for tips",
                 choices = all_cols, selected = select,
                 multiple = TRUE
-            )
+            ) |>
+                shinyhelper::helper(
+                    type = "markdown",
+                    content = "app_plot_tips",
+                    size = "m",
+                    colour = "#3792ad"
+                )
         })
 
         my_tips <- shiny::reactive({

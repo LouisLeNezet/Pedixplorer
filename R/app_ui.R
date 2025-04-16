@@ -24,7 +24,7 @@
 ped_ui <- function() {
     logo  <- paste0(
         "https://github.com/LouisLeNezet/Pedixplorer/",
-        "raw/devel/inst/figures/icon_Pedixplorer.png"
+        "raw/devel/inst/figures/"
     )
     shiny::shinyUI(shiny::fluidPage(
         ## Configuration -------------------------------
@@ -39,6 +39,9 @@ ped_ui <- function() {
         ),
         ## Application title --------------------------
         shiny::fluidRow(
+            uiOutput("github_repo")
+        ),
+        shiny::fluidRow(
             shiny::column(2, align = "center",
                 shiny::tags$div(class = "titlehr")
             ),
@@ -52,7 +55,7 @@ ped_ui <- function() {
                 shiny::tags$figure(
                     class = "centerFigure",
                     shiny::tags$img(
-                        src = logo,
+                        src = paste0(logo, "icon_Pedixplorer.png"),
                         height = 200,
                         alt = "Pedixplorer logo"
                     ),
