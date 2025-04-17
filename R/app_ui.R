@@ -40,14 +40,15 @@ ped_ui <- function() {
                     color: black; font-weight: bold;
                 }"
             )),
-            tags$script(HTML(
+            tags$script(shiny::HTML(
                 "Shiny.addCustomMessageHandler(
                     'toggleBtnClass', function(message) {
                         const btn = document.getElementById('updateBtn');
                         btn.className = 'btn btn-default action-button ' +
                             message.class;
                     }
-                );"
+                );
+                "
             ))
         ),
         ## Application title --------------------------

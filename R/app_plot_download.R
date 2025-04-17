@@ -5,6 +5,14 @@ plot_download_ui <- function(id) {
     shiny::uiOutput(ns("btn_dwld"))
 }
 
+makeReactive <- function(x) {
+    if (is.reactive(x)) {
+        return(x)
+    } else {
+        reactive(x)
+    }
+}
+
 #' Shiny module to export plot
 #'
 #' This module allow to export multiple type of plot from a reactive object.
@@ -38,22 +46,32 @@ plot_download_ui <- function(id) {
 #' @importFrom grDevices png pdf dev.off
 #' @importFrom gridExtra grid.arrange
 plot_download_server <- function(
-    id, my_plot, filename = "saveplot",
+    id, my_plot, plot_class, filename = "saveplot",
     label = "Download", width = 500, height = 500, ext = "png"
 ) {
     stopifnot(shiny::is.reactive(my_plot))
     shiny::moduleServer(id, function(input, output, session) {
         ns <- shiny::NS(id)
 
-        myfilename <- shiny::reactive({
-            if (shiny::is.reactive(filename)) {
-                filename <- filename()
-            }
-            filename
-        })
+        filename <- makeReactive(filename)
+        width <- makeReactive(width)
+        height <- makeReactive(height)
+        plot_class <- makeReactive(plot_class)
 
         ## Options rendering selection --------------------
-        opt <- shiny::reactiveValues(width = width, height = height, ext = ext)
+        opt <- shiny::reactiveValues(
+            width = NULL,
+            height = NULL,
+            ext = NULL,
+            class = NULL
+        )
+
+        observe({
+            opt$width <- width()
+            opt$height <- height()
+            opt$ext <- ext
+            opt$class <- plot_class()
+        })
 
         output$btn_dwld <- shiny::renderUI({
             shiny::actionButton(
@@ -71,6 +89,17 @@ plot_download_server <- function(
         })
 
         shiny::observeEvent(input$download, {
+            shiny::req(my_plot())
+            if (
+                "htmlwidget" %in% opt$class |
+                    "plotly" %in% opt$class
+            ) {
+                ext_list <- c("html")
+            } else if ("ggplot" %in% opt$class) {
+                ext_list <- c("html", "png", "pdf", "svg")
+            } else {
+                ext_list <- c("png", "pdf", "svg")
+            }
             # display a modal dialog with a header, textinput and action buttons
             shiny::showModal(shiny::modalDialog(
                 shiny::tags$h2("Select your options"),
@@ -84,7 +113,7 @@ plot_download_server <- function(
                 ),
                 shiny::radioButtons(
                     ns("ext"), label = "Select the file type",
-                    choices = list("png", "pdf", "html"), selected = opt$ext
+                    choices = ext_list, selected = opt$ext
                 ),
                 footer = shiny::tagList(
                     shiny::downloadButton(ns("plot_dwld"), label = label),
@@ -95,13 +124,13 @@ plot_download_server <- function(
 
         output$plot_dwld <- shiny::downloadHandler(
             filename = function() {
-                paste(myfilename(), input$ext, sep = ".")
+                paste(filename(), input$ext, sep = ".")
             }, content = function(file) {
                 if (input$ext == "html") {
-                    if ("htmlwidget" %in% class(my_plot())) {
-                        htmlwidgets::saveWidget(file = file, my_plot())
-                    } else if ("ggplot" %in% class(my_plot())) {
-                        plot_html <- plotly::ggplotly(my_plot())
+                    if ("htmlwidget" %in% opt$class) {
+                        htmlwidgets::saveWidget(file = file, my_plot()())
+                    } else if ("ggplot" %in% opt$class) {
+                        plot_html <- plotly::ggplotly(my_plot()())
                         htmlwidgets::saveWidget(file = file, plot_html)
                     } else {
                         shinytoastr::toastr_error(
@@ -113,15 +142,15 @@ plot_download_server <- function(
                         )
                     }
                 } else {
-                    if ("ggplot" %in% class(my_plot())) {
+                    if ("ggplot" %in% opt$class) {
                         ggplot2::ggsave(
-                            filename = file, plot = my_plot(),
+                            filename = file, plot = my_plot()(),
                             device = input$ext, units = "px",
                             width = input$width, height = input$height
                         )
                     } else if (
-                        "htmlwidget" %in% class(my_plot()) |
-                            "plotly" %in% class(my_plot())
+                        "htmlwidget" %in% opt$class |
+                            "plotly" %in% opt$class
                     ) {
                         shinytoastr::toastr_error(
                             title = "Error in plot type selected",
@@ -135,6 +164,11 @@ plot_download_server <- function(
                             )
                         } else if (input$ext == "pdf") {
                             grDevices::pdf(
+                                file = file, width = input$width / 72,
+                                height = input$height / 72
+                            )
+                        }  else if (input$ext == "svg") {
+                            grDevices::svg(
                                 file = file, width = input$width / 96,
                                 height = input$height / 96
                             )
@@ -148,10 +182,10 @@ plot_download_server <- function(
                             )
                             NULL
                         }
-                        if ("grob" %in% class(my_plot())) {
-                            gridExtra::grid.arrange(my_plot())
+                        if ("grob" %in% opt$class) {
+                            gridExtra::grid.arrange(my_plot()())
                         } else {
-                            plot(my_plot())
+                            my_plot()()
                         }
                         grDevices::dev.off()
                     }

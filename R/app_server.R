@@ -501,11 +501,12 @@ ped_server <- function(
             input$tips_col
         })
 
-        plot_ped <- plot_ped_server(
+        lst_plot_ped <- plot_ped_server(
             "ped", ped_subfam,
             cust_title(short = FALSE),
             precision = precision, lwd = 2,
-            tips = my_tips
+            tips = my_tips, width = "100%",
+            height = "500px",
         )
 
         plot_legend_server(
@@ -515,10 +516,30 @@ ped_server <- function(
         )
 
         ## Download data and plot ---------------------------------------------
+        plot_ped <- shiny::reactive({
+            shiny::req(lst_plot_ped())
+            lst_plot_ped()$plot
+        })
+        plot_width <- shiny::reactive({
+            shiny::req(lst_plot_ped())
+            lst_plot_ped()$width
+        })
+        plot_height <- shiny::reactive({
+            shiny::req(lst_plot_ped())
+            lst_plot_ped()$height
+        })
+
+        plot_class <- shiny::reactive({
+            shiny::req(lst_plot_ped())
+            lst_plot_ped()$class
+        })
+
         plot_download_server(
             "saveped",
             plot_ped, label = "Download plot",
-            cust_title(short = TRUE)
+            cust_title(short = TRUE),
+            width = plot_width, height = plot_height,
+            plot_class = plot_class
         )
         data_subfam <- shiny::reactive({
             shiny::req(ped_subfam())
