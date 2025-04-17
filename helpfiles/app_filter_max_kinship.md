@@ -7,8 +7,10 @@ This transformation is done by taking the `log2` of the inverse of the maximum k
 
 $$\text{minDist} = \log_2\left(\frac{1}{\max(\text{kinship})}\right)$$
 
-Therefore, the minimum distance is `0` when the maximum kinship is `1` and
-is infinite when the maximum kinship is `0`.
+Therefore, the minimum distance is `1` when the maximum kinship is `0.5`
+(i.e. same individual) and is infinite when the maximum kinship is `0`
+(i.e. not related).
 
-For siblings, the kinship value is `0.5` and the minimum distance is `1`.
-Each time the kinship degree is divided by `2`, the minimum distance is increased by `1`.
+For siblings, the kinship value is `0.25` and the minimum distance is `2`.
+Each time the kinship degree is divided by `2`, the minimum distance is
+increased by `1`.

@@ -84,6 +84,7 @@ plot_ped_server <- function(
 
         pedi_val <- shiny::reactive({
             shiny::req(pedi())
+            shiny::req(length(ped(pedi())) > 0)
             if (length(pedi()) > max_ind) {
                 if (is.null(input$computebig) || input$computebig == FALSE) {
                     return(NULL)

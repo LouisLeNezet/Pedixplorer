@@ -118,7 +118,7 @@ inf_sel_server <- function(id, pedi, help_colour = "grey") {
             shiny::numericInput(
                 ns("kin_max"),
                 label = h5(strong("Max kinship")),
-                value = 3, min = 0
+                value = 3, min = 1
             ) |>
                 shinyhelper::helper(
                     type = "markdown",

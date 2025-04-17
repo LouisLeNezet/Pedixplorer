@@ -38,6 +38,7 @@ plot_legend_server <- function(
     shiny::moduleServer(id, function(input, output, session) {
         output$plotlegend <- shiny::renderPlot({
             shiny::req(pedi())
+            shiny::req(length(ped(pedi())) > 0)
             old_mai <- graphics::par()$mai
             graphics::par(mai = c(0, 0, 0, 0))
             plot_legend(

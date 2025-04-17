@@ -38,6 +38,9 @@ setMethod("make_famid", "character",
     function(obj, dadid, momid) {
         id <- obj
         n <- length(id)
+        if (n == 0) {
+            return(character(0))
+        }
         mid <- c(match(momid, id, nomatch = n + 1), n + 1)
         did <- c(match(dadid, id, nomatch = n + 1), n + 1)
         mid2 <- sort(unique(mid))
