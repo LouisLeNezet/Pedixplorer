@@ -49,7 +49,6 @@ plot_ped_server <- function(
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
-
         ns <- shiny::NS(id)
 
         mytips <- shiny::reactive({
@@ -113,6 +112,7 @@ plot_ped_server <- function(
             ) %>%
                 plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
         })
+
         output$plotpedi <- shiny::renderUI({
             if (is.null(input$interactive)) {
                 return(NULL)

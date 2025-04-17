@@ -34,7 +34,20 @@ ped_ui <- function() {
                 .navigationBar{background-color:#0001; margin-top: 10px;}
                 .title {margin-top: 85px; font-style: italic; font-size: 50px;}
                 .titlehr {border-top: 4px solid #8aca25; margin-top: 100px}
-                .title2 {margin-left: 30px; font-size: 20px;}"
+                .title2 {margin-left: 30px; font-size: 20px;}
+                #updateBtn.modified {
+                    background-color: #8aca25 !important;
+                    color: black; font-weight: bold;
+                }"
+            )),
+            tags$script(HTML(
+                "Shiny.addCustomMessageHandler(
+                    'toggleBtnClass', function(message) {
+                        const btn = document.getElementById('updateBtn');
+                        btn.className = 'btn btn-default action-button ' +
+                            message.class;
+                    }
+                );"
             ))
         ),
         ## Application title --------------------------
@@ -161,8 +174,18 @@ ped_ui <- function() {
                 ped_avaf_infos_ui("subped_avaf_infos")
             )
         ),
-        shiny::hr(),
         ## Plotting pedigree ----------------------------
+        shiny::fluidRow(
+            shiny::column(4, align = "center",
+                shiny::hr(),
+            ),
+            shiny::column(4, align = "center",
+                actionButton("updateBtn", "Update Plot"),
+            ),
+            shiny::column(4, align = "center",
+                shiny::hr(),
+            )
+        ),
         shiny::fluidRow(
             plot_ped_ui("ped"),
         ),

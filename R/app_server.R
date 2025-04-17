@@ -36,6 +36,11 @@ ped_server <- function(
         utils::data("sampleped", envir = data_env, package = "Pedixplorer")
         utils::data("relped", envir = data_env, package = "Pedixplorer")
 
+        ## Stored inputs ------------------------------------------------------
+        stored_inputs <- shiny::reactiveVal(
+            list(lst_subfam_changed = FALSE)
+        )
+
         ## Helper observers for the help buttons -------------------------------
         output$help_main <- shiny::renderUI({
             shiny::tags$div() |>
@@ -428,11 +433,23 @@ ped_server <- function(
             help_title = ""
         )
 
-        ped_subfam <- shiny::reactive({
+        ## Update based on update button -------------------------------------
+        shiny::observeEvent(lst_subfam(), {
+            session$sendCustomMessage(
+                "toggleBtnClass",
+                list(class = "modified")
+            )
+        })
+
+        ped_subfam <- shiny::eventReactive(input$updateBtn, {
             shiny::req(lst_subfam())
             if (is.null(lst_subfam())) {
                 return(NULL)
             }
+            session$sendCustomMessage(
+                "toggleBtnClass",
+                list(class = "")
+            )
             lst_subfam()$ped_fam
         })
 
@@ -445,7 +462,7 @@ ped_server <- function(
 
         ## Plotting pedigree --------------------------------------------------
         cust_title <- function(short) {
-            shiny::reactive({
+            shiny::eventReactive(lst_subfam, {
                 shiny::req(lst_fam())
                 shiny::req(lst_subfam())
                 shiny::req(lst_inf())
