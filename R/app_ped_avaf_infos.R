@@ -146,7 +146,10 @@ ped_avaf_infos_server <- function(
         })
 
         output$family_info_table_ui <- shiny::renderUI({
-            DT::dataTableOutput(ns("family_info_table_dt"), height = height)
+            DT::dataTableOutput(
+                ns("family_info_table_dt"),
+                height = height
+            )
         })
 
         # Display the family information table --------------------------------
@@ -169,7 +172,7 @@ ped_avaf_infos_server <- function(
                         )
                     ), dom = "t"
                 ),
-                fillContainer = TRUE
+                fillContainer = FALSE
             )
         })
         # Display the title ---------------------------------------------------
