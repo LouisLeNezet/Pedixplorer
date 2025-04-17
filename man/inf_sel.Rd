@@ -8,7 +8,7 @@
 \usage{
 inf_sel_ui(id)
 
-inf_sel_server(id, pedi)
+inf_sel_server(id, pedi, help_colour = "grey")
 
 inf_sel_demo(pedi)
 }

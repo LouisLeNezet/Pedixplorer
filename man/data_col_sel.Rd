@@ -16,7 +16,10 @@ data_col_sel_server(
   na_omit = TRUE,
   others_cols = TRUE,
   ui_col_nb = 1,
-  by_row = FALSE
+  by_row = FALSE,
+  help_colour = "grey",
+  help_type = "markdown",
+  help_style = "margin-top:1em"
 )
 
 data_col_sel_demo(ui_col_nb = 2, by_row = FALSE)
@@ -32,7 +35,10 @@ keys: 'alternate' and 'mandatory'.
 The 'alternate' key must contain a character vector of column names
 that can be selected as an alternative to the main column.
 The 'mandatory' key must contain a logical value (TRUE/FALSE) to indicate
-whether the column is required to be selected.}
+whether the column is required to be selected.
+The 'help' key must contain a string with the help message
+to display in the tooltip or the name of a markdown file
+to display in the help message.}
 
 \item{title}{A string to display in the selectInput.}
 
@@ -40,6 +46,11 @@ whether the column is required to be selected.}
 
 \item{others_cols}{A boolean to authorize other columns to be
 present in the output datatable.}
+
+\item{help_colour}{A string to define the color of the help icon.}
+
+\item{help_type}{A string to define the type of help message.
+It can be "inline" or "markdonw".}
 }
 \value{
 A reactive dataframe with the selected columns renamed
