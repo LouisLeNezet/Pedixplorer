@@ -32,30 +32,21 @@ ped_server <- function(
 
         height_family_infos <- "auto"
 
-        ## Title and logo ---------------------------------------------------
-        log_path <- paste0(
-            "https://github.com/LouisLeNezet/Pedixplorer/",
-            "raw/devel/inst/figures/"
-        )
-        output$github_logo <- shiny::renderImage({
-            expr = list(
-                src = paste0(log_path, "/icon_github.png"),
-                height = 50, width = 50,
-                alt = "Github repository"
-            )
-        }, deleteFile = FALSE)
-        output$github_repo <- renderUI({
-            shiny::tags$a(imageOutput(
-                "github_logo", height = 50, width = 50,
-            ), href="https://github.com/LouisLeNezet/Pedixplorer")
-        })
-
-
         data_env <- new.env(parent = emptyenv())
         utils::data("sampleped", envir = data_env, package = "Pedixplorer")
         utils::data("relped", envir = data_env, package = "Pedixplorer")
 
-        ## Helper observers for the help button -------------------------------
+        ## Helper observers for the help buttons -------------------------------
+        output$help_main <- shiny::renderUI({
+            shiny::tags$div() |>
+                shinyhelper::helper(
+                    type = "markdown",
+                    content = "app_help_main",
+                    size = "l",
+                    colour = "#3792ad",
+                    style = "font-size: 1.5em;"
+                )
+        })
         shinyhelper::observe_helpers(withMathJax = TRUE)
 
         ## Ped data import ----------------------------------------------------

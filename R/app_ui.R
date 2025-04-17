@@ -39,7 +39,40 @@ ped_ui <- function() {
         ),
         ## Application title --------------------------
         shiny::fluidRow(
-            uiOutput("github_repo")
+            tags$a(
+                href = "https://github.com/LouisLeNezet/Pedixplorer",
+                target = "_blank",
+                tags$img(
+                    src = paste0(logo, "icon_github.png"),
+                    title = "Github repository",
+                    alt = "Github repository",
+                    width = "50px", height = "50px"
+                )
+            ),
+            tags$a(
+                href = "https://doi.org/doi:10.18129/B9.bioc.Pedixplorer",
+                target = "_blank",
+                tags$img(
+                    src = paste0(logo, "icon_bioconductor.png"),
+                    title = "Bioconductor page",
+                    alt = "Bioconductor page",
+                    width = "50px", height = "50px"
+                )
+            ),
+            tags$a(
+                href = "https://louislenezet.github.io/Pedixplorer/",
+                target = "_blank",
+                tags$img(
+                    src = paste0(logo, "icon_documentation.png"),
+                    title = "Package documentation",
+                    alt = "Package documentation",
+                    width = "50px", height = "50px"
+                )
+            ),
+            tags$div(
+                style = "position: absolute; top: 10px; right: 20px; z-index: 9999;",
+                uiOutput("help_main"),
+            )
         ),
         shiny::fluidRow(
             shiny::column(2, align = "center",
