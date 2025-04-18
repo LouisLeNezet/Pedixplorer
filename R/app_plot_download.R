@@ -47,11 +47,11 @@ makeReactive <- function(x) {
 #' @importFrom gridExtra grid.arrange
 plot_download_server <- function(
     id, my_plot, plot_class, filename = "saveplot",
-    label = "Download", width = 500, height = 500, ext = "png"
+    label = "Download", width = 500, height = 500
 ) {
     stopifnot(shiny::is.reactive(my_plot))
     shiny::moduleServer(id, function(input, output, session) {
-        ns <- shiny::NS(id)
+        ns <- session$ns
 
         filename <- makeReactive(filename)
         width <- makeReactive(width)
@@ -62,14 +62,12 @@ plot_download_server <- function(
         opt <- shiny::reactiveValues(
             width = NULL,
             height = NULL,
-            ext = NULL,
             class = NULL
         )
 
         observe({
             opt$width <- width()
             opt$height <- height()
-            opt$ext <- ext
             opt$class <- plot_class()
         })
 
@@ -89,7 +87,6 @@ plot_download_server <- function(
         })
 
         shiny::observeEvent(input$download, {
-            shiny::req(my_plot())
             if (
                 "htmlwidget" %in% opt$class |
                     "plotly" %in% opt$class
@@ -113,7 +110,7 @@ plot_download_server <- function(
                 ),
                 shiny::radioButtons(
                     ns("ext"), label = "Select the file type",
-                    choices = ext_list, selected = opt$ext
+                    choices = ext_list, selected = ext_list[1]
                 ),
                 footer = shiny::tagList(
                     shiny::downloadButton(ns("plot_dwld"), label = label),
@@ -128,9 +125,9 @@ plot_download_server <- function(
             }, content = function(file) {
                 if (input$ext == "html") {
                     if ("htmlwidget" %in% opt$class) {
-                        htmlwidgets::saveWidget(file = file, my_plot()())
+                        htmlwidgets::saveWidget(file = file, my_plot())
                     } else if ("ggplot" %in% opt$class) {
-                        plot_html <- plotly::ggplotly(my_plot()())
+                        plot_html <- plotly::ggplotly(my_plot())
                         htmlwidgets::saveWidget(file = file, plot_html)
                     } else {
                         shinytoastr::toastr_error(
@@ -144,7 +141,7 @@ plot_download_server <- function(
                 } else {
                     if ("ggplot" %in% opt$class) {
                         ggplot2::ggsave(
-                            filename = file, plot = my_plot()(),
+                            filename = file, plot = my_plot(),
                             device = input$ext, units = "px",
                             width = input$width, height = input$height
                         )
@@ -183,9 +180,11 @@ plot_download_server <- function(
                             NULL
                         }
                         if ("grob" %in% opt$class) {
-                            gridExtra::grid.arrange(my_plot()())
-                        } else {
+                            gridExtra::grid.arrange(my_plot())
+                        } else if ("function" %in% opt$class) {
                             my_plot()()
+                        } else {
+                            my_plot()
                         }
                         grDevices::dev.off()
                     }
