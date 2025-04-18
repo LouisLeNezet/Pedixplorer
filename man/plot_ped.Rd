@@ -11,23 +11,31 @@ plot_ped_ui(id)
 plot_ped_server(
   id,
   pedi,
-  title = NA,
+  my_title = NA,
   precision = 2,
-  max_ind = 500,
-  tips = NULL,
-  lwd = par("lwd")
+  my_tips = NULL,
+  my_lwd = 1,
+  width = 600,
+  height = 400,
+  plot_cex = 1,
+  symbolsize = 1,
+  force = TRUE,
+  plot_par = list(),
+  is_interactive = FALSE,
+  aff_mark = TRUE,
+  label = NULL
 )
 
-plot_ped_demo(pedi, precision = 2, max_ind = 500, tips = NULL)
+plot_ped_demo(pedi = NULL, precision = 4, interactive = FALSE)
 }
 \arguments{
 \item{id}{A string.}
 
 \item{pedi}{A reactive pedigree object.}
 
-\item{title}{A string to name the plot.}
-
 \item{precision}{An integer to set the precision of the plot.}
+
+\item{title}{A string to name the plot.}
 
 \item{max_ind}{An integer to set the maximum number of individuals to plot.}
 

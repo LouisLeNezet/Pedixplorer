@@ -11,11 +11,11 @@ plot_download_ui(id)
 plot_download_server(
   id,
   my_plot,
+  plot_class,
   filename = "saveplot",
   label = "Download",
   width = 500,
-  height = 500,
-  ext = "png"
+  height = 500
 )
 
 plot_download_demo()

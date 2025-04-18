@@ -32,7 +32,7 @@
   leg_adjx = 0,
   leg_adjy = 0,
   precision = 4,
-  lwd = par("lwd"),
+  lwd = 1,
   ped_par = list(),
   leg_par = list(),
   tips = NULL,
@@ -127,7 +127,7 @@ of the legend.}
 \item{precision}{The number of significatif numbers to round the
 solution to.}
 
-\item{lwd}{default=par("lwd"). Controls the line width of the
+\item{lwd}{default=1. Controls the line width of the
 segments, arcs and polygons.}
 
 \item{ped_par}{default=list().  A list of parameters to use as graphical
