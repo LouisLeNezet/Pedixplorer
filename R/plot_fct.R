@@ -281,7 +281,6 @@ NULL
 #' @param y0 y coordinate of the first point
 #' @param x1 x coordinate of the second point
 #' @param y1 y coordinate of the second point
-#' @param p ggplot object
 #' @param ggplot_gen If TRUE add the segments to the ggplot object
 #' @param col Line color
 #' @param lwd Line width
@@ -291,20 +290,31 @@ NULL
 #' or add it to a ggplot object
 #' @keywords internal
 #' @keywords Pedigree-plot
-#' @importFrom ggplot2 annotate
 #' @importFrom graphics segments
 draw_segment <- function(
     x0, y0, x1, y1,
-    p = NULL, ggplot_gen = FALSE,
+    ggplot_gen = FALSE,
     col = par("fg"), lwd = par("lwd"), lty = par("lty")
 ) {
-    graphics::segments(x0, y0, x1, y1, col = col, lty = lty, lwd = lwd)
-    if (ggplot_gen) {
-        p <- p + ggplot2::annotate("segment", x = x0, y = y0,
-            xend = x1, yend = y1, colour = col, linetype = lty, linewidth = lwd
+    if (!ggplot_gen) {
+        graphics::segments(
+            x0, y0, x1, y1,
+            col = col, lty = lty, lwd = lwd
+        )
+    } else {
+        data <- data.frame(
+            x0 = x0, y0 = y0,
+            x1 = x1, y1 = y1,
+            col = col, lwd = lwd, lty = lty
+        )
+        ggplot2::geom_segment(
+            data = data,
+            mapping = aes(
+                x = x0, y = y0, xend = x1, yend = y1,
+            ), color = "black", linewidth = 1,
+            inherit.aes = FALSE
         )
     }
-    p
 }
 
 #' Draw a polygon
@@ -325,29 +335,35 @@ draw_segment <- function(
 #' @importFrom ggplot2 geom_polygon aes
 #' @importFrom graphics polygon
 draw_polygon <- function(
-    x, y, p = NULL, ggplot_gen = FALSE,
+    x, y, ggplot_gen = FALSE,
     fill = "grey", border = "black",
     density = NULL, angle = 45,
     lwd = par("lwd"), tips = NULL
 ) {
-    graphics::polygon(
-        x, y, col = fill, border = border,
-        density = density, angle = angle,
-        lwd = lwd
-    )
-    if (ggplot_gen) {
+    if (!ggplot_gen) {
+        graphics::polygon(
+            x, y, col = fill, border = border,
+            density = density, angle = angle,
+            lwd = lwd
+        )
+    } else {
         if (is.null(tips)) {
             tips <- "None"
         }
-        p <- p +
-            suppressWarnings(ggplot2::geom_polygon(
-                ggplot2::aes(x = x, y = y, text = tips),
-                fill = fill, color = border, linewidth = lwd
-            ))
+        data <- data.frame(
+            x = x, y = y, fill = fill,
+            border = border, lwd = lwd, tips = tips
+        )
+        suppressWarnings(ggplot2::geom_polygon(
+            data = data,
+            ggplot2::aes(
+                x = x, y = y, text = tips
+            ), fill = fill, color = border, linewidth = lwd,
+            inherit.aes = FALSE
+        ))
         # To add pattern stripes use ggpattern::geom_polygon_pattern
         # pattern_density = density[i], pattern_angle = angle[i]))
     }
-    p
 }
 
 #' Draw texts
@@ -367,20 +383,26 @@ draw_polygon <- function(
 #' @keywords Pedigree-plot
 #' @importFrom ggplot2 annotate
 #' @importFrom graphics text
-draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
-    cex = 1, col = NULL, adjx = 0.5, adjy = 0.5, tips = NULL
+draw_text <- function(x, y, label, ggplot_gen = FALSE,
+    cex = par("cex"), col = par("col"), adjx = 0.5, adjy = 0.5, tips = NULL
 ) {
-    graphics::text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
-    if (ggplot_gen) {
+    if (!ggplot_gen) {
+        graphics::text(x, y, label, cex = cex, col = col, adj = c(adjx, adjy))
+    } else {
         if (is.null(tips)) {
             tips <- label
         }
-        p <- p + suppressWarnings(ggplot2::geom_text(ggplot2::aes(
+        data <- data.frame(
             x = x, y = y, label = label,
-            text = tips
-        ), size = cex / 0.3, colour = col))
+            cex = cex, col = col, tips = tips
+        )
+        ggplot2::geom_text(
+            data = data,
+            ggplot2::aes(
+                x = x, y = y, label = label
+            ), size = cex / 0.3, colour = col, inherit.aes = FALSE
+        )
     }
-    p
 }
 
 #' Draw arcs
@@ -395,18 +417,18 @@ draw_text <- function(x, y, label, p = NULL, ggplot_gen = FALSE,
 #' @importFrom graphics lines
 draw_arc <- function(
     x0, y0, x1, y1,
-    p = NULL, ggplot_gen = FALSE,
-    lwd = par("lwd"), lty = 2, col = "black"
+    ggplot_gen = FALSE,
+    lwd = par("lwd"), lty = par("lty"), col = par("col")
 ) {
     xx <- seq(x0, x1, length = 15)
     yy <- seq(y0, y1, length = 15) + (seq(-7, 7))^2 / 98 - 0.5
-    graphics::lines(xx, yy, lty = lty, lwd = lwd, col = col)
-    if (ggplot_gen) {
-        p <- p + ggplot2::annotate(
-            "line", xx, yy, linetype = "dashed", colour = col
+    if (!ggplot_gen) {
+        graphics::lines(xx, yy, lty = lty, lwd = lwd, col = col)
+    } else {
+        ggplot2::annotate(
+            "line", xx, yy, linetype = lty, colour = col
         )
     }
-    return(p)
 }
 
 #' Draw arrows
@@ -421,20 +443,28 @@ draw_arc <- function(
 #' @importFrom graphics lines
 draw_arrow <- function(
     x0, y0, x1, y1,
-    p = NULL, ggplot_gen = FALSE,
-    lwd = par("lwd"), lty = 1, col = "black"
+    ggplot_gen = FALSE,
+    lwd = par("lwd"), lty = par("lty"), col = par("col")
 ) {
-    graphics::arrows(
-        x0 = x0, y0 = y0, x1 = x1, y1 = y1,
-        lwd = lwd, lty = lty, col = col, length = 0.1, angle = 30
-    )
-    if (ggplot_gen) {
-        p <- p + suppressWarnings(ggplot2::geom_segment(ggplot2::aes(
-            x = x0, y = y0, xend = x1, yend = y1
-        ), arrow = ggplot2::arrow(length = unit(0.1, "inches")),
-        size = lwd, colour = col))
+    if (!ggplot_gen) {
+        graphics::arrows(
+            x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+            lwd = lwd, lty = lty, col = col, length = 0.1, angle = 30
+        )
+    } else {
+        data <- data.frame(
+            x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+            lwd = lwd, lty = lty, col = col
+        )
+        ggplot2::geom_segment(
+            data = data,
+            ggplot2::aes(
+                x = x0, y = y0, xend = x1, yend = y1
+            ), size = lwd, colour = col,
+            arrow = ggplot2::arrow(length = unit(0.1, "inches")),
+            inherit.aes = FALSE
+        )
     }
-    return(p)
 }
 
 
@@ -450,19 +480,26 @@ draw_arrow <- function(
 #' @importFrom graphics lines
 draw_point <- function(
     x, y,
-    p = NULL, ggplot_gen = FALSE,
-    cex = par("lwd"), pch = 1, col = "black"
+    ggplot_gen = FALSE,
+    cex = par("lwd"), pch = par("pch"), col = par("col")
 ) {
-    graphics::points(
-        x = x, y = y,
-        cex = cex, pch = pch, col = col
-    )
-    if (ggplot_gen) {
-        p <- p + suppressWarnings(ggplot2::geom_point(ggplot2::aes(
-            x = x, y = y
-        ), size = cex, colour = col))
+    if (!ggplot_gen) {
+        graphics::points(
+            x = x, y = y,
+            cex = cex, pch = pch, col = col
+        )
+    } else {
+        data <- data.frame(
+            x = x, y = y, cex = cex, pch = pch, col = col
+        )
+        ggplot2::geom_point(
+            data = data,
+            ggplot2::aes(
+                x = x, y = y,
+            ), size = cex, colour = col,
+            inherit.aes = FALSE
+        )
     }
-    return(p)
 }
 
 #' Set plotting area
@@ -482,10 +519,21 @@ draw_point <- function(
 #' @keywords Pedigree-plot
 #' @importFrom graphics par strwidth strheight
 set_plot_area <- function(
-    cex, id, maxlev, xrange, symbolsize, precision = 4, ...
+    cex, id, maxlev, xrange, symbolsize, precision = 4,
+    use_dummy_device = FALSE, ...
 ) {
-    op <- graphics::par(xpd = TRUE, ...)  ## took out mar=mar
-    psize <- signif(graphics::par("pin"), precision)  # plot region in inches
+    close_dev <- FALSE
+
+    # Start a dummy graphics device if none is open
+    if (use_dummy_device && dev.cur() == 1) {
+        pdf(NULL)
+        close_dev <- TRUE
+    }
+
+    ## took out mar=mar
+    op <- graphics::par(xpd = TRUE, no.readonly = TRUE, ...)
+    # plot region in inches
+    psize <- signif(graphics::par("pin"), precision)
     stemp1 <- signif(graphics::strwidth(
         "ABC", units = "inches", cex = cex
     ), precision) * 2.5 / 3
@@ -527,6 +575,10 @@ set_plot_area <- function(
     usr <- c(xrange[1] - boxw / 2, xrange[2] + boxw / 2,
         maxlev + boxh + stemp3 / vscale + stemp2 / vscale, 1
     )
+
+    # Close dummy device if we opened one
+    if (close_dev) dev.off()
+
     list(usr = usr, old_par = op, boxw = boxw,
         boxh = boxh, labh = labh, legh = legh
     )

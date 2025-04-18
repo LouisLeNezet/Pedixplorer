@@ -65,12 +65,20 @@ plot_fromdf <- function(
     boxh = 1, add_to_existing = FALSE, title_cex = 2
 ) {
     if (!add_to_existing) {
-        graphics::frame()
+        if (!ggplot_gen) {
+            graphics::frame()
+        }
     }
-    op <- par(no.readonly = TRUE)
-    if (!is.null(usr)) {
-        graphics::par(usr = usr)
+
+    if (!ggplot_gen) {
+        op <- graphics::par(no.readonly = TRUE)
+        on.exit(par(op))
+        if (!is.null(usr)) {
+            graphics::par(usr = usr)
+        }
     }
+
+    ## Set up the plot
     p <- ggplot2::ggplot() +
         ggplot2::theme(
             plot.margin = ggplot2::unit(c(0, 0, 0, 0), "cm"),
@@ -83,11 +91,13 @@ plot_fromdf <- function(
             axis.title = ggplot2::element_blank()
         ) +
         ggplot2::scale_y_reverse()
-
     ## Add title if exists
     if (!is.null(title)) {
-        title(title, cex.main = title_cex)
-        p <- p + ggplot2::ggtitle(title)
+        if (!ggplot_gen) {
+            graphics::title(title, cex.main = title_cex)
+        } else {
+            p <- p + ggplot2::ggtitle(title)
+        }
     }
 
     aff <- as.numeric(stringr::str_split_i(df$type, "_", 2))
@@ -106,10 +116,16 @@ plot_fromdf <- function(
     seg_forward <- c("dead", "ECT-TOP", "asymptomatic", "adoption")
     seg <- df[df$type == "segments" & ! (df$id %in% seg_forward), ]
     if (!is.null(seg) && nrow(seg) > 0) {
-        p <- draw_segment(
-            seg$x0, seg$y0, seg$x1, seg$y1,
-            p, ggplot_gen, col = seg$fill, lwd = seg$cex
+        layer <- draw_segment(
+            x0 = seg$x0, y0 = seg$y0,
+            x1 = seg$x1, y1 = seg$y1,
+            ggplot_gen = ggplot_gen,
+            col = seg$fill, lwd = seg$cex,
+            lty = seg$lty
         )
+        if (!is.null(layer)) {
+            p <- p + layer
+        }
     }
 
     boxes <- df[df$type %in% all_types, ]
@@ -122,32 +138,54 @@ plot_fromdf <- function(
             poly <- poly_n[[as.numeric(boxes$polydiv[i])]][[boxes$poly[i]]][[
                 as.numeric(boxes$naff[i])
             ]]
-            p <- draw_polygon(
-                boxes$x0[i] + poly$x * boxw,
-                boxes$y0[i] + (poly$y + 0.5) * boxh,
-                p, ggplot_gen,
+
+            if (is.null(poly)) {
+                next
+            }
+
+            layer <- draw_polygon(
+                x = boxes$x0[i] + poly$x * boxw,
+                y = boxes$y0[i] + (poly$y + 0.5) * boxh,
+                ggplot_gen = ggplot_gen,
                 fill = boxes$fill[i], border = boxes$border[i],
                 density = boxes$density[i], angle = boxes$angle[i],
                 lwd = boxes$cex[i], tips = boxes$tips[i]
             )
+
+            if (!is.null(layer)) {
+                p <- p + layer
+            }
         }
     }
 
     seg <- df[df$type == "segments" & df$id %in% seg_forward, ]
     if (!is.null(seg) && nrow(seg) > 0) {
-        p <- draw_segment(
-            seg$x0, seg$y0, seg$x1, seg$y1,
-            p, ggplot_gen, col = seg$fill, lwd = seg$cex
+        layer <- draw_segment(
+            x0 = seg$x0, y0 = seg$y0,
+            x1 = seg$x1, y1 = seg$y1,
+            ggplot_gen = ggplot_gen,
+            col = seg$fill, lwd = seg$cex,
+            lty = seg$lty
         )
+        if (!is.null(layer)) {
+            p <- p + layer
+        }
     }
 
     arcs <- df[df$type == "arc", ]
     if (!is.null(arcs) && nrow(arcs) > 0) {
         for (it in seq_len(nrow(arcs))){
             arc <- arcs[it, ]
-            p <- draw_arc(arc$x0, arc$y0, arc$x1, arc$y1,
-                p, ggplot_gen, lwd = arc$cex, col = arc$fill
+            layer <- draw_arc(
+                x0 = arc$x0, y0 = arc$y0,
+                x1 = arc$x1, y1 = arc$y1,
+                ggplot_gen = ggplot_gen,
+                lwd = arc$cex, col = arc$fill,
+                lty = arc$lty
             )
+            if (!is.null(layer)) {
+                p <- p + layer
+            }
         }
     }
 
@@ -155,11 +193,16 @@ plot_fromdf <- function(
     if (!is.null(arrows_df) && nrow(arrows_df) > 0) {
         for (it in seq_len(nrow(arrows_df))){
             arrow <- arrows_df[it, ]
-            p <- draw_arrow(
+            layer <- draw_arrow(
                 x0 = arrow$x0, y0 = arrow$y0,
                 x1 = arrow$x1, y1 = arrow$y1,
-                p, ggplot_gen, lwd = arrow$cex, col = arrow$fill
+                ggplot_gen = ggplot_gen,
+                lwd = arrow$cex, col = arrow$fill,
+                lty = arrow$lty
             )
+            if (!is.null(layer)) {
+                p <- p + layer
+            }
         }
     }
 
@@ -169,23 +212,30 @@ plot_fromdf <- function(
             txt_x <- txt_df[txt_df$adjx == adjx, ]
             for (adjy in unique(txt_x$adjy)) {
                 txt_xy <- txt_x[txt_x$adjy == adjy, ]
-                p <- draw_text(
-                    txt_xy$x0, txt_xy$y0, txt_xy$label,
-                    p, ggplot_gen, txt_xy$cex, txt_xy$fill,
-                    adjx, adjy, tips = txt_xy$tips
+                layer <- draw_text(
+                    x = txt_xy$x0, y = txt_xy$y0, label = txt_xy$label,
+                    ggplot_gen = ggplot_gen,
+                    cex = txt_xy$cex, col = txt_xy$fill,
+                    adjx = adjx, adjy = adjy, tips = txt_xy$tips
                 )
+                if (!is.null(layer)) {
+                    p <- p + layer
+                }
             }
         }
     }
 
     points_df <- df[df$type == "points", ]
     if (!is.null(points_df) && nrow(points_df) > 0) {
-        p <- draw_point(
+        layer <- draw_point(
             x = points_df$x0, y = points_df$y0,
-            p = p, ggplot_gen = ggplot_gen, cex = points_df$cex,
-            col = points_df$fill, pch = points_df$lty
+            ggplot_gen = ggplot_gen, cex = points_df$cex,
+            col = points_df$fill, pch = points_df$pch
         )
+        if (!is.null(layer)) {
+            p <- p + layer
+        }
     }
-    par(op)
-    invisible(p)
+
+    return(p)
 }
