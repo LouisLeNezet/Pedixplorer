@@ -3,32 +3,41 @@
 plot_ped_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
-        shinyjs::useShinyjs(),
-        tags$head(
-            tags$script(HTML("
-                Shiny.addCustomMessageHandler('track_size', function(message) {
-                    const el = document.getElementById(message.id);
-                    if (!el) return;
-                    const resizeObserver = new ResizeObserver(entries => {
-                        for (let entry of entries) {
-                        const { width, height } = entry.contentRect;
-                        Shiny.setInputValue(message.id + '_size', {
-                            width: Math.round(width),
-                            height: Math.round(height)
-                        }, { priority: 'event' });
-                        }
-                    });
-                    resizeObserver.observe(el);
-                });
-            "))
-        ),
-        shiny::uiOutput(ns("computebig")),
-        shiny::uiOutput(ns("plotpedi")),
-        shiny::checkboxInput(
-            ns("interactive"),
-            label = "Make the pedigree interactive", value = FALSE
-        )
+        shiny::uiOutput(ns("uiplot"))
     )
+}
+
+app_plot_fct <- function(
+    pedi, cex = 1, plot_par = list(), interactive = FALSE,
+    mytitle = "My Pedigree", precision = 2, lwd = 1,
+    aff_mark = TRUE, label = NULL,
+    symbolsize = 1, force = TRUE, mytips = NULL
+) {
+    if (interactive) {
+        p <- plot(
+            pedi, ggplot_gen = interactive,
+            aff_mark = TRUE, label = NULL,
+            cex = cex, symbolsize = symbolsize, force = force,
+            ped_par = plot_par,
+            title = mytitle, tips = mytips,
+            precision = precision, lwd = lwd
+        )$ggplot +
+            ggplot2::theme(legend.position = "none")
+        plotly::ggplotly(p, tooltip = "text") |>
+            plotly::layout(hoverlabel = list(bgcolor = "darkgrey")) |>
+            plotly::config(responsive = TRUE, autosizable = TRUE)
+    } else {
+        function() {
+            plot(
+                pedi, ggplot_gen = interactive,
+                aff_mark = TRUE, label = NULL,
+                cex = cex, symbolsize = symbolsize, force = force,
+                ped_par = plot_par,
+                title = mytitle, tips = mytips,
+                precision = precision, lwd = lwd
+            )
+        }
+    }
 }
 
 #' Shiny module to generate pedigree graph.
@@ -63,175 +72,85 @@ plot_ped_ui <- function(id) {
 #' @importFrom plotly ggplotly renderPlotly plotlyOutput
 #' @importFrom shinycssloaders withSpinner
 plot_ped_server <- function(
-    id, pedi, title = NA, precision = 2,
-    max_ind = 500, tips = NULL, lwd = par("lwd"),
-    width = 600, height = 400
+    id, pedi, my_title = NA, precision = 2,
+    my_tips = NULL, my_lwd = 1,
+    width = 600, height = 400, plot_cex = 1, symbolsize = 1,
+    force = TRUE, plot_par = list(), is_interactive = FALSE,
+    aff_mark = TRUE, label = NULL
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
-        ns <- shiny::NS(id)
-        cex <- 1
-        symbolsize <- 1
-        force <- TRUE
-        ped_par <- list(mar = c(1, 1, 2, 1))
+        ns <- session$ns
 
-        dims <- reactiveValues(width = width, height = height)
+        ## Plot parameters
+        my_title <- makeReactive(my_title)
+        my_tips <- makeReactive(my_tips)
+        plot_cex <- makeReactive(plot_cex)
+        plot_par <- makeReactive(plot_par)
+        is_interactive <- makeReactive(is_interactive)
+        symbolsize <- makeReactive(symbolsize)
+        precision <- makeReactive(precision)
+        aff_mark <- makeReactive(aff_mark)
+        label <- makeReactive(label)
+        my_lwd <- makeReactive(my_lwd)
+        is_force <- makeReactive(force)
 
-        debounced_dims <- shiny::debounce(
-            reactive(input$resizable_plot_size),
-            millis = 300
-        )
+        ## Plot dimensions
+        width <- makeReactive(width)
+        height <- makeReactive(height)
 
-        observe({
-            session$sendCustomMessage(
-                "track_size",
-                list(id = ns("resizable_plot"))
+        my_plot_fct <- shiny::reactive({
+            shiny::req(pedi())
+            app_plot_fct(
+                pedi = pedi(), mytitle = my_title(), mytips = my_tips(),
+                cex = plot_cex(), plot_par = plot_par(),
+                symbolsize = symbolsize(),
+                interactive = is_interactive(),
+                precision = precision(), lwd = my_lwd(),
+                aff_mark = aff_mark(), label = label(),
+                force = is_force()
             )
         })
 
-        observeEvent(debounced_dims(), {
-            dims$width <- debounced_dims()$width
-            dims$height <- debounced_dims()$height
+        is_ready <- reactive({
+            !is.null(width()) && !is.null(height()) &&
+                !is.na(width()) && !is.na(height()) &&
+                width() > 0 && height() > 0
         })
 
-        mytips <- shiny::reactive({
-            if (shiny::is.reactive(tips)) {
-                tips <- tips()
-            }
-            tips
+        output$plotly_output <- plotly::renderPlotly({
+            shiny::req(is_interactive(), is_ready())
+            isolate(my_plot_fct())
         })
 
-        mytitle <- shiny::reactive({
-            if (shiny::is.reactive(title)) {
-                title <- title()
-            }
-            title
+        output$plot_output <- shiny::renderPlot({
+            shiny::req(!is_interactive(), is_ready())
+            my_plot_fct()()
         })
 
-        output$computebig <- shiny::renderUI({
-            shiny::req(pedi())
-            if (length(pedi()) > max_ind) {
-                shiny::tagList(
-                    shiny::checkboxInput(
-                        ns("computebig"),
-                        label = paste(
-                            "There are too many individuals",
-                            "to compute the plot.",
-                            "Do you want to continue?"
-                        ), value = FALSE
-                    )
-                )
-            }
-        })
-
-        pedi_val <- shiny::reactive({
-            shiny::req(pedi())
-            shiny::req(length(ped(pedi())) > 0)
-            print("pedi_val")
-            if (length(pedi()) > max_ind) {
-                if (is.null(input$computebig) || input$computebig == FALSE) {
-                    return(NULL)
-                }
-            }
-            pedi()
-        })
-
-        plot_fct <- shiny::reactive({
-            shiny::req(pedi_val())
-            if (is.null(input$interactive)) {
-                return(NULL)
-            }
-            shiny::req(length(ped(pedi())) > 0)
-            function() {
-                plot(
-                    pedi_val(), ggplot_gen = input$interactive,
-                    aff_mark = TRUE, label = NULL,
-                    cex = cex, symbolsize = symbolsize, force = force,
-                    ped_par = ped_par,
-                    title = mytitle(), tips = mytips(),
-                    precision = precision, lwd = lwd / 3
-                )
-            }
-        })
-
-        plotly_fct <- shiny::reactive({
-            shiny::req(input$interactive)
-            function() {
-                plotly::ggplotly(
-                    plot_fct()()$ggplot +
-                        ggplot2::theme(legend.position = "none"),
-                    tooltip = "text"
+        output$uiplot <- shiny::renderUI({
+            shiny::req(is_ready())
+            if (is_interactive()) {
+                plotly::plotlyOutput(
+                    ns("plotly_output"),
+                    width = paste0(width(), "px"),
+                    height = paste0(height(), "px")
                 ) %>%
-                    plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
-            }
-        })
-
-        output$ped_plotly <- renderPlotly({
-            req(input$interactive)
-            req(dims$width, dims$height)
-            plotly_fct()()
-        })
-
-        output$ped_plot <- shiny::renderPlot({
-            shiny::req(!input$interactive)
-            shiny::req(dims$width, dims$height)
-            plot_fct()()
-        })
-
-        output$plotpedi <- shiny::renderUI({
-            shiny::req(dims)
-            if (is.null(input$interactive)) {
-                return(NULL)
-            }
-            if (input$interactive) {
-                shinyjqui::jqui_resizable(
-                    tags$div(
-                        id = ns("resizable_plot"),
-                        style = paste0(
-                            "width:", dims$width, "px;",
-                            "height:", dims$height, "px;"
-                        ),
-                        plotly::plotlyOutput(
-                            ns("ped_plotly"),
-                            width = dims$width,
-                            height = dims$height
-                        ) %>%
-                            shinycssloaders::withSpinner(color = "#8aca25")
-                    )
-                )
+                    shinycssloaders::withSpinner(color = "#8aca25")
             } else {
-                shinyjqui::jqui_resizable(
-                    tags$div(
-                        id = ns("resizable_plot"),
-                        style = paste0(
-                            "width:", dims$width, "px;",
-                            "height:", dims$height, "px;"
-                        ),
-                        shiny::plotOutput(
-                            ns("ped_plot"),
-                            width = dims$width,
-                            height = dims$height
-                        ) %>%
-                            shinycssloaders::withSpinner(color = "#8aca25")
-                    )
-                )
+                shiny::plotOutput(
+                    ns("plot_output"),
+                    width = paste0(width(), "px"),
+                    height = paste0(height(), "px")
+                ) %>%
+                    shinycssloaders::withSpinner(color = "#8aca25")
             }
-        }) |>
-            shiny::bindEvent(
-                input$interactive, debounced_dims(), ignoreNULL = TRUE
-            )
+        })
 
         shiny::reactive({
-            if (input$interactive) {
-                myplot <- plotly_fct()
-            } else {
-                myplot <- plot_fct()
-            }
             list(
-                plot = myplot,
-                width = dims$width,
-                height = dims$height,
-                class = class(myplot())
+                plot = my_plot_fct(),
+                class = class(my_plot_fct())
             )
         })
     })
@@ -241,43 +160,41 @@ plot_ped_server <- function(
 #' @export
 #' @importFrom shiny shinyApp fluidPage
 plot_ped_demo <- function(
-    pedi, precision = 4, max_ind = 500, tips = NULL
+    pedi = NULL, precision = 4,
+    interactive = FALSE
 ) {
     ui <- shiny::fluidPage(
         useToastr(),
         plot_ped_ui("plotped"),
-        plot_download_ui("saveped"),
-        shiny::verbatimTextOutput("dims")
+        plot_download_ui("saveped")
     )
+
+    if (is.null(pedi)) {
+        data_env <- new.env(parent = emptyenv())
+        utils::data("sampleped", envir = data_env, package = "Pedixplorer")
+        pedi <- shiny::reactive({
+            Pedigree(data_env[["sampleped"]][
+                data_env[["sampleped"]]$famid == "1",
+            ])
+        })
+    }
 
     server <- function(input, output, session) {
         lst_ped_plot <- plot_ped_server(
             "plotped",
-            pedi = pedi, tips = tips,
-            title = "My Pedigree", max_ind = max_ind,
-            precision = precision
+            pedi = pedi,
+            my_title = "My Pedigree",
+            precision = precision,
+            is_interactive = interactive
         )
-        output$dims <- shiny::renderPrint({
-            paste(
-                "Width:", lst_ped_plot()$width,
-                "| Height:", lst_ped_plot()$height
-            )
-        })
-        ped_plot <- shiny::reactive({
+        plot_fct <- shiny::reactive({
             lst_ped_plot()$plot
-        })
-        width <- shiny::reactive({
-            lst_ped_plot()$width
-        })
-        height <- shiny::reactive({
-            lst_ped_plot()$height
         })
         class <- shiny::reactive({
             lst_ped_plot()$class
         })
         plot_download_server(
-            "saveped", ped_plot, plot_class = class,
-            width = width, height = height
+            "saveped", plot_fct, plot_class = class
         )
     }
     shiny::shinyApp(ui, server)
