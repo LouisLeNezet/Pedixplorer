@@ -223,7 +223,7 @@ setMethod("Ped", "character_OR_integer",
         consultand = NA, proband = NA,
         affected = NA, carrier = NA, asymptomatic = NA,
         adopted = NA, dateofbirth = NA, dateofdeath = NA,
-        missid = NA_character_,
+        missid = c(NA_character_, "0"),
         useful = NA, isinf = NA, kin = NA_real_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
@@ -797,8 +797,8 @@ setMethod("Pedigree", "character_OR_integer", function(
     proband = NULL, affections = NULL, carrier = NULL,
     asymptomatic = NULL, adopted = NULL,
     dateofbirth = NULL, dateofdeath = NULL, rel_df = NULL,
-    missid = NA_character_, col_aff = "affection", date_pattern = "%Y-%m-%d",
-    normalize = TRUE, ...
+    missid = c(NA_character_, "0"), col_aff = "affection",
+    date_pattern = "%Y-%m-%d", normalize = TRUE, ...
 ) {
     n <- length(obj)
     ## Code transferred from noweb to markdown vignette.
@@ -1005,7 +1005,7 @@ setMethod("Pedigree", "data.frame",  function(
         spouse = NULL
     ),
     normalize = TRUE,
-    missid = NA_character_,
+    missid = c(NA_character_, "0"),
     col_aff = "affection",
     date_pattern = "%Y-%m-%d",
     na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),

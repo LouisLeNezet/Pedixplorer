@@ -173,6 +173,33 @@ setGeneric("is_parent", signature = "obj",
     function(obj, ...) standardGeneric("is_parent")
 )
 
+#' Import from .fam file or .ped file
+#'
+#' @description Import a .fam or .ped file and return a Pedigree object
+#'
+#' @param path Path to the file
+#' @param sep Separator used in the file
+plink2Pedigree <- function(
+    path, sep = "\t", quote = "'", header = FALSE,
+    na_values = c("NA", "0")
+) {
+    # Check extension
+    if (!grepl("\\.(fam|ped)$", path)) {
+        stop("The file should be a .fam or .ped file")
+    }
+    # Check if the file exists
+    if (!file.exists(path)) {
+        stop("The file does not exist")
+    }
+    df <- utils::read.table(
+        path, quote = quote, header = header,
+        sep = sep, na.strings = na_values
+    )
+    col <- c("famid", "id", "dadid", "momid", "sex", "affection")
+    colnames(df) <- col[seq_len(ncol(df))]
+    Pedigree(df)
+}
+
 #' @rdname is_parent
 #' @examples
 #'

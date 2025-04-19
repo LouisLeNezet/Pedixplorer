@@ -127,8 +127,8 @@
 #' @importFrom dplyr mutate_if mutate_at mutate
 #' @importFrom tidyr unite
 norm_ped <- function(
-    ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
-    cols_used_del = FALSE, date_pattern = "%Y-%m-%d"
+    ped_df, na_strings = c("NA", ""), missid = c(NA_character_, "0"),
+    try_num = FALSE, cols_used_del = FALSE, date_pattern = "%Y-%m-%d"
 ) {
     err_cols <- c(
         "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
@@ -152,7 +152,7 @@ norm_ped <- function(
         cols_used_del = cols_used_del
     )
 
-    ped_df$famid[is.na(ped_df$famid)] <- missid
+    ped_df$famid[is.na(ped_df$famid)] <- NA_character_
 
     if (nrow(ped_df) > 0) {
         ped_df <- dplyr::mutate_if(
@@ -378,7 +378,7 @@ norm_ped <- function(
 #' @return A dataframe with the errors identified
 #' @importFrom dplyr mutate_if mutate_at mutate across
 #' @export
-norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
+norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = c(NA_character_, "0")) {
 
     if (is.matrix(rel_df)) {
         rel_df <- as.data.frame(rel_df)
@@ -398,7 +398,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         rel_df, cols_needed, cols_used, cols_to_use,
         others_cols = FALSE, cols_to_use_init = TRUE, cols_used_init = TRUE
     )
-    rel_df$famid[is.na(rel_df$famid)] <- missid
+    rel_df$famid[is.na(rel_df$famid)] <- NA_character_
     if (nrow(rel_df) > 0) {
         rel_df <- dplyr::mutate_if(
             rel_df, is.character,

@@ -65,7 +65,7 @@ read_data <- function(
                 na.strings = na_values
             )
             col <- c("famid", "id", "dadid", "momid", "sex", "affection")
-            colnames(df) <- col[dim(df)[1]]
+            colnames(df) <- col[seq_len(ncol(df))]
         } else if (ext %in% c("tab")) {
             df <- utils::read.table(
                 file, quote = quote, header = header,

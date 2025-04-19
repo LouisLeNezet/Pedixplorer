@@ -111,7 +111,6 @@ test_that("fertility_to_factor", {
     )
 })
 
-
 test_that("miscarriage_to_factor", {
     miscarriage <- c(
         "spontaneous", "spontaenous abortion", "SAB",
@@ -191,4 +190,13 @@ test_that("char_to_date", {
     expect_equal(
         my_vect_1, c("2020-01-01", NA, NA, NA, NA, NA)
     )
+})
+
+test_that("plink2Pedigree", {
+    df_path <- paste0(testthat::test_path(), "/testdata/sampleped.ped")
+    utils::read.table(df_path)
+    pedi <- plink2Pedigree(path = df_path)
+
+    expect_class(pedi, "Pedigree")
+    expect_equal(length(pedi), 55)
 })
