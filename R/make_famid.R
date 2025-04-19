@@ -159,6 +159,7 @@ setMethod("upd_famid", "character",
         if (length(obj) != length(famid)) {
             stop("id and famid must have the same length")
         }
+        missid <- unique(c(missid, NA_character_))
         id <- obj[!obj %in% missid]
         famid <- famid[!obj %in% missid]
         if (! is.character(id)) {

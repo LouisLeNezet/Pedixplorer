@@ -130,6 +130,7 @@ norm_ped <- function(
     ped_df, na_strings = c("NA", ""), missid = c(NA_character_, "0"),
     try_num = FALSE, cols_used_del = FALSE, date_pattern = "%Y-%m-%d"
 ) {
+    missid <- unique(c(missid, NA_character_))
     err_cols <- c(
         "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
         "sexErrMisFer", "sexNA",
@@ -379,7 +380,7 @@ norm_ped <- function(
 #' @importFrom dplyr mutate_if mutate_at mutate across
 #' @export
 norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = c(NA_character_, "0")) {
-
+    missid <- unique(c(missid, NA_character_))
     if (is.matrix(rel_df)) {
         rel_df <- as.data.frame(rel_df)
         colnames(rel_df) <- c(
@@ -415,19 +416,20 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = c(NA_character_,
         rel_df <- rel_df %>%
             dplyr::mutate(dplyr::across(c("id1", "id2", "famid"), as.character))
 
+        rel_df <- dplyr::mutate_at(rel_df, c("id1", "id2", "famid"),
+            ~replace(., . %in% c(na_strings, missid), NA_character_)
+        )
+
         ## Check for non null ids
         len1 <- nchar(rel_df$id1)
         len2 <- nchar(rel_df$id2)
+
         err$id1Err[is.na(len1) | len1 %in% missid] <- "id1-length0"
         err$id2Err[is.na(len2) | len2 %in% missid] <- "id2-length0"
 
         ## Compute id with family id
         rel_df$id1 <- upd_famid(rel_df$id1, rel_df$famid, missid)
         rel_df$id2 <- upd_famid(rel_df$id2, rel_df$famid, missid)
-
-        rel_df <- dplyr::mutate_at(rel_df, c("id1", "id2", "famid"),
-            ~replace(., . %in% c(na_strings, missid), NA_character_)
-        )
 
         err$sameIdErr[rel_df$id1 == rel_df$id2] <- "same-id"
 
