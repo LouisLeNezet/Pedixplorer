@@ -25,11 +25,21 @@ resize_plot_ui <- function(id) {
 }
 
 resize_plot_server <- function(
-    id, plot_ui_fn, init_width = 600, init_height = 400
+    id, plot_ui_fn, init_width = "80%", init_height = "400px"
 ) {
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
-        dims <- reactiveValues(width = init_width, height = init_height)
+
+        init_height <- makeReactive(init_height)
+        init_width <- makeReactive(init_width)
+
+        dims <- reactiveValues(width = NULL, height = NULL)
+
+        shiny::observe({
+            shiny::req(init_width(), init_height())
+            dims$width <- init_width()
+            dims$height <- init_height()
+        })
 
         debounced_dims <- shiny::debounce(
             reactive(input$resizable_plot_size),
@@ -43,17 +53,19 @@ resize_plot_server <- function(
         })
 
         observeEvent(debounced_dims(), {
-            dims$width <- debounced_dims()$width
-            dims$height <- debounced_dims()$height
+            dims$width <- paste0(debounced_dims()$width, "px")
+            dims$height <- paste0(debounced_dims()$height, "px")
         })
 
         output$resized_plot <- shiny::renderUI({
+            shiny::req(dims$width, dims$height)
             shinyjqui::jqui_resizable(
                 tags$div(
                     id = ns("resizable_plot"),
                     style = paste0(
-                        "width:", dims$width, "px; height:",
-                        dims$height, "px; overflow: hidden;"
+                        "width:", dims$width,
+                        "; height:", dims$height,
+                        "; overflow: hidden;"
                     ),
                     plot_ui_fn(ns("inner_plot"))
                 )
@@ -92,8 +104,6 @@ resize_plot_demo <- function(interactive = FALSE) {
             dims()$width
         })
         height <- shiny::reactive({
-            print("Changed dimension")
-            print(dims()$height)
             dims()$height
         })
 

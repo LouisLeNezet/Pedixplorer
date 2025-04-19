@@ -238,7 +238,7 @@ data_import_server <- function(
 ) {
     options(shiny.maxRequestSize = max_request_size * 1024^2)
     shiny::moduleServer(id, function(input, output, session) {
-        ns <- shiny::NS(id)
+        ns <- session$ns
         ## Title rendering selection ---------------
         output$title <- shiny::renderUI({
             if (!is.null(help_data)) {

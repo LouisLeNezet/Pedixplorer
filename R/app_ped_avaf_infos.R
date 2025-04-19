@@ -128,7 +128,7 @@ ped_avaf_infos_server <- function(
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
-        ns <- shiny::NS(id)
+        ns <- session$ns
         # Create the title ----------------------------------------------------
         output$title_infos <- shiny::renderUI({
             shiny::h3(title)

@@ -311,7 +311,7 @@ draw_segment <- function(
             data = data,
             mapping = aes(
                 x = x0, y = y0, xend = x1, yend = y1,
-            ), color = "black", linewidth = 1,
+            ), color = "black", linewidth = lwd,
             inherit.aes = FALSE
         )
     }

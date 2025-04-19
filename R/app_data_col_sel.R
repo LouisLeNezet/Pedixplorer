@@ -278,9 +278,8 @@ data_col_sel_server <- function(
     help_style = "margin-top:1em"
 ) {
     stopifnot(shiny::is.reactive(df))
-    ns <- shiny::NS(id)
-
     shiny::moduleServer(id, function(input, output, session) {
+        ns <- session$ns
 
         # Store error messages
         error_msg <- shiny::reactiveVal(NULL)
@@ -337,7 +336,6 @@ data_col_sel_server <- function(
                 } else {
                     label <- shiny::h5(title, col_name)
                 }
-                
 
                 selectors[[col_name]] <- list(
                     ui = shiny::div(

@@ -174,7 +174,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             density = aff_df[aff_norm, "density"],
             angle = aff_df[aff_norm, "angle"],
             border = border(obj)$border[border_idx],
-            cex = lwd, tips = ped_df[id[idx], "tips"],
+            lwd = lwd, tips = ped_df[id[idx], "tips"],
             id = "polygon"
         )
         plot_df <- plyr::rbind.fill(plot_df, ind)
@@ -184,7 +184,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 y0 = i[idx] + boxh / 2,
                 label = ped_df[id[idx], unique(aff_df[["column_values"]])],
                 fill = "black", adjx = 0.5, adjy = 0.5,
-                type = "text", cex = cex, tips = ped_df[id[idx], "tips"],
+                type = "text", lwd = lwd, tips = ped_df[id[idx], "tips"],
                 id = "aff_mark"
             )
             plot_df <- plyr::rbind.fill(plot_df, aff_mark_df)
@@ -200,7 +200,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         iftl_df_vert <- data.frame(
             x0 = pos[idx_iftl_all], y0 = i[idx_iftl_all] + boxh,
             x1 = pos[idx_iftl_all], y1 = i[idx_iftl_all] + boxh * 1.3,
-            type = "segments", fill = "black", cex = lwd,
+            type = "segments", fill = "black", lwd = lwd,
             id = "infertile", lty = "solid"
         )
 
@@ -209,7 +209,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             y0 = i[idx_iftl_all] + boxh * 1.3,
             x1 = pos[idx_iftl_all] + (boxw / 2) * 0.8,
             y1 = i[idx_iftl_all] + boxh * 1.3,
-            type = "segments", fill = "black", cex = lwd,
+            type = "segments", fill = "black", lwd = lwd,
             id = "infertile", lty = "solid"
         )
 
@@ -221,7 +221,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 y0 = i[idx_iftl] + boxh * 1.4,
                 x1 = pos[idx_iftl] + (boxw / 2),
                 y1 = i[idx_iftl] + boxh * 1.4,
-                type = "segments", fill = "black", cex = lwd,
+                type = "segments", fill = "black", lwd = lwd,
                 id = "infertile", lty = "solid"
             )
             plot_df <- plyr::rbind.fill(plot_df, iftl_df_hori_2)
@@ -235,7 +235,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         mscr_df <- data.frame(
             x0 = pos[idx_mscr] - 0.5 * boxw, y0 = i[idx_mscr] + 1 * boxh,
             x1 = pos[idx_mscr] + 0.5 * boxw, y1 = i[idx_mscr],
-            type = "segments", fill = "black", cex = lwd,
+            type = "segments", fill = "black", lwd = lwd,
             id = "ECT-TOP", lty = "solid"
         )
         plot_df <- plyr::rbind.fill(plot_df, mscr_df)
@@ -262,7 +262,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         dead_df <- data.frame(
             x0 = pos[idx_dead] - 0.6 * boxw, y0 = i[idx_dead] + 1.1 * boxh,
             x1 = pos[idx_dead] + 0.6 * boxw, y1 = i[idx_dead] - 0.1 * boxh,
-            type = "segments", fill = "black", cex = lwd,
+            type = "segments", fill = "black", lwd = lwd,
             id = "dead", lty = "solid"
         )
 
@@ -295,7 +295,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             y0 = i[idx_cons] + boxh * 1.4,
             x1 = pos[idx_cons] - (boxw / 2),
             y1 = i[idx_cons] + boxh * 1.075,
-            type = "arrows", cex = lwd,
+            type = "arrows", lwd = lwd,
             lty = "solid", fill = "black",
             id = "consultand-proband"
         )
@@ -323,7 +323,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         carrier_df <- data.frame(
             x0 = pos[idx_carrier], y0 = i[idx_carrier] + (boxh / 2),
             type = "points", fill = "black", pch = 19,
-            cex = lwd * (boxh + boxw) / 2 * 5,
+            cex = cex * (boxh + boxw) / 2 * 5,
             id = "carrier"
         )
 
@@ -338,7 +338,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             x0 = pos[idx_asym], y0 = i[idx_asym] + boxh,
             x1 = pos[idx_asym], y1 = i[idx_asym],
             type = "segments", fill = "black",
-            cex = lwd * 2.5, lty = "solid",
+            lwd = lwd * 2.5, lty = "solid",
             id = "asymptomatic"
         )
 
@@ -359,7 +359,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             x1 = rep(pos[idx_adop], each = 2) + boxw * c(-h1, h1),
             y1 = rep(i[idx_adop], each = 2) + boxh * c(v2, v2),
             type = "segments", fill = "black",
-            cex = lwd, lty = "solid",
+            lwd = lwd, lty = "solid",
             id = "adoption"
         )
 
@@ -369,7 +369,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             x1 = rep(pos[idx_adop], each = 4) + boxw * c(h2, h2, -h2, -h2),
             y1 = rep(i[idx_adop], each = 4) + boxh * c(v1, v2, v1, v2),
             type = "segments", fill = "black",
-            cex = lwd, lty = "solid",
+            lwd = lwd, lty = "solid",
             id = "adoption"
         )
 
@@ -432,7 +432,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     l_spouses <- data.frame(
         x0 = pos_sp1, y0 = l_spouses_i,
         x1 = pos_sp2, y1 = l_spouses_i,
-        type = "segments", fill = "black", cex = lwd,
+        type = "segments", fill = "black", lwd = lwd,
         id = "line_spouses", lty = "solid"
     )
     plot_df <- plyr::rbind.fill(plot_df, l_spouses)
@@ -448,7 +448,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             y0 = l_spouses2_i,
             x1 = pos_sp22 - boxw / 2,
             y1 = l_spouses2_i,
-            type = "segments", fill = "black", cex = lwd,
+            type = "segments", fill = "black", lwd = lwd,
             id = "line_spouses2", lty = "solid"
         )
         plot_df <- plyr::rbind.fill(plot_df, l_spouses2)
@@ -483,7 +483,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             vert <- data.frame(
                 x0 = pos[gen, who], y0 = yy,
                 x1 = target, y1 = yy - legh,
-                type = "segments", fill = "black", cex = lwd,
+                type = "segments", fill = "black", lwd = lwd,
                 id = "line_children_vertical", lty = "solid"
             )
             plot_df <- plyr::rbind.fill(plot_df, vert)
@@ -498,7 +498,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 twin_l <- data.frame(
                     x0 = temp1, y0 = yy,
                     x1 = temp2, y1 = yy,
-                    type = "segments", fill = "black", cex = lwd,
+                    type = "segments", fill = "black", lwd = lwd,
                     id = "line_children_twin1", lty = "solid"
                 )
                 plot_df <- plyr::rbind.fill(plot_df, twin_l)
@@ -524,7 +524,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             hori <- data.frame(
                 x0 = min(target), y0 = gen - legh,
                 x1 = max(target), y1 = gen - legh,
-                type = "segments", fill = "black", cex = lwd,
+                type = "segments", fill = "black", lwd = lwd,
                 id = "line_children_horizontal", lty = "solid"
             )
             plot_df <- plyr::rbind.fill(plot_df, hori)
@@ -546,7 +546,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 l_child_par <- data.frame(
                     x0 = x1, y0 = y1,
                     x1 = parentx, y1 = (gen - 1) + boxh / 2,
-                    type = "segments", fill = "black", cex = lwd,
+                    type = "segments", fill = "black", lwd = lwd,
                     id = "line_parent_mid", lty = "solid"
                 )
             } else {
@@ -556,7 +556,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 l_child_par <- data.frame(
                     x0 = c(x1, x1, x2), y0 = c(y1, y1 + ydelta, y2 - ydelta),
                     x1 = c(x1, x2, x2), y1 = c(y1 + ydelta, y2 - ydelta, y2),
-                    type = "segments", fill = "black", cex = lwd,
+                    type = "segments", fill = "black", lwd = lwd,
                     id = "line_parent_mid", lty = "solid"
                 )
             }
@@ -579,7 +579,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 arc <- data.frame(
                     x0 = tx[j + 0], y0 = ty[j + 0],
                     x1 = tx[j + 1], y1 = ty[j + 1],
-                    type = "arc", fill = "black", cex = lwd,
+                    type = "arc", fill = "black", lwd = lwd,
                     id = "arc", lty = "dashed"
                 )
                 plot_df <- plyr::rbind.fill(plot_df, arc)

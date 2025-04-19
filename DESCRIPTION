@@ -72,7 +72,6 @@ BugReports: https://github.com/LouisLeNezet/Pedixplorer/issues
 URL: https://louislenezet.github.io/Pedixplorer/
 BiocType: Software
 Collate: 
-    '00_app_resize_plot.R'
     'AllValidity.R'
     'AllClass.R'
     'kindepth.R'
@@ -102,6 +101,7 @@ Collate:
     'app_plot_all.R'
     'app_plot_download.R'
     'app_plot_legend.R'
+    'app_resize_plot.R'
     'app_server.R'
     'app_ui.R'
     'best_hint.R'

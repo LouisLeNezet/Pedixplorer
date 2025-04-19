@@ -44,8 +44,8 @@ family_sel_server <- function(
     help_colour = "grey", help_type = "inline"
 ) {
     stopifnot(shiny::is.reactive(pedi))
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
+        ns <- session$ns
         # Create the title ----------------------------------------------------
         output$title_fam <- renderUI({
             if (!is.null(help_text)) {

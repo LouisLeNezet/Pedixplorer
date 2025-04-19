@@ -120,7 +120,7 @@ plot_fromdf <- function(
             x0 = seg$x0, y0 = seg$y0,
             x1 = seg$x1, y1 = seg$y1,
             ggplot_gen = ggplot_gen,
-            col = seg$fill, lwd = seg$cex,
+            col = seg$fill, lwd = seg$lwd,
             lty = seg$lty
         )
         if (!is.null(layer)) {
@@ -149,7 +149,7 @@ plot_fromdf <- function(
                 ggplot_gen = ggplot_gen,
                 fill = boxes$fill[i], border = boxes$border[i],
                 density = boxes$density[i], angle = boxes$angle[i],
-                lwd = boxes$cex[i], tips = boxes$tips[i]
+                lwd = boxes$lwd[i], tips = boxes$tips[i]
             )
 
             if (!is.null(layer)) {
@@ -164,7 +164,7 @@ plot_fromdf <- function(
             x0 = seg$x0, y0 = seg$y0,
             x1 = seg$x1, y1 = seg$y1,
             ggplot_gen = ggplot_gen,
-            col = seg$fill, lwd = seg$cex,
+            col = seg$fill, lwd = seg$lwd,
             lty = seg$lty
         )
         if (!is.null(layer)) {
@@ -180,7 +180,7 @@ plot_fromdf <- function(
                 x0 = arc$x0, y0 = arc$y0,
                 x1 = arc$x1, y1 = arc$y1,
                 ggplot_gen = ggplot_gen,
-                lwd = arc$cex, col = arc$fill,
+                lwd = arc$lwd, col = arc$fill,
                 lty = arc$lty
             )
             if (!is.null(layer)) {
@@ -197,7 +197,7 @@ plot_fromdf <- function(
                 x0 = arrow$x0, y0 = arrow$y0,
                 x1 = arrow$x1, y1 = arrow$y1,
                 ggplot_gen = ggplot_gen,
-                lwd = arrow$cex, col = arrow$fill,
+                lwd = arrow$lwd, col = arrow$fill,
                 lty = arrow$lty
             )
             if (!is.null(layer)) {

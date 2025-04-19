@@ -50,9 +50,8 @@ inf_sel_ui <- function(id) {
 #' @importFrom stats setNames
 inf_sel_server <- function(id, pedi, help_colour = "grey") {
     stopifnot(shiny::is.reactive(pedi))
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
-
+        ns <- session$ns
         # Informative individuals custom selection ----------------------------
         output$inf_var_selector <- renderUI({
             shiny::selectInput(

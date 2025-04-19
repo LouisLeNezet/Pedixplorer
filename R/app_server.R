@@ -140,7 +140,8 @@ ped_server <- function(
             ),
             title = "Select columns :", na_omit = TRUE,
             ui_col_nb = 3, by_row = FALSE,
-            help_style = "margin-top:0.5em;", help_colour = "#3792ad"
+            help_style = "margin-top:0.5em;",
+            help_colour = "#3792ad"
         )
         ## Rel data import ----------------------------------------------------
         rel_df <- data_import_server(
@@ -173,8 +174,10 @@ ped_server <- function(
                     help = "app_rel_famid"
                 )
             ),
-            title = "Select columns :", na_omit = TRUE, ui_col_nb = 1, by_row = FALSE,
-            help_style = "margin-top:0.5em", help_colour = "#3792ad"
+            title = "Select columns :", na_omit = TRUE,
+            ui_col_nb = 1, by_row = FALSE,
+            help_style = "margin-top:0.5em",
+            help_colour = "#3792ad"
         )
 
         ## Ped families object creation ---------------------------------------
@@ -434,22 +437,11 @@ ped_server <- function(
         )
 
         ## Update based on update button -------------------------------------
-        shiny::observeEvent(lst_subfam(), {
-            session$sendCustomMessage(
-                "toggleBtnClass",
-                list(class = "modified")
-            )
-        })
-
-        ped_subfam <- shiny::eventReactive(input$updateBtn, {
+        ped_subfam <- shiny::reactive({
             shiny::req(lst_subfam())
             if (is.null(lst_subfam())) {
                 return(NULL)
             }
-            session$sendCustomMessage(
-                "toggleBtnClass",
-                list(class = "")
-            )
             lst_subfam()$ped_fam
         })
 
@@ -478,87 +470,18 @@ ped_server <- function(
         }
 
         ### Tips column selection --------------------------------------------
-        output$col_sel_tips <- renderUI({
-            shiny::req(ped_subfam())
-            all_cols <- colnames(Pedixplorer::as.data.frame(ped(ped_subfam())))
-            select <- c("affected", "avail", "status")
-            select <- select[select %in% all_cols]
-            shiny::selectInput(
-                "tips_col",
-                label = "Select columns for tips",
-                choices = all_cols, selected = select,
-                multiple = TRUE
-            ) |>
-                shinyhelper::helper(
-                    type = "markdown",
-                    content = "app_plot_tips",
-                    size = "m",
-                    colour = "#3792ad"
-                )
-        })
-
-        my_tips <- shiny::reactive({
-            input$tips_col
-        })
-
-        lst_plot_ped <- plot_ped_server(
-            "ped", ped_subfam,
-            cust_title(short = FALSE),
-            precision = precision, lwd = 2,
-            tips = my_tips, width = "100%",
-            height = "500px",
+        lst_plot <- plot_all_server(
+            "all_plot_ped", ped_subfam, max_ind = 500,
+            my_title_l = cust_title(FALSE),
+            my_title_s = cust_title(TRUE),
+            precision = precision,
+            init_width = "90%"
         )
 
-        plot_legend_server(
-            "legend", ped_subfam,
-            boxw = 0.02, boxh = 0.08, adjx = 0, adjy = 0,
-            leg_loc = c(0.1, 0.7, 0.1, 0.8), lwd = 1.5
-        )
-
-        ## Download data and plot ---------------------------------------------
-        plot_ped <- shiny::reactive({
-            shiny::req(lst_plot_ped())
-            lst_plot_ped()$plot
-        })
-        plot_width <- shiny::reactive({
-            shiny::req(lst_plot_ped())
-            lst_plot_ped()$width
-        })
-        plot_height <- shiny::reactive({
-            shiny::req(lst_plot_ped())
-            lst_plot_ped()$height
-        })
-
-        plot_class <- shiny::reactive({
-            shiny::req(lst_plot_ped())
-            lst_plot_ped()$class
-        })
-
-        plot_download_server(
-            "saveped",
-            plot_ped, label = "Download plot",
-            cust_title(short = TRUE),
-            width = plot_width, height = plot_height,
-            plot_class = plot_class
-        )
-        data_subfam <- shiny::reactive({
-            shiny::req(ped_subfam())
-            if (is.null(ped_subfam())) {
-                return(NULL)
-            } else {
-                Pedixplorer::as.data.frame(ped(ped_subfam()))
-            }
-        })
-        data_download_server("plot_data_dwnl",
-            data_subfam, label = "Download data",
-            filename = cust_title(short = TRUE),
-            helper = FALSE, title = NULL
-        )
-        ## Test exported values -----------------------------------------------
+        ## Test values --------------------------------------------------------
         shiny::exportTestValues(
-            df = data_subfam()
+            ped_df = lst_plot()$df
         )
-
 
         ## End ----------------------------------------------------------------
         if (!interactive()) {

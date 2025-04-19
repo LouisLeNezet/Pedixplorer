@@ -73,8 +73,8 @@ app_plot_fct <- function(
 #' @importFrom shinycssloaders withSpinner
 plot_ped_server <- function(
     id, pedi, my_title = NA, precision = 2,
-    my_tips = NULL, my_lwd = 1,
-    width = 600, height = 400, plot_cex = 1, symbolsize = 1,
+    my_tips = NULL, plot_lwd = 1,
+    width = "80%", height = "400px", plot_cex = 1, symbolsize = 1,
     force = TRUE, plot_par = list(), is_interactive = FALSE,
     aff_mark = TRUE, label = NULL
 ) {
@@ -92,7 +92,7 @@ plot_ped_server <- function(
         precision <- makeReactive(precision)
         aff_mark <- makeReactive(aff_mark)
         label <- makeReactive(label)
-        my_lwd <- makeReactive(my_lwd)
+        plot_lwd <- makeReactive(plot_lwd)
         is_force <- makeReactive(force)
 
         ## Plot dimensions
@@ -101,12 +101,13 @@ plot_ped_server <- function(
 
         my_plot_fct <- shiny::reactive({
             shiny::req(pedi())
+            shiny::req(symbolsize(), plot_cex(), plot_lwd())
             app_plot_fct(
                 pedi = pedi(), mytitle = my_title(), mytips = my_tips(),
                 cex = plot_cex(), plot_par = plot_par(),
                 symbolsize = symbolsize(),
                 interactive = is_interactive(),
-                precision = precision(), lwd = my_lwd(),
+                precision = precision(), lwd = plot_lwd(),
                 aff_mark = aff_mark(), label = label(),
                 force = is_force()
             )
@@ -120,28 +121,33 @@ plot_ped_server <- function(
 
         output$plotly_output <- plotly::renderPlotly({
             shiny::req(is_interactive(), is_ready())
-            isolate(my_plot_fct())
+            shiny::req(symbolsize())
+            my_plot_fct()
         })
 
         output$plot_output <- shiny::renderPlot({
-            shiny::req(!is_interactive(), is_ready())
+            shiny::req(my_plot_fct())
+            shiny::req(is_ready())
             my_plot_fct()()
         })
 
         output$uiplot <- shiny::renderUI({
             shiny::req(is_ready())
+            shiny::req(symbolsize(), plot_cex(), plot_lwd())
+            print("Plotting")
             if (is_interactive()) {
                 plotly::plotlyOutput(
                     ns("plotly_output"),
-                    width = paste0(width(), "px"),
-                    height = paste0(height(), "px")
+                    width = width(),
+                    height = height()
                 ) %>%
                     shinycssloaders::withSpinner(color = "#8aca25")
             } else {
+                print("Static plotting")
                 shiny::plotOutput(
                     ns("plot_output"),
-                    width = paste0(width(), "px"),
-                    height = paste0(height(), "px")
+                    width = width(),
+                    height = height()
                 ) %>%
                     shinycssloaders::withSpinner(color = "#8aca25")
             }
