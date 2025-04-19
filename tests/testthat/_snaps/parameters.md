@@ -403,10 +403,6 @@
       $prompt
       [1] "> "
       
-      $repos
-          CRAN 
-      "@CRAN@" 
-      
       $rlang_backtrace_on_warning_report
       [1] "full"
       

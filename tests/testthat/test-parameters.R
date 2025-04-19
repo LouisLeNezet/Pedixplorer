@@ -21,7 +21,8 @@ test_that("Evaluate options()", {
         "testthat.snapshotter",
         "datatable\\.*", "catch.script.errors",
         "covr\\.*", "rlang_backtrace_on_error_report",
-        "error", "show.error.messages"
+        "error", "show.error.messages",
+        "repos"
     )
     opts$str$formatNum <- NA
     for (i in seq_along(no_check)) {
