@@ -42,7 +42,7 @@ test_that("Pedigree plotting test", {
 
     lst <- ped_to_plotdf(pedi, precision = 4)
     expect_equal(length(lst), 2)
-    expect_equal(dim(lst$df), c(82, 16))
+    expect_equal(dim(lst$df), c(82, 17))
     expect_snapshot(lst)
     expect_equal(
         round(lst$par_usr$usr, 3),
@@ -50,6 +50,7 @@ test_that("Pedigree plotting test", {
     )
 
     p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 4)
+    p$ggplot
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
         function() plot(p$ggplot)
     )

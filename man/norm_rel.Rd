@@ -4,7 +4,7 @@
 \alias{norm_rel}
 \title{Normalise a Rel object dataframe}
 \usage{
-norm_rel(rel_df, na_strings = c("NA", ""), missid = NA_character_)
+norm_rel(rel_df, na_strings = c("NA", ""), missid = c(NA_character_, "0"))
 }
 \arguments{
 \item{rel_df}{A data.frame with the special relationships between
