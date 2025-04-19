@@ -460,7 +460,7 @@ draw_arrow <- function(
             data = data,
             ggplot2::aes(
                 x = x0, y = y0, xend = x1, yend = y1
-            ), size = lwd, colour = col,
+            ), linewidth = lwd, colour = col,
             arrow = ggplot2::arrow(length = unit(0.1, "inches")),
             inherit.aes = FALSE
         )

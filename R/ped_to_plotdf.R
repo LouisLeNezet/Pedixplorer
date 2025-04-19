@@ -184,7 +184,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 y0 = i[idx] + boxh / 2,
                 label = ped_df[id[idx], unique(aff_df[["column_values"]])],
                 fill = "black", adjx = 0.5, adjy = 0.5,
-                type = "text", lwd = lwd, tips = ped_df[id[idx], "tips"],
+                type = "text", cex = cex, tips = ped_df[id[idx], "tips"],
                 id = "aff_mark"
             )
             plot_df <- plyr::rbind.fill(plot_df, aff_mark_df)
