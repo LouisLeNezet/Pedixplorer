@@ -518,6 +518,7 @@ draw_point <- function(
 #' @keywords internal
 #' @keywords Pedigree-plot
 #' @importFrom graphics par strwidth strheight
+#' @importFrom grDevices pdf dev.cur dev.off
 set_plot_area <- function(
     cex, id, maxlev, xrange, symbolsize, precision = 4,
     use_dummy_device = FALSE, ...
@@ -525,8 +526,8 @@ set_plot_area <- function(
     close_dev <- FALSE
 
     # Start a dummy graphics device if none is open
-    if (use_dummy_device && dev.cur() == 1) {
-        pdf(NULL)
+    if (use_dummy_device && grDevices::dev.cur() == 1) {
+        grDevices::pdf(NULL)
         close_dev <- TRUE
     }
 
@@ -577,7 +578,7 @@ set_plot_area <- function(
     )
 
     # Close dummy device if we opened one
-    if (close_dev) dev.off()
+    if (close_dev) grDevices::dev.off()
 
     list(usr = usr, old_par = op, boxw = boxw,
         boxh = boxh, labh = labh, legh = legh

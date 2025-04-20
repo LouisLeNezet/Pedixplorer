@@ -41,6 +41,8 @@ NULL
 #' segments, arcs and polygons.
 #' @param tips A character vector of the column names of the data frame to
 #' use as tooltips. If `NULL`, no tooltips are added.
+#' @param ggplot_gen If `TRUE`, the function will use the
+#' `ggplot2` package to generate the plot.
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams set_plot_area
 #' @inheritParams kindepth

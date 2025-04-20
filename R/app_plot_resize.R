@@ -36,6 +36,7 @@ plot_resize_ui <- function(id) {
 #' @param plot_ui_fn A function to generate the UI of the plot.
 #' @param init_width A string to set the initial width of the plot.
 #' @param init_height A string to set the initial height of the plot.
+#' @param interactive A boolean to indicate if the plot is interactive.
 #' @return A reactive list containing the width and height of the plot.
 #' @examples
 #' if (interactive()) {
@@ -43,6 +44,7 @@ plot_resize_ui <- function(id) {
 #' }
 #' @export
 #' @importFrom shiny debounce
+#' @importFrom shinyjqui jqui_resizable
 #' @rdname app_resize_plot
 plot_resize_server <- function(
     id, plot_ui_fn, init_width = "80%", init_height = "400px"

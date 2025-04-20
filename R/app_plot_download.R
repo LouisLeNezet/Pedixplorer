@@ -21,7 +21,6 @@ plot_download_ui <- function(id) {
 #' @param label A string to name the download button.
 #' @param width A numeric to set the width of the plot.
 #' @param height A numeric to set the height of the plot.
-#' @param ext A string to set the extension of the file.
 #' @return A shiny module to export a plot.
 #' @examples
 #' if (interactive()) {

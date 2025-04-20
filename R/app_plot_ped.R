@@ -33,7 +33,7 @@ plot_ped_ui <- function(id) {
 #' @examples
 #' data("sampleped")
 #' pedi <- Pedigree(sampleped[sampleped$famid == "1", ])
-#' app_plot_fct(
+#' Pedixplorer:::app_plot_fct(
 #'    pedi, cex = 1, plot_par = list(),
 #'    interactive = FALSE,
 #'    mytitle = "My Pedigree",
@@ -87,7 +87,6 @@ app_plot_fct <- function(
 #' @param pedi A reactive pedigree object.
 #' @param my_title A string to name the plot.
 #' @param precision An integer to set the precision of the plot.
-#' @param max_ind An integer to set the maximum number of individuals to plot.
 #' @param my_tips A character vector of the column names of the data frame
 #' to use as tooltips. If NULL, no tooltips are added.
 #' @param plot_lwd A numeric to set the line width of the plot.

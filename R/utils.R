@@ -179,6 +179,11 @@ setGeneric("is_parent", signature = "obj",
 #'
 #' @param path Path to the file
 #' @param sep Separator used in the file
+#' @param quote Quote used in the file
+#' @param header Boolean defining if the file has a header
+#' @param na_values A vector of strings that should be considered as NA
+#' @return A Pedigree object
+#' @export
 plink2Pedigree <- function(
     path, sep = "\t", quote = "'", header = FALSE,
     na_values = c("NA", "0")
