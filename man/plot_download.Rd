@@ -25,6 +25,9 @@ plot_download_demo()
 
 \item{my_plot}{Reactive object containing the plot.}
 
+\item{plot_class}{A string to define the class of the plot
+("ggplot", "htmlwidget", "plotly", "grob" or "function").}
+
 \item{filename}{A string to name the file.}
 
 \item{label}{A string to name the download button.}

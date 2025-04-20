@@ -32,6 +32,7 @@ inf_sel_ui <- function(id) {
 #'
 #' @param id A string to identify the module.
 #' @param pedi A reactive pedigree object.
+#' @param help_colour A string to define the colour of the help icon.
 #' @return A reactive pedigree object subselected from the
 #' informative individuals.
 #' @examples

@@ -1,3 +1,23 @@
+#' Make a reactive object
+#'
+#' This function checks if the input is a reactive object. If it is, it returns
+#' it as is. If not, it converts the input into a reactive object.
+#'
+#' @param x The input to check and convert.
+#' @return A reactive object.
+#' @keywords internal
+#' @importFrom shiny is.reactive reactive
+#' @export
+#' @examples
+#' Pedixplorer:::makeReactive(1)
+makeReactive <- function(x) {
+    if (is.reactive(x)) {
+        x
+    } else {
+        reactive(x)
+    }
+}
+
 #' Summarise the families information for a given variable in a data frame
 #'
 #' This function summarises the families information for a given variable in a

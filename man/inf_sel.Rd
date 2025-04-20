@@ -16,6 +16,8 @@ inf_sel_demo(pedi)
 \item{id}{A string to identify the module.}
 
 \item{pedi}{A reactive pedigree object.}
+
+\item{help_colour}{A string to define the colour of the help icon.}
 }
 \value{
 A reactive pedigree object subselected from the

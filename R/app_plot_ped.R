@@ -7,6 +7,42 @@ plot_ped_ui <- function(id) {
     )
 }
 
+#' Internal function to generate the plot
+#'
+#' This function is used by the Shiny module to generate the plot.
+#' If the `interactive` argument is set to TRUE, it generates an interactive
+#' plot using `plotly`. If it is set to FALSE, it generates a static
+#' plot function.
+#'
+#' @param pedi A pedigree object.
+#' @param cex A numeric to set the size of the text.
+#' @param plot_par A list of parameters to pass to the plot
+#' function.
+#' @param interactive A boolean to set if the plot is interactive.
+#' @param mytitle A string to set the title of the plot.
+#' @param precision An integer to set the precision of the plot.
+#' @param lwd A numeric to set the line width of the plot.
+#' @param aff_mark A boolean to set if the affected individuals
+#' should be marked.
+#' @param label A string to set the label of the plot.
+#' @param symbolsize A numeric to set the size of the symbols.
+#' @param force A boolean to set if the plot should be forced.
+#' @param mytips A character vector of the column names of the data frame
+#' to use as tooltips. If NULL, no tooltips are added.
+#' @return A function or a plotly object.
+#' @examples
+#' data("sampleped")
+#' pedi <- Pedigree(sampleped[sampleped$famid == "1", ])
+#' app_plot_fct(
+#'    pedi, cex = 1, plot_par = list(),
+#'    interactive = FALSE,
+#'    mytitle = "My Pedigree",
+#'    precision = 2, lwd = 1
+#' )
+#' @rdname plot_ped
+#' @keywords internal
+#' @importFrom plotly ggplotly layout config
+#' @importFrom ggplot2 theme
 app_plot_fct <- function(
     pedi, cex = 1, plot_par = list(), interactive = FALSE,
     mytitle = "My Pedigree", precision = 2, lwd = 1,
@@ -49,12 +85,23 @@ app_plot_fct <- function(
 #'
 #' @param id A string.
 #' @param pedi A reactive pedigree object.
-#' @param title A string to name the plot.
+#' @param my_title A string to name the plot.
 #' @param precision An integer to set the precision of the plot.
 #' @param max_ind An integer to set the maximum number of individuals to plot.
-#' @param tips A character vector of the column names of the data frame to use
-#' as tooltips. If NULL, no tooltips are added.
-#' @param lwd A numeric to set the line width of the plot.
+#' @param my_tips A character vector of the column names of the data frame
+#' to use as tooltips. If NULL, no tooltips are added.
+#' @param plot_lwd A numeric to set the line width of the plot.
+#' @param width A numeric to set the width of the plot.
+#' @param height A numeric to set the height of the plot.
+#' @param plot_cex A numeric to set the size of the text.
+#' @param symbolsize A numeric to set the size of the symbols.
+#' @param force A boolean to set if the plot should be forced.
+#' @param plot_par A list of parameters to pass to the plot
+#' function.
+#' @param is_interactive A boolean to set if the plot is interactive.
+#' @param aff_mark A boolean to set if the affected individuals
+#' should be marked.
+#' @param label A string to set the label of the plot.
 #' @returns A reactive ggplot or the pedigree object.
 #' @examples
 #' if (interactive()) {

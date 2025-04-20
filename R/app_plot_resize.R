@@ -1,9 +1,12 @@
-resize_plot_ui <- function(id) {
+#' @rdname app_resize_plot
+#' @importFrom shinyjs useShinyjs
+#' @importFrom shiny tagList tags NS HTML uiOutput
+plot_resize_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
         shinyjs::useShinyjs(),
-        tags$head(
-            tags$script(HTML("
+        shiny::tags$head(
+            shiny::tags$script(shiny::HTML("
                 Shiny.addCustomMessageHandler('track_size', function(message) {
                     const el = document.getElementById(message.id);
                     if (!el) return;
@@ -24,7 +27,24 @@ resize_plot_ui <- function(id) {
     )
 }
 
-resize_plot_server <- function(
+#' Render a resizable plot in a Shiny app
+#'
+#' This function render a Shiny module into a resizable one.
+#' It uses the `shinyjqui` package to make the plot resizable.
+#'
+#' @param id A string to identify the module.
+#' @param plot_ui_fn A function to generate the UI of the plot.
+#' @param init_width A string to set the initial width of the plot.
+#' @param init_height A string to set the initial height of the plot.
+#' @return A reactive list containing the width and height of the plot.
+#' @examples
+#' if (interactive()) {
+#'    plot_resize_demo(interactive = FALSE)
+#' }
+#' @export
+#' @importFrom shiny debounce
+#' @rdname app_resize_plot
+plot_resize_server <- function(
     id, plot_ui_fn, init_width = "80%", init_height = "400px"
 ) {
     shiny::moduleServer(id, function(input, output, session) {
@@ -72,7 +92,7 @@ resize_plot_server <- function(
             )
         })
 
-        reactive({
+        shiny::reactive({
             list(
                 width = debounced_dims()$width,
                 height = debounced_dims()$height
@@ -81,21 +101,27 @@ resize_plot_server <- function(
     })
 }
 
-resize_plot_demo <- function(interactive = FALSE) {
+#' @rdname app_resize_plot
+plot_resize_demo <- function(interactive = FALSE) {
     ui <- shiny::fluidPage(
-        useToastr(),
-        resize_plot_ui("resize_plot"),
+        plot_resize_ui("resize_plot"),
         plot_download_ui("saveped"),
         shiny::verbatimTextOutput("dims")
     )
 
-    mydf <- data.frame(x = rnorm(100), y = rnorm(100))
+    data_env <- new.env(parent = emptyenv())
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
+    pedi <- shiny::reactive({
+        Pedigree(data_env[["sampleped"]][
+            data_env[["sampleped"]]$famid == "1",
+        ])
+    })
 
     server <- function(input, output, session) {
         # Launch the resizing wrapper
-        dims <- resize_plot_server(
+        dims <- plot_resize_server(
             "resize_plot",
-            plot_ui_fn = plot_ui,
+            plot_ui_fn = plot_ped_ui,
             init_width = 800,
             init_height = 400
         )
@@ -108,9 +134,9 @@ resize_plot_demo <- function(interactive = FALSE) {
         })
 
         # Use those dimensions inside your plot
-        lst_plot <- plot_server(
+        lst_plot <- plot_ped_server(
             "resize_plot-inner_plot",
-            my_data = mydf,
+            pedi = pedi,
             plot_cex = 2,
             width = width,
             height = height,
@@ -128,7 +154,7 @@ resize_plot_demo <- function(interactive = FALSE) {
             width = width, height = height
         )
 
-        output$dims <- renderPrint({
+        output$dims <- shiny::renderPrint({
             dims()
         })
     }

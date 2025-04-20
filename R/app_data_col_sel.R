@@ -257,6 +257,9 @@ data_col_sel_ui <- function(id, ui_col_nb = 1) {
 #' @param help_colour A string to define the color of the help icon.
 #' @param help_type A string to define the type of help message.
 #' It can be "inline" or "markdonw".
+#' @param help_style A string to define the style of the help message.
+#' This is passed to the `style` argument of the `shinyhelper::helper()`
+#' function.
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names present in the configuration list.
 #' @examples

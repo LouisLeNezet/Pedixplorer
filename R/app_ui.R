@@ -9,11 +9,9 @@
 #' @include app_health_sel.R
 #' @include app_color_picker.R
 #' @include app_inf_sel.R
-#' @include app_plot_ped.R
-#' @include app_plot_download.R
 #' @include app_utils.R
 #' @include app_server.R
-#' @include app_plot_legend.R
+#' @include app_plot_all.R
 #' @usage NULL
 #' @returns `shiny::shinyUI()`
 #' @examples

@@ -233,8 +233,8 @@ data_import_server <- function(
     id, label = "Select data file",
     help_data = NULL, help_data_title = "",
     help_test_data = NULL, help_test_data_title = "",
-    dftest = datasets::mtcars, max_request_size = 30, help_colour = "grey",
-    help_type = "inline"
+    dftest = datasets::mtcars, max_request_size = 30,
+    help_colour = "grey", help_type = "inline"
 ) {
     options(shiny.maxRequestSize = max_request_size * 1024^2)
     shiny::moduleServer(id, function(input, output, session) {

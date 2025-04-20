@@ -5,14 +5,6 @@ plot_download_ui <- function(id) {
     shiny::uiOutput(ns("btn_dwld"))
 }
 
-makeReactive <- function(x) {
-    if (is.reactive(x)) {
-        return(x)
-    } else {
-        reactive(x)
-    }
-}
-
 #' Shiny module to export plot
 #'
 #' This module allow to export multiple type of plot from a reactive object.
@@ -23,6 +15,8 @@ makeReactive <- function(x) {
 #'
 #' @param id A string.
 #' @param my_plot Reactive object containing the plot.
+#' @param plot_class A string to define the class of the plot
+#' ("ggplot", "htmlwidget", "plotly", "grob" or "function").
 #' @param filename A string to name the file.
 #' @param label A string to name the download button.
 #' @param width A numeric to set the width of the plot.

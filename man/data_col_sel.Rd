@@ -51,6 +51,10 @@ present in the output datatable.}
 
 \item{help_type}{A string to define the type of help message.
 It can be "inline" or "markdonw".}
+
+\item{help_style}{A string to define the style of the help message.
+This is passed to the \code{style} argument of the \code{shinyhelper::helper()}
+function.}
 }
 \value{
 A reactive dataframe with the selected columns renamed

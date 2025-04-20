@@ -1,7 +1,10 @@
 #' @include app_plot_ped.R
+#' @rdname app_plot_all
+#' @importFrom shiny tagList tags NS HTML uiOutput
+#' @importFrom shiny fluidRow column checkboxInput sliderInput
 plot_all_ui <- function(id) {
     ns <- shiny::NS(id)
-    tagList(
+    shiny::tagList(
         shiny::tags$style(shiny::HTML(sprintf(
             "#%s.modified {
                 background-color: #8aca25 !important;
@@ -16,7 +19,8 @@ plot_all_ui <- function(id) {
             Shiny.addCustomMessageHandler('toggleBtnClass', function(message) {
                 const btn = document.getElementById('%s');
                 if (btn) {
-                    btn.className = 'btn btn-default action-button ' + message.class;
+                    btn.className = 'btn btn-default action-button ' +
+                        message.class;
                 }
             });
             ", ns("updateBtn")
@@ -25,7 +29,7 @@ plot_all_ui <- function(id) {
         shiny::fluidRow(
             shiny::column(12, align = "center",
                 shiny::uiOutput(ns("uiUpdateBtn")),
-                resize_plot_ui(ns("resize_plot")),
+                plot_resize_ui(ns("resize_plot")),
             )
         ),
         shiny::fluidRow(
@@ -57,12 +61,43 @@ plot_all_ui <- function(id) {
     )
 }
 
+#' Shiny module with all the components to plot a pedigree
+#'
+#' This module plots a Pedigree object and allows to download
+#' the plot and the data. Different options are available to
+#' customize the plot.
+#'
+#' @param id A string to identify the module.
+#' @param pedi A reactive pedigree object.
+#' @param max_ind An integer to define the maximum number of individuals
+#' to plot. If the number of individuals is greater than this value,
+#' the user will be asked to confirm the plot.
+#' @param my_title_l A string to define the title of the plot.
+#' @param my_title_s A string to define the title of the plot for
+#' the download.
+#' @param init_width A string to define the initial width of the plot.
+#' @param precision An integer to define the precision of the plot.
+#' @return A reactive list with the plot and the class of the plot.
+#' @examples
+#' if (interactive()) {
+#'    app_plot_all_demo()
+#' }
+#' @rdname app_plot_all
+#' @include app_plot_ped.R
+#' @include app_plot_legend.R
+#' @include app_plot_download.R
+#' @include app_plot_resize.R
+#' @include app_plot_download.R
+#' @importFrom shiny moduleServer reactiveValues renderUI
+#' @importFrom shiny req actionButton observe bindEvent
+#' @importFrom shiny eventReactive
+#' @importFrom shiny renderPrint
 plot_all_server <- function(
     id, pedi, max_ind = 100, my_title_l = "My Pedigree",
     my_title_s = "ped_1", init_width = "100%",
     precision = 4
 ) {
-    moduleServer(id, function(input, output, session) {
+    shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
         opt <- shiny::reactiveValues(
@@ -94,7 +129,6 @@ plot_all_server <- function(
             )
         })
         shiny::observe({
-            print("Need to update")
             session$sendCustomMessage(
                 "toggleBtnClass",
                 list(class = "modified")
@@ -113,16 +147,12 @@ plot_all_server <- function(
             paste0(max(kindepth(pedi())) * 150 + 20, "px")
         })
 
-        dims <- resize_plot_server(
+        dims <- plot_resize_server(
             "resize_plot",
             plot_ui_fn = plot_ped_ui,
             init_width = init_width,
             init_height = init_height
         )
-
-        output$dims <- renderPrint({
-            dims()
-        })
 
         width <- shiny::reactive({
             dims()$width
@@ -261,6 +291,7 @@ plot_all_server <- function(
     })
 }
 
+#' @rdname app_plot_all
 app_plot_all_demo <- function() {
     ui <- fluidPage(
         titlePanel("Nested Module Plot Demo"),

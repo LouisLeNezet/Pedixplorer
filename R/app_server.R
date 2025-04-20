@@ -3,17 +3,16 @@
 #' @include app_family_sel.R
 #' @include app_inf_sel.R
 #' @include app_ped_avaf_infos.R
-#' @include app_plot_ped.R
 #' @include app_data_import.R
 #' @include app_data_col_sel.R
 #' @include app_data_download.R
 #' @include app_utils.R
-#' @include app_plot_download.R
-#' @include app_plot_legend.R
+#' @include app_plot_all.R
 #' @importFrom utils data
 #' @importFrom shiny shinyServer req observeEvent reactive stopApp
 #' @importFrom shiny exportTestValues stopApp
 #' @importFrom shinytoastr toastr_warning toastr_error
+#' @importFrom shinyhelper observe_helpers helper
 #' @param input The input object from a Shiny app.
 #' @param output The output object from a Shiny app.
 #' @param session The session object from a Shiny app.
@@ -35,11 +34,6 @@ ped_server <- function(
         data_env <- new.env(parent = emptyenv())
         utils::data("sampleped", envir = data_env, package = "Pedixplorer")
         utils::data("relped", envir = data_env, package = "Pedixplorer")
-
-        ## Stored inputs ------------------------------------------------------
-        stored_inputs <- shiny::reactiveVal(
-            list(lst_subfam_changed = FALSE)
-        )
 
         ## Helper observers for the help buttons -------------------------------
         output$help_main <- shiny::renderUI({
