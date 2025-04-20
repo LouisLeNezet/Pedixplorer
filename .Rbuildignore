@@ -1,7 +1,7 @@
 ^\\.github(/.*)?$
 ^\\.git$
-\.Rprofile
-\.lintr
+\\.Rprofile
+.*\.lintr
 ^\\.gitignore$
 \.vscode
 ^data-raw$
