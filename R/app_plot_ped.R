@@ -147,7 +147,7 @@ plot_ped_server <- function(
 
         my_plot_fct <- shiny::reactive({
             shiny::req(pedi())
-            shiny::req(symbolsize(), plot_cex(), plot_lwd())
+            shiny::req(symbolsize(), plot_cex(), plot_lwd(), my_title())
             app_plot_fct(
                 pedi = pedi(), mytitle = my_title(), mytips = my_tips(),
                 cex = plot_cex(), plot_par = plot_par(),
@@ -180,7 +180,6 @@ plot_ped_server <- function(
         output$uiplot <- shiny::renderUI({
             shiny::req(is_ready())
             shiny::req(symbolsize(), plot_cex(), plot_lwd())
-            print("Plotting")
             if (is_interactive()) {
                 plotly::plotlyOutput(
                     ns("plotly_output"),
@@ -189,7 +188,6 @@ plot_ped_server <- function(
                 ) %>%
                     shinycssloaders::withSpinner(color = "#8aca25")
             } else {
-                print("Static plotting")
                 shiny::plotOutput(
                     ns("plot_output"),
                     width = width(),

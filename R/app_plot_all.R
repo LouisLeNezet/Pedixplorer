@@ -107,7 +107,8 @@ plot_all_server <- function(
             is_interactive = NULL,
             width = NULL,
             height = NULL,
-            plot_lwd = NULL
+            plot_lwd = NULL,
+            my_title_l = NULL
         )
 
         reset_opt <- function(opt) {
@@ -119,11 +120,11 @@ plot_all_server <- function(
             opt$height <- NULL
             opt$plot_lwd <- NULL
             opt$plot_cex <- NULL
+            opt$my_title_l <- NULL
         }
 
         ## Update button -----------------------------
         output$uiUpdateBtn <- shiny::renderUI({
-            shiny::req(pedi_compute())
             shiny::actionButton(
                 ns("updateBtn"), "Update Plot"
             )
@@ -139,12 +140,13 @@ plot_all_server <- function(
                 input$interactive, input$symbolsize,
                 input$plot_lwd, input$plot_cex,
                 input$computebig,
-                input$tips_col, input$plot_par
+                input$tips_col, input$plot_par,
+                my_title_l()
             )
 
         init_height <- shiny::reactive({
             shiny::req(pedi())
-            paste0(max(kindepth(pedi())) * 150 + 20, "px")
+            paste0(max(kindepth(pedi())) * 200 + 20, "px")
         })
 
         dims <- plot_resize_server(
@@ -189,16 +191,16 @@ plot_all_server <- function(
             pedi()
         })
 
-        pedi_val <- shiny::eventReactive(input$updateBtn, {
+        pedi_val <- shiny::reactive({
             shiny::req(pedi_compute())
             shiny::req(length(ped(pedi_compute())) > 0)
-            print("Reset button class")
             session$sendCustomMessage(
                 "toggleBtnClass",
                 list(class = "")
             )
             pedi()
-        })
+        }) |>
+            shiny::bindEvent(input$updateBtn)
 
         data_subfam <- shiny::reactive({
             shiny::req(pedi_val())
@@ -231,7 +233,6 @@ plot_all_server <- function(
 
         ## Plot pedigree -----------------------------------
         shiny::observe({
-            print("Update plot")
             opt$pedi <- pedi_val()
             opt$my_tips <- input$tips_col
             opt$symbolsize <- input$symbolsize
@@ -239,13 +240,14 @@ plot_all_server <- function(
             opt$width <- width()
             opt$height <- height()
             opt$plot_lwd <- input$plot_lwd
+            opt$my_title_l <- my_title_l()
         }) |>
             shiny::bindEvent(input$updateBtn)
 
         lst_ped_plot <- plot_ped_server(
             "resize_plot-inner_plot",
             pedi = reactive(opt$pedi),
-            my_title = my_title_l,
+            my_title = reactive(opt$my_title_l),
             my_tips = reactive(opt$my_tips),
             symbolsize = reactive(opt$symbolsize),
             is_interactive = reactive(opt$is_interactive),

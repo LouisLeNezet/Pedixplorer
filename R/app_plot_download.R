@@ -14,7 +14,7 @@ plot_download_ui <- function(id) {
 #' with the function `plot_download_server()`.
 #'
 #' @param id A string.
-#' @param my_plot Reactive object containing the plot.
+#' @param my_plot Reactive object containing the plot or the plot function.
 #' @param plot_class A string to define the class of the plot
 #' ("ggplot", "htmlwidget", "plotly", "grob" or "function").
 #' @param filename A string to name the file.
@@ -42,10 +42,10 @@ plot_download_server <- function(
     id, my_plot, plot_class, filename = "saveplot",
     label = "Download", width = 500, height = 500
 ) {
-    stopifnot(shiny::is.reactive(my_plot))
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
+        my_plot <- make_reactive(my_plot)
         filename <- make_reactive(filename)
         width <- make_reactive(width)
         height <- make_reactive(height)
@@ -216,34 +216,31 @@ plot_download_demo <- function() {
         )
     )
     server <- function(input, output, session) {
-
-        plot_sp <- shiny::reactive({
-            plot_fct_sp()
-        })
-
-        plot_ped <- shiny::reactive({
-            plot_fct_ped()
-        })
-
         plot_ggplot <- shiny::reactive({
             plot(plot_fct_ped(), ggplot_gen = TRUE)$ggplot
         })
 
         output$plt_sp <- shiny::renderPlot({
-            plot(plot_sp())
+            plot(plot_fct_sp())
         })
 
         output$plt_ped <- shiny::renderPlot({
-            plot(plot_ped())
+            plot(plot_fct_ped())
         })
 
         output$plt_ggplot <- shiny::renderPlot({
             plot(plot_ggplot())
         })
 
-        plot_download_server("dwld_sp", plot_sp)
-        plot_download_server("dwld_ped", plot_ped)
-        plot_download_server("dwld_ggplot", plot_ggplot)
+        plot_download_server(
+            "dwld_sp", plot_fct_sp, plot_class = "function"
+        )
+        plot_download_server(
+            "dwld_ped", plot_fct_ped, plot_class = "function"
+        )
+        plot_download_server(
+            "dwld_ggplot", plot_ggplot, plot_class = "ggplot"
+        )
     }
     shiny::shinyApp(ui, server)
 }

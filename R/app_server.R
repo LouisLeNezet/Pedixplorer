@@ -23,7 +23,7 @@
 #' if (interactive()) {
 #'     ped_shiny()
 #' }
-#' @keywords internal
+#' @export
 ped_server <- function(
     input, output, session, precision = 6
 ) {
@@ -448,7 +448,7 @@ ped_server <- function(
 
         ## Plotting pedigree --------------------------------------------------
         cust_title <- function(short) {
-            shiny::eventReactive(lst_subfam, {
+            shiny::reactive({
                 shiny::req(lst_fam())
                 shiny::req(lst_subfam())
                 shiny::req(lst_inf())
@@ -463,18 +463,38 @@ ped_server <- function(
             })
         }
 
+        my_title_l <- shiny::reactive({
+            shiny::req(ped_subfam())
+            if (length(ped(ped_subfam())) < 1) {
+                NULL
+            } else {
+                cust_title(FALSE)()
+            }
+        }) |>
+            shiny::bindEvent(lst_fam(), lst_subfam(), lst_inf())
+
+        my_title_s <- shiny::reactive({
+            shiny::req(ped_subfam())
+            if (length(ped(ped_subfam())) < 1) {
+                NULL
+            } else {
+                cust_title(TRUE)()
+            }
+        }) |>
+            shiny::bindEvent(lst_fam(), lst_subfam(), lst_inf())
+
         ### Tips column selection --------------------------------------------
         lst_plot <- plot_all_server(
             "all_plot_ped", ped_subfam, max_ind = 500,
-            my_title_l = cust_title(FALSE),
-            my_title_s = cust_title(TRUE),
+            my_title_l = my_title_l,
+            my_title_s = my_title_s,
             precision = precision,
             init_width = "90%"
         )
 
         ## Test values --------------------------------------------------------
         shiny::exportTestValues(
-            ped_df = lst_plot()$df
+            peddf = lst_plot()$df
         )
 
         ## End ----------------------------------------------------------------

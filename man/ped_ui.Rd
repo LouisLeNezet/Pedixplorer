@@ -14,4 +14,3 @@ if (interactive()) {
     ped_shiny()
 }
 }
-\keyword{internal}

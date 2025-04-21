@@ -18,7 +18,7 @@
 #' if (interactive()) {
 #'     ped_shiny()
 #' }
-#' @keywords internal
+#' @export
 ped_ui <- function() {
     logo  <- paste0(
         "https://github.com/LouisLeNezet/Pedixplorer/",
