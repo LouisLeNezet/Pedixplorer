@@ -100,9 +100,10 @@ test_that("health_sel works", {
 
 test_that("inf_sel works", {
     data_env <- new.env(parent = emptyenv())
-    data("sampleped")
+    utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     pedi <- shiny::reactive({
-        Pedigree(sampleped[sampleped$famid == "1", ])
+        sampledped <- data_env[["sampleped"]]
+        Pedigree(sampledped[sampledped$famid == "1", ])
     })
 
     app <- shinytest2::AppDriver$new(
@@ -172,7 +173,6 @@ test_that("plot_download works", {
     # Download plot ggplot
     app$click("dwld_ggplot-download")
     app$wait_for_idle(500)
-    app$set_inputs(`dwld_ggplot-ext` = "html")
     path <- app$get_download("dwld_ggplot-plot_dwld")
     expect_true(file.exists(path))
     expect_equal(tools::file_ext(path), "html")
@@ -189,16 +189,13 @@ test_that("plot_ped works", {
         plot_ped_demo(
             pedi = pedi,
             precision = 4,
-            tips = c("id", "momid", "num")
+            interactive = TRUE
         ), name = "plotped",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
-    app$set_inputs(`plotped-interactive` = TRUE)
     app$wait_for_idle()
     app$click("saveped-download")
-    app$wait_for_idle()
-    app$set_inputs(`saveped-ext` = "html")
     app$wait_for_idle()
     path <- app$get_download("saveped-plot_dwld")
     app$wait_for_idle()

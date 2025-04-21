@@ -2,10 +2,9 @@ if (Sys.getenv("SKIP_SHINY_TESTS") == "TRUE") {
     skip("Skipping shiny test")
 }
 
-
 test_that("ped_shiny works", {
     app <- shinytest2::AppDriver$new(
-        ped_shiny(precision = 4), name = "ped_shiny",
+        ped_shiny(precision = 6), name = "ped_shiny",
         variant = shinytest2::platform_variant()
     )
     app$set_window_size(width = 1611, height = 956)
@@ -16,7 +15,6 @@ test_that("ped_shiny works", {
 
     # Set affection and color
     app$wait_for_idle(timeout = 30000)
-    df <- app$wait_for_value(export = "df")
     app$set_inputs(`health_sel-health_as_num` = FALSE)
     app$wait_for_idle()
     app$set_inputs(`health_sel-health_aff_mods` = "1")
@@ -37,19 +35,21 @@ test_that("ped_shiny works", {
         allow_no_input_binding_ = TRUE, priority_ = "event"
     )
     app$wait_for_idle()
-    # Download plot ped
-    app$click("saveped-download")
+    app$click(selector = "#all_plot_ped-updateBtn")
     app$wait_for_idle()
-    app$set_inputs(`saveped-width` = 1000)
+    # Download plot ped
+    app$click("all_plot_ped-saveped-download")
+    app$wait_for_idle()
+    app$set_inputs(`all_plot_ped-saveped-width` = 1000)
     app$expect_download(
-        "saveped-plot_dwld",
+        "all_plot_ped-saveped-plot_dwld",
         compare = function(old, new) {
             old_name <- unlist(stringr::str_split(as.character(old), "-"))
             new_name <- unlist(stringr::str_split(as.character(new), "-"))
             old_name[length(old_name)] == new_name[length(new_name)]
         }
     )
-    app$click("saveped-close")
+    app$click("all_plot_ped-saveped-close")
 
     # Select family
     app$set_inputs(
@@ -63,12 +63,10 @@ test_that("ped_shiny works", {
     app$set_inputs(`inf_sel-inf_custvar_val` = "1_121,1_131")
     app$set_inputs(`inf_sel-kin_max` = 2)
     app$set_inputs(`inf_sel-keep_parents` = FALSE)
-    df <- app$wait_for_value(export = "df", ignore = df)
-    app$set_inputs(
-        `subfamily_sel-families_table_rows_selected` = 2,
-        allow_no_input_binding_ = TRUE
-    )
+
     # Download plot ped
     app$wait_for_idle()
-    app$expect_download("plot_data_dwnl-data_dwld")
+    app$click(selector = "#all_plot_ped-updateBtn")
+    app$wait_for_idle()
+    app$expect_download("all_plot_ped-plot_data_dwnl-data_dwld")
 })

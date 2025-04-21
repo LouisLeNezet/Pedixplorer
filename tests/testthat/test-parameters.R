@@ -22,7 +22,8 @@ test_that("Evaluate options()", {
         "datatable\\.*", "catch.script.errors",
         "covr\\.*", "rlang_backtrace_on_error_report",
         "error", "show.error.messages",
-        "repos"
+        "repos", "shinyjqui.debug",
+        "shiny.maxRequestSize"
     )
     opts$str$formatNum <- NA
     for (i in seq_along(no_check)) {

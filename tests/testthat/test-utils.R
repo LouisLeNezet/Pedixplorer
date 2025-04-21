@@ -192,9 +192,9 @@ test_that("char_to_date", {
     )
 })
 
-test_that("plink2Pedigree", {
+test_that("plink_to_pedigree", {
     df_path <- paste0(testthat::test_path(), "/testdata/sampleped.ped")
-    pedi <- plink2Pedigree(path = df_path)
+    pedi <- plink_to_pedigree(path = df_path)
 
     expect_equal(class(pedi), class(Pedigree()))
     expect_equal(length(pedi), 6)
