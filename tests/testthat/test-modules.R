@@ -152,16 +152,17 @@ test_that("plot_download works", {
     )
     app$set_window_size(width = 1611, height = 956)
     # Download plot sp
-    app$wait_for_idle(500)
+    app$wait_for_idle(1000)
     app$click("dwld_sp-download")
+    app$wait_for_idle(1000)
     path <- app$get_download("dwld_sp-plot_dwld")
     expect_true(file.exists(path))
     expect_equal(tools::file_ext(path), "png")
     app$click("dwld_sp-close")
-    app$wait_for_idle(500)
+    app$wait_for_idle(1000)
     # Download plot ped
     app$click("dwld_ped-download")
-    app$wait_for_idle(500)
+    app$wait_for_idle(1000)
     # Update output value
     app$set_inputs(`dwld_ped-width` = 1500)
     app$set_inputs(`dwld_ped-ext` = "pdf")
@@ -169,10 +170,10 @@ test_that("plot_download works", {
     expect_true(file.exists(path))
     expect_equal(tools::file_ext(path), "pdf")
     app$click("dwld_ped-close")
-    app$wait_for_idle(500)
+    app$wait_for_idle(1000)
     # Download plot ggplot
     app$click("dwld_ggplot-download")
-    app$wait_for_idle(500)
+    app$wait_for_idle(1000)
     path <- app$get_download("dwld_ggplot-plot_dwld")
     expect_true(file.exists(path))
     expect_equal(tools::file_ext(path), "html")
