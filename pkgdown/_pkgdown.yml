@@ -46,11 +46,14 @@ reference:
       - fix_parents
       - norm_ped
       - norm_rel
+      - plink_to_pedigree
 
   - title: "Shiny app"
     desc : "The Pedixplorer package comes with a shiny app to interact with the Pedigree object."
     contents:
       - ped_shiny
+      - ped_server
+      - ped_ui
 
   - title: "Pedigree drawing and legend"
     desc : "The Pedigree object can be drawn using the plot method."

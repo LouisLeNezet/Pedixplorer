@@ -92,6 +92,7 @@ plot_all_ui <- function(id) {
 #' @importFrom shiny req actionButton observe bindEvent
 #' @importFrom shiny eventReactive
 #' @importFrom shiny renderPrint
+#' @keywords internal
 plot_all_server <- function(
     id, pedi, max_ind = 100, my_title_l = "My Pedigree",
     my_title_s = "ped_1", init_width = "100%",
