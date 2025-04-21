@@ -64,7 +64,7 @@ Different options are available to the user to import the data."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Shiny modules to import data files</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/app_data_import.R" class="external-link"><code>R/app_data_import.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_reviewer/R/app_data_import.R" class="external-link"><code>R/app_data_import.R</code></a></small>
       <div class="d-none name"><code>data_import.Rd</code></div>
     </div>
 
@@ -86,8 +86,14 @@ Different options are available to the user to import the data.</p>
 <span><span class="fu">data_import_server</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
 <span>  label <span class="op">=</span> <span class="st">"Select data file"</span>,</span>
+<span>  help_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  help_data_title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  help_test_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  help_test_data_title <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  dftest <span class="op">=</span> <span class="fu">datasets</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">mtcars</a></span>,</span>
-<span>  max_request_size <span class="op">=</span> <span class="fl">30</span></span>
+<span>  max_request_size <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  help_colour <span class="op">=</span> <span class="st">"grey"</span>,</span>
+<span>  help_type <span class="op">=</span> <span class="st">"inline"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">data_import_demo</span><span class="op">(</span>options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -105,6 +111,28 @@ Different options are available to the user to import the data.</p>
 <dd><p>A string use to prompt the user</p></dd>
 
 
+<dt id="arg-help-data">help_data<a class="anchor" aria-label="anchor" href="#arg-help-data"></a></dt>
+<dd><p>A string to define the help content for the data import.
+If NULL, no help content is displayed.</p></dd>
+
+
+<dt id="arg-help-data-title">help_data_title<a class="anchor" aria-label="anchor" href="#arg-help-data-title"></a></dt>
+<dd><p>A string to define the title of the help content.
+Set it to "" to not display a title or to use the one present
+in the markdown.</p></dd>
+
+
+<dt id="arg-help-test-data">help_test_data<a class="anchor" aria-label="anchor" href="#arg-help-test-data"></a></dt>
+<dd><p>A string to define the help content for the test data.
+If NULL, no help content is displayed.</p></dd>
+
+
+<dt id="arg-help-test-data-title">help_test_data_title<a class="anchor" aria-label="anchor" href="#arg-help-test-data-title"></a></dt>
+<dd><p>A string to define the title of the help content.
+Set it to "" to not display a title or to use the one present
+in the markdown.</p></dd>
+
+
 <dt id="arg-dftest">dftest<a class="anchor" aria-label="anchor" href="#arg-dftest"></a></dt>
 <dd><p>A dataframe to test the function</p></dd>
 
@@ -112,6 +140,15 @@ Different options are available to the user to import the data.</p>
 <dt id="arg-max-request-size">max_request_size<a class="anchor" aria-label="anchor" href="#arg-max-request-size"></a></dt>
 <dd><p>A number to define the maximum size of the file
 that can be uploaded.</p></dd>
+
+
+<dt id="arg-help-colour">help_colour<a class="anchor" aria-label="anchor" href="#arg-help-colour"></a></dt>
+<dd><p>A string to define the colour of the help icon</p></dd>
+
+
+<dt id="arg-help-type">help_type<a class="anchor" aria-label="anchor" href="#arg-help-type"></a></dt>
+<dd><p>A string to define the type of help content
+This can be "inline" or "markdown"</p></dd>
 
 </dl></div>
     <div class="section level2">

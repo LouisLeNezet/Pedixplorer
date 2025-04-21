@@ -56,7 +56,7 @@ ped_to_legdf() if legend = TRUE."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot Pedigrees</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/plot_pedigree.R" class="external-link"><code>R/plot_pedigree.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_reviewer/R/plot_pedigree.R" class="external-link"><code>R/plot_pedigree.R</code></a></small>
       <div class="d-none name"><code>plot_pedigree.Rd</code></div>
     </div>
 
@@ -95,7 +95,7 @@ and <code><a href="ped_to_plotdf.html">ped_to_plotdf()</a></code> as well as
 <span>  leg_adjx <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  leg_adjy <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  precision <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ped_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  leg_par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  tips <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -128,7 +128,8 @@ corresponding to the value of the column given.</p></dd>
 
 
 <dt id="arg-ggplot-gen">ggplot_gen<a class="anchor" aria-label="anchor" href="#arg-ggplot-gen"></a></dt>
-<dd><p>If TRUE add the segments to the ggplot object</p></dd>
+<dd><p>If <code>TRUE</code>, the function will use the
+<code>ggplot2</code> package to generate the plot.</p></dd>
 
 
 <dt id="arg-cex">cex<a class="anchor" aria-label="anchor" href="#arg-cex"></a></dt>
@@ -243,7 +244,7 @@ solution to.</p></dd>
 
 
 <dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
-<dd><p>default=par("lwd"). Controls the line width of the
+<dd><p>default=1. Controls the line width of the
 segments, arcs and polygons.</p></dd>
 
 

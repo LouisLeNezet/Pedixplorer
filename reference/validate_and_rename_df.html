@@ -56,7 +56,7 @@ the mandatory columns are selected."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Rename columns in a dataframe</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/app_data_col_sel.R" class="external-link"><code>R/app_data_col_sel.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_reviewer/R/app_data_col_sel.R" class="external-link"><code>R/app_data_col_sel.R</code></a></small>
       <div class="d-none name"><code>validate_and_rename_df.Rd</code></div>
     </div>
 
@@ -114,8 +114,14 @@ present in the output datatable.</p></dd>
 <span class="r-in"><span><span class="fu">Pedixplorer</span><span class="fu">:::</span><span class="fu">validate_and_rename_df</span><span class="op">(</span></span></span>
 <span class="r-in"><span>   <span class="va">df</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Need1 <span class="op">=</span> <span class="st">"ColN1"</span>, Sup2 <span class="op">=</span> <span class="st">"ColTU1"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>       Need1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alternate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ColN1"</span>, <span class="st">"ColN3"</span><span class="op">)</span>, mandatory <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>       Sup2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alternate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ColTU1"</span>, <span class="st">"ColTU3"</span><span class="op">)</span>, mandatory <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>       Need1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           alternate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ColN1"</span>, <span class="st">"ColN3"</span><span class="op">)</span>, mandatory <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>           help <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>       <span class="op">)</span>,</span></span>
+<span class="r-in"><span>       Sup2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           alternate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ColTU1"</span>, <span class="st">"ColTU3"</span><span class="op">)</span>, mandatory <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>           help <span class="op">=</span> <span class="st">"Supplementary column"</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span></span></span>
 <span class="r-in"><span>   <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Need1 Sup2 ColN2 ColTU2</span>
