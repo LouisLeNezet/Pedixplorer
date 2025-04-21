@@ -129,21 +129,21 @@ plot_ped_server <- function(
         ns <- session$ns
 
         ## Plot parameters
-        my_title <- makeReactive(my_title)
-        my_tips <- makeReactive(my_tips)
-        plot_cex <- makeReactive(plot_cex)
-        plot_par <- makeReactive(plot_par)
-        is_interactive <- makeReactive(is_interactive)
-        symbolsize <- makeReactive(symbolsize)
-        precision <- makeReactive(precision)
-        aff_mark <- makeReactive(aff_mark)
-        label <- makeReactive(label)
-        plot_lwd <- makeReactive(plot_lwd)
-        is_force <- makeReactive(force)
+        my_title <- make_reactive(my_title)
+        my_tips <- make_reactive(my_tips)
+        plot_cex <- make_reactive(plot_cex)
+        plot_par <- make_reactive(plot_par)
+        is_interactive <- make_reactive(is_interactive)
+        symbolsize <- make_reactive(symbolsize)
+        precision <- make_reactive(precision)
+        aff_mark <- make_reactive(aff_mark)
+        label <- make_reactive(label)
+        plot_lwd <- make_reactive(plot_lwd)
+        is_force <- make_reactive(force)
 
         ## Plot dimensions
-        width <- makeReactive(width)
-        height <- makeReactive(height)
+        width <- make_reactive(width)
+        height <- make_reactive(height)
 
         my_plot_fct <- shiny::reactive({
             shiny::req(pedi())

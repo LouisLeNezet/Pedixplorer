@@ -35,8 +35,6 @@ plot_download_demo()
 \item{width}{A numeric to set the width of the plot.}
 
 \item{height}{A numeric to set the height of the plot.}
-
-\item{ext}{A string to set the extension of the file.}
 }
 \value{
 A shiny module to export a plot.

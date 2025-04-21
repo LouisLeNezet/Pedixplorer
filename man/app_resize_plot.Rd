@@ -20,6 +20,8 @@ plot_resize_demo(interactive = FALSE)
 \item{init_width}{A string to set the initial width of the plot.}
 
 \item{init_height}{A string to set the initial height of the plot.}
+
+\item{interactive}{A boolean to indicate if the plot is interactive.}
 }
 \value{
 A reactive list containing the width and height of the plot.

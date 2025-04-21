@@ -40,7 +40,7 @@ data_download_server <- function(
     stopifnot(shiny::is.reactive(df))
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
-        myfilename <- makeReactive(filename)
+        myfilename <- make_reactive(filename)
 
         ## Create title
         output$title_data <- shiny::renderUI({

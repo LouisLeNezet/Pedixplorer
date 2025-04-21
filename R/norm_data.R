@@ -379,7 +379,10 @@ norm_ped <- function(
 #' @return A dataframe with the errors identified
 #' @importFrom dplyr mutate_if mutate_at mutate across
 #' @export
-norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = c(NA_character_, "0")) {
+norm_rel <- function(
+    rel_df, na_strings = c("NA", ""),
+    missid = c(NA_character_, "0")
+) {
     missid <- unique(c(missid, NA_character_))
     if (is.matrix(rel_df)) {
         rel_df <- as.data.frame(rel_df)

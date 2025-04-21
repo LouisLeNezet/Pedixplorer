@@ -85,6 +85,9 @@ segments, arcs and polygons.}
 
 \item{tips}{A character vector of the column names of the data frame to
 use as tooltips. If \code{NULL}, no tooltips are added.}
+
+\item{ggplot_gen}{If \code{TRUE}, the function will use the
+\code{ggplot2} package to generate the plot.}
 }
 \value{
 A list containing the data frame and the user coordinates.

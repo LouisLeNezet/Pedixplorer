@@ -52,7 +52,8 @@ value of the affection column for each filling scale.}
 \item{label}{If not \code{NULL}, add a label to each box under the id
 corresponding to the value of the column given.}
 
-\item{ggplot_gen}{If TRUE add the segments to the ggplot object}
+\item{ggplot_gen}{If \code{TRUE}, the function will use the
+\code{ggplot2} package to generate the plot.}
 
 \item{cex}{Character expansion of the text}
 

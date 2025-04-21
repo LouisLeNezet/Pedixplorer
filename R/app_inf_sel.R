@@ -67,7 +67,7 @@ inf_sel_server <- function(id, pedi, help_colour = "grey") {
                     "Available and Affected" = "AvAf",
                     "Custom" = "Cust"
                 ), selected = "All"
-            )|>
+            ) |>
                 shinyhelper::helper(
                     type = "markdown",
                     content = "app_filter_inf_var",

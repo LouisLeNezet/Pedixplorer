@@ -237,5 +237,5 @@ plot_fromdf <- function(
         }
     }
 
-    return(p)
+    invisible(p)
 }

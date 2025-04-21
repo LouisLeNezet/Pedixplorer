@@ -184,7 +184,7 @@ setGeneric("is_parent", signature = "obj",
 #' @param na_values A vector of strings that should be considered as NA
 #' @return A Pedigree object
 #' @export
-plink2Pedigree <- function(
+plink_to_pedigree <- function(
     path, sep = "\t", quote = "'", header = FALSE,
     na_values = c("NA", "0")
 ) {

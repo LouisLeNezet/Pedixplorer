@@ -9,8 +9,8 @@
 #' @importFrom shiny is.reactive reactive
 #' @export
 #' @examples
-#' Pedixplorer:::makeReactive(1)
-makeReactive <- function(x) {
+#' Pedixplorer:::make_reactive(1)
+make_reactive <- function(x) {
     if (is.reactive(x)) {
         x
     } else {

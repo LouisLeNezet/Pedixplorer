@@ -52,8 +52,8 @@ plot_resize_server <- function(
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-        init_height <- makeReactive(init_height)
-        init_width <- makeReactive(init_width)
+        init_height <- make_reactive(init_height)
+        init_width <- make_reactive(init_width)
 
         dims <- reactiveValues(width = NULL, height = NULL)
 

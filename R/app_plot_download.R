@@ -46,10 +46,10 @@ plot_download_server <- function(
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-        filename <- makeReactive(filename)
-        width <- makeReactive(width)
-        height <- makeReactive(height)
-        plot_class <- makeReactive(plot_class)
+        filename <- make_reactive(filename)
+        width <- make_reactive(width)
+        height <- make_reactive(height)
+        plot_class <- make_reactive(plot_class)
 
         ## Options rendering selection --------------------
         opt <- shiny::reactiveValues(

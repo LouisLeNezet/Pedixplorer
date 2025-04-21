@@ -88,8 +88,6 @@ to use as tooltips. If NULL, no tooltips are added.}
 \item{plot_cex}{A numeric to set the size of the text.}
 
 \item{is_interactive}{A boolean to set if the plot is interactive.}
-
-\item{max_ind}{An integer to set the maximum number of individuals to plot.}
 }
 \value{
 A function or a plotly object.
@@ -110,7 +108,7 @@ with the function \code{plot_ped_server()}.
 \examples{
 data("sampleped")
 pedi <- Pedigree(sampleped[sampleped$famid == "1", ])
-app_plot_fct(
+Pedixplorer:::app_plot_fct(
    pedi, cex = 1, plot_par = list(),
    interactive = FALSE,
    mytitle = "My Pedigree",
