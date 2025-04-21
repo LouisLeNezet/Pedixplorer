@@ -152,8 +152,8 @@ test_that("plot_download works", {
     )
     app$set_window_size(width = 1611, height = 956)
     # Download plot sp
-    app$click("dwld_sp-download")
     app$wait_for_idle(500)
+    app$click("dwld_sp-download")
     path <- app$get_download("dwld_sp-plot_dwld")
     expect_true(file.exists(path))
     expect_equal(tools::file_ext(path), "png")

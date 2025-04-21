@@ -196,10 +196,10 @@ plot_download_demo <- function() {
     data_env <- new.env(parent = emptyenv())
     utils::data("sampleped", envir = data_env, package = "Pedixplorer")
     plot_fct_sp <- function() {
-        c(1, 2, 3, 4, 5)
+        plot(c(1, 2, 3, 4, 5))
     }
     plot_fct_ped <- function() {
-        Pedigree(data_env[["sampleped"]])
+        plot(Pedigree(data_env[["sampleped"]]))
     }
     ui <- shiny::fluidPage(
         shiny::fluidRow(
@@ -217,15 +217,18 @@ plot_download_demo <- function() {
     )
     server <- function(input, output, session) {
         plot_ggplot <- shiny::reactive({
-            plot(plot_fct_ped(), ggplot_gen = TRUE)$ggplot
+            plot(
+                Pedigree(data_env[["sampleped"]]),
+                ggplot_gen = TRUE
+            )$ggplot
         })
 
         output$plt_sp <- shiny::renderPlot({
-            plot(plot_fct_sp())
+            plot_fct_sp()
         })
 
         output$plt_ped <- shiny::renderPlot({
-            plot(plot_fct_ped())
+            plot_fct_ped()
         })
 
         output$plt_ggplot <- shiny::renderPlot({
