@@ -183,6 +183,12 @@ setGeneric("is_parent", signature = "obj",
 #' @param header Boolean defining if the file has a header
 #' @param na_values A vector of strings that should be considered as NA
 #' @return A Pedigree object
+#' @examples
+#' fam <- system.file(
+#'     "tests", "testthat", "testdata", "sampleped.ped",
+#'     package = "Pedixplorer"
+#' )
+#' pedi <- plink_to_pedigree(fam)
 #' @export
 plink_to_pedigree <- function(
     path, sep = "\t", quote = "'", header = FALSE,
