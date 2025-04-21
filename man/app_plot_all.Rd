@@ -51,3 +51,4 @@ if (interactive()) {
    app_plot_all_demo()
 }
 }
+\keyword{internal}
