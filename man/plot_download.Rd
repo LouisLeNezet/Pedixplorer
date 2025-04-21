@@ -23,7 +23,7 @@ plot_download_demo()
 \arguments{
 \item{id}{A string.}
 
-\item{my_plot}{Reactive object containing the plot.}
+\item{my_plot}{Reactive object containing the plot or the plot function.}
 
 \item{plot_class}{A string to define the class of the plot
 ("ggplot", "htmlwidget", "plotly", "grob" or "function").}
