@@ -35,3 +35,4 @@ if (interactive()) {
    plot_resize_demo(interactive = FALSE)
 }
 }
+\keyword{internal}

@@ -46,6 +46,7 @@ plot_resize_ui <- function(id) {
 #' @importFrom shiny debounce
 #' @importFrom shinyjqui jqui_resizable
 #' @rdname app_resize_plot
+#' @keywords internal
 plot_resize_server <- function(
     id, plot_ui_fn, init_width = "80%", init_height = "400px"
 ) {
