@@ -5,7 +5,8 @@ if (Sys.getenv("SKIP_SHINY_TESTS") == "TRUE") {
 test_that("ped_shiny works", {
     app <- shinytest2::AppDriver$new(
         ped_shiny(precision = 6), name = "ped_shiny",
-        variant = shinytest2::platform_variant()
+        variant = shinytest2::platform_variant(),
+        timeout = 30000
     )
     app$set_window_size(width = 1611, height = 956)
 
@@ -14,7 +15,7 @@ test_that("ped_shiny works", {
     app$click("data_rel_import-testdf")
 
     # Set affection and color
-    app$wait_for_idle(timeout = 30000)
+    app$wait_for_idle()
     app$set_inputs(`health_sel-health_as_num` = FALSE)
     app$wait_for_idle()
     app$set_inputs(`health_sel-health_aff_mods` = "1")
@@ -36,7 +37,7 @@ test_that("ped_shiny works", {
     )
     app$wait_for_idle()
     app$click(selector = "#all_plot_ped-updateBtn")
-    app$wait_for_idle()
+    app$wait_for_idle(1000)
     # Download plot ped
     app$click("all_plot_ped-saveped-download")
     app$wait_for_idle()
@@ -67,6 +68,6 @@ test_that("ped_shiny works", {
     # Download plot ped
     app$wait_for_idle()
     app$click(selector = "#all_plot_ped-updateBtn")
-    app$wait_for_idle()
+    app$wait_for_idle(1000)
     app$expect_download("all_plot_ped-plot_data_dwnl-data_dwld")
 })
