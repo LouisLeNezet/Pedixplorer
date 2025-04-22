@@ -61,7 +61,14 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for class 'Pedigree'</span></span>
-<span><span class="fu">auto_hint</span><span class="op">(</span><span class="va">obj</span>, hints <span class="op">=</span> <span class="cn">NULL</span>, packed <span class="op">=</span> <span class="cn">TRUE</span>, align <span class="op">=</span> <span class="cn">FALSE</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">auto_hint</span><span class="op">(</span></span>
+<span>  <span class="va">obj</span>,</span>
+<span>  hints <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  packed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  align <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  reset <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  align_parents <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -97,6 +104,14 @@ If <code>TRUE</code>, the default is <code>c(1.5, 2)</code>, or if numeric the r
 <dt id="arg-reset">reset<a class="anchor" aria-label="anchor" href="#arg-reset"></a></dt>
 <dd><p>If <code>TRUE</code>, then even if  the Ped object has Hints, reset
 them to the initial values.</p></dd>
+
+
+<dt id="arg-align-parents">align_parents<a class="anchor" aria-label="anchor" href="#arg-align-parents"></a></dt>
+<dd><p>If <code>align_parents = TRUE</code>, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.</p></dd>
 
 </dl></div>
     <div class="section level2">

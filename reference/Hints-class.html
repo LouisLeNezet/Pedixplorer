@@ -95,6 +95,9 @@ the dedicated parameters (together or separately), or inside a list.</p>
 <span><span class="co"># S4 method for class 'numeric,data.frame'</span></span>
 <span><span class="fu">Hints</span><span class="op">(</span><span class="va">horder</span>, <span class="va">spouse</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S4 method for class 'missing_OR_NULL,data.frame'</span></span>
+<span><span class="fu">Hints</span><span class="op">(</span><span class="va">horder</span>, <span class="va">spouse</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S4 method for class 'numeric,missing_OR_NULL'</span></span>
 <span><span class="fu">Hints</span><span class="op">(</span><span class="va">horder</span>, <span class="va">spouse</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -183,6 +186,25 @@ should be kept or deleted.</p></li>
 <span class="r-in"><span>            idr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            anchor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "Hints"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "horder":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "spouse":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   idl idr anchor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   2   left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2   3  right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">Hints</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    horder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="fl">2</span>, <span class="st">"3"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    spouse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        idl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        idr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        anchor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "Hints"</span>
