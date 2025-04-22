@@ -453,13 +453,14 @@ setMethod("Hints",
                 "but doesn't contains horder or spouse slot"
             )
         }
-        if ("horder" %in% names(horder)) {
-            horder <- horder$horder
+        hord_old <- horder
+        if ("horder" %in% names(hord_old)) {
+            horder <- hord_old$horder
         } else {
             horder <- NULL
         }
-        if ("spouse" %in% names(horder)) {
-            spouse <- horder$spouse
+        if ("spouse" %in% names(hord_old)) {
+            spouse <- hord_old$spouse
         } else {
             spouse <- NULL
         }
@@ -493,6 +494,30 @@ setMethod("Hints",
         )
         spouse$anchor <- anchor_to_factor(spouse$anchor)
         new("Hints", horder = horder, spouse = spouse)
+    }
+)
+
+#' @rdname Hints-class
+#' @export
+#' @examples
+#'
+#' Hints(
+#'     horder = c("1" = 1, "2" = 2, "3" = 3),
+#'     spouse = data.frame(
+#'         idl = c("1", "2"),
+#'         idr = c("2", "3"),
+#'         anchor = c(1, 2)
+#'     )
+#' )
+setMethod("Hints",
+    signature(horder = "missing_OR_NULL", spouse = "data.frame"),
+    function(horder, spouse) {
+        spouse <- check_columns(
+            spouse, c("idl", "idr", "anchor"), NULL, NULL,
+            cols_to_use_init = TRUE
+        )
+        spouse$anchor <- anchor_to_factor(spouse$anchor)
+        new("Hints", horder = numeric(), spouse = spouse)
     }
 )
 
