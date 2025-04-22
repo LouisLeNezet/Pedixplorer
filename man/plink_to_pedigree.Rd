@@ -29,3 +29,10 @@ A Pedigree object
 \description{
 Import a .fam or .ped file and return a Pedigree object
 }
+\examples{
+fam <- system.file(
+    "tests", "testthat", "testdata", "sampleped.ped",
+    package = "Pedixplorer"
+)
+pedi <- plink_to_pedigree(fam)
+}
