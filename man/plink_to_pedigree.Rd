@@ -30,9 +30,16 @@ A Pedigree object
 Import a .fam or .ped file and return a Pedigree object
 }
 \examples{
-fam <- system.file(
-    "tests", "testthat", "testdata", "sampleped.ped",
-    package = "Pedixplorer"
+write.table(
+    data.frame(
+        famid = c("1", "1", "1"),
+        id = c("A", "B", "C"),
+        dadid = c(0, 0, "A"),
+        momid = c(0, 0, "B"),
+        sex = c(1, 2, 1)
+    ), file = "test.fam", sep = "\t", quote = FALSE,
+    row.names = FALSE, col.names = FALSE
 )
+fam <- "test.fam"
 pedi <- plink_to_pedigree(fam)
 }
