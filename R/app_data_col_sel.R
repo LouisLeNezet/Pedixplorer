@@ -103,8 +103,14 @@ check_col_config <- function(col_config) {
 #' Pedixplorer:::validate_and_rename_df(
 #'    df, list(Need1 = "ColN1", Sup2 = "ColTU1"),
 #'    list(
-#'        Need1 = list(alternate = c("ColN1", "ColN3"), mandatory = TRUE),
-#'        Sup2 = list(alternate = c("ColTU1", "ColTU3"), mandatory = FALSE)
+#'        Need1 = list(
+#'            alternate = c("ColN1", "ColN3"), mandatory = TRUE,
+#'            help = NULL
+#'        ),
+#'        Sup2 = list(
+#'            alternate = c("ColTU1", "ColTU3"), mandatory = FALSE,
+#'            help = "Supplementary column"
+#'       )
 #'    )
 #' )
 #' @keywords internal
@@ -241,11 +247,19 @@ data_col_sel_ui <- function(id, ui_col_nb = 1) {
 #' that can be selected as an alternative to the main column.
 #' The 'mandatory' key must contain a logical value (TRUE/FALSE) to indicate
 #' whether the column is required to be selected.
+#' The 'help' key must contain a string with the help message
+#' to display in the tooltip or the name of a markdown file
+#' to display in the help message.
 #' @param title A string to display in the selectInput.
 #' @param na_omit A boolean to allow or not the selection of NA.
 #' @param others_cols A boolean to authorize other columns to be
 #' present in the output datatable.
-#'
+#' @param help_colour A string to define the color of the help icon.
+#' @param help_type A string to define the type of help message.
+#' It can be "inline" or "markdonw".
+#' @param help_style A string to define the style of the help message.
+#' This is passed to the `style` argument of the `shinyhelper::helper()`
+#' function.
 #' @return A reactive dataframe with the selected columns renamed
 #' to the names present in the configuration list.
 #' @examples
@@ -262,12 +276,13 @@ data_col_sel_ui <- function(id, ui_col_nb = 1) {
 data_col_sel_server <- function(
     id, df, col_config, title,
     na_omit = TRUE, others_cols = TRUE,
-    ui_col_nb = 1, by_row = FALSE
+    ui_col_nb = 1, by_row = FALSE,
+    help_colour = "grey", help_type = "markdown",
+    help_style = "margin-top:1em"
 ) {
     stopifnot(shiny::is.reactive(df))
-    ns <- shiny::NS(id)
-
     shiny::moduleServer(id, function(input, output, session) {
+        ns <- session$ns
 
         # Store error messages
         error_msg <- shiny::reactiveVal(NULL)
@@ -303,7 +318,8 @@ data_col_sel_server <- function(
             for (i in seq_along(names(col_config))) {
                 col_name <- names(col_config)[i]
                 col_options <- c(col_config[[col_name]]$alternate, col_name)
-                mandatory <- ifelse(col_config[[col_name]]$mandatory, "*", "")
+                mandatory <- col_config[[col_name]]$mandatory
+                help_msg <- col_config[[col_name]]$help
 
                 # Pre-select a matching column if available
                 selected_col <- intersect(
@@ -317,17 +333,39 @@ data_col_sel_server <- function(
                 selected_col <- ifelse(
                     length(selected_col) > 0, selected_col, NA
                 )
+
+                if (mandatory) {
+                    label <- shiny::h5(title, shiny::strong(col_name), "*")
+                } else {
+                    label <- shiny::h5(title, col_name)
+                }
+
                 selectors[[col_name]] <- list(
                     ui = shiny::div(
                         class = "div-null",
                         style = "margin-top:-1.5em",
-                        shiny::selectInput(
-                            ns(paste0("select_", col_name)),
-                            label = shiny::h5(paste(
-                                title, col_name, mandatory
-                            )), choices = all_cols(),
-                            selected = selected_col
-                        )
+                        if (!is.null(help_msg)) {
+                            shiny::selectInput(
+                                ns(paste0("select_", col_name)),
+                                label = label,
+                                choices = all_cols(),
+                                selected = selected_col
+                            ) |>
+                                shinyhelper::helper(
+                                    type = help_type,
+                                    content = help_msg,
+                                    size = "m",
+                                    colour = help_colour,
+                                    style = help_style
+                                )
+                        } else {
+                            shiny::selectInput(
+                                ns(paste0("select_", col_name)),
+                                label = label,
+                                choices = all_cols(),
+                                selected = selected_col
+                            )
+                        }
                     ),
                     group = seq_groups[i]
                 )
@@ -411,13 +449,20 @@ data_col_sel_demo <- function(ui_col_nb = 2, by_row = FALSE) {
                 datasets::mtcars
             }),
             list(
-                "Need1" = list(alternate = c("mpg", "cyl"), mandatory = TRUE),
+                "Need1" = list(
+                    alternate = c("mpg", "cyl"), mandatory = TRUE,
+                    help = "Main column"
+                ),
                 "Need2" = list(alternate = c(NA_character_), mandatory = TRUE),
-                "Supl1" = list(alternate = c("disp"), mandatory = FALSE),
+                "Supl1" = list(alternate = c("disp"), mandatory = FALSE,
+                    help = "Supplementary column"
+                ),
                 "Supl2" = list(alternate = c(NA_character_), mandatory = FALSE)
             ),
-            title = "Select column", ui_col_nb = ui_col_nb, by_row = by_row
+            title = "Select column", ui_col_nb = ui_col_nb, by_row = by_row,
+            help_type = "inline", help_colour = "darkred"
         )
+        shinyhelper::observe_helpers()
         output$selected_cols <- shiny::renderTable({
             my_df()
         })

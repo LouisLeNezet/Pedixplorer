@@ -9,22 +9,20 @@
 #' @include app_health_sel.R
 #' @include app_color_picker.R
 #' @include app_inf_sel.R
-#' @include app_plot_ped.R
-#' @include app_plot_download.R
 #' @include app_utils.R
 #' @include app_server.R
-#' @include app_plot_legend.R
+#' @include app_plot_all.R
 #' @usage NULL
 #' @returns `shiny::shinyUI()`
 #' @examples
 #' if (interactive()) {
 #'     ped_shiny()
 #' }
-#' @keywords internal
+#' @export
 ped_ui <- function() {
     logo  <- paste0(
         "https://github.com/LouisLeNezet/Pedixplorer/",
-        "raw/devel/inst/figures/icon_Pedixplorer.png"
+        "raw/devel/inst/figures/"
     )
     shiny::shinyUI(shiny::fluidPage(
         ## Configuration -------------------------------
@@ -35,9 +33,48 @@ ped_ui <- function() {
                 .title {margin-top: 85px; font-style: italic; font-size: 50px;}
                 .titlehr {border-top: 4px solid #8aca25; margin-top: 100px}
                 .title2 {margin-left: 30px; font-size: 20px;}"
-            ))
+            )),
         ),
         ## Application title --------------------------
+        shiny::fluidRow(
+            tags$a(
+                href = "https://github.com/LouisLeNezet/Pedixplorer",
+                target = "_blank",
+                tags$img(
+                    src = paste0(logo, "icon_github.png"),
+                    title = "Github repository",
+                    alt = "Github repository",
+                    width = "50px", height = "50px"
+                )
+            ),
+            tags$a(
+                href = "https://doi.org/doi:10.18129/B9.bioc.Pedixplorer",
+                target = "_blank",
+                tags$img(
+                    src = paste0(logo, "icon_bioconductor.png"),
+                    title = "Bioconductor page",
+                    alt = "Bioconductor page",
+                    width = "50px", height = "50px"
+                )
+            ),
+            tags$a(
+                href = "https://louislenezet.github.io/Pedixplorer/",
+                target = "_blank",
+                tags$img(
+                    src = paste0(logo, "icon_documentation.png"),
+                    title = "Package documentation",
+                    alt = "Package documentation",
+                    width = "50px", height = "50px"
+                )
+            ),
+            tags$div(
+                style = paste0(
+                    "position: absolute; top: 10px; ",
+                    "right: 20px; z-index: 9999;"
+                ),
+                uiOutput("help_main"),
+            )
+        ),
         shiny::fluidRow(
             shiny::column(2, align = "center",
                 shiny::tags$div(class = "titlehr")
@@ -52,7 +89,7 @@ ped_ui <- function() {
                 shiny::tags$figure(
                     class = "centerFigure",
                     shiny::tags$img(
-                        src = logo,
+                        src = paste0(logo, "icon_Pedixplorer.png"),
                         height = 200,
                         alt = "Pedixplorer logo"
                     ),
@@ -125,20 +162,10 @@ ped_ui <- function() {
                 ped_avaf_infos_ui("subped_avaf_infos")
             )
         ),
-        shiny::hr(),
         ## Plotting pedigree ----------------------------
+        shiny::hr(),
         shiny::fluidRow(
-            plot_ped_ui("ped"),
-        ),
-        shiny::fluidRow(
-            shiny::column(5,
-                plot_download_ui("saveped"),
-                data_download_ui("plot_data_dwnl"),
-                shiny::uiOutput("col_sel_tips")
-            ),
-            shiny::column(7,
-                plot_legend_ui("legend", "350px")
-            )
+            plot_all_ui("all_plot_ped")
         )
     ))
 }

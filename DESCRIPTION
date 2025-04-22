@@ -1,7 +1,11 @@
 Package: Pedixplorer
-Version: 1.5.0
+Version: 1.5.1
 Date: 2024-10-01
 Title: Pedigree Functions
+Author: Louis Le Nezet [aut, cre, ctb] (<https://orcid.org/0009-0000-0202-2703>), 
+        Jason Sinnwell [aut], Terry Therneau [aut], 
+        Daniel Schaid [ctb], Elizabeth Atkinson [ctb]
+Maintainer: Louis Le Nezet <louislenezet@gmail.com>
 Authors@R: c(
     person("Louis", "Le Nezet", email="louislenezet@gmail.com",
         role=c("aut","cre","ctb"), comment = c(ORCID = "0009-0000-0202-2703")),
@@ -27,16 +31,19 @@ Imports:
     S4Vectors,
     shiny,
     readxl,
-    shinyWidgets,
-    htmlwidgets,
     DT,
     gridExtra,
     data.table,
+    scales,
+    shinycssloaders,
+    shinyhelper,
+    shinyjs,
+    shinyjqui,
+    shinyWidgets,
+    htmlwidgets,
     plotly,
     colourpicker,
-    shinytoastr,
-    scales,
-    shinycssloaders
+    shinytoastr
 Description: Routines to handle family data with a Pedigree object. The initial
     purpose was to create correlation structures that describe family
     relationships such as kinship and identity-by-descent, which can be used to
@@ -64,8 +71,7 @@ Suggests:
     R.devices,
     usethis,
     rlang,
-    magick,
-    cyclocomp
+    magick
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, GraphAndNetwork, Visualization
 BugReports: https://github.com/LouisLeNezet/Pedixplorer/issues
@@ -97,9 +103,11 @@ Collate:
     'app_health_sel.R'
     'app_inf_sel.R'
     'app_ped_avaf_infos.R'
+    'app_plot_resize.R'
     'app_plot_download.R'
     'app_plot_legend.R'
     'app_plot_ped.R'
+    'app_plot_all.R'
     'app_server.R'
     'app_ui.R'
     'best_hint.R'

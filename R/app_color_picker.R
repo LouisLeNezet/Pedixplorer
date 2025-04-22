@@ -28,9 +28,8 @@ color_picker_ui <- function(id) {
 color_picker_server <- function(
     id, colors = NULL
 ) {
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
-
+        ns <- session$ns
         output$colors_pickers <- shiny::renderUI({
             shiny::req(colors)
             lapply(

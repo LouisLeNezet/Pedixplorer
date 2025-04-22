@@ -127,7 +127,7 @@
   adopted = NA,
   dateofbirth = NA,
   dateofdeath = NA,
-  missid = NA_character_,
+  missid = c(NA_character_, "0"),
   useful = NA,
   isinf = NA,
   kin = NA_real_
