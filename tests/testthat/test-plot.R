@@ -50,7 +50,7 @@ test_that("Pedigree plotting test", {
     )
 
     p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 4)
-    p$ggplot
+
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
         function() plot(p$ggplot)
     )
