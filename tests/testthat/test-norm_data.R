@@ -141,7 +141,7 @@ test_that("Norm rel", {
     rel_df <- norm_rel(rel_df)
     expect_equal(dim(rel_df), c(9, 5))
     expect_snapshot(rel_df)
-    expect_equal(sum(is.na(rel_df$error)), 6)
+    expect_equal(sum(is.na(rel_df$error)), 5)
 
     rel_df <- c(
         1, 2, 1,

@@ -17,7 +17,7 @@
 \item{obj}{A Pedigree or Ped object or a vector of subject identifiers.}
 
 \item{chrtype}{chromosome type.  The currently supported types are
-'autosome' and 'X' or 'x'.}
+'autosome' and 'X'.}
 
 \item{dadid}{A vector containing for each subject, the identifiers of the
 biologicals fathers.}

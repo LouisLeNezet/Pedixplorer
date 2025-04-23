@@ -69,6 +69,7 @@ permute <- function(x) {
 #' @param tolerance The maximum stress level to accept.
 #' Default is `0`
 #' @inheritParams align
+#' @inheritParams kindepth
 #'
 #' @return The best Hints object out of all the permutations
 #'
@@ -93,7 +94,10 @@ setGeneric(
 #' @importFrom stats setNames
 setMethod(
     "best_hint", "Pedigree",
-    function(obj, wt = c(1000, 10, 1), tolerance = 0) {
+    function(
+        obj, wt = c(1000, 10, 1), tolerance = 0,
+        align_parents = TRUE
+    ) {
 
         # find founders married to founders the female of such pairs
         # determines the plot order of founders
@@ -109,12 +113,13 @@ setMethod(
         )
         # row num of founding moms
         fmom <- unique(match(momid[fpair], id))
-        pmat <- permute(seq_along(fmom))
+        pmat <- as.matrix(permute(seq_along(fmom)))
         # Put the subsets into a random order For most Pedigrees,
         # there are several permutations that will give a tolerance
         # or near tolerance plot.
         # This way we should hit one of them soon.
-        pmat <- pmat[order(runif(nrow(pmat))), ]
+
+        pmat <- as.matrix(pmat[order(runif(nrow(pmat))), ])
 
         n <- length(obj)
         for (perm in seq_len(nrow(pmat))) {
@@ -124,10 +129,11 @@ setMethod(
             newhint <- auto_hint(
                 obj, hints = Hints(
                     horder = stats::setNames(hint[, 1], id(ped(obj)))
-                ), reset = TRUE
+                ), reset = TRUE, align_parents = align_parents
             )
             plist <- align(
-                obj, packed = TRUE, align = TRUE, width = 8, hints = newhint
+                obj, packed = TRUE, align = TRUE, width = 8, hints = newhint,
+                align_parents = align_parents
             )
 
             # Compute the error measures

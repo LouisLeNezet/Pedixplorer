@@ -51,9 +51,8 @@ health_sel_server <- function(
     threshold = NULL, sup_threshold = NULL
 ) {
     stopifnot(shiny::is.reactive(pedi))
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
-
+        ns <- session$ns
         # Health variable selector --------------------------------------------
         output$health_var_selector <- shiny::renderUI({
             if (is.null(pedi())) {

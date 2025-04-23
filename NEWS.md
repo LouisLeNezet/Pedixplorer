@@ -1,3 +1,14 @@
+## Changes in v1.5.1
+
+- Separate plot management in a shiny module
+- Add `plot_resize` shiny module
+- Add help messages using `shinyhelper`
+- Add `plink_to_pedigree` function to convert plink files to Pedigree object
+- Add `0` as one of the default missing identifier value
+- Set ggplot generation as independent without plotting on current device
+- All `draw_*` functions return a layer instead of a ggplot object
+- Add back message for individuals not plotted
+
 ## Changes in v1.3.4
 
 - Add example of interactivness in vignette

@@ -5,7 +5,7 @@
 \alias{best_hint,Pedigree-method}
 \title{Best hint for a Pedigree alignment}
 \usage{
-\S4method{best_hint}{Pedigree}(obj, wt = c(1000, 10, 1), tolerance = 0)
+\S4method{best_hint}{Pedigree}(obj, wt = c(1000, 10, 1), tolerance = 0, align_parents = TRUE)
 }
 \arguments{
 \item{obj}{A Pedigree object}
@@ -22,6 +22,12 @@ the center of the children and the parents.
 
 \item{tolerance}{The maximum stress level to accept.
 Default is \code{0}}
+
+\item{align_parents}{If \code{align_parents = TRUE}, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.}
 }
 \value{
 The best Hints object out of all the permutations

@@ -8,7 +8,7 @@ norm_rel(
   rel_df,
   multi_code = "error",
   na_strings = c("NA", ""),
-  missid = NA_character_
+  missid = c(NA_character_, "0")
 )
 }
 \arguments{

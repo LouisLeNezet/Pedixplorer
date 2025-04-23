@@ -28,25 +28,6 @@ Sys.setenv(
 
 print(Sys.getenv("CHROMOTE_CHROME"))
 
-## Clean up any open devices
-all_dev <- dev.list()
-for (devi in all_dev) {
-    dev.off(devi)
-}
-
-## Set up the plotting device
-par_lst <- list(
-    "pin" = c(8, 8), "cex" = 1,
-    "fin" = c(6, 6), "bg" = "white", "family" = "HersheySans",
-    "usr" = c(0, 1, 0, 1), "xaxp" = c(0, 1, 5), "yaxp" = c(0, 1, 5),
-    "fig" = c(0, 1, 0, 1), "mar" = rep(1, 4), "xpd" = TRUE,
-    "lwd" = 1, "oma" = rep(1, 4)
-)
-
-op <- par(par_lst)
-
-R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
-
 ## Set up the environment
 options(
     shiny.testmode = TRUE,
@@ -69,6 +50,26 @@ options(
 )
 
 rlang::global_entrace()
+
+
+## Clean up any open devices
+all_dev <- grDevices::dev.list()
+for (devi in all_dev) {
+    grDevices::dev.off(devi)
+}
+
+## Set up the plotting device
+par_lst <- list(
+    "pin" = c(8, 8), "cex" = 1,
+    "fin" = c(6, 6), "bg" = "white", "family" = "HersheySans",
+    "usr" = c(0, 1, 0, 1), "xaxp" = c(0, 1, 5), "yaxp" = c(0, 1, 5),
+    "fig" = c(0, 1, 0, 1), "mar" = rep(1, 4), "xpd" = TRUE,
+    "lwd" = 1, "oma" = rep(1, 4)
+)
+
+op <- par(par_lst)
+
+R.devices::devNew("pdf", width = 10, height = 10, par = par_lst)
 
 ## Run the tests
 test_check("Pedixplorer")
