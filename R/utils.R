@@ -51,7 +51,7 @@ NULL
 check_columns <- function(
     df, cols_needed = NULL, cols_used = NULL, cols_to_use = NULL,
     others_cols = FALSE, cols_used_init = FALSE, cols_to_use_init = FALSE,
-    cols_used_del = FALSE, verbose = FALSE
+    cols_used_del = FALSE, verbose = FALSE, init_with = NA_character_
 ) {
     cols_p <- colnames(df)
     cols_needed_missing <- cols_needed[is.na(match(cols_needed, cols_p))]
@@ -85,7 +85,7 @@ check_columns <- function(
                 "are used by the script and will be set to NA.\n"
             ))
         }
-        df[cols_used] <- ifelse(nrow(df) > 0, NA, list(character()))
+        df[cols_used] <- ifelse(nrow(df) > 0, init_with, list(character()))
     }
     cols_optional <- cols_to_use[cols_to_use %in% cols_p]
     cols_optional_abs <- cols_to_use[!cols_to_use %in% cols_p]
@@ -104,7 +104,7 @@ check_columns <- function(
                 "where absent and set to NA.\n"
             ))
         }
-        df[cols_optional_abs] <- ifelse(nrow(df) > 0, NA, list(character()))
+        df[cols_optional_abs] <- ifelse(nrow(df) > 0, init_with, list(character()))
     }
 
     if (others_cols) {
@@ -202,7 +202,6 @@ plink_to_pedigree <- function(
     na_values = c("NA", "0")
 ) {
     # Check extension
-    print(path)
     if (!grepl("\\.(fam|ped)$", path)) {
         stop("The file should be a .fam or .ped file")
     }
@@ -752,6 +751,18 @@ char_to_date <- function(date, date_pattern = "%Y-%m-%d") {
 #' Pedixplorer:::complete_twins(relped)
 #' @importFrom igraph graph_from_data_frame components
 complete_twins <- function(rel_df, multi_code = "error") {
+    rel_df <- check_columns(
+        rel_df, c("id1", "id2", "code"),
+        c("group"), c("famid"), others_cols = FALSE,
+        cols_used_init = TRUE, cols_to_use_init = TRUE
+    ) %>%
+        dplyr::mutate(
+            id1 = as.character(id1),
+            id2 = as.character(id2),
+            famid = as.character(famid),
+            group = as.numeric(group),
+            code = rel_code_to_factor(code)
+        )
     twins <- rel_df %>%
         dplyr::mutate(
             id1 = upd_famid(id1, famid),
@@ -763,7 +774,10 @@ complete_twins <- function(rel_df, multi_code = "error") {
     twins <- twins %>%
         dplyr::mutate(id1 = minid1, id2 = maxid2) %>%
         dplyr::select(-dplyr::one_of(c("minid1", "maxid2")))
-    g <- igraph::graph_from_data_frame(twins[, c("id1", "id2")], directed = FALSE)
+    g <- igraph::graph_from_data_frame(
+        twins[, c("id1", "id2")],
+        directed = FALSE
+    )
     components <- igraph::components(g)$membership
     # Map each id1 and id2 to the same component group
     twins <- twins %>%
@@ -803,9 +817,9 @@ complete_twins <- function(rel_df, multi_code = "error") {
                 unique()
             if (length(code) > 1) {
                 if (multi_code == "error") {
-                    stop("Multiple relationship codes in the same group")
+                    stop("Multiple relationship codes in group ", grp)
                 } else if (multi_code == "warn") {
-                    warning("Multiple relationship codes in the same group")
+                    warning("Multiple relationship codes in group ", grp)
                     code <- "UZ twin"
                 } else {
                     stop("Unknown multi_code argument")
@@ -819,9 +833,12 @@ complete_twins <- function(rel_df, multi_code = "error") {
             missing_edges <- dplyr::bind_rows(missing_edges, new_edges)
         }
     }
-    missing_edges$code <- rel_code_to_factor(missing_edges$code)
-    new_rel <- dplyr::bind_rows(twins, missing_edges) %>%
+    new_rel <- dplyr::bind_rows(list(
+        rel_df[rel_df$code == "Spouse", ],
+        twins, missing_edges
+    )) %>%
         dplyr::arrange(famid, group, id1, id2) %>%
-        dplyr::select(famid, id1, id2, group, code, everything())
+        dplyr::select(famid, id1, id2, group, code, everything()) %>%
+        dplyr::mutate(code = rel_code_to_factor(code))
     new_rel
 }

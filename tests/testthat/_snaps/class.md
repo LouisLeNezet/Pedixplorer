@@ -31,10 +31,14 @@
       rel2
     Output
       Rel object with 2 relationshipswith 1 MZ twin, 0 DZ twin, 0 UZ twin, 1 Spouse:
-                id1         id2                     code       famid |         A
-        <character> <character> <c("ordered", "factor")> <character> | <numeric>
-      1         ID3         ID5                  MZ twin        <NA> |         1
-      2         ID2         ID4                   Spouse        <NA> |         2
+                  id1         id2                     code       famid     group |
+          <character> <character> <c("ordered", "factor")> <character> <numeric> |
+      ID3         ID3         ID5                  MZ twin        <NA>         1 |
+      1           ID2         ID4                   Spouse        <NA>      <NA> |
+                  A
+          <numeric>
+      ID3         1
+      1           2
 
 # Hints class works
 

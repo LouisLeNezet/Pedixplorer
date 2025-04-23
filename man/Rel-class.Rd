@@ -25,7 +25,7 @@
 \usage{
 \S4method{Rel}{data.frame}(obj)
 
-\S4method{Rel}{character_OR_integer}(obj, id2, code, famid = NA_character_)
+\S4method{Rel}{character_OR_integer}(obj, id2, code, famid = NA_character_, group = NA_character_)
 }
 \arguments{
 \item{obj}{A character vector with the id of the first individuals

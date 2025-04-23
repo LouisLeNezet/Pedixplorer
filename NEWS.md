@@ -8,6 +8,7 @@
 - Set ggplot generation as independent without plotting on current device
 - All `draw_*` functions return a layer instead of a ggplot object
 - Add back message for individuals not plotted
+- Add autocompletion of missing twins relationship with `complete_twins()`
 
 ## Changes in v1.3.4
 
