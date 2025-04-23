@@ -173,6 +173,52 @@ setGeneric("is_parent", signature = "obj",
     function(obj, ...) standardGeneric("is_parent")
 )
 
+#' Import from .fam file or .ped file
+#'
+#' @description Import a .fam or .ped file and return a Pedigree object
+#'
+#' @param path Path to the file
+#' @param sep Separator used in the file
+#' @param quote Quote used in the file
+#' @param header Boolean defining if the file has a header
+#' @param na_values A vector of strings that should be considered as NA
+#' @return A Pedigree object
+#' @examples
+#' write.table(
+#'     data.frame(
+#'         famid = c("1", "1", "1"),
+#'         id = c("A", "B", "C"),
+#'         dadid = c(0, 0, "A"),
+#'         momid = c(0, 0, "B"),
+#'         sex = c(1, 2, 1)
+#'     ), file = "test.fam", sep = "\t", quote = FALSE,
+#'     row.names = FALSE, col.names = FALSE
+#' )
+#' fam <- "test.fam"
+#' pedi <- plink_to_pedigree(fam)
+#' @export
+plink_to_pedigree <- function(
+    path, sep = "\t", quote = "'", header = FALSE,
+    na_values = c("NA", "0")
+) {
+    # Check extension
+    print(path)
+    if (!grepl("\\.(fam|ped)$", path)) {
+        stop("The file should be a .fam or .ped file")
+    }
+    # Check if the file exists
+    if (!file.exists(path)) {
+        stop("The file does not exist")
+    }
+    df <- utils::read.table(
+        path, quote = quote, header = header,
+        sep = sep, na.strings = na_values
+    )
+    col <- c("famid", "id", "dadid", "momid", "sex", "affection")
+    colnames(df) <- col[seq_len(ncol(df))]
+    Pedigree(df)
+}
+
 #' @rdname is_parent
 #' @examples
 #'

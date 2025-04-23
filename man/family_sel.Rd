@@ -13,7 +13,11 @@ family_sel_server(
   pedi,
   fam_var = NULL,
   fam_sel = NULL,
-  title = "Family selection"
+  title = "Family selection",
+  help_text = NULL,
+  help_title = "Family selection",
+  help_colour = "grey",
+  help_type = "inline"
 )
 
 family_sel_demo(fam_var = NULL, fam_sel = NULL, title = "Family selection")

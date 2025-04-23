@@ -14,7 +14,7 @@
 plot_legend <- function(
     obj, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
-    lwd = par("lwd"), precision = 4
+    lwd = 1, precision = 4
 ) {
     leg <- ped_to_legdf(
         obj, cex = cex,
@@ -159,7 +159,7 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 4,
-        lwd = par("lwd"), ped_par = list(), leg_par = list(),
+        lwd = 1, ped_par = list(), leg_par = list(),
         tips = NULL, title_cex = 2, leg_usr = NULL,
         add_to_existing = FALSE
     ) {
@@ -173,14 +173,19 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             }
             x <- x[famid(ped(x)) == fam_to_plot]
         }
-        op <- par(ped_par)
+        if (!ggplot_gen) {
+            op <- par(no.readonly = TRUE)
+            on.exit(par(op))
+            par(ped_par)
+        }
         lst <- ped_to_plotdf(
             obj = x, packed = packed, width = width, align = align,
             align_parents = align_parents, force = force,
             cex = cex, symbolsize = symbolsize,
             pconnect = pconnect, branch = branch,
             aff_mark = aff_mark, id_lab = id_lab, label = label,
-            tips = tips, precision = precision, lwd = lwd
+            tips = tips, precision = precision, lwd = lwd,
+            ggplot_gen = ggplot_gen
         )
 
         if (is.null(lst)) {
@@ -197,7 +202,6 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh,
             add_to_existing = add_to_existing
         )
-        par(op)
 
         if (legend) {
             if (is.null(leg_loc)) {
@@ -215,7 +219,6 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 leg_loc = leg_loc, add_to_existing = TRUE,
                 usr = leg_usr, lwd = lwd, precision = precision
             )
-            par(op)
         }
 
         if (ggplot_gen) {

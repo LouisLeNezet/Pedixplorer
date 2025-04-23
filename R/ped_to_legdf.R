@@ -26,7 +26,7 @@
 #' the labels in the legend.
 #' @param adjy default=0.  Controls the vertical text adjustment
 #' of the labels in the legend.
-#' @param lwd default=par("lwd").  Controls the bordering line width of the
+#' @param lwd default=1.  Controls the bordering line width of the
 #' elements in the legend.
 #' @param precision The number of significatif numbers to round the
 #' numbers to.
@@ -55,7 +55,7 @@ setGeneric(
 #' @importFrom graphics strwidth
 setMethod("ped_to_legdf", "Pedigree", function(
     obj, boxh = 1, boxw = 1,
-    cex = 1, adjx = 0, adjy = 0, lwd = par("lwd"),
+    cex = 1, adjx = 0, adjy = 0, lwd = 1,
     precision = 4
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)

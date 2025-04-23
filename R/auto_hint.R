@@ -286,6 +286,7 @@ get_twin_rel <- function(obj) {
 #' @param reset If `TRUE`, then even if  the Ped object has Hints, reset
 #' them to the initial values.
 #' @inheritParams align
+#' @inheritParams kindepth
 #'
 #' @return The initial [Hints-class] object.
 #'
@@ -306,7 +307,8 @@ setGeneric("auto_hint", signature = "obj",
 #' @export
 setMethod("auto_hint", "Pedigree", function(
     obj, hints = NULL, packed = TRUE,
-    align = FALSE, reset = FALSE
+    align = FALSE, reset = FALSE,
+    align_parents = TRUE
 ) {
     ## full documentation now in vignette: align_code_details.Rmd
     ## References to those sections appear here as:
@@ -325,7 +327,7 @@ setMethod("auto_hint", "Pedigree", function(
     }
 
     n <- length(obj)
-    depth <- kindepth(obj, align_parents = TRUE)
+    depth <- kindepth(obj, align_parents = align_parents)
 
     ## Doc: init-auto_hint horder
     horder <- stats::setNames(rep(0, n), id(ped(obj)))
@@ -378,7 +380,8 @@ setMethod("auto_hint", "Pedigree", function(
 
     plist <- align(obj,
         packed = packed, align = align,
-        hints = Hints(horder = horder, spouse = sptemp)
+        hints = Hints(horder = horder, spouse = sptemp),
+        align_parents = align_parents
     )
 
 
@@ -468,7 +471,8 @@ setMethod("auto_hint", "Pedigree", function(
         )
         plist <- align(obj,
             packed = packed, align = align,
-            hints = Hints(horder = horder, spouse = new_spouse)
+            hints = Hints(horder = horder, spouse = new_spouse),
+            align_parents = align_parents
         )
     }
 

@@ -11,8 +11,14 @@ data_import_ui(id)
 data_import_server(
   id,
   label = "Select data file",
+  help_data = NULL,
+  help_data_title = "",
+  help_test_data = NULL,
+  help_test_data_title = "",
   dftest = datasets::mtcars,
-  max_request_size = 30
+  max_request_size = 30,
+  help_colour = "grey",
+  help_type = "inline"
 )
 
 data_import_demo(options = list())
@@ -22,10 +28,29 @@ data_import_demo(options = list())
 
 \item{label}{A string use to prompt the user}
 
+\item{help_data}{A string to define the help content for the data import.
+If NULL, no help content is displayed.}
+
+\item{help_data_title}{A string to define the title of the help content.
+Set it to "" to not display a title or to use the one present
+in the markdown.}
+
+\item{help_test_data}{A string to define the help content for the test data.
+If NULL, no help content is displayed.}
+
+\item{help_test_data_title}{A string to define the title of the help content.
+Set it to "" to not display a title or to use the one present
+in the markdown.}
+
 \item{dftest}{A dataframe to test the function}
 
 \item{max_request_size}{A number to define the maximum size of the file
 that can be uploaded.}
+
+\item{help_colour}{A string to define the colour of the help icon}
+
+\item{help_type}{A string to define the type of help content
+This can be "inline" or "markdown"}
 }
 \value{
 A reactive dataframe selected by the user.
