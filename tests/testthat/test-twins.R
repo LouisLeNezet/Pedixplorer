@@ -1,4 +1,4 @@
-test_that("Unpacked pedigree works", {
+test_that("Incomplete twins set", {
     ped_df <- data.frame(
         id = c(1, 2, 3, 4, 5),
         dadid = c(0, 0, 1, 1, 1),

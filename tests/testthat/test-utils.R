@@ -239,4 +239,3 @@ test_that("complete_twins", {
         "Unknown multi_code argument"
     )
 })
-
