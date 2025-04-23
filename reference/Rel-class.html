@@ -124,6 +124,10 @@ of without space between the words. The case is not important.</p></li>
 individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.</p></dd>
 
+
+<dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
+<dd><p>A numeric vector with the set number for twins.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -209,17 +213,29 @@ should be kept or deleted.</p></li>
 <span class="r-in"><span><span class="va">rel_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">Rel</span><span class="op">(</span><span class="va">rel_df</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in complete_twins(.):</span> Multiple relationship codes in group 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rel object with 4 relationshipswith 3 MZ twin, 0 DZ twin, 0 UZ twin, 1 Spouse:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           id1         id2                     code       famid     group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;character&gt; &lt;character&gt; &lt;c("ordered", "factor")&gt; &lt;character&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           1           2                  MZ twin        &lt;NA&gt;         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           1           3                  MZ twin        &lt;NA&gt;         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           2           3                  MZ twin        &lt;NA&gt;         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           3           4                   Spouse        &lt;NA&gt;      &lt;NA&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">Rel</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    obj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in complete_twins(.):</span> Multiple relationship codes in group 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rel object with 4 relationshipswith 3 MZ twin, 0 DZ twin, 0 UZ twin, 1 Spouse:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           id1         id2                     code       famid     group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;character&gt; &lt;character&gt; &lt;c("ordered", "factor")&gt; &lt;character&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           1           2                  MZ twin        &lt;NA&gt;         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           1           3                  MZ twin        &lt;NA&gt;         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           2           3                  MZ twin        &lt;NA&gt;         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           3           4                   Spouse        &lt;NA&gt;      &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
