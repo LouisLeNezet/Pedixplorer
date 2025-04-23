@@ -41,7 +41,7 @@ test_that("Pedigree plotting test", {
     )
 
     lst <- ped_to_plotdf(pedi, precision = 4)
-    expect_equal(length(lst), 2)
+    expect_equal(length(lst), 3)
     expect_equal(dim(lst$df), c(82, 17))
     expect_snapshot(lst)
     expect_equal(

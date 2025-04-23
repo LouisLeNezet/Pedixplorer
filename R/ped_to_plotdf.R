@@ -392,7 +392,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     id_plotted <- ped_df[id[idx], "id"]
     id_not_plot <- setdiff(id(ped(obj)), id_plotted)
     if (length(id_not_plot) > 0) {
-        warning(
+        message(
             paste("Individuals: ", paste(id_not_plot, collapse = ", "),
                 "won't be plotted"
             )
