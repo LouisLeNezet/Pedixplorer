@@ -388,6 +388,17 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     )
     plot_df <- plyr::rbind.fill(plot_df, id_df)
 
+    # Get id of individuals not plotted
+    id_plotted <- ped_df[id[idx], "id"]
+    id_not_plot <- setdiff(id(ped(obj)), id_plotted)
+    if (length(id_not_plot) > 0) {
+        message(
+            paste("Individuals: ", paste(id_not_plot, collapse = ", "),
+                "won't be plotted"
+            )
+        )
+    }
+
     #### Add dates ####
     dates <- ped_df[id[idx], c("id", "dateofbirth", "dateofdeath")]
     idx_dates <- idx[!is.na(dates$dateofbirth) | !is.na(dates$dateofdeath)]
@@ -598,5 +609,5 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         )
 
 
-    list(df = plot_df, par_usr = params_plot)
+    list(df = plot_df, par_usr = params_plot, ind_not_plot = id_not_plot)
 })

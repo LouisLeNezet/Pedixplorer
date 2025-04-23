@@ -276,6 +276,9 @@
       [1] 0.1977
       
       
+      $ind_not_plot
+      character(0)
+      
 
 # Tooltip works
 

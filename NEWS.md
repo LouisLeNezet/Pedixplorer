@@ -7,6 +7,7 @@
 - Add `0` as one of the default missing identifier value
 - Set ggplot generation as independent without plotting on current device
 - All `draw_*` functions return a layer instead of a ggplot object
+- Add back message for individuals not plotted
 
 ## Changes in v1.3.4
 
