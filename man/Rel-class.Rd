@@ -51,6 +51,8 @@ of without space between the words. The case is not important.
 \item{famid}{A character vector with the family identifiers of the
 individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.}
+
+\item{group}{A numeric vector with the set number for twins.}
 }
 \value{
 A Rel object.
@@ -167,14 +169,14 @@ should be kept or deleted.
 rel_df <- data.frame(
     id1 = c("1", "2", "3"),
     id2 = c("2", "3", "4"),
-    code = c(1, 2, 3)
+    code = c(1, 1, 4)
 )
 Rel(rel_df)
 
 Rel(
     obj = c("1", "2", "3"),
     id2 = c("2", "3", "4"),
-    code = c(1, 2, 3)
+    code = c(1, 1, 4)
 )
 }
 \seealso{

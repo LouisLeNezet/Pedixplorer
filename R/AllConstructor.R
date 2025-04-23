@@ -314,6 +314,7 @@ setMethod("Ped", "missing",
 #' - character() or factor() : "MZ twin", "DZ twin", "UZ twin", "Spouse" with
 #' of without space between the words. The case is not important.
 #' - numeric() : 1 = "MZ twin", 2 = "DZ twin", 3 = "UZ twin", 4 = "Spouse"
+#' @param group A numeric vector with the set number for twins.
 #' @inheritParams Ped
 #'
 #' @return A Rel object.
@@ -331,7 +332,7 @@ setGeneric("Rel", signature = "obj", function(obj, ...) {
 #' rel_df <- data.frame(
 #'     id1 = c("1", "2", "3"),
 #'     id2 = c("2", "3", "4"),
-#'     code = c(1, 2, 3)
+#'     code = c(1, 1, 4)
 #' )
 #' Rel(rel_df)
 setMethod("Rel", "data.frame",
@@ -357,7 +358,7 @@ setMethod("Rel", "data.frame",
 #' Rel(
 #'     obj = c("1", "2", "3"),
 #'     id2 = c("2", "3", "4"),
-#'     code = c(1, 2, 3)
+#'     code = c(1, 1, 4)
 #' )
 setMethod("Rel", "character_OR_integer",
     function(

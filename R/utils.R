@@ -750,7 +750,9 @@ char_to_date <- function(date, date_pattern = "%Y-%m-%d") {
 #' data(relped)
 #' Pedixplorer:::complete_twins(relped)
 #' @importFrom igraph graph_from_data_frame components
+#' @importFrom dplyr everything
 complete_twins <- function(rel_df, multi_code = "error") {
+    group <- minid1 <- maxid2 <- NULL
     rel_df <- check_columns(
         rel_df, c("id1", "id2", "code"),
         c("group"), c("famid"), others_cols = FALSE,
@@ -838,7 +840,7 @@ complete_twins <- function(rel_df, multi_code = "error") {
         twins, missing_edges
     )) %>%
         dplyr::arrange(famid, group, id1, id2) %>%
-        dplyr::select(famid, id1, id2, group, code, everything()) %>%
+        dplyr::select(famid, id1, id2, group, code, dplyr::everything()) %>%
         dplyr::mutate(code = rel_code_to_factor(code))
     new_rel
 }
