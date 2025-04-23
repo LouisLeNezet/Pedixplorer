@@ -104,7 +104,10 @@ check_columns <- function(
                 "where absent and set to NA.\n"
             ))
         }
-        df[cols_optional_abs] <- ifelse(nrow(df) > 0, init_with, list(character()))
+        df[cols_optional_abs] <- ifelse(
+            nrow(df) > 0, init_with,
+            list(character())
+        )
     }
 
     if (others_cols) {
@@ -184,18 +187,20 @@ setGeneric("is_parent", signature = "obj",
 #' @param na_values A vector of strings that should be considered as NA
 #' @return A Pedigree object
 #' @examples
-#' write.table(
-#'     data.frame(
-#'         famid = c("1", "1", "1"),
-#'         id = c("A", "B", "C"),
-#'         dadid = c(0, 0, "A"),
-#'         momid = c(0, 0, "B"),
-#'         sex = c(1, 2, 1)
-#'     ), file = "test.fam", sep = "\t", quote = FALSE,
-#'     row.names = FALSE, col.names = FALSE
+#' if (interactive()) {
+#'     write.table(
+#'         data.frame(
+#'             famid = c("1", "1", "1"),
+#'             id = c("A", "B", "C"),
+#'             dadid = c(0, 0, "A"),
+#'             momid = c(0, 0, "B"),
+#'             sex = c(1, 2, 1)
+#'         ), file = "test.fam", sep = "\t", quote = FALSE,
+#'         row.names = FALSE, col.names = FALSE
+#'     )
+#'     fam <- "test.fam"
+#'     pedi <- plink_to_pedigree(fam)
 #' )
-#' fam <- "test.fam"
-#' pedi <- plink_to_pedigree(fam)
 #' @export
 plink_to_pedigree <- function(
     path, sep = "\t", quote = "'", header = FALSE,
