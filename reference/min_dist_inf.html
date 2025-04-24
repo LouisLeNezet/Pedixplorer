@@ -6,24 +6,20 @@ the informative individuals and all the others.
 This transformation is done by taking the log2 of the inverse of the
 maximum kinship degree.
 \(minDist = log2(1 / \max(kinship))\)
-Therefore, the minimum distance is 1 when the maximum kinship is 0.5
-(i.e. same individual) and is infinite when the maximum kinship is 0
-(i.e. not related).
-For siblings, the kinship value is 0.25 and the minimum distance is 2.
-Each time the kinship degree is divided by 2, the minimum distance is
-increased by 1."><meta property="og:description" content="Compute the minimum distance between the informative
+Therefore, the minimum distance is 0 when the maximum kinship is 1 and
+is infinite when the maximum kinship is 0. For siblings, the kinship value
+is 0.5 and the minimum distance is 1. Each time the kinship degree is divided
+by 2, the minimum distance is increased by 1."><meta property="og:description" content="Compute the minimum distance between the informative
 individuals and all the others.
 This distance is a transformation of the maximum kinship degree between
 the informative individuals and all the others.
 This transformation is done by taking the log2 of the inverse of the
 maximum kinship degree.
 \(minDist = log2(1 / \max(kinship))\)
-Therefore, the minimum distance is 1 when the maximum kinship is 0.5
-(i.e. same individual) and is infinite when the maximum kinship is 0
-(i.e. not related).
-For siblings, the kinship value is 0.25 and the minimum distance is 2.
-Each time the kinship degree is divided by 2, the minimum distance is
-increased by 1."></head><body>
+Therefore, the minimum distance is 0 when the maximum kinship is 1 and
+is infinite when the maximum kinship is 0. For siblings, the kinship value
+is 0.5 and the minimum distance is 1. Each time the kinship degree is divided
+by 2, the minimum distance is increased by 1."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +27,7 @@ increased by 1."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +70,7 @@ increased by 1."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Minimum distance to the informative individuals</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/min_dist_inf.R" class="external-link"><code>R/min_dist_inf.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/min_dist_inf.R" class="external-link"><code>R/min_dist_inf.R</code></a></small>
       <div class="d-none name"><code>min_dist_inf.Rd</code></div>
     </div>
 
@@ -86,12 +82,10 @@ the informative individuals and all the others.
 This transformation is done by taking the log2 of the inverse of the
 maximum kinship degree.</p>
 <p>\(minDist = log2(1 / \max(kinship))\)</p>
-<p>Therefore, the minimum distance is 1 when the maximum kinship is 0.5
-(i.e. same individual) and is infinite when the maximum kinship is 0
-(i.e. not related).</p>
-<p>For siblings, the kinship value is 0.25 and the minimum distance is 2.
-Each time the kinship degree is divided by 2, the minimum distance is
-increased by 1.</p>
+<p>Therefore, the minimum distance is 0 when the maximum kinship is 1 and
+is infinite when the maximum kinship is 0. For siblings, the kinship value
+is 0.5 and the minimum distance is 1. Each time the kinship degree is divided
+by 2, the minimum distance is increased by 1.</p>
     </div>
 
     <div class="section level2">

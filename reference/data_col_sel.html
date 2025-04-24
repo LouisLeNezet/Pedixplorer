@@ -17,7 +17,7 @@ with the function data_col_sel_server()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@ with the function data_col_sel_server()."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Shiny modules to select columns from a dataframe</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/app_data_col_sel.R" class="external-link"><code>R/app_data_col_sel.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/app_data_col_sel.R" class="external-link"><code>R/app_data_col_sel.R</code></a></small>
       <div class="d-none name"><code>data_col_sel.Rd</code></div>
     </div>
 
@@ -85,10 +85,7 @@ with the function <code>data_col_sel_server()</code>.</p>
 <span>  na_omit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  others_cols <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ui_col_nb <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  by_row <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  help_colour <span class="op">=</span> <span class="st">"grey"</span>,</span>
-<span>  help_type <span class="op">=</span> <span class="st">"markdown"</span>,</span>
-<span>  help_style <span class="op">=</span> <span class="st">"margin-top:1em"</span></span>
+<span>  by_row <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">data_col_sel_demo</span><span class="op">(</span>ui_col_nb <span class="op">=</span> <span class="fl">2</span>, by_row <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -113,10 +110,7 @@ keys: 'alternate' and 'mandatory'.
 The 'alternate' key must contain a character vector of column names
 that can be selected as an alternative to the main column.
 The 'mandatory' key must contain a logical value (TRUE/FALSE) to indicate
-whether the column is required to be selected.
-The 'help' key must contain a string with the help message
-to display in the tooltip or the name of a markdown file
-to display in the help message.</p></dd>
+whether the column is required to be selected.</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
@@ -130,21 +124,6 @@ to display in the help message.</p></dd>
 <dt id="arg-others-cols">others_cols<a class="anchor" aria-label="anchor" href="#arg-others-cols"></a></dt>
 <dd><p>A boolean to authorize other columns to be
 present in the output datatable.</p></dd>
-
-
-<dt id="arg-help-colour">help_colour<a class="anchor" aria-label="anchor" href="#arg-help-colour"></a></dt>
-<dd><p>A string to define the color of the help icon.</p></dd>
-
-
-<dt id="arg-help-type">help_type<a class="anchor" aria-label="anchor" href="#arg-help-type"></a></dt>
-<dd><p>A string to define the type of help message.
-It can be "inline" or "markdonw".</p></dd>
-
-
-<dt id="arg-help-style">help_style<a class="anchor" aria-label="anchor" href="#arg-help-style"></a></dt>
-<dd><p>A string to define the style of the help message.
-This is passed to the <code>style</code> argument of the <code><a href="https://rdrr.io/pkg/shinyhelper/man/helper.html" class="external-link">shinyhelper::helper()</a></code>
-function.</p></dd>
 
 </dl></div>
     <div class="section level2">

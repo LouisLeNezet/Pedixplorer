@@ -11,7 +11,7 @@ plot_fromdf()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@ plot_fromdf()."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create plotting data frame from a Pedigree</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/ped_to_plotdf.R" class="external-link"><code>R/ped_to_plotdf.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/ped_to_plotdf.R" class="external-link"><code>R/ped_to_plotdf.R</code></a></small>
       <div class="d-none name"><code>ped_to_plotdf.Rd</code></div>
     </div>
 
@@ -82,9 +82,8 @@ characteristic for them to be plotted afterwards with
 <span>  id_lab <span class="op">=</span> <span class="st">"id"</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  precision <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>  lwd <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>,</span>
 <span>  tips <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  ggplot_gen <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -177,18 +176,13 @@ solution to.</p></dd>
 
 
 <dt id="arg-lwd">lwd<a class="anchor" aria-label="anchor" href="#arg-lwd"></a></dt>
-<dd><p>default=1. Controls the line width of the
+<dd><p>default=par("lwd"). Controls the line width of the
 segments, arcs and polygons.</p></dd>
 
 
 <dt id="arg-tips">tips<a class="anchor" aria-label="anchor" href="#arg-tips"></a></dt>
 <dd><p>A character vector of the column names of the data frame to
 use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
-
-
-<dt id="arg-ggplot-gen">ggplot_gen<a class="anchor" aria-label="anchor" href="#arg-ggplot-gen"></a></dt>
-<dd><p>If <code>TRUE</code>, the function will use the
-<code>ggplot2</code> package to generate the plot.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -223,7 +217,6 @@ use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ped1</span> <span class="op">&lt;-</span> <span class="fu"><a href="Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">[</span><span class="va">sampleped</span><span class="op">$</span><span class="va">famid</span> <span class="op">==</span> <span class="fl">1</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">plot_df</span> <span class="op">&lt;-</span> <span class="fu">ped_to_plotdf</span><span class="op">(</span><span class="va">ped1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Individuals:  1_113 won't be plotted</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">plot_df</span><span class="op">$</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       id                  x0                y0              x1         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Length:262         Min.   :-0.6265   Min.   :1.000   Min.   :-0.6265  </span>
@@ -245,26 +238,18 @@ use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   : NA   Min.   : NA   Min.   :0.700   Length:262        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: NA   1st Qu.: NA   1st Qu.:1.000   Class :character  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Median : NA   Median : NA   Median :1.000   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :NaN   Mean   :NaN   Mean   :1.008                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :NaN   Mean   :NaN   Mean   :1.015                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: NA   3rd Qu.: NA   3rd Qu.:1.000                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : NA   Max.   : NA   Max.   :2.420                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :262   NA's   :262   NA's   :158                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      tips                adjx          adjy            lty           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:262         Min.   :0.5   Min.   :0.5000   Length:262        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.:0.5   1st Qu.:0.5000   Class :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median :0.5   Median :1.0000   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   :0.5   Mean   :0.7647                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:0.5   3rd Qu.:1.0000                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :0.5   Max.   :1.0000                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :160   NA's   :160                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       lwd             pch     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :1.000   Min.   :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:1.000   1st Qu.:19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :1.000   Median :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :1.019   Mean   :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:1.000   3rd Qu.:19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :2.500   Max.   :19   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :104     NA's   :260  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : NA   Max.   : NA   Max.   :2.500                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :262   NA's   :262                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      tips                adjx          adjy             lty     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:262         Min.   :0.5   Min.   :0.5000   Min.   :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.:0.5   1st Qu.:0.5000   1st Qu.:19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median :0.5   Median :1.0000   Median :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   :0.5   Mean   :0.7647   Mean   :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:0.5   3rd Qu.:1.0000   3rd Qu.:19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :0.5   Max.   :1.0000   Max.   :19   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :160   NA's   :160      NA's   :260  </span>
 <span class="r-in"><span><span class="fu"><a href="plot_fromdf.html">plot_fromdf</a></span><span class="op">(</span><span class="va">plot_df</span><span class="op">$</span><span class="va">df</span>, usr <span class="op">=</span> <span class="va">plot_df</span><span class="op">$</span><span class="va">par_usr</span><span class="op">$</span><span class="va">usr</span>,</span></span>
 <span class="r-in"><span>    boxh <span class="op">=</span> <span class="va">plot_df</span><span class="op">$</span><span class="va">par_usr</span><span class="op">$</span><span class="va">boxh</span>, boxw <span class="op">=</span> <span class="va">plot_df</span><span class="op">$</span><span class="va">par_usr</span><span class="op">$</span><span class="va">boxw</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

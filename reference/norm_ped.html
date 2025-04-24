@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Normalise a Ped object dataframe</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
       <div class="d-none name"><code>norm_ped.Rd</code></div>
     </div>
 
@@ -63,7 +63,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">norm_ped</span><span class="op">(</span></span>
 <span>  <span class="va">ped_df</span>,</span>
 <span>  na_strings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">""</span><span class="op">)</span>,</span>
-<span>  missid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA_character_</span>, <span class="st">"0"</span><span class="op">)</span>,</span>
+<span>  missid <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  try_num <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  cols_used_del <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  date_pattern <span class="op">=</span> <span class="st">"%Y-%m-%d"</span></span>
@@ -220,14 +220,14 @@ or <code>unknown</code>.</p></li>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id dadid momid famid     sex fertility miscarriage deceased avail</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A  &lt;NA&gt;     1    male   fertile       FALSE     TRUE    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2  &lt;NA&gt;  &lt;NA&gt;     1  female infertile         SAB    FALSE  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1_1   1_A   1_0     1    male   fertile       FALSE     TRUE    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1_2   1_0   1_0     1  female infertile         SAB    FALSE  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   1_3   1_1   1_2     1    male   fertile       FALSE     TRUE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   1_4   1_3   1_2     1    male infertile       FALSE    FALSE    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5  &lt;NA&gt;  &lt;NA&gt;     1  female   fertile         ECT     TRUE  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1_5   1_0   1_0     1  female   fertile         ECT     TRUE  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   1_6   1_4   1_5     1    male infertile       FALSE    FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7   1_7   1_1   1_2     1    male   fertile       FALSE     TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8  &lt;NA&gt;  &lt;NA&gt;     2  female infertile       FALSE    FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2_8   2_0   2_0     2  female infertile       FALSE    FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   2_9   2_6   2_8     2 unknown   fertile       FALSE     TRUE  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 2_10   2_6   2_8     2  female   fertile       FALSE    FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    evalutated consultand proband carrier asymptomatic adopted dateofbirth</span>
@@ -253,7 +253,7 @@ or <code>unknown</code>.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10        &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                               error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                one-parent-missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  is-infertile-but-is-parent_is-aborted-but-is-parent_is-aborted-but-has-fertility</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                        is-infertile-but-is-parent</span>
