@@ -38,7 +38,7 @@ ped_server <- function(
         ## Helper observers for the help buttons -------------------------------
         shinyhelper::observe_helpers(
             withMathJax = TRUE,
-            help_dir = system.file("inst/help_files", package = "Pedixplorer")
+            help_dir = system.file("helpfiles", package = "Pedixplorer")
         )
 
         output$help_main <- shiny::renderUI({

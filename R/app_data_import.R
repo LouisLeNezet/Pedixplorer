@@ -420,7 +420,7 @@ data_import_demo <- function(options = list()) {
             help_test_data = NULL
         )
         shinyhelper::observe_helpers(
-            help_dir = system.file("inst/helpfiles", package = "Pedixplorer")
+            help_dir = system.file("helpfiles", package = "Pedixplorer")
         )
         output$data <- shiny::renderTable({
             if (is.null(df_import())) {

@@ -463,7 +463,7 @@ data_col_sel_demo <- function(ui_col_nb = 2, by_row = FALSE) {
             help_type = "inline", help_colour = "darkred"
         )
         shinyhelper::observe_helpers(
-            help_dir = system.file("inst/helpfiles", package = "Pedixplorer")
+            help_dir = system.file("helpfiles", package = "Pedixplorer")
         )
         output$selected_cols <- shiny::renderTable({
             my_df()
