@@ -36,6 +36,11 @@ ped_server <- function(
         utils::data("relped", envir = data_env, package = "Pedixplorer")
 
         ## Helper observers for the help buttons -------------------------------
+        shinyhelper::observe_helpers(
+            withMathJax = TRUE,
+            help_dir = system.file("inst/help_files", package = "Pedixplorer")
+        )
+
         output$help_main <- shiny::renderUI({
             shiny::tags$div() |>
                 shinyhelper::helper(
@@ -46,7 +51,6 @@ ped_server <- function(
                     style = "font-size: 1.5em;"
                 )
         })
-        shinyhelper::observe_helpers(withMathJax = TRUE)
 
         ## Ped data import ----------------------------------------------------
         ped_df <- data_import_server(
