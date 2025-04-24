@@ -148,6 +148,7 @@ plot_ped_server <- function(
         my_plot_fct <- shiny::reactive({
             shiny::req(pedi())
             shiny::req(symbolsize(), plot_cex(), plot_lwd(), my_title())
+            shiny::req(width(), height())
             app_plot_fct(
                 pedi = pedi(), mytitle = my_title(), mytips = my_tips(),
                 cex = plot_cex(), plot_par = plot_par(),
@@ -172,10 +173,11 @@ plot_ped_server <- function(
         })
 
         output$plot_output <- shiny::renderPlot({
+            shiny::req(!is_interactive())
             shiny::req(my_plot_fct())
             shiny::req(is_ready())
             my_plot_fct()()
-        })
+        },  width = function() width(), height = function() height())
 
         output$uiplot <- shiny::renderUI({
             shiny::req(is_ready())
