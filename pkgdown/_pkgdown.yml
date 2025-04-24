@@ -18,10 +18,14 @@ template:
 
 news:
   releases:
-  - text: "Latest devel release : Version 1.1.5"
-    href: "https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.1.5"
-  - text: "Latest main release : Version 1.0.0"
+  - text: "Latest devel release : Version 1.5.2"
+    href: https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.5.2
+  - text: "Latest main release : Version 1.4.0"
     href: https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html
+  - text: "Previous stable release : Version 1.2.0"
+    href: https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.2.0
+  - text: "Previous stable release : Version 1.0.0"
+    href: https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.0.0
 
 reference:
   - title: "Pedixplorer"
