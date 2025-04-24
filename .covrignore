@@ -9,6 +9,8 @@ R/app_ped_avaf_infos.R
 R/app_plot_download.R
 R/app_plot_legend.R
 R/app_plot_ped.R
+R/app_plot_all.R
+R/app_plot_resize.R
 R/app_server.R
 R/app_ui.R
 R/app.R
