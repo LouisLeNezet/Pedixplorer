@@ -65,8 +65,5 @@ is \code{TRUE} and \code{FALSE} otherwise.
 generate_aff_inds(c(1, 2, 3, 4, 5), threshold = 3, sup_thres_aff = TRUE)
 generate_aff_inds(c("A", "B", "C", "A", "V", "B"), mods_aff = c("A", "B"))
 }
-\author{
-Louis Le Nézet
-}
 \keyword{generate_scales,}
 \keyword{internal}

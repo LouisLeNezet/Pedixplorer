@@ -19,7 +19,7 @@
   aff_mark = TRUE,
   id_lab = "id",
   label = NULL,
-  precision = 3,
+  precision = 4,
   lwd = par("lwd"),
   tips = NULL,
   ...
@@ -76,7 +76,8 @@ value of the affection column for each filling scale.}
 \item{label}{If not \code{NULL}, add a label to each box under the id
 corresponding to the value of the column given.}
 
-\item{precision}{The number of decimal places to round the solution to.}
+\item{precision}{The number of significatif numbers to round the
+solution to.}
 
 \item{lwd}{default=par("lwd"). Controls the line width of the
 segments, arcs and polygons.}

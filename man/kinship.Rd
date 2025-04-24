@@ -28,13 +28,13 @@ biologicals mothers.}
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-\code{male} < \code{female} <
-\code{unknown} < \code{terminated}
+\code{male} < \code{female} < \code{unknown}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
+\item "male": "m", "male", "man", \code{1}
+\item "female": "f", "female", "woman", \code{2}
+\item "unknown": "unknown", \code{3}
 }}
 }
 \value{
@@ -60,6 +60,10 @@ The call with a Ped or a vector is provided for backwards compatibility
 with an earlier release of the library that was less capable.
 Note that when using with a Ped or a vector, any information on
 twins is not available to the function.
+
+Warning: This function does not work with adopted individuals.
+If you have adopted individuals in your pedigree, you should remove them
+before calling this function.
 
 When called with a Pedigree, the routine
 will create a block-diagonal-symmetric sparse matrix object of class
@@ -98,8 +102,8 @@ kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
 )
 
 data(sampleped)
-ped <- Pedigree(sampleped)
-kinship(ped)
+pedi <- Pedigree(sampleped[-16])
+kinship(pedi)
 }
 \seealso{
 \code{\link[=make_famid]{make_famid()}}, \code{\link[=kindepth]{kindepth()}}

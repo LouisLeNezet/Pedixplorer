@@ -11,11 +11,11 @@ plot_ped_ui(id)
 plot_ped_server(
   id,
   pedi,
-  title,
+  title = NA,
   precision = 2,
   max_ind = 500,
-  lwd = par("lwd"),
-  tips = NULL
+  tips = NULL,
+  lwd = par("lwd")
 )
 
 plot_ped_demo(pedi, precision = 2, max_ind = 500, tips = NULL)
@@ -31,11 +31,10 @@ plot_ped_demo(pedi, precision = 2, max_ind = 500, tips = NULL)
 
 \item{max_ind}{An integer to set the maximum number of individuals to plot.}
 
-\item{lwd}{default=par("lwd"). Controls the line width of the
-segments, arcs and polygons.}
+\item{tips}{A character vector of the column names of the data frame to use
+as tooltips. If NULL, no tooltips are added.}
 
-\item{tips}{A character vector of the column names of the data frame to
-use as tooltips. If \code{NULL}, no tooltips are added.}
+\item{lwd}{A numeric to set the line width of the plot.}
 }
 \value{
 A reactive ggplot or the pedigree object.

@@ -22,7 +22,7 @@
 #' is not possible.
 #' @return An integer vector containing the depth for each subject
 #'
-#' @author Terry Therneau, updated by Louis Le Nézet
+#' @author Terry Therneau, updated by Louis Le Nezet
 #' @seealso [align()]
 #' @include AllClass.R
 #' @export
@@ -250,17 +250,18 @@ setMethod("kindepth", "character_OR_integer",
             ## bug: done should be true if dads == bad | moms == bad
         }
         if (all(depth > 0)) {
+            depth_found <- paste0(depth, collapse = ", ")
             if (force == FALSE) {
                 stop(
                     "You found a bug in kindepth's alignment code! ",
-                    "Depth found: ", paste0(depth, collapse = ", "),
+                    "Depth found: ", depth_found,
                     " You may want to try with `force = TRUE` or",
                     "`align_parents = FALSE`."
                 )
             } else {
                 warning(
                     "You found a bug in kindepth's alignment code! ",
-                    "Depth found: ", paste0(depth, collapse = ", "),
+                    "Depth found: ", depth_found,
                     " Returning depth minus `min(depth)`.",
                     " You may want to try with `align_parents = FALSE`."
                 )

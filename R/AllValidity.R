@@ -7,6 +7,9 @@
 #' @param ... Additional arguments passed to print0
 #'
 #' @return The character vector aggregated until the maximum is reached.
+#' @examples
+#' x <- seq_len(10)
+#' Pedixplorer:::paste0max(x, 5)
 #' @keywords internal
 paste0max <- function(x, max = 5, sep = "", ...) {
     lgt <- min(length(x), max)
@@ -167,7 +170,7 @@ is_valid_hints <- function(object) {
             ))
         }
     } else {
-        if (nrow(spouse(object)) > 0) {
+        if (nrow(object@spouse) > 0) {
             errors <- c(errors, paste(
                 "horder slot should be non empty if spouse slot is non empty"
             ))
@@ -287,10 +290,13 @@ is_valid_scales <- function(object) {
 #' Multiple checks are done here
 #'
 #' 1. Check that the ped ids slots have the right values
-#' 2. Check that the sex, steril, status, avail and affected slots have the
+#' 2. Check that the sex, fertility, deceased, avail and affected slots have the
 #' right values
 #' 3. Check that dad are male and mom are female
 #' 4. Check that individuals have both parents or none
+#' 5. Check that proband are affected
+#' 6. Check that proband and consultand are mutually exclusive
+#' 7. Check that asymptomatic individuals are not affected
 #'
 #' @param object A Ped object.
 #'
@@ -328,34 +334,123 @@ is_valid_ped <- function(object) {
         object@momid, c(object@id, missid), "momid"
     ))
 
-    # Control values for sex, steril, status, avail and affected
-    sex_code <- c("male", "female", "unknown", "terminated")
+    # Control values for sex, fertility, deceased, avail and affected
+    sex_code <- c("male", "female", "unknown")
     errors <- c(errors, check_values(object@sex, sex_code))
-    errors <- c(errors, check_values(object@steril, c(0, 1, NA)))
-    errors <- c(errors, check_values(object@status, c(0, 1, NA)))
+
+    fertility_code <- c("fertile", "infertile", "infertile_choice_na")
+    errors <- c(errors, check_values(object@fertility, fertility_code))
+
+    miscarriage_code <- c("SAB", "TOP", "ECT", "FALSE")
+    errors <- c(errors, check_values(object@miscarriage, miscarriage_code))
+
+    errors <- c(errors, check_values(object@deceased, c(0, 1, NA)))
     errors <- c(errors, check_values(object@avail, c(0, 1, NA)))
     errors <- c(errors, check_values(object@affected, c(0, 1, NA)))
+    errors <- c(errors, check_values(object@adopted, c(0, 1, NA)))
+
+    dateofbirth <- as.Date(object@dateofbirth, format = "%Y-%m-%d")
+    dateofdeath <- as.Date(object@dateofdeath, format = "%Y-%m-%d")
+    if (any(is.na(dateofbirth) & !is.na(object@dateofbirth))) {
+        id_wrong <- object@id[is.na(dateofbirth) & !is.na(object@dateofbirth)]
+        errors <- c(errors, paste(
+            id_wrong, "has a date of birth but it is not a date"
+        ))
+    }
+
+    if (any(is.na(dateofdeath) & !is.na(object@dateofdeath))) {
+        id_wrong <- object@id[is.na(dateofdeath) & !is.na(object@dateofdeath)]
+        errors <- c(errors, paste(
+            id_wrong, "has a date of death but it is not a date"
+        ))
+    }
 
     # Control sex for parents
     id <- object@id
     momid <- object@momid
     dadid <- object@dadid
     sex <- object@sex
+    fertility <- object@fertility
+    miscarriage <- object@miscarriage
+    consultand <- object@consultand
+    proband <- object@proband
+    affected <- object@affected
+    asymptomatic <- object@asymptomatic
     is_dad <- id %in% dadid
     is_mom <- id %in% momid
+    deceased <- object@deceased
+    dateofdeath <- object@dateofdeath
 
     if (any(sex[is_dad] != "male")) {
-        errors <- c(errors, "Some dad are not male")
+        id_wrg <- id[is_dad & sex != "male"]
+        errors <- c(errors, paste(id_wrg, "is dad but not male"))
     }
     if (any(sex[is_mom] != "female")) {
-        errors <- c(errors, "Some mom are not female")
+        id_wrg <- id[is_mom & sex != "female"]
+        errors <- c(errors, paste(id_wrg, "is mom but not female"))
     }
-    if (any(
-        (dadid %in% missid & (! momid %in% missid)) |
-            ((! dadid %in% missid) & momid %in% missid)
+    not_both_parents <- (dadid %in% missid & (! momid %in% missid)) |
+        ((! dadid %in% missid) & momid %in% missid)
+
+    if (any(not_both_parents)) {
+        id_wrg <- id[not_both_parents]
+        errors <- c(errors, paste(id_wrg, "should have both parents or none"))
+    }
+
+    if (any(fertility[is_dad] != "fertile")) {
+        id_wrg <- id[is_dad & fertility != "fertile"]
+        errors <- c(errors, paste(id_wrg, "is dad but not fertile"))
+    }
+    if (any(fertility[is_mom] != "fertile")) {
+        id_wrg <- id[is_mom & fertility != "fertile"]
+        errors <- c(errors, paste(id_wrg, "is mom but not fertile"))
+    }
+
+    if (any(miscarriage[is_dad] != "FALSE")) {
+        id_wrg <- id[is_dad & miscarriage != "FALSE"]
+        errors <- c(errors, paste(id_wrg, "is dad have a miscarriage status"))
+    }
+    if (any(miscarriage[is_mom] != "FALSE")) {
+        id_wrg <- id[is_mom & miscarriage != "FALSE"]
+        errors <- c(errors, paste(id_wrg, "is mom have a miscarriage status"))
+    }
+
+    if (any(miscarriage != "FALSE" & fertility != "fertile")) {
+        id_wrg <- id[miscarriage != "FALSE" & fertility != "fertile"]
+        errors <- c(errors, paste(
+            id_wrg, "is infertile and has a miscarriage status",
+            "only one of the two should be present"
+        ))
+    }
+
+    if (any(proband & !affected & !is.na(affected))) {
+        id_wrg <- paste(id[proband & !affected & !is.na(affected)])
+        warning(id_wrg, " individual(s) are/is proband but not affected")
+    }
+
+    if (any(consultand & proband)) {
+        id_wrg <- id[consultand & proband]
+        errors <- c(errors, paste(id_wrg, "is consultand and proband"))
+    }
+
+    if (any(asymptomatic & !is.na(asymptomatic)
+        & affected & !is.na(affected)
     )) {
-        errors <- c(errors, "Individuals should have both parents or none")
+        id_wrg <- paste(id[
+            asymptomatic & !is.na(asymptomatic)
+            & affected & !is.na(affected)
+        ])
+        warning(id_wrg, " individual(s) are/is asymptomatic but affected")
     }
+
+    mis_deceased <- (is.na(deceased) | !deceased) & !is.na(dateofdeath)
+    if (any(mis_deceased)) {
+        id_wrg <- id[mis_deceased]
+        errors <- c(errors, paste(
+            id_wrg, "is not deceased but has a date of death"
+        ))
+    }
+
 
     if (length(errors) == 0) {
         TRUE
@@ -395,10 +490,10 @@ is_valid_rel <- function(object) {
     if (any(object@id1 == object@id2)) {
         id1e <- object@id1[object@id1 == object@id2]
         id2e <- object@id2[object@id1 == object@id2]
-        errors <- c(errors, paste(
+        errors <- c(errors, paste0(
             "id1 '", paste0(id1e, collapse = "', '"),
-            "' should be different to id2 '", paste0(id2e, collapse = "', '"),
-            "'.", sep = ""
+            "' should be different to id2 '",
+            paste0(id2e, collapse = "', '"), "'"
         ))
     }
 
@@ -406,20 +501,20 @@ is_valid_rel <- function(object) {
     if (any(object@id1 > object@id2)) {
         id1b <- object@id1[object@id1 > object@id2]
         id2b <- object@id2[object@id1 > object@id2]
-        errors <- c(errors, paste(
+        errors <- c(errors, paste0(
             "id1 '", paste0(id1b, collapse = "', '"),
-            "' should be smaller than id2 '", paste0(id2b, collapse = "', '"),
-            "'.", sep = ""
+            "' should be smaller than id2 '",
+            paste0(id2b, collapse = "', '"), "'"
         ))
     }
 
     #### Check absence of duplicate ####
-    idr <- paste(object@id1, object@id2, sep = "_")
+    idr <- paste(object@id1, object@id2, sep = "-")
     if (any(duplicated(idr))) {
         idd <- idr[duplicated(idr)]
-        errors <- c(errors, paste(
+        errors <- c(errors, paste0(
             "Pairs of individuals should be unique",
-            " ('", paste0(idd, collapse = "', '"), "').", sep = ""
+            " ('", paste0(idd, collapse = "', '"), "')"
         ))
     }
 
@@ -487,33 +582,33 @@ is_valid_pedigree <- function(object) {
     }
 
     #### Check that the scales columns have the right values ####
-    ped <- as.data.frame(ped(object))
+    ped_df <- as.data.frame(ped(object))
     errors <- c(errors, check_values(
-        fill(object)$column_values, colnames(ped),
+        fill(object)$column_values, colnames(ped_df),
         "fill column_values"
     ))
     errors <- c(errors, check_values(
-        fill(object)$column_mods, colnames(ped),
+        fill(object)$column_mods, colnames(ped_df),
         "fill column_mods"
     ))
     errors <- c(errors, check_values(
-        border(object)$column, colnames(ped),
-        "border column"
+        border(object)$column_values, colnames(ped_df),
+        "border column_values"
     ))
 
     #### Check that all fill modalities are present in the pedigree data ####
-    for (col in unique(fill(object)$column)){
+    for (col in unique(fill(object)$column_mods)){
         errors <- c(errors, check_values(
-            ped[[col]],
+            ped_df[[col]],
             fill(object)[fill(object)$column_mods == col, "mods"],
             paste("fill column", col)
         ))
     }
     #### Check that all borders modalities are present in the pedigree data ####
-    for (col in unique(border(object)$column)){
+    for (col in unique(border(object)$column_mods)){
         errors <- c(errors, check_values(
-            ped[[col]],
-            border(object)[border(object)$column == col, "mods"],
+            ped_df[[col]],
+            border(object)[border(object)$column_mods == col, "mods"],
             paste("border column", col)
         ))
     }

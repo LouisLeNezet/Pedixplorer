@@ -28,18 +28,58 @@
 \alias{sex,Ped-method}
 \alias{sex<-}
 \alias{sex<-,Ped,character_OR_integer-method}
-\alias{affected}
-\alias{affected,Ped-method}
-\alias{affected<-}
-\alias{affected<-,Ped,numeric_OR_logical-method}
+\alias{fertility}
+\alias{fertility,Ped-method}
+\alias{fertility<-}
+\alias{fertility<-,Ped,character_OR_integer-method}
+\alias{miscarriage}
+\alias{miscarriage,Ped-method}
+\alias{miscarriage<-}
+\alias{miscarriage<-,Ped,character_OR_integer-method}
+\alias{deceased}
+\alias{deceased,Ped-method}
+\alias{deceased<-}
+\alias{deceased<-,Ped,numeric_OR_logical-method}
 \alias{avail}
 \alias{avail,Ped-method}
 \alias{avail<-}
 \alias{avail<-,Ped,numeric_OR_logical-method}
-\alias{status}
-\alias{status,Ped-method}
-\alias{status<-}
-\alias{status<-,Ped,numeric_OR_logical-method}
+\alias{evaluated}
+\alias{evaluated,Ped-method}
+\alias{evaluated<-}
+\alias{evaluated<-,Ped,numeric_OR_logical-method}
+\alias{consultand}
+\alias{consultand,Ped-method}
+\alias{consultand<-}
+\alias{consultand<-,Ped,numeric_OR_logical-method}
+\alias{proband}
+\alias{proband,Ped-method}
+\alias{proband<-}
+\alias{proband<-,Ped,numeric_OR_logical-method}
+\alias{carrier}
+\alias{carrier,Ped-method}
+\alias{carrier<-}
+\alias{carrier<-,Ped,numeric_OR_logical-method}
+\alias{asymptomatic}
+\alias{asymptomatic,Ped-method}
+\alias{asymptomatic<-}
+\alias{asymptomatic<-,Ped,numeric_OR_logical-method}
+\alias{adopted}
+\alias{adopted,Ped-method}
+\alias{adopted<-}
+\alias{adopted<-,Ped,numeric_OR_logical-method}
+\alias{affected}
+\alias{affected,Ped-method}
+\alias{affected<-}
+\alias{affected<-,Ped,numeric_OR_logical-method}
+\alias{dateofbirth}
+\alias{dateofbirth,Ped-method}
+\alias{dateofbirth<-}
+\alias{dateofbirth<-,Ped,Date_OR_character-method}
+\alias{dateofdeath}
+\alias{dateofdeath,Ped-method}
+\alias{dateofdeath<-}
+\alias{dateofdeath<-,Ped,Date_OR_character-method}
 \alias{isinf}
 \alias{isinf,Ped-method}
 \alias{isinf<-}
@@ -61,18 +101,32 @@
 \alias{subset,Ped-method}
 \title{Ped object}
 \usage{
-\S4method{Ped}{data.frame}(obj, cols_used_init = FALSE, cols_used_del = FALSE)
+\S4method{Ped}{data.frame}(
+  obj,
+  cols_used_init = FALSE,
+  cols_used_del = FALSE,
+  date_pattern = "\%Y-\%m-\%d"
+)
 
 \S4method{Ped}{character_OR_integer}(
   obj,
-  sex,
   dadid,
   momid,
+  sex,
   famid = NA,
-  steril = NA,
-  status = NA,
+  fertility = NA,
+  miscarriage = NA,
+  deceased = NA,
   avail = NA,
+  evaluated = NA,
+  consultand = NA,
+  proband = NA,
   affected = NA,
+  carrier = NA,
+  asymptomatic = NA,
+  adopted = NA,
+  dateofbirth = NA,
+  dateofdeath = NA,
   missid = NA_character_,
   useful = NA,
   isinf = NA,
@@ -89,17 +143,7 @@ should be initialised to NA.}
 \item{cols_used_del}{Boolean defining if the columns that will be used
 should be deleted.}
 
-\item{sex}{A character, factor or numeric vector corresponding to
-the gender of the individuals. This will be transformed to an ordered factor
-with the following levels:
-\code{male} < \code{female} <
-\code{unknown} < \code{terminated}
-The following values are recognized:
-\itemize{
-\item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
-}}
+\item{date_pattern}{The pattern of the date}
 
 \item{dadid}{A vector containing for each subject, the identifiers of the
 biologicals fathers.}
@@ -107,17 +151,47 @@ biologicals fathers.}
 \item{momid}{A vector containing for each subject, the identifiers of the
 biologicals mothers.}
 
+\item{sex}{A character, factor or numeric vector corresponding to
+the gender of the individuals. This will be transformed to an ordered factor
+with the following levels:
+\code{male} < \code{female} < \code{unknown}
+
+The following values are recognized:
+\itemize{
+\item "male": "m", "male", "man", \code{1}
+\item "female": "f", "female", "woman", \code{2}
+\item "unknown": "unknown", \code{3}
+}}
+
 \item{famid}{A character vector with the family identifiers of the
 individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.}
 
-\item{steril}{A logical vector with the sterilisation status of the
-individuals
-(i.e. \code{FALSE} = not sterilised,
-\code{TRUE} = sterilised,
-\code{NA} = unknown).}
+\item{fertility}{A character, factor or numeric vector corresponding to
+the fertility status of the individuals. This will be transformed to a
+factor with the following levels:
+\code{infertile_choice_na}, \code{infertile}, \code{fertile}
 
-\item{status}{A logical vector with the affection status of the
+The following values are recognized:
+\itemize{
+\item "inferile_choice_na" : "infertile_choice", "infertile_na"
+\item "infertile" : "infertile", "steril", \code{FALSE}, \code{0}
+\item "fertile" : "fertile", \code{TRUE}, \code{1}, \code{NA}
+}}
+
+\item{miscarriage}{A character, factor or numeric vector corresponding to
+the miscarriage status of the individuals. This will be transformed to a
+factor with the following levels:
+\code{TOP}, \code{SAB}, \code{ECT}, \code{FALSE}
+The following values are recognized:
+\itemize{
+\item "SAB" : "spontaneous", "spontaenous abortion"
+\item "TOP" : "termination", "terminated", "termination of pregnancy"
+\item "ECT" : "ectopic", "ectopic pregnancy"
+\item FALSE : \code{0}, \code{FALSE}, "no", \code{NA}
+}}
+
+\item{deceased}{A logical vector with the death status of the
 individuals
 (i.e. \code{FALSE} = alive,
 \code{TRUE} = dead,
@@ -129,11 +203,56 @@ individuals
 \code{TRUE} = available,
 \code{NA} = unknown).}
 
+\item{evaluated}{A logical vector with the evaluation status of the
+individuals.
+(i.e. \code{FALSE} = documented evaluation not available,
+\code{TRUE} = documented evaluation available).}
+
+\item{consultand}{A logical vector with the consultand status of the
+individuals. A consultand being an individual seeking
+genetic counseling/testing
+(i.e. \code{FALSE} = not a consultand,
+\code{TRUE} = consultand).}
+
+\item{proband}{A logical vector with the proband status of the
+individuals. A proband being an affected family
+member coming to medical attention independent of other
+family members.
+(i.e. \code{FALSE} = not a proband,
+\code{TRUE} = proband).}
+
 \item{affected}{A logical vector with the affection status of the
 individuals
 (i.e. \code{FALSE} = unaffected,
 \code{TRUE} = affected,
 \code{NA} = unknown).}
+
+\item{carrier}{A logical vector with the carrier status of the
+individuals. A carrier being an individual who has
+the genetic trait but who is not likely to manifest the
+disease regardless of inheritance pattern
+(i.e. \code{FALSE} = not carrier,
+\code{TRUE} = carrier,
+\code{NA} = unknown).}
+
+\item{asymptomatic}{A logical vector with the asymptomatic status of
+the individuals. An asymptomatic individual being an individual
+clinically unaffected at this time but could later exhibit symptoms.
+(i.e. \code{FALSE} = not asymptomatic,
+\code{TRUE} = asymptomatic,
+\code{NA} = unknown).}
+
+\item{adopted}{A logical vector with the adopted status of the
+individuals.
+(i.e. \code{FALSE} = not adopted,
+\code{TRUE} = adopted,
+\code{NA} = unknown).}
+
+\item{dateofbirth}{A character vector with the date of birth of the
+individuals.}
+
+\item{dateofdeath}{A character vector with the date of death of the
+individuals.}
 
 \item{missid}{A character vector with the missing values identifiers.
 All the id, dadid and momid corresponding to those values will be set
@@ -184,57 +303,109 @@ the individuals.}
 \item{\code{momid}}{A character vector with the id of the mother of
 the individuals.}
 
-\item{\code{sex}}{An ordered factor vector for the sex of the individuals
-(i.e. \code{male} < \code{female} < \code{unknown} < \code{terminated}).}
-
 \item{\code{famid}}{A character vector with the family identifiers of the
 individuals (optional).}
 
-\item{\code{steril}}{A logical vector with the sterilisation status of the
-individuals
-(i.e. \code{FALSE} = not sterilised,
-\code{TRUE} = sterilised,
-\code{NA} = unknown).}
+\item{\code{sex}}{An ordered factor vector for the sex of the individuals
+(i.e. \code{male} < \code{female} < \code{unknown}).}
 
-\item{\code{status}}{A logical vector with the affection status of the
-individuals
+\item{\code{fertility}}{A factor vector with the fertility status of the
+individuals (optional).
+(i.e. \code{infertile_choice_na} = no children by choice or unknown reason,
+\code{infertile} = individual is inferile,
+\code{fertile} = individual is fertile).}
+
+\item{\code{miscarriage}}{A factor vector with the miscarriage status of the
+individuals (optional).
+(i.e. \code{TOP} = Termination of Pregnancy,
+\code{SAB} = Spontaneous Abortion,
+\code{ECT} = Ectopic Pregnancy,
+\code{FALSE} = no miscarriage).}
+
+\item{\code{deceased}}{A logical vector with the death status of the
+individuals (optional).
 (i.e. \code{FALSE} = alive,
 \code{TRUE} = dead,
 \code{NA} = unknown).}
 
 \item{\code{avail}}{A logical vector with the availability status of the
-individuals
+individuals (optional).
 (i.e. \code{FALSE} = not available,
 \code{TRUE} = available,
 \code{NA} = unknown).}
 
+\item{\code{evaluated}}{A logical vector with the evaluation status of the
+individuals (optional).
+(i.e. \code{FALSE} = documented evaluation not available,
+\code{TRUE} = documented evaluation available).}
+
+\item{\code{consultand}}{A logical vector with the consultand status of the
+individuals (optional). A consultand being an individual seeking
+genetic counseling/testing
+(i.e. \code{FALSE} = not a consultand,
+\code{TRUE} = consultand).}
+
+\item{\code{proband}}{A logical vector with the proband status of the
+individuals (optional). A proband being an affected family
+member coming to medical attention independent of other
+family members.
+(i.e. \code{FALSE} = not a proband,
+\code{TRUE} = proband).}
+
 \item{\code{affected}}{A logical vector with the affection status of the
-individuals
+individuals (optional).
 (i.e. \code{FALSE} = not affected,
 \code{TRUE} = affected,
 \code{NA} = unknown).}
 
+\item{\code{carrier}}{A logical vector with the carrier status of the
+individuals (optional). A carrier being an individual who has
+the genetic trait but who is not likely to manifest the
+disease regardless of inheritance pattern
+(i.e. \code{FALSE} = not carrier,
+\code{TRUE} = carrier,
+\code{NA} = unknown).}
+
+\item{\code{asymptomatic}}{A logical vector with the asymptomatic status of
+the individuals (optional). An asymptomatic individual being an individual
+clinically unaffected at this time but could later exhibit symptoms.
+(i.e. \code{FALSE} = not asymptomatic,
+\code{TRUE} = asymptomatic,
+\code{NA} = unknown).}
+
+\item{\code{adopted}}{A logical vector with the adopted status of the
+individuals (optional).
+(i.e. \code{FALSE} = not adopted,
+\code{TRUE} = adopted,
+\code{NA} = unknown).}
+
+\item{\code{dateofbirth}}{A date vector with the birth date of the
+individuals (optional).}
+
+\item{\code{dateofdeath}}{A date vector with the death date of the
+individuals (optional).}
+
 \item{\code{useful}}{A logical vector with the usefulness status of the
-individuals
+individuals (computed).
 (i.e. \code{FALSE} = not useful,
 \code{TRUE} = useful).}
 
 \item{\code{isinf}}{A logical vector indicating if the individual is informative
-or not
+or not (computed).
 (i.e. \code{FALSE} = not informative,
 \code{TRUE} = informative).}
 
 \item{\code{kin}}{A numeric vector with minimal kinship value between the
-individuals and the useful individuals.}
+individuals and the useful individuals (computed).}
 
 \item{\code{num_child_tot}}{A numeric vector with the total number of children
-of the individuals.}
+of the individuals (computed).}
 
 \item{\code{num_child_dir}}{A numeric vector with the number of children
-of the individuals.}
+of the individuals (computed).}
 
 \item{\code{num_child_ind}}{A numeric vector with the number of children
-of the individuals.}
+of the individuals (computed).}
 
 \item{\code{elementMetadata}}{A DataFrame with the additional metadata columns
 of the Ped object.}
@@ -279,7 +450,17 @@ or a data.frame with each elements with the same length as \code{x}.
 
 
 \itemize{
-\item \code{affected(x)} : Individuals' affection status
+\item \code{fertility(x)} : Individuals' fertility status
+}
+
+
+\itemize{
+\item \code{miscarriage(x)} : Individuals' miscarriage status
+}
+
+
+\itemize{
+\item \code{deceased(x)} : Individuals' death status
 }
 
 
@@ -289,7 +470,47 @@ or a data.frame with each elements with the same length as \code{x}.
 
 
 \itemize{
-\item \code{status(x)} : Individuals' death status
+\item \code{evaluated(x)} : Individuals' evaluated status
+}
+
+
+\itemize{
+\item \code{consultand(x)} : Individuals' consultand status
+}
+
+
+\itemize{
+\item \code{proband(x)} : Individuals' proband status
+}
+
+
+\itemize{
+\item \code{carrier(x)} : Individuals' carrier status
+}
+
+
+\itemize{
+\item \code{asymptomatic(x)} : Individuals' asymptomatic status
+}
+
+
+\itemize{
+\item \code{adopted(x)} : Individuals' adopted status
+}
+
+
+\itemize{
+\item \code{affected(x)} : Individuals' affection status
+}
+
+
+\itemize{
+\item \code{dateofbirth(x)} : Individuals' birth dates
+}
+
+
+\itemize{
+\item \code{dateofdeath(x)} : Individuals' death dates
 }
 
 

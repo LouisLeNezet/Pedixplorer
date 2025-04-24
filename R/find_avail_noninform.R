@@ -17,8 +17,8 @@
 #'
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' find_avail_noninform(ped)
+#' pedi <- Pedigree(sampleped)
+#' find_avail_noninform(pedi)
 #'
 #' @return Vector of subject ids who can be removed by having lowest
 #' informativeness.

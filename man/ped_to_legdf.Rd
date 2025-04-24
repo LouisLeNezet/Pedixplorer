@@ -12,7 +12,8 @@
   cex = 1,
   adjx = 0,
   adjy = 0,
-  lwd = par("lwd")
+  lwd = par("lwd"),
+  precision = 4
 )
 }
 \arguments{
@@ -32,6 +33,9 @@ of the labels in the legend.}
 
 \item{lwd}{default=par("lwd").  Controls the bordering line width of the
 elements in the legend.}
+
+\item{precision}{The number of significatif numbers to round the
+numbers to.}
 }
 \value{
 A list containing the legend data frame and the user coordinates.
@@ -61,8 +65,8 @@ All those columns are used by
 }
 \examples{
 data("sampleped")
-ped <- Pedigree(sampleped)
-leg_df <- ped_to_legdf(ped)
+pedi <- Pedigree(sampleped)
+leg_df <- ped_to_legdf(pedi)
 summary(leg_df$df)
 plot_fromdf(leg_df$df, usr = c(-1,15,0,7))
 }

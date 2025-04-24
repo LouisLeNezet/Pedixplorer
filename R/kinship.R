@@ -16,6 +16,10 @@ NULL
 #' Note that when using with a Ped or a vector, any information on
 #' twins is not available to the function.
 #'
+#' Warning: This function does not work with adopted individuals.
+#' If you have adopted individuals in your pedigree, you should remove them
+#' before calling this function.
+#'
 #' When called with a Pedigree, the routine
 #' will create a block-diagonal-symmetric sparse matrix object of class
 #' `dsCMatrix`.  Since the `[i, j]` value of the result is 0 for any two
@@ -65,6 +69,9 @@ setGeneric("kinship", signature = "obj",
 #' @export
 setMethod("kinship", "Ped",
     function(obj, chrtype = "autosome") {
+        if (any(adopted(obj))) {
+            stop("Kinship matrix does not work with adopted individuals")
+        }
         kinship(
             id(obj), dadid(obj), momid(obj),
             sex(obj), chrtype = chrtype
@@ -99,7 +106,7 @@ setMethod("kinship", "character",
             }
             kmat <- diag(c(rep(0.5, n), 0))  # founders
             ## When all unrelateds, pdepth all=0.  Put c(1,) to make guard from
-            ## iter 1:0
+            ## iter 1 to 0
             for (depth in seq_len(max(c(1, pdepth)))) {
                 for (j in (seq_len(n))[pdepth == depth]) {
                     kmatv <- (kmat[mom_row[j], ] + kmat[dad_row[j], ]) / 2
@@ -148,11 +155,14 @@ setMethod("kinship", "character",
 #' @examples
 #'
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' kinship(ped)
+#' pedi <- Pedigree(sampleped[-16])
+#' kinship(pedi)
 #' @export
 setMethod("kinship", "Pedigree",
     function(obj, chrtype = "autosome") {
+        if (any(adopted(ped(obj)))) {
+            stop("Kinship matrix does not work with adopted individuals")
+        }
         famlist <- unique(famid(ped(obj)))
         nfam <- length(famlist)
         matlist <- vector("list", nfam)
@@ -200,7 +210,7 @@ setMethod("kinship", "Pedigree",
                         nomatch = NA
                     )
                     if (any(is.na(id1x)) | any(is.na(id2x))) {
-                        stop("All individuals in relationship matrix",
+                        stop("All individuals in relationship matrix ",
                             "should be present in the pedigree informations"
                         )
                     }
@@ -302,7 +312,7 @@ setMethod("kinship", "Pedigree",
                 kmat
             }, silent = TRUE)
             if ("try-error" %in% class(temp)) {
-                stop("In family", famlist[i_fam], ":", temp)
+                stop("In family ", famlist[i_fam], " : ", temp)
             } else {
                 matlist[[i_fam]] <- temp
             }

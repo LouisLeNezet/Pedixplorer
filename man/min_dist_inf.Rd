@@ -28,13 +28,13 @@ biologicals mothers.}
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-\code{male} < \code{female} <
-\code{unknown} < \code{terminated}
+\code{male} < \code{female} < \code{unknown}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
+\item "male": "m", "male", "man", \code{1}
+\item "female": "f", "female", "woman", \code{2}
+\item "unknown": "unknown", \code{3}
 }}
 
 \item{id_inf}{An identifiers vector of informative individuals.}
@@ -82,11 +82,11 @@ min_dist_inf(
 )
 
 data(sampleped)
-ped <- is_informative(
+pedi <- is_informative(
     Pedigree(sampleped),
-    informative = "AvAf", col_aff = "affection_mods"
+    informative = "AvAf", col_aff = "affection"
 )
-kin(ped(min_dist_inf(ped, col_aff = "affection_mods")))
+kin(ped(min_dist_inf(pedi, col_aff = "affection")))
 }
 \seealso{
 \code{\link[=kinship]{kinship()}}

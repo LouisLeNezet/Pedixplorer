@@ -51,7 +51,7 @@ setMethod("id<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for id should be: ",
+                "The length of the new values for 'id' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -96,7 +96,7 @@ setMethod("dadid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for dadid should be: ",
+                "The length of the new values for 'dadid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -142,7 +142,7 @@ setMethod("momid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for momid should be: ",
+                "The length of the new values for 'momid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -188,7 +188,7 @@ setMethod("famid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for famid should be: ",
+                "The length of the new values for 'famid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -239,7 +239,7 @@ setMethod("sex<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for sex should be: ",
+                "The length of the new values for 'sex' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -249,35 +249,135 @@ setMethod("sex<-",
     }
 )
 
-##### Affected Accessors #####
+##### Fertility Accessors #####
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("affected", function(x) {
-    standardGeneric("affected")
+setGeneric("fertility", function(x) {
+    standardGeneric("fertility")
 })
 
 #' @section Accessors:
-#' - `affected(x)` : Individuals' affection status
+#' - `fertility(x)` : Individuals' fertility status
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setMethod("affected", signature(x = "Ped"), function(x) {
-    x@affected
+setMethod("fertility", signature(x = "Ped"), function(x) {
+    x@fertility
 })
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("affected<-", function(x, value) {
-    standardGeneric("affected<-")
+setGeneric("fertility<-", function(x, value) {
+    standardGeneric("fertility<-")
 })
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setMethod("affected<-",
+setMethod("fertility<-",
+    signature(x = "Ped", value = "character_OR_integer"),
+    function(x, value) {
+        if (
+            ! is.character(value) &&
+                ! is.integer(value) &&
+                ! is.factor(value)
+        ) {
+            stop("fertility must be a character or integer vector")
+        }
+        if (length(value) != length(x)) {
+            stop(
+                "The length of the new values for 'fertility' should be ",
+                "equal to the length of the Ped object"
+            )
+        }
+        x@fertility <- fertility_to_factor(value)
+        validObject(x)
+        x
+    }
+)
+
+##### Miscarriage Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("miscarriage", function(x) {
+    standardGeneric("miscarriage")
+})
+
+#' @section Accessors:
+#' - `miscarriage(x)` : Individuals' miscarriage status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("miscarriage", signature(x = "Ped"), function(x) {
+    x@miscarriage
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("miscarriage<-", function(x, value) {
+    standardGeneric("miscarriage<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("miscarriage<-",
+    signature(x = "Ped", value = "character_OR_integer"),
+    function(x, value) {
+        if (
+            ! is.character(value) &&
+                ! is.integer(value) &&
+                ! is.factor(value)
+        ) {
+            stop("miscarriage must be a character or integer vector")
+        }
+        if (length(value) != length(x)) {
+            stop(
+                "The length of the new values for 'miscarriage' should be ",
+                "equal to the length of the Ped object"
+            )
+        }
+        x@miscarriage <- miscarriage_to_factor(value)
+        validObject(x)
+        x
+    }
+)
+
+##### Deceased Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("deceased", function(x) {
+    standardGeneric("deceased")
+})
+
+#' @section Accessors:
+#' - `deceased(x)` : Individuals' death status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("deceased", signature(x = "Ped"), function(x) {
+    x@deceased
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("deceased<-", function(x, value) {
+    standardGeneric("deceased<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("deceased<-",
     signature(x = "Ped", value = "numeric_OR_logical"),
     function(x, value) {
         if (length(value) != length(x)) {
@@ -285,12 +385,12 @@ setMethod("affected<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for affected should be: ",
+                    "The length of the new values for 'deceased' should be ",
                     "equal to the length of the Ped object"
                 )
             }
         }
-        x@affected <- vect_to_binary(value, logical = TRUE)
+        x@deceased <- vect_to_binary(value, logical = TRUE)
         validObject(x)
         x
     }
@@ -332,7 +432,7 @@ setMethod("avail<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for avail should be: ",
+                    "The length of the new values for avail should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -343,35 +443,35 @@ setMethod("avail<-",
     }
 )
 
-##### Status Accessors #####
+##### Evaluated Accessors #####
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("status", function(x) {
-    standardGeneric("status")
+setGeneric("evaluated", function(x) {
+    standardGeneric("evaluated")
 })
 
 #' @section Accessors:
-#' - `status(x)` : Individuals' death status
+#' - `evaluated(x)` : Individuals' evaluated status
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setMethod("status", signature(x = "Ped"), function(x) {
-    x@status
+setMethod("evaluated", signature(x = "Ped"), function(x) {
+    x@evaluated
 })
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setGeneric("status<-", function(x, value) {
-    standardGeneric("status<-")
+setGeneric("evaluated<-", function(x, value) {
+    standardGeneric("evaluated<-")
 })
 
 #' @rdname Ped-class
 #' @usage NULL
 #' @export
-setMethod("status<-",
+setMethod("evaluated<-",
     signature(x = "Ped", value = "numeric_OR_logical"),
     function(x, value) {
         if (length(value) != length(x)) {
@@ -379,12 +479,388 @@ setMethod("status<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for avail should be: ",
+                    "The length of the new values for evaluated should be ",
                     "equal to the length of the Ped object"
                 )
             }
         }
-        x@status <- vect_to_binary(value, logical = TRUE)
+        x@evaluated <- vect_to_binary(value, logical = TRUE, default = FALSE)
+        validObject(x)
+        x
+    }
+)
+
+##### Consultand Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("consultand", function(x) {
+    standardGeneric("consultand")
+})
+
+#' @section Accessors:
+#' - `consultand(x)` : Individuals' consultand status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("consultand", signature(x = "Ped"), function(x) {
+    x@consultand
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("consultand<-", function(x, value) {
+    standardGeneric("consultand<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("consultand<-",
+    signature(x = "Ped", value = "numeric_OR_logical"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'consultand' should be ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@consultand <- vect_to_binary(value, logical = TRUE, default = FALSE)
+        validObject(x)
+        x
+    }
+)
+
+##### Proband Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("proband", function(x) {
+    standardGeneric("proband")
+})
+
+#' @section Accessors:
+#' - `proband(x)` : Individuals' proband status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("proband", signature(x = "Ped"), function(x) {
+    x@proband
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("proband<-", function(x, value) {
+    standardGeneric("proband<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("proband<-",
+    signature(x = "Ped", value = "numeric_OR_logical"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'proband' should be ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@proband <- vect_to_binary(value, logical = TRUE, default = FALSE)
+        validObject(x)
+        x
+    }
+)
+
+##### Carrier Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("carrier", function(x) {
+    standardGeneric("carrier")
+})
+
+#' @section Accessors:
+#' - `carrier(x)` : Individuals' carrier status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("carrier", signature(x = "Ped"), function(x) {
+    x@carrier
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("carrier<-", function(x, value) {
+    standardGeneric("carrier<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("carrier<-",
+    signature(x = "Ped", value = "numeric_OR_logical"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'carrier' should be ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@carrier <- vect_to_binary(value, logical = TRUE, default = NA)
+        validObject(x)
+        x
+    }
+)
+
+##### Asymptomatic Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("asymptomatic", function(x) {
+    standardGeneric("asymptomatic")
+})
+
+#' @section Accessors:
+#' - `asymptomatic(x)` : Individuals' asymptomatic status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("asymptomatic", signature(x = "Ped"), function(x) {
+    x@asymptomatic
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("asymptomatic<-", function(x, value) {
+    standardGeneric("asymptomatic<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("asymptomatic<-",
+    signature(x = "Ped", value = "numeric_OR_logical"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'asymptomatic' should",
+                    " be equal to the length of the Ped object"
+                )
+            }
+        }
+        x@asymptomatic <- vect_to_binary(value, logical = TRUE, default = NA)
+        validObject(x)
+        x
+    }
+)
+
+##### Adopted Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("adopted", function(x) {
+    standardGeneric("adopted")
+})
+
+#' @section Accessors:
+#' - `adopted(x)` : Individuals' adopted status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("adopted", signature(x = "Ped"), function(x) {
+    x@adopted
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("adopted<-", function(x, value) {
+    standardGeneric("adopted<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("adopted<-",
+    signature(x = "Ped", value = "numeric_OR_logical"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'adopted' should be ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@adopted <- vect_to_binary(value, logical = TRUE, default = FALSE)
+        validObject(x)
+        x
+    }
+)
+
+##### Affected Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("affected", function(x) {
+    standardGeneric("affected")
+})
+
+#' @section Accessors:
+#' - `affected(x)` : Individuals' affection status
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("affected", signature(x = "Ped"), function(x) {
+    x@affected
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("affected<-", function(x, value) {
+    standardGeneric("affected<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("affected<-",
+    signature(x = "Ped", value = "numeric_OR_logical"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'affected' should be ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@affected <- vect_to_binary(value, logical = TRUE)
+        validObject(x)
+        x
+    }
+)
+##### Date Of Birth Accessors #####
+
+setClassUnion("Date_OR_character", c("Date", "character"))
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofbirth", function(x) {
+    standardGeneric("dateofbirth")
+})
+
+#' @section Accessors:
+#' - `dateofbirth(x)` : Individuals' birth dates
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofbirth", signature(x = "Ped"), function(x) {
+    x@dateofbirth
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofbirth<-", function(x, value) {
+    standardGeneric("dateofbirth<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofbirth<-",
+    signature(x = "Ped", value = "Date_OR_character"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'dateofbirth' should be ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@dateofbirth <- char_to_date(value, date_pattern = "%Y-%m-%d")
+        validObject(x)
+        x
+    }
+)
+##### Date Of Death Accessors #####
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofdeath", function(x) {
+    standardGeneric("dateofdeath")
+})
+
+#' @section Accessors:
+#' - `dateofdeath(x)` : Individuals' death dates
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofdeath", signature(x = "Ped"), function(x) {
+    x@dateofdeath
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setGeneric("dateofdeath<-", function(x, value) {
+    standardGeneric("dateofdeath<-")
+})
+
+#' @rdname Ped-class
+#' @usage NULL
+#' @export
+setMethod("dateofdeath<-",
+    signature(x = "Ped", value = "Date_OR_character"),
+    function(x, value) {
+        if (length(value) != length(x)) {
+            if (length(value) == 1) {
+                value <- rep(value, length(x))
+            } else {
+                stop(
+                    "The length of the new values for 'dateofdeath' should be ",
+                    "equal to the length of the Ped object"
+                )
+            }
+        }
+        x@dateofdeath <- char_to_date(value, date_pattern = "%Y-%m-%d")
         validObject(x)
         x
     }
@@ -426,7 +902,7 @@ setMethod("isinf<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for isinf should be: ",
+                    "The length of the new values for 'isinf' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -474,7 +950,7 @@ setMethod("kin<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for kin should be: ",
+                    "The length of the new values for 'kin' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -521,7 +997,7 @@ setMethod("useful<-",
                 value <- rep(value, length(x))
             } else {
                 stop(
-                    "The length of the new values for useful should be: ",
+                    "The length of the new values for 'useful' should be ",
                     "equal to the length of the Ped object"
                 )
             }
@@ -642,7 +1118,7 @@ setMethod("famid<-",
         }
         if (length(value) != length(x)) {
             stop(
-                "The length of the new values for famid should be: ",
+                "The length of the new values for 'famid' should be ",
                 "equal to the length of the Ped object"
             )
         }
@@ -716,7 +1192,9 @@ setMethod(
     function(object, slot, value) {
         ped_slots <- c(
             "id", "dadid", "momid", "sex", "famid",
-            "steril", "status", "avail", "affected",
+            "fertility", "miscarriage", "deceased",
+            "avail", "proband", "consultand", "evaluated",
+            "affected", "carrier", "asymptomatic", "adopted",
             "kin", "useful", "isinf",
             "num_child_tot", "num_child_dir", "num_child_ind"
         )
@@ -725,7 +1203,7 @@ setMethod(
         }
         if (length(value) != length(object)) {
             stop(
-                "The length of the new value should be: ",
+                "The length of the new value should be ",
                 "equal to the length of the pedigree"
             )
         }
@@ -840,10 +1318,10 @@ setMethod(
         if (! slot %in% rel_cols) {
             stop("slot selected: ", slot, " is not a relationship column")
         }
-        if (length(value) != length(object)) {
+        if (length(value) != length(rel(object))) {
             stop(
-                "The length of the new value should be: ",
-                "equal to the length of the pedigree"
+                "The length of the new value should be equal to the",
+                " length of the relation ship data.frame of the pedigree"
             )
         }
         slot(object@rel, slot) <- value
@@ -1152,11 +1630,8 @@ setMethod(
     "horder<-",
     signature(object = "Pedigree", value = "ANY"),
     function(object, value) {
-        if (length(value) != length(object)) {
-            stop(
-                "The length of the new value should be: ",
-                "equal to the length of the pedigree"
-            )
+        if (length(value) > 0 && is.null(names(value))) {
+            stop("horder must be named")
         }
         horder(hints(object)) <- value
         validObject(object)

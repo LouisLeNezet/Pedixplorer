@@ -52,8 +52,8 @@ corresponding Ped accessor.
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped)
-find_avail_affected(ped, affstatus = 1)
+pedi <- Pedigree(sampleped)
+find_avail_affected(pedi, affstatus = 1)
 }
 \seealso{
 \code{\link[=shrink]{shrink()}}

@@ -73,7 +73,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Louis Le Nézet \email{louislenezet@gmail.com} (\href{https://orcid.org/0009-0000-0202-2703}{ORCID}) [contributor]
+\strong{Maintainer}: Louis Le Nezet \email{louislenezet@gmail.com} (\href{https://orcid.org/0009-0000-0202-2703}{ORCID}) [contributor]
 
 Authors:
 \itemize{

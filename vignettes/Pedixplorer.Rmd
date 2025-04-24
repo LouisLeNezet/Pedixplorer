@@ -1,21 +1,21 @@
 ---
 title: "Pedixplorer tutorial"
-author: "Louis Le Nézet"
+author: "Louis Le Nezet"
 date: "31/08/2023"
 url: "https://github.com/LouisLeNezet/Pedixplorer"
 output:
-  BiocStyle::html_document:
-    toc: true
-    toc_depth: 2
-    fig_crop: no
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 2
+        fig_crop: no
 header-includes: \usepackage{tabularx}
 vignette: |
-  %\VignetteIndexEntry{Pedixplorer tutorial}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{Pedixplorer tutorial}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
-  markdown: 
-    wrap: 72
+    markdown: 
+        wrap: 72
 ---
 
 ```{r width_control, echo = FALSE}
@@ -69,6 +69,8 @@ BiocManager::install("Pedixplorer")
 The package can then be loaded with the following command:
 
 ```{r, library_charge}
+library(plotly)
+library(dplyr)
 library(Pedixplorer)
 ```
 
@@ -112,8 +114,8 @@ object.
 ```{r, Pedigree_creation}
 data("sampleped")
 print(sampleped[1:10, ])
-ped <- Pedigree(sampleped[c(3, 4, 10, 35, 36), ])
-print(ped)
+pedi <- Pedigree(sampleped[c(3, 4, 10, 35, 36), ])
+print(pedi)
 ```
 
 For more information on the `Pedigree()` function, see `help(Pedigree)`.
@@ -125,9 +127,9 @@ the pedigree. The summary method prints a short summary of the pedigree.
 Finally the plot method displays the pedigree.
 
 ```{r, ped1, fig.alt = "Pedigree of family 1", fig.align = "center"}
-ped <- Pedigree(sampleped)
-print(famid(ped(ped)))
-ped1 <- ped[famid(ped(ped)) == "1"]
+pedi <- Pedigree(sampleped)
+print(famid(ped(pedi)))
+ped1 <- pedi[famid(ped(pedi)) == "1"]
 summary(ped1)
 plot(ped1, cex = 0.7)
 ```
@@ -137,8 +139,8 @@ You can add a title and a legend to the plot with the following command:
 ```{r, ped1_title, fig.alt = "Pedigree of family 1 with legend"}
 plot(
     ped1, title = "Pedigree 1",
-    legend = TRUE, leg_loc = c(7, 16, 1.05, 1.9),
-    cex = 0.7
+    legend = TRUE, leg_loc = c(0.45, 0.9, 0.8, 1),
+    cex = 0.7, leg_symbolsize = 0.04
 )
 ```
 
@@ -163,7 +165,6 @@ informatives subjects to keep and their relatives. If the pedigree is then
 splited in multiple families, you can select which to plot.
 - Finally the plot is displayed and you can make it interactive and download
 the resulting image.
-
 
 # Fixing Pedigree Issues
 
@@ -246,8 +247,9 @@ of them for the two families, where the row and columns names are the
 ids of the subject.
 
 ```{r, kin_all}
-ped <- Pedigree(sampleped)
-kin_all <- kinship(ped)
+pedi <- Pedigree(sampleped)
+adopted(ped(pedi)) <- FALSE # Remove adoption status
+kin_all <- kinship(pedi)
 kin_all[1:9, 1:9]
 kin_all[40:43, 40:43]
 kin_all[42:46, 42:46]
@@ -268,9 +270,9 @@ for these pairs, which are correctly at *0.5*.
 ```{r, kin_twins}
 data("relped")
 relped
-ped <- Pedigree(sampleped, relped)
-
-kin_all <- kinship(ped)
+pedi <- Pedigree(sampleped, relped)
+adopted(ped(pedi)) <- FALSE # Remove adoption status
+kin_all <- kinship(pedi)
 kin_all[24:27, 24:27]
 kin_all[46:50, 46:50]
 ```
@@ -285,20 +287,20 @@ handle such marry-ins for plotting.
 We use *ped2* from `sampleped` to sequentially add optional
 information to the `Pedigree` object.
 
-## Status
+## Deceased
 
-The example below shows how to specify a `status` indicator, such as
-vital status. The `sampleped` data does not include such an\
+The example below shows how to specify a `deceased` indicator.
+The `sampleped` data does not include such an\
 indicator, so we create one to indicate that the first generation of
-*ped2*, subjects *1* and *2*, are deceased. The `status` indicator is
+*ped2*, subjects *1* and *2*, are deceased. The `deceased` indicator is
 used to cross out the individuals in the Pedigree plot.
 
-```{r, status, fig.alt = "Pedigree of family 2 with different vital status"}
+```{r, deceased, fig.alt = "Pedigree of family 2 with different vital status"}
 df2 <- sampleped[sampleped$famid == 2, ]
 names(df2)
-df2$status <- c(1, 1, rep(0, 12))
+df2$deceased <- c(1, 1, rep(0, 12))
 ped2 <- Pedigree(df2)
-summary(status(ped(ped2)))
+summary(deceased(ped(ped2)))
 plot(ped2)
 ```
 
@@ -332,7 +334,7 @@ baldness. And add it as a second filling scale for the plot with
 is therefore divided into two equal parts and shaded differently to
 indicate the two affected indicators.
 
-```{r, two_affection, fig.alt = "Pedigree of family 2 with two affection indicators"}
+```{r, two_affection, fig.alt = "Family 2 pedigree with two affections"}
 mcols(ped2)$bald <- as.factor(c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1))
 ped2 <- generate_colors(ped2, col_aff = "bald", add_to_scale = TRUE)
 # Increase down margin for the legend
@@ -369,7 +371,7 @@ The twin relationships are both represented with diverging lines from a
 single point. The monozygotic twins have an additional line connecting
 the diverging lines, while twins of unknown zygosity have a question mark.
 
-```{r, twins, fig.alt = "Pedigree of family 2 with special relationships"}
+```{r, twins, fig.alt = "Family 2 pedigree with special relationships"}
 ## create twin relationships
 data("relped")
 rel(ped2) <- Rel(relped[relped$famid == 2, ])
@@ -482,6 +484,10 @@ To do so you can do as follow:
 
 ```{r, generate_colors, fig.alt = "Pedigree of family 1 with change in colors"}
 scales(ped1)
+# Remove proband and asymptomatic status as they need to be
+# affected and unaffected respectively for the new status
+proband(ped(ped1)) <- FALSE
+asymptomatic(ped(ped1)) <- FALSE
 ped1 <- generate_colors(
     ped1, col_aff = "num",
     add_to_scale = TRUE, is_num = TRUE,
@@ -503,6 +509,36 @@ plot(
     ped1, cex = 0.7, legend = TRUE,
     leg_loc = c(6, 16, 1, 1.8), leg_cex = 0.5,
 )
+```
+
+## Render interactive
+
+The plot can be made interactive by setting the `ggplot_gen` argument to `TRUE`.
+This will generate a ggplot object that can be passed down to `plotly::ggplotly()`
+to make the plot interactive.
+
+```{r, prepare_interactive, fig.show='hide'}
+plot_list <- plot(
+    ped1,
+    symbolsize = 0.8, # Reduce the symbole size
+    title = "My pedigree", # Add a title
+    lwd = 0.5, # Set the line width
+    cex = 0.8, # Set the text size
+    ggplot_gen = TRUE, # Use ggplot2 to draw the Pedigree
+    tips = c(
+        "id", "avail",
+        "affection",
+        "num"
+    ) # Add some information in the tooltip
+)
+```
+
+```{r, interactive, fig.alt = "Interactive Pedigree of family 1"}
+plotly::ggplotly(
+    plot_list$ggplot,
+    tooltip = "text"
+) %>%
+    plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
 ```
 
 # Pedigree Utility Functions
@@ -560,8 +596,8 @@ object but with the `useful` column updated in the `Ped` object :
 ```{r, useful_inds}
 data(sampleped)
 ped1 <- Pedigree(sampleped)
-
-ped1 <- useful_inds(ped1, informative = c("1_110", "1_120"), max_dist = 1)
+ped1 <- is_informative(ped1, informative = c("1_110", "1_120"))
+ped1 <- useful_inds(ped1, max_dist = 1)
 print(useful(ped(ped1)))
 ped_filtered <- ped1[useful(ped(ped1))]
 plot(ped_filtered)

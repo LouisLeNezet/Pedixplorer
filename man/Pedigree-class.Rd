@@ -55,31 +55,49 @@ Pedigree(obj, ...)
   momid,
   sex,
   famid = NA,
+  fertility = NULL,
+  miscarriage = NULL,
+  deceased = NULL,
   avail = NULL,
-  affected = NULL,
-  status = NULL,
-  steril = NULL,
+  evaluated = NULL,
+  consultand = NULL,
+  proband = NULL,
+  affections = NULL,
+  carrier = NULL,
+  asymptomatic = NULL,
+  adopted = NULL,
+  dateofbirth = NULL,
+  dateofdeath = NULL,
   rel_df = NULL,
   missid = NA_character_,
   col_aff = "affection",
+  date_pattern = "\%Y-\%m-\%d",
   normalize = TRUE,
   ...
 )
 
 \S4method{Pedigree}{data.frame}(
-  obj = data.frame(indId = character(), fatherId = character(), motherId = character(),
-    gender = numeric(), family = character(), available = numeric(), vitalStatus =
-    numeric(), affection = numeric(), sterilisation = numeric()),
+  obj = data.frame(id = character(), dadid = character(), momid = character(), famid =
+    character(), sex = numeric(), fertility = numeric(), miscarriage = numeric(),
+    deceased = numeric(), avail = numeric(), evaluated = logical(), consultand =
+    logical(), proband = logical(), affection = logical(), carrier = logical(),
+    asymptomatic = logical(), adopted = logical(), dateofbirth = character(), dateofdeath
+    = character()),
   rel_df = data.frame(id1 = character(), id2 = character(), code = numeric(), famid =
     character()),
-  cols_ren_ped = list(indId = "id", fatherId = "dadid", motherId = "momid", family =
-    "famid", gender = "sex", sterilisation = "steril", affection = "affected", available
-    = "avail", vitalStatus = "status"),
+  cols_ren_ped = list(id = "indId", dadid = "fatherId", momid = "motherId", famid =
+    "family", sex = "gender", fertility = c("sterilisation", "steril"), miscarriage =
+    c("miscarriage", "aborted"), deceased = c("status", "dead", "vitalStatus"), avail =
+    "available", evaluated = "evaluation", consultand = "consultant", proband =
+    "proband", affection = "affected", carrier = "carrier", asymptomatic =
+    "presymptomatic", adopted = "adoption", dateofbirth = c("dob", "birth"), dateofdeath
+    = c("dod", "death")),
   cols_ren_rel = list(id1 = "indId1", id2 = "indId2", famid = "family"),
   hints = list(horder = NULL, spouse = NULL),
   normalize = TRUE,
   missid = NA_character_,
   col_aff = "affection",
+  date_pattern = "\%Y-\%m-\%d",
   na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),
   ...
 )
@@ -104,18 +122,48 @@ biologicals mothers.}
 \item{sex}{A character, factor or numeric vector corresponding to
 the gender of the individuals. This will be transformed to an ordered factor
 with the following levels:
-\code{male} < \code{female} <
-\code{unknown} < \code{terminated}
+\code{male} < \code{female} < \code{unknown}
+
 The following values are recognized:
 \itemize{
-\item character() or factor() : "f", "m", "woman", "man", "male", "female",
-"unknown", "terminated"
-\item numeric() : 1 = "male", 2 = "female", 3 = "unknown", 4 = "terminated"
+\item "male": "m", "male", "man", \code{1}
+\item "female": "f", "female", "woman", \code{2}
+\item "unknown": "unknown", \code{3}
 }}
 
 \item{famid}{A character vector with the family identifiers of the
 individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.}
+
+\item{fertility}{A character, factor or numeric vector corresponding to
+the fertility status of the individuals. This will be transformed to a
+factor with the following levels:
+\code{infertile_choice_na}, \code{infertile}, \code{fertile}
+
+The following values are recognized:
+\itemize{
+\item "inferile_choice_na" : "infertile_choice", "infertile_na"
+\item "infertile" : "infertile", "steril", \code{FALSE}, \code{0}
+\item "fertile" : "fertile", \code{TRUE}, \code{1}, \code{NA}
+}}
+
+\item{miscarriage}{A character, factor or numeric vector corresponding to
+the miscarriage status of the individuals. This will be transformed to a
+factor with the following levels:
+\code{TOP}, \code{SAB}, \code{ECT}, \code{FALSE}
+The following values are recognized:
+\itemize{
+\item "SAB" : "spontaneous", "spontaenous abortion"
+\item "TOP" : "termination", "terminated", "termination of pregnancy"
+\item "ECT" : "ectopic", "ectopic pregnancy"
+\item FALSE : \code{0}, \code{FALSE}, "no", \code{NA}
+}}
+
+\item{deceased}{A logical vector with the death status of the
+individuals
+(i.e. \code{FALSE} = alive,
+\code{TRUE} = dead,
+\code{NA} = unknown).}
 
 \item{avail}{A logical vector with the availability status of the
 individuals
@@ -123,24 +171,57 @@ individuals
 \code{TRUE} = available,
 \code{NA} = unknown).}
 
-\item{affected}{A logical vector with the affection status of the
+\item{evaluated}{A logical vector with the evaluation status of the
+individuals.
+(i.e. \code{FALSE} = documented evaluation not available,
+\code{TRUE} = documented evaluation available).}
+
+\item{consultand}{A logical vector with the consultand status of the
+individuals. A consultand being an individual seeking
+genetic counseling/testing
+(i.e. \code{FALSE} = not a consultand,
+\code{TRUE} = consultand).}
+
+\item{proband}{A logical vector with the proband status of the
+individuals. A proband being an affected family
+member coming to medical attention independent of other
+family members.
+(i.e. \code{FALSE} = not a proband,
+\code{TRUE} = proband).}
+
+\item{affections}{A logical vector with the affections status of the
 individuals
 (i.e. \code{FALSE} = unaffected, \code{TRUE} = affected, \code{NA} = unknown).
 Can also be a data.frame with the same length as \code{obj}. If it is a
 matrix, it will be converted to a data.frame and the columns will be
 named after the \code{col_aff} argument.}
 
-\item{status}{A logical vector with the affection status of the
-individuals
-(i.e. \code{FALSE} = alive,
-\code{TRUE} = dead,
+\item{carrier}{A logical vector with the carrier status of the
+individuals. A carrier being an individual who has
+the genetic trait but who is not likely to manifest the
+disease regardless of inheritance pattern
+(i.e. \code{FALSE} = not carrier,
+\code{TRUE} = carrier,
 \code{NA} = unknown).}
 
-\item{steril}{A logical vector with the sterilisation status of the
-individuals
-(i.e. \code{FALSE} = not sterilised,
-\code{TRUE} = sterilised,
+\item{asymptomatic}{A logical vector with the asymptomatic status of
+the individuals. An asymptomatic individual being an individual
+clinically unaffected at this time but could later exhibit symptoms.
+(i.e. \code{FALSE} = not asymptomatic,
+\code{TRUE} = asymptomatic,
 \code{NA} = unknown).}
+
+\item{adopted}{A logical vector with the adopted status of the
+individuals.
+(i.e. \code{FALSE} = not adopted,
+\code{TRUE} = adopted,
+\code{NA} = unknown).}
+
+\item{dateofbirth}{A character vector with the date of birth of the
+individuals.}
+
+\item{dateofdeath}{A character vector with the date of death of the
+individuals.}
 
 \item{rel_df}{A data.frame with the special relationships between
 individuals. See \code{\link[=Rel]{Rel()}} for more informations.
@@ -166,6 +247,8 @@ to \code{NA_character_}.}
 
 \item{col_aff}{A character vector with the name of the column to be used
 for the affection status.}
+
+\item{date_pattern}{The pattern of the date}
 
 \item{normalize}{A logical to know if the data should be normalised.}
 
@@ -210,44 +293,59 @@ Rel object.
 If the normalization is set to \code{TRUE}, then the data will be
 standardized using the function \code{norm_ped()} and \code{norm_rel()}.
 
-If a data.frame is given, the columns names needed will depend if
-the normalization is selected or not. If the normalization is selected,
-the columns names needed are as follow and if not the columns names
-needed are in parenthesis:
+If a data.frame is given, the columns names needed are as follow:
 \itemize{
-\item \code{indID}: the individual identifier (\code{id})
-\item \code{fatherId}: the identifier of the biological father (\code{dadid})
-\item \code{motherId}: the identifier of the biological mother (\code{momid})
-\item \code{gender}: the sex of the individual (\code{sex})
-\item \code{family}: the family identifier of the individual (\code{famid})
-\item \code{sterilisation}: the sterilisation status of the individual
-(\code{steril})
-\item \code{available}: the availability status of the individual (\code{avail})
-\item \code{vitalStatus}: the death status of the individual (\code{status})
-\item \code{affection}: the affection status of the individual (\code{affected})
+\item \code{id}: the individual identifier
+\item \code{dadid}: the identifier of the biological father
+\item \code{momid}: the identifier of the biological mother
+\item \code{famid}: the family identifier of the individual
+\item \code{sex}: the sex of the individual
+\item \code{fertility}: the fertility status of the individual
+\item \code{miscarriage}: the miscarriage status of the individual
+\item \code{deceased}: the death status of the individual
+\item \code{avail}: the availability status of the individual
+\item \code{evaluated}: the evaluation status of the individual
+\item \code{consultand}: the consultand status of the individual
+\item \code{proband}: the proband status of the individual
+\item \code{affection}: the affection status of the individual
+\item \code{carrier}: the carrier status of the individual
+\item \code{asymptomatic}: the asymptomatic status of the individual
+\item \code{adopted}: the adopted status of the individual
+\item \code{dateofbirth}: the date of birth of the individual
+\item \code{dateofdeath}: the date of death of the individual
 \item \code{...}: other columns that will be stored in the
 \code{elementMetadata} slot
 }
 
 The minimum columns required are :
 \itemize{
-\item \code{indID} / \code{id}
-\item \code{fatherId} / \code{dadid}
-\item \code{motherId} / \code{momid}
-\item \code{gender} / \code{sex}
+\item \code{id}
+\item \code{dadid}
+\item \code{momid}
+\item \code{sex}
 }
 
-The \code{family} / \code{famid} column can also be used to specify the
+The \code{famid} column can also be used to specify the
 family of the individuals and will be merge to the
-\code{indId} / \code{id} field separated by an underscore.
-The columns \code{sterilisation}, \code{available},
-\code{vitalStatus}, \code{affection}
+\code{id} field separated by an underscore.
+
+The columns \code{deceased}, \code{avail},
+\code{evaluated}, \code{consultand},
+\code{proband}, \code{carrier},
+\code{asymptomatic}, \code{adopted}
 will be transformed with the \code{\link[=vect_to_binary]{vect_to_binary()}}
 function when the normalisation is selected.
-If you do not use the normalisation, the columns will be checked to
-be \code{0} or \code{1}.
 
-If \code{affected} is a data.frame, \strong{col_aff} will be
+The \code{fertility} column will be transformed with the
+\code{\link[=fertility_to_factor]{fertility_to_factor()}} function.
+
+The \code{miscarriage} column will be transformed with the
+\code{\link[=miscarriage_to_factor]{miscarriage_to_factor()}} function.
+
+The \code{dateofbirth} and \code{dateofdeath} columns will be transformed
+with the \code{\link[=char_to_date]{char_to_date()}} function.
+
+If \code{affections} is a data.frame, \strong{col_aff} will be
 overwritten by the column names of the data.frame.
 }
 \section{Slots}{
@@ -448,7 +546,7 @@ Pedigree(
     momid = c("5", "5", "5", "0", "0", "0"),
     sex = c(1, 2, 3, 1, 2, 1),
     avail = c(0, 1, 0, 1, 0, 1),
-    affected = matrix(c(
+    affections = matrix(c(
         0, 1, 0, 1, 0, 1,
         1, 1, 1, 1, 1, 1
     ), ncol = 2),

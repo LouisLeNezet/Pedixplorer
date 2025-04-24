@@ -7,6 +7,8 @@
 #' @param x A vector of length **n**
 #' @return A matrix with **n** cols and **n!** rows
 #' @keywords internal
+#' @examples
+#' Pedixplorer:::permute(seq_len(3))
 #' @keywords auto_hint
 permute <- function(x) {
     n <- length(x)
@@ -74,8 +76,8 @@ permute <- function(x) {
 #' @export
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped[sampleped$famid == 1,])
-#' best_hint(ped)
+#' pedi <- Pedigree(sampleped[sampleped$famid == 1,])
+#' best_hint(pedi)
 #' @include auto_hint.R
 #' @include align.R
 #' @keywords alignment, auto_hint

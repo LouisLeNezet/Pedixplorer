@@ -125,8 +125,7 @@ exclude_stray_marryin <- function(id, dadid, momid) {
     founder <- is_founder(dadid, momid)
 
     exclude <- !parent & founder
-    trio <- trio[!exclude, , drop = FALSE]
-    return(trio)
+    trio[!exclude, , drop = FALSE]
 }
 
 #' Exclude unavailable founders

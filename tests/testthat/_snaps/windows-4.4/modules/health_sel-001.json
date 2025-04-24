@@ -1,11 +1,11 @@
 {
   "export": {
     "lst_health": {
-      "var": "family",
-      "as_num": false,
-      "mods_aff": "1",
-      "threshold": null,
-      "sup_threshold": null
+      "var": "affection",
+      "as_num": true,
+      "mods_aff": null,
+      "threshold": 0.5,
+      "sup_threshold": true
     }
   }
 }

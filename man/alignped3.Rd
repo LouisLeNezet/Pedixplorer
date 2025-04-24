@@ -61,8 +61,8 @@ Now merge the two trees. Start at the top level and work down.
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped)
-align(ped)
+pedi <- Pedigree(sampleped)
+align(pedi)
 
 }
 \seealso{

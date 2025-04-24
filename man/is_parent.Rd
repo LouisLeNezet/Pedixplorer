@@ -35,6 +35,6 @@ Check which individuals are parents.
 is_parent(c("1", "2", "3", "4"), c("3", "3", NA, NA), c("4", "4", NA, NA))
 
 data(sampleped)
-ped <- Pedigree(sampleped)
-is_parent(ped(ped))
+pedi <- Pedigree(sampleped)
+is_parent(ped(pedi))
 }

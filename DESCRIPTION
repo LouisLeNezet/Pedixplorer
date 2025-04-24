@@ -1,16 +1,16 @@
 Package: Pedixplorer
-Version: 1.2.0
+Version: 1.4.0
 Date: 2024-10-01
 Title: Pedigree Functions
 Authors@R: c(
-    person("Louis", "Le Nézet", email="louislenezet@gmail.com",
+    person("Louis", "Le Nezet", email="louislenezet@gmail.com",
         role=c("aut","cre","ctb"), comment = c(ORCID = "0009-0000-0202-2703")),
 	person("Jason", "Sinnwell", email="sinnwell.jason@mayo.edu", role="aut"),
 	person("Terry", "Therneau", role="aut"),
 	person("Daniel", "Schaid", role="ctb"),
 	person("Elizabeth", "Atkinson", role="ctb"))
 Depends: 
-	R (>= 4.3.0)
+	R (>= 4.4.0)
 Imports: 
     graphics,
     stats,
@@ -60,11 +60,12 @@ Suggests:
     withr,
     qpdf,
     shinytest2,
-    covr,
     devtools,
     R.devices,
     usethis,
-    magick
+    rlang,
+    magick,
+    cyclocomp
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, GraphAndNetwork, Visualization
 BugReports: https://github.com/LouisLeNezet/Pedixplorer/issues

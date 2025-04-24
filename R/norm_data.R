@@ -5,12 +5,10 @@
 #' @details Normalise a dataframe and check for columns correspondance
 #' to be able to use it as an input to create a Ped object.
 #' Multiple test are done and errors are checked.
-#' Sex is calculated based on the `gender` column.
 #'
-#' The `steril` column need to be a boolean either TRUE, FALSE or 'NA'.
 #' Will be considered available any individual with no 'NA' values in the
 #' `available` column.
-#' Duplicated `indId` will nullify the relationship of the individual.
+#' Duplicated `id` will nullify the relationship of the individual.
 #' All individuals with errors will be remove from the dataframe and will
 #' be transfered to the error dataframe.
 #'
@@ -28,34 +26,49 @@
 #' ## On sex:
 #'
 #' - All sex code are either `male`, `female`,
-#' `terminated` or `unknown`.
-#' - No parents are steril
+#' or `unknown`.
+#' - No parents are infertile or aborted
 #' - All fathers are male
 #' - All mothers are female
 #'
 #' @param ped_df A data.frame with the individuals informations.
 #' The minimum columns required are:
 #'
-#' - `indID` individual identifiers -> `id`
-#' - `fatherId` biological fathers identifiers -> `dadid`
-#' - `motherId` biological mothers identifiers -> `momdid`
-#' - `gender` sex of the individual -> `sex`
-#' - `family` family identifiers -> `famid`
+#' - `id` individual identifiers
+#' - `dadid` biological fathers identifiers
+#' - `momid` biological mothers identifiers
+#' - `sex` of the individual
 #'
-#' The `family` column, if provided, will be merged to
+#' The `famid` column, if provided, will be merged to
 #' the *ids* field separated by an underscore using the
 #' [upd_famid()] function.
 #'
 #' The following columns are also recognize and will be transformed with the
 #' [vect_to_binary()] function:
 #'
-#' - `sterilisation` status -> `steril`
-#' - `available` status -> `avail`
-#' - `vitalStatus`, is the individual dead -> `status`
-#' - `affection` status -> `affected`
+#' - `deceased` status -> is the individual dead
+#' - `avail` status -> is the individual available
+#' - `evaluated` status -> has the individual a documented evaluation
+#' - `consultand` status -> is the individual the consultand
+#' - `proband` status -> is the individual the proband
+#' - `carrier` status -> is the individual a carrier
+#' - `asymptomatic` status -> is the individual asymptomatic
+#' - `adopted` status -> is the individual adopted
 #'
 #' The values recognized for those columns are `1` or `0`,
 #' `TRUE` or `FALSE`.
+#'
+#' The `fertility` column will be transformed to a factor using the
+#' [fertility_to_factor()] function.
+#' `infertile_choice_na`, `infertile`, `fertile`
+#'
+#' The `miscarriage` column will be transformed to a using the
+#' [miscarriage_to_factor()] function.
+#' `SAB`, `TOP`, `ECT`, `FALSE`
+#'
+#' The `dateofbirth` and `dateofdeath` columns will be transformed to
+#' a date object using the [char_to_date()] function.
+#'
 #' @param na_strings Vector of strings to be considered as NA values.
 #' @param try_num Boolean defining if the function should try to convert
 #' all the columns to numeric.
@@ -67,15 +80,39 @@
 #' @include utils.R
 #' @examples
 #' df <- data.frame(
-#'     indId = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-#'     fatherId = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
-#'     motherId = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
-#'     gender = c(1, 2, "m", "man", "f", "male", "m", "m", "f", "f"),
-#'     available = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
+#'     id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+#'     dadid = c("A", 0, 1, 3, 0, 4, 1, 0, 6, 6),
+#'     momid = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
 #'     famid = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2),
-#'     sterilisation = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, "TRUE"),
-#'     vitalStatus = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
-#'     affection = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0)
+#'     sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f"),
+#'     fertility = c(
+#'       "TRUE", "FALSE", TRUE, FALSE, 1,
+#'       0, "fertile", "infertile", 1, "TRUE"
+#'     ),
+#'     miscarriage = c("TOB", "SAB", NA, FALSE, "ECT", "other", 1, 0, 1, 0),
+#'     deceased = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, 1, 0, 1, 0),
+#'     avail = c("A", "1", 0, NA, 1, 0, 1, 0, 1, 0),
+#'     evalutated = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
+#'     consultand = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
+#'     proband = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     carrier = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     asymptomatic = c(
+#'         "TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"
+#'     ),
+#'     adopted = c("TRUE", "FALSE", TRUE, FALSE, 1, 0, NA, "NA", "other", "0"),
+#'     dateofbirth = c(
+#'          "1978-01-01", "1980-01-01", "1982-01-01", "1984-01-01",
+#'          "1986-01-01", "1988-01-01", "1990-01-01", "1992-01-01",
+#'          "1994-01-01", "1996-01-01"
+#'     ),
+#'     dateofdeath = c(
+#'         "2000-01-01", "2002-01-01", "2004-01-01", NA, "date-not-recognize",
+#'         "NA", "", NA, "2008/01/01", NA
+#'     )
 #' )
 #' tryCatch(
 #'     norm_ped(df),
@@ -91,29 +128,31 @@
 #' @importFrom tidyr unite
 norm_ped <- function(
     ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
-    cols_used_del = FALSE
+    cols_used_del = FALSE, date_pattern = "%Y-%m-%d"
 ) {
     err_cols <- c(
-        "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrTer", "sexNA",
+        "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
+        "sexErrMisFer", "sexNA",
         "sexError", "idErr", "idErrFa", "idErrMo", "idErrSelf",
-        "idErrOwnParent", "idErrBothParent", "idError", "error"
+        "idErrOwnParent", "idErrBothParent", "idError",
+        "dodErr", "error"
     )
     err <- data.frame(matrix(NA, nrow = nrow(ped_df), ncol = length(err_cols)))
     colnames(err) <- err_cols
-    cols_need <- c("indId", "fatherId", "motherId", "gender")
-    cols_used <- c(
-        "sex", "steril", "status", "avail", "id", "dadid", "momid", "famid",
-        "error", "affected"
-    )
+    cols_need <- c("id", "dadid", "momid", "sex")
+    cols_used <- c("error")
     cols_to_use <- c(
-        "available", "family", "sterilisation", "vitalStatus", "affection"
+        "famid", "fertility", "miscarriage", "deceased",
+        "avail", "evaluated", "consultand", "proband", "carrier",
+        "asymptomatic", "adopted", "dateofbirth", "dateofdeath"
     )
     ped_df <- check_columns(
         ped_df, cols_need, cols_used, cols_to_use, others_cols = TRUE,
         cols_to_use_init = TRUE, cols_used_init = TRUE,
         cols_used_del = cols_used_del
     )
-    ped_df$family[is.na(ped_df$family)] <- missid
+
+    ped_df$famid[is.na(ped_df$famid)] <- missid
 
     if (nrow(ped_df) > 0) {
         ped_df <- dplyr::mutate_if(
@@ -121,26 +160,25 @@ norm_ped <- function(
         )
 
         #### Id #### Check id type
-        for (id in c("indId", "fatherId", "motherId")) {
+        for (id in c("id", "dadid", "momid")) {
             ped_df[[id]] <- as.character(ped_df[[id]])
         }
         err$idErr <- lapply(
             as.data.frame(t(ped_df[, c(
-                "indId", "fatherId", "motherId", "family"
+                "id", "dadid", "momid", "famid"
             )])),
             function(x) {
                 if (any(x == "" & !is.na(x))) {
-                    "One id is Empty"
+                    "one_id_is_empty"
                 } else {
                     NA_character_
                 }
             }
         )
         ## Make a new id from the family and subject pair
-        ped_df$famid <- ped_df$family
-        ped_df$id <- upd_famid(ped_df$indId, ped_df$famid, missid)
-        ped_df$dadid <- upd_famid(ped_df$fatherId, ped_df$famid, missid)
-        ped_df$momid <- upd_famid(ped_df$motherId, ped_df$famid, missid)
+        ped_df$id <- upd_famid(ped_df$id, ped_df$famid, missid)
+        ped_df$dadid <- upd_famid(ped_df$dadid, ped_df$famid, missid)
+        ped_df$momid <- upd_famid(ped_df$momid, ped_df$famid, missid)
 
         ## Set all missid to NA
         ped_df <- dplyr::mutate_at(ped_df, c("id", "dadid", "momid", "famid"),
@@ -148,7 +186,7 @@ norm_ped <- function(
         )
 
         #### Sex ####
-        ped_df$sex <- sex_to_factor(ped_df$gender)
+        ped_df$sex <- sex_to_factor(ped_df$sex)
 
         is_father <- ped_df$id %in% ped_df$dadid & !is.na(ped_df$id)
         is_mother <- ped_df$id %in% ped_df$momid & !is.na(ped_df$id)
@@ -157,42 +195,50 @@ norm_ped <- function(
         ped_df$sex[is_father] <- "male"
         ped_df$sex[is_mother] <- "female"
 
-        ## Add terminated for sterilized individuals that is neither dad nor mom
-        if ("sterilisation" %in% colnames(ped_df)) {
-            ped_df$steril <- vect_to_binary(
-                ped_df$sterilisation, logical = TRUE
-            )
-            ped_df$sex[
-                ped_df$steril == 1 & !is.na(ped_df$steril) &
-                    !is_father & !is_mother
-            ] <- "terminated"
-            err$sexErrTer[
-                (ped_df$sex == "terminated" |
-                        ped_df$steril == 1 & !is.na(ped_df$steril)
-                )  & (is_father | is_mother)
-            ] <- "isSterilButIsParent"
-            ped_df$steril[!is.na(err$sexErrTer) &
-                    (is_father | is_mother)
-            ] <- FALSE
+        if (!"fertility" %in% colnames(ped_df)) {
+            ped_df$fertility <- NA_character_
         }
+
+        ## Normalize infertility column and check for infertile parents
+        ped_df$fertility <- fertility_to_factor(
+            ped_df$fertility
+        )
+        err$sexErrFer[ped_df$fertility != "fertile"
+            & (is_father | is_mother)
+        ] <- "is-infertile-but-is-parent"
+
+        ## Normalize miscarriage column and check for infertile parents
+        ped_df$miscarriage <- miscarriage_to_factor(
+            ped_df$miscarriage
+        )
+        err$sexErrMis[ped_df$miscarriage != "FALSE"
+            & (is_father | is_mother)
+        ] <- "is-aborted-but-is-parent"
+
+        err$sexErrMisFer[ped_df$miscarriage != "FALSE"
+            & ped_df$fertility != "fertile"
+        ] <- "is-aborted-but-has-fertility"
+
 
         ## Check error between sex and parentality
         err$sexNA[!ped_df$sex %in%
-                c("male", "female", "terminated", "unknown")
-        ] <- "sexNotRecognise"
-        err$sexErrMoFa[is_father & is_mother] <- "isMotherAndFather"
+                c("male", "female", "unknown")
+        ] <- "sex-not-recognise"
+        err$sexErrMoFa[is_father & is_mother] <- "is-mother-and-father"
         err$sexErrFa[
             is_father & ped_df$sex != "male"
-        ] <- "isFatherButNotMale"
-        err$sexErrMo[is_mother &
-                ped_df$sex != "female"
-        ] <- "isMotherButNotFemale"
+        ] <- "is-father-but-not-male"
+        err$sexErrMo[
+            is_mother & ped_df$sex != "female"
+        ] <- "is-mother-but-not-female"
 
         ## Unite all sex errors in one column
         err <- tidyr::unite(
             err, "sexError",
-            c("sexNA", "sexErrMoFa", "sexErrMo", "sexErrFa", "sexErrTer"),
-            na.rm = TRUE, sep = "_", remove = TRUE
+            c(
+                "sexNA", "sexErrMoFa", "sexErrMo", "sexErrFa",
+                "sexErrFer", "sexErrMis", "sexErrMisFer"
+            ), na.rm = TRUE, sep = "_", remove = TRUE
         )
         err$sexError[err$sexError == ""] <- NA
 
@@ -209,18 +255,18 @@ norm_ped <- function(
         ## Register errors
         err$idErrFa[ped_df$dadid %in% id_duplicated &
                 !is.na(ped_df$dadid)
-        ] <- "fatherIdDuplicated"
+        ] <- "dadid-duplicated"
         err$idErrMo[ped_df$momid %in% id_duplicated &
                 !is.na(ped_df$momid)
-        ] <- "motherIdDuplicated"
+        ] <- "momid-duplicated"
         err$idErrSelf[ped_df$id %in% id_duplicated &
                 !is.na(ped_df$id)
-        ] <- "selfIdDuplicated"
-        err$idErrOwnParent[ped_df$id %in% id_own_parent] <- "isItsOwnParent"
+        ] <- "self-id-duplicated"
+        err$idErrOwnParent[ped_df$id %in% id_own_parent] <- "is-its-own-parent"
         err$idErrBothParent[
-            (ped_df$dadid %in% missid & (!ped_df$momid %in% missid)) |
-                ((!ped_df$dadid %in% missid) & ped_df$momid %in% missid)
-        ] <- "oneParentMissing"
+            (ped_df$dadid %in% missid & (!ped_df$momid %in% missid))
+            | ((!ped_df$dadid %in% missid) & ped_df$momid %in% missid)
+        ] <- "one-parent-missing"
 
         ## Unite all id errors in one column
         err <- tidyr::unite(
@@ -231,18 +277,44 @@ norm_ped <- function(
         )
         err$idError[err$idError == ""] <- NA
 
-        #### Available ####
-        if ("available" %in% colnames(ped_df)) {
-            ped_df$avail <- vect_to_binary(ped_df$available, logical = TRUE)
-        }
-        #### Status ####
-        if ("vitalStatus" %in% colnames(ped_df)) {
-            ped_df$status <- vect_to_binary(ped_df$vitalStatus, logical = TRUE)
-        }
-        #### Affected ####
-        if ("affection" %in% colnames(ped_df)) {
-            ped_df$affected <- vect_to_binary(ped_df$affection, logical = TRUE)
-        }
+        ## Deceased, Avail, Evaluated, Consultand, Proband
+        ## Carrier, Asymptomatic, Adopted
+        ped_df$deceased <- vect_to_binary(
+            ped_df$deceased, logical = TRUE
+        )
+        ped_df$avail <- vect_to_binary(
+            ped_df$avail, logical = TRUE
+        )
+        ped_df$evaluated <- vect_to_binary(
+            ped_df$evaluated, logical = TRUE, default = FALSE
+        )
+        ped_df$consultand <- vect_to_binary(
+            ped_df$consultand, logical = TRUE, default = FALSE
+        )
+        ped_df$proband <- vect_to_binary(
+            ped_df$proband, logical = TRUE, default = FALSE
+        )
+        ped_df$carrier <- vect_to_binary(
+            ped_df$carrier, logical = TRUE
+        )
+        ped_df$asymptomatic <- vect_to_binary(
+            ped_df$asymptomatic, logical = TRUE
+        )
+        ped_df$adopted <- vect_to_binary(
+            ped_df$adopted, logical = TRUE, default = FALSE
+        )
+
+        #### Convert to date ####
+        ped_df$dateofbirth <- char_to_date(
+            ped_df$dateofbirth, date_pattern = date_pattern
+        )
+        ped_df$dateofdeath <- char_to_date(
+            ped_df$dateofdeath, date_pattern = date_pattern
+        )
+
+        err$dodErr[!is.na(ped_df$dateofdeath) &
+                is.na(ped_df$deceased)
+        ] <- "dod-not-deceased"
 
         #### Convert to num ####
         if (try_num) {
@@ -259,7 +331,7 @@ norm_ped <- function(
         }
 
         ped_df$error <- tidyr::unite(
-            err, "error", c("idError", "sexError"),
+            err, "error", c("idError", "sexError", "dodErr"),
             na.rm = TRUE, sep = "_", remove = TRUE
         )$error
         ped_df$error[ped_df$error == ""] <- NA
@@ -337,7 +409,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         rel_df$code <- rel_code_to_factor(rel_df$code)
         err$codeErr[!rel_df$code %in%
                 c("MZ twin", "DZ twin", "UZ twin", "Spouse")
-        ] <- "CodeNotRecognise"
+        ] <- "code-not-recognise"
 
         #### Check for id errors #### Set ids as characters
         rel_df <- rel_df %>%
@@ -346,8 +418,8 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         ## Check for non null ids
         len1 <- nchar(rel_df$id1)
         len2 <- nchar(rel_df$id2)
-        err$id1Err[is.na(len1) | len1 %in% missid] <- "indId1length0"
-        err$id2Err[is.na(len2) | len2 %in% missid] <- "indId2length0"
+        err$id1Err[is.na(len1) | len1 %in% missid] <- "id1-length0"
+        err$id2Err[is.na(len2) | len2 %in% missid] <- "id2-length0"
 
         ## Compute id with family id
         rel_df$id1 <- upd_famid(rel_df$id1, rel_df$famid, missid)
@@ -357,7 +429,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
             ~replace(., . %in% c(na_strings, missid), NA_character_)
         )
 
-        err$sameIdErr[rel_df$id1 == rel_df$id2] <- "SameId"
+        err$sameIdErr[rel_df$id1 == rel_df$id2] <- "same-id"
 
         ## Unite all id errors in one column
         rel_df$error <- unite(err, "error",

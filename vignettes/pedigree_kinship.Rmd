@@ -3,14 +3,14 @@ title: Pedigree kinship() details
 author: TM Therneau
 date: '`r format(Sys.time(),"%d %B, %Y")`'
 output:
-  BiocStyle::html_document:
-    toc: true
-    toc_depth: 2
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 2
 header-includes: \usepackage{tabularx}
 vignette: |
-  %\VignetteIndexEntry{Pedigree kinship() details}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{Pedigree kinship() details}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
 ---
 
 
@@ -40,9 +40,9 @@ which may of either maternal or paternal origin.
 $$
 \begin{align}
     K(i,j) &= P(\mbox{$g$ maternal}) * K(m(i), j) + 
-                P(\mbox{$g$ paternal}) * K(f(i), j) \label{recur0} \\
-            &= 1/2 K(m(i), j) + 1/2 K(f(i), j) \label{recur1} \\
-    K(i,i) &= 1/2(1 + K(m(i), f(i))) \label{self} 
+                P(\mbox{$g$ paternal}) * K(f(i), j) \\
+            &= \frac{1}{2} K(m(i), j) + \frac{1}{2} K(f(i), j) \\
+    K(i,i) &= \frac{1}{2}(1 + K(m(i), f(i))) 
 \end{align}
 $$
 
@@ -182,8 +182,8 @@ family/subject.
 ```{r, kinship}
 library(Pedixplorer)
 data(sampleped)
-ped <- Pedigree(sampleped)
-kinship(ped)[35:48, 35:48]
+pedi <- Pedigree(sampleped[, -16]) # Remove adoption field
+kinship(pedi)[35:48, 35:48]
 ```
 
 ## MakeKinship
@@ -231,7 +231,7 @@ Finally, remove the rows that are identical.
 The result is a set of all pairs of observations in the matrix that
 correspond to monozygotic pairs.
 
-```{r, kinship_twins, fig.alt = "Monozygotic twins"}
+```{r, kinship_twins, fig.alt = "Monozygotic twins", fig.align = 'center'}
 df <- data.frame(
     id = c(1, 2, 3, 4, 5, 6, 7, 8),
     dadid = c(4, 4, 4, NA, 4, 4, 4, NA),
@@ -243,10 +243,10 @@ rel <- data.frame(
     id2 = c(2, 2, 5, 3),
     code = c(1, 1, 1, 1)
 )
-ped <- Pedigree(df, rel)
-plot(ped)
+pedi <- Pedigree(df, rel)
+plot(pedi)
 twins <- c(1, 2, 3, 7, 5, 6)
-kinship(ped)[twins, twins]
+kinship(pedi)[twins, twins]
 ```
 
 Session information

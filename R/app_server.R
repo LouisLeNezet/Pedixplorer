@@ -26,9 +26,11 @@
 #' }
 #' @keywords internal
 ped_server <- function(
-    input, output, session, precision = 2
+    input, output, session, precision = 6
 ) {
     shiny::shinyServer(function(input, output, session) {
+
+        height_family_infos <- "auto"
 
         data_env <- new.env(parent = emptyenv())
         utils::data("sampleped", envir = data_env, package = "Pedixplorer")
@@ -43,18 +45,45 @@ ped_server <- function(
         ped_df_rename <- data_col_sel_server(
             "data_ped_col_sel", ped_df,
             list(
-                "indId" = c("indid", "indId", "id", "IndId"),
-                "fatherId" = c("dadid", "fatherid", "fatherId", "FatherId"),
-                "motherId" = c("momid", "motherid", "motherId", "MotherId"),
-                "gender" = c("gender", "sex", "Gender")
+                "id" = list(alternate = c("indid"), mandatory = TRUE),
+                "dadid" = list(alternate = c("fatherid"), mandatory = TRUE),
+                "momid" = list(alternate = c("motherid"), mandatory = TRUE),
+                "sex" = list(alternate = c("gender"), mandatory = TRUE),
+                "famid" = list(alternate = c("family"), mandatory = FALSE),
+                "fertility" = list(
+                    alternate = c("steril", "sterilization"), mandatory = FALSE
+                ),
+                "miscarriage" = list(
+                    alternate = c("aborted"), mandatory = FALSE
+                ),
+                "deceased" = list(
+                    alternate = c("status", "vitalstatus", "death"),
+                    mandatory = FALSE
+                ),
+                "avail" = list(alternate = c("available"), mandatory = FALSE),
+                "evaluated" = list(alternate = c("eval"), mandatory = FALSE),
+                "consultand" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "proband" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "carrier" = list(
+                    alternate = c(NA_character_), mandatory = FALSE
+                ),
+                "asymptomatic" = list(
+                    alternate = c("presymptomatic"), mandatory = FALSE
+                ),
+                "adopted" = list(alternate = c("adoption"), mandatory = FALSE),
+                "dateofbirth" = list(
+                    alternate = c("dob", "birth"), mandatory = FALSE
+                ),
+                "dateofdeath" = list(
+                    alternate = c("dod"), mandatory = FALSE
+                )
             ),
-            list(
-                "family" = c("family", "famid"),
-                "steril" = c("steril", "sterilization"),
-                "available" = c("avail", "available"),
-                "status" = c("status", "vitalStatus")
-            ),
-            "Select columns :", na_omit = TRUE
+            title = "Select columns :", na_omit = TRUE,
+            ui_col_nb = 3, by_row = FALSE
         )
         ## Rel data import ----------------------------------------------------
         rel_df <- data_import_server(
@@ -65,11 +94,12 @@ ped_server <- function(
         rel_df_rename <- data_col_sel_server(
             "data_rel_col_sel", rel_df,
             list(
-                "id1" = c("id1", "indId1"),
-                "id2" = c("id2", "indId2"),
-                "code" = c("code")
-            ), list(),
-            "Select columns :", na_omit = TRUE
+                "id1" = list(alternate = c("indId1"), mandatory = TRUE),
+                "id2" = list(alternate = c("indId2"), mandatory = TRUE),
+                "code" = list(alternate = c(NA_character_), mandatory = TRUE),
+                "famid" = list(alternate = c("family"), mandatory = FALSE)
+            ),
+            "Select columns :", na_omit = TRUE, ui_col_nb = 1, by_row = FALSE
         )
 
         ## Ped families object creation ---------------------------------------
@@ -79,11 +109,11 @@ ped_server <- function(
                 return(NULL)
             }
             ped_df <- ped_df_rename()
-            if (!"family" %in% colnames(ped_df_rename())) {
-                ped_df$family <- make_famid(
-                    as.character(ped_df$indId),
-                    as.character(ped_df$fatherId),
-                    as.character(ped_df$motherId)
+            if (!"famid" %in% colnames(ped_df_rename())) {
+                ped_df$famid <- make_famid(
+                    as.character(ped_df$id),
+                    as.character(ped_df$dadid),
+                    as.character(ped_df$momid)
                 )
             }
             withCallingHandlers({
@@ -119,19 +149,27 @@ ped_server <- function(
                 ped_df <- ped_df_norm()[is.na(ped_df_norm()$error), ]
             }
             tryCatch({
-                ped_df <- fix_parents(ped_df)
-                Pedigree(
-                    ped_df, rel_df_norm(),
-                    cols_ren_ped = list(),
-                    cols_ren_rel = list(),
-                    normalize = FALSE
-                )
+                withCallingHandlers({
+                    ped_df <- fix_parents(ped_df)
+                    Pedigree(
+                        ped_df, rel_df_norm(),
+                        cols_ren_ped = list(),
+                        cols_ren_rel = list(),
+                        normalize = FALSE
+                    )
+                }, warning = function(w) {
+                    shinytoastr::toastr_warning(
+                        title = "Warnings during pedigree creation",
+                        conditionMessage(w)
+                    )
+                    invokeRestart("muffleWarning")
+                })
             }, error = function(e) {
                 shinytoastr::toastr_error(
                     title = "Couldn't create pedigree object",
                     conditionMessage(e)
                 )
-                return(NULL)
+                NULL
             })
         })
 
@@ -235,29 +273,49 @@ ped_server <- function(
             ) {
                 return(NULL)
             }
-            generate_colors(
-                lst_fam()$ped_fam, col_aff = lst_health()$var,
-                add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
-                threshold = lst_health()$threshold,
-                is_num = lst_health()$as_num,
-                sup_thres_aff = lst_health()$sup_threshold,
-                keep_full_scale = input$health_full_scale,
-                colors_aff = unname(unlist(
-                    cols_aff()[c("LeastAffected", "Affected")]
-                )),
-                colors_unaff = unname(unlist(
-                    cols_unaff()[c("Unaffected", "Dubious")]
-                )),
-                colors_na = "grey",
-                colors_avail = unname(unlist(
-                    cols_avail()[c("Avail", "Unavail")]
-                )),
-                breaks = 3
-            )
+            tryCatch({
+                withCallingHandlers({
+                    generate_colors(
+                        lst_fam()$ped_fam, col_aff = lst_health()$var,
+                        add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
+                        threshold = lst_health()$threshold,
+                        is_num = lst_health()$as_num,
+                        sup_thres_aff = lst_health()$sup_threshold,
+                        keep_full_scale = input$health_full_scale,
+                        colors_aff = unname(unlist(
+                            cols_aff()[c("LeastAffected", "Affected")]
+                        )),
+                        colors_unaff = unname(unlist(
+                            cols_unaff()[c("Unaffected", "Dubious")]
+                        )),
+                        colors_na = "grey",
+                        colors_avail = unname(unlist(
+                            cols_avail()[c("Avail", "Unavail")]
+                        )),
+                        breaks = 3
+                    )
+                }, warning = function(w) {
+                    shinytoastr::toastr_warning(
+                        title = "Warnings during pedigree normalization",
+                        conditionMessage(w)
+                    )
+                    invokeRestart("muffleWarning")
+                })
+            }, error = function(e) {
+                shinytoastr::toastr_error(
+                    title = "Error during pedigree generation",
+                    conditionMessage(e)
+                )
+                NULL
+            })
         })
 
         ## Family information -------------------------------------------------
-        ped_avaf_infos_server("ped_avaf_infos", ped_aff)
+        ped_avaf_infos_server(
+            "ped_avaf_infos", pedi = ped_aff,
+            title = "Family informations",
+            height = height_family_infos
+        )
 
         ## Informative selection ----------------------------------------------
         lst_inf <- inf_sel_server("inf_sel", ped_all)
@@ -266,9 +324,13 @@ ped_server <- function(
         ped_subfamilies <- shiny::reactive({
             shiny::req(lst_inf())
             shiny::req(ped_aff())
+            pedi_inf <- is_informative(
+                ped_aff(),
+                informative = lst_inf()$inf_sel,
+                col_aff = lst_health()$var
+            )
             pedi_inf <- useful_inds(
-                ped_aff(), lst_inf()$inf_sel,
-                keep_infos = lst_inf()$keep_parents,
+                pedi_inf, keep_infos = lst_inf()$keep_parents,
                 max_dist = lst_inf()$kin_max, reset = TRUE
             )
             pedi_inf <- Pedixplorer::subset(
@@ -293,8 +355,9 @@ ped_server <- function(
 
         ## Sub Family information ---------------------------------------------
         ped_avaf_infos_server(
-            "subped_avaf_infos", ped_subfam,
-            "Subfamily informations"
+            "subped_avaf_infos", pedi = ped_subfam,
+            title = "Subfamily informations",
+            height = height_family_infos
         )
 
         ## Plotting pedigree --------------------------------------------------
@@ -318,7 +381,7 @@ ped_server <- function(
         output$col_sel_tips <- renderUI({
             shiny::req(ped_subfam())
             all_cols <- colnames(Pedixplorer::as.data.frame(ped(ped_subfam())))
-            select <- c("affection", "affected", "avail", "status")
+            select <- c("affected", "avail", "status")
             select <- select[select %in% all_cols]
             shiny::selectInput(
                 "tips_col",
@@ -342,7 +405,7 @@ ped_server <- function(
         plot_legend_server(
             "legend", ped_subfam,
             boxw = 0.02, boxh = 0.08, adjx = 0, adjy = 0,
-            leg_loc = c(0.1, 0.7, 0.01, 0.95), lwd = 1.5
+            leg_loc = c(0.1, 0.7, 0.1, 0.8), lwd = 1.5
         )
 
         ## Download data and plot ---------------------------------------------

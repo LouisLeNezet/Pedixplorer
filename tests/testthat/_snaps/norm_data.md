@@ -3,50 +3,50 @@
     Code
       ped_df
     Output
-         indId fatherId motherId gender sterilisation available NumOther AffMod
-      1      1        3        4      2          TRUE      <NA>        1   <NA>
-      2      2        0        0      1          TRUE         1        2      A
-      3      3        8        7    man         FALSE         0        2      E
-      4      4        6        5  woman         FALSE         A        3      A
-      5      5        0        0      f         FALSE      <NA>        7      E
-      6      6     <NA>        0      m          TRUE         0     <NA>      D
-      7      7        0        0      1         FALSE      <NA>        6      A
-      8      8        0        0      1         FALSE         0        3      D
-      9      8        2        0      2         FALSE      <NA>        3      A
-      10     9        9        8      3         FALSE        Ab        5      B
-                sex steril status avail id dadid momid famid
-      1  terminated   TRUE     NA    NA  1     3     4  <NA>
-      2        male  FALSE     NA  TRUE  2     0     0  <NA>
-      3        male  FALSE     NA FALSE  3     8     7  <NA>
-      4      female  FALSE     NA    NA  4     6     5  <NA>
-      5      female  FALSE     NA    NA  5     0     0  <NA>
-      6        male  FALSE     NA FALSE  6  <NA>     0  <NA>
-      7      female  FALSE     NA    NA  7     0     0  <NA>
-      8      female  FALSE     NA FALSE  8     0     0  <NA>
-      9      female  FALSE     NA    NA  8     2     0  <NA>
-      10       male  FALSE     NA    NA  9     9     8  <NA>
-                                                         error affected family
-      1                                                   <NA>       NA   <NA>
-      2                                    isSterilButIsParent       NA   <NA>
-      3                                     fatherIdDuplicated       NA   <NA>
-      4                                                   <NA>       NA   <NA>
-      5                                                   <NA>       NA   <NA>
-      6                   oneParentMissing_isSterilButIsParent       NA   <NA>
-      7                                                   <NA>       NA   <NA>
-      8  selfIdDuplicated_isMotherAndFather_isFatherButNotMale       NA   <NA>
-      9  selfIdDuplicated_isMotherAndFather_isFatherButNotMale       NA   <NA>
-      10                     motherIdDuplicated_isItsOwnParent       NA   <NA>
-         vitalStatus affection
-      1           NA        NA
-      2           NA        NA
-      3           NA        NA
-      4           NA        NA
-      5           NA        NA
-      6           NA        NA
-      7           NA        NA
-      8           NA        NA
-      9           NA        NA
-      10          NA        NA
+         id dadid momid    sex           fertility avail NumOther AffMod miscarriage
+      1   1     3     4 female           infertile    NA        1   <NA>         SAB
+      2   2     0     0   male             fertile  TRUE        2      A       FALSE
+      3   3     8     7   male infertile_choice_na FALSE        2      E       FALSE
+      4   4     6     5 female             fertile    NA        3      A       FALSE
+      5   5     0     0 female             fertile    NA        7      E         ECT
+      6   6  <NA>     0   male           infertile FALSE     <NA>      D         TOP
+      7   7     0     0 female           infertile    NA        6      A       FALSE
+      8   8     0     0 female             fertile FALSE        3      D       FALSE
+      9   8     2     0 female             fertile    NA        3      A       FALSE
+      10  9     9     8   male             fertile    NA        5      B         SAB
+                                                                                                       error
+      1                                                                         is-aborted-but-has-fertility
+      2                                                                                                 <NA>
+      3                                                          dadid-duplicated_is-infertile-but-is-parent
+      4                                                                                                 <NA>
+      5                                                                             is-aborted-but-is-parent
+      6  one-parent-missing_is-infertile-but-is-parent_is-aborted-but-is-parent_is-aborted-but-has-fertility
+      7                                                                           is-infertile-but-is-parent
+      8                                       self-id-duplicated_is-mother-and-father_is-father-but-not-male
+      9                                       self-id-duplicated_is-mother-and-father_is-father-but-not-male
+      10                                         momid-duplicated_is-its-own-parent_is-aborted-but-is-parent
+         famid deceased evaluated consultand proband carrier asymptomatic adopted
+      1   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      2   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      3   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      4   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      5   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      6   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      7   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      8   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      9   <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+      10  <NA>       NA     FALSE      FALSE   FALSE      NA           NA   FALSE
+         dateofbirth dateofdeath
+      1         <NA>        <NA>
+      2         <NA>        <NA>
+      3         <NA>        <NA>
+      4         <NA>        <NA>
+      5         <NA>        <NA>
+      6         <NA>        <NA>
+      7         <NA>        <NA>
+      8         <NA>        <NA>
+      9         <NA>        <NA>
+      10        <NA>        <NA>
 
 # Norm rel
 
@@ -54,26 +54,26 @@
       rel_df
     Output
          id1 id2    code famid                          error
-      1    1   2 MZ twin  <NA>                           <NA>
-      2    1   3 DZ twin  <NA>                           <NA>
-      3    2   3 UZ twin  <NA>                           <NA>
-      4    1   2  Spouse  <NA>                           <NA>
-      5    3   4 MZ twin  <NA>                           <NA>
-      6    6   7    <NA>  <NA>               CodeNotRecognise
-      7    8   8  Spouse  <NA>                         SameId
-      8    9   0  Spouse  <NA>                           <NA>
-      9 <NA>   B    <NA>  <NA> indId1length0_CodeNotRecognise
+      1  1_1 1_2 MZ twin     1                           <NA>
+      2  1_1 1_3 DZ twin     1                           <NA>
+      3  1_2 1_3 UZ twin     1                           <NA>
+      4  2_1 2_2  Spouse     2                           <NA>
+      5  2_3 2_4 MZ twin     2                           <NA>
+      6  2_6 2_7    <NA>     2             code-not-recognise
+      7  2_8 2_8  Spouse     2                        same-id
+      8  1_9 1_0  Spouse     1                           <NA>
+      9 <NA> 1_B    <NA>     1 id1-length0_code-not-recognise
 
 ---
 
     Code
       norm_rel(rel_df, missid = "0")
     Output
-            id1   id2    code famid            error
-      1       1     2 MZ twin  <NA>             <NA>
-      2       3     2 DZ twin  <NA>             <NA>
-      3       3     1 DZ twin  <NA>             <NA>
-      4       3     4 MZ twin  <NA>             <NA>
-      5       7 Other    <NA>  <NA> CodeNotRecognise
-      6 spo Use     9    <NA>  <NA> CodeNotRecognise
+            id1   id2    code famid              error
+      1       1     2 MZ twin  <NA>               <NA>
+      2       3     2 DZ twin  <NA>               <NA>
+      3       3     1 DZ twin  <NA>               <NA>
+      4       3     4 MZ twin  <NA>               <NA>
+      5       7 Other    <NA>  <NA> code-not-recognise
+      6 spo Use     9    <NA>  <NA> code-not-recognise
 

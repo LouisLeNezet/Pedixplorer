@@ -18,10 +18,13 @@ Multiple checks are done here
 \details{
 \enumerate{
 \item Check that the ped ids slots have the right values
-\item Check that the sex, steril, status, avail and affected slots have the
+\item Check that the sex, fertility, deceased, avail and affected slots have the
 right values
 \item Check that dad are male and mom are female
 \item Check that individuals have both parents or none
+\item Check that proband are affected
+\item Check that proband and consultand are mutually exclusive
+\item Check that asymptomatic individuals are not affected
 }
 }
 \keyword{internal}

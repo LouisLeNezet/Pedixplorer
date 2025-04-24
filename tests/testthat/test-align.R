@@ -5,6 +5,12 @@ test_that("align works", {
     plist1 <- align(ped1)
     expect_equal(plist1$n, c(2, 10, 16, 14))
 
+    plist1u <- align(ped1, packed = FALSE)
+    expect_equal(plist1u$n, plist1$n)
+
+    expect_equal(plist1, plist1u)
+    plot(ped1, packed = FALSE)
+
     ped2 <- pedi[famid(ped(pedi)) == 2]
     plist2 <- align(ped2)
     expect_equal(plist2$n, c(2, 7, 5))
@@ -101,10 +107,10 @@ test_that("Alignment with spouse", {
     data(sampleped)
     df1 <- sampleped[sampleped$famid == 1, ]
     relate1 <- data.frame(
-        indId1 = 113,
-        indId2 = 114,
+        id1 = 113,
+        id2 = 114,
         code = 4,
-        family = 1
+        famid = 1
     )
     ped1 <- Pedigree(df1, relate1)
     hints <- auto_hint(ped1)

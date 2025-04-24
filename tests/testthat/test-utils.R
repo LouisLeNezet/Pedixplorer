@@ -92,3 +92,103 @@ test_that("get_title", {
         "(N=10) from All individuals."
     ))
 })
+
+test_that("fertility_to_factor", {
+    fertility <- c(
+        1, "fertile", TRUE, NA,
+        "infertile", "steril", FALSE, 0,
+        "infertile_na", "infertile_choice_na", "infertile_choice"
+    )
+    fertil <- fertility_to_factor(fertility)
+    expect_equal(
+        fertil,
+        factor(c(
+            "fertile", "fertile", "fertile", "fertile",
+            "infertile", "infertile", "infertile", "infertile",
+            "infertile_choice_na", "infertile_choice_na",
+            "infertile_choice_na"
+        ), levels = c("infertile_choice_na", "infertile", "fertile"))
+    )
+})
+
+
+test_that("miscarriage_to_factor", {
+    miscarriage <- c(
+        "spontaneous", "spontaenous abortion", "SAB",
+        "termination", "terminated", "termination of pregnancy", "TOP",
+        "ectopic", "ectopic pregnancy", "ECT", "ecT",
+        "0", "false", "no", "NA", "other", 0, FALSE
+    )
+    miscarriage <- miscarriage_to_factor(miscarriage)
+    expect_equal(
+        miscarriage,
+        factor(c(
+            "SAB", "SAB", "SAB",
+            "TOP", "TOP", "TOP", "TOP",
+            "ECT", "ECT", "ECT", "ECT",
+            "FALSE", "FALSE", "FALSE", "FALSE",
+            "FALSE", "FALSE", "FALSE"
+        ), levels = c("SAB", "TOP", "ECT", "FALSE"))
+    )
+})
+
+test_that("vect_to_binary", {
+    my_vect <- c(
+        0, 1, 2, 3.6,
+        "TRUE", "FALSE", "0", "1", "NA", "B",
+        TRUE, FALSE, NA
+    )
+    my_vect_1 <- suppressWarnings(vect_to_binary(my_vect))
+    expect_equal(
+        my_vect_1, c(
+            0, 1, NA, NA,
+            1, 0, 0, 1, NA, NA,
+            1, 0, NA
+        )
+    )
+    my_vect_1 <- suppressWarnings(vect_to_binary(my_vect, default = FALSE))
+    expect_equal(
+        my_vect_1, c(
+            0, 1, 0, 0,
+            1, 0, 0, 1, 0, 0,
+            1, 0, 0
+        )
+    )
+
+    my_vect_1 <- suppressWarnings(vect_to_binary(
+        my_vect, logical = TRUE, default = TRUE
+    ))
+    expect_equal(
+        my_vect_1, c(
+            FALSE, TRUE, TRUE, TRUE,
+            TRUE, FALSE, FALSE, TRUE, TRUE, TRUE,
+            TRUE, FALSE, TRUE
+        )
+    )
+})
+
+test_that("char_to_date", {
+    my_vect <- c(
+        "2020-01-01", "2020-01-01 12:00:00", "2020/01/01",
+        "01/01/2020", "01/01/2020 12:00:00", "01-01-2020",
+        "01/01/20", "01/01/20 12:00:00", "01-01-20"
+    )
+    pattern <- c(
+        "%Y-%m-%d", "%Y-%m-%d %H:%M:%S", "%Y/%m/%d",
+        "%m/%d/%Y", "%m/%d/%Y %H:%M:%S", "%m-%d-%Y",
+        "%m/%d/%y", "%m/%d/%y %H:%M:%S", "%m-%d-%y"
+    )
+    my_vect_1 <- char_to_date(my_vect, pattern)
+    expect_equal(
+        my_vect_1, rep("2020-01-01", 9)
+    )
+
+    my_vect <- c(
+        "2020-01-01", "", "2020/01/01",
+        "NA", "wrong-date", " "
+    )
+    my_vect_1 <- char_to_date(my_vect, "%Y-%m-%d")
+    expect_equal(
+        my_vect_1, c("2020-01-01", NA, NA, NA, NA, NA)
+    )
+})

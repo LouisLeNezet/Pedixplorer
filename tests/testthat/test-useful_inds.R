@@ -1,8 +1,5 @@
 test_that("useful_inds works", {
     data("sampleped")
-    colnames(sampleped) <- c(
-        "ped", "id", "dadid", "momid", "sex", "affected", "avail"
-    )
     sampleped[c("id", "dadid", "momid")] <- as.data.frame(
         lapply(sampleped[c("id", "dadid", "momid")], as.character)
     )
@@ -29,29 +26,29 @@ test_that("useful_inds works", {
 
 test_that("useful_inds works with Pedigree", {
     data("sampleped")
-    ped <- Pedigree(sampleped)
-
-    ped <- useful_inds(ped, informative = "Av", max_dist = 2)
-    expect_equal(id(ped(ped))[useful(ped(ped)) == FALSE],
+    pedi <- Pedigree(sampleped)
+    pedi <- is_informative(pedi, informative = "Av")
+    pedi <- useful_inds(pedi, max_dist = 2)
+    expect_equal(id(ped(pedi))[useful(ped(pedi)) == FALSE],
         c("1_107", "1_108")
     )
 
     expect_snapshot_error(
-        suppressWarnings(useful_inds(ped, informative = "AvOrAf"))
+        suppressWarnings(useful_inds(pedi))
     )
-
-    ped <- useful_inds(ped, informative = "AvOrAf", reset = TRUE, max_dist = 2)
-    expect_equal(id(ped(ped))[useful(ped(ped)) == 0], c("1_108"))
+    pedi <- is_informative(
+        pedi, informative = "AvOrAf",
+        reset = TRUE, col_aff = "affection"
+    )
+    pedi <- useful_inds(pedi, max_dist = 2, reset = TRUE)
+    expect_equal(id(ped(pedi))[useful(ped(pedi)) == 0], c("1_108"))
 
     data("minnbreast")
     pedi <- Pedigree(
         minnbreast,
         cols_ren_ped = c(
-            indId = "id",
-            fatherId = "fatherid",
-            motherId = "motherid",
-            family = "famid",
-            gender = "sex"
+            dadid = "fatherid",
+            momid = "motherid"
         ), missid = "0"
     )
     pedi219 <- suppressWarnings(pedi[famid(ped(pedi)) == "219"])
@@ -60,11 +57,13 @@ test_that("useful_inds works with Pedigree", {
         add_to_scale = FALSE
     )
 
-    pedi219 <- useful_inds(pedi219, "Af", max_dist = 3, reset = TRUE)
+    pedi219 <- is_informative(pedi219, informative = "Af", col_aff = "cancer")
+    pedi219 <- useful_inds(pedi219, max_dist = 3, reset = TRUE)
     pedi219u <- suppressWarnings(pedi219[useful(ped(pedi219))])
 
     id_inf <- c("219_26990", "219_8669")
-    pedi219 <- useful_inds(pedi219, id_inf, max_dist = 1, reset = TRUE)
+    pedi219 <- is_informative(pedi219, informative = id_inf, reset = TRUE)
+    pedi219 <- useful_inds(pedi219, max_dist = 1, reset = TRUE)
     pedi219u <- pedi219[useful(ped(pedi219))]
     pedi219u <- make_famid(pedi219u)
     expect_equal(length(pedi219), 382)

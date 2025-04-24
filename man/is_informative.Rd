@@ -82,12 +82,12 @@ is_informative(c("A", "B", "C", "D", "E"),
     informative = c(TRUE, FALSE, TRUE, FALSE, TRUE))
 
 data("sampleped")
-ped <- Pedigree(sampleped)
-ped <- is_informative(ped, col_aff = "affection_mods")
-isinf(ped(ped))
+pedi <- ped(Pedigree(sampleped))
+pedi <- is_informative(pedi, informative = "Av")
+isinf(pedi)
 
 data("sampleped")
-ped <- Pedigree(sampleped)
-ped <- is_informative(ped, col_aff = "affection_mods")
-isinf(ped(ped))
+pedi <- Pedigree(sampleped)
+pedi <- is_informative(pedi, col_aff = "affection")
+isinf(ped(pedi))
 }

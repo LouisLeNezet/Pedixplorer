@@ -4,7 +4,7 @@
 \alias{vect_to_binary}
 \title{Vector variable to binary vector}
 \usage{
-vect_to_binary(vect, logical = FALSE)
+vect_to_binary(vect, logical = FALSE, default = NA)
 }
 \arguments{
 \item{vect}{A character, factor, logical or numeric vector corresponding to
@@ -25,6 +25,9 @@ are transformed to NA.
 instead of a numeric vector
 (i.e. \code{0} and \code{1} becomes
 \code{FALSE} and `TRUE).}
+
+\item{default}{The default value to use for the values that are not
+recognized. By default, \code{NA} is used, but it can be \code{0} or \code{1}.}
 }
 \value{
 numeric binary vector of the same size as \strong{vect}

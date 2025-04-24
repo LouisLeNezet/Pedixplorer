@@ -36,11 +36,11 @@ availability}
 
 \S4method{generate_colors}{Pedigree}(
   obj,
-  col_aff = "affected",
+  col_aff = "affection",
   add_to_scale = TRUE,
   col_avail = "avail",
   is_num = NULL,
-  mods_aff = NULL,
+  mods_aff = TRUE,
   threshold = 0.5,
   sup_thres_aff = TRUE,
   keep_full_scale = FALSE,
@@ -153,8 +153,8 @@ generate_colors(
     threshold = 3, keep_full_scale = TRUE
 )
 data("sampleped")
-ped <- Pedigree(sampleped)
-ped <- generate_colors(ped, "affected", add_to_scale=FALSE)
-scales(ped)
+pedi <- Pedigree(sampleped)
+pedi <- generate_colors(pedi, "affection", add_to_scale=FALSE)
+scales(pedi)
 }
 \keyword{generate_scales}

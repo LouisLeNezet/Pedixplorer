@@ -1,8 +1,3 @@
-# This module was created during the St Jude Bio-Hackathon of May 2023
-# by the team 13.
-# author: Max Qiu (maxqiu@unl.edu)
-# author: Louis Le Nézet (louislenezet@gmail.com)
-
 #### Function needed to work #### ----------
 
 #' Read data from file path
@@ -37,71 +32,81 @@ read_data <- function(
     strings_as_factors = FALSE, to_char = TRUE,
     na_values = c("", "NA", "NULL", "None")
 ) {
-    shiny::req(file)
+    supported_ext <- c(
+        "csv", "txt", "tsv", "tab",
+        "xls", "xlsx", "rda", "ped"
+    )
     if (!is.null(file)) {
-        tryCatch({
-            ext <- tools::file_ext(file)
-            if (!ext %in% c("csv", "txt", "xls", "xlsx", "rda", "tab")) {
-                stop("Please upload a (csv, txt, xls, xlsx, rda, tab) file")
-            }
+        ext <- tools::file_ext(file)
+        if (!ext %in% supported_ext) {
+            all_ext <- paste(supported_ext, collapse = ", ")
+            stop("Please upload a (", all_ext, ") file")
+        }
 
-            if (to_char) {
-                col_classes <- "character"
-                col_types <- "text"
-            } else {
-                col_classes <- NA
-                col_types <- NULL
-            }
+        if (to_char) {
+            col_classes <- "character"
+            col_types <- "text"
+        } else {
+            col_classes <- NA
+            col_types <- NULL
+        }
 
-            if (ext %in% c("csv", "txt")) {
-                df <- utils::read.csv(
-                    file, sep = sep, quote = quote,
-                    header = header, colClasses = col_classes,
-                    na.strings = na_values
-                )
-            } else if (ext %in% c("tab")) {
-                df <- utils::read.table(
-                    file, quote = quote, header = header,
-                    sep = sep, fill = TRUE, colClasses = col_classes,
-                    na.strings = na_values
-                )
-            } else if (ext %in% c("xls", "xlsx")) {
-                sheets_present <- readxl::excel_sheets(file)
-                if (is.null(df_name)) {
-                    stop("Please select a sheet")
-                } else {
-                    if (df_name %in% sheets_present) {
-                        df <- as.data.frame(readxl::read_excel(
-                            file, sheet = df_name,
-                            col_names = header, col_types = col_types,
-                            na = na_values
-                        ))
-                    } else {
-                        stop("Sheet selected isn't in file")
-                    }
-                }
-            } else if (ext %in% c("rda")) {
-                shiny::req(df_name)
-                all_data <- base::load(file)
-                if (is.na(df_name)) {
-                    stop("Please select a dataframe")
-                } else {
-                    if (df_name %in% all_data) {
-                        df <- get(df_name)
-                    } else {
-                        stop("Dataframe selected isn't in file")
-                    }
-                }
-            }
-        }, error = function(e) {
-            shinytoastr::toastr_error(
-                title = "Error while reading the file", conditionMessage(e)
+        if (ext %in% c("csv", "txt", "tsv")) {
+            df <- utils::read.csv(
+                file, sep = sep, quote = quote,
+                header = header, colClasses = col_classes,
+                na.strings = na_values
             )
-            return(NULL)
-        })
-        as.data.frame(unclass(df), stringsAsFactors = strings_as_factors)
+        } else if (ext %in% c("ped")) {
+            df <- utils::read.table(
+                file, quote = quote, header = header,
+                sep = sep, colClasses = col_classes,
+                na.strings = na_values
+            )
+            col <- c("famid", "id", "dadid", "momid", "sex", "affection")
+            colnames(df) <- col[dim(df)[1]]
+        } else if (ext %in% c("tab")) {
+            df <- utils::read.table(
+                file, quote = quote, header = header,
+                sep = sep, fill = TRUE, colClasses = col_classes,
+                na.strings = na_values
+            )
+        } else if (ext %in% c("xls", "xlsx")) {
+            sheets_present <- readxl::excel_sheets(file)
+            if (is.null(df_name)) {
+                stop("Please select a sheet")
+            } else {
+                if (df_name %in% sheets_present) {
+                    df <- as.data.frame(readxl::read_excel(
+                        file, sheet = df_name,
+                        col_names = header, col_types = col_types,
+                        na = na_values
+                    ))
+                } else {
+                    stop("Sheet selected isn't in file")
+                }
+            }
+        } else if (ext %in% c("rda")) {
+            all_data <- base::load(file)
+            if (is.na(df_name)) {
+                stop("Please select a dataframe from: ", all_data)
+            } else {
+                if (df_name %in% all_data) {
+                    df <- get(df_name)
+                } else {
+                    stop(
+                        "Dataframe selected isn't in file. Only: ",
+                        all_data, " present."
+                    )
+                }
+            }
+        }
+        return(as.data.frame(
+            unclass(df),
+            stringsAsFactors = strings_as_factors
+        ))
     } else {
-        NULL
+        return(NULL)
     }
 }
 
@@ -301,13 +306,21 @@ data_import_server <- function(
             }
 
             file_path <- input$fileinput$datapath
-            read_data(
-                file_path, sep = input$sep, quote = opt$quote,
-                header = opt$heading, df_name = input$dfSelected,
-                strings_as_factors = opt$strings_as_factors,
-                to_char = opt$to_char,
-                na_values = opt$na_values
-            )
+            shiny::req(file)
+            tryCatch({
+                df <- read_data(
+                    file_path, sep = input$sep, quote = opt$quote,
+                    header = opt$heading, df_name = input$dfSelected,
+                    strings_as_factors = opt$strings_as_factors,
+                    to_char = opt$to_char,
+                    na_values = opt$na_values
+                )
+            }, error = function(e) {
+                shinytoastr::toastr_error(
+                    title = "Error while reading the file", conditionMessage(e)
+                )
+                NULL
+            })
         })
 
         # We can run observers in here if we want to
@@ -333,7 +346,7 @@ data_import_server <- function(
         })
 
         # Return the reactive that yields the data frame
-        return(df)
+        df
     })
 }
 

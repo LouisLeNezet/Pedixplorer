@@ -26,8 +26,8 @@
 #'
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' find_avail_affected(ped, affstatus = 1)
+#' pedi <- Pedigree(sampleped)
+#' find_avail_affected(pedi, affstatus = 1)
 #' @seealso [shrink()]
 #' @include bit_size.R
 #' @include utils.R
@@ -85,7 +85,7 @@ setMethod("find_avail_affected", "Ped",
 
         # trim by subject with min bits. This trims fewer subject than using
         # max(bits).
-        id_trim <- trim_dat[, 1][bits == min(bits)]
+        id_trim <- as.data.frame(trim_dat)[bits == min(bits), "id", drop = TRUE]
 
         ## break ties by random choice
         if (length(id_trim) > 1) {

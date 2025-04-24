@@ -14,7 +14,8 @@ plot_legend(
   leg_loc = c(0, 1, 0, 1),
   add_to_existing = FALSE,
   usr = NULL,
-  lwd = par("lwd")
+  lwd = par("lwd"),
+  precision = 4
 )
 }
 \arguments{
@@ -34,6 +35,9 @@ of the labels in the legend.}
 
 \item{lwd}{default=par("lwd").  Controls the bordering line width of the
 elements in the legend.}
+
+\item{precision}{The number of significatif numbers to round the
+numbers to.}
 }
 \value{
 an invisible list containing

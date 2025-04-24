@@ -4,18 +4,26 @@
       ped2
     Output
       Ped object with 2 individuals and 0 metadata columns:
-                         id       dadid       momid       sex       famid    steril
-      col_class <character> <character> <character> <ordered> <character> <logical>
-      ID5               ID5        <NA>        <NA>    female        <NA>      <NA>
-      ID4               ID4        <NA>        <NA>      male        <NA>      <NA>
-                   status     avail  affected    useful       kin     isinf
-      col_class <logical> <logical> <logical> <logical> <numeric> <logical>
-      ID5            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
-      ID4            <NA>      <NA>      <NA>      <NA>      <NA>      <NA>
-                num_child_tot num_child_dir num_child_ind
-      col_class     <numeric>     <numeric>     <numeric>
-      ID5                   0             0             0
-      ID4                   0             0             0
+                         id       dadid       momid       famid       sex fertility
+      col_class <character> <character> <character> <character> <ordered>  <factor>
+      ID5               ID5        <NA>        <NA>        <NA>    female   fertile
+      ID4               ID4        <NA>        <NA>        <NA>      male   fertile
+                miscarriage  deceased     avail evaluated consultand   proband
+      col_class    <factor> <logical> <logical> <logical>  <logical> <logical>
+      ID5             FALSE      <NA>      <NA>     FALSE      FALSE     FALSE
+      ID4             FALSE      <NA>      <NA>     FALSE      FALSE     FALSE
+                 affected   carrier asymptomatic   adopted dateofbirth dateofdeath
+      col_class <logical> <logical>    <logical> <logical> <character> <character>
+      ID5            <NA>      <NA>         <NA>      <NA>        <NA>        <NA>
+      ID4            <NA>      <NA>         <NA>      <NA>        <NA>        <NA>
+                   useful       kin     isinf num_child_tot num_child_dir
+      col_class <logical> <numeric> <logical>     <numeric>     <numeric>
+      ID5            <NA>      <NA>      <NA>             0             0
+      ID4            <NA>      <NA>      <NA>             0             0
+                num_child_ind
+      col_class     <numeric>
+      ID5                   0
+      ID4                   0
 
 # Rel class works
 

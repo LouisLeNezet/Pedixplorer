@@ -57,8 +57,8 @@ not important, only their order.
 }
 \examples{
 data(sampleped)
-ped <- Pedigree(sampleped[sampleped$famid == 1, ])
-auto_hint(ped)
+pedi <- Pedigree(sampleped[sampleped$famid == 1, ])
+Pedixplorer:::auto_hint(pedi)
 }
 \seealso{
 \code{\link[=align]{align()}}, \code{\link[=best_hint]{best_hint()}}

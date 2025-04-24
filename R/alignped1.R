@@ -80,8 +80,8 @@
 #'
 #' @examples
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' align(ped)
+#' pedi <- Pedigree(sampleped)
+#' align(pedi)
 #'
 #' @seealso [align()]
 #' @keywords internal, alignment

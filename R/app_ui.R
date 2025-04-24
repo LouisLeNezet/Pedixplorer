@@ -67,9 +67,13 @@ ped_ui <- function() {
             shiny::br(),
             ## ___Data and Family selection -------------
             shiny::column(2, data_import_ui(id = "data_ped_import")),
-            shiny::column(6, data_col_sel_ui(id = "data_ped_col_sel")),
+            shiny::column(6, data_col_sel_ui(
+                id = "data_ped_col_sel", ui_col_nb = 3
+            )),
             shiny::column(2, data_import_ui(id = "data_rel_import")),
-            shiny::column(2, data_col_sel_ui(id = "data_rel_col_sel"))
+            shiny::column(2, data_col_sel_ui(
+                id = "data_rel_col_sel", ui_col_nb = 1
+            ))
         ),
         ## Errors download ----------------------------
         shiny::fluidRow(title = "Errors download",
@@ -99,7 +103,7 @@ ped_ui <- function() {
             ),
             shiny::column(
                 4, align = "center",
-                ped_avaf_infos_ui("ped_avaf_infos", height = "200px")
+                ped_avaf_infos_ui("ped_avaf_infos")
             )
         ),
         shiny::hr(),
@@ -118,7 +122,7 @@ ped_ui <- function() {
             ),
             ## Subfamily information -----------------------
             shiny::column(4, align = "center",
-                ped_avaf_infos_ui("subped_avaf_infos", height = "200px")
+                ped_avaf_infos_ui("subped_avaf_infos")
             )
         ),
         shiny::hr(),

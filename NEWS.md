@@ -1,4 +1,38 @@
-## Changes in v1.1.5
+## Changes in v1.3.4
+
+- Add example of interactivness in vignette
+- Fix label adjusting position in plot functions
+- Fix arrow size in ggplot
+
+## Changes in v1.3.1
+
+- Add support for `.ped`, `.tsv` files in data import
+- `is_informative` independent from `useful_inds`
+- Use directly columns names from `fill` instead of the mods columns
+- Move to R 4.4 and Bioc 3.20
+- Fix unittests and update snapshots
+- Change normalisation process to directly use `id`, `dadid`, `momid`, `famid`, `sex`
+no more need for `indId`, `fatherId`, ...
+- `affection` is now used as default affection modality columns that will be
+used to generate `affected`
+- `status` is replaced by `deceased`
+- `steril` is replaced by `fertility` and corresponding symbols is added for
+`infertile` and `infertile_choice_na`
+- `terminated` sex code is replace by `miscarriage` new slot
+- `miscarriage`, `evaluated`, `consultand`, `proband`, `carrier`, `asymptomatic` and
+`adopted` are now recognize and use for plotting
+- Argument order of `Ped()` as changed when using vectors. This choice has been made
+for a better consistency across the package. Please check that your argument are
+properly named (i.e. `sex` has been moved after `famid` and `avail` after `deceased`).
+- Shiny application is updated and improved (aesthetics, errors, warnings,
+functionnalities).
+- Add `dateofbirth` and `dateofdeath` to the `Ped` object
+- Changee from `round` to `signif` for the `precision` argument
+- Improve stability of test by adding and controlling the `options()` and `par()` arguments
+in the unittests.
+- `Carrier` symbols is proportional to the mean of the box size
+
+## Changes in v1.2.0
 
 - Change code of ped_to_legdf
 - When plotting with the main plot, the legend gets its own

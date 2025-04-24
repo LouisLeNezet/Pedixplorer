@@ -77,7 +77,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     obj, packed = TRUE, width = 6,
     align = c(1.5, 2), align_parents = TRUE, force = FALSE,
     cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
-    aff_mark = TRUE, id_lab = "id", label = NULL, precision = 3,
+    aff_mark = TRUE, id_lab = "id", label = NULL, precision = 4,
     lwd = par("lwd"), tips = NULL, ...
 ) {
 
@@ -102,7 +102,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         type = character(), fill = character(), border = character(),
         angle = numeric(), density = numeric(), cex = numeric(),
         label = character(), tips = character(),
-        adjx = numeric(), adjy = numeric()
+        adjx = numeric(), adjy = numeric(), lty = numeric()
     )
     plist <- align(
         obj, packed = packed, width = width,
@@ -124,7 +124,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     labh <- params_plot$labh
     legh <- params_plot$legh
 
-    ## Get all boxes to plot
+    #### Get all boxes to plot ####
     # idx is the index of the boxes in the alignment
     idx <- which(plist$nid > 0)
     # index value in the ped of each box
@@ -133,25 +133,27 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     pos <- plist$pos
     # y position
     i <- (seq_len(length(plist$nid)) - 1) %% length(plist$n) + 1
-    # sex of each box
-    sex <- as.numeric(sex(ped(obj)))[id[idx]]
 
     all_aff <- fill(obj)
     n_aff <- length(unique(fill(obj)$order))
     polylist <- polygons(max(1, n_aff))
 
     ped_df <- as.data.frame(ped(obj))
-    # border mods of each box
-    border_mods <- ped_df[id[idx], unique(border(obj)$column_mods)]
-    border_idx <- match(border_mods, border(obj)$mods)
-
     ped_df$tips <- create_text_column(ped_df, id_lab, c(label, tips))
 
     for (aff in seq_len(n_aff)) {
         aff_df <- all_aff[all_aff$order == aff, ]
         aff_mods <- ped_df[id[idx], unique(aff_df[["column_mods"]])]
-        aff_idx <- match(aff_mods, aff_df[["mods"]])
+        aff_norm <- match(aff_mods, aff_df[["mods"]])
 
+        # border mods of each box
+        border_mods <- ped_df[id[idx], unique(border(obj)$column_mods)]
+        border_idx <- match(border_mods, border(obj)$mods)
+
+        # Set sex and miscarriage symbols
+        ped_df$sex <- as.numeric(ped_df$sex)
+        ped_df$sex[ped_df$miscarriage != "FALSE"] <- 4
+        sex <- ped_df$sex[id[idx]]
 
         # mean range of each box for each polygon for each subreg
         poly_aff <- lapply(polylist, "[[", aff)
@@ -161,12 +163,13 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             function(x) mean(range(x * boxw)),
             1
         )
+
         ind <- data.frame(
             x0 = pos[idx], y0 = i[idx],
             type = paste(names(polylist)[sex], n_aff, aff, sep = "_"),
-            fill = aff_df[aff_idx, "fill"],
-            density = aff_df[aff_idx, "density"],
-            angle = aff_df[aff_idx, "angle"],
+            fill = aff_df[aff_norm, "fill"],
+            density = aff_df[aff_norm, "density"],
+            angle = aff_df[aff_norm, "angle"],
             border = border(obj)$border[border_idx],
             cex = lwd, tips = ped_df[id[idx], "tips"],
             id = "polygon"
@@ -185,9 +188,72 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         }
     }
 
-    ## Add status
-    status <- ped_df[id[idx], "status"]
-    idx_dead <- idx[status == 1 & !is.na(status)]
+    #### Add infertility status ####
+    infertile <- ped_df[id[idx], "fertility"]
+    idx_iftl_all <- idx[infertile != "fertile"]
+    idx_iftl <- idx[infertile == "infertile"]
+
+    if (length(idx_iftl_all) > 0) {
+        iftl_df_vert <- data.frame(
+            x0 = pos[idx_iftl_all], y0 = i[idx_iftl_all] + boxh,
+            x1 = pos[idx_iftl_all], y1 = i[idx_iftl_all] + boxh * 1.3,
+            type = "segments", fill = "black", cex = lwd,
+            id = "infertile"
+        )
+
+        iftl_df_hori <- data.frame(
+            x0 = pos[idx_iftl_all] - (boxw / 2) * 0.8,
+            y0 = i[idx_iftl_all] + boxh * 1.3,
+            x1 = pos[idx_iftl_all] + (boxw / 2) * 0.8,
+            y1 = i[idx_iftl_all] + boxh * 1.3,
+            type = "segments", fill = "black", cex = lwd,
+            id = "infertile"
+        )
+
+        plot_df <- rbind.fill(plot_df, iftl_df_vert, iftl_df_hori)
+
+        if (length(idx_iftl) > 0) {
+            iftl_df_hori_2 <- data.frame(
+                x0 = pos[idx_iftl] - (boxw / 2),
+                y0 = i[idx_iftl] + boxh * 1.4,
+                x1 = pos[idx_iftl] + (boxw / 2),
+                y1 = i[idx_iftl] + boxh * 1.4,
+                type = "segments", fill = "black", cex = lwd,
+                id = "infertile"
+            )
+            plot_df <- plyr::rbind.fill(plot_df, iftl_df_hori_2)
+        }
+    }
+
+    #### Add miscarriage symbols ####
+    miscarriage <- ped_df[id[idx], "miscarriage"]
+    idx_mscr <- idx[miscarriage %in% c("ECT", "TOP")]
+    if (length(idx_mscr) > 0) {
+        mscr_df <- data.frame(
+            x0 = pos[idx_mscr] - 0.5 * boxw, y0 = i[idx_mscr] + 1 * boxh,
+            x1 = pos[idx_mscr] + 0.5 * boxw, y1 = i[idx_mscr],
+            type = "segments", fill = "black", cex = lwd,
+            id = "ECT-TOP"
+        )
+        plot_df <- plyr::rbind.fill(plot_df, mscr_df)
+    }
+
+    #### Add ectopic pregnancy symbol symbols ####
+    idx_mscr_ect <- idx[miscarriage %in% c("ECT")]
+    if (length(idx_mscr_ect) > 0) {
+        mscr_ect_df <- data.frame(
+            x0 = pos[idx_mscr_ect], y0 = i[idx_mscr_ect] + boxh,
+            label = "ECT", fill = "black",
+            type = "text", cex = cex * 0.8,
+            adjx = 0.5, adjy = 1,
+            id = "ECT"
+        )
+        plot_df <- plyr::rbind.fill(plot_df, mscr_ect_df)
+    }
+
+    #### Add deceased status ####
+    deceased <- ped_df[id[idx], "deceased"]
+    idx_dead <- idx[deceased == 1 & !is.na(deceased)]
 
     if (length(idx_dead) > 0) {
         dead_df <- data.frame(
@@ -197,33 +263,163 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             id = "dead"
         )
 
-        plot_df <- rbind.fill(plot_df, dead_df)
+        plot_df <- plyr::rbind.fill(plot_df, dead_df)
     }
 
-    ## Add ids
+    #### Add evaluated status ####
+    evaluated <- ped_df[id[idx], "evaluated"]
+    idx_eval <- idx[evaluated]
+
+    if (length(idx_eval) > 0) {
+        eval_df <- data.frame(
+            x0 = pos[idx_eval] + (boxw / 2) + (boxw / 5),
+            y0 = i[idx_eval] - boxh / 10, fill = "black",
+            label = "*", type = "text", cex = cex * 1.5,
+            adjx = 0.5, adjy = 0.5, id = "evaluated"
+        )
+
+        plot_df <- plyr::rbind.fill(plot_df, eval_df)
+    }
+
+    #### Add consultband and proband status ####
+    consultand <- ped_df[id[idx], "consultand"]
+    proband <- ped_df[id[idx], "proband"]
+    idx_cons <- idx[consultand | proband]
+
+    if (length(idx_cons) > 0) {
+        cons_df <- data.frame(
+            x0 = pos[idx_cons] - boxw * 0.8,
+            y0 = i[idx_cons] + boxh * 1.4,
+            x1 = pos[idx_cons] - (boxw / 2),
+            y1 = i[idx_cons] + boxh * 1.075,
+            type = "arrows", cex = lwd,
+            id = "consultand-proband", fill = "black"
+        )
+
+        plot_df <- plyr::rbind.fill(plot_df, cons_df)
+    }
+
+    idx_prob <- idx[proband]
+    if (length(idx_prob) > 0) {
+        prob_df <- data.frame(
+            x0 = pos[idx_prob] - boxw,
+            y0 = i[idx_prob] + boxh * 1.3,
+            fill = "black",
+            label = "P", type = "text", cex = cex,
+            adjx = 0.5, adjy = 0.5, id = "proband"
+        )
+
+        plot_df <- plyr::rbind.fill(plot_df, prob_df)
+    }
+
+    #### Add carriers status ####
+    carrier <- ped_df[id[idx], "carrier"]
+    idx_carrier <- idx[carrier & !is.na(carrier)]
+    if (length(idx_carrier) > 0) {
+        carrier_df <- data.frame(
+            x0 = pos[idx_carrier], y0 = i[idx_carrier] + (boxh / 2),
+            type = "points", fill = "black", lty = 19,
+            cex = lwd * (boxh + boxw) / 2 * 5,
+            id = "carrier"
+        )
+
+        plot_df <- plyr::rbind.fill(plot_df, carrier_df)
+    }
+
+    #### Add asymptomatic status ####
+    asymptomatic <- ped_df[id[idx], "asymptomatic"]
+    idx_asym <- idx[asymptomatic & !is.na(asymptomatic)]
+    if (length(idx_asym) > 0) {
+        asym_df <- data.frame(
+            x0 = pos[idx_asym], y0 = i[idx_asym] + boxh,
+            x1 = pos[idx_asym], y1 = i[idx_asym],
+            type = "segments", fill = "black",
+            cex = lwd * 2.5,
+            id = "asymptomatic"
+        )
+
+        plot_df <- plyr::rbind.fill(plot_df, asym_df)
+    }
+
+    #### Add adopted status ####
+    adopted <- ped_df[id[idx], "adopted"]
+    idx_adop <- idx[adopted]
+    if (length(idx_asym) > 0) {
+        h1 <- 0.8
+        v1 <- 1.1
+        v2 <- -0.1
+        h2 <- 0.6
+        adop_df_v <- data.frame(
+            x0 = rep(pos[idx_adop], each = 2) + boxw * c(-h1, h1),
+            y0 = rep(i[idx_adop], each = 2) + boxh * c(v1, v1),
+            x1 = rep(pos[idx_adop], each = 2) + boxw * c(-h1, h1),
+            y1 = rep(i[idx_adop], each = 2) + boxh * c(v2, v2),
+            type = "segments", fill = "black",
+            cex = lwd,
+            id = "adoption"
+        )
+
+        adop_df_h <- data.frame(
+            x0 = rep(pos[idx_adop], each = 4) + boxw * c(h1, h1, -h1, -h1),
+            y0 = rep(i[idx_adop], each = 4) + boxh * c(v1, v2, v1, v2),
+            x1 = rep(pos[idx_adop], each = 4) + boxw * c(h2, h2, -h2, -h2),
+            y1 = rep(i[idx_adop], each = 4) + boxh * c(v1, v2, v1, v2),
+            type = "segments", fill = "black",
+            cex = lwd,
+            id = "adoption"
+        )
+
+        plot_df <- plyr::rbind.fill(plot_df, adop_df_v, adop_df_h)
+    }
+
+    #### Add ids ####
+    id_pos <- 1.4
     id_df <- data.frame(
-        x0 = pos[idx], y0 = i[idx] + boxh + labh,
+        x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh,
         label = ped_df[id[idx], id_lab], fill = "black",
         type = "text", cex = cex, adjx = 0.5, adjy = 1,
         id = "id", tips = ped_df[id[idx], "tips"]
     )
-    plot_df <- rbind.fill(plot_df, id_df)
+    plot_df <- plyr::rbind.fill(plot_df, id_df)
 
+    #### Add dates ####
+    dates <- ped_df[id[idx], c("id", "dateofbirth", "dateofdeath")]
+    idx_dates <- idx[!is.na(dates$dateofbirth) | !is.na(dates$dateofdeath)]
 
-    ## Add a label if given
+    if (length(idx_dates) > 0) {
+        dates_char <- with(ped_df[id[idx_dates], ], paste(
+            ifelse(
+                is.na(dateofbirth), "",
+                format(as.Date(dateofbirth), "%Y")
+            ),
+            ifelse(
+                is.na(dateofdeath), "",
+                format(as.Date(dateofdeath), "%Y")
+            ), sep = " - "
+        ))
+        dates_df <- data.frame(
+            x0 = pos[idx_dates], y0 = i[idx_dates] + boxh * id_pos + labh * 3,
+            label = dates_char, fill = "black",
+            type = "text", cex = cex * 0.7, adjx = 0.5, adjy = 1,
+            id = "id", tips = ped_df[id[idx_dates], "tips"]
+        )
+        plot_df <- plyr::rbind.fill(plot_df, dates_df)
+    }
+
+    #### Add a label if given ####
     if (!is.null(label)) {
         check_columns(ped_df, label)
         label <- data.frame(
-            x0 = pos[idx], y0 = i[idx] + boxh + labh * 3,
+            x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh * 5,
             label = ped_df[id[idx], label],
             fill = "black", adjy = 1, adjx = 0.5,
             type = "text", cex = cex,
             id = "label", tips = ped_df[id[idx], "tips"]
         )
-        plot_df <- rbind.fill(plot_df, label)
+        plot_df <- plyr::rbind.fill(plot_df, label)
     }
 
-    ## Add lines between spouses
+    #### Add lines between spouses ####
     spouses <- which(plist$spouse > 0)
     l_spouses_i <- i[spouses] + boxh / 2
     pos_sp1 <- pos[spouses] + boxw / 2
@@ -235,9 +431,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         type = "segments", fill = "black", cex = lwd,
         id = "line_spouses"
     )
-    plot_df <- rbind.fill(plot_df, l_spouses)
+    plot_df <- plyr::rbind.fill(plot_df, l_spouses)
 
-    ## Add doubles mariage
+    #### Add doubles mariage ####
     spouses2 <- which(plist$spouse == 2)
     if (length(spouses2) > 0) {
         l_spouses2_i <- i[spouses2] + boxh / 2 + boxh / 10
@@ -251,10 +447,10 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             type = "segments", fill = "black", cex = lwd,
             id = "line_spouses2"
         )
-        plot_df <- rbind.fill(plot_df, l_spouses2)
+        plot_df <- plyr::rbind.fill(plot_df, l_spouses2)
     }
 
-    ## Children to parents lines
+    #### Children to parents lines ####
     for (gen in seq_len(maxlev)) {
         zed <- unique(plist$fam[gen, ])
         zed <- zed[zed > 0]  # list of family ids
@@ -286,7 +482,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 type = "segments", fill = "black", cex = lwd,
                 id = "line_children_vertical"
             )
-            plot_df <- rbind.fill(plot_df, vert)
+            plot_df <- plyr::rbind.fill(plot_df, vert)
 
             ## Draw horizontal MZ twin line
             if (any(plist$twins[gen, who] == 1)) {
@@ -301,7 +497,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                     type = "segments", fill = "black", cex = lwd,
                     id = "line_children_twin1"
                 )
-                plot_df <- rbind.fill(plot_df, twin_l)
+                plot_df <- plyr::rbind.fill(plot_df, twin_l)
             }
 
             # Add a question aff_mark for those of unknown zygosity
@@ -317,7 +513,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                     adjx = 0.5, adjy = 0.5,
                     id = "label_children_twin3"
                 )
-                plot_df <- rbind.fill(plot_df, twin_lab)
+                plot_df <- plyr::rbind.fill(plot_df, twin_lab)
             }
 
             # Add the horizontal line
@@ -327,7 +523,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                 type = "segments", fill = "black", cex = lwd,
                 id = "line_children_horizontal"
             )
-            plot_df <- rbind.fill(plot_df, hori)
+            plot_df <- plyr::rbind.fill(plot_df, hori)
 
             # Draw line to parents.  The original rule corresponded to
             # pconnect a large number, forcing the bottom of each
@@ -360,7 +556,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                     id = "line_parent_mid"
                 )
             }
-            plot_df <- rbind.fill(plot_df, l_child_par)
+            plot_df <- plyr::rbind.fill(plot_df, l_child_par)
         }
     }  ## end of parent-child lines
 
@@ -382,10 +578,19 @@ setMethod("ped_to_plotdf", "Pedigree", function(
                     type = "arc", fill = "black", cex = lwd,
                     id = "arc"
                 )
-                plot_df <- rbind.fill(plot_df, arc)
+                plot_df <- plyr::rbind.fill(plot_df, arc)
             }
         }
     }
+
+    #### Keep only significant numbers ####
+    x0 <- y0 <- x1 <- y1 <- numeric()
+    plot_df <- plot_df %>%
+        mutate(
+            x0 = signif(x0, precision), y0 = signif(y0, precision),
+            x1 = signif(x1, precision), y1 = signif(y1, precision)
+        )
+
 
     list(df = plot_df, par_usr = params_plot)
 })

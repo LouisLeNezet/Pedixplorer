@@ -42,7 +42,6 @@ NULL
 #' @examples
 #' generate_aff_inds(c(1, 2, 3, 4, 5), threshold = 3, sup_thres_aff = TRUE)
 #' generate_aff_inds(c("A", "B", "C", "A", "V", "B"), mods_aff = c("A", "B"))
-#' @author Louis Le Nézet
 #' @keywords generate_scales, internal
 #' @export
 generate_aff_inds <- function(values, mods_aff = NULL,

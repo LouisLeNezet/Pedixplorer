@@ -41,7 +41,7 @@ NULL
 #'     ColNR1 = 4, ColNR2 = 5
 #' )
 #' tryCatch(
-#'     check_columns(
+#'     Pedixplorer:::check_columns(
 #'         df,
 #'         c('ColN1', 'ColN2'), c('ColU1', 'ColU2'),
 #'         c('ColTU1', 'ColTU2')
@@ -56,23 +56,25 @@ check_columns <- function(
     cols_p <- colnames(df)
     cols_needed_missing <- cols_needed[is.na(match(cols_needed, cols_p))]
     if (length(cols_needed_missing) > 0) {
-        stop(paste(
-            "Columns :", paste0(cols_needed_missing, collapse = ", "),
-            "are missing. Could not continu without.\n"
-        ))
+        cols_needed_missing <- paste0(cols_needed_missing, collapse = ", ")
+        stop("Columns : ", cols_needed_missing,
+            " are missing. Could not continu without."
+        )
     }
     cols_use_by_script <- cols_used[cols_used %in% cols_p]
     if (length(cols_use_by_script) > 0) {
+        all_cols <- paste0(cols_use_by_script, collapse = ", ")
         if (!cols_used_del) {
-            stop(paste(
-                "Columns :", paste0(cols_use_by_script, collapse = ", "),
+            stop(
+                "Columns :", all_cols,
                 "are used by the script and would be overwritten.\n"
-            ))
+            )
         }
-        warning(paste(
-            "Columns :", paste0(cols_use_by_script, collapse = ", "),
+
+        warning(
+            "Columns :", all_cols,
             "are used by the script and will disgarded.\n"
-        ))
+        )
         cols_to_keep <- cols_p[!cols_p %in% cols_use_by_script]
         df <- df[, cols_to_keep]
     }
@@ -198,8 +200,8 @@ setMethod("is_parent", "character_OR_integer",
 #' @examples
 #'
 #' data(sampleped)
-#' ped <- Pedigree(sampleped)
-#' is_parent(ped(ped))
+#' pedi <- Pedigree(sampleped)
+#' is_parent(ped(pedi))
 #' @export
 setMethod("is_parent", "Ped",
     function(obj, missid = NA_character_) {
@@ -308,12 +310,20 @@ NULL
 
 #' Gender variable to ordered factor
 #'
-#' @inheritParams Ped
+#' @param sex A character, factor or numeric vector corresponding to
+#' the gender of the individuals. This will be transformed to an ordered factor
+#' with the following levels:
+#' `male` < `female` < `unknown`
+#'
+#' The following values are recognized:
+#' - "male": "m", "male", "man", `1`
+#' - "female": "f", "female", "woman", `2`
+#' - "unknown": "unknown", `3`
 #'
 #' @return an ordered factor vector containing the transformed variable
-#' "male" < "female" < "unknown" < "terminated"
+#' "male" < "female" < "unknown"
 #' @examples
-#' sex_to_factor(c(1, 2, 3, 4, "f", "m", "man", "female"))
+#' sex_to_factor(c(1, 2, 3, "f", "m", "man", "female"))
 #' @export
 #' @keywords internal
 sex_to_factor <- function(sex) {
@@ -322,18 +332,124 @@ sex_to_factor <- function(sex) {
     }
     ## Normalized difference notations for sex
     sex_equiv <- c(
-        f = "female", m = "male", woman = "female", man = "male",
-        female = "female", male = "male", `2` = "female", `1` = "male",
-        `3` = "unknown", `4` = "terminated"
+        m = "male", male = "male", man = "male", `1` = "male",
+        f = "female", female = "female", woman = "female", `2` = "female",
+        `3` = "unknown"
     )
     sex <- as.character(revalue(as.factor(
         casefold(sex, upper = FALSE)
     ), sex_equiv, warn_missing = FALSE))
-    sex_codes <- c("male", "female", "unknown", "terminated")
+    sex_codes <- c("male", "female", "unknown")
     sex[!sex %in% sex_codes] <- "unknown"
 
     sex <- factor(sex, sex_codes, ordered = TRUE)
     sex
+}
+
+#' Fertility variable to factor
+#'
+#' @description Transform a fertility variable to a factor variable
+#' By default, all other values are transformed to `NA` and considered as
+#' fertile.
+#'
+#' @param fertility A character, factor or numeric vector corresponding to
+#' the fertility status of the individuals. This will be transformed to a
+#' factor with the following levels:
+#' `infertile_choice_na`, `infertile`, `fertile`
+#'
+#' The following values are recognized:
+#' - "inferile_choice_na" : "infertile_choice", "infertile_na"
+#' - "infertile" : "infertile", "steril", `FALSE`, `0`
+#' - "fertile" : "fertile", `TRUE`, `1`, `NA`
+#'
+#' @return a factor vector containing the transformed variable
+#' "infertile_choice_na", "infertile", "fertile"
+#'
+#' @examples
+#' fertility_to_factor(c(
+#'    1, "fertile", TRUE, NA,
+#'   "infertile", "steril", FALSE, 0,
+#'   "infertile_na", "infertile_choice_na", "infertile_choice"
+#' ))
+#' @export
+#' @keywords internal
+fertility_to_factor <- function(fertility) {
+    if (
+        is.factor(fertility)
+        || is.numeric(fertility)
+        || is.logical(fertility)
+    ) {
+        fertility <- as.character(fertility)
+    }
+    ## Normalized difference notations for fertility
+    fertility_equiv <- c(
+        infertile_choice = "infertile_choice_na",
+        infertile_na = "infertile_choice_na",
+        infertile = "infertile", steril = "infertile", `0` = "infertile",
+        `false` = "infertile",
+        fertile = "fertile", `true` = "fertile", `1` = "fertile"
+    )
+    fertility <- as.character(revalue(as.factor(
+        casefold(fertility, upper = FALSE)
+    ), fertility_equiv, warn_missing = FALSE))
+    fertility_codes <- c("infertile_choice_na", "infertile", "fertile")
+    fertility[!fertility %in% fertility_codes] <- "fertile"
+
+    fertility <- factor(fertility, fertility_codes)
+    fertility
+}
+
+#' Miscarriage variable to factor
+#'
+#' @description Transform a miscarriage variable to a factor variable
+#' By default, all other values are transformed to `NA` and considered as
+#' `FALSE`. Space and case are ignored.
+#'
+#' @param miscarriage A character, factor or numeric vector corresponding to
+#' the miscarriage status of the individuals. This will be transformed to a
+#' factor with the following levels:
+#' `TOP`, `SAB`, `ECT`, `FALSE`
+#' The following values are recognized:
+#' - "SAB" : "spontaneous", "spontaenous abortion"
+#' - "TOP" : "termination", "terminated", "termination of pregnancy"
+#' - "ECT" : "ectopic", "ectopic pregnancy"
+#' - FALSE : `0`, `FALSE`, "no", `NA`
+#'
+#' @return an factor vector containing the transformed variable
+#' "SAB", "TOP", "ECT", "FALSE"
+#' @examples
+#' miscarriage_to_factor(c(
+#'    "spontaneous", "spontaenous abortion",
+#'   "termination", "terminated", "termination of pregnancy",
+#'   "ectopic", "ectopic pregnancy",
+#'   "0", "false", "no", "NA"
+#' ))
+#' @export
+#' @keywords internal
+miscarriage_to_factor <- function(miscarriage) {
+    if (
+        is.factor(miscarriage)
+        || is.numeric(miscarriage)
+        || is.logical(miscarriage)
+    ) {
+        miscarriage <- as.character(miscarriage)
+    }
+    ## Normalized difference notations for miscarriage
+    miscarriage_equiv <- c(
+        spontaneous = "SAB", spontaenousabortion = "SAB", sab = "SAB",
+        termination = "TOP", terminated = "TOP", terminationofpregnancy = "TOP",
+        top = "TOP", ect = "ECT",
+        ectopic = "ECT", ectopicpregnancy = "ECT",
+        `0` = "FALSE", `false` = "FALSE", no = "FALSE", na = "FALSE"
+    )
+    miscarriage <- as.character(revalue(as.factor(
+        stringr::str_remove_all(casefold(miscarriage, upper = FALSE), " ")
+    ), miscarriage_equiv, warn_missing = FALSE))
+    miscarriage_codes <- c("SAB", "TOP", "ECT", "FALSE")
+    miscarriage[!miscarriage %in% miscarriage_codes] <- "FALSE"
+
+    miscarriage <- factor(miscarriage, miscarriage_codes)
+    miscarriage
 }
 
 #' @importFrom stringr str_remove_all
@@ -391,6 +507,8 @@ rel_code_to_factor <- function(code) {
 #' instead of a numeric vector
 #' (i.e. `0` and `1` becomes
 #' `FALSE` and `TRUE).
+#' @param default The default value to use for the values that are not
+#' recognized. By default, `NA` is used, but it can be `0` or `1`.
 #' @return numeric binary vector of the same size as **vect**
 #' with `0` and `1`
 #' @examples
@@ -399,7 +517,10 @@ rel_code_to_factor <- function(code) {
 #' )
 #' @export
 #' @keywords internal
-vect_to_binary <- function(vect, logical = FALSE) {
+vect_to_binary <- function(vect, logical = FALSE, default = NA) {
+    if (length(vect) == 0) {
+        return(NA)
+    }
     if (is.factor(vect) || is.numeric(vect) || is.logical(vect)) {
         vect <- as.character(vect)
     }
@@ -413,8 +534,11 @@ vect_to_binary <- function(vect, logical = FALSE) {
         " "
     ), code_equiv, warn_missing = FALSE
     ))
-    vect[!vect %in% c(0, 1)] <- NA
+    vect[!vect %in% c(0, 1)] <- default
     if (logical) {
+        if (! is.logical(default)) {
+            stop("The default value should be logical")
+        }
         as.logical(vect)
     } else {
         vect
@@ -492,7 +616,9 @@ make_rownames <- function(
 #' @return A character vector of class information
 #' @keywords internal
 #' @examples
-#' Pedixplorer:::make_class_info(list(1, "a", 1:3, list(1, 2)))
+#' Pedixplorer:::make_class_info(list(
+#'     1, "a", 1, 2, 3, list(1, 2)
+#' ))
 #' @importFrom S4Vectors classNameForDisplay
 make_class_info <- function(x) {
     vapply(
@@ -517,7 +643,7 @@ make_class_info <- function(x) {
 #' @return The concatenated text column
 #' @keywords internal
 #' @examples
-#' df <- data.frame(a = 1:3, b = c("4", "NA", 6), c = c("", "A", 2))
+#' df <- data.frame(a = seq_len(3), b = c("4", "NA", 6), c = c("", "A", 2))
 #' Pedixplorer:::create_text_column(df, "a", c("b", "c"))
 #' @importFrom dplyr rowwise mutate ungroup pull
 create_text_column <- function(
@@ -529,19 +655,36 @@ create_text_column <- function(
         dplyr::mutate(text = paste(
             paste(
                 "<span style='font-size:14px'><b>",
-                as.character(get(title)),
+                ifelse(is.null(title), "", as.character(base::get(title))),
                 "</b></span><br>", sep = ""
             ), paste(
                 unlist(lapply(cols, function(col) {
                     value <- as.character(get(col))
                     if (value %in% na_strings) {
-                        return(NULL)
+                        NULL
                     } else {
-                        return(paste("<b>", col, "</b>: ", value, sep = ""))
+                        paste("<b>", col, "</b>: ", value, sep = "")
                     }
                 })), collapse = "<br>", sep = ""
             ), collapse = "<br>", sep = ""
         )) %>%
         dplyr::ungroup() %>%
         dplyr::pull(text)
+}
+
+#' Convert a character to a date
+#'
+#' @param date A character vector of dates
+#' @param date_pattern The pattern of the date
+#'
+#' @return A date vector
+#' @keywords internal
+#' @examples
+#' Pedixplorer:::char_to_date("2020-01-01", "%Y-%m-%d")
+#' Pedixplorer:::char_to_date("01/01/20", "%d/%m/%y")
+char_to_date <- function(date, date_pattern = "%Y-%m-%d") {
+    if (is.factor(date) || is.numeric(date)) {
+        date <- as.character(date)
+    }
+    as.character(base::as.Date(date, format = date_pattern))
 }

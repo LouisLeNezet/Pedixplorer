@@ -14,13 +14,13 @@
 plot_legend <- function(
     obj, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
-    lwd = par("lwd")
+    lwd = par("lwd"), precision = 4
 ) {
     leg <- ped_to_legdf(
         obj, cex = cex,
         boxw = boxw, boxh = boxh,
         adjx = adjx, adjy = adjy,
-        lwd = lwd
+        lwd = lwd, precision = precision
     )
     if (!is.null(leg_loc)) {
         distx0 <- max(leg$df$x0) - min(leg$df$x0)
@@ -120,7 +120,10 @@ plot_legend <- function(
 #' parameteres for the main plot.
 #' @param leg_par default=list().  A list of parameters to use as graphical
 #' parameters for the legend.
+#' @param leg_usr default=NULL. A vector of user coordinates to use for the
+#' legend.
 #' @inheritParams subregion
+#' @inheritParams plot_fromdf
 #'
 #' @return an invisible list containing
 #' - df : the data.frame used to plot the Pedigree
@@ -155,9 +158,10 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         align_parents = TRUE, force = FALSE, width = 6,
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
-        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 2,
+        leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 4,
         lwd = par("lwd"), ped_par = list(), leg_par = list(),
-        tips = NULL
+        tips = NULL, title_cex = 2, leg_usr = NULL,
+        add_to_existing = FALSE
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -187,11 +191,11 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             lst$df <- subregion(lst$df, subreg)
             lst$par_usr$usr <- subreg[c(1, 2, 4, 3)]
         }
-
         p <- plot_fromdf(
             df = lst$df, usr = lst$par_usr$usr,
-            title = title, ggplot_gen = ggplot_gen,
-            boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh
+            title = title, title_cex = title_cex, ggplot_gen = ggplot_gen,
+            boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh,
+            add_to_existing = add_to_existing
         )
         par(op)
 
@@ -208,7 +212,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
                 adjx = leg_adjx, adjy = leg_adjy,
-                leg_loc = leg_loc, add_to_existing = TRUE
+                leg_loc = leg_loc, add_to_existing = TRUE,
+                usr = leg_usr, lwd = lwd, precision = precision
             )
             par(op)
         }

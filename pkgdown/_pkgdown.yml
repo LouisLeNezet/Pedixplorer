@@ -10,7 +10,7 @@ home:
 template:
   bootstrap: 5
   light-switch: true
-  math-rendering: katex
+  math-rendering: mathjax
   bslib:
     base_font: {google: "Roboto"}
     heading_font: {google: "Roboto Slab"}

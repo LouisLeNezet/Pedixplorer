@@ -31,11 +31,14 @@
   leg_loc = NULL,
   leg_adjx = 0,
   leg_adjy = 0,
-  precision = 2,
+  precision = 4,
   lwd = par("lwd"),
   ped_par = list(),
   leg_par = list(),
-  tips = NULL
+  tips = NULL,
+  title_cex = 2,
+  leg_usr = NULL,
+  add_to_existing = FALSE
 )
 }
 \arguments{
@@ -121,7 +124,8 @@ the legend.}
 \item{leg_adjy}{default=0.  Controls the vertical labels adjustment
 of the legend.}
 
-\item{precision}{The number of decimal places to round the solution to.}
+\item{precision}{The number of significatif numbers to round the
+solution to.}
 
 \item{lwd}{default=par("lwd"). Controls the line width of the
 segments, arcs and polygons.}
@@ -134,6 +138,14 @@ parameters for the legend.}
 
 \item{tips}{A character vector of the column names of the data frame to
 use as tooltips. If \code{NULL}, no tooltips are added.}
+
+\item{title_cex}{The size of the title.}
+
+\item{leg_usr}{default=NULL. A vector of user coordinates to use for the
+legend.}
+
+\item{add_to_existing}{If \code{TRUE}, the plot will be added to the current
+plot.}
 }
 \value{
 an invisible list containing

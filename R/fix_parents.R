@@ -89,11 +89,11 @@ setMethod("fix_parents", "character", function(
     sex <- as.numeric(sex_to_factor(sex))
     if (min(sex) == 0) {
         warning("Sex values contain 0, but expected codes 1-4.\n",
-            "Setting 0=male, 1=female, 2=unknown, 3=terminated. \n"
+            "Setting 0=male, 1=female, 2=unknown. \n"
         )
         sex <- sex + 1
     }
-    sex <- ifelse(sex < 1 | sex > 4, 3, sex)
+    sex <- ifelse(sex < 1 | sex > 2, 3, sex)
     if (all(sex > 2)) {
         stop("Invalid values for 'sex'")
     } else if (mean(sex == 3) > 0.25) {
@@ -113,7 +113,7 @@ setMethod("fix_parents", "character", function(
     if (any(duplicated(id))) {
         duplist <- id[duplicated(id)]
         msg_nb <- min(length(duplist), 6)
-        stop("Duplicate subject id:", duplist[seq_len(msg_nb)])
+        stop("Duplicate subject id: ", duplist[seq_len(msg_nb)])
     }
     findex <- match(dadid, id, nomatch = 0)
     mindex <- match(momid, id, nomatch = 0)
@@ -174,7 +174,7 @@ setMethod("fix_parents", "character", function(
     }
     data.frame(
         id = id, momid = momid, dadid = dadid,
-        sex = sex, famid = famid
+        sex = sex_to_factor(sex), famid = famid
     )
 })
 

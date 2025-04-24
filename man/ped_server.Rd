@@ -4,7 +4,7 @@
 \alias{ped_server}
 \title{Create the server logic for the ped_shiny application}
 \usage{
-ped_server(input, output, session, precision = 2)
+ped_server(input, output, session, precision = 6)
 }
 \arguments{
 \item{input}{The input object from a Shiny app.}
