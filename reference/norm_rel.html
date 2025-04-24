@@ -9,7 +9,7 @@ to be able to use it as an input to create a Ped object."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,8 +29,10 @@ to be able to use it as an input to create a Ped object."></head><body>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
-    <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.1.5">Latest devel release : Version 1.1.5</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Latest main release : Version 1.0.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.5.2</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Latest main release : Version 1.4.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.2.0">Previous stable release : Version 1.2.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.0.0">Previous stable release : Version 1.0.0</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="../news/index.html">Changelog</a></li>
   </ul></li>
@@ -52,7 +54,7 @@ to be able to use it as an input to create a Ped object."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Normalise a Rel object dataframe</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/update_website/R/norm_data.R" class="external-link"><code>R/norm_data.R</code></a></small>
       <div class="d-none name"><code>norm_rel.Rd</code></div>
     </div>
 
@@ -63,7 +65,12 @@ to be able to use it as an input to create a Ped object.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">norm_rel</span><span class="op">(</span><span class="va">rel_df</span>, na_strings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">""</span><span class="op">)</span>, missid <span class="op">=</span> <span class="cn">NA_character_</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">norm_rel</span><span class="op">(</span></span>
+<span>  <span class="va">rel_df</span>,</span>
+<span>  multi_code <span class="op">=</span> <span class="st">"error"</span>,</span>
+<span>  na_strings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">""</span><span class="op">)</span>,</span>
+<span>  missid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA_character_</span>, <span class="st">"0"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -84,6 +91,12 @@ The code values are:</p><ul><li><p><code>1</code> = Monozygotic twin</p></li>
 <li><p><code>4</code> = Spouse</p></li>
 </ul><p>The value relation code recognized by the function are the one defined
 by the <code><a href="rel_code_to_factor.html">rel_code_to_factor()</a></code> function.</p></dd>
+
+
+<dt id="arg-multi-code">multi_code<a class="anchor" aria-label="anchor" href="#arg-multi-code"></a></dt>
+<dd><p>How to handle multiple relationship codes in the same group
+If "error", an error is thrown. If "warn", a warning is thrown and the
+relationship code is set to twins of unknow zigosity. Default is "error".</p></dd>
 
 
 <dt id="arg-na-strings">na_strings<a class="anchor" aria-label="anchor" href="#arg-na-strings"></a></dt>
@@ -107,6 +120,8 @@ to <code>NA_character_</code>.</p></dd>
 <code><a href="upd_famid.html">upd_famid()</a></code> function.
 The <code>code</code> column will be transformed with the
 <code><a href="rel_code_to_factor.html">rel_code_to_factor()</a></code>.
+Missing relationship for set of twins will be completed
+using <code><a href="complete_twins.html">complete_twins()</a></code>.
 Multiple test are done and errors are checked.</p>
 <p>A number of checks are done to ensure the dataframe is correct:</p><div class="section">
 <h3 id="on-identifiers-">On identifiers:<a class="anchor" aria-label="anchor" href="#on-identifiers-"></a></h3>
