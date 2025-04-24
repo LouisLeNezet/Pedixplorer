@@ -1,12 +1,13 @@
 # `Pedixplorer`: a BioConductor package to create, filter and draw pedigree
 
 <!-- badges: start -->
-  [![Release](https://img.shields.io/badge/release%20version-1.1.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
+  [![Release](https://img.shields.io/badge/release%20version-1.4.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
   [![Platform](http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg)](https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives)
   [![rank](http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg)](http://bioconductor.org/packages/stats/bioc/Pedixplorer/)
   [![BioC Status](https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/)
   [![codecov](https://codecov.io/gh/LouisLeNezet/Pedixplorer/graph/badge.svg?token=ZFQ3GZJ4BL)](https://codecov.io/gh/LouisLeNezet/Pedixplorer)
   [![DOI](https://img.shields.io/badge/DOI-10.18129/B9.bioc.Pedixplorer-blue)](https://doi.org/doi:10.18129/B9.bioc.Pedixplorer)
+  [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/bioconductor-pedixplorer/README.html)
 <!-- badges: end -->
 
 |||
@@ -15,9 +16,16 @@
 
 > Try today the [**Pedixplorer shiny app**](https://pedixplorer.univ-rennes.fr/) to easily use the package.
 
-## Installation through R
+## Installation
 
-### From Github
+### With [bioconda](http://bioconda.github.io/recipes/bioconductor-pedixplorer/README.html)
+
+```bash
+mamba create -n env_pedixplorer bioconda::bioconductor-pedixplorer
+mamba activate env_pedixplorer
+```
+
+### In R from Github
 
 ```R
 if (!require("remotes", quietly = TRUE))
@@ -28,7 +36,7 @@ remotes::install_github("louislenezet/Pedixplorer",
 )
 ```
 
-### From Bioconductor
+### In R from [Bioconductor](https://www.bioconductor.org/packages/Pedixplorer)
 
 ```R
 if (!require("BiocManager", quietly = TRUE))
