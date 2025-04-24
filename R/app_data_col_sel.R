@@ -462,7 +462,9 @@ data_col_sel_demo <- function(ui_col_nb = 2, by_row = FALSE) {
             title = "Select column", ui_col_nb = ui_col_nb, by_row = by_row,
             help_type = "inline", help_colour = "darkred"
         )
-        shinyhelper::observe_helpers()
+        shinyhelper::observe_helpers(
+            help_dir = system.file("helpfiles", package = "Pedixplorer")
+        )
         output$selected_cols <- shiny::renderTable({
             my_df()
         })
