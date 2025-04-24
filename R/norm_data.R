@@ -351,6 +351,8 @@ norm_ped <- function(
 #' [upd_famid()] function.
 #' The `code` column will be transformed with the
 #' [rel_code_to_factor()].
+#' Missing relationship for set of twins will be completed
+#' using [complete_twins()].
 #' Multiple test are done and errors are checked.
 #'
 #' A number of checks are done to ensure the dataframe is correct:
@@ -365,6 +367,7 @@ norm_ped <- function(
 #'
 #' @inheritParams norm_ped
 #' @inheritParams Pedigree
+#' @inheritParams complete_twins
 #'
 #' @examples
 #' df <- data.frame(
@@ -380,7 +383,8 @@ norm_ped <- function(
 #' @importFrom dplyr mutate_if mutate_at mutate across
 #' @export
 norm_rel <- function(
-    rel_df, na_strings = c("NA", ""),
+    rel_df, multi_code = "error",
+    na_strings = c("NA", ""),
     missid = c(NA_character_, "0")
 ) {
     missid <- unique(c(missid, NA_character_))

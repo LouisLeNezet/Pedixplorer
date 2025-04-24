@@ -22,7 +22,7 @@
       16                   polygon  4.0000000 3.000      NA     NA   square_1_1   red
       17                   polygon  6.0100000 4.000      NA     NA   square_1_1   red
       18                   polygon  5.8040000 2.000      NA     NA   circle_1_1  grey
-      19                   polygon  5.0000000 3.000      NA     NA   square_1_1   red
+      19                   polygon  5.0000000 3.000      NA     NA   circle_1_1   red
       20                   polygon  7.0100000 4.000      NA     NA   square_1_1   red
       21                   polygon 11.2500000 2.000      NA     NA   square_1_1  grey
       22                   polygon  6.0000000 3.000      NA     NA   circle_1_1 white

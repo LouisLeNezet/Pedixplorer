@@ -73,12 +73,11 @@ test_that("make_famid works with Pedigree", {
     ## Updating already present family id
     data("sampleped")
     sampleped$famid[sampleped$famid == "2"] <- 3
-    rel_df[c(1:3)]
     pedi <- Pedigree(sampleped, rel_df)
 
     pedi <- make_famid(pedi)
     expect_equal(id(ped(pedi)), id)
-    expect_equal(id1(rel(pedi)), c("2_213", "2_210", "1_140", "1_133"))
+    expect_equal(id1(rel(pedi)), c("1_140", "1_133", "2_213", "2_210"))
 })
 
 test_that("Family check works", {

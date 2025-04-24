@@ -34,6 +34,7 @@ Imports:
     DT,
     gridExtra,
     data.table,
+    igraph,
     scales,
     shinycssloaders,
     shinyhelper,

@@ -51,7 +51,7 @@ NULL
 check_columns <- function(
     df, cols_needed = NULL, cols_used = NULL, cols_to_use = NULL,
     others_cols = FALSE, cols_used_init = FALSE, cols_to_use_init = FALSE,
-    cols_used_del = FALSE, verbose = FALSE
+    cols_used_del = FALSE, verbose = FALSE, init_with = NA_character_
 ) {
     cols_p <- colnames(df)
     cols_needed_missing <- cols_needed[is.na(match(cols_needed, cols_p))]
@@ -85,7 +85,7 @@ check_columns <- function(
                 "are used by the script and will be set to NA.\n"
             ))
         }
-        df[cols_used] <- ifelse(nrow(df) > 0, NA, list(character()))
+        df[cols_used] <- ifelse(nrow(df) > 0, init_with, list(character()))
     }
     cols_optional <- cols_to_use[cols_to_use %in% cols_p]
     cols_optional_abs <- cols_to_use[!cols_to_use %in% cols_p]
@@ -104,7 +104,10 @@ check_columns <- function(
                 "where absent and set to NA.\n"
             ))
         }
-        df[cols_optional_abs] <- ifelse(nrow(df) > 0, NA, list(character()))
+        df[cols_optional_abs] <- ifelse(
+            nrow(df) > 0, init_with,
+            list(character())
+        )
     }
 
     if (others_cols) {
@@ -184,25 +187,26 @@ setGeneric("is_parent", signature = "obj",
 #' @param na_values A vector of strings that should be considered as NA
 #' @return A Pedigree object
 #' @examples
-#' write.table(
-#'     data.frame(
-#'         famid = c("1", "1", "1"),
-#'         id = c("A", "B", "C"),
-#'         dadid = c(0, 0, "A"),
-#'         momid = c(0, 0, "B"),
-#'         sex = c(1, 2, 1)
-#'     ), file = "test.fam", sep = "\t", quote = FALSE,
-#'     row.names = FALSE, col.names = FALSE
+#' if (interactive()) {
+#'     write.table(
+#'         data.frame(
+#'             famid = c("1", "1", "1"),
+#'             id = c("A", "B", "C"),
+#'             dadid = c(0, 0, "A"),
+#'             momid = c(0, 0, "B"),
+#'             sex = c(1, 2, 1)
+#'         ), file = "test.fam", sep = "\t", quote = FALSE,
+#'         row.names = FALSE, col.names = FALSE
+#'     )
+#'     fam <- "test.fam"
+#'     pedi <- plink_to_pedigree(fam)
 #' )
-#' fam <- "test.fam"
-#' pedi <- plink_to_pedigree(fam)
 #' @export
 plink_to_pedigree <- function(
     path, sep = "\t", quote = "'", header = FALSE,
     na_values = c("NA", "0")
 ) {
     # Check extension
-    print(path)
     if (!grepl("\\.(fam|ped)$", path)) {
         stop("The file should be a .fam or .ped file")
     }
@@ -733,4 +737,115 @@ char_to_date <- function(date, date_pattern = "%Y-%m-%d") {
         date <- as.character(date)
     }
     as.character(base::as.Date(date, format = date_pattern))
+}
+
+#' Complete missing twins relationship
+#'
+#' Given a dataframe of relationships, complete the missing twins
+#' relationship.
+#'
+#' @param rel_df A dataframe of relationships
+#' @param multi_code How to handle multiple relationship codes in the same group
+#' If "error", an error is thrown. If "warn", a warning is thrown and the
+#' relationship code is set to twins of unknow zigosity. Default is "error".
+#'
+#' @return The completed dataframe of relationships
+#' @keywords internal
+#' @examples
+#' data(relped)
+#' Pedixplorer:::complete_twins(relped)
+#' @importFrom igraph graph_from_data_frame components
+#' @importFrom dplyr everything
+complete_twins <- function(rel_df, multi_code = "error") {
+    group <- minid1 <- maxid2 <- NULL
+    rel_df <- check_columns(
+        rel_df, c("id1", "id2", "code"),
+        c("group"), c("famid"), others_cols = FALSE,
+        cols_used_init = TRUE, cols_to_use_init = TRUE
+    ) %>%
+        dplyr::mutate(
+            id1 = as.character(id1),
+            id2 = as.character(id2),
+            famid = as.character(famid),
+            group = as.numeric(group),
+            code = rel_code_to_factor(code)
+        )
+    twins <- rel_df %>%
+        dplyr::mutate(
+            id1 = upd_famid(id1, famid),
+            id2 = upd_famid(id2, famid)
+        ) %>%
+        dplyr::filter(as.numeric(code) < 4)
+    twins$minid1 <- pmin(twins$id1, twins$id2)
+    twins$maxid2 <- pmax(twins$id1, twins$id2)
+    twins <- twins %>%
+        dplyr::mutate(id1 = minid1, id2 = maxid2) %>%
+        dplyr::select(-dplyr::one_of(c("minid1", "maxid2")))
+    g <- igraph::graph_from_data_frame(
+        twins[, c("id1", "id2")],
+        directed = FALSE
+    )
+    components <- igraph::components(g)$membership
+    # Map each id1 and id2 to the same component group
+    twins <- twins %>%
+        mutate(group = components[as.character(id1)])
+
+    missing_edges <- data.frame(
+        id1 = character(), id2 = character(),
+        code = character(), famid = character(),
+        group = integer()
+    )
+    for (grp in unique(twins$group)) {
+        # Get all nodes in this group
+        nodes_in_group <- names(components[components == grp])
+        # Create all possible pairs (fully connected)
+        all_pairs <- expand.grid(
+            id1 = nodes_in_group, id2 = nodes_in_group,
+            stringsAsFactors = FALSE
+        ) %>%
+            dplyr::filter(id1 != id2)
+
+        # Convert to a standard format (id1 < id2)
+        all_pairs$minid1 <- pmin(all_pairs$id1, all_pairs$id2)
+        all_pairs$maxid2 <- pmax(all_pairs$id1, all_pairs$id2)
+        all_pairs <- all_pairs %>%
+            dplyr::select(minid1, maxid2) %>%
+            dplyr::rename(id1 = minid1, id2 = maxid2) %>%
+            dplyr::distinct()
+
+        # Identify missing edges
+        new_edges <- dplyr::anti_join(all_pairs, twins, by = c("id1", "id2"))
+
+        # Add group info
+        if (nrow(new_edges) > 0) {
+            code <- twins %>%
+                dplyr::filter(group == grp) %>%
+                dplyr::pull(code) %>%
+                unique()
+            if (length(code) > 1) {
+                if (multi_code == "error") {
+                    stop("Multiple relationship codes in group ", grp)
+                } else if (multi_code == "warn") {
+                    warning("Multiple relationship codes in group ", grp)
+                    code <- "UZ twin"
+                } else {
+                    stop("Unknown multi_code argument")
+                }
+            }
+            new_edges <- new_edges %>%
+                mutate(
+                    famid = get_famid(id1),
+                    code = as.character(code), group = grp
+                )
+            missing_edges <- dplyr::bind_rows(missing_edges, new_edges)
+        }
+    }
+    new_rel <- dplyr::bind_rows(list(
+        rel_df[rel_df$code == "Spouse", ],
+        twins, missing_edges
+    )) %>%
+        dplyr::arrange(famid, group, id1, id2) %>%
+        dplyr::select(famid, id1, id2, group, code, dplyr::everything()) %>%
+        dplyr::mutate(code = rel_code_to_factor(code))
+    new_rel
 }
