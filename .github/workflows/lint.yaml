@@ -47,7 +47,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::lintr any::cyclocomp
+          extra-packages: any::lintr, any::cyclocomp, local::.
           cache: true
 
       - name: Lint
