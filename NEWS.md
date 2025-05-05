@@ -1,3 +1,12 @@
+## Changes in v1.5.3
+
+- Add short explanation of `hints()` usage in `Pedigree alignment details` vignette.
+
+## Changes in v1.5.2
+
+- Fix resizing plot in shiny module by adding dependency
+- Update website and readme
+
 ## Changes in v1.5.1
 
 - Separate plot management in a shiny module

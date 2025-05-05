@@ -1,6 +1,6 @@
 ---
 title: Pedigree alignment details
-author: TM Therneau
+author: TM Therneau, Louis Le Nezet
 date: '`r format(Sys.time(),"%d %B, %Y")`'
 output:
     BiocStyle::html_document:
@@ -34,6 +34,14 @@ done.
 
 All the routines in this section completely ignore the $id$ component
 of a Pedigree; everyone is indexed solely by their row number in the object.
+
+The following section on the `Hints` object usage might be of interest
+to the user who wants to modify the default behavior of the alignment
+process.
+
+The other sections are more technical and are intended for the package
+maintainers. They describe in details the alignment process and
+the code that implements it.
 
 Hints
 ==========================
@@ -70,6 +78,28 @@ arbitrary.
 left-hand member of the pair, the right-hand member, and which of the two
 is the anchor, i.e., directly connected to their parent.
 Double and triple marriages can start to get interesting.
+
+```{r, hint_usage, echo = TRUE, fig.dim = c(8, 4), fig.alt="Hints usage", fig.align = 'center', out.width="600px", out.height="300px"}
+id    <- c("A", "B", "C", "D", "E", "F", "G", "J", "I", "H")
+dadid <- c("0", "0", "0", "A", "C", "C", "A", "F", "F", "F")
+momid <- c("0", "0", "0", "B", "B", "B", "E", "G", "G", "G")
+sex   <- c(1, 2, 1, 2, 2, 1, 2, 1, 1, 2)
+
+pedi <- Pedigree(
+    id, dadid, momid, sex, na_strings = "0"
+)
+
+# First pedigree with no reordering
+plot(pedi, align_parents = FALSE, title = "1) Without reordering")
+
+# Second pedigree with reordering
+hints(pedi) <- auto_hint(pedi, align_parents = FALSE)
+# Reorder siblings in opposite order
+horder(hints(pedi))[c("H", "I", "J")] <- c(1, 2, 3)
+# Set F individual on the right and set G as the anchor
+spouse(hints(pedi)) <- data.frame(idl = "G", idr = "F", anchor = "left")
+plot(pedi, align_parents = FALSE, title = "2) With ordering")
+```
 
 Auto_hint
 ==========================
@@ -281,6 +311,29 @@ arrays and returns a position.
 
 The findsibs function starts with a position and returns a position as well,
 and is much simpler than findspouse.
+
+## Fixup2
+
+At this point the most common situation is the presence of multiple spouse
+for one individual. In this case the $anchor$ variable is `(2,1)` showing
+that the left and right hand copy of and individuals is connected to an 
+anchored spouse.
+
+The proper addition to the spouselist is therefore
+`(spouse_left, spouse_middle, dpairs)`, where the last is the hint from the
+dpairs routine as to which of the parents is the one to follow further when
+drawing the entire Pedigree. (When drawing a Pedigree and there is a
+child who can be reached from multiple founders, we only want to find
+the child once.) 
+
+The double marry-in found in the pedigree, then leads
+to value of `(2,2)` for the $anchor$ variable. The proper addition to
+the $sptemp$ matrix in this case will be two rows, `(spouse_left, spouse_middle, 1)`
+indicating that `spouse_left` should be plotted left of `spouse_middle`
+with the first partner as the anchor, and a second row
+`(spouse_middle, spouse_right, 2)`.
+This will cause the common spouse to be plotted in the middle.
+
 
 Align
 ==========================
