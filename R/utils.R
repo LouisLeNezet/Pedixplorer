@@ -200,7 +200,7 @@ setGeneric("is_parent", signature = "obj",
 #'     )
 #'     fam <- "test.fam"
 #'     pedi <- plink_to_pedigree(fam)
-#' )
+#' }
 #' @export
 plink_to_pedigree <- function(
     path, sep = "\t", quote = "'", header = FALSE,
