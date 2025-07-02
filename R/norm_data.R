@@ -165,21 +165,30 @@ norm_ped <- function(
             ped_df[[id]] <- as.character(ped_df[[id]])
         }
         err$idErr <- apply(
-            ped_df[, c("id", "dadid", "momid", "famid")], 
-            1, 
+            ped_df[, c("id", "dadid", "momid", "famid")],
+            1,
             function(x) {
                 issues <- character()
                 empty_cols <- names(x)[x == "" & !is.na(x)]
                 if (length(empty_cols) > 0) {
-                    issues <- c(issues, paste0(paste(empty_cols, collapse = "-"), "-empty"))
+                    issues <- c(
+                        issues,
+                        paste0(paste(empty_cols, collapse = "-"), "-empty")
+                    )
                 }
-                
+
                 underscore_cols <- names(x)[stringr::str_detect(x, "_")]
                 if (length(underscore_cols) > 0) {
-                    issues <- c(issues, paste0(paste(underscore_cols, collapse = "-"), "-contains-underscore"))
+                    issues <- c(
+                        issues,
+                        paste0(
+                            paste(underscore_cols, collapse = "-"),
+                            "-contains-underscore"
+                        )
+                    )
                 }
-                
-                ifelse(length(issues) == 0, NA_character_,paste0(issues, collapse = "_"))
+
+                ifelse(length(issues) == 0, NA_character_, paste0(issues, collapse = "_"))
             }
         )
 
