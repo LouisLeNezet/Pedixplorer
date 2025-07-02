@@ -176,9 +176,13 @@ norm_ped <- function(
                         paste0(paste(empty_cols, collapse = "-"), "-empty")
                     )
                 }
-
-                underscore_cols <- names(x)[stringr::str_detect(x, "_")]
+                print(x)
+                underscore_cols <- names(x)[
+                    stringr::str_detect(x, "_") &
+                        !is.na(x)
+                ]
                 if (length(underscore_cols) > 0) {
+                    print(underscore_cols)
                     issues <- c(
                         issues,
                         paste0(
