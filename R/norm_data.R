@@ -164,18 +164,25 @@ norm_ped <- function(
         for (id in c("id", "dadid", "momid")) {
             ped_df[[id]] <- as.character(ped_df[[id]])
         }
-        err$idErr <- lapply(
-            as.data.frame(t(ped_df[, c(
-                "id", "dadid", "momid", "famid"
-            )])),
+        err$idErr <- apply(
+            ped_df[, c("id", "dadid", "momid", "famid")], 
+            1, 
             function(x) {
-                if (any(x == "" & !is.na(x))) {
-                    "one_id_is_empty"
-                } else {
-                    NA_character_
+                issues <- character()
+                empty_cols <- names(x)[x == "" & !is.na(x)]
+                if (length(empty_cols) > 0) {
+                    issues <- c(issues, paste0(paste(empty_cols, collapse = "-"), "-empty"))
                 }
+                
+                underscore_cols <- names(x)[stringr::str_detect(x, "_")]
+                if (length(underscore_cols) > 0) {
+                    issues <- c(issues, paste0(paste(underscore_cols, collapse = "-"), "-contains-underscore"))
+                }
+                
+                ifelse(length(issues) == 0, NA_character_,paste0(issues, collapse = "_"))
             }
         )
+
         ## Make a new id from the family and subject pair
         ped_df$id <- upd_famid(ped_df$id, ped_df$famid, missid)
         ped_df$dadid <- upd_famid(ped_df$dadid, ped_df$famid, missid)

@@ -121,6 +121,19 @@ test_that("Norm ped", {
     ))
 })
 
+test_that("Norm ped with error", {
+    ped_df <- data.frame(
+        id = c(1, 2, "3_2_1", 4, 5, 6, 7, 8, 9, 10),
+        dadid = c("A_", 0, "", 3, 0, 4, 1, 0, 6, 6),
+        momid = c(0, 0, 2, 2, 0, 5, 2, 0, 8, 8),
+        famid = c(1, 1, 1, "My_Famid", 1, 1, 1, 2, 2, 2),
+        sex = c(1, 2, "m", "man", "f", "male", "m", 3, NA, "f")
+    )
+    ped_df <- suppressWarnings(norm_ped(ped_df, na_strings = c("None", "NA")))
+    expect_equal(ped_df$error[4], "famid-contains-underscore")
+    expect_equal(ped_df$error[3], "dadid-empty_id-contains-underscore")
+})
+
 test_that("Norm rel", {
     rel_df <- c(
         1, 2, 1, 1,
