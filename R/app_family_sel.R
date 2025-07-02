@@ -70,15 +70,15 @@ family_sel_server <- function(
                 "id", "dadid", "momid",
                 "fatherid", "motherid"
             )
-            col_all <- colnames(mcols(pedi()))
+            ped_df <- as.data.frame(ped(pedi()))
+            col_all <- colnames(ped_df)
             col_av <- setdiff(col_all, col_no)
             col_sel <- c()
             for (col in col_av) {
-                if (any(!is.na(mcols(pedi())[col]))) {
+                if (any(!is.na(ped_df[col]))) {
                     col_sel <- c(col_sel, col)
                 }
             }
-            col_sel
             stats::setNames(col_sel, col_sel)
         })
 
