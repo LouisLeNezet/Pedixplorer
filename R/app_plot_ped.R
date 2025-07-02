@@ -47,7 +47,8 @@ app_plot_fct <- function(
     pedi, cex = 1, plot_par = list(), interactive = FALSE,
     mytitle = "My Pedigree", precision = 2, lwd = 1,
     aff_mark = TRUE, label = NULL,
-    symbolsize = 1, force = TRUE, mytips = NULL
+    symbolsize = 1, force = TRUE, mytips = NULL,
+    align_parents = TRUE
 ) {
     if (interactive) {
         p <- plot(
@@ -56,7 +57,8 @@ app_plot_fct <- function(
             cex = cex, symbolsize = symbolsize, force = force,
             ped_par = plot_par,
             title = mytitle, tips = mytips,
-            precision = precision, lwd = lwd
+            precision = precision, lwd = lwd,
+            align_parents = align_parents
         )$ggplot +
             ggplot2::theme(legend.position = "none")
         plotly::ggplotly(p, tooltip = "text") |>
@@ -70,7 +72,8 @@ app_plot_fct <- function(
                 cex = cex, symbolsize = symbolsize, force = force,
                 ped_par = plot_par,
                 title = mytitle, tips = mytips,
-                precision = precision, lwd = lwd
+                precision = precision, lwd = lwd,
+                align_parents = align_parents
             )
         }
     }
@@ -122,7 +125,8 @@ plot_ped_server <- function(
     my_tips = NULL, plot_lwd = 1,
     width = "80%", height = "400px", plot_cex = 1, symbolsize = 1,
     force = TRUE, plot_par = list(), is_interactive = FALSE,
-    aff_mark = TRUE, label = NULL
+    aff_mark = TRUE, label = NULL, computebest = FALSE,
+    tolerance = 5, align_parents = TRUE, timeout = 60
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
@@ -140,23 +144,59 @@ plot_ped_server <- function(
         label <- make_reactive(label)
         plot_lwd <- make_reactive(plot_lwd)
         is_force <- make_reactive(force)
+        computebest <- make_reactive(computebest)
+        tolerance <- make_reactive(tolerance)
+        align_parents <- make_reactive(align_parents)
+        timeout <- make_reactive(timeout)
 
         ## Plot dimensions
         width <- make_reactive(width)
         height <- make_reactive(height)
 
-        my_plot_fct <- shiny::reactive({
+        plot_best <- shiny::reactive({
             shiny::req(pedi())
+            if (computebest()) {
+                p <- pedi()
+                besthint <- tryCatch(
+                    R.utils::withTimeout(
+                        best_hint(
+                            p,
+                            tolerance     = tolerance(),
+                            align_parents = align_parents(),
+                            force         = is_force()
+                        ),
+                        timeout   = timeout(),
+                        onTimeout = "error"
+                    ),
+                    TimeoutException = function(e) {
+                        shinytoastr::toastr_error(
+                            title   = "Couldn't achieve tolerance in time",
+                            message = conditionMessage(e)
+                        )
+                        NULL
+                    }
+                )
+
+                if (!is.null(besthint)) {
+                    hints(p) <- besthint
+                }
+                p
+            }
+            pedi()
+        })
+
+        my_plot_fct <- shiny::reactive({
+            shiny::req(plot_best())
             shiny::req(symbolsize(), plot_cex(), plot_lwd(), my_title())
             shiny::req(width(), height())
             app_plot_fct(
-                pedi = pedi(), mytitle = my_title(), mytips = my_tips(),
+                pedi = plot_best(), mytitle = my_title(), mytips = my_tips(),
                 cex = plot_cex(), plot_par = plot_par(),
                 symbolsize = symbolsize(),
                 interactive = is_interactive(),
                 precision = precision(), lwd = plot_lwd(),
                 aff_mark = aff_mark(), label = label(),
-                force = is_force()
+                force = is_force(), align_parents = align_parents()
             )
         })
 

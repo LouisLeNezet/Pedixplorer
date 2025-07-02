@@ -96,7 +96,7 @@ setMethod(
     "best_hint", "Pedigree",
     function(
         obj, wt = c(1000, 10, 1), tolerance = 0,
-        align_parents = TRUE
+        align_parents = TRUE, force = FALSE
     ) {
 
         # find founders married to founders the female of such pairs
@@ -129,52 +129,68 @@ setMethod(
             newhint <- auto_hint(
                 obj, hints = Hints(
                     horder = stats::setNames(hint[, 1], id(ped(obj)))
-                ), reset = TRUE, align_parents = align_parents
-            )
-            plist <- align(
-                obj, packed = TRUE, align = TRUE, width = 8, hints = newhint,
-                align_parents = align_parents
+                ), reset = TRUE, align_parents = align_parents,
+                force = force
             )
 
-            # Compute the error measures
-            err <- rep(0, 3)
-            maxlev <- nrow(plist$nid)
-            for (lev in seq_len(maxlev)) {
-                idlist <- plist$nid[lev, seq_len(plist$n[lev])]
-                dups <- duplicated(idlist)
-                if (any(dups)) {
-                    err[1] <- err[1] + sum(dups)
-                    for (i in idlist[dups]) {
-                        who <- (seq_along(idlist))[match(
-                            idlist, i, nomatch = 0
-                        ) > 0]
-                        err[2] <- err[2] + abs(diff(plist$pos[lev, who]))
-                    }
-                }
-
-                # get parent-child pulls
-                fam2 <- plist$fam[lev, ]
-                if (any(fam2 > 0)) {
-                    # center of kids
-                    centers <- tapply(plist$pos[lev, ], fam2, mean)
-                    if (any(fam2 == 0)) {
-                        centers <- centers[-1]
-                    }
-                    # parents
-                    above <- plist$pos[lev - 1, sort(unique(fam2))] + 0.5
-                    err[3] <- err[3] + sum(abs(centers - above))
-                }
-            }
+            stress <- compute_stress(
+                obj, newhint, wt = wt,
+                align_parents = align_parents,
+                force = force
+            )
 
             # best one so far?
-            total <- sum(err * wt)
-            if (perm == 1 || total < besttot) {
-                besttot <- total
+            if (perm == 1 || stress < besttot) {
+                besttot <- stress
                 besthint <- newhint
             }
-            if (besttot <= tolerance)
+            print(besttot)
+            if (besttot <= tolerance) {
                 break  # we needn't do better than this!
+            }
         }
         besthint
     }
 )
+
+
+compute_stress <- function(
+    obj, newhint, wt = c(1000, 10, 1),
+    align_parents = TRUE, force = FALSE
+) {
+    plist <- align(
+        obj, packed = TRUE, align = TRUE, width = 8, hints = newhint,
+        align_parents = align_parents, force = force
+    )
+
+    # Compute the error measures
+    err <- rep(0, 3)
+    maxlev <- nrow(plist$nid)
+    for (lev in seq_len(maxlev)) {
+        idlist <- plist$nid[lev, seq_len(plist$n[lev])]
+        dups <- duplicated(idlist)
+        if (any(dups)) {
+            err[1] <- err[1] + sum(dups)
+            for (i in idlist[dups]) {
+                who <- (seq_along(idlist))[match(
+                    idlist, i, nomatch = 0
+                ) > 0]
+                err[2] <- err[2] + abs(diff(plist$pos[lev, who]))
+            }
+        }
+
+        # get parent-child pulls
+        fam2 <- plist$fam[lev, ]
+        if (any(fam2 > 0)) {
+            # center of kids
+            centers <- tapply(plist$pos[lev, ], fam2, mean)
+            if (any(fam2 == 0)) {
+                centers <- centers[-1]
+            }
+            # parents
+            above <- plist$pos[lev - 1, sort(unique(fam2))] + 0.5
+            err[3] <- err[3] + sum(abs(centers - above))
+        }
+    }
+    sum(err * wt)
+}
