@@ -6,7 +6,7 @@
   [![rank](http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg)](http://bioconductor.org/packages/stats/bioc/Pedixplorer/)
   [![BioC Status](https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/)
   [![codecov](https://codecov.io/gh/LouisLeNezet/Pedixplorer/graph/badge.svg?token=ZFQ3GZJ4BL)](https://codecov.io/gh/LouisLeNezet/Pedixplorer)
-  [![DOI](https://img.shields.io/badge/DOI-10.18129/B9.bioc.Pedixplorer-blue)](https://doi.org/doi:10.18129/B9.bioc.Pedixplorer)
+  [![DOI](https://img.shields.io/badge/DOI-10.1093/bioinformatics/btaf329-blue)](https://doi.org/10.1093/bioinformatics/btaf329)
   [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/bioconductor-pedixplorer/README.html)
 <!-- badges: end -->
 
@@ -180,7 +180,7 @@ plotly::ggplotly(
     <a href="https://louislenezet.github.io/assets/img/pedixplorer/pedigree_interactive.html" alt="MyPedigree">View Interactive Pedigree</a>
 </p>
 
-## Documentation and News
+## Documentation, News and Citation
 
 To view documentation start R and enter:
 
@@ -193,4 +193,7 @@ browseVignettes("Pedixplorer")
 
 # Or to see the news
 utils::news(package="Pedixplorer")
+
+# Or to cite Pedixplore
+citation("Pedixplorer")
 ```

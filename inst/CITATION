@@ -1,0 +1,21 @@
+citHeader("To cite the pedixplorer package in publications, please use:")
+
+bibentry(
+	bibtype = "Article",
+	title = "Pedixplorer: a Bioconductor package to streamline pedigree design and visualization",
+	author = c(
+		person("Louis", "Le Nézet"),
+		person("Jason", "Sinnwell"),
+		person("Anna", "Letko"),
+		person("Catherine", "André"),
+		person("Pascale", "Quignon")
+	),
+	journal = "Bioinformatics",
+	year = 2025,
+	volume = "41",
+	number = "6",
+	pages = "btaf329",
+	doi = "10.1093/bioinformatics/btaf329",
+	url = "https://doi.org/10.1093/bioinformatics/btaf329",
+	note = "R package version 1.0.0"
+)

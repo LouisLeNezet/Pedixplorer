@@ -67,6 +67,16 @@ ped_ui <- function() {
                     width = "50px", height = "50px"
                 )
             ),
+            tags$a(
+                href = "https://doi.org/10.1093/bioinformatics/btaf329",
+                target = "_blank",
+                tags$img(
+                    src = paste0(logo, "icon_doi.png"),
+                    title = "Pedixplorer article",
+                    alt = "Pedixplorer article",
+                    width = "50px", height = "50px"
+                )
+            ),
             tags$div(
                 style = paste0(
                     "position: absolute; top: 10px; ",
