@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news">
 <li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.5.3</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.5.4</a></li>
     <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Latest main release : Version 1.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.2.0">Previous stable release : Version 1.2.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.0.0">Previous stable release : Version 1.0.0</a></li>
@@ -92,9 +92,9 @@
                         <h4 data-toc-skip class="author">Terry Therneau,
 Elizabeth Atkinson, Louis Le Nezet</h4>
             
-            <h4 data-toc-skip class="date">05 May, 2025</h4>
+            <h4 data-toc-skip class="date">02 July, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_minor_bugs/vignettes/pedigree_object.Rmd" class="external-link"><code>vignettes/pedigree_object.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_object.Rmd</code></div>
     </div>
 
@@ -311,8 +311,119 @@ ensure the uniqueness of the individuals identifiers.</p>
 <span><span class="co">##  3rd Qu.:2.000                      3rd Qu.:1.0000  </span></span>
 <span><span class="co">##  Max.   :3.000                      Max.   :1.0000</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "101"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "102"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "103" "135" "136"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "104"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "105"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "106"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "107"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "108"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "109" "101" "102"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "110" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "111" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "112" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "113"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "114" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "115" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "116" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "117"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "118" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "119" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "120" "107" "108"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "121" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "122" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "123" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "124" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "125" "112" "118"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "126" "112" "118"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "127" "114" "115"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "128" "114" "115"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "129" "117" "116"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "130" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "131" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "132" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "133" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "134" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "135"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "136"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "137"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "138" "135" "136"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "139" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "140" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "141" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "201"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "202"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "203"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "204" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "205" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "206" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "207" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "208" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "209"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "210" "203" "204"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "211" "203" "204"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "212" "209" "208"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "213" "209" "208"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "214" "209" "208"   "2"</span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="va">cols</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       sex          id              avail        </span></span>
 <span><span class="co">##  male   :26   Length:55          Mode :logical  </span></span>
 <span><span class="co">##  female :27   Class :character   FALSE:31       </span></span>
@@ -323,13 +434,123 @@ ensure the uniqueness of the individuals identifiers.</p>
 <p>If any error is detected after the normalisation process, then the
 normalised dataframe is gave back to the user with errors column added
 describing the encountered problems.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rel_wrong</span> <span class="op">&lt;-</span> <span class="va">rel_df</span></span>
 <span><span class="va">rel_wrong</span><span class="op">$</span><span class="va">code</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"A"</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span>, <span class="va">rel_wrong</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "101"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "102"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "103" "135" "136"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "104"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "105"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "106"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "107"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "108"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "109" "101" "102"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "110" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "111" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "112" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "113"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "114" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "115" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "116" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "117"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "118" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "119" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "120" "107" "108"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "121" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "122" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "123" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "124" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "125" "112" "118"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "126" "112" "118"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "127" "114" "115"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "128" "114" "115"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "129" "117" "116"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "130" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "131" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "132" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "133" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "134" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "135"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "136"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "137"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "138" "135" "136"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "139" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "140" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "141" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "201"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "202"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "203"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "204" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "205" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "206" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "207" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "208" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "209"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "210" "203" "204"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "211" "203" "204"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "212" "209" "208"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "213" "209" "208"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "214" "209" "208"   "2"</span></span></code></pre>
 <pre><code><span><span class="co">## Warning in .local(obj, ...): The relationship informations are not valid. Here</span></span>
 <span><span class="co">## is the normalised relationship informations with the identified problems</span></span></code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     id1   id2    code famid              error</span></span>
 <span><span class="co">## 1 1_110 1_112 MZ twin     1               &lt;NA&gt;</span></span>
@@ -519,9 +740,120 @@ modify a value in the correponding slot of the object</p>
 </h3>
 <p>The <code>mcols()</code> accessors is the one you should use to add
 more informations to your individuals.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span>
-<span><span class="fu">mcols</span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "101"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "102"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "103" "135" "136"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "104"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "105"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "106"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "107"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "108"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "109" "101" "102"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "110" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "111" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "112" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "113"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "114" "103" "104"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "115" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "116" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "117"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "118" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "119" "105" "106"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "120" "107" "108"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "121" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "122" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "123" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "124" "110" "109"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "125" "112" "118"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "126" "112" "118"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "127" "114" "115"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "128" "114" "115"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "129" "117" "116"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "130" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "131" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "132" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "133" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "134" "119" "120"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "135"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "136"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "137"    NA    NA   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "138" "135" "136"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "139" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "140" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "141" "137" "138"   "1" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "201"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "202"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "203"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "204" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "205" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "206" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "207" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "208" "201" "202"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "209"    NA    NA   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "210" "203" "204"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "211" "203" "204"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "212" "209" "208"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "213" "209" "208"   "2" </span></span>
+<span><span class="co">##    id dadid momid famid </span></span>
+<span><span class="co">## "214" "209" "208"   "2"</span></span></code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">mcols</span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## DataFrame with 55 rows and 5 columns</span></span>
 <span><span class="co">##     affection       num       error affection_mods avail_mods</span></span>
 <span><span class="co">##     &lt;integer&gt; &lt;integer&gt; &lt;character&gt;      &lt;numeric&gt;  &lt;numeric&gt;</span></span>
@@ -536,7 +868,7 @@ more informations to your individuals.</p>
 <span><span class="co">## 53          0         3          NA              0          1</span></span>
 <span><span class="co">## 54          0         2          NA              0          0</span></span>
 <span><span class="co">## 55          1         0          NA              1          1</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add new columns as a threshold if identifiers of individuals superior</span></span>
 <span><span class="co">## to a given threshold for example</span></span>
 <span><span class="fu">mcols</span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">$</span><span class="va">idth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
@@ -571,7 +903,7 @@ it:</p>
 <li><code><a href="../reference/unrelated.html">unrelated()</a></code></li>
 <li><code><a href="../reference/useful_inds.html">useful_inds()</a></code></li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## We can change the family name based on an other column</span></span>
 <span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/upd_famid.html">upd_famid</a></span><span class="op">(</span><span class="va">pedi</span>, <span class="fu">mcols</span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span><span class="op">$</span><span class="va">idth</span><span class="op">)</span></span>
 <span></span>
@@ -582,13 +914,13 @@ it:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ped_a</span>, cex <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Individuals:  A_113 won't be plotted</span></span></code></pre>
 <p><img src="pedigree_object_files/figure-html/pedigree_methods-1.png" alt="Pedigree plot" width="700" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Do a summary</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ped_a</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Pedigree object with </span></span>
 <span><span class="co">## [1] "Ped object with 41 individuals and 6 metadata columns"</span></span>
 <span><span class="co">## [1] "Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse"</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Coerce it to a list</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">ped_a</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $id</span></span>
@@ -611,12 +943,12 @@ it:</p>
 <span><span class="co">## [19] "A_106" "A_108" "A_109" "A_109" "A_109" "A_109" "A_118" "A_118" "A_115"</span></span>
 <span><span class="co">## [28] "A_115" "A_116" "A_120" "A_120" "A_120" "A_120" "A_120" NA      NA     </span></span>
 <span><span class="co">## [37] NA      "A_136" "A_138" "A_138" "A_138"</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Shrink it to keep only the necessary information</span></span>
 <span><span class="va">lst1_s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/shrink.html">shrink</a></span><span class="op">(</span><span class="va">ped_a</span>, max_bits <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lst1_s</span><span class="op">$</span><span class="va">pedObj</span>, cex <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pedigree_object_files/figure-html/pedigree_methods-2.png" alt="Pedigree plot" width="700" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Compute the kinship individuals matrix</span></span>
 <span><span class="fu"><a href="../reference/Ped-class.html">adopted</a></span><span class="op">(</span><span class="fu"><a href="../reference/Pedigree-class.html">ped</a></span><span class="op">(</span><span class="va">ped_a</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span> <span class="co"># Set adopted to FALSE</span></span>
 <span><span class="fu"><a href="../reference/kinship.html">kinship</a></span><span class="op">(</span><span class="va">ped_a</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span></code></pre></div>
@@ -633,7 +965,7 @@ it:</p>
 <span><span class="co">## A_108 .    .    .    .    .   .   .   0.5 .    .   </span></span>
 <span><span class="co">## A_109 0.25 0.25 .    .    .   .   .   .   0.50 .   </span></span>
 <span><span class="co">## A_110 .    .    0.25 0.25 .   .   .   .   .    0.50</span></span></code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Get the useful individuals</span></span>
 <span><span class="va">ped_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/is_informative.html">is_informative</a></span><span class="op">(</span><span class="va">ped_a</span>, informative <span class="op">=</span> <span class="st">"AvAf"</span>, col_aff <span class="op">=</span> <span class="st">"affection"</span><span class="op">)</span></span>
 <span><span class="va">ped_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/useful_inds.html">useful_inds</a></span><span class="op">(</span><span class="va">ped_a</span><span class="op">)</span></span>
@@ -643,7 +975,7 @@ it:</p>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.4.3 (2025-02-28)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
@@ -668,34 +1000,34 @@ it:</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] Pedixplorer_1.5.3 BiocStyle_2.32.1 </span></span>
+<span><span class="co">## [1] Pedixplorer_1.5.4 BiocStyle_2.32.1 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.52            </span></span>
 <span><span class="co">##  [4] bslib_0.9.0           ggplot2_3.5.2         shinyjs_2.1.0        </span></span>
 <span><span class="co">##  [7] htmlwidgets_1.6.4     lattice_0.22-7        quadprog_1.5-8       </span></span>
-<span><span class="co">## [10] vctrs_0.6.5           tools_4.4.3           generics_0.1.3       </span></span>
-<span><span class="co">## [13] stats4_4.4.3          tibble_3.2.1          pkgconfig_2.0.3      </span></span>
-<span><span class="co">## [16] Matrix_1.7-3          data.table_1.17.0     RColorBrewer_1.1-3   </span></span>
+<span><span class="co">## [10] vctrs_0.6.5           tools_4.4.3           generics_0.1.4       </span></span>
+<span><span class="co">## [13] stats4_4.4.3          tibble_3.3.0          pkgconfig_2.0.3      </span></span>
+<span><span class="co">## [16] Matrix_1.7-3          data.table_1.17.6     RColorBrewer_1.1-3   </span></span>
 <span><span class="co">## [19] desc_1.4.3            S4Vectors_0.42.1      readxl_1.4.5         </span></span>
 <span><span class="co">## [22] lifecycle_1.0.4       stringr_1.5.1         shinytoastr_2.2.0    </span></span>
 <span><span class="co">## [25] compiler_4.4.3        farver_2.1.2          textshaping_1.0.1    </span></span>
 <span><span class="co">## [28] httpuv_1.6.16         shinyWidgets_0.9.0    htmltools_0.5.8.1    </span></span>
 <span><span class="co">## [31] sass_0.4.10           yaml_2.3.10           lazyeval_0.2.2       </span></span>
-<span><span class="co">## [34] plotly_4.10.4         later_1.4.2           pillar_1.10.2        </span></span>
-<span><span class="co">## [37] pkgdown_2.1.2         jquerylib_0.1.4       tidyr_1.3.1          </span></span>
+<span><span class="co">## [34] plotly_4.11.0         later_1.4.2           pillar_1.10.2        </span></span>
+<span><span class="co">## [37] pkgdown_2.1.3         jquerylib_0.1.4       tidyr_1.3.1          </span></span>
 <span><span class="co">## [40] DT_0.33               cachem_1.1.0          mime_0.13            </span></span>
 <span><span class="co">## [43] tidyselect_1.2.1      digest_0.6.37         stringi_1.8.7        </span></span>
 <span><span class="co">## [46] colourpicker_1.3.0    dplyr_1.1.4           purrr_1.0.4          </span></span>
 <span><span class="co">## [49] bookdown_0.43         fastmap_1.2.0         grid_4.4.3           </span></span>
 <span><span class="co">## [52] cli_3.6.5             magrittr_2.0.3        withr_3.0.2          </span></span>
-<span><span class="co">## [55] scales_1.4.0          promises_1.3.2        rmarkdown_2.29       </span></span>
+<span><span class="co">## [55] scales_1.4.0          promises_1.3.3        rmarkdown_2.29       </span></span>
 <span><span class="co">## [58] httr_1.4.7            igraph_2.1.4          gridExtra_2.3        </span></span>
-<span><span class="co">## [61] cellranger_1.1.0      ragg_1.4.0            shiny_1.10.0         </span></span>
-<span><span class="co">## [64] evaluate_1.0.3        knitr_1.50            shinycssloaders_1.1.0</span></span>
+<span><span class="co">## [61] cellranger_1.1.0      ragg_1.4.0            shiny_1.11.0         </span></span>
+<span><span class="co">## [64] evaluate_1.0.4        knitr_1.50            shinycssloaders_1.1.0</span></span>
 <span><span class="co">## [67] miniUI_0.1.2          viridisLite_0.4.2     rlang_1.1.6          </span></span>
 <span><span class="co">## [70] Rcpp_1.0.14           xtable_1.8-4          glue_1.8.0           </span></span>
-<span><span class="co">## [73] shinyhelper_0.3.2     BiocManager_1.30.25   BiocGenerics_0.50.0  </span></span>
+<span><span class="co">## [73] shinyhelper_0.3.2     BiocManager_1.30.26   BiocGenerics_0.50.0  </span></span>
 <span><span class="co">## [76] jsonlite_2.0.0        R6_2.6.1              plyr_1.8.9           </span></span>
 <span><span class="co">## [79] systemfonts_1.2.3     fs_1.6.6</span></span></code></pre>
 </div>
@@ -710,7 +1042,7 @@ it:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
