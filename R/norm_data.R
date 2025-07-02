@@ -192,7 +192,11 @@ norm_ped <- function(
                     )
                 }
 
-                ifelse(length(issues) == 0, NA_character_, paste0(issues, collapse = "_"))
+                ifelse(
+                    length(issues) == 0,
+                    NA_character_,
+                    paste0(issues, collapse = "_")
+                )
             }
         )
 
