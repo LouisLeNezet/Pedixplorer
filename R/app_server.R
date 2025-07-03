@@ -194,7 +194,7 @@ ped_server <- function(
             }
             withCallingHandlers({
                 norm_ped(
-                    ped_df, cols_used_del = TRUE, na_strings = c(NA, "0", 0)
+                    ped_df, cols_used_del = FALSE, na_strings = c(NA, "", "NA")
                 )
             }, warning = function(w) {
                 shinytoastr::toastr_warning(
