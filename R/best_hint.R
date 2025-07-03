@@ -68,6 +68,8 @@ permute <- function(x) {
 #'
 #' @param tolerance The maximum stress level to accept.
 #' Default is `0`
+#' @param timeout The maximum time in seconds to spend searching for
+#' the best hint. Default is `60` seconds.
 #' @inheritParams align
 #' @inheritParams kindepth
 #'
@@ -96,7 +98,8 @@ setMethod(
     "best_hint", "Pedigree",
     function(
         obj, wt = c(1000, 10, 1), tolerance = 0,
-        align_parents = TRUE, force = FALSE
+        align_parents = TRUE, force = FALSE,
+        timeout = 60
     ) {
 
         # find founders married to founders the female of such pairs
@@ -121,39 +124,92 @@ setMethod(
 
         pmat <- as.matrix(pmat[order(runif(nrow(pmat))), ])
 
+        ## Search for the best hint
+        besttot <- Inf
+        besthint <- NULL
         n <- length(obj)
-        for (perm in seq_len(nrow(pmat))) {
-            hint <- cbind(seq_len(n), rep(0, n))
-            hint[fmom, 1] <- pmat[perm, ]
-            # this fixes up marriages and such
-            newhint <- auto_hint(
-                obj, hints = Hints(
-                    horder = stats::setNames(hint[, 1], id(ped(obj)))
-                ), reset = TRUE, align_parents = align_parents,
-                force = force
-            )
 
-            stress <- compute_stress(
-                obj, newhint, wt = wt,
-                align_parents = align_parents,
-                force = force
-            )
-
-            # best one so far?
-            if (perm == 1 || stress < besttot) {
-                besttot <- stress
-                besthint <- newhint
+        R.utils::withTimeout({
+            for (perm in seq_len(nrow(pmat))) {
+                res <- eval_perm(
+                    perm, fmom, pmat, obj, n, wt,
+                    align_parents = align_parents, force = force
+                )
+                if (res$stress < besttot) {
+                    besttot <- res$stress
+                    besthint <- res$hint
+                }
+                if (besttot <= tolerance) {
+                    break
+                }
             }
-            print(besttot)
-            if (besttot <= tolerance) {
-                break  # we needn't do better than this!
-            }
-        }
+        }, timeout = timeout, onTimeout = "warning")
         besthint
     }
 )
 
+#' Evaluate a permutation of founder mothers
+#' @description
+#' This is a helper function for [best_hint()].
+#' It evaluates a permutation of founder mothers
+#' by creating a new hint
+#' and computing the stress of the hint.
+#' @param idx The index of the permutation to evaluate
+#' @param fmom The vector of founder mother indices
+#' @param pmat The matrix of permutations of founder mothers
+#' @param obj A Pedigree object
+#' @param n The number of individuals in the Pedigree
+#' @inheritParams best_hint
+#' @return The stress value of the hint and the new hint
+#' @keywords internal
+#' @seealso [best_hint()], [align()]
+#' @examples
+#' data(sampleped)
+#' pedi <- Pedigree(sampleped[sampleped$famid == 1,])
+#' newhint <- auto_hint(pedi, align_parents = TRUE)
+#' Pedixplorer:::compute_stress(pedi, newhint)
+#' @export
+eval_perm <- function(
+    idx, fmom, pmat, obj, n, wt,
+    align_parents, force
+) {
 
+    hint <- cbind(seq_len(n), rep(0, n))
+    hint[fmom, 1] <- pmat[idx, ]
+
+    newhint <- auto_hint(
+        obj,
+        hints = Hints(horder = stats::setNames(hint[, 1], id(ped(obj)))),
+        reset = TRUE, align_parents = align_parents, force = force
+    )
+
+    stress <- compute_stress(
+        obj, newhint, wt = wt,
+        align_parents = align_parents, force = force
+    )
+
+    list(stress = stress, hint = newhint)
+}
+
+
+#' Compute the stress of a hint
+#' @description
+#' This is a helper function for [best_hint()].
+#' It computes the stress of a given hint
+#' by aligning the Pedigree and computing the error measures.
+#' @param obj A Pedigree object
+#' @param newhint A Hints object with the new hints
+#' @inheritParams align
+#' @inheritParams best_hint
+#' @return The stress value of the hint
+#' @keywords internal
+#' @seealso [best_hint()], [align()]
+#' @examples
+#' data(sampleped)
+#' pedi <- Pedigree(sampleped[sampleped$famid == 1,])
+#' newhint <- auto_hint(pedi, align_parents = TRUE)
+#' Pedixplorer:::compute_stress(pedi, newhint)
+#' @export
 compute_stress <- function(
     obj, newhint, wt = c(1000, 10, 1),
     align_parents = TRUE, force = FALSE

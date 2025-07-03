@@ -153,7 +153,7 @@ plot_all_server <- function(
 
         max_err <- shiny::reactive({
             shiny::req(pedi())
-            round(compute_stress(
+            round(Pedixplorer:::compute_stress(
                 pedi(),
                 NULL,
                 wt = c(1000, 10, 1),
@@ -169,7 +169,8 @@ plot_all_server <- function(
                     ns("tolerancebest"),
                     "Tolerance for best alignment:",
                     min = 0, max = max_err()[1],
-                    value = 5, step = 1, ticks = FALSE
+                    value = max_err()[1] / 2, step = 1,
+                    ticks = FALSE
                 ) |>
                     shinyhelper::helper(
                         type = "markdown",

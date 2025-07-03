@@ -155,34 +155,29 @@ plot_ped_server <- function(
 
         plot_best <- shiny::reactive({
             shiny::req(pedi())
+            p <- pedi()
             if (computebest()) {
-                p <- pedi()
-                besthint <- tryCatch(
-                    R.utils::withTimeout(
-                        best_hint(
-                            p,
-                            tolerance     = tolerance(),
-                            align_parents = align_parents(),
-                            force         = is_force()
-                        ),
-                        timeout   = timeout(),
-                        onTimeout = "error"
-                    ),
-                    TimeoutException = function(e) {
-                        shinytoastr::toastr_error(
-                            title   = "Couldn't achieve tolerance in time",
-                            message = conditionMessage(e)
-                        )
-                        NULL
-                    }
-                )
+                withCallingHandlers({
+                    besthint <- best_hint(
+                        p, tolerance = tolerance(),
+                        align_parents = align_parents(),
+                        force = is_force(),
+                        timeout = timeout()
+                    )
+                }, warning = function(w) {
+                    shinytoastr::toastr_error(
+                        title   = "Warning during best hint computation",
+                        message = conditionMessage(w)
+                    )
+                    invokeRestart("muffleWarning")
+                })
 
                 if (!is.null(besthint)) {
                     hints(p) <- besthint
                 }
                 p
             }
-            pedi()
+            p
         })
 
         my_plot_fct <- shiny::reactive({

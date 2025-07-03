@@ -5,7 +5,14 @@
 \alias{best_hint,Pedigree-method}
 \title{Best hint for a Pedigree alignment}
 \usage{
-\S4method{best_hint}{Pedigree}(obj, wt = c(1000, 10, 1), tolerance = 0, align_parents = TRUE)
+\S4method{best_hint}{Pedigree}(
+  obj,
+  wt = c(1000, 10, 1),
+  tolerance = 0,
+  align_parents = TRUE,
+  force = FALSE,
+  timeout = 60
+)
 }
 \arguments{
 \item{obj}{A Pedigree object}
@@ -28,6 +35,13 @@ and try to make both parents of each child have the same depth.
 (This is not always possible).
 It helps the drawing program by lining up pedigrees that
 'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
+
+\item{timeout}{The maximum time in seconds to spend searching for
+the best hint. Default is \code{60} seconds.}
 }
 \value{
 The best Hints object out of all the permutations
