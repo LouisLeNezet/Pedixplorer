@@ -157,11 +157,10 @@ health_sel_server <- function(
                 var_to_use <- as.list(stats::setNames(
                     health_var_lev, health_var_lev
                 ))
-                shinyWidgets::pickerInput(
+                shiny::selectInput(
                     ns("health_aff_mods"),
                     label = "Selection of affected modalities",
                     choices = var_to_use,
-                    options = list(`actions-box` = TRUE),
                     multiple = TRUE, selected = ifelse(
                         is.null(mods_aff), health_var_lev, mods_aff
                     )
