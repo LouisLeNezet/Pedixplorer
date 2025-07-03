@@ -92,9 +92,9 @@
                         <h4 data-toc-skip class="author">TM Therneau,
 Louis Le Nezet</h4>
             
-            <h4 data-toc-skip class="date">02 July, 2025</h4>
+            <h4 data-toc-skip class="date">03 July, 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_minor_bugs/vignettes/pedigree_alignment.Rmd" class="external-link"><code>vignettes/pedigree_alignment.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/besthint/vignettes/pedigree_alignment.Rmd" class="external-link"><code>vignettes/pedigree_alignment.Rmd</code></a></small>
       <div class="d-none name"><code>pedigree_alignment.Rmd</code></div>
     </div>
 
@@ -164,32 +164,12 @@ marriages can start to get interesting.</li>
 <span></span>
 <span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span></span>
 <span>    <span class="va">id</span>, <span class="va">dadid</span>, <span class="va">momid</span>, <span class="va">sex</span>, na_strings <span class="op">=</span> <span class="st">"0"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "A"    NA    NA    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "B"    NA    NA    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "C"    NA    NA    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "D"   "A"   "B"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "E"   "C"   "B"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "F"   "C"   "B"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "G"   "A"   "E"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "J"   "F"   "G"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "I"   "F"   "G"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "H"   "F"   "G"    NA</span></span></code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># First pedigree with no reordering</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># First pedigree with no reordering</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pedi</span>, align_parents <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="st">"1) Without reordering"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pedigree_alignment_files/figure-html/hint_usage-1.png" alt="Hints usage" width="600px" height="300px" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Second pedigree with reordering</span></span>
 <span><span class="fu"><a href="../reference/Pedigree-class.html">hints</a></span><span class="op">(</span><span class="va">pedi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auto_hint.html">auto_hint</a></span><span class="op">(</span><span class="va">pedi</span>, align_parents <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co"># Reorder siblings in opposite order</span></span>
@@ -277,50 +257,6 @@ marriage (2), or neither (0).</li>
 <span class="math inline">\(fam\)</span> matrix, link upward to my
 parents, or 0 if no link.</li>
 </ul>
-<pre><code><span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "1"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "2"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "3"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "4"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "5"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "6"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "7"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "8"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "9"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "10"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "11"   "9"   "4"    NA</span></span></code></pre>
-<pre><code><span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "1"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "2"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "3"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "4"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "5"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "6"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "7"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "8"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "9"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "10"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "11"   "9"   "4"    NA</span></span></code></pre>
 <p><img src="pedigree_alignment_files/figure-html/auto_hint1-1.png" alt="Comparison of auto_hint on a simple pedigree" width="600px" height="300px" style="display: block; margin: auto;"><img src="pedigree_alignment_files/figure-html/auto_hint1-2.png" alt="Comparison of auto_hint on a simple pedigree" width="600px" height="300px" style="display: block; margin: auto;"></p>
 <p>Now, walk down through the levels one by one. A candidate subject is
 one who appears twice on the level, once under his/her parents and once
@@ -376,142 +312,6 @@ be listed in the order 9, 8, 10.</p>
 and 5 are reordered, and finally the line <code>(4,9,1)</code> is added
 to the sptemp matrix. In this particular case the final element could be
 a 1 or a 2, since both are connected to their parents.</p>
-<pre><code><span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "1"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "2"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "3"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "4"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "5"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "6"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "7"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "8"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "9"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "10"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "11"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "12"  "11"   "5"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "13"  "11"   "9"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "21"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "22"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "23"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "24"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "25"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "26"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "27"  "21"  "22"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "28"  "21"  "22"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "29"  "21"  "22"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "30"  "23"  "24"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "31"  "23"  "24"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "32"  "25"  "26"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "33"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "34"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "35"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "36"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "37"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "38"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "39"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "40"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "41"  "33"  "13"    NA</span></span></code></pre>
-<pre><code><span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "1"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "2"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "3"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "4"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "5"   "1"   "2"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "6"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "7"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "8"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##   "9"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "10"   "6"   "7"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "11"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "12"  "11"   "5"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "13"  "11"   "9"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "21"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "22"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "23"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "24"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "25"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "26"   "0"   "0"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "27"  "21"  "22"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "28"  "21"  "22"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "29"  "21"  "22"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "30"  "23"  "24"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "31"  "23"  "24"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "32"  "25"  "26"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "33"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "34"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "35"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "36"  "28"  "31"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "37"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "38"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "39"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "40"  "32"  "29"    NA </span></span>
-<span><span class="co">##    id dadid momid famid </span></span>
-<span><span class="co">##  "41"  "33"  "13"    NA</span></span></code></pre>
 <p><img src="pedigree_alignment_files/figure-html/align2-1.png" alt="Comparison of auto_hint on a more complex pedigree" width="600px" height="400px" style="display: block; margin: auto;"><img src="pedigree_alignment_files/figure-html/align2-2.png" alt="Comparison of auto_hint on a more complex pedigree" width="600px" height="400px" style="display: block; margin: auto;"></p>
 <p>The figure above shows a more complex case with several arcs. In the
 upper left is a double marry-in. The <span class="math inline">\(anchor\)</span> variable in the above code will be
@@ -935,7 +735,7 @@ must be <span class="math inline">\(\le\)</span> the max width.</p>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.4.3 (2025-02-28)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>

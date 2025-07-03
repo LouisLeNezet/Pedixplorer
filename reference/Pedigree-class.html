@@ -90,7 +90,7 @@ Rel object.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Pedigree object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_minor_bugs/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_minor_bugs/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_minor_bugs/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/besthint/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/besthint/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/besthint/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>Pedigree-class.Rd</code></div>
     </div>
 
@@ -559,18 +559,6 @@ based on the individuals identifiers given.</p></li>
 <span class="r-in"><span>        <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="fl">2</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   "1"   "4"   "5"    NA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   "2"   "4"   "5"    NA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   "3"   "6"   "5"    NA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   "4"   "0"   "0"    NA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   "5"   "0"   "0"    NA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   "6"   "0"   "0"    NA </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pedigree object with: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 6 individuals and 6 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       famid       sex fertility</span>
@@ -628,116 +616,6 @@ based on the individuals identifiers given.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">Pedigree</span><span class="op">(</span><span class="va">sampleped</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "101"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "102"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "103" "135" "136"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "104"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "105"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "106"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "107"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "108"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "109" "101" "102"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "110" "103" "104"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "111" "103" "104"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "112" "103" "104"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "113"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "114" "103" "104"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "115" "105" "106"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "116" "105" "106"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "117"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "118" "105" "106"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "119" "105" "106"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "120" "107" "108"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "121" "110" "109"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "122" "110" "109"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "123" "110" "109"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "124" "110" "109"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "125" "112" "118"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "126" "112" "118"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "127" "114" "115"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "128" "114" "115"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "129" "117" "116"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "130" "119" "120"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "131" "119" "120"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "132" "119" "120"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "133" "119" "120"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "134" "119" "120"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "135"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "136"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "137"    NA    NA   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "138" "135" "136"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "139" "137" "138"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "140" "137" "138"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "141" "137" "138"   "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "201"    NA    NA   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "202"    NA    NA   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "203"    NA    NA   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "204" "201" "202"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "205" "201" "202"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "206" "201" "202"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "207" "201" "202"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "208" "201" "202"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "209"    NA    NA   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "210" "203" "204"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "211" "203" "204"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "212" "209" "208"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "213" "209" "208"   "2" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id dadid momid famid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "214" "209" "208"   "2" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pedigree object with: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ped object with 55 individuals and 5 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    id       dadid       momid       famid       sex fertility</span>
