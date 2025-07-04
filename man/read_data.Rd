@@ -12,7 +12,7 @@ read_data(
   df_name = NA,
   strings_as_factors = FALSE,
   to_char = TRUE,
-  na_values = c("", "NA", "NULL", "None", "0")
+  na_values = c("", "NA", "NULL", "None")
 )
 }
 \arguments{

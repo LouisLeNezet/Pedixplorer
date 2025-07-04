@@ -21,7 +21,8 @@ app_plot_fct(
   label = NULL,
   symbolsize = 1,
   force = TRUE,
-  mytips = NULL
+  mytips = NULL,
+  align_parents = TRUE
 )
 
 plot_ped_server(
@@ -39,7 +40,11 @@ plot_ped_server(
   plot_par = list(),
   is_interactive = FALSE,
   aff_mark = TRUE,
-  label = NULL
+  label = NULL,
+  computebest = FALSE,
+  tolerance = 5,
+  align_parents = TRUE,
+  timeout = 60
 )
 
 plot_ped_demo(pedi = NULL, precision = 4, interactive = FALSE)

@@ -176,7 +176,6 @@ norm_ped <- function(
                         paste0(paste(empty_cols, collapse = "-"), "-empty")
                     )
                 }
-                print(x)
                 underscore_cols <- names(x)[
                     stringr::str_detect(x, "_") &
                         !is.na(x)

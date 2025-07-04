@@ -849,3 +849,27 @@ complete_twins <- function(rel_df, multi_code = "error") {
         dplyr::mutate(code = rel_code_to_factor(code))
     new_rel
 }
+
+# Adapted from scales::rescale, licensed under GPL
+#' Rescale continuous vector to have specified minimum and maximum
+#'
+#' @param x continuous vector of values to manipulate.
+#' @param to output range (numeric vector of length two)
+#' @param from input range (vector of length two).  If not given, is
+#'   calculated from the range of `x`
+#' @details
+#' Objects of class `<AsIs>` are returned unaltered.
+#'
+#' @keywords internal
+#' @export
+#' @examples
+#' rescale(1:100)
+#' rescale(runif(50))
+#' rescale(1)
+rescale <- function(
+    x,
+    to = c(0, 1),
+    from = range(x, na.rm = TRUE, finite = TRUE)
+) {
+    (x - from[1]) / diff(from) * diff(to) + to[1]
+}

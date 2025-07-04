@@ -11,7 +11,8 @@
   packed = TRUE,
   align = FALSE,
   reset = FALSE,
-  align_parents = TRUE
+  align_parents = TRUE,
+  force = FALSE
 )
 }
 \arguments{
@@ -41,6 +42,10 @@ and try to make both parents of each child have the same depth.
 (This is not always possible).
 It helps the drawing program by lining up pedigrees that
 'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
 }
 \value{
 The initial \linkS4class{Hints} object.

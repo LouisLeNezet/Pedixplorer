@@ -37,7 +37,6 @@ plot_download_ui <- function(id) {
 #' @importFrom shinytoastr toastr_error
 #' @importFrom ggplot2 ggsave
 #' @importFrom grDevices png pdf dev.off
-#' @importFrom gridExtra grid.arrange
 plot_download_server <- function(
     id, my_plot, plot_class, filename = "saveplot",
     label = "Download", width = 500, height = 500
@@ -173,6 +172,14 @@ plot_download_server <- function(
                             NULL
                         }
                         if ("grob" %in% opt$class) {
+                            if (!requireNamespace(
+                                "gridExtra", quietly = TRUE
+                            )) {
+                                stop(paste(
+                                    "Package 'gridExtra' is required for this",
+                                    "functionality. Please install it."
+                                ), call. = FALSE)
+                            }
                             gridExtra::grid.arrange(my_plot())
                         } else if ("function" %in% opt$class) {
                             my_plot()()

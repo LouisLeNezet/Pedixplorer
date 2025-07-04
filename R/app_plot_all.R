@@ -25,7 +25,23 @@ plot_all_ui <- function(id) {
             });
             ", ns("updateBtn")
         ))),
-        shiny::uiOutput(ns("computebig")),
+        shiny::fluidRow(
+            shiny::column(3, align = "left",
+                shiny::uiOutput(ns("computebig")),
+                shiny::checkboxInput(
+                    ns("computebest"),
+                    label = "Improve alignment (takes time to compute)",
+                    value = FALSE
+                ),
+                shiny::uiOutput(ns("uiTolerancebest")),
+                shiny::uiOutput(ns("uiTimeoutbest")),
+                shiny::checkboxInput(
+                    ns("alignparents"),
+                    label = "Both parents at same depth (not always possibe)",
+                    value = TRUE
+                ),
+            ),
+        ),
         shiny::fluidRow(
             shiny::column(12, align = "center",
                 shiny::uiOutput(ns("uiUpdateBtn")),
@@ -101,6 +117,9 @@ plot_all_server <- function(
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
+        my_title_l <- make_reactive(my_title_l)
+        my_title_s <- make_reactive(my_title_s)
+
         opt <- shiny::reactiveValues(
             pedi = NULL,
             my_tips = NULL,
@@ -109,7 +128,11 @@ plot_all_server <- function(
             width = NULL,
             height = NULL,
             plot_lwd = NULL,
-            my_title_l = NULL
+            my_title_l = NULL,
+            computebest = NULL,
+            tolerancebest = NULL,
+            alignparents = NULL,
+            timeoutbest = NULL
         )
 
         reset_opt <- function(opt) {
@@ -122,7 +145,59 @@ plot_all_server <- function(
             opt$plot_lwd <- NULL
             opt$plot_cex <- NULL
             opt$my_title_l <- NULL
+            opt$computebest <- NULL
+            opt$tolerancebest <- NULL
+            opt$alignparents <- NULL
+            opt$timeoutbest <- NULL
         }
+
+        max_err <- shiny::reactive({
+            shiny::req(pedi())
+            round(compute_stress(
+                pedi(),
+                NULL,
+                wt = c(1000, 10, 1),
+                align_parents = input$alignparents,
+                force = TRUE
+            ))
+        })
+
+        output$uiTolerancebest <- shiny::renderUI({
+            shiny::req(pedi())
+            if (input$computebest) {
+                shiny::sliderInput(
+                    ns("tolerancebest"),
+                    "Tolerance for best alignment:",
+                    min = 0, max = max_err()[1],
+                    value = max_err()[1] / 2, step = 1,
+                    ticks = FALSE
+                ) |>
+                    shinyhelper::helper(
+                        type = "markdown",
+                        content = "app_plot_tolerance",
+                        size = "m",
+                        colour = "#3792ad"
+                    )
+            }
+        })
+
+        output$uiTimeoutbest <- shiny::renderUI({
+            shiny::req(pedi())
+            if (input$computebest) {
+                shiny::sliderInput(
+                    ns("timeoutbest"),
+                    "Maximum bext_hint time (sec)",
+                    min = 10, max = 200, value = 60,
+                    ticks = FALSE
+                ) |>
+                    shinyhelper::helper(
+                        type = "markdown",
+                        content = "app_plot_timeout",
+                        size = "m",
+                        colour = "#3792ad"
+                    )
+            }
+        })
 
         ## Update button -----------------------------
         output$uiUpdateBtn <- shiny::renderUI({
@@ -140,9 +215,10 @@ plot_all_server <- function(
                 pedi(), width(), height(),
                 input$interactive, input$symbolsize,
                 input$plot_lwd, input$plot_cex,
-                input$computebig,
+                input$computebig, input$computebest,
                 input$tips_col, input$plot_par,
-                my_title_l()
+                input$tolerancebest, input$alignparents,
+                my_title_l(), input$timeoutbest
             )
 
         init_height <- shiny::reactive({
@@ -242,6 +318,10 @@ plot_all_server <- function(
             opt$height <- height()
             opt$plot_lwd <- input$plot_lwd
             opt$my_title_l <- my_title_l()
+            opt$computebest <- input$computebest
+            opt$tolerancebest <- input$tolerancebest
+            opt$alignparents <- input$alignparents
+            opt$timeoutbest <- input$timeoutbest
         }) |>
             shiny::bindEvent(input$updateBtn)
 
@@ -255,7 +335,11 @@ plot_all_server <- function(
             width = reactive(opt$width),
             height = reactive(opt$height),
             precision = precision,
-            plot_lwd = reactive(opt$plot_lwd)
+            plot_lwd = reactive(opt$plot_lwd),
+            computebest = reactive(opt$computebest),
+            tolerance = reactive(opt$tolerancebest),
+            align_parents = reactive(opt$alignparents),
+            force = TRUE, timeout = reactive(opt$timeoutbest)
         )
 
         ## Plot legend ------------------------------------------------

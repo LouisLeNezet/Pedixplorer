@@ -10,7 +10,6 @@
 #' Creates plot on current plotting device.
 #' @keywords internal
 #' @keywords plot_legend
-#' @importFrom scales rescale
 plot_legend <- function(
     obj, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
@@ -24,11 +23,11 @@ plot_legend <- function(
     )
     if (!is.null(leg_loc)) {
         distx0 <- max(leg$df$x0) - min(leg$df$x0)
-        leg$df$x0 <- scales::rescale(leg$df$x0,
+        leg$df$x0 <- rescale(leg$df$x0,
             c(leg_loc[1], leg_loc[2])
         )
         disty0 <- max(leg$df$y0) - min(leg$df$y0)
-        leg$df$y0 <- scales::rescale(leg$df$y0,
+        leg$df$y0 <- rescale(leg$df$y0,
             c(leg_loc[3], leg_loc[4])
         )
         boxw <- boxw * ((max(leg$df$x0) - min(leg$df$x0)) / distx0)

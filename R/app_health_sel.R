@@ -44,7 +44,6 @@ health_sel_ui <- function(id) {
 #' @keywords internal
 #' @importFrom shiny is.reactive NS moduleServer req reactive sliderInput
 #' @importFrom shiny h5 checkboxInput selectInput htmlOutput renderUI
-#' @importFrom shinyWidgets pickerInput
 #' @importFrom stats setNames
 health_sel_server <- function(
     id, pedi, var = NULL, as_num = NULL, mods_aff = NULL,
@@ -157,11 +156,10 @@ health_sel_server <- function(
                 var_to_use <- as.list(stats::setNames(
                     health_var_lev, health_var_lev
                 ))
-                shinyWidgets::pickerInput(
+                shiny::selectInput(
                     ns("health_aff_mods"),
                     label = "Selection of affected modalities",
                     choices = var_to_use,
-                    options = list(`actions-box` = TRUE),
                     multiple = TRUE, selected = ifelse(
                         is.null(mods_aff), health_var_lev, mods_aff
                     )

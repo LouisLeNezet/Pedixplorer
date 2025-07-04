@@ -32,10 +32,8 @@ Imports:
     shiny,
     readxl,
     DT,
-    gridExtra,
     data.table,
     igraph,
-    scales,
     shinycssloaders,
     shinyhelper,
     shinyjs,
@@ -60,6 +58,7 @@ Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 
     diffviewer,
+    gridExtra,
     testthat (>= 3.0.0),
     vdiffr,
     rmarkdown,

@@ -308,7 +308,7 @@ setGeneric("auto_hint", signature = "obj",
 setMethod("auto_hint", "Pedigree", function(
     obj, hints = NULL, packed = TRUE,
     align = FALSE, reset = FALSE,
-    align_parents = TRUE
+    align_parents = TRUE, force = FALSE
 ) {
     ## full documentation now in vignette: align_code_details.Rmd
     ## References to those sections appear here as:
@@ -327,7 +327,7 @@ setMethod("auto_hint", "Pedigree", function(
     }
 
     n <- length(obj)
-    depth <- kindepth(obj, align_parents = align_parents)
+    depth <- kindepth(obj, align_parents = align_parents, force = force)
 
     ## Doc: init-auto_hint horder
     horder <- stats::setNames(rep(0, n), id(ped(obj)))
@@ -381,7 +381,7 @@ setMethod("auto_hint", "Pedigree", function(
     plist <- align(obj,
         packed = packed, align = align,
         hints = Hints(horder = horder, spouse = sptemp),
-        align_parents = align_parents
+        align_parents = align_parents, force = force
     )
 
 
@@ -472,7 +472,7 @@ setMethod("auto_hint", "Pedigree", function(
         plist <- align(obj,
             packed = packed, align = align,
             hints = Hints(horder = horder, spouse = new_spouse),
-            align_parents = align_parents
+            align_parents = align_parents, force = force
         )
     }
 
