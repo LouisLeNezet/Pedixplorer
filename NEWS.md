@@ -6,6 +6,8 @@
 - Remove `0` from default `na_strings`
 - Update citation to use published article in Bioinformatics
 - Add error for `_` present in any id columns
+- Fix shiny app notification title and slider intermediary value selection
+- Fix full scale data reaffection on same column
 
 ## Changes in v1.5.3
 

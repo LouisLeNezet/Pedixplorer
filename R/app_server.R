@@ -229,7 +229,7 @@ ped_server <- function(
                     ped_df <- fix_parents(ped_df)
                     Pedigree(
                         ped_df, rel_df_norm(),
-                        cols_ren_ped = list(),
+                        cols_ren_ped = list("affection" = "affected"),
                         cols_ren_rel = list(),
                         normalize = FALSE
                     )
@@ -242,7 +242,7 @@ ped_server <- function(
                 })
             }, error = function(e) {
                 shinytoastr::toastr_error(
-                    title = "Couldn't create pedigree object",
+                    title = "Error during pedigree creation",
                     conditionMessage(e)
                 )
                 NULL
@@ -381,14 +381,14 @@ ped_server <- function(
                     )
                 }, warning = function(w) {
                     shinytoastr::toastr_warning(
-                        title = "Warnings during pedigree normalization",
+                        title = "Warnings during pedigree affection generation",
                         conditionMessage(w)
                     )
                     invokeRestart("muffleWarning")
                 })
             }, error = function(e) {
                 shinytoastr::toastr_error(
-                    title = "Error during pedigree generation",
+                    title = "Error during pedigree affection generation",
                     conditionMessage(e)
                 )
                 NULL
