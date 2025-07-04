@@ -166,7 +166,7 @@ plot_ped_server <- function(
                     )
                 }, warning = function(w) {
                     shinytoastr::toastr_error(
-                        title   = "Warning during best hint computation",
+                        title = "Warning during best_hint computation",
                         message = conditionMessage(w)
                     )
                     invokeRestart("muffleWarning")
