@@ -360,8 +360,6 @@ ped_server <- function(
             }
             tryCatch({
                 withCallingHandlers({
-                    print("Generating pedigree affection")
-                    print(lst_health())
                     generate_colors(
                         lst_fam()$ped_fam, col_aff = lst_health()$var,
                         add_to_scale = FALSE, mods_aff = lst_health()$mods_aff,
