@@ -1,3 +1,12 @@
+## Changes in v1.5.4
+
+- Add `best_hint` computation to the shiny app and split it in different subfunction.
+- Remove little used library from Imports.
+- Change `shinyWidgets::pickerInput` to `shiny::selectInput`
+- Remove `0` from default `na_strings`
+- Update citation to use published article in Bioinformatics
+- Add error for `_` present in any id columns
+
 ## Changes in v1.5.3
 
 - Add short explanation of `hints()` usage in `Pedigree alignment details` vignette.

@@ -175,7 +175,6 @@ plot_ped_server <- function(
                 if (!is.null(besthint)) {
                     hints(p) <- besthint
                 }
-                p
             }
             p
         })
