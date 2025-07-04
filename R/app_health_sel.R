@@ -44,7 +44,6 @@ health_sel_ui <- function(id) {
 #' @keywords internal
 #' @importFrom shiny is.reactive NS moduleServer req reactive sliderInput
 #' @importFrom shiny h5 checkboxInput selectInput htmlOutput renderUI
-#' @importFrom shinyWidgets pickerInput
 #' @importFrom stats setNames
 health_sel_server <- function(
     id, pedi, var = NULL, as_num = NULL, mods_aff = NULL,

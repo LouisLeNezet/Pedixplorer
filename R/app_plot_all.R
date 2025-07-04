@@ -153,7 +153,7 @@ plot_all_server <- function(
 
         max_err <- shiny::reactive({
             shiny::req(pedi())
-            round(Pedixplorer:::compute_stress(
+            round(compute_stress(
                 pedi(),
                 NULL,
                 wt = c(1000, 10, 1),

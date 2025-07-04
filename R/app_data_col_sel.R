@@ -271,7 +271,6 @@ data_col_sel_ui <- function(id, ui_col_nb = 1) {
 #' @importFrom shiny moduleServer NS req renderUI selectInput
 #' @importFrom shiny reactive is.reactive div selectInput h5
 #' @importFrom shinytoastr toastr_error
-#' @importFrom data.table copy setnames
 #' @importFrom stats setNames
 data_col_sel_server <- function(
     id, df, col_config, title,

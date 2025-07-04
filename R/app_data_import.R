@@ -226,7 +226,7 @@ data_import_ui <- function(id) {
 #' @importFrom shiny observeEvent showModal modalDialog checkboxInput
 #' @importFrom shiny textAreaInput tagList actionButton removeModal
 #' @importFrom shiny observe
-#' @importFrom shinyWidgets pickerInput updateSwitchInput
+#' @importFrom shinyWidgets updateSwitchInput
 #' @importFrom shinytoastr toastr_error toastr_success
 #' @importFrom shinyhelper helper
 data_import_server <- function(
@@ -299,7 +299,7 @@ data_import_server <- function(
                     ns("strings_as_factors"),
                     "Strings as factors", value = opt$strings_as_factors
                 ),
-                shinyWidgets::pickerInput(ns("quote"), "Quote", c(
+                shiny::selectInput(ns("quote"), "Quote", c(
                     "None" = "",
                     "Double quote" = "\"",
                     "Single quote" = "'",
