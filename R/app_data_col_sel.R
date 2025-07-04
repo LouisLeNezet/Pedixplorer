@@ -118,7 +118,6 @@ validate_and_rename_df <- function(
     df, selections, col_config, others_cols = TRUE,
     na_strings = c("", "NA", "NULL")
 ) {
-    # Ensure df is a data.table or data.frame
     selections <- lapply(selections, function(x) {
         if (x %in% na_strings) {
             NA
@@ -126,6 +125,8 @@ validate_and_rename_df <- function(
             x
         }
     })
+
+    # Ensure df is a data.table or data.frame
     if (!is.data.frame(df)) {
         stop("The input 'df' must be a data frame or data table.")
     }
