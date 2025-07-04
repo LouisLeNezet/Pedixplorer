@@ -32,7 +32,6 @@ Imports:
     shiny,
     readxl,
     DT,
-    data.table,
     igraph,
     shinycssloaders,
     shinyhelper,
