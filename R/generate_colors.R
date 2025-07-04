@@ -434,12 +434,13 @@ setMethod("generate_colors", "Pedigree",
             border = lst_bord$sc_bord
         )
 
+        ## Update affection status
+        affected(ped(obj)) <- lst_fill$affected
+        avail(ped(obj)) <- lst_bord$avail
+
         ## Add mods to Pedigree object and update slots
         mcols(obj)[new_fill] <- lst_fill$mods
         mcols(obj)[new_bord] <- lst_bord$mods
-
-        affected(ped(obj)) <- lst_fill$affected
-        avail(ped(obj)) <- lst_bord$avail
 
         ## Update scales with correct names
         if (nrow(lst_sc$fill) > 0) {
@@ -447,7 +448,7 @@ setMethod("generate_colors", "Pedigree",
             lst_sc$fill$column_values <- col_aff
         }
 
-        if (nrow(lst_sc$bord) > 0) {
+        if (nrow(lst_sc$border) > 0) {
             lst_sc$border$column_mods <- new_bord
             lst_sc$border$column_values <- col_avail
         }

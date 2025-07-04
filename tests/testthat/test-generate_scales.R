@@ -116,12 +116,19 @@ test_that("generate with full scale", {
     pedi <- pedi[famid(ped(pedi)) == "1"]
     pedi <- generate_colors(
         pedi, add_to_scale = FALSE, "val_num", threshold = 115,
+        colors_aff = c("pink", "purple"), keep_full_scale = FALSE
+    )
+
+    # Add supplementary step to check if good reassignment of labels
+    pedi <- generate_colors(
+        pedi, add_to_scale = FALSE, "val_num", threshold = 115,
         colors_aff = c("pink", "purple"), keep_full_scale = TRUE
     )
-    expect_equal(fill(pedi)$labels[c(1, 4)],
+
+    expect_equal(fill(pedi2)$labels[c(1, 4)],
         c("Healthy <= to 115 : [101,106]", "Affected > to 115 : [116,124]")
     )
-    expect_equal(nrow(fill(pedi)), 6)
+    expect_equal(nrow(fill(pedi2)), 6)
 })
 
 
