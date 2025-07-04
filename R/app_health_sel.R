@@ -129,6 +129,7 @@ health_sel_server <- function(
                         "No value found for", input$health_var_sel
                     ))
                 } else {
+                    step <- 10 ^ (round(log(max_h, 10)) - 1) / 2
                     shiny::sliderInput(
                         ns("health_threshold_val"),
                         label = shiny::h5(paste(
@@ -139,6 +140,7 @@ health_sel_server <- function(
                         sep = "'",
                         min = min_h,
                         max = max_h,
+                        step = step,
                         value = ifelse(
                             is.null(threshold),
                             (max_h + min_h) / 2,
