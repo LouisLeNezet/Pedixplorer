@@ -8,6 +8,7 @@
 - Add error for `_` present in any id columns
 - Fix shiny app notification title and slider intermediary value selection
 - Fix full scale data reaffection on same column
+- Improve position and size of proband label and assymptomatic symbol for logo
 
 ## Changes in v1.5.3
 

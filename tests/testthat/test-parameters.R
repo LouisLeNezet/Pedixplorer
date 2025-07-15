@@ -23,7 +23,8 @@ test_that("Evaluate options()", {
         "covr\\.*", "rlang_backtrace_on_error_report",
         "error", "show.error.messages",
         "repos", "shinyjqui.debug",
-        "shiny.maxRequestSize"
+        "shiny.maxRequestSize",
+        "globals.debug.indent"
     )
     opts$str$formatNum <- NA
     for (i in seq_along(no_check)) {
