@@ -309,9 +309,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (length(idx_prob) > 0) {
         prob_df <- data.frame(
             x0 = pos[idx_prob] - boxw,
-            y0 = i[idx_prob] + boxh * 1.3,
+            y0 = i[idx_prob] + boxh * 1.2,
             fill = "black",
-            label = "P", type = "text", cex = cex,
+            label = "P", type = "text", cex = cex * 0.8,
             adjx = 0.5, adjy = 0.5, id = "proband"
         )
 
@@ -337,8 +337,8 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     idx_asym <- idx[asymptomatic & !is.na(asymptomatic)]
     if (length(idx_asym) > 0) {
         asym_df <- data.frame(
-            x0 = pos[idx_asym], y0 = i[idx_asym] + boxh,
-            x1 = pos[idx_asym], y1 = i[idx_asym],
+            x0 = pos[idx_asym], y0 = i[idx_asym] + boxh * 0.9,
+            x1 = pos[idx_asym], y1 = i[idx_asym] + boxh * 0.1,
             type = "segments", fill = "black",
             lwd = lwd * 2.5, lty = "solid",
             id = "asymptomatic"

@@ -11,6 +11,8 @@ data(sampleped)
 ped1 <- Pedigree(
     sampleped[sampleped$famid == "1", -1],
 )
+dateofbirth(ped(ped1)) <- NA_character_
+dateofdeath(ped(ped1)) <- NA_character_
 
 rel(ped1) <- Rel(obj = "127", id2 = "128", code = "2")
 
@@ -18,34 +20,31 @@ border(ped1)[2, "border"] <- "#8aca25"
 fill(ped1)[2, "fill"] <- "#3fb7db"
 
 # Shrink Pedigree
-ped1trim <- shrink(ped1, max_bits = 12)
+ped1trim <- shrink(ped1, max_bits = 15)
 
 # Export plot to png
 output_dir <- "inst/figures/graph.png"
 png(output_dir,
-    width = 1300, height = 900,
+    width = 1000, height = 800,
     units = "px", bg = "#FFFFFF00", pointsize = 36)
 
-plot(ped1trim$pedObj,
-    cex = 1.5, symbolsize = 1.1, aff_mark = FALSE,
-    mar = c(4, 0.5, 0.5, 0.5), oma = c(0, 0, 0, 0),
-    lwd = 8
+Pedixplorer::plot(ped1trim$pedObj,
+    cex = 0.8, symbolsize = 0.7, aff_mark = FALSE,
+    lwd = 5,
+    legend = TRUE, leg_cex = 0.5, leg_symbolsize = 0.035,
+    leg_loc = c(0.2, 0.65, -0.6, -0.2),
+    leg_adjx = 0, leg_adjy = 0.005,
+    ped_par = list(cex = 1.2, lwd = 5, mar = c(5, 0.5, 0.5, 0.5)),
+    leg_par = list(lwd = 5, mar = c(0.5, 0.5, 0.5, 0.5))
 )
 
-op <- par(oma = c(0, 0, 0, 0), mar = c(0.5, 0.5, 0.5, 0.5))
-plot_legend(
-    ped1trim$pedObj, cex = 0.8, add_to_existing = TRUE,
-    leg_loc = c(0.2, 5.5, 4.1, 5), boxw = 0.2, boxh = 0.18,
-    adjx = 1, adjy = 0.12, lwd = 5
-)
-dev.off()
 dev.off()
 
 # Create sticker
 hexSticker::sticker(
     output_dir,
     package = "Pedixplorer", p_size = 50, p_color = "#000000",
-    p_x = 1, p_y = 1.5,
+    p_x = 1, p_y = 1.5, p_family = "Aller_Rg",
     s_x = 1, s_y = 0.85, s_width = 0.7, s_height = 0.4,
     h_fill = "#FFFFFF", h_color = "#3792ad", h_size = 3,
     filename = "inst/figures/icon_Pedixplorer.png", dpi = 1000,
