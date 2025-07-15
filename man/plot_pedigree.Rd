@@ -132,7 +132,7 @@ solution to.}
 segments, arcs and polygons.}
 
 \item{ped_par}{default=list().  A list of parameters to use as graphical
-parameteres for the main plot.}
+parameters for the main plot.}
 
 \item{leg_par}{default=list().  A list of parameters to use as graphical
 parameters for the legend.}
