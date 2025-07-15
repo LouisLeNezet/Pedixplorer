@@ -32,8 +32,8 @@ Pedixplorer::plot(ped1trim$pedObj,
     cex = 0.8, symbolsize = 0.7, aff_mark = FALSE,
     lwd = 5,
     legend = TRUE, leg_cex = 0.5, leg_symbolsize = 0.035,
-    leg_loc = c(0.2, 0.65, -0.6, -0.2),
-    leg_adjx = 0, leg_adjy = 0.005,
+    leg_loc = c(0.2, 0.65, -0.13, -0.52),
+    leg_adjx = 0, leg_adjy = -0.005,
     ped_par = list(cex = 1.2, lwd = 5, mar = c(5, 0.5, 0.5, 0.5)),
     leg_par = list(lwd = 5, mar = c(0.5, 0.5, 0.5, 0.5))
 )
