@@ -231,7 +231,8 @@ compute_stress <- function(
                 who <- (seq_along(idlist))[match(
                     idlist, i, nomatch = 0
                 ) > 0]
-                err[2] <- err[2] + abs(diff(plist$pos[lev, who]))
+                new_value <- err[2] + sum(abs(diff(plist$pos[lev, who])))
+                err[2] <- new_value
             }
         }
 
