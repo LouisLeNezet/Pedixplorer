@@ -53,10 +53,13 @@ read_data <- function(
         }
 
         if (ext %in% c("csv", "txt", "tsv")) {
-            df <- utils::read.csv(
-                file, sep = sep, quote = quote,
-                header = header, colClasses = col_classes,
-                na.strings = na_values
+            df <- readr::read_delim(
+                file,
+                delim = sep,
+                quote = quote,
+                col_names = header,
+                na = na_values,
+                show_col_types = FALSE
             )
         } else if (ext %in% c("ped", "fam")) {
             df <- utils::read.table(
