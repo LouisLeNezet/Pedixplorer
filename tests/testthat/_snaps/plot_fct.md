@@ -108,13 +108,13 @@
       102       consultand-proband  7.4920000 3.185  7.6830 3.1420       arrows black
       103       consultand-proband 11.4900000 3.185 11.6800 3.1420       arrows black
       104       consultand-proband 14.4900000 3.185 14.6800 3.1420       arrows black
-      105                  proband  3.3650000 3.171      NA     NA         text black
-      106                  proband  7.3650000 3.171      NA     NA         text black
-      107                  proband 11.3700000 3.171      NA     NA         text black
+      105                  proband  3.3650000 3.158      NA     NA         text black
+      106                  proband  7.3650000 3.158      NA     NA         text black
+      107                  proband 11.3700000 3.158      NA     NA         text black
       108                  carrier  6.0000000 3.066      NA     NA       points black
       109                  carrier 13.0100000 4.066      NA     NA       points black
-      110             asymptomatic  0.0000000 3.132  0.0000 3.0000     segments black
-      111             asymptomatic  7.0000000 3.132  7.0000 3.0000     segments black
+      110             asymptomatic  0.0000000 3.119  0.0000 3.0130     segments black
+      111             asymptomatic  7.0000000 3.119  7.0000 3.0130     segments black
       112                 adoption -0.5079000 4.145 -0.5079 3.9870     segments black
       113                 adoption  0.5079000 4.145  0.5079 3.9870     segments black
       114                 adoption  8.4920000 3.145  8.4920 2.9870     segments black
@@ -371,9 +371,9 @@
       102   <NA>    NA      NA    NA        <NA>
       103   <NA>    NA      NA    NA        <NA>
       104   <NA>    NA      NA    NA        <NA>
-      105   <NA>    NA      NA 1.000           P
-      106   <NA>    NA      NA 1.000           P
-      107   <NA>    NA      NA 1.000           P
+      105   <NA>    NA      NA 0.800           P
+      106   <NA>    NA      NA 0.800           P
+      107   <NA>    NA      NA 0.800           P
       108   <NA>    NA      NA 1.917        <NA>
       109   <NA>    NA      NA 1.917        <NA>
       110   <NA>    NA      NA    NA        <NA>

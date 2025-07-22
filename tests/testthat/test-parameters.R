@@ -24,7 +24,8 @@ test_that("Evaluate options()", {
         "error", "show.error.messages",
         "repos", "shinyjqui.debug",
         "shiny.maxRequestSize",
-        "globals.debug.indent"
+        "globals.debug.indent",
+        "readr\\.*"
     )
     opts$str$formatNum <- NA
     for (i in seq_along(no_check)) {

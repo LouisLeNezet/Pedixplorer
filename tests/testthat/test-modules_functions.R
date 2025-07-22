@@ -13,8 +13,11 @@ test_that("read_data works", {
     expect_equal(dim(df), c(55, 7))
 
     df_path <- paste0(testthat::test_path(), "/testdata/other_test.txt")
-    df <- read_data(df_path, sep = "\t")
-    expect_equal(dim(df), c(55, 7))
+    expect_warning(
+        df <- read_data(df_path, sep = "\t"),
+        "One or more parsing issues",
+    )
+    expect_equal(dim(df), c(18, 5))
 })
 
 #### Test check_col_config ####
