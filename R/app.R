@@ -35,7 +35,7 @@ ped_shiny <- function(
 ) {
     shiny::shinyApp(
         ped_ui, ped_server(
-            precision,
+            precision = precision,
             ind_max_warning = ind_max_warning,
             ind_max_error = ind_max_error
         ),
