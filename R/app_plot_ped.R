@@ -183,6 +183,7 @@ plot_ped_server <- function(
             shiny::req(plot_best())
             shiny::req(symbolsize(), plot_cex(), plot_lwd(), my_title())
             shiny::req(width(), height())
+            align <- align_parents()
             app_plot_fct(
                 pedi = plot_best(), mytitle = my_title(), mytips = my_tips(),
                 cex = plot_cex(), plot_par = plot_par(),
@@ -190,7 +191,7 @@ plot_ped_server <- function(
                 interactive = is_interactive(),
                 precision = precision(), lwd = plot_lwd(),
                 aff_mark = aff_mark(), label = label(),
-                force = is_force(), align_parents = align_parents()
+                force = is_force(), align_parents = align
             )
         })
 

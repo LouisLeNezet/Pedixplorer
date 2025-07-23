@@ -1,7 +1,17 @@
+## Changes in v1.5.5
+
+- Add `label_cex` and `label_size` to control id, date and label text position and size
+- Fix csv reading with incoherent number of columns in rows
+- Fix check box align_parents in `ped_shiny()`
+- Fix `auto_hint()` error when couple present twice
+- Fix stress computation when individual present more than twice
+- Add `ind_max_warning` and `ind_max_error` for a better control of pedigree size
+to plot in shiny application
+
 ## Changes in v1.5.4
 
-- Add `best_hint` computation to the shiny app and split it in different subfunction.
-- Remove little used library from Imports.
+- Add `best_hint` computation to the shiny app and split it in different subfunction
+- Remove little used library from Imports
 - Change `shinyWidgets::pickerInput` to `shiny::selectInput`
 - Remove `0` from default `na_strings`
 - Update citation to use published article in Bioinformatics

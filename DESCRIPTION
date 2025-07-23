@@ -1,11 +1,7 @@
 Package: Pedixplorer
-Version: 1.5.4
+Version: 1.5.5
 Date: 2024-10-01
 Title: Pedigree Functions
-Author: Louis Le Nezet [aut, cre, ctb] (<https://orcid.org/0009-0000-0202-2703>), 
-        Jason Sinnwell [aut], Terry Therneau [aut], 
-        Daniel Schaid [ctb], Elizabeth Atkinson [ctb]
-Maintainer: Louis Le Nezet <louislenezet@gmail.com>
 Authors@R: c(
     person("Louis", "Le Nezet", email="louislenezet@gmail.com",
         role=c("aut","cre","ctb"), comment = c(ORCID = "0009-0000-0202-2703")),

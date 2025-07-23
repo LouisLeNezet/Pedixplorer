@@ -11,8 +11,13 @@ plot_all_ui <- function(id) {
                 color: black;
                 font-weight: bold;
             }
+            #%s.disabled {
+                background-color: #d3d3d3 !important;
+                color: black;
+                font-weight: bold;
+            }
             ",
-            ns("updateBtn")
+            ns("updateBtn"), ns("updateBtn")
         ))),
         tags$script(shiny::HTML(sprintf(
             "
@@ -27,7 +32,6 @@ plot_all_ui <- function(id) {
         ))),
         shiny::fluidRow(
             shiny::column(3, align = "left",
-                shiny::uiOutput(ns("computebig")),
                 shiny::checkboxInput(
                     ns("computebest"),
                     label = "Improve alignment (takes time to compute)",
@@ -40,6 +44,9 @@ plot_all_ui <- function(id) {
                     label = "Both parents at same depth (not always possibe)",
                     value = TRUE
                 ),
+            ),
+            shiny::column(3, align = "left",
+                shiny::uiOutput(ns("computebig")),
             ),
         ),
         shiny::fluidRow(
@@ -85,9 +92,14 @@ plot_all_ui <- function(id) {
 #'
 #' @param id A string to identify the module.
 #' @param pedi A reactive pedigree object.
-#' @param max_ind An integer to define the maximum number of individuals
-#' to plot. If the number of individuals is greater than this value,
+#' @param ind_max_warning An integer to define the maximum number of individuals
+#' to plot before throwing a warning.
+#' If the number of individuals is greater than this value,
 #' the user will be asked to confirm the plot.
+#' @param ind_max_error An integer to define the maximum number of individuals
+#' to plot before throwing an error.
+#' If the number of individuals is greater than this value,
+#' an error will be thrown and the plot will not be computed.
 #' @param my_title_l A string to define the title of the plot.
 #' @param my_title_s A string to define the title of the plot for
 #' the download.
@@ -110,10 +122,19 @@ plot_all_ui <- function(id) {
 #' @importFrom shiny renderPrint
 #' @keywords internal
 plot_all_server <- function(
-    id, pedi, max_ind = 100, my_title_l = "My Pedigree",
+    id, pedi, ind_max_warning = 100, ind_max_error = 500,
+    my_title_l = "My Pedigree",
     my_title_s = "ped_1", init_width = "100%",
     precision = 4
 ) {
+    if (ind_max_error < ind_max_warning) {
+        error_msg <- paste(
+            "ind_max_error must be greater than ind_max_warning.",
+            "Please set ind_max_error to a value greater than",
+            ind_max_warning, "."
+        )
+        stop(error_msg)
+    }
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
@@ -205,11 +226,20 @@ plot_all_server <- function(
                 ns("updateBtn"), "Update Plot"
             )
         })
+
         shiny::observe({
-            session$sendCustomMessage(
-                "toggleBtnClass",
-                list(class = "modified")
-            )
+            shiny::req(pedi())
+
+            n_ind <- length(pedi())
+            btn_class <- "modified"  # Default
+
+            if (n_ind > ind_max_error) {
+                btn_class <- "disabled"
+            } else if (n_ind > ind_max_warning && !isTRUE(input$computebig)) {
+                btn_class <- "disabled"
+            }
+
+            session$sendCustomMessage("toggleBtnClass", list(class = btn_class))
         }) |>
             shiny::bindEvent(
                 pedi(), width(), height(),
@@ -242,24 +272,41 @@ plot_all_server <- function(
 
         output$computebig <- shiny::renderUI({
             shiny::req(pedi())
-            if (length(pedi()) > max_ind) {
+            if (length(pedi()) > ind_max_warning &
+                    length(ped(pedi())) < ind_max_error
+            ) {
                 shiny::tagList(
                     shiny::checkboxInput(
                         ns("computebig"),
                         label = paste(
                             "There are too many individuals",
-                            "to compute the plot.",
+                            "to compute the plot.\n",
                             "Do you want to continue?"
                         ), value = FALSE
                     )
                 )
+            } else if (length(pedi()) > ind_max_error) {
+                shiny::tagList(
+                    shiny::HTML(paste(
+                        "<strong>There are too many individuals to plot.<br>",
+                        "Please filter the pedigree for a smaller subfamily.",
+                        "<br>The maximum number of individuals is",
+                        ind_max_error, ".</strong>"
+                    )),
+                )
+            } else {
+                NULL
             }
         })
 
         pedi_compute <- shiny::reactive({
             shiny::req(pedi())
             shiny::req(length(ped(pedi())) > 0)
-            if (length(pedi()) > max_ind) {
+            if (length(pedi()) > ind_max_warning) {
+                if (length(pedi()) > ind_max_error) {
+                    reset_opt(opt)
+                    return(NULL)
+                }
                 if (is.null(input$computebig) || input$computebig == FALSE) {
                     reset_opt(opt)
                     return(NULL)
@@ -379,7 +426,10 @@ plot_all_server <- function(
 }
 
 #' @rdname app_plot_all
-app_plot_all_demo <- function() {
+app_plot_all_demo <- function(
+    ind_max_warning = 10,
+    ind_max_error = 30
+) {
     ui <- fluidPage(
         titlePanel("Nested Module Plot Demo"),
         plot_all_ui("allplotped")
@@ -394,7 +444,11 @@ app_plot_all_demo <- function() {
     })
 
     server <- function(input, output, session) {
-        plot_all_server("allplotped", pedi, max_ind = 10)
+        plot_all_server(
+            "allplotped", pedi,
+            ind_max_warning = ind_max_warning,
+            ind_max_error = ind_max_error,
+        )
     }
 
     shinyApp(ui, server)

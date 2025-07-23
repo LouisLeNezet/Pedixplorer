@@ -384,7 +384,6 @@ setMethod("auto_hint", "Pedigree", function(
         align_parents = align_parents, force = force
     )
 
-
     ## Doc: fixup-2
     ## Fix if duplicate individuals present
     maxlev <- nrow(plist$nid)
@@ -458,12 +457,16 @@ setMethod("auto_hint", "Pedigree", function(
                         anchor = temp[, 3]
                     )
                 }
-                sptemp <- rbind(sptemp, temp)
+                id_all <- c(sptemp$idl, sptemp$idr)
+                couple_present <- (temp$idl %in% id_all) &
+                    (temp$idr %in% id_all)
+                sptemp <- rbind(sptemp, temp[!couple_present, ])
             }
         }
         #
         # Recompute, since this shifts things on levels below
         #
+
         new_spouse <- data.frame(
             idl = id(ped(obj))[sptemp$idl],
             idr = id(ped(obj))[sptemp$idr],
@@ -481,5 +484,6 @@ setMethod("auto_hint", "Pedigree", function(
         idr = id(ped(obj))[sptemp$idr],
         anchor = anchor_to_factor(sptemp$anchor)
     )
+
     Hints(horder = horder, spouse = new_spouse)
 })

@@ -14,6 +14,10 @@ rescale(x, to = c(0, 1), from = range(x, na.rm = TRUE, finite = TRUE))
 \item{from}{input range (vector of length two).  If not given, is
 calculated from the range of \code{x}}
 }
+\value{
+A numeric vector of the same length as \code{x} with values
+rescaled to the range specified by \code{to}.
+}
 \description{
 Rescale continuous vector to have specified minimum and maximum
 }

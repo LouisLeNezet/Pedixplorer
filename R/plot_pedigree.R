@@ -160,7 +160,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 4,
         lwd = 1, ped_par = list(), leg_par = list(),
         tips = NULL, title_cex = 2, leg_usr = NULL,
-        add_to_existing = FALSE
+        add_to_existing = FALSE,
+        label_dist = c(1, 3, 5), label_cex = c(1, 0.7, 1)
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -184,7 +185,8 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             pconnect = pconnect, branch = branch,
             aff_mark = aff_mark, id_lab = id_lab, label = label,
             tips = tips, precision = precision, lwd = lwd,
-            ggplot_gen = ggplot_gen
+            ggplot_gen = ggplot_gen,
+            label_dist = label_dist, label_cex = label_cex
         )
 
         if (is.null(lst)) {

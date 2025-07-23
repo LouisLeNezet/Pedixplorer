@@ -511,11 +511,37 @@ plot(
 )
 ```
 
+## Change text label size and distance from the box subject
+
+The text size and distance from the box subject for each label can be changed
+with the `label_cex` and `label_dist` arguments of the `plot()` method.
+They need to be numerical vectors of length 3
+where the first element is the for the id, the second element
+is for the dates (birth and death) and the third element is for the label.
+
+The `label_dist` argument can be used to change the order of the labels plotted.
+
+```{r, label_size, fig.alt = "Pedigree with change in label size and distance"}
+# Reset the affection status
+ped1 <- generate_colors(
+    ped1, col_aff = "num",
+    add_to_scale = FALSE, is_num = TRUE,
+    keep_full_scale = FALSE,
+    threshold = 3, sup_thres_aff = FALSE
+)
+plot(
+    ped1, cex = 0.7, label = "num_mods",
+    label_cex = c(0.8, 0.6, 2), # Change the text size
+    label_dist = c(1, 5, 2.5) # Change the order and distance from the box
+)
+```
+
+
 ## Render interactive
 
 The plot can be made interactive by setting the `ggplot_gen` argument to `TRUE`.
-This will generate a ggplot object that can be passed down to `plotly::ggplotly()`
-to make the plot interactive.
+This will generate a ggplot object that can be passed down to
+`plotly::ggplotly()` to make the plot interactive.
 
 ```{r, prepare_interactive, fig.show='hide'}
 plot_list <- plot(

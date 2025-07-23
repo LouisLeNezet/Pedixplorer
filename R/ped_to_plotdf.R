@@ -43,6 +43,11 @@ NULL
 #' use as tooltips. If `NULL`, no tooltips are added.
 #' @param ggplot_gen If `TRUE`, the function will use the
 #' `ggplot2` package to generate the plot.
+#' @param label_dist A numeric vector of length 3 giving the distance
+#' between the id, date and label text and the bottom of the box.
+#' This value is multiplied by the obtained `labh` value.
+#' @param label_cex A numeric vector of length 3 giving the cex of the id,
+#' date and label text. This value is multiplied by the `cex` argument
 #' @param ... Other arguments passed to [par()]
 #' @inheritParams set_plot_area
 #' @inheritParams kindepth
@@ -80,8 +85,23 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     align = c(1.5, 2), align_parents = TRUE, force = FALSE,
     cex = 1, symbolsize = cex, pconnect = 0.5, branch = 0.6,
     aff_mark = TRUE, id_lab = "id", label = NULL, precision = 4,
-    lwd = 1, tips = NULL, ggplot_gen = FALSE, ...
+    lwd = 1, tips = NULL, ggplot_gen = FALSE,
+    label_dist = c(1, 3, 5), label_cex = c(1, 0.7, 1),
+    ...
 ) {
+
+    if (length(label_dist) != 3) {
+        stop("label_dist must be a vector of length 3")
+    }
+    if (any(!is.numeric(label_dist))) {
+        stop("label_dist must be a numeric vector")
+    }
+    if (length(label_cex) != 3) {
+        stop("label_cex must be a vector of length 3")
+    }
+    if (any(!is.numeric(label_cex)) | any(label_cex < 0)) {
+        stop("label_cex must be a numeric vector with positive values")
+    }
 
     famlist <- unique(famid(ped(obj)))
     famlist <- famlist[!is.na(famlist)]
@@ -235,7 +255,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     idx_mscr <- idx[miscarriage %in% c("ECT", "TOP")]
     if (length(idx_mscr) > 0) {
         mscr_df <- data.frame(
-            x0 = pos[idx_mscr] - 0.5 * boxw, y0 = i[idx_mscr] + 1 * boxh,
+            x0 = pos[idx_mscr] - 0.5 * boxw, y0 = i[idx_mscr] + boxh,
             x1 = pos[idx_mscr] + 0.5 * boxw, y1 = i[idx_mscr],
             type = "segments", fill = "black", lwd = lwd,
             id = "ECT-TOP", lty = "solid"
@@ -381,9 +401,9 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     #### Add ids ####
     id_pos <- 1.4
     id_df <- data.frame(
-        x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh,
+        x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh * label_dist[1],
         label = ped_df[id[idx], id_lab], fill = "black",
-        type = "text", cex = cex, adjx = 0.5, adjy = 1,
+        type = "text", cex = cex * label_cex[1], adjx = 0.5, adjy = 1,
         id = "id", tips = ped_df[id[idx], "tips"]
     )
     plot_df <- plyr::rbind.fill(plot_df, id_df)
@@ -415,9 +435,10 @@ setMethod("ped_to_plotdf", "Pedigree", function(
             ), sep = " - "
         ))
         dates_df <- data.frame(
-            x0 = pos[idx_dates], y0 = i[idx_dates] + boxh * id_pos + labh * 3,
+            x0 = pos[idx_dates],
+            y0 = i[idx_dates] + boxh * id_pos + labh * label_dist[2],
             label = dates_char, fill = "black",
-            type = "text", cex = cex * 0.7, adjx = 0.5, adjy = 1,
+            type = "text", cex = cex * label_cex[2], adjx = 0.5, adjy = 1,
             id = "id", tips = ped_df[id[idx_dates], "tips"]
         )
         plot_df <- plyr::rbind.fill(plot_df, dates_df)
@@ -427,10 +448,10 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (!is.null(label)) {
         check_columns(ped_df, label)
         label <- data.frame(
-            x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh * 5,
+            x0 = pos[idx], y0 = i[idx] + boxh * id_pos + labh * label_dist[3],
             label = ped_df[id[idx], label],
             fill = "black", adjy = 1, adjx = 0.5,
-            type = "text", cex = cex,
+            type = "text", cex = cex * label_cex[3],
             id = "label", tips = ped_df[id[idx], "tips"]
         )
         plot_df <- plyr::rbind.fill(plot_df, label)

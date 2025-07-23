@@ -17,6 +17,16 @@ vignette: |
 library(Pedixplorer)
 ```
 
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    fig.dim = c(8, 4),
+    fig.align = "center",
+    out.width = "600px",
+    out.height = "400px"
+)
+```
+
 Pedigree alignment
 ==========================
 
@@ -79,7 +89,7 @@ left-hand member of the pair, the right-hand member, and which of the two
 is the anchor, i.e., directly connected to their parent.
 Double and triple marriages can start to get interesting.
 
-```{r, hint_usage, echo = TRUE, fig.dim = c(8, 4), fig.alt="Hints usage", fig.align = 'center', out.width="600px", out.height="300px"}
+```{r, hint_usage, fig.alt="Hints usage"}
 id    <- c("A", "B", "C", "D", "E", "F", "G", "J", "I", "H")
 dadid <- c("0", "0", "0", "A", "C", "C", "A", "F", "F", "F")
 momid <- c("0", "0", "0", "B", "B", "B", "E", "G", "G", "G")
@@ -168,7 +178,7 @@ matrices:
 right is my spouse (1), a double marriage (2), or neither (0).
 - $fam$ matrix, link upward to my parents, or 0 if no link.
 
-```{r, auto_hint1, echo = FALSE, fig.dim = c(8, 4), fig.alt="Comparison of auto_hint on a simple pedigree", fig.align = 'center', out.width="600px", out.height="300px"}
+```{r, auto_hint1, fig.alt="Comparison of auto_hint on a simple pedigree"}
 
 # A simple Pedigree to illustrate autohint's code
 test1 <- data.frame(id = 1:11,
@@ -245,7 +255,7 @@ matrix.
 In this particular case the final element could be a 1 or a 2, since both
 are connected to their parents.
 
-```{r, align2, echo = FALSE, fig.dim = c(8, 6), fig.alt = "Comparison of auto_hint on a more complex pedigree", fig.align = 'center', out.width="600px", out.height="400px"}
+```{r, align2, fig.alt = "Comparison of auto_hint on a more complex pedigree"}
 #
 # The second, more complex test Pedigree
 #
@@ -328,10 +338,10 @@ the child once.)
 
 The double marry-in found in the pedigree, then leads
 to value of `(2,2)` for the $anchor$ variable. The proper addition to
-the $sptemp$ matrix in this case will be two rows, `(spouse_left, spouse_middle, 1)`
-indicating that `spouse_left` should be plotted left of `spouse_middle`
-with the first partner as the anchor, and a second row
-`(spouse_middle, spouse_right, 2)`.
+the $sptemp$ matrix in this case will be two rows,
+`(spouse_left, spouse_middle, 1)` indicating that `spouse_left`
+should be plotted left of `spouse_middle` with the first partner
+as the anchor, and a second row `(spouse_middle, spouse_right, 2)`.
 This will cause the common spouse to be plotted in the middle.
 
 
