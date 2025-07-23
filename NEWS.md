@@ -1,10 +1,12 @@
 ## Changes in v1.5.5
 
-- Add `label_cex` and `label_size` to control id, date and label text position and size.
+- Add `label_cex` and `label_size` to control id, date and label text position and size
 - Fix csv reading with incoherent number of columns in rows
 - Fix check box align_parents in `ped_shiny()`
 - Fix `auto_hint()` error when couple present twice
 - Fix stress computation when individual present more than twice
+- Add `ind_max_warning` and `ind_max_error` for a better control of pedigree size
+to plot in shiny application
 
 ## Changes in v1.5.4
 
