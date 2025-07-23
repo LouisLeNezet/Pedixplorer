@@ -18,6 +18,7 @@
 #' @param session The session object from a Shiny app.
 #' @param precision Number of decimal for the position of the boxes
 #' in the plot.
+#' @inheritParams plot_all_server
 #' @returns `shiny::shinyServer()`
 #' @examples
 #' if (interactive()) {
@@ -25,7 +26,8 @@
 #' }
 #' @export
 ped_server <- function(
-    input, output, session, precision = 6
+    input, output, session, precision = 6,
+    ind_max_warning = 300, ind_max_error = 500
 ) {
     shiny::shinyServer(function(input, output, session) {
 
@@ -489,7 +491,9 @@ ped_server <- function(
 
         ### Tips column selection --------------------------------------------
         lst_plot <- plot_all_server(
-            "all_plot_ped", ped_subfam, max_ind = 500,
+            "all_plot_ped", ped_subfam,
+            ind_max_error = ind_max_error,
+            ind_max_warning = ind_max_warning,
             my_title_l = my_title_l,
             my_title_s = my_title_s,
             precision = precision,

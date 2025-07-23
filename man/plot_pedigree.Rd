@@ -38,7 +38,9 @@
   tips = NULL,
   title_cex = 2,
   leg_usr = NULL,
-  add_to_existing = FALSE
+  add_to_existing = FALSE,
+  label_dist = c(1, 3, 5),
+  label_cex = c(1, 0.7, 1)
 )
 }
 \arguments{
@@ -147,6 +149,13 @@ legend.}
 
 \item{add_to_existing}{If \code{TRUE}, the plot will be added to the current
 plot.}
+
+\item{label_dist}{A numeric vector of length 3 giving the distance
+between the id, date and label text and the bottom of the box.
+This value is multiplied by the obtained \code{labh} value.}
+
+\item{label_cex}{A numeric vector of length 3 giving the cex of the id,
+date and label text. This value is multiplied by the \code{cex} argument}
 }
 \value{
 an invisible list containing

@@ -4,7 +4,14 @@
 \alias{ped_server}
 \title{Create the server logic for the ped_shiny application}
 \usage{
-ped_server(input, output, session, precision = 6)
+ped_server(
+  input,
+  output,
+  session,
+  precision = 6,
+  ind_max_warning = 300,
+  ind_max_error = 500
+)
 }
 \arguments{
 \item{input}{The input object from a Shiny app.}
@@ -15,6 +22,16 @@ ped_server(input, output, session, precision = 6)
 
 \item{precision}{Number of decimal for the position of the boxes
 in the plot.}
+
+\item{ind_max_warning}{An integer to define the maximum number of individuals
+to plot before throwing a warning.
+If the number of individuals is greater than this value,
+the user will be asked to confirm the plot.}
+
+\item{ind_max_error}{An integer to define the maximum number of individuals
+to plot before throwing an error.
+If the number of individuals is greater than this value,
+an error will be thrown and the plot will not be computed.}
 }
 \value{
 \code{shiny::shinyServer()}

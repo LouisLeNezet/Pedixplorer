@@ -11,23 +11,30 @@ plot_all_ui(id)
 plot_all_server(
   id,
   pedi,
-  max_ind = 100,
+  ind_max_warning = 100,
+  ind_max_error = 500,
   my_title_l = "My Pedigree",
   my_title_s = "ped_1",
   init_width = "100\%",
   precision = 4
 )
 
-app_plot_all_demo()
+app_plot_all_demo(ind_max_warning = 10, ind_max_error = 30)
 }
 \arguments{
 \item{id}{A string to identify the module.}
 
 \item{pedi}{A reactive pedigree object.}
 
-\item{max_ind}{An integer to define the maximum number of individuals
-to plot. If the number of individuals is greater than this value,
+\item{ind_max_warning}{An integer to define the maximum number of individuals
+to plot before throwing a warning.
+If the number of individuals is greater than this value,
 the user will be asked to confirm the plot.}
+
+\item{ind_max_error}{An integer to define the maximum number of individuals
+to plot before throwing an error.
+If the number of individuals is greater than this value,
+an error will be thrown and the plot will not be computed.}
 
 \item{my_title_l}{A string to define the title of the plot.}
 

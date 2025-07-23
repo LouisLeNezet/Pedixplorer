@@ -27,6 +27,7 @@
 #' @importFrom utils read.csv read.table
 #' @importFrom readxl excel_sheets read_excel
 #' @importFrom shinytoastr toastr_error toastr_info
+#' @importFrom readr read_delim
 read_data <- function(
     file, sep = ";", quote = "'", header = TRUE, df_name = NA,
     strings_as_factors = FALSE, to_char = TRUE,

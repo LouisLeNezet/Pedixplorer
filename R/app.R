@@ -19,6 +19,7 @@
 #' listen on.
 #' @param precision Number of decimal for the position of the boxes
 #' in the plot.
+#' @inheritParams plot_all_server
 #' @returns Running Shiny Application
 #' @examples
 #' if (interactive()) {
@@ -30,10 +31,14 @@
 ped_shiny <- function(
     port = getOption("shiny.port"),
     host = getOption("shiny.host", "127.0.0.1"),
-    precision = 6
+    precision = 6, ind_max_warning = 300, ind_max_error = 500
 ) {
     shiny::shinyApp(
-        ped_ui, ped_server(precision),
+        ped_ui, ped_server(
+            precision,
+            ind_max_warning = ind_max_warning,
+            ind_max_error = ind_max_error
+        ),
         options = list(host = host, port = port)
     )
 }
