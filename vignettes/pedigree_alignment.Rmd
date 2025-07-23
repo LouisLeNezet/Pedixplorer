@@ -328,10 +328,10 @@ the child once.)
 
 The double marry-in found in the pedigree, then leads
 to value of `(2,2)` for the $anchor$ variable. The proper addition to
-the $sptemp$ matrix in this case will be two rows, `(spouse_left, spouse_middle, 1)`
-indicating that `spouse_left` should be plotted left of `spouse_middle`
-with the first partner as the anchor, and a second row
-`(spouse_middle, spouse_right, 2)`.
+the $sptemp$ matrix in this case will be two rows,
+`(spouse_left, spouse_middle, 1)` indicating that `spouse_left`
+should be plotted left of `spouse_middle` with the first partner
+as the anchor, and a second row `(spouse_middle, spouse_right, 2)`.
 This will cause the common spouse to be plotted in the middle.
 
 
