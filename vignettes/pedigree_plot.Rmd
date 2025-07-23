@@ -17,7 +17,7 @@ vignette: |
 knitr::opts_chunk$set(
     echo = TRUE,
     fig.dim = c(8, 4),
-    fig.align = "center",
+    fig.align = "center"
 )
 ```
 
