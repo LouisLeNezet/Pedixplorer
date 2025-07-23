@@ -46,7 +46,7 @@ test_that("Pedigree plotting test", {
     expect_snapshot(lst)
     expect_equal(
         round(lst$par_usr$usr, 3),
-        c(-0.063, 3.063, 4.248, 1.000)
+        c(-0.064, 3.064, 4.248, 1.000)
     )
 
     p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 4)
@@ -210,5 +210,42 @@ test_that("Pedigree example of Pascale - alone individual", {
     )
     vdiffr::expect_doppelganger("Ped Pascale",
         function() plot(pedi1, force = TRUE, align_parents = FALSE)
+    )
+})
+
+test_that("Pedigree plot with different label distances & label cex", {
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    pedi1 <- pedi[famid(ped(pedi)) == "1"]
+
+    expect_error(
+        plot(pedi1, label = "num", label_dist = 0.5),
+        "label_dist must be a vector of length 3"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_dist = c(1, 2, "3")),
+        "label_dist must be a numeric vector"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_cex = 0.5),
+        "label_cex must be a vector of length 3"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_cex = c(1, 2, "3")),
+        "label_cex must be a numeric vector with positive values"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_cex = c(1, 2, -1)),
+        "label_cex must be a numeric vector with positive values"
+    )
+
+    vdiffr::expect_doppelganger("Ped with different label distances",
+        function() {
+            plot(
+                ped1, cex = 0.7, label = "num_mods",
+                label_cex = c(0.8, 0.6, 2), # Change labels text size
+                label_dist = c(1, 5, 2.5) # Change labels distance + order
+            )
+        }
     )
 })
