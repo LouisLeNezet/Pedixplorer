@@ -188,17 +188,10 @@ test_that("Supplementary graphical representations", {
 
 test_that("Pedigree example of Pascale - alone individual", {
     df_path <- paste0(testthat::test_path(), "/testdata/other_test.txt")
-    expect_warning(
-        df <- read_data(df_path, sep = "\t"),
-        "One or more parsing issues"
-    )
-
+    df <- read_data(df_path, sep = "\t")
 
     df_fix <- fix_parents(df)
-    expect_warning(
-        pedi <- Pedigree(df_fix, missid = "0"),
-        "NAs introduced by coercion"
-    )
+    pedi <- Pedigree(df_fix, missid = "0")
 
     pedi1 <- pedi[famid(ped(pedi)) == "1"]
 

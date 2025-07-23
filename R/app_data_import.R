@@ -1,5 +1,56 @@
 #### Function needed to work #### ----------
 
+safe_read_table <- function(
+    file, sep = "\t", quote = "\"", header = TRUE,
+    na_values = c("NA", ""), check_names = FALSE,
+    strings_as_factors = FALSE, fill = TRUE,
+    comment_char = ""
+) {
+    # Read raw lines from file
+    lines <- readLines(file, warn = FALSE)
+
+    if (length(lines) == 0) {
+        stop("The file is empty.")
+    }
+
+    # Count the number of separators in each line
+    sep_pattern <- paste0("[", sep, "]")
+    sep_counts <- lengths(regmatches(lines, gregexpr(sep_pattern, lines)))
+
+    # Expected number of separators = number of columns - 1
+    expected_seps <- if (header) sep_counts[1] else max(sep_counts)
+
+    # Identify malformed lines (separator count doesn't match)
+    bad_rows <- which(sep_counts != expected_seps)
+
+    if (length(bad_rows) > 0) {
+        message("Malformed rows detected:")
+        for (i in bad_rows) {
+            cat(sprintf(
+                "Line %d (has %d separators, expected %d): %s\n",
+                i, sep_counts[i], expected_seps, lines[i]
+            ))
+        }
+        stop("Aborting: file contains rows with inconsistent separator count.")
+    }
+
+    # Read the data safely
+    df <- utils::read.table(
+        file = file,
+        sep = sep,
+        quote = quote,
+        header = header,
+        na.strings = na_values,
+        stringsAsFactors = strings_as_factors,
+        fill = fill,
+        check.names = check_names,
+        comment.char = comment_char
+    )
+
+    return(df)
+}
+
+
 #' Read data from file path
 #'
 #' @description Read dataframe based on the extension of the file
@@ -27,7 +78,6 @@
 #' @importFrom utils read.csv read.table
 #' @importFrom readxl excel_sheets read_excel
 #' @importFrom shinytoastr toastr_error toastr_info
-#' @importFrom readr read_delim
 read_data <- function(
     file, sep = ";", quote = "'", header = TRUE, df_name = NA,
     strings_as_factors = FALSE, to_char = TRUE,
@@ -54,13 +104,16 @@ read_data <- function(
         }
 
         if (ext %in% c("csv", "txt", "tsv")) {
-            df <- readr::read_delim(
-                file,
-                delim = sep,
+            df <- safe_read_table(
+                file = file,
+                sep = sep,
                 quote = quote,
-                col_names = header,
-                na = na_values,
-                show_col_types = FALSE
+                header = header,
+                na_values = na_values,
+                strings_as_factors = FALSE,
+                check_names = FALSE,
+                comment_char = "",
+                fill = TRUE
             )
         } else if (ext %in% c("ped", "fam")) {
             df <- utils::read.table(
