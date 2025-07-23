@@ -53,7 +53,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news">
 <li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.5.4</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.5.5</a></li>
     <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Latest main release : Version 1.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.2.0">Previous stable release : Version 1.2.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.0.0">Previous stable release : Version 1.0.0</a></li>
@@ -585,8 +585,10 @@ it:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Do a summary</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ped_a</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Pedigree object with </span></span>
+<pre><code><span><span class="co">## $pedigree_summary</span></span>
 <span><span class="co">## [1] "Ped object with 41 individuals and 6 metadata columns"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $relationship_summary</span></span>
 <span><span class="co">## [1] "Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse"</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Coerce it to a list</span></span>
