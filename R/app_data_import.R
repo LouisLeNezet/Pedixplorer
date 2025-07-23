@@ -24,9 +24,9 @@ safe_read_table <- function(
     bad_rows <- which(sep_counts != expected_seps)
 
     if (length(bad_rows) > 0) {
-        message("Malformed rows detected:")
+        warning("Malformed rows detected:")
         for (i in bad_rows) {
-            cat(sprintf(
+            warning(sprintf(
                 "Line %d (has %d separators, expected %d): %s\n",
                 i, sep_counts[i], expected_seps, lines[i]
             ))
