@@ -128,7 +128,12 @@ plot_all_server <- function(
     precision = 4
 ) {
     if (ind_max_error < ind_max_warning) {
-        stop("ind_max_error must be greater than ind_max_warning")
+        error_msg <- paste(
+            "ind_max_error must be greater than ind_max_warning.",
+            "Please set ind_max_error to a value greater than",
+            ind_max_warning, "."
+        )
+        stop(error_msg)
     }
     shiny::moduleServer(id, function(input, output, session) {
         ns <- session$ns

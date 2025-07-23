@@ -175,10 +175,11 @@ plot_download_server <- function(
                             if (!requireNamespace(
                                 "gridExtra", quietly = TRUE
                             )) {
-                                stop(paste(
+                                error_msg <- paste(
                                     "Package 'gridExtra' is required for this",
                                     "functionality. Please install it."
-                                ), call. = FALSE)
+                                )
+                                stop(error_msg, call. = FALSE)
                             }
                             gridExtra::grid.arrange(my_plot())
                         } else if ("function" %in% opt$class) {

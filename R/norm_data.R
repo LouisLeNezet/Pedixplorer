@@ -181,7 +181,6 @@ norm_ped <- function(
                         !is.na(x)
                 ]
                 if (length(underscore_cols) > 0) {
-                    print(underscore_cols)
                     issues <- c(
                         issues,
                         paste0(
