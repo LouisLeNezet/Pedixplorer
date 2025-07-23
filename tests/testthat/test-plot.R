@@ -242,7 +242,7 @@ test_that("Pedigree plot with different label distances & label cex", {
     vdiffr::expect_doppelganger("Ped with different label distances",
         function() {
             plot(
-                ped1, cex = 0.7, label = "num_mods",
+                pedi1, cex = 0.7, label = "num",
                 label_cex = c(0.8, 0.6, 2), # Change labels text size
                 label_dist = c(1, 5, 2.5) # Change labels distance + order
             )
