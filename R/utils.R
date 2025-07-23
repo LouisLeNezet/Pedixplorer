@@ -859,7 +859,8 @@ complete_twins <- function(rel_df, multi_code = "error") {
 #'   calculated from the range of `x`
 #' @details
 #' Objects of class `<AsIs>` are returned unaltered.
-#'
+#' @return A numeric vector of the same length as `x` with values
+#'   rescaled to the range specified by `to`.
 #' @keywords internal
 #' @export
 #' @examples
