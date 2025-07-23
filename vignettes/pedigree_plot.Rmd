@@ -13,6 +13,14 @@ vignette: |
     %\VignetteEngine{knitr::rmarkdown}
 ---
 
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    fig.dim = c(8, 4),
+    fig.align = "center",
+)
+```
+
 Introduction
 ==============
 
@@ -139,7 +147,7 @@ Each polygon is named based on its shape ("square", "circle","diamond",
 "triangle"), the total number of division of the whole shape, and the
 position of the division to plot.
 
-```{r, polygons, fig.alt = "Different polygons", fig.align = 'center'}
+```{r, polygons, fig.alt = "Different polygons"}
 library(Pedixplorer)
 types <- c(
     "square_1_1", # Whole square
@@ -149,7 +157,8 @@ types <- c(
 )
 df <- plot_df <- data.frame(
     x0 = c(1, 3, 5, 7), y0 = 1,
-    type = types, fill = c("red", "blue", "green", "yellow"),
+    type = types,
+    fill = c("red", "blue", "green", "yellow"),
     border = "black",
     angle = c(NA, 90, 0, 45),
     density = c(NA, 10, 20, 40)
@@ -260,7 +269,7 @@ annotations, or make it interactive. The `tips` argument can be used
 to add tooltips to the plot. They will be displayed when hovering
 over the corresponding element through the `text` element.
 
-```{r, interactive_plot, fig.alt = "Interactive plot", eval = FALSE, fig.align = 'center'}
+```{r, interactive_plot, fig.alt = "Interactive plot", eval = FALSE}
 data(sampleped)
 pedi <- Pedigree(sampleped)
 
