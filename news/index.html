@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,9 +62,19 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.5.5" id="changes-in-v155">Changes in v1.5.5<a class="anchor" aria-label="anchor" href="#changes-in-v155"></a></h2>
+<ul><li>Add <code>label_cex</code> and <code>label_size</code> to control id, date and label text position and size</li>
+<li>Fix csv reading with incoherent number of columns in rows</li>
+<li>Fix check box align_parents in <code><a href="../reference/ped_shiny.html">ped_shiny()</a></code>
+</li>
+<li>Fix <code><a href="../reference/auto_hint.html">auto_hint()</a></code> error when couple present twice</li>
+<li>Fix stress computation when individual present more than twice</li>
+<li>Add <code>ind_max_warning</code> and <code>ind_max_error</code> for a better control of pedigree size to plot in shiny application</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.4" id="changes-in-v154">Changes in v1.5.4<a class="anchor" aria-label="anchor" href="#changes-in-v154"></a></h2>
-<ul><li>Add <code>best_hint</code> computation to the shiny app and split it in different subfunction.</li>
-<li>Remove little used library from Imports.</li>
+<ul><li>Add <code>best_hint</code> computation to the shiny app and split it in different subfunction</li>
+<li>Remove little used library from Imports</li>
 <li>Change <code><a href="https://dreamrs.github.io/shinyWidgets/reference/pickerInput.html" class="external-link">shinyWidgets::pickerInput</a></code> to <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">shiny::selectInput</a></code>
 </li>
 <li>Remove <code>0</code> from default <code>na_strings</code>

@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ped_server</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span>, precision <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ped_server</span><span class="op">(</span></span>
+<span>  <span class="va">input</span>,</span>
+<span>  <span class="va">output</span>,</span>
+<span>  <span class="va">session</span>,</span>
+<span>  precision <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  ind_max_warning <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  ind_max_error <span class="op">=</span> <span class="fl">500</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -90,6 +97,20 @@
 <dt id="arg-precision">precision<a class="anchor" aria-label="anchor" href="#arg-precision"></a></dt>
 <dd><p>Number of decimal for the position of the boxes
 in the plot.</p></dd>
+
+
+<dt id="arg-ind-max-warning">ind_max_warning<a class="anchor" aria-label="anchor" href="#arg-ind-max-warning"></a></dt>
+<dd><p>An integer to define the maximum number of individuals
+to plot before throwing a warning.
+If the number of individuals is greater than this value,
+the user will be asked to confirm the plot.</p></dd>
+
+
+<dt id="arg-ind-max-error">ind_max_error<a class="anchor" aria-label="anchor" href="#arg-ind-max-error"></a></dt>
+<dd><p>An integer to define the maximum number of individuals
+to plot before throwing an error.
+If the number of individuals is greater than this value,
+an error will be thrown and the plot will not be computed.</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -17,7 +17,7 @@ plot_fromdf()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,6 +93,8 @@ characteristic for them to be plotted afterwards with
 <span>  lwd <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  tips <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ggplot_gen <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  label_dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  label_cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.7</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -197,6 +199,17 @@ use as tooltips. If <code>NULL</code>, no tooltips are added.</p></dd>
 <dt id="arg-ggplot-gen">ggplot_gen<a class="anchor" aria-label="anchor" href="#arg-ggplot-gen"></a></dt>
 <dd><p>If <code>TRUE</code>, the function will use the
 <code>ggplot2</code> package to generate the plot.</p></dd>
+
+
+<dt id="arg-label-dist">label_dist<a class="anchor" aria-label="anchor" href="#arg-label-dist"></a></dt>
+<dd><p>A numeric vector of length 3 giving the distance
+between the id, date and label text and the bottom of the box.
+This value is multiplied by the obtained <code>labh</code> value.</p></dd>
+
+
+<dt id="arg-label-cex">label_cex<a class="anchor" aria-label="anchor" href="#arg-label-cex"></a></dt>
+<dd><p>A numeric vector of length 3 giving the cex of the id,
+date and label text. This value is multiplied by the <code>cex</code> argument</p></dd>
 
 </dl></div>
     <div class="section level2">

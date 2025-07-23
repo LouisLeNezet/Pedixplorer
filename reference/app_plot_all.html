@@ -17,7 +17,7 @@ customize the plot."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,14 +79,15 @@ customize the plot.</p>
 <span><span class="fu">plot_all_server</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
 <span>  <span class="va">pedi</span>,</span>
-<span>  max_ind <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  ind_max_warning <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  ind_max_error <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  my_title_l <span class="op">=</span> <span class="st">"My Pedigree"</span>,</span>
 <span>  my_title_s <span class="op">=</span> <span class="st">"ped_1"</span>,</span>
 <span>  init_width <span class="op">=</span> <span class="st">"100%"</span>,</span>
 <span>  precision <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">app_plot_all_demo</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">app_plot_all_demo</span><span class="op">(</span>ind_max_warning <span class="op">=</span> <span class="fl">10</span>, ind_max_error <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -101,10 +102,18 @@ customize the plot.</p>
 <dd><p>A reactive pedigree object.</p></dd>
 
 
-<dt id="arg-max-ind">max_ind<a class="anchor" aria-label="anchor" href="#arg-max-ind"></a></dt>
+<dt id="arg-ind-max-warning">ind_max_warning<a class="anchor" aria-label="anchor" href="#arg-ind-max-warning"></a></dt>
 <dd><p>An integer to define the maximum number of individuals
-to plot. If the number of individuals is greater than this value,
+to plot before throwing a warning.
+If the number of individuals is greater than this value,
 the user will be asked to confirm the plot.</p></dd>
+
+
+<dt id="arg-ind-max-error">ind_max_error<a class="anchor" aria-label="anchor" href="#arg-ind-max-error"></a></dt>
+<dd><p>An integer to define the maximum number of individuals
+to plot before throwing an error.
+If the number of individuals is greater than this value,
+an error will be thrown and the plot will not be computed.</p></dd>
 
 
 <dt id="arg-my-title-l">my_title_l<a class="anchor" aria-label="anchor" href="#arg-my-title-l"></a></dt>
