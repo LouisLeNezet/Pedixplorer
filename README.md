@@ -1,4 +1,4 @@
-# `Pedixplorer`: a BioConductor package to create, filter and draw pedigree
+# `Pedixplorer`: a Bioconductor package to create, filter and draw pedigree
 
 <!-- badges: start -->
   [![Release](https://img.shields.io/badge/release%20version-1.4.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
