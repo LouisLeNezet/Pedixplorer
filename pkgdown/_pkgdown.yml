@@ -1,7 +1,7 @@
 url: https://louislenezet.github.io/Pedixplorer
 
 home:
-  title: Pedixplorer - A BioConductor R package for pedigree creation, filtering and drawing
+  title: Pedixplorer - A Bioconductor R package for pedigree creation, filtering and drawing
   description: Routines to handle family data with a Pedigree object.
   links:
     - text: "Test the shiny app"
@@ -30,7 +30,7 @@ news:
 reference:
   - title: "Pedixplorer"
     url: https://bioconductor.org/packages/Pedixplorer
-    desc: "Pedixplorer a BioConductor package to create, filter and draw pedigrees."
+    desc: "Pedixplorer a Bioconductor package to create, filter and draw pedigrees."
     contents:
       - Pedixplorer
       - Pedixplorer-package
