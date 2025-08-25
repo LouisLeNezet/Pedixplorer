@@ -242,3 +242,37 @@ test_that("Pedigree plot with different label distances & label cex", {
         }
     )
 })
+
+test_that("Pedigree ggplot with legend", {
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    pedi1 <- pedi[famid(ped(pedi)) == "1"]
+
+    plot_lst <- plot_legend(pedi1, ggplot_gen = TRUE, add_to_existing = FALSE)
+    plot_lst$ggplot
+    vdiffr::expect_doppelganger("Ped with legend default",
+        function() {
+            plot_lst$ggplot
+        }
+    )
+
+    vdiffr::expect_doppelganger("Ped with legend custom",
+        function() {
+            plot(
+                pedi1, legend = TRUE,
+                leg_cex = 0.5, leg_symbolsize = 0.3,
+                leg_loc = c(0, 2, 0, 2),
+                leg_adjx = 0.2, leg_adjy = -0.2
+            )
+        }
+    )
+
+    vdiffr::expect_doppelganger("Ped with legend ggplot",
+        function() {
+            plot(
+                pedi1, legend = TRUE,
+                ggplot_gen = TRUE
+            )$ggplot
+        }
+    )
+})

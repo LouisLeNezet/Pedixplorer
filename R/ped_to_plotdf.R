@@ -123,7 +123,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
         x0 = numeric(), y0 = numeric(), x1 = numeric(), y1 = numeric(),
         type = character(), fill = character(), border = character(),
         angle = numeric(), density = numeric(), cex = numeric(),
-        label = character(), tips = character(),
+        label = character(), tips = character(), lwd = numeric(),
         adjx = numeric(), adjy = numeric(), lty = numeric()
     )
     plist <- align(
