@@ -170,89 +170,89 @@
       80   <NA>    NA      NA  NA  <NA>
       81   <NA>    NA      NA  NA  <NA>
       82   <NA>    NA      NA  NA  <NA>
-                                                        tips adjx adjy   lty lwd
-      1   <span style='font-size:14px'><b>1_1</b></span><br>   NA   NA  <NA>   1
-      2   <span style='font-size:14px'><b>1_3</b></span><br>   NA   NA  <NA>   1
-      3   <span style='font-size:14px'><b>1_7</b></span><br>   NA   NA  <NA>   1
-      4  <span style='font-size:14px'><b>1_10</b></span><br>   NA   NA  <NA>   1
-      5   <span style='font-size:14px'><b>1_2</b></span><br>   NA   NA  <NA>   1
-      6   <span style='font-size:14px'><b>1_5</b></span><br>   NA   NA  <NA>   1
-      7   <span style='font-size:14px'><b>1_8</b></span><br>   NA   NA  <NA>   1
-      8   <span style='font-size:14px'><b>1_6</b></span><br>   NA   NA  <NA>   1
-      9   <span style='font-size:14px'><b>1_9</b></span><br>   NA   NA  <NA>   1
-      10  <span style='font-size:14px'><b>1_4</b></span><br>   NA   NA  <NA>   1
-      11  <span style='font-size:14px'><b>1_1</b></span><br>  0.5  0.5  <NA>  NA
-      12  <span style='font-size:14px'><b>1_3</b></span><br>  0.5  0.5  <NA>  NA
-      13  <span style='font-size:14px'><b>1_7</b></span><br>  0.5  0.5  <NA>  NA
-      14 <span style='font-size:14px'><b>1_10</b></span><br>  0.5  0.5  <NA>  NA
-      15  <span style='font-size:14px'><b>1_2</b></span><br>  0.5  0.5  <NA>  NA
-      16  <span style='font-size:14px'><b>1_5</b></span><br>  0.5  0.5  <NA>  NA
-      17  <span style='font-size:14px'><b>1_8</b></span><br>  0.5  0.5  <NA>  NA
-      18  <span style='font-size:14px'><b>1_6</b></span><br>  0.5  0.5  <NA>  NA
-      19  <span style='font-size:14px'><b>1_9</b></span><br>  0.5  0.5  <NA>  NA
-      20  <span style='font-size:14px'><b>1_4</b></span><br>  0.5  0.5  <NA>  NA
-      21  <span style='font-size:14px'><b>1_1</b></span><br>   NA   NA  <NA>   1
-      22  <span style='font-size:14px'><b>1_3</b></span><br>   NA   NA  <NA>   1
-      23  <span style='font-size:14px'><b>1_7</b></span><br>   NA   NA  <NA>   1
-      24 <span style='font-size:14px'><b>1_10</b></span><br>   NA   NA  <NA>   1
-      25  <span style='font-size:14px'><b>1_2</b></span><br>   NA   NA  <NA>   1
-      26  <span style='font-size:14px'><b>1_5</b></span><br>   NA   NA  <NA>   1
-      27  <span style='font-size:14px'><b>1_8</b></span><br>   NA   NA  <NA>   1
-      28  <span style='font-size:14px'><b>1_6</b></span><br>   NA   NA  <NA>   1
-      29  <span style='font-size:14px'><b>1_9</b></span><br>   NA   NA  <NA>   1
-      30  <span style='font-size:14px'><b>1_4</b></span><br>   NA   NA  <NA>   1
-      31  <span style='font-size:14px'><b>1_1</b></span><br>  0.5  0.5  <NA>  NA
-      32  <span style='font-size:14px'><b>1_3</b></span><br>  0.5  0.5  <NA>  NA
-      33  <span style='font-size:14px'><b>1_7</b></span><br>  0.5  0.5  <NA>  NA
-      34 <span style='font-size:14px'><b>1_10</b></span><br>  0.5  0.5  <NA>  NA
-      35  <span style='font-size:14px'><b>1_2</b></span><br>  0.5  0.5  <NA>  NA
-      36  <span style='font-size:14px'><b>1_5</b></span><br>  0.5  0.5  <NA>  NA
-      37  <span style='font-size:14px'><b>1_8</b></span><br>  0.5  0.5  <NA>  NA
-      38  <span style='font-size:14px'><b>1_6</b></span><br>  0.5  0.5  <NA>  NA
-      39  <span style='font-size:14px'><b>1_9</b></span><br>  0.5  0.5  <NA>  NA
-      40  <span style='font-size:14px'><b>1_4</b></span><br>  0.5  0.5  <NA>  NA
-      41                                                <NA>   NA   NA solid   1
-      42                                                <NA>   NA   NA solid   1
-      43                                                <NA>   NA   NA solid   1
-      44                                                <NA>   NA   NA solid   1
-      45  <span style='font-size:14px'><b>1_1</b></span><br>  0.5  1.0  <NA>  NA
-      46  <span style='font-size:14px'><b>1_3</b></span><br>  0.5  1.0  <NA>  NA
-      47  <span style='font-size:14px'><b>1_7</b></span><br>  0.5  1.0  <NA>  NA
-      48 <span style='font-size:14px'><b>1_10</b></span><br>  0.5  1.0  <NA>  NA
-      49  <span style='font-size:14px'><b>1_2</b></span><br>  0.5  1.0  <NA>  NA
-      50  <span style='font-size:14px'><b>1_5</b></span><br>  0.5  1.0  <NA>  NA
-      51  <span style='font-size:14px'><b>1_8</b></span><br>  0.5  1.0  <NA>  NA
-      52  <span style='font-size:14px'><b>1_6</b></span><br>  0.5  1.0  <NA>  NA
-      53  <span style='font-size:14px'><b>1_9</b></span><br>  0.5  1.0  <NA>  NA
-      54  <span style='font-size:14px'><b>1_4</b></span><br>  0.5  1.0  <NA>  NA
-      55                                                <NA>   NA   NA solid   1
-      56                                                <NA>   NA   NA solid   1
-      57                                                <NA>   NA   NA solid   1
-      58                                                <NA>   NA   NA solid   1
-      59                                                <NA>   NA   NA solid   1
-      60                                                <NA>   NA   NA solid   1
-      61                                                <NA>   NA   NA solid   1
-      62                                                <NA>   NA   NA solid   1
-      63                                                <NA>   NA   NA solid   1
-      64                                                <NA>   NA   NA solid   1
-      65                                                <NA>   NA   NA solid   1
-      66                                                <NA>   NA   NA solid   1
-      67                                                <NA>   NA   NA solid   1
-      68                                                <NA>   NA   NA solid   1
-      69                                                <NA>   NA   NA solid   1
-      70                                                <NA>   NA   NA solid   1
-      71                                                <NA>   NA   NA solid   1
-      72                                                <NA>   NA   NA solid   1
-      73                                                <NA>  0.5  0.5  <NA>  NA
-      74                                                <NA>   NA   NA solid   1
-      75                                                <NA>   NA   NA solid   1
-      76                                                <NA>   NA   NA solid   1
-      77                                                <NA>   NA   NA solid   1
-      78                                                <NA>   NA   NA solid   1
-      79                                                <NA>   NA   NA solid   1
-      80                                                <NA>   NA   NA solid   1
-      81                                                <NA>   NA   NA solid   1
-      82                                                <NA>   NA   NA solid   1
+                                                        tips lwd adjx adjy   lty
+      1   <span style='font-size:14px'><b>1_1</b></span><br>   1   NA   NA  <NA>
+      2   <span style='font-size:14px'><b>1_3</b></span><br>   1   NA   NA  <NA>
+      3   <span style='font-size:14px'><b>1_7</b></span><br>   1   NA   NA  <NA>
+      4  <span style='font-size:14px'><b>1_10</b></span><br>   1   NA   NA  <NA>
+      5   <span style='font-size:14px'><b>1_2</b></span><br>   1   NA   NA  <NA>
+      6   <span style='font-size:14px'><b>1_5</b></span><br>   1   NA   NA  <NA>
+      7   <span style='font-size:14px'><b>1_8</b></span><br>   1   NA   NA  <NA>
+      8   <span style='font-size:14px'><b>1_6</b></span><br>   1   NA   NA  <NA>
+      9   <span style='font-size:14px'><b>1_9</b></span><br>   1   NA   NA  <NA>
+      10  <span style='font-size:14px'><b>1_4</b></span><br>   1   NA   NA  <NA>
+      11  <span style='font-size:14px'><b>1_1</b></span><br>  NA  0.5  0.5  <NA>
+      12  <span style='font-size:14px'><b>1_3</b></span><br>  NA  0.5  0.5  <NA>
+      13  <span style='font-size:14px'><b>1_7</b></span><br>  NA  0.5  0.5  <NA>
+      14 <span style='font-size:14px'><b>1_10</b></span><br>  NA  0.5  0.5  <NA>
+      15  <span style='font-size:14px'><b>1_2</b></span><br>  NA  0.5  0.5  <NA>
+      16  <span style='font-size:14px'><b>1_5</b></span><br>  NA  0.5  0.5  <NA>
+      17  <span style='font-size:14px'><b>1_8</b></span><br>  NA  0.5  0.5  <NA>
+      18  <span style='font-size:14px'><b>1_6</b></span><br>  NA  0.5  0.5  <NA>
+      19  <span style='font-size:14px'><b>1_9</b></span><br>  NA  0.5  0.5  <NA>
+      20  <span style='font-size:14px'><b>1_4</b></span><br>  NA  0.5  0.5  <NA>
+      21  <span style='font-size:14px'><b>1_1</b></span><br>   1   NA   NA  <NA>
+      22  <span style='font-size:14px'><b>1_3</b></span><br>   1   NA   NA  <NA>
+      23  <span style='font-size:14px'><b>1_7</b></span><br>   1   NA   NA  <NA>
+      24 <span style='font-size:14px'><b>1_10</b></span><br>   1   NA   NA  <NA>
+      25  <span style='font-size:14px'><b>1_2</b></span><br>   1   NA   NA  <NA>
+      26  <span style='font-size:14px'><b>1_5</b></span><br>   1   NA   NA  <NA>
+      27  <span style='font-size:14px'><b>1_8</b></span><br>   1   NA   NA  <NA>
+      28  <span style='font-size:14px'><b>1_6</b></span><br>   1   NA   NA  <NA>
+      29  <span style='font-size:14px'><b>1_9</b></span><br>   1   NA   NA  <NA>
+      30  <span style='font-size:14px'><b>1_4</b></span><br>   1   NA   NA  <NA>
+      31  <span style='font-size:14px'><b>1_1</b></span><br>  NA  0.5  0.5  <NA>
+      32  <span style='font-size:14px'><b>1_3</b></span><br>  NA  0.5  0.5  <NA>
+      33  <span style='font-size:14px'><b>1_7</b></span><br>  NA  0.5  0.5  <NA>
+      34 <span style='font-size:14px'><b>1_10</b></span><br>  NA  0.5  0.5  <NA>
+      35  <span style='font-size:14px'><b>1_2</b></span><br>  NA  0.5  0.5  <NA>
+      36  <span style='font-size:14px'><b>1_5</b></span><br>  NA  0.5  0.5  <NA>
+      37  <span style='font-size:14px'><b>1_8</b></span><br>  NA  0.5  0.5  <NA>
+      38  <span style='font-size:14px'><b>1_6</b></span><br>  NA  0.5  0.5  <NA>
+      39  <span style='font-size:14px'><b>1_9</b></span><br>  NA  0.5  0.5  <NA>
+      40  <span style='font-size:14px'><b>1_4</b></span><br>  NA  0.5  0.5  <NA>
+      41                                                <NA>   1   NA   NA solid
+      42                                                <NA>   1   NA   NA solid
+      43                                                <NA>   1   NA   NA solid
+      44                                                <NA>   1   NA   NA solid
+      45  <span style='font-size:14px'><b>1_1</b></span><br>  NA  0.5  1.0  <NA>
+      46  <span style='font-size:14px'><b>1_3</b></span><br>  NA  0.5  1.0  <NA>
+      47  <span style='font-size:14px'><b>1_7</b></span><br>  NA  0.5  1.0  <NA>
+      48 <span style='font-size:14px'><b>1_10</b></span><br>  NA  0.5  1.0  <NA>
+      49  <span style='font-size:14px'><b>1_2</b></span><br>  NA  0.5  1.0  <NA>
+      50  <span style='font-size:14px'><b>1_5</b></span><br>  NA  0.5  1.0  <NA>
+      51  <span style='font-size:14px'><b>1_8</b></span><br>  NA  0.5  1.0  <NA>
+      52  <span style='font-size:14px'><b>1_6</b></span><br>  NA  0.5  1.0  <NA>
+      53  <span style='font-size:14px'><b>1_9</b></span><br>  NA  0.5  1.0  <NA>
+      54  <span style='font-size:14px'><b>1_4</b></span><br>  NA  0.5  1.0  <NA>
+      55                                                <NA>   1   NA   NA solid
+      56                                                <NA>   1   NA   NA solid
+      57                                                <NA>   1   NA   NA solid
+      58                                                <NA>   1   NA   NA solid
+      59                                                <NA>   1   NA   NA solid
+      60                                                <NA>   1   NA   NA solid
+      61                                                <NA>   1   NA   NA solid
+      62                                                <NA>   1   NA   NA solid
+      63                                                <NA>   1   NA   NA solid
+      64                                                <NA>   1   NA   NA solid
+      65                                                <NA>   1   NA   NA solid
+      66                                                <NA>   1   NA   NA solid
+      67                                                <NA>   1   NA   NA solid
+      68                                                <NA>   1   NA   NA solid
+      69                                                <NA>   1   NA   NA solid
+      70                                                <NA>   1   NA   NA solid
+      71                                                <NA>   1   NA   NA solid
+      72                                                <NA>   1   NA   NA solid
+      73                                                <NA>  NA  0.5  0.5  <NA>
+      74                                                <NA>   1   NA   NA solid
+      75                                                <NA>   1   NA   NA solid
+      76                                                <NA>   1   NA   NA solid
+      77                                                <NA>   1   NA   NA solid
+      78                                                <NA>   1   NA   NA solid
+      79                                                <NA>   1   NA   NA solid
+      80                                                <NA>   1   NA   NA solid
+      81                                                <NA>   1   NA   NA solid
+      82                                                <NA>   1   NA   NA solid
       
       $par_usr
       $par_usr$usr

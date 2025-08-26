@@ -15,7 +15,8 @@ plot_legend(
   add_to_existing = FALSE,
   usr = NULL,
   lwd = 1,
-  precision = 4
+  precision = 4,
+  ggplot_gen = FALSE
 )
 }
 \arguments{

@@ -55,57 +55,57 @@
       48  affected_label_3_6 9.389 8.0000 NA NA        text   black   <NA>    NA
       49             max_lim 0.000 0.0000 NA NA        text    <NA>  black    NA
       50             max_lim 8.389 8.0000 NA NA        text    <NA>  black    NA
-         density cex                         label tips adjx adjy
-      1       NA 1.2                           Sex <NA>    0    1
-      2       NA 1.2                        Border <NA>    0    1
-      3       NA 1.2                     affection <NA>    0    1
-      4       NA 1.2                         avail <NA>    0    1
-      5       NA 1.2                       val_num <NA>    0    1
-      6       NA 1.0                          <NA> <NA>   NA   NA
-      7       NA 1.0                          <NA> <NA>   NA   NA
-      8       NA 1.0                          <NA> <NA>   NA   NA
-      9       NA 0.8                          Male <NA>    0    1
-      10      NA 0.8                        Female <NA>    0    1
-      11      NA 0.8                       Unknown <NA>    0    1
-      12      NA 1.0                          <NA> <NA>   NA   NA
-      13      NA 1.0                          <NA> <NA>   NA   NA
-      14      NA 0.8                 Non Available <NA>    0    1
-      15      NA 0.8                     Available <NA>    0    1
-      16      NA 1.0                          <NA> <NA>   NA   NA
-      17      NA 1.0                          <NA> <NA>   NA   NA
-      18      NA 1.0                          <NA> <NA>   NA   NA
-      19      NA 1.0                          <NA> <NA>   NA   NA
-      20      NA 1.0                          <NA> <NA>   NA   NA
-      21      NA 1.0                          <NA> <NA>   NA   NA
-      22      NA 0.8             Healthy <= to 0.5 <NA>    0    1
-      23      NA 0.8             Affected > to 0.5 <NA>    0    1
-      24      NA 0.8                            NA <NA>    0    1
-      25      NA 1.0                          <NA> <NA>   NA   NA
-      26      NA 1.0                          <NA> <NA>   NA   NA
-      27      NA 1.0                          <NA> <NA>   NA   NA
-      28      NA 1.0                          <NA> <NA>   NA   NA
-      29      NA 0.8             Healthy are FALSE <NA>    0    1
-      30      NA 0.8             Affected are TRUE <NA>    0    1
-      31      NA 1.0                          <NA> <NA>   NA   NA
-      32      NA 1.0                          <NA> <NA>   NA   NA
-      33      NA 1.0                          <NA> <NA>   NA   NA
-      34      NA 1.0                          <NA> <NA>   NA   NA
-      35      NA 1.0                          <NA> <NA>   NA   NA
-      36      NA 1.0                          <NA> <NA>   NA   NA
-      37      NA 1.0                          <NA> <NA>   NA   NA
-      38      NA 1.0                          <NA> <NA>   NA   NA
-      39      NA 1.0                          <NA> <NA>   NA   NA
-      40      NA 1.0                          <NA> <NA>   NA   NA
-      41      NA 1.0                          <NA> <NA>   NA   NA
-      42      NA 1.0                          <NA> <NA>   NA   NA
-      43      NA 0.8 Healthy <= to 115 : [101,106] <NA>    0    1
-      44      NA 0.8 Healthy <= to 115 : (106,110] <NA>    0    1
-      45      NA 0.8 Healthy <= to 115 : (110,115] <NA>    0    1
-      46      NA 0.8 Affected > to 115 : [116,124] <NA>    0    1
-      47      NA 0.8 Affected > to 115 : (124,133] <NA>    0    1
-      48      NA 0.8 Affected > to 115 : (133,141] <NA>    0    1
-      49      NA  NA                          <NA> <NA>    0    1
-      50      NA  NA                          <NA> <NA>    0    1
+         density cex                         label tips adjx adjy lwd
+      1       NA 1.2                           Sex <NA>    0    1  NA
+      2       NA 1.2                        Border <NA>    0    1  NA
+      3       NA 1.2                     affection <NA>    0    1  NA
+      4       NA 1.2                         avail <NA>    0    1  NA
+      5       NA 1.2                       val_num <NA>    0    1  NA
+      6       NA  NA                          <NA> <NA>   NA   NA   1
+      7       NA  NA                          <NA> <NA>   NA   NA   1
+      8       NA  NA                          <NA> <NA>   NA   NA   1
+      9       NA 0.8                          Male <NA>    0    1  NA
+      10      NA 0.8                        Female <NA>    0    1  NA
+      11      NA 0.8                       Unknown <NA>    0    1  NA
+      12      NA  NA                          <NA> <NA>   NA   NA   1
+      13      NA  NA                          <NA> <NA>   NA   NA   1
+      14      NA 0.8                 Non Available <NA>    0    1  NA
+      15      NA 0.8                     Available <NA>    0    1  NA
+      16      NA  NA                          <NA> <NA>   NA   NA   1
+      17      NA  NA                          <NA> <NA>   NA   NA   1
+      18      NA  NA                          <NA> <NA>   NA   NA   1
+      19      NA  NA                          <NA> <NA>   NA   NA   1
+      20      NA  NA                          <NA> <NA>   NA   NA   1
+      21      NA  NA                          <NA> <NA>   NA   NA   1
+      22      NA 0.8             Healthy <= to 0.5 <NA>    0    1  NA
+      23      NA 0.8             Affected > to 0.5 <NA>    0    1  NA
+      24      NA 0.8                            NA <NA>    0    1  NA
+      25      NA  NA                          <NA> <NA>   NA   NA   1
+      26      NA  NA                          <NA> <NA>   NA   NA   1
+      27      NA  NA                          <NA> <NA>   NA   NA   1
+      28      NA  NA                          <NA> <NA>   NA   NA   1
+      29      NA 0.8             Healthy are FALSE <NA>    0    1  NA
+      30      NA 0.8             Affected are TRUE <NA>    0    1  NA
+      31      NA  NA                          <NA> <NA>   NA   NA   1
+      32      NA  NA                          <NA> <NA>   NA   NA   1
+      33      NA  NA                          <NA> <NA>   NA   NA   1
+      34      NA  NA                          <NA> <NA>   NA   NA   1
+      35      NA  NA                          <NA> <NA>   NA   NA   1
+      36      NA  NA                          <NA> <NA>   NA   NA   1
+      37      NA  NA                          <NA> <NA>   NA   NA   1
+      38      NA  NA                          <NA> <NA>   NA   NA   1
+      39      NA  NA                          <NA> <NA>   NA   NA   1
+      40      NA  NA                          <NA> <NA>   NA   NA   1
+      41      NA  NA                          <NA> <NA>   NA   NA   1
+      42      NA  NA                          <NA> <NA>   NA   NA   1
+      43      NA 0.8 Healthy <= to 115 : [101,106] <NA>    0    1  NA
+      44      NA 0.8 Healthy <= to 115 : (106,110] <NA>    0    1  NA
+      45      NA 0.8 Healthy <= to 115 : (110,115] <NA>    0    1  NA
+      46      NA 0.8 Affected > to 115 : [116,124] <NA>    0    1  NA
+      47      NA 0.8 Affected > to 115 : (124,133] <NA>    0    1  NA
+      48      NA 0.8 Affected > to 115 : (133,141] <NA>    0    1  NA
+      49      NA  NA                          <NA> <NA>    0    1  NA
+      50      NA  NA                          <NA> <NA>    0    1  NA
       
       $par_usr
       $par_usr$boxh

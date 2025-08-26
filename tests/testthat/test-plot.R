@@ -244,6 +244,8 @@ test_that("Pedigree plot with different label distances & label cex", {
 })
 
 test_that("Pedigree ggplot with legend", {
+    testthat::skip_if_not_installed("cowplot")
+
     data(sampleped)
     pedi <- Pedigree(sampleped)
     pedi1 <- pedi[famid(ped(pedi)) == "1"]

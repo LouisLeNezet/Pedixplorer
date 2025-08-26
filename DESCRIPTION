@@ -66,7 +66,8 @@ Suggests:
     R.devices,
     usethis,
     rlang,
-    magick
+    magick,
+    cowplot
 Config/testthat/edition: 3
 biocViews: Software, DataRepresentation, Genetics, GraphAndNetwork, Visualization
 BugReports: https://github.com/LouisLeNezet/Pedixplorer/issues
