@@ -394,12 +394,13 @@ draw_text <- function(x, y, label, ggplot_gen = FALSE,
         }
         data <- data.frame(
             x = x, y = y, label = label,
-            cex = cex, col = col, tips = tips
+            cex = cex, col = col, tips = tips,
+            adjx = adjx, adjy = adjy
         )
         ggplot2::geom_text(
             data = data,
             ggplot2::aes(
-                x = x, y = y, label = label
+                x = x, y = y, label = label, vjust = adjy, hjust = adjx
             ), size = cex / 0.3, colour = col, inherit.aes = FALSE
         )
     }

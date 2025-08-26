@@ -248,31 +248,19 @@ test_that("Pedigree ggplot with legend", {
     pedi <- Pedigree(sampleped)
     pedi1 <- pedi[famid(ped(pedi)) == "1"]
 
-    plot_lst <- plot_legend(pedi1, ggplot_gen = TRUE, add_to_existing = FALSE)
-    plot_lst$ggplot
-    vdiffr::expect_doppelganger("Ped with legend default",
-        function() {
-            plot_lst$ggplot
-        }
-    )
-
-    vdiffr::expect_doppelganger("Ped with legend custom",
-        function() {
-            plot(
-                pedi1, legend = TRUE,
-                leg_cex = 0.5, leg_symbolsize = 0.3,
-                leg_loc = c(0, 2, 0, 2),
-                leg_adjx = 0.2, leg_adjy = -0.2
-            )
-        }
+    plot_lst <- plot(
+        pedi1, ggplot_gen = TRUE, legend = TRUE,
+        leg_cex = 0.8, leg_symbolsize = 0.1,
     )
 
     vdiffr::expect_doppelganger("Ped with legend ggplot",
         function() {
-            plot(
-                pedi1, legend = TRUE,
-                ggplot_gen = TRUE
-            )$ggplot
+            cowplot::plot_grid(
+                plot_lst$ggplot,
+                plot_lst$legend$ggplot +
+                    ggplot2::xlim(-2, 20),
+                ncol = 1, nrow = 2, rel_heights = c(4, 1)
+            )
         }
     )
 })

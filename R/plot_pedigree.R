@@ -169,10 +169,6 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         add_to_existing = FALSE,
         label_dist = c(1, 3, 5), label_cex = c(1, 0.7, 1)
     ) {
-        if (legend & ggplot_gen) {
-            stop("Legend with ggplot not yet implemented")
-        }
-
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
             message("Multiple families present, only plotting family ",
@@ -223,24 +219,29 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             }
             par(leg_par)
 
-            plot_legend(obj = x, cex = leg_cex,
+            lst_leg <- plot_legend(obj = x, cex = leg_cex,
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
                 adjx = leg_adjx, adjy = leg_adjy,
                 leg_loc = leg_loc, add_to_existing = TRUE,
-                usr = leg_usr, lwd = lwd, precision = precision
+                usr = leg_usr, lwd = lwd, precision = precision,
+                ggplot_gen = ggplot_gen
             )
+        } else {
+            lst_leg <- NULL
         }
 
         if (ggplot_gen) {
             invisible(list(
                 df = lst$df, par_usr = lst$par_usr,
-                ggplot = p, ind_not_plot = lst$ind_not_plot
+                ggplot = p, ind_not_plot = lst$ind_not_plot,
+                legend = lst_leg
             ))
         } else {
             invisible(list(
                 df = lst$df, par_usr = lst$par_usr,
-                ind_not_plot = lst$ind_not_plot
+                ind_not_plot = lst$ind_not_plot,
+                legend = lst_leg
             ))
         }
     }
