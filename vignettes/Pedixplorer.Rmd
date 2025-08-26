@@ -545,8 +545,9 @@ To combine the legend and the pedigree plot, you can use the
 
 ```{r, legend_ggplot2, fig.alt = "Pedigree with legend"}
 library(cowplot)
+
 plot_lst <- plot(
-    pedi1, ggplot_gen = TRUE, legend = TRUE,
+    ped1, ggplot_gen = TRUE, legend = TRUE,
     leg_cex = 0.8, leg_symbolsize = 0.1,
 )
 cowplot::plot_grid(
