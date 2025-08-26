@@ -1,3 +1,9 @@
+## Changes in v1.5.6
+
+- Fix legend plotting when ggplot_gen is TRUE
+- Reduce `kindepth()` warning and error messages to show necessary information.
+- Fix lwd usage instead of cex in `ped_to_legdf()`
+
 ## Changes in v1.5.5
 
 - Add `label_cex` and `label_size` to control id, date and label text position and size
