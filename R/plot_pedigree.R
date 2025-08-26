@@ -218,7 +218,9 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 )
             }
             par(leg_par)
-
+            if (!ggplot_gen) {
+                graphics::box(col = "#00000000")
+            }
             lst_leg <- plot_legend(obj = x, cex = leg_cex,
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
