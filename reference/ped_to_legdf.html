@@ -60,7 +60,7 @@ be plotted afterwards with plot_fromdf()."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create plotting legend data frame from a Pedigree</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/ped_to_legdf.R" class="external-link"><code>R/ped_to_legdf.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/ggplot_legend/R/ped_to_legdf.R" class="external-link"><code>R/ped_to_legdf.R</code></a></small>
       <div class="d-none name"><code>ped_to_legdf.Rd</code></div>
     </div>
 
@@ -171,18 +171,18 @@ numbers to.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   : NA   Min.   : NA   Min.   :1.000   Length:24         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: NA   1st Qu.: NA   1st Qu.:1.000   Class :character  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Median : NA   Median : NA   Median :1.000   Mode  :character  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :NaN   Mean   :NaN   Mean   :1.068                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: NA   3rd Qu.: NA   3rd Qu.:1.000                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :NaN   Mean   :NaN   Mean   :1.136                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: NA   3rd Qu.: NA   3rd Qu.:1.250                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : NA   Max.   : NA   Max.   :1.500                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :24    NA's   :24    NA's   :2                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      tips                adjx         adjy   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:24          Min.   :0    Min.   :1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.:0    1st Qu.:1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median :0    Median :1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   :0    Mean   :1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:0    3rd Qu.:1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :0    Max.   :1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :11   NA's   :11  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  NA's   :24    NA's   :24    NA's   :13                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      tips                adjx         adjy         lwd    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Length:24          Min.   :0    Min.   :1    Min.   :1   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   1st Qu.:0    1st Qu.:1    1st Qu.:1   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mode  :character   Median :0    Median :1    Median :1   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Mean   :0    Mean   :1    Mean   :1   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     3rd Qu.:0    3rd Qu.:1    3rd Qu.:1   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Max.   :0    Max.   :1    Max.   :1   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA's   :11   NA's   :11   NA's   :13  </span>
 <span class="r-in"><span><span class="fu"><a href="plot_fromdf.html">plot_fromdf</a></span><span class="op">(</span><span class="va">leg_df</span><span class="op">$</span><span class="va">df</span>, usr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">15</span>,<span class="fl">0</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ped_to_legdf-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
