@@ -250,7 +250,7 @@ setMethod("kindepth", "character_OR_integer",
             ## bug: done should be true if dads == bad | moms == bad
         }
         if (all(depth > 0)) {
-            depth_found <- paste0(depth, collapse = ", ")
+            depth_found <- paste0max(depth, max = 10, collapse = ", ")
             if (force == FALSE) {
                 stop(
                     "You found a bug in kindepth's alignment code! ",

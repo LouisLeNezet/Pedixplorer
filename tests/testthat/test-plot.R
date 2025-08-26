@@ -242,3 +242,27 @@ test_that("Pedigree plot with different label distances & label cex", {
         }
     )
 })
+
+test_that("Pedigree ggplot with legend", {
+    testthat::skip_if_not_installed("cowplot")
+
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    pedi1 <- pedi[famid(ped(pedi)) == "1"]
+
+    plot_lst <- plot(
+        pedi1, ggplot_gen = TRUE, legend = TRUE,
+        leg_cex = 0.8, leg_symbolsize = 0.1,
+    )
+
+    vdiffr::expect_doppelganger("Ped with legend ggplot",
+        function() {
+            cowplot::plot_grid(
+                plot_lst$ggplot,
+                plot_lst$legend$ggplot +
+                    ggplot2::xlim(-2, 20),
+                ncol = 1, nrow = 2, rel_heights = c(4, 1)
+            )
+        }
+    )
+})

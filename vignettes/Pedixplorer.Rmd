@@ -536,6 +536,28 @@ plot(
 )
 ```
 
+## Legend with ggplot2
+
+The legend can be added to the plot with the `legend` argument set to
+`TRUE`. However the legend will be generated as a separate ggplot object.
+To combine the legend and the pedigree plot, you can use the
+`cowplot::plot_grid()` function as shown below.
+
+```{r, legend_ggplot2, fig.alt = "Pedigree with legend"}
+library(cowplot)
+
+plot_lst <- plot(
+    ped1, ggplot_gen = TRUE, legend = TRUE,
+    leg_cex = 0.8, leg_symbolsize = 0.1,
+)
+cowplot::plot_grid(
+    plot_lst$ggplot,
+    plot_lst$legend$ggplot +
+        ggplot2::xlim(-2, 20),
+    ncol = 1, nrow = 2, rel_heights = c(4, 1)
+)
+```
+
 
 ## Render interactive
 

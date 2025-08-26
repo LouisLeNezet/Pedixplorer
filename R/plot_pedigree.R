@@ -13,7 +13,7 @@
 plot_legend <- function(
     obj, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
-    lwd = 1, precision = 4
+    lwd = 1, precision = 4, ggplot_gen = FALSE
 ) {
     leg <- ped_to_legdf(
         obj, cex = cex,
@@ -38,12 +38,18 @@ plot_legend <- function(
             leg$df[symbol, ]$y0 <- leg$df[symbol, ]$y0 - boxh
         }
     }
-    plot_fromdf(
+
+    p <- plot_fromdf(
         leg$df, add_to_existing = add_to_existing,
-        boxw = boxw, boxh = boxh, usr = usr
+        boxw = boxw, boxh = boxh, usr = usr,
+        ggplot_gen = ggplot_gen
     )
 
-    invisible(list(df = leg$df, par_usr = usr))
+    if (ggplot_gen) {
+        invisible(list(df = leg$df, par_usr = usr, ggplot = p))
+    } else {
+        invisible(list(df = leg$df, par_usr = usr))
+    }
 }
 
 
@@ -212,25 +218,32 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 )
             }
             par(leg_par)
-            graphics::box(col = "#00000000")
-            plot_legend(obj = x, cex = leg_cex,
+            if (!ggplot_gen) {
+                graphics::box(col = "#00000000")
+            }
+            lst_leg <- plot_legend(obj = x, cex = leg_cex,
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
                 adjx = leg_adjx, adjy = leg_adjy,
                 leg_loc = leg_loc, add_to_existing = TRUE,
-                usr = leg_usr, lwd = lwd, precision = precision
+                usr = leg_usr, lwd = lwd, precision = precision,
+                ggplot_gen = ggplot_gen
             )
+        } else {
+            lst_leg <- NULL
         }
 
         if (ggplot_gen) {
             invisible(list(
                 df = lst$df, par_usr = lst$par_usr,
-                ggplot = p, ind_not_plot = lst$ind_not_plot
+                ggplot = p, ind_not_plot = lst$ind_not_plot,
+                legend = lst_leg
             ))
         } else {
             invisible(list(
                 df = lst$df, par_usr = lst$par_usr,
-                ind_not_plot = lst$ind_not_plot
+                ind_not_plot = lst$ind_not_plot,
+                legend = lst_leg
             ))
         }
     }
