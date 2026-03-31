@@ -505,7 +505,7 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] Pedixplorer_1.7.0 BiocStyle_2.32.1 
+    ## [1] Pedixplorer_1.6.0 BiocStyle_2.32.1 
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.57            
