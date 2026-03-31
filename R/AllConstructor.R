@@ -125,9 +125,11 @@ na_to_length <- function(x, temp, value) {
 #' @export
 #' @include utils.R
 #' @usage NULL
-setGeneric("Ped", signature = "obj", function(obj, ...) {
-    standardGeneric("Ped")
-})
+setGeneric(
+    "Ped", signature = "obj", function(obj, ...) { # nolint: object_name_linter
+        standardGeneric("Ped")
+    }
+)
 
 #' @rdname Ped-class
 #' @examples
@@ -321,9 +323,11 @@ setMethod("Ped", "missing",
 #' @rdname Rel-class
 #' @export
 #' @usage NULL
-setGeneric("Rel", signature = "obj", function(obj, ...) {
-    standardGeneric("Rel")
-})
+setGeneric(
+    "Rel", signature = "obj", function(obj, ...) { # nolint: object_name_linter
+        standardGeneric("Rel")
+    }
+)
 
 #' @rdname Rel-class
 #' @export
@@ -422,9 +426,11 @@ setMethod("Rel", "missing",
 #' @return A Hints object.
 #' @rdname Hints-class
 #' @export
-setGeneric("Hints", function(horder, spouse) {
-    standardGeneric("Hints")
-})
+setGeneric(
+    "Hints", function(horder, spouse) { # nolint: object_name_linter
+        standardGeneric("Hints")
+    }
+)
 
 #' @rdname Hints-class
 #' @usage NULL
@@ -602,9 +608,11 @@ setMethod("Hints",
 #' @seealso [generate_colors()]
 #' @rdname Scales-class
 #' @export
-setGeneric("Scales", function(fill, border) {
-    standardGeneric("Scales")
-})
+setGeneric(
+    "Scales", function(fill, border) { # nolint: object_name_linter
+        standardGeneric("Scales")
+    }
+)
 
 #' @rdname Scales-class
 #' @export
@@ -785,8 +793,11 @@ setMethod("Scales",
 #' [Ped()]
 #' [Rel()]
 #' [Scales()]
-setGeneric("Pedigree", signature = "obj",
-    function(obj, ...) standardGeneric("Pedigree")
+setGeneric(
+    "Pedigree", signature = "obj", # nolint: object_name_linter
+    function(obj, ...) {
+        standardGeneric("Pedigree")
+    }
 )
 
 #' @export
@@ -1173,7 +1184,7 @@ setMethod("Pedigree", "data.frame",  function(
     } else {
         validObject(pedi)
     }
-    return(pedi)
+    pedi
 }
 )
 

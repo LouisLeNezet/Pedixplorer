@@ -81,7 +81,7 @@ family_infos_table <- function(pedi, col_val = NA) {
             x <- replace(x, is.na(x), "NA")
         }
     )
-    return(df[cols])
+    df[cols]
 }
 
 

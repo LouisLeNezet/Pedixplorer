@@ -157,7 +157,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     # x position
     pos <- plist$pos
     # y position
-    i <- (seq_len(length(plist$nid)) - 1) %% length(plist$n) + 1
+    i <- (seq_along(plist$nid) - 1) %% length(plist$n) + 1
 
     all_aff <- fill(obj)
     n_aff <- length(unique(fill(obj)$order))
