@@ -1,5 +1,11 @@
 # Changelog
 
+## Changes in v1.7.0
+
+- Fix slices in
+  [`circfun()`](https://louislenezet.github.io/Pedixplorer/reference/circfun.md)
+- Add contributing guidelines
+
 ## Changes in v1.5.6
 
 - Fix legend plotting when ggplot_gen is TRUE
