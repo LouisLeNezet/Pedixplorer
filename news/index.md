@@ -1,6 +1,6 @@
 # Changelog
 
-## Changes in v1.7.0
+## Changes in v1.7.1
 
 - Fix slices in
   [`circfun()`](https://louislenezet.github.io/Pedixplorer/reference/circfun.md)
