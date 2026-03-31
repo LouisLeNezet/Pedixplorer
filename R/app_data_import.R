@@ -47,7 +47,7 @@ safe_read_table <- function(
         comment.char = comment_char
     )
 
-    return(df)
+    df
 }
 
 
@@ -159,12 +159,12 @@ read_data <- function(
                 }
             }
         }
-        return(as.data.frame(
+        as.data.frame(
             unclass(df),
             stringsAsFactors = strings_as_factors
-        ))
+        )
     } else {
-        return(NULL)
+        NULL
     }
 }
 

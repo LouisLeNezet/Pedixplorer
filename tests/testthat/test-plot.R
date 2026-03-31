@@ -107,7 +107,7 @@ test_that("Tooltip works", {
         label = "num", tips = c("momid"), symbolsize = 1.5
     )$ggplot
 
-    html_plot <- ggplotly(p, tooltip = "text") %>%
+    html_plot <- ggplotly(p, tooltip = "text") |>
         plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
 
     expect_snapshot(html_plot)

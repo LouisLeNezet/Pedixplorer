@@ -63,7 +63,7 @@ circfun <- function(nslice, n = 50, start = 0) {
     # Compute the degree sequence, adding start to shift the slices
     degree <- (
         seq(0, 360, length.out = nslice + 1)[seq_len(nslice)] + start
-    ) %% 360
+    )
     theta <- degree * pi / 180  # Convert to radians
 
     nseg <- ceiling(n / nslice)  # Segments of arc per slice
@@ -72,7 +72,7 @@ circfun <- function(nslice, n = 50, start = 0) {
     # Loop through each slice and create its coordinates
     for (i in seq_len(nslice)) {
         # Ensure that the final theta[i + 1] is within valid range
-        theta_end <- if (i == nslice) theta[1] + 2 * pi else theta[i + 1]
+        theta_end <- theta[1] + 2 * (i / nslice) * pi
         # Generate angles for this slice, making sure to handle finite values
         theta2 <- seq(theta[i], theta_end, length = nseg)
         # Store the coordinates for the slice (with a radius of 0.5)
@@ -214,11 +214,11 @@ polyfun <- function(nslice, coor, start = 90) {
             find_ray_intersections(x0, y0, x1, y1, theta),
             6
         ))
-    })) %>%
-        as.data.frame() %>%
+    })) |>
+        as.data.frame() |>
         setNames(c("seg_idx", "degree", "x", "y"))
 
-    results <- results[!is.na(results$x), ] %>%
+    results <- results[!is.na(results$x), ] |>
         dplyr::distinct(degree, .keep_all = TRUE)
     results
     temp <- rbind.fill(coor, results)

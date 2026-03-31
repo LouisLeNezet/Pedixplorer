@@ -1,3 +1,9 @@
+## Changes in v1.7.1
+
+- Fix slices in `circfun()`
+- Add contributing guidelines
+- Replace dplyr pipe `%>%` by `|>`
+
 ## Changes in v1.5.6
 
 - Fix legend plotting when ggplot_gen is TRUE

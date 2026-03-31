@@ -1,7 +1,7 @@
 # `Pedixplorer`: a Bioconductor package to create, filter and draw pedigree
 
 <!-- badges: start -->
-  [![Release](https://img.shields.io/badge/release%20version-1.4.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
+  [![Release](https://img.shields.io/badge/release%20version-1.6.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
   [![Platform](http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg)](https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives)
   [![rank](http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg)](http://bioconductor.org/packages/stats/bioc/Pedixplorer/)
   [![BioC Status](https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/)
@@ -130,17 +130,17 @@ data("sampleped")
 data("relped")
 
 # Create the Pedigree object
-pedi <- Pedigree(sampleped, relped, missid = NA) %>%
+pedi <- Pedigree(sampleped, relped, missid = NA) |>
     generate_colors( # Add a new affection information
         col_aff = "num", is_num = TRUE,
         keep_full_scale = TRUE, breaks = 2,
         threshold = 3,
         colors_aff = c("#8B7355", "#FFA500"),
         colors_unaff = c("#8aca25", "#3fb7db")
-    ) %>%
+    ) |>
     is_informative( # Set which individuals are informative
         col_aff = "num", informative = "AvAf"
-    ) %>%
+    ) |>
     useful_inds(
         keep_infos = TRUE, # Keep available or affected parents 
         max_dist = 2 # Maximum distance from informative individuals
@@ -170,7 +170,7 @@ dev.off()
 plotly::ggplotly(
     plot_list$ggplot,
     tooltip = "text"
-) %>%
+) |>
     plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
 ```
 

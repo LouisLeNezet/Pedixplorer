@@ -104,3 +104,24 @@ test_that("polygon slicing works", {
     }
     vdiffr::expect_doppelganger("Polygon slicing", p)
 })
+
+test_that("polygon slicing span is only 1/n", {
+    plot(c(0, 5), c(0, 5))
+    max_aff <- 4
+    poly_n <- lapply(seq_len(max_aff), function(n) polygons(n, 90))
+    p <- ggplot() +
+        ggplot2::geom_point(aes(x = c(0, 5), y = c(0, 5)))
+    for (s in seq_len(4)) {
+        for (i in seq_len(max_aff)) {
+            for (n in seq_len(i)) {
+                poly <- poly_n[[i]][[s]][[n]]
+                p <- p + draw_polygon(
+                    s + poly$x * 0.5,
+                    i + poly$y * 0.5,
+                    fill = "#00940062", ggplot_gen = TRUE
+                )
+            }
+        }
+    }
+    vdiffr::expect_doppelganger("Polygon slicing span 1nth", p)
+})
