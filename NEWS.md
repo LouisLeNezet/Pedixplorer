@@ -1,4 +1,4 @@
-## Changes in v1.7.0
+## Changes in v1.7.1
 
 - Fix slices in `circfun()`
 - Add contributing guidelines
