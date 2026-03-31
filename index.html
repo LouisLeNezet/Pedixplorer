@@ -192,17 +192,17 @@ To help anyone to easily use all the main functions of the package a shiny app h
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"relped"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create the Pedigree object</span></span>
-<span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span>, <span class="va">relped</span>, missid <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">pedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/Pedigree-class.html">Pedigree</a></span><span class="op">(</span><span class="va">sampleped</span>, <span class="va">relped</span>, missid <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/generate_colors.html">generate_colors</a></span><span class="op">(</span> <span class="co"># Add a new affection information</span></span>
 <span>        col_aff <span class="op">=</span> <span class="st">"num"</span>, is_num <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>        keep_full_scale <span class="op">=</span> <span class="cn">TRUE</span>, breaks <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>        threshold <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>        colors_aff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#8B7355"</span>, <span class="st">"#FFA500"</span><span class="op">)</span>,</span>
 <span>        colors_unaff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#8aca25"</span>, <span class="st">"#3fb7db"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/is_informative.html">is_informative</a></span><span class="op">(</span> <span class="co"># Set which individuals are informative</span></span>
 <span>        col_aff <span class="op">=</span> <span class="st">"num"</span>, informative <span class="op">=</span> <span class="st">"AvAf"</span></span>
-<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/useful_inds.html">useful_inds</a></span><span class="op">(</span></span>
 <span>        keep_infos <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Keep available or affected parents </span></span>
 <span>        max_dist <span class="op">=</span> <span class="fl">2</span> <span class="co"># Maximum distance from informative individuals</span></span>
@@ -232,7 +232,7 @@ To help anyone to easily use all the main functions of the package a shiny app h
 <span><span class="fu">plotly</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span></span>
 <span>    <span class="va">plot_list</span><span class="op">$</span><span class="va">ggplot</span>,</span>
 <span>    tooltip <span class="op">=</span> <span class="st">"text"</span></span>
-<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">plotly</span><span class="fu">::</span><span class="fu">layout</span><span class="op">(</span>hoverlabel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bgcolor <span class="op">=</span> <span class="st">"darkgrey"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p align="center">
 <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/MyPedigree.png" alt="MyPedigree" height="400" style="height:400px;"><br><a href="https://louislenezet.github.io/assets/img/pedixplorer/pedigree_interactive.html" alt="MyPedigree" class="external-link">View Interactive Pedigree</a>

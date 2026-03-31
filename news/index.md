@@ -5,6 +5,7 @@
 - Fix slices in
   [`circfun()`](https://louislenezet.github.io/Pedixplorer/reference/circfun.md)
 - Add contributing guidelines
+- Replace dplyr pipe `%>%` by `|>`
 
 ## Changes in v1.5.6
 

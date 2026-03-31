@@ -918,7 +918,7 @@ plot_list <- plot(
 plotly::ggplotly(
     plot_list$ggplot,
     tooltip = "text"
-) %>%
+) |>
     plotly::layout(hoverlabel = list(bgcolor = "darkgrey"))
 ```
 
