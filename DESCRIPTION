@@ -48,7 +48,7 @@ Description: Routines to handle family data with a Pedigree object. The initial
     chromosome.
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 
