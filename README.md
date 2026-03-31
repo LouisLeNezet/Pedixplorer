@@ -1,7 +1,7 @@
 # `Pedixplorer`: a Bioconductor package to create, filter and draw pedigree
 
 <!-- badges: start -->
-  [![Release](https://img.shields.io/badge/release%20version-1.4.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
+  [![Release](https://img.shields.io/badge/release%20version-1.6.0-green.svg)](https://www.bioconductor.org/packages/Pedixplorer)
   [![Platform](http://www.bioconductor.org/shields/availability/devel/Pedixplorer.svg)](https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html#archives)
   [![rank](http://www.bioconductor.org/shields/downloads/release/Pedixplorer.svg)](http://bioconductor.org/packages/stats/bioc/Pedixplorer/)
   [![BioC Status](https://bioconductor.org/shields/build/devel/bioc/Pedixplorer.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/Pedixplorer/)
