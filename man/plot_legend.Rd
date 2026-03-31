@@ -14,8 +14,9 @@ plot_legend(
   leg_loc = c(0, 1, 0, 1),
   add_to_existing = FALSE,
   usr = NULL,
-  lwd = par("lwd"),
-  precision = 4
+  lwd = 1,
+  precision = 4,
+  ggplot_gen = FALSE
 )
 }
 \arguments{
@@ -33,7 +34,7 @@ the labels in the legend.}
 \item{adjy}{default=0.  Controls the vertical text adjustment
 of the labels in the legend.}
 
-\item{lwd}{default=par("lwd").  Controls the bordering line width of the
+\item{lwd}{default=1.  Controls the bordering line width of the
 elements in the legend.}
 
 \item{precision}{The number of significatif numbers to round the

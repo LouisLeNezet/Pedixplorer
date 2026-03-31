@@ -68,7 +68,10 @@ permute <- function(x) {
 #'
 #' @param tolerance The maximum stress level to accept.
 #' Default is `0`
+#' @param timeout The maximum time in seconds to spend searching for
+#' the best hint. Default is `60` seconds.
 #' @inheritParams align
+#' @inheritParams kindepth
 #'
 #' @return The best Hints object out of all the permutations
 #'
@@ -93,7 +96,11 @@ setGeneric(
 #' @importFrom stats setNames
 setMethod(
     "best_hint", "Pedigree",
-    function(obj, wt = c(1000, 10, 1), tolerance = 0) {
+    function(
+        obj, wt = c(1000, 10, 1), tolerance = 0,
+        align_parents = TRUE, force = FALSE,
+        timeout = 60
+    ) {
 
         # find founders married to founders the female of such pairs
         # determines the plot order of founders
@@ -109,66 +116,138 @@ setMethod(
         )
         # row num of founding moms
         fmom <- unique(match(momid[fpair], id))
-        pmat <- permute(seq_along(fmom))
+        pmat <- as.matrix(permute(seq_along(fmom)))
         # Put the subsets into a random order For most Pedigrees,
         # there are several permutations that will give a tolerance
         # or near tolerance plot.
         # This way we should hit one of them soon.
-        pmat <- pmat[order(runif(nrow(pmat))), ]
 
+        pmat <- as.matrix(pmat[order(runif(nrow(pmat))), ])
+
+        ## Search for the best hint
+        besttot <- Inf
+        besthint <- NULL
         n <- length(obj)
-        for (perm in seq_len(nrow(pmat))) {
-            hint <- cbind(seq_len(n), rep(0, n))
-            hint[fmom, 1] <- pmat[perm, ]
-            # this fixes up marriages and such
-            newhint <- auto_hint(
-                obj, hints = Hints(
-                    horder = stats::setNames(hint[, 1], id(ped(obj)))
-                ), reset = TRUE
-            )
-            plist <- align(
-                obj, packed = TRUE, align = TRUE, width = 8, hints = newhint
-            )
 
-            # Compute the error measures
-            err <- rep(0, 3)
-            maxlev <- nrow(plist$nid)
-            for (lev in seq_len(maxlev)) {
-                idlist <- plist$nid[lev, seq_len(plist$n[lev])]
-                dups <- duplicated(idlist)
-                if (any(dups)) {
-                    err[1] <- err[1] + sum(dups)
-                    for (i in idlist[dups]) {
-                        who <- (seq_along(idlist))[match(
-                            idlist, i, nomatch = 0
-                        ) > 0]
-                        err[2] <- err[2] + abs(diff(plist$pos[lev, who]))
-                    }
+        R.utils::withTimeout({
+            for (perm in seq_len(nrow(pmat))) {
+                res <- eval_perm(
+                    perm, fmom, pmat, obj, n, wt,
+                    align_parents = align_parents, force = force
+                )
+                if (res$stress < besttot) {
+                    besttot <- res$stress
+                    besthint <- res$hint
                 }
-
-                # get parent-child pulls
-                fam2 <- plist$fam[lev, ]
-                if (any(fam2 > 0)) {
-                    # center of kids
-                    centers <- tapply(plist$pos[lev, ], fam2, mean)
-                    if (any(fam2 == 0)) {
-                        centers <- centers[-1]
-                    }
-                    # parents
-                    above <- plist$pos[lev - 1, sort(unique(fam2))] + 0.5
-                    err[3] <- err[3] + sum(abs(centers - above))
+                if (besttot <= tolerance) {
+                    break
                 }
             }
-
-            # best one so far?
-            total <- sum(err * wt)
-            if (perm == 1 || total < besttot) {
-                besttot <- total
-                besthint <- newhint
-            }
-            if (besttot <= tolerance)
-                break  # we needn't do better than this!
-        }
+        }, timeout = timeout, onTimeout = "warning")
         besthint
     }
 )
+
+#' Evaluate a permutation of founder mothers
+#' @description
+#' This is a helper function for [best_hint()].
+#' It evaluates a permutation of founder mothers
+#' by creating a new hint
+#' and computing the stress of the hint.
+#' @param idx The index of the permutation to evaluate
+#' @param fmom The vector of founder mother indices
+#' @param pmat The matrix of permutations of founder mothers
+#' @param obj A Pedigree object
+#' @param n The number of individuals in the Pedigree
+#' @inheritParams best_hint
+#' @return The stress value of the hint and the new hint
+#' @keywords internal
+#' @seealso [best_hint()], [align()]
+#' @examples
+#' data(sampleped)
+#' pedi <- Pedigree(sampleped[sampleped$famid == 1,])
+#' newhint <- auto_hint(pedi, align_parents = TRUE)
+#' Pedixplorer:::compute_stress(pedi, newhint)
+#' @export
+eval_perm <- function(
+    idx, fmom, pmat, obj, n, wt,
+    align_parents, force
+) {
+
+    hint <- cbind(seq_len(n), rep(0, n))
+    hint[fmom, 1] <- pmat[idx, ]
+
+    newhint <- auto_hint(
+        obj,
+        hints = Hints(horder = stats::setNames(hint[, 1], id(ped(obj)))),
+        reset = TRUE, align_parents = align_parents, force = force
+    )
+
+    stress <- compute_stress(
+        obj, newhint, wt = wt,
+        align_parents = align_parents, force = force
+    )
+
+    list(stress = stress, hint = newhint)
+}
+
+
+#' Compute the stress of a hint
+#' @description
+#' This is a helper function for [best_hint()].
+#' It computes the stress of a given hint
+#' by aligning the Pedigree and computing the error measures.
+#' @param obj A Pedigree object
+#' @param newhint A Hints object with the new hints
+#' @inheritParams align
+#' @inheritParams best_hint
+#' @return The stress value of the hint
+#' @keywords internal
+#' @seealso [best_hint()], [align()]
+#' @examples
+#' data(sampleped)
+#' pedi <- Pedigree(sampleped[sampleped$famid == 1,])
+#' newhint <- auto_hint(pedi, align_parents = TRUE)
+#' Pedixplorer:::compute_stress(pedi, newhint)
+#' @export
+compute_stress <- function(
+    obj, newhint, wt = c(1000, 10, 1),
+    align_parents = TRUE, force = FALSE
+) {
+    plist <- align(
+        obj, packed = TRUE, align = TRUE, width = 8, hints = newhint,
+        align_parents = align_parents, force = force
+    )
+
+    # Compute the error measures
+    err <- rep(0, 3)
+    maxlev <- nrow(plist$nid)
+    for (lev in seq_len(maxlev)) {
+        idlist <- plist$nid[lev, seq_len(plist$n[lev])]
+        dups <- duplicated(idlist)
+        if (any(dups)) {
+            err[1] <- err[1] + sum(dups)
+            for (i in idlist[dups]) {
+                who <- (seq_along(idlist))[match(
+                    idlist, i, nomatch = 0
+                ) > 0]
+                new_value <- err[2] + sum(abs(diff(plist$pos[lev, who])))
+                err[2] <- new_value
+            }
+        }
+
+        # get parent-child pulls
+        fam2 <- plist$fam[lev, ]
+        if (any(fam2 > 0)) {
+            # center of kids
+            centers <- tapply(plist$pos[lev, ], fam2, mean)
+            if (any(fam2 == 0)) {
+                centers <- centers[-1]
+            }
+            # parents
+            above <- plist$pos[lev - 1, sort(unique(fam2))] + 0.5
+            err[3] <- err[3] + sum(abs(centers - above))
+        }
+    }
+    sum(err * wt)
+}

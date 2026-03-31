@@ -11,6 +11,22 @@ test_that("read_data works", {
     df_path <- paste0(testthat::test_path(), "/testdata/sampleped.tab")
     df <- read_data(df_path, sep = " ")
     expect_equal(dim(df), c(55, 7))
+
+    df_path <- paste0(
+        testthat::test_path(),
+        "/testdata/other_test_wrong_sep.txt"
+    )
+    expect_error(
+        safe_read_table(df_path, sep = "\t", header = TRUE),
+        "file contains rows with inconsistent separator count"
+    )
+
+    df_path <- paste0(
+        testthat::test_path(),
+        "/testdata/other_test.txt"
+    )
+    df <- read_data(df_path, sep = "\t")
+    expect_equal(dim(df), c(18, 5))
 })
 
 #### Test check_col_config ####

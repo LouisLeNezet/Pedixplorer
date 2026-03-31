@@ -7,7 +7,9 @@
 ped_shiny(
   port = getOption("shiny.port"),
   host = getOption("shiny.host", "127.0.0.1"),
-  precision = 6
+  precision = 6,
+  ind_max_warning = 300,
+  ind_max_error = 500
 )
 }
 \arguments{
@@ -18,6 +20,16 @@ listen on.}
 
 \item{precision}{Number of decimal for the position of the boxes
 in the plot.}
+
+\item{ind_max_warning}{An integer to define the maximum number of individuals
+to plot before throwing a warning.
+If the number of individuals is greater than this value,
+the user will be asked to confirm the plot.}
+
+\item{ind_max_error}{An integer to define the maximum number of individuals
+to plot before throwing an error.
+If the number of individuals is greater than this value,
+an error will be thrown and the plot will not be computed.}
 }
 \value{
 Running Shiny Application

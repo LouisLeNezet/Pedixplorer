@@ -25,7 +25,7 @@
 \usage{
 \S4method{Rel}{data.frame}(obj)
 
-\S4method{Rel}{character_OR_integer}(obj, id2, code, famid = NA_character_)
+\S4method{Rel}{character_OR_integer}(obj, id2, code, famid = NA_character_, group = NA_character_)
 }
 \arguments{
 \item{obj}{A character vector with the id of the first individuals
@@ -51,6 +51,8 @@ of without space between the words. The case is not important.
 \item{famid}{A character vector with the family identifiers of the
 individuals. If provide, will be aggregated to the individuals
 identifiers separated by an underscore.}
+
+\item{group}{A numeric vector with the set number for twins.}
 }
 \value{
 A Rel object.
@@ -87,6 +89,8 @@ relationship.
 (i.e. \verb{MZ twin} < \verb{DZ twin} < \verb{UZ twin} < \code{Spouse}).}
 
 \item{\code{famid}}{A character vector with the famid of the individuals.}
+
+\item{\code{group}}{A numeric vector with the set number for twins.}
 }}
 
 \section{Accessors}{
@@ -165,14 +169,14 @@ should be kept or deleted.
 rel_df <- data.frame(
     id1 = c("1", "2", "3"),
     id2 = c("2", "3", "4"),
-    code = c(1, 2, 3)
+    code = c(1, 1, 4)
 )
 Rel(rel_df)
 
 Rel(
     obj = c("1", "2", "3"),
     id2 = c("2", "3", "4"),
-    code = c(1, 2, 3)
+    code = c(1, 1, 4)
 )
 }
 \seealso{

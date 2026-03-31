@@ -26,7 +26,7 @@ plot_legend_demo(height = "400px", leg_loc = c(0.2, 0.8, 0.2, 0.6))
 
 \item{pedi}{A reactive pedigree object.}
 
-\item{lwd}{default=par("lwd").  Controls the bordering line width of the
+\item{lwd}{default=1.  Controls the bordering line width of the
 elements in the legend.}
 
 \item{boxw}{Width of the polygons elements}

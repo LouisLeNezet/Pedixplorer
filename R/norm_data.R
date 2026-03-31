@@ -127,9 +127,10 @@
 #' @importFrom dplyr mutate_if mutate_at mutate
 #' @importFrom tidyr unite
 norm_ped <- function(
-    ped_df, na_strings = c("NA", ""), missid = NA_character_, try_num = FALSE,
-    cols_used_del = FALSE, date_pattern = "%Y-%m-%d"
+    ped_df, na_strings = c("NA", ""), missid = c(NA_character_, "0"),
+    try_num = FALSE, cols_used_del = FALSE, date_pattern = "%Y-%m-%d"
 ) {
+    missid <- unique(c(missid, NA_character_))
     err_cols <- c(
         "sexErrMoFa", "sexErrFa", "sexErrMo", "sexErrFer", "sexErrMis",
         "sexErrMisFer", "sexNA",
@@ -152,7 +153,7 @@ norm_ped <- function(
         cols_used_del = cols_used_del
     )
 
-    ped_df$famid[is.na(ped_df$famid)] <- missid
+    ped_df$famid[is.na(ped_df$famid)] <- NA_character_
 
     if (nrow(ped_df) > 0) {
         ped_df <- dplyr::mutate_if(
@@ -163,18 +164,40 @@ norm_ped <- function(
         for (id in c("id", "dadid", "momid")) {
             ped_df[[id]] <- as.character(ped_df[[id]])
         }
-        err$idErr <- lapply(
-            as.data.frame(t(ped_df[, c(
-                "id", "dadid", "momid", "famid"
-            )])),
+        err$idErr <- apply(
+            ped_df[, c("id", "dadid", "momid", "famid")],
+            1,
             function(x) {
-                if (any(x == "" & !is.na(x))) {
-                    "one_id_is_empty"
-                } else {
-                    NA_character_
+                issues <- character()
+                empty_cols <- names(x)[x == "" & !is.na(x)]
+                if (length(empty_cols) > 0) {
+                    issues <- c(
+                        issues,
+                        paste0(paste(empty_cols, collapse = "-"), "-empty")
+                    )
                 }
+                underscore_cols <- names(x)[
+                    stringr::str_detect(x, "_") &
+                        !is.na(x)
+                ]
+                if (length(underscore_cols) > 0) {
+                    issues <- c(
+                        issues,
+                        paste0(
+                            paste(underscore_cols, collapse = "-"),
+                            "-contains-underscore"
+                        )
+                    )
+                }
+
+                ifelse(
+                    length(issues) == 0,
+                    NA_character_,
+                    paste0(issues, collapse = "_")
+                )
             }
         )
+
         ## Make a new id from the family and subject pair
         ped_df$id <- upd_famid(ped_df$id, ped_df$famid, missid)
         ped_df$dadid <- upd_famid(ped_df$dadid, ped_df$famid, missid)
@@ -350,6 +373,8 @@ norm_ped <- function(
 #' [upd_famid()] function.
 #' The `code` column will be transformed with the
 #' [rel_code_to_factor()].
+#' Missing relationship for set of twins will be completed
+#' using [complete_twins()].
 #' Multiple test are done and errors are checked.
 #'
 #' A number of checks are done to ensure the dataframe is correct:
@@ -364,6 +389,7 @@ norm_ped <- function(
 #'
 #' @inheritParams norm_ped
 #' @inheritParams Pedigree
+#' @inheritParams complete_twins
 #'
 #' @examples
 #' df <- data.frame(
@@ -378,8 +404,12 @@ norm_ped <- function(
 #' @return A dataframe with the errors identified
 #' @importFrom dplyr mutate_if mutate_at mutate across
 #' @export
-norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
-
+norm_rel <- function(
+    rel_df, multi_code = "error",
+    na_strings = c("NA", ""),
+    missid = c(NA_character_, "0")
+) {
+    missid <- unique(c(missid, NA_character_))
     if (is.matrix(rel_df)) {
         rel_df <- as.data.frame(rel_df)
         colnames(rel_df) <- c(
@@ -398,7 +428,7 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         rel_df, cols_needed, cols_used, cols_to_use,
         others_cols = FALSE, cols_to_use_init = TRUE, cols_used_init = TRUE
     )
-    rel_df$famid[is.na(rel_df$famid)] <- missid
+    rel_df$famid[is.na(rel_df$famid)] <- NA_character_
     if (nrow(rel_df) > 0) {
         rel_df <- dplyr::mutate_if(
             rel_df, is.character,
@@ -415,19 +445,20 @@ norm_rel <- function(rel_df, na_strings = c("NA", ""), missid = NA_character_) {
         rel_df <- rel_df %>%
             dplyr::mutate(dplyr::across(c("id1", "id2", "famid"), as.character))
 
+        rel_df <- dplyr::mutate_at(rel_df, c("id1", "id2", "famid"),
+            ~replace(., . %in% c(na_strings, missid), NA_character_)
+        )
+
         ## Check for non null ids
         len1 <- nchar(rel_df$id1)
         len2 <- nchar(rel_df$id2)
+
         err$id1Err[is.na(len1) | len1 %in% missid] <- "id1-length0"
         err$id2Err[is.na(len2) | len2 %in% missid] <- "id2-length0"
 
         ## Compute id with family id
         rel_df$id1 <- upd_famid(rel_df$id1, rel_df$famid, missid)
         rel_df$id2 <- upd_famid(rel_df$id2, rel_df$famid, missid)
-
-        rel_df <- dplyr::mutate_at(rel_df, c("id1", "id2", "famid"),
-            ~replace(., . %in% c(na_strings, missid), NA_character_)
-        )
 
         err$sameIdErr[rel_df$id1 == rel_df$id2] <- "same-id"
 

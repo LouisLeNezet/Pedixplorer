@@ -76,7 +76,7 @@ test_that("Pedigree from sampleped and affectation", {
     ped1 <- Pedigree(sampleped[sampleped$famid == 1, ])
 
     expect_equal(dim(as.data.frame(ped(ped1))), c(41, 29))
-    expect_equal(dim(as.data.frame(rel(ped1))), c(0, 4))
+    expect_equal(dim(as.data.frame(rel(ped1))), c(0, 5))
 
     expect_error(id(ped(ped1)) <- "1")
     expect_error(id(ped(ped1))[1] <- "1")

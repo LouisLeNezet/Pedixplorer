@@ -1,5 +1,56 @@
 #### Function needed to work #### ----------
 
+safe_read_table <- function(
+    file, sep = "\t", quote = "\"", header = TRUE,
+    na_values = c("NA", ""), check_names = FALSE,
+    strings_as_factors = FALSE, fill = TRUE,
+    comment_char = ""
+) {
+    # Read raw lines from file
+    lines <- readLines(file, warn = FALSE)
+
+    if (length(lines) == 0) {
+        stop("The file is empty.")
+    }
+
+    # Count the number of separators in each line
+    sep_pattern <- paste0("[", sep, "]")
+    sep_counts <- lengths(regmatches(lines, gregexpr(sep_pattern, lines)))
+
+    # Expected number of separators = number of columns - 1
+    expected_seps <- if (header) sep_counts[1] else max(sep_counts)
+
+    # Identify malformed lines (separator count doesn't match)
+    bad_rows <- which(sep_counts != expected_seps)
+
+    if (length(bad_rows) > 0) {
+        warning("Malformed rows detected:")
+        for (i in bad_rows) {
+            warning(sprintf(
+                "Line %d (has %d separators, expected %d): %s\n",
+                i, sep_counts[i], expected_seps, lines[i]
+            ))
+        }
+        stop("Aborting: file contains rows with inconsistent separator count.")
+    }
+
+    # Read the data safely
+    df <- utils::read.table(
+        file = file,
+        sep = sep,
+        quote = quote,
+        header = header,
+        na.strings = na_values,
+        stringsAsFactors = strings_as_factors,
+        fill = fill,
+        check.names = check_names,
+        comment.char = comment_char
+    )
+
+    return(df)
+}
+
+
 #' Read data from file path
 #'
 #' @description Read dataframe based on the extension of the file
@@ -34,7 +85,8 @@ read_data <- function(
 ) {
     supported_ext <- c(
         "csv", "txt", "tsv", "tab",
-        "xls", "xlsx", "rda", "ped"
+        "xls", "xlsx", "rda", "ped",
+        "fam"
     )
     if (!is.null(file)) {
         ext <- tools::file_ext(file)
@@ -52,19 +104,25 @@ read_data <- function(
         }
 
         if (ext %in% c("csv", "txt", "tsv")) {
-            df <- utils::read.csv(
-                file, sep = sep, quote = quote,
-                header = header, colClasses = col_classes,
-                na.strings = na_values
+            df <- safe_read_table(
+                file = file,
+                sep = sep,
+                quote = quote,
+                header = header,
+                na_values = na_values,
+                strings_as_factors = FALSE,
+                check_names = FALSE,
+                comment_char = "",
+                fill = TRUE
             )
-        } else if (ext %in% c("ped")) {
+        } else if (ext %in% c("ped", "fam")) {
             df <- utils::read.table(
                 file, quote = quote, header = header,
                 sep = sep, colClasses = col_classes,
                 na.strings = na_values
             )
             col <- c("famid", "id", "dadid", "momid", "sex", "affection")
-            colnames(df) <- col[dim(df)[1]]
+            colnames(df) <- col[seq_len(ncol(df))]
         } else if (ext %in% c("tab")) {
             df <- utils::read.table(
                 file, quote = quote, header = header,
@@ -153,6 +211,7 @@ data_import_ui <- function(id) {
     ns <- shiny::NS(id)
     shiny::tagList(
         shinytoastr::useToastr(),
+        shiny::uiOutput(ns("title")),
         shiny::uiOutput(ns("fileselection")),
         shiny::fluidRow(
             shiny::column(
@@ -163,9 +222,7 @@ data_import_ui <- function(id) {
         shiny::fluidRow(
             shiny::column(
                 width = 6, align = "center",
-                shinyWidgets::switchInput(
-                    ns("testdf"), value = FALSE, size = "small"
-                )
+                shiny::uiOutput(ns("testdata"))
             ),
             shiny::column(
                 width = 6,
@@ -198,9 +255,22 @@ data_import_ui <- function(id) {
 #'
 #' @param id A string.
 #' @param label A string use to prompt the user
+#' @param help_data A string to define the help content for the data import.
+#' If NULL, no help content is displayed.
+#' @param help_data_title A string to define the title of the help content.
+#' Set it to "" to not display a title or to use the one present
+#' in the markdown.
+#' @param help_test_data A string to define the help content for the test data.
+#' If NULL, no help content is displayed.
+#' @param help_test_data_title A string to define the title of the help content.
+#' Set it to "" to not display a title or to use the one present
+#' in the markdown.
 #' @param dftest A dataframe to test the function
 #' @param max_request_size A number to define the maximum size of the file
 #' that can be uploaded.
+#' @param help_colour A string to define the colour of the help icon
+#' @param help_type A string to define the type of help content
+#' This can be "inline" or "markdown"
 #' @returns A reactive dataframe selected by the user.
 #' @examples
 #' if (interactive()) {
@@ -213,18 +283,55 @@ data_import_ui <- function(id) {
 #' @importFrom shiny observeEvent showModal modalDialog checkboxInput
 #' @importFrom shiny textAreaInput tagList actionButton removeModal
 #' @importFrom shiny observe
-#' @importFrom shinyWidgets pickerInput updateSwitchInput
+#' @importFrom shinyWidgets updateSwitchInput
 #' @importFrom shinytoastr toastr_error toastr_success
+#' @importFrom shinyhelper helper
 data_import_server <- function(
     id, label = "Select data file",
-    dftest = datasets::mtcars, max_request_size = 30
+    help_data = NULL, help_data_title = "",
+    help_test_data = NULL, help_test_data_title = "",
+    dftest = datasets::mtcars, max_request_size = 30,
+    help_colour = "grey", help_type = "inline"
 ) {
     options(shiny.maxRequestSize = max_request_size * 1024^2)
     shiny::moduleServer(id, function(input, output, session) {
-        ns <- shiny::NS(id)
+        ns <- session$ns
+        ## Title rendering selection ---------------
+        output$title <- shiny::renderUI({
+            if (!is.null(help_data)) {
+                shiny::h5(shiny::tags$b(label)) |>
+                    shinyhelper::helper(
+                        title = help_data_title,
+                        content = help_data,
+                        type = help_type,
+                        colour = help_colour
+                    )
+            } else {
+                shiny::h5(shiny::tags$b(label))
+            }
+        })
+
         ## File rendering selection ------------------------
         output$fileselection <- shiny::renderUI({
-            shiny::fileInput(ns("fileinput"), label)
+            shiny::fileInput(ns("fileinput"), label = NULL)
+        })
+
+        ## Test data rendering selection ---------------
+        output$testdata <- shiny::renderUI({
+            if (!is.null(help_test_data)) {
+                shinyWidgets::switchInput(
+                    ns("testdf"), value = FALSE, size = "small"
+                ) |> shinyhelper::helper(
+                    title = help_test_data_title,
+                    content = help_test_data,
+                    type = help_type,
+                    colour = help_colour
+                )
+            } else {
+                shinyWidgets::switchInput(
+                    ns("testdf"), value = FALSE, size = "small"
+                )
+            }
         })
 
         ## Options rendering selection --------------------
@@ -249,7 +356,7 @@ data_import_server <- function(
                     ns("strings_as_factors"),
                     "Strings as factors", value = opt$strings_as_factors
                 ),
-                shinyWidgets::pickerInput(ns("quote"), "Quote", c(
+                shiny::selectInput(ns("quote"), "Quote", c(
                     "None" = "",
                     "Double quote" = "\"",
                     "Single quote" = "'",
@@ -354,6 +461,7 @@ data_import_server <- function(
 #' @export
 #' @importFrom shiny fluidPage tableOutput shinyApp
 #' @importFrom shiny renderTable exportTestValues
+#' @importFrom shinyhelper observe_helpers
 data_import_demo <- function(options = list()) {
     ui <- shiny::fluidPage(
         data_import_ui("my_data_import"),
@@ -361,7 +469,15 @@ data_import_demo <- function(options = list()) {
     )
     server <- function(input, output, session) {
         df_import <- data_import_server(
-            id = "my_data_import", label = "Select data file"
+            id = "my_data_import", label = "Select data file",
+            help_data = c(
+                "Please select a file to upload",
+                "The file can be a csv, txt, xls, xlsx, rda or tab file"
+            ),
+            help_test_data = NULL
+        )
+        shinyhelper::observe_helpers(
+            help_dir = system.file("helpfiles", package = "Pedixplorer")
         )
         output$data <- shiny::renderTable({
             if (is.null(df_import())) {

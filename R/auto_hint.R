@@ -286,6 +286,7 @@ get_twin_rel <- function(obj) {
 #' @param reset If `TRUE`, then even if  the Ped object has Hints, reset
 #' them to the initial values.
 #' @inheritParams align
+#' @inheritParams kindepth
 #'
 #' @return The initial [Hints-class] object.
 #'
@@ -306,7 +307,8 @@ setGeneric("auto_hint", signature = "obj",
 #' @export
 setMethod("auto_hint", "Pedigree", function(
     obj, hints = NULL, packed = TRUE,
-    align = FALSE, reset = FALSE
+    align = FALSE, reset = FALSE,
+    align_parents = TRUE, force = FALSE
 ) {
     ## full documentation now in vignette: align_code_details.Rmd
     ## References to those sections appear here as:
@@ -325,7 +327,7 @@ setMethod("auto_hint", "Pedigree", function(
     }
 
     n <- length(obj)
-    depth <- kindepth(obj, align_parents = TRUE)
+    depth <- kindepth(obj, align_parents = align_parents, force = force)
 
     ## Doc: init-auto_hint horder
     horder <- stats::setNames(rep(0, n), id(ped(obj)))
@@ -378,9 +380,9 @@ setMethod("auto_hint", "Pedigree", function(
 
     plist <- align(obj,
         packed = packed, align = align,
-        hints = Hints(horder = horder, spouse = sptemp)
+        hints = Hints(horder = horder, spouse = sptemp),
+        align_parents = align_parents, force = force
     )
-
 
     ## Doc: fixup-2
     ## Fix if duplicate individuals present
@@ -455,12 +457,16 @@ setMethod("auto_hint", "Pedigree", function(
                         anchor = temp[, 3]
                     )
                 }
-                sptemp <- rbind(sptemp, temp)
+                id_all <- c(sptemp$idl, sptemp$idr)
+                couple_present <- (temp$idl %in% id_all) &
+                    (temp$idr %in% id_all)
+                sptemp <- rbind(sptemp, temp[!couple_present, ])
             }
         }
         #
         # Recompute, since this shifts things on levels below
         #
+
         new_spouse <- data.frame(
             idl = id(ped(obj))[sptemp$idl],
             idr = id(ped(obj))[sptemp$idr],
@@ -468,7 +474,8 @@ setMethod("auto_hint", "Pedigree", function(
         )
         plist <- align(obj,
             packed = packed, align = align,
-            hints = Hints(horder = horder, spouse = new_spouse)
+            hints = Hints(horder = horder, spouse = new_spouse),
+            align_parents = align_parents, force = force
         )
     }
 
@@ -477,5 +484,6 @@ setMethod("auto_hint", "Pedigree", function(
         idr = id(ped(obj))[sptemp$idr],
         anchor = anchor_to_factor(sptemp$anchor)
     )
+
     Hints(horder = horder, spouse = new_spouse)
 })

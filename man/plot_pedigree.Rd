@@ -32,13 +32,15 @@
   leg_adjx = 0,
   leg_adjy = 0,
   precision = 4,
-  lwd = par("lwd"),
+  lwd = 1,
   ped_par = list(),
   leg_par = list(),
   tips = NULL,
   title_cex = 2,
   leg_usr = NULL,
-  add_to_existing = FALSE
+  add_to_existing = FALSE,
+  label_dist = c(1, 3, 5),
+  label_cex = c(1, 0.7, 1)
 )
 }
 \arguments{
@@ -52,7 +54,8 @@ value of the affection column for each filling scale.}
 \item{label}{If not \code{NULL}, add a label to each box under the id
 corresponding to the value of the column given.}
 
-\item{ggplot_gen}{If TRUE add the segments to the ggplot object}
+\item{ggplot_gen}{If \code{TRUE}, the function will use the
+\code{ggplot2} package to generate the plot.}
 
 \item{cex}{Character expansion of the text}
 
@@ -127,11 +130,11 @@ of the legend.}
 \item{precision}{The number of significatif numbers to round the
 solution to.}
 
-\item{lwd}{default=par("lwd"). Controls the line width of the
+\item{lwd}{default=1. Controls the line width of the
 segments, arcs and polygons.}
 
 \item{ped_par}{default=list().  A list of parameters to use as graphical
-parameteres for the main plot.}
+parameters for the main plot.}
 
 \item{leg_par}{default=list().  A list of parameters to use as graphical
 parameters for the legend.}
@@ -146,6 +149,13 @@ legend.}
 
 \item{add_to_existing}{If \code{TRUE}, the plot will be added to the current
 plot.}
+
+\item{label_dist}{A numeric vector of length 3 giving the distance
+between the id, date and label text and the bottom of the box.
+This value is multiplied by the obtained \code{labh} value.}
+
+\item{label_cex}{A numeric vector of length 3 giving the cex of the id,
+date and label text. This value is multiplied by the \code{cex} argument}
 }
 \value{
 an invisible list containing

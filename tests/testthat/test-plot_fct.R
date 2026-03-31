@@ -45,37 +45,34 @@ test_that("polygons works", {
 })
 
 test_that("plotting functions works", {
-    plot(c(0, 10), c(0, 10))
     p <- ggplot() +
         ggplot2::geom_point(aes(x = seq(1, 10), y = seq(1, 10)))
-    p <- draw_segment(
-        0, 0, 2, 2, p = p, ggplot_gen = TRUE
-    )
-    p <- draw_segment(
+    p <- p + draw_segment(0, 0, 2, 2, ggplot_gen = TRUE)
+    p <- p + draw_segment(
         0, 0, 2, 0,
         col = "red", lwd = 2, lty = 3,
-        p = p, ggplot_gen = TRUE
+        ggplot_gen = TRUE
     )
-    p <- draw_polygon(
+    p <- p + draw_polygon(
         c(2, 2, 3, 3), c(2, 3, 3, 2),
-        density = 5, p = p, ggplot_gen = TRUE
+        density = 5, ggplot_gen = TRUE
     )
 
-    p <- draw_polygon(
+    p <- p + draw_polygon(
         c(5, 6, 6, 7), c(8, 9, 10, 9),
         fill = "brown", border = "green",
-        density = 5, p = p, ggplot_gen = TRUE
+        density = 5, ggplot_gen = TRUE
     )
 
-    p <- draw_text(
+    p <- p + draw_text(
         4, 5, "text",
         col = "blue", cex = 2,
-        p = p, ggplot_gen = TRUE
+        ggplot_gen = TRUE
     )
-    p <- draw_arc(
+    p <- p + draw_arc(
         4, 6, 8, 8,
         col = "green", lwd = 4,
-        p = p, ggplot_gen = TRUE
+        ggplot_gen = TRUE, lty = "dashed"
     )
 
     vdiffr::expect_doppelganger("plotting functions works", p)
@@ -97,10 +94,10 @@ test_that("polygon slicing works", {
         for (i in seq_len(max_aff)) {
             for (n in seq_len(i)) {
                 poly <- poly_n[[i]][[s]][[n]]
-                p <- draw_polygon(
+                p <- p + draw_polygon(
                     s + poly$x * 0.5,
                     i + poly$y * 0.5,
-                    fill = n, p = p, ggplot_gen = TRUE
+                    fill = n, ggplot_gen = TRUE
                 )
             }
         }

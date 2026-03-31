@@ -121,9 +121,16 @@ jobs:
         ## branch (erasing anything you haven't version controlled!) and
         ## makes the git history recognizable by pkgdown.
 
+      - name: Update apt and retry on failure
+        run: |
+          for i in {1..5}; do
+            sudo apt-get update && break || sleep 15
+          done
       - name: Install deploy dependencies
         run: |
-          apt-get update && apt-get -y install rsync
+          for i in {1..5}; do
+            sudo apt-get install -y rsync && break || sleep 15
+          done
 
       - name: Deploy pkgdown site to GitHub pages 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v4

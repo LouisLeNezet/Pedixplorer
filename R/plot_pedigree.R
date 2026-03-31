@@ -10,11 +10,10 @@
 #' Creates plot on current plotting device.
 #' @keywords internal
 #' @keywords plot_legend
-#' @importFrom scales rescale
 plot_legend <- function(
     obj, cex = 1, boxw = 0.1, boxh = 0.1, adjx = 0, adjy = 0,
     leg_loc = c(0, 1, 0, 1), add_to_existing = FALSE, usr = NULL,
-    lwd = par("lwd"), precision = 4
+    lwd = 1, precision = 4, ggplot_gen = FALSE
 ) {
     leg <- ped_to_legdf(
         obj, cex = cex,
@@ -24,11 +23,11 @@ plot_legend <- function(
     )
     if (!is.null(leg_loc)) {
         distx0 <- max(leg$df$x0) - min(leg$df$x0)
-        leg$df$x0 <- scales::rescale(leg$df$x0,
+        leg$df$x0 <- rescale(leg$df$x0,
             c(leg_loc[1], leg_loc[2])
         )
         disty0 <- max(leg$df$y0) - min(leg$df$y0)
-        leg$df$y0 <- scales::rescale(leg$df$y0,
+        leg$df$y0 <- rescale(leg$df$y0,
             c(leg_loc[3], leg_loc[4])
         )
         boxw <- boxw * ((max(leg$df$x0) - min(leg$df$x0)) / distx0)
@@ -39,12 +38,18 @@ plot_legend <- function(
             leg$df[symbol, ]$y0 <- leg$df[symbol, ]$y0 - boxh
         }
     }
-    plot_fromdf(
+
+    p <- plot_fromdf(
         leg$df, add_to_existing = add_to_existing,
-        boxw = boxw, boxh = boxh, usr = usr
+        boxw = boxw, boxh = boxh, usr = usr,
+        ggplot_gen = ggplot_gen
     )
 
-    invisible(list(df = leg$df, par_usr = usr))
+    if (ggplot_gen) {
+        invisible(list(df = leg$df, par_usr = usr, ggplot = p))
+    } else {
+        invisible(list(df = leg$df, par_usr = usr))
+    }
 }
 
 
@@ -117,7 +122,7 @@ plot_legend <- function(
 #' @param leg_adjy default=0.  Controls the vertical labels adjustment
 #' of the legend.
 #' @param ped_par default=list().  A list of parameters to use as graphical
-#' parameteres for the main plot.
+#' parameters for the main plot.
 #' @param leg_par default=list().  A list of parameters to use as graphical
 #' parameters for the legend.
 #' @param leg_usr default=NULL. A vector of user coordinates to use for the
@@ -159,9 +164,10 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
         title = NULL, subreg = NULL, pconnect = 0.5, fam_to_plot = 1,
         legend = FALSE, leg_cex = 0.8, leg_symbolsize = 0.5,
         leg_loc = NULL, leg_adjx = 0, leg_adjy = 0, precision = 4,
-        lwd = par("lwd"), ped_par = list(), leg_par = list(),
+        lwd = 1, ped_par = list(), leg_par = list(),
         tips = NULL, title_cex = 2, leg_usr = NULL,
-        add_to_existing = FALSE
+        add_to_existing = FALSE,
+        label_dist = c(1, 3, 5), label_cex = c(1, 0.7, 1)
     ) {
         famlist <- unique(famid(ped(x)))
         if (length(famlist) > 1) {
@@ -173,14 +179,20 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             }
             x <- x[famid(ped(x)) == fam_to_plot]
         }
-        op <- par(ped_par)
+        if (!ggplot_gen) {
+            op <- par(no.readonly = TRUE)
+            on.exit(par(op))
+            par(ped_par)
+        }
         lst <- ped_to_plotdf(
             obj = x, packed = packed, width = width, align = align,
             align_parents = align_parents, force = force,
             cex = cex, symbolsize = symbolsize,
             pconnect = pconnect, branch = branch,
             aff_mark = aff_mark, id_lab = id_lab, label = label,
-            tips = tips, precision = precision, lwd = lwd
+            tips = tips, precision = precision, lwd = lwd,
+            ggplot_gen = ggplot_gen,
+            label_dist = label_dist, label_cex = label_cex
         )
 
         if (is.null(lst)) {
@@ -197,7 +209,6 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
             boxw = lst$par_usr$boxw, boxh = lst$par_usr$boxh,
             add_to_existing = add_to_existing
         )
-        par(op)
 
         if (legend) {
             if (is.null(leg_loc)) {
@@ -207,21 +218,33 @@ setMethod("plot", c(x = "Pedigree", y = "missing"),
                 )
             }
             par(leg_par)
-            graphics::box(col = "#00000000")
-            plot_legend(obj = x, cex = leg_cex,
+            if (!ggplot_gen) {
+                graphics::box(col = "#00000000")
+            }
+            lst_leg <- plot_legend(obj = x, cex = leg_cex,
                 boxw = leg_symbolsize,
                 boxh = leg_symbolsize,
                 adjx = leg_adjx, adjy = leg_adjy,
                 leg_loc = leg_loc, add_to_existing = TRUE,
-                usr = leg_usr, lwd = lwd, precision = precision
+                usr = leg_usr, lwd = lwd, precision = precision,
+                ggplot_gen = ggplot_gen
             )
-            par(op)
+        } else {
+            lst_leg <- NULL
         }
 
         if (ggplot_gen) {
-            invisible(list(df = lst$df, par_usr = lst$par_usr, ggplot = p))
+            invisible(list(
+                df = lst$df, par_usr = lst$par_usr,
+                ggplot = p, ind_not_plot = lst$ind_not_plot,
+                legend = lst_leg
+            ))
         } else {
-            invisible(list(df = lst$df, par_usr = lst$par_usr))
+            invisible(list(
+                df = lst$df, par_usr = lst$par_usr,
+                ind_not_plot = lst$ind_not_plot,
+                legend = lst_leg
+            ))
         }
     }
 )

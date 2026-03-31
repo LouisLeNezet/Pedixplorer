@@ -7,16 +7,13 @@
 draw_point(
   x,
   y,
-  p = NULL,
   ggplot_gen = FALSE,
   cex = par("lwd"),
-  pch = 1,
-  col = "black"
+  pch = par("pch"),
+  col = par("col")
 )
 }
 \arguments{
-\item{p}{ggplot object}
-
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 
 \item{col}{Line color}

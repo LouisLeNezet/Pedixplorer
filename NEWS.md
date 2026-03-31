@@ -1,3 +1,52 @@
+## Changes in v1.5.6
+
+- Fix legend plotting when ggplot_gen is TRUE
+- Reduce `kindepth()` warning and error messages to show necessary information.
+- Fix lwd usage instead of cex in `ped_to_legdf()`
+
+## Changes in v1.5.5
+
+- Add `label_cex` and `label_size` to control id, date and label text position and size
+- Fix csv reading with incoherent number of columns in rows
+- Fix check box align_parents in `ped_shiny()`
+- Fix `auto_hint()` error when couple present twice
+- Fix stress computation when individual present more than twice
+- Add `ind_max_warning` and `ind_max_error` for a better control of pedigree size
+to plot in shiny application
+
+## Changes in v1.5.4
+
+- Add `best_hint` computation to the shiny app and split it in different subfunction
+- Remove little used library from Imports
+- Change `shinyWidgets::pickerInput` to `shiny::selectInput`
+- Remove `0` from default `na_strings`
+- Update citation to use published article in Bioinformatics
+- Add error for `_` present in any id columns
+- Fix shiny app notification title and slider intermediary value selection
+- Fix full scale data reaffection on same column
+- Improve position and size of proband label and assymptomatic symbol for logo
+
+## Changes in v1.5.3
+
+- Add short explanation of `hints()` usage in `Pedigree alignment details` vignette.
+
+## Changes in v1.5.2
+
+- Fix resizing plot in shiny module by adding dependency
+- Update website and readme
+
+## Changes in v1.5.1
+
+- Separate plot management in a shiny module
+- Add `plot_resize` shiny module
+- Add help messages using `shinyhelper`
+- Add `plink_to_pedigree` function to convert plink files to Pedigree object
+- Add `0` as one of the default missing identifier value
+- Set ggplot generation as independent without plotting on current device
+- All `draw_*` functions return a layer instead of a ggplot object
+- Add back message for individuals not plotted
+- Add autocompletion of missing twins relationship with `complete_twins()`
+
 ## Changes in v1.3.4
 
 - Add example of interactivness in vignette

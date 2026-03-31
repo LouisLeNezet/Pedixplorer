@@ -5,7 +5,7 @@ data_download_ui <- function(id) {
     shiny::tagList(
         shiny::uiOutput(ns("title_data")),
         shiny::uiOutput(ns("data_text")),
-        shiny::downloadButton(ns("data_dwld"))
+        shiny::uiOutput(ns("dwld_ui"))
     )
 }
 
@@ -38,18 +38,17 @@ data_download_server <- function(
     label = NULL, helper = TRUE, title = "Data download"
 ) {
     stopifnot(shiny::is.reactive(df))
-
-    myfilename <- shiny::reactive({
-        if (shiny::is.reactive(filename)) {
-            filename <- filename()
-        }
-        filename
-    })
-
     shiny::moduleServer(id, function(input, output, session) {
+        ns <- session$ns
+        myfilename <- make_reactive(filename)
+
         ## Create title
         output$title_data <- shiny::renderUI({
             h3(title)
+        })
+
+        output$dwld_ui <- shiny::renderUI({
+            shiny::downloadButton(ns("data_dwld"), label)
         })
 
         ## Create download button

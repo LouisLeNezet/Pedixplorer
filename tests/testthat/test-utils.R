@@ -41,7 +41,8 @@ test_that("check_columns", {
     ))
     df_result <- data.frame(
         ColN1 = c(1, 2), ColN2 = 4,
-        ColTU1 = "A", ColTU2 = 3, ColU1 = NA, ColU2 = NA
+        ColTU1 = "A", ColTU2 = 3,
+        ColU1 = NA_character_, ColU2 = NA_character_
     )
     expect_equal(df_get, df_result)
 
@@ -52,7 +53,8 @@ test_that("check_columns", {
     ))
     df_result <- data.frame(
         ColN1 = c(1, 2), ColN2 = 4,
-        ColTU1 = "A", ColTU2 = 3, ColTU3 = NA
+        ColTU1 = "A", ColTU2 = 3,
+        ColTU3 = NA_character_
     )
     expect_equal(df_get, df_result)
 })
@@ -110,7 +112,6 @@ test_that("fertility_to_factor", {
         ), levels = c("infertile_choice_na", "infertile", "fertile"))
     )
 })
-
 
 test_that("miscarriage_to_factor", {
     miscarriage <- c(
@@ -191,4 +192,59 @@ test_that("char_to_date", {
     expect_equal(
         my_vect_1, c("2020-01-01", NA, NA, NA, NA, NA)
     )
+})
+
+test_that("plink_to_pedigree", {
+    df_path <- paste0(testthat::test_path(), "/testdata/sampleped.ped")
+    pedi <- plink_to_pedigree(path = df_path)
+
+    expect_equal(class(pedi), class(Pedigree()))
+    expect_equal(length(pedi), 6)
+})
+
+test_that("complete_twins", {
+    data("relped")
+    df <- complete_twins(relped)
+    expect_equal(dim(df), c(9, 5))
+
+    rel_df <- data.frame(
+        id1 = c(112, 113, 133, 209),
+        id2 = c(110, 114, 132, 109),
+        code = c(1, 4, 4, 4)
+    )
+    df <- complete_twins(rel_df)
+    expect_equal(dim(df), c(4, 5))
+
+    rel_df <- data.frame(
+        id1 = c(112, 113, 133, 209),
+        id2 = c(110, 114, 114, 109),
+        code = c(1, 1, 2, 4)
+    )
+    expect_error(
+        complete_twins(rel_df),
+        "Multiple relationship codes in group 2"
+    )
+    expect_warning(
+        df <- complete_twins(rel_df, multi_code = "warn"),
+        "Multiple relationship codes in group 2"
+    )
+    expect_equal(dim(df), c(5, 5))
+    expect_equal(
+        as.character(df$code[df$id1 == "113" & df$id2 == "133"]),
+        "UZ twin"
+    )
+
+    expect_error(
+        complete_twins(rel_df, multi_code = "other"),
+        "Unknown multi_code argument"
+    )
+})
+
+test_that("rescale works", {
+    rescale(c(1, 2, 3, 4, 5), to = c(0, 1)) %>%
+        expect_equal(c(0, 0.25, 0.5, 0.75, 1))
+    rescale(c(1, 2, 3, 4, 5), to = c(10, 20)) %>%
+        expect_equal(c(10, 12.5, 15, 17.5, 20))
+    rescale(c(1, 2, 3, 4, 5), to = c(0, 100)) %>%
+        expect_equal(c(0, 25, 50, 75, 100))
 })

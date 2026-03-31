@@ -1,7 +1,7 @@
 url: https://louislenezet.github.io/Pedixplorer
 
 home:
-  title: Pedixplorer - A BioConductor R package for pedigree creation, filtering and drawing
+  title: Pedixplorer - A Bioconductor R package for pedigree creation, filtering and drawing
   description: Routines to handle family data with a Pedigree object.
   links:
     - text: "Test the shiny app"
@@ -18,15 +18,19 @@ template:
 
 news:
   releases:
-  - text: "Latest devel release : Version 1.1.5"
-    href: "https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.1.5"
-  - text: "Latest main release : Version 1.0.0"
+  - text: "Latest devel release : Version 1.5.5"
+    href: https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html
+  - text: "Latest main release : Version 1.4.0"
     href: https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html
+  - text: "Previous stable release : Version 1.2.0"
+    href: https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.2.0
+  - text: "Previous stable release : Version 1.0.0"
+    href: https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.0.0
 
 reference:
   - title: "Pedixplorer"
     url: https://bioconductor.org/packages/Pedixplorer
-    desc: "Pedixplorer a BioConductor package to create, filter and draw pedigrees."
+    desc: "Pedixplorer a Bioconductor package to create, filter and draw pedigrees."
     contents:
       - Pedixplorer
       - Pedixplorer-package
@@ -46,11 +50,14 @@ reference:
       - fix_parents
       - norm_ped
       - norm_rel
+      - plink_to_pedigree
 
   - title: "Shiny app"
     desc : "The Pedixplorer package comes with a shiny app to interact with the Pedigree object."
     contents:
       - ped_shiny
+      - ped_server
+      - ped_ui
 
   - title: "Pedigree drawing and legend"
     desc : "The Pedigree object can be drawn using the plot method."

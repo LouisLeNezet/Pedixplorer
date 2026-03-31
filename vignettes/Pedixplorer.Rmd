@@ -511,11 +511,59 @@ plot(
 )
 ```
 
+## Change text label size and distance from the box subject
+
+The text size and distance from the box subject for each label can be changed
+with the `label_cex` and `label_dist` arguments of the `plot()` method.
+They need to be numerical vectors of length 3
+where the first element is the for the id, the second element
+is for the dates (birth and death) and the third element is for the label.
+
+The `label_dist` argument can be used to change the order of the labels plotted.
+
+```{r, label_size, fig.alt = "Pedigree with change in label size and distance"}
+# Reset the affection status
+ped1 <- generate_colors(
+    ped1, col_aff = "num",
+    add_to_scale = FALSE, is_num = TRUE,
+    keep_full_scale = FALSE,
+    threshold = 3, sup_thres_aff = FALSE
+)
+plot(
+    ped1, cex = 0.7, label = "num_mods",
+    label_cex = c(0.8, 0.6, 2), # Change the text size
+    label_dist = c(1, 5, 2.5) # Change the order and distance from the box
+)
+```
+
+## Legend with ggplot2
+
+The legend can be added to the plot with the `legend` argument set to
+`TRUE`. However the legend will be generated as a separate ggplot object.
+To combine the legend and the pedigree plot, you can use the
+`cowplot::plot_grid()` function as shown below.
+
+```{r, legend_ggplot2, fig.alt = "Pedigree with legend"}
+library(cowplot)
+
+plot_lst <- plot(
+    ped1, ggplot_gen = TRUE, legend = TRUE,
+    leg_cex = 0.8, leg_symbolsize = 0.1,
+)
+cowplot::plot_grid(
+    plot_lst$ggplot,
+    plot_lst$legend$ggplot +
+        ggplot2::xlim(-2, 20),
+    ncol = 1, nrow = 2, rel_heights = c(4, 1)
+)
+```
+
+
 ## Render interactive
 
 The plot can be made interactive by setting the `ggplot_gen` argument to `TRUE`.
-This will generate a ggplot object that can be passed down to `plotly::ggplotly()`
-to make the plot interactive.
+This will generate a ggplot object that can be passed down to
+`plotly::ggplotly()` to make the plot interactive.
 
 ```{r, prepare_interactive, fig.show='hide'}
 plot_list <- plot(
@@ -579,10 +627,13 @@ $$
     minDist = log2(\frac{1}{\max(kinship)})
 $$
 
-Therefore, the minimum distance is 0 when the maximum kinship is 1 and
-is infinite when the maximum kinship is 0. For siblings, the kinship value
-is 0.5 and the minimum distance is 1. Each time the kinship degree is divided
-by 2, the minimum distance is increased by 1.
+Therefore, the minimum distance is `1` when the maximum kinship is `0.5`
+(i.e. same individual) and is infinite when the maximum kinship is `0`
+(i.e. not related).
+For siblings, the kinship value is `0.25` and the minimum distance is `2`.
+Each time the kinship degree is divided by `2`, the minimum distance is
+increased by `1`.
+
 This distance can be understood as the number of step needed to link two
 individuals on a pedigree.
 

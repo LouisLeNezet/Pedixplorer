@@ -26,7 +26,7 @@
 #' the labels in the legend.
 #' @param adjy default=0.  Controls the vertical text adjustment
 #' of the labels in the legend.
-#' @param lwd default=par("lwd").  Controls the bordering line width of the
+#' @param lwd default=1.  Controls the bordering line width of the
 #' elements in the legend.
 #' @param precision The number of significatif numbers to round the
 #' numbers to.
@@ -55,7 +55,7 @@ setGeneric(
 #' @importFrom graphics strwidth
 setMethod("ped_to_legdf", "Pedigree", function(
     obj, boxh = 1, boxw = 1,
-    cex = 1, adjx = 0, adjy = 0, lwd = par("lwd"),
+    cex = 1, adjx = 0, adjy = 0, lwd = 1,
     precision = 4
 ) {
     par_usr <- list(boxh = boxh, boxw = boxw, cex = cex)
@@ -65,7 +65,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         type = character(), fill = character(), border = character(),
         angle = numeric(), density = numeric(), cex = numeric(),
         label = character(), tips = character(), adjx = numeric(),
-        adjy = numeric()
+        adjy = numeric(), lwd = numeric()
     )
     sex_equiv <- c("Male", "Female", "Unknown")
     all_lab <- list(sex_equiv, border(obj)$labels)
@@ -114,7 +114,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         type = paste(names(poly1)[all_sex], 1, 1, sep = "_"),
         fill = "white",
         border = "black",
-        id = "sex", cex = lwd
+        id = "sex", lwd = lwd
     )
 
     sex_label <- data.frame(
@@ -136,7 +136,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
         type = rep("square_1_1", length(border_mods)),
         border = border(obj)$border[match(border_mods, border(obj)$mods)],
         fill = "white",
-        id = "border", cex = lwd
+        id = "border", lwd = lwd
     )
     lab <- border(obj)$labels[match(border_mods, border(obj)$mods)]
     lab[is.na(lab)] <- "NA"
@@ -161,7 +161,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
             type = rep(paste("square", 1, 1, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black", fill = "white", cex = lwd,
+            border = "black", fill = "white", lwd = lwd,
             id = paste("aff_bkg", aff, aff_mods, sep = "_")
         )
 
@@ -171,7 +171,7 @@ setMethod("ped_to_legdf", "Pedigree", function(
             type = rep(paste("square", n_aff, aff, sep = "_"),
                 length(aff_mods)
             ),
-            border = "black", cex = lwd,
+            border = "black", lwd = lwd,
             fill = aff_df$fill,
             id = paste("affected", aff, aff_mods, sep = "_")
         )

@@ -40,8 +40,14 @@ df <- data.frame(
 Pedixplorer:::validate_and_rename_df(
    df, list(Need1 = "ColN1", Sup2 = "ColTU1"),
    list(
-       Need1 = list(alternate = c("ColN1", "ColN3"), mandatory = TRUE),
-       Sup2 = list(alternate = c("ColTU1", "ColTU3"), mandatory = FALSE)
+       Need1 = list(
+           alternate = c("ColN1", "ColN3"), mandatory = TRUE,
+           help = NULL
+       ),
+       Sup2 = list(
+           alternate = c("ColTU1", "ColTU3"), mandatory = FALSE,
+           help = "Supplementary column"
+      )
    )
 )
 }

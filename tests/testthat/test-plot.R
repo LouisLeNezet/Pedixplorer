@@ -41,15 +41,16 @@ test_that("Pedigree plotting test", {
     )
 
     lst <- ped_to_plotdf(pedi, precision = 4)
-    expect_equal(length(lst), 2)
-    expect_equal(dim(lst$df), c(82, 16))
+    expect_equal(length(lst), 3)
+    expect_equal(dim(lst$df), c(82, 17))
     expect_snapshot(lst)
     expect_equal(
         round(lst$par_usr$usr, 3),
-        c(-0.063, 3.063, 4.248, 1.000)
+        c(-0.064, 3.064, 4.248, 1.000)
     )
 
     p <- plot(pedi, title = "Pedigree", ggplot_gen = TRUE, precision = 4)
+
     vdiffr::expect_doppelganger("Ped 2 affections ggplot",
         function() plot(p$ggplot)
     )
@@ -61,8 +62,14 @@ test_that("Pedigree fails to line up", {
     df1 <- sampleped[sampleped$famid == "1", ]
     ped1 <- Pedigree(df1)
     vdiffr::expect_doppelganger("ped1",
-        function() plot(ped1, precision = 4)
+        function() suppressWarnings(plot(ped1, precision = 4))
     )
+
+    expect_equal(
+        suppressWarnings(plot(ped1, precision = 4))$ind_not_plot,
+        c("1_113")
+    )
+
     # With reordering it's better
     df1reord <- df1[c(35:41, 1:34), ]
     ped1reord <- Pedigree(df1reord)
@@ -175,6 +182,87 @@ test_that("Supplementary graphical representations", {
     vdiffr::expect_doppelganger("Ped with all annotations ggplot",
         function() {
             plot(pedi, ggplot_gen = TRUE)$ggplot
+        }
+    )
+})
+
+test_that("Pedigree example of Pascale - alone individual", {
+    df_path <- paste0(testthat::test_path(), "/testdata/other_test.txt")
+    df <- read_data(df_path, sep = "\t")
+
+    df_fix <- fix_parents(df)
+    pedi <- Pedigree(df_fix, missid = "0")
+
+    pedi1 <- pedi[famid(ped(pedi)) == "1"]
+
+    set.seed(123)
+    hints(pedi1) <- best_hint(
+        pedi1,
+        align_parents = FALSE, force = TRUE,
+        tolerance = 3000
+    )
+    vdiffr::expect_doppelganger("Ped Pascale",
+        function() plot(pedi1, force = TRUE, align_parents = FALSE)
+    )
+})
+
+test_that("Pedigree plot with different label distances & label cex", {
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    pedi1 <- pedi[famid(ped(pedi)) == "1"]
+
+    expect_error(
+        plot(pedi1, label = "num", label_dist = 0.5),
+        "label_dist must be a vector of length 3"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_dist = c(1, 2, "3")),
+        "label_dist must be a numeric vector"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_cex = 0.5),
+        "label_cex must be a vector of length 3"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_cex = c(1, 2, "3")),
+        "label_cex must be a numeric vector with positive values"
+    )
+    expect_error(
+        plot(pedi1, label = "num", label_cex = c(1, 2, -1)),
+        "label_cex must be a numeric vector with positive values"
+    )
+
+    vdiffr::expect_doppelganger("Ped with different label distances",
+        function() {
+            plot(
+                pedi1, cex = 0.7, label = "num",
+                label_cex = c(0.8, 0.6, 2), # Change labels text size
+                label_dist = c(1, 5, 2.5) # Change labels distance + order
+            )
+        }
+    )
+})
+
+test_that("Pedigree ggplot with legend", {
+    testthat::skip_if_not_installed("cowplot")
+
+    data(sampleped)
+    pedi <- Pedigree(sampleped)
+    pedi1 <- pedi[famid(ped(pedi)) == "1"]
+
+    plot_lst <- plot(
+        pedi1, ggplot_gen = TRUE, legend = TRUE,
+        leg_cex = 0.8, leg_symbolsize = 0.1,
+    )
+
+    vdiffr::expect_doppelganger("Ped with legend ggplot",
+        function() {
+            cowplot::plot_grid(
+                plot_lst$ggplot,
+                plot_lst$legend$ggplot +
+                    ggplot2::xlim(-2, 20),
+                ncol = 1, nrow = 2, rel_heights = c(4, 1)
+            )
         }
     )
 })
