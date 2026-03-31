@@ -67,8 +67,8 @@ family_infos_table <- function(pedi, col_val = NA) {
         mcols(pedi)[[unique(aff$column_mods)]],
         useNA = "always",
         dnn = c("Availability", "Affected")
-    ) %>%
-        as.data.frame() %>%
+    ) |>
+        as.data.frame() |>
         tidyr::spread("Availability", "Freq")
     colnames(df) <- c("Affected", "TRUE", "FALSE", "NA")
     df$mods <- aff$labels[match(

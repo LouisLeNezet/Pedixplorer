@@ -1,4 +1,4 @@
-#' @importFrom dplyr select one_of %>%
+#' @importFrom dplyr select one_of
 NULL
 
 #' Check columns presence in a dataframe
@@ -700,8 +700,8 @@ create_text_column <- function(
     df, title = NULL, cols = NULL, na_strings = c("", "NA")
 ) {
     check_columns(df, c(title, cols), NULL, others_cols = TRUE)
-    df %>%
-        dplyr::rowwise() %>%
+    df |>
+        dplyr::rowwise() |>
         dplyr::mutate(text = paste(
             paste(
                 "<span style='font-size:14px'><b>",
@@ -717,8 +717,8 @@ create_text_column <- function(
                     }
                 })), collapse = "<br>", sep = ""
             ), collapse = "<br>", sep = ""
-        )) %>%
-        dplyr::ungroup() %>%
+        )) |>
+        dplyr::ungroup() |>
         dplyr::pull(text)
 }
 
@@ -762,7 +762,7 @@ complete_twins <- function(rel_df, multi_code = "error") {
         rel_df, c("id1", "id2", "code"),
         c("group"), c("famid"), others_cols = FALSE,
         cols_used_init = TRUE, cols_to_use_init = TRUE
-    ) %>%
+    ) |>
         dplyr::mutate(
             id1 = as.character(id1),
             id2 = as.character(id2),
@@ -770,16 +770,16 @@ complete_twins <- function(rel_df, multi_code = "error") {
             group = as.numeric(group),
             code = rel_code_to_factor(code)
         )
-    twins <- rel_df %>%
+    twins <- rel_df |>
         dplyr::mutate(
             id1 = upd_famid(id1, famid),
             id2 = upd_famid(id2, famid)
-        ) %>%
+        ) |>
         dplyr::filter(as.numeric(code) < 4)
     twins$minid1 <- pmin(twins$id1, twins$id2)
     twins$maxid2 <- pmax(twins$id1, twins$id2)
-    twins <- twins %>%
-        dplyr::mutate(id1 = minid1, id2 = maxid2) %>%
+    twins <- twins |>
+        dplyr::mutate(id1 = minid1, id2 = maxid2) |>
         dplyr::select(-dplyr::one_of(c("minid1", "maxid2")))
     g <- igraph::graph_from_data_frame(
         twins[, c("id1", "id2")],
@@ -787,7 +787,7 @@ complete_twins <- function(rel_df, multi_code = "error") {
     )
     components <- igraph::components(g)$membership
     # Map each id1 and id2 to the same component group
-    twins <- twins %>%
+    twins <- twins |>
         mutate(group = components[as.character(id1)])
 
     missing_edges <- data.frame(
@@ -802,15 +802,15 @@ complete_twins <- function(rel_df, multi_code = "error") {
         all_pairs <- expand.grid(
             id1 = nodes_in_group, id2 = nodes_in_group,
             stringsAsFactors = FALSE
-        ) %>%
+        ) |>
             dplyr::filter(id1 != id2)
 
         # Convert to a standard format (id1 < id2)
         all_pairs$minid1 <- pmin(all_pairs$id1, all_pairs$id2)
         all_pairs$maxid2 <- pmax(all_pairs$id1, all_pairs$id2)
-        all_pairs <- all_pairs %>%
-            dplyr::select(minid1, maxid2) %>%
-            dplyr::rename(id1 = minid1, id2 = maxid2) %>%
+        all_pairs <- all_pairs |>
+            dplyr::select(minid1, maxid2) |>
+            dplyr::rename(id1 = minid1, id2 = maxid2) |>
             dplyr::distinct()
 
         # Identify missing edges
@@ -818,9 +818,9 @@ complete_twins <- function(rel_df, multi_code = "error") {
 
         # Add group info
         if (nrow(new_edges) > 0) {
-            code <- twins %>%
-                dplyr::filter(group == grp) %>%
-                dplyr::pull(code) %>%
+            code <- twins |>
+                dplyr::filter(group == grp) |>
+                dplyr::pull(code) |>
                 unique()
             if (length(code) > 1) {
                 if (multi_code == "error") {
@@ -832,7 +832,7 @@ complete_twins <- function(rel_df, multi_code = "error") {
                     stop("Unknown multi_code argument")
                 }
             }
-            new_edges <- new_edges %>%
+            new_edges <- new_edges |>
                 mutate(
                     famid = get_famid(id1),
                     code = as.character(code), group = grp
@@ -843,9 +843,9 @@ complete_twins <- function(rel_df, multi_code = "error") {
     new_rel <- dplyr::bind_rows(list(
         rel_df[rel_df$code == "Spouse", ],
         twins, missing_edges
-    )) %>%
-        dplyr::arrange(famid, group, id1, id2) %>%
-        dplyr::select(famid, id1, id2, group, code, dplyr::everything()) %>%
+    )) |>
+        dplyr::arrange(famid, group, id1, id2) |>
+        dplyr::select(famid, id1, id2, group, code, dplyr::everything()) |>
         dplyr::mutate(code = rel_code_to_factor(code))
     new_rel
 }

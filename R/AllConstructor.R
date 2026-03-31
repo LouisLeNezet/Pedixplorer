@@ -375,7 +375,7 @@ setMethod("Rel", "character_OR_integer",
         id2o <- pmax(id1, id2)
 
         code <- rel_code_to_factor(code)
-        df <- data.frame(id1 = id1o, id2 = id2o, code = code, famid = famid) %>%
+        df <- data.frame(id1 = id1o, id2 = id2o, code = code, famid = famid) |>
             complete_twins()
 
         rel <- with(df, new(
@@ -1077,7 +1077,7 @@ setMethod("Pedigree", "data.frame",  function(
             rep(names(cols_ren_ped), lengths(cols_ren_ped)),
             unlist(cols_ren_ped)
         )
-        ped_df <- ped_df %>%
+        ped_df <- ped_df |>
             dplyr::rename_with(
                 ~ cols_mapping[.x],
                 .cols = names(cols_mapping)[
@@ -1092,7 +1092,7 @@ setMethod("Pedigree", "data.frame",  function(
             rep(names(cols_ren_rel), lengths(cols_ren_rel)),
             unlist(cols_ren_rel)
         )
-        rel_df <- rel_df %>%
+        rel_df <- rel_df |>
             dplyr::rename_with(
                 ~ cols_mapping[.x],
                 .cols = names(cols_mapping)[

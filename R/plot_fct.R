@@ -214,11 +214,11 @@ polyfun <- function(nslice, coor, start = 90) {
             find_ray_intersections(x0, y0, x1, y1, theta),
             6
         ))
-    })) %>%
-        as.data.frame() %>%
+    })) |>
+        as.data.frame() |>
         setNames(c("seg_idx", "degree", "x", "y"))
 
-    results <- results[!is.na(results$x), ] %>%
+    results <- results[!is.na(results$x), ] |>
         dplyr::distinct(degree, .keep_all = TRUE)
     results
     temp <- rbind.fill(coor, results)

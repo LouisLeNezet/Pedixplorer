@@ -2,6 +2,7 @@
 
 - Fix slices in `circfun()`
 - Add contributing guidelines
+- Replace dplyr pipe `%>%` by `|>`
 
 ## Changes in v1.5.6
 
