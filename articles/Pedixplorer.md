@@ -1287,7 +1287,7 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] cowplot_1.2.0     Pedixplorer_1.7.0 dplyr_1.2.0       plotly_4.12.0     ggplot2_4.0.2    
+    ## [1] cowplot_1.2.0     Pedixplorer_1.7.1 dplyr_1.2.0       plotly_4.12.0     ggplot2_4.0.2    
     ## [6] BiocStyle_2.32.1 
     ## 
     ## loaded via a namespace (and not attached):
