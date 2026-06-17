@@ -1,5 +1,11 @@
 # Changelog
 
+## Changes in v1.7.2
+
+- Update licence to GPLv3
+- Fix contributing guidelines
+- Update to `Roxygen2` 8.0.0
+
 ## Changes in v1.7.1
 
 - Fix slices in
