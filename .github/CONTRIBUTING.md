@@ -22,9 +22,8 @@ If you're not used to this workflow with git, you can start with some [docs from
 You have the option to test your changes locally by running the unittests.
 Execute all the tests with the following command:
 
-```bash
+```R
 devtools::check()
-rcmdcheck
 ```
 
 When you create a pull request with changes, [GitHub Actions](https://github.com/features/actions) will run automatic tests.
@@ -38,13 +37,9 @@ Typically, pull-requests are only fully reviewed when these tests are passing, t
 - Fix the bug, and bump version (X.Y.Z+1).
 - Open a pull-request from `patch` to `main`/`master` with the changes.
 
-## Getting help
-
-For further information/help, please consult the R nf-core/utils vignettes and don't hesitate to get in touch on the nf-core Slack [#nf-core-r-utils](https://nfcore.slack.com/channels/nf-core-r-utils) channel ([join our Slack here](https://nf-co.re/join/slack)).
-
 ## Package contribution conventions
 
-To make the `R nf-core/utils` code and processing logic more understandable for new contributors and to ensure quality, we semi-standardise the way the code and other contributions are written.
+To make the `Pedixplorer` code and processing logic more understandable for new contributors and to ensure quality, we semi-standardise the way the code and other contributions are written.
 
 ### Adding a new function
 
@@ -52,9 +47,5 @@ If you wish to contribute a new function, please use the following coding standa
 
 1. Use snake_case
 2. Lint the code
-3. Add documentation and example through Roxygen2 syntax
+3. Add documentation and example through `Roxygen2` syntax
 4. Add a unittest and aim for a full coverage
-
-### Images and figures
-
-For overview images and other documents we follow the nf-core [style guidelines and examples](https://nf-co.re/developers/design_guidelines).
