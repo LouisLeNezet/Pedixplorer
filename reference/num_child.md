@@ -85,6 +85,7 @@ spouses, the indirect childs will still be added.
 ## Examples
 
 ``` r
+
 num_child(
     obj = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"),
     dadid = c("3", "3", "6", "8", "0", "0", "0", "0", "0", "0"),

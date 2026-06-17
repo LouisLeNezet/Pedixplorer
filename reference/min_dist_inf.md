@@ -93,6 +93,7 @@ distance between each individuals and the informative individuals. The
 ## Examples
 
 ``` r
+
 min_dist_inf(
     c("A", "B", "C", "D", "E"),
     c("C", "D", "0", "0", "0"),

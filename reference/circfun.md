@@ -26,6 +26,7 @@ A list of x and y coordinates per slice.
 ## Examples
 
 ``` r
+
 Pedixplorer:::circfun(1)
 #> [[1]]
 #> [[1]]$x

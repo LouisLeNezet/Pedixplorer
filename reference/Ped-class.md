@@ -499,6 +499,7 @@ length as `x`.
 ## Examples
 
 ``` r
+
 data(sampleped)
 Ped(sampleped)
 #> Ped object with 55 individuals and 2 metadata columns:

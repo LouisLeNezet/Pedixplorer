@@ -61,6 +61,7 @@ function will be called on the object.
 ## Examples
 
 ``` r
+
 upd_famid(c("1", "2", "B_3"), c("A", "B", "A"))
 #> [1] "A_1" "B_2" "A_3"
 upd_famid(c("1", "B_2", "C_3", "4"), c("A", NA, "A", NA))

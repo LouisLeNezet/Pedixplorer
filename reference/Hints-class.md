@@ -106,6 +106,7 @@ A Hints object.
 ## Examples
 
 ``` r
+
 Hints(
     list(
         horder = c("1" = 1, "2" = 2, "3" = 3),

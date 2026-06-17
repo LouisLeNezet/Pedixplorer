@@ -156,6 +156,7 @@ of the corresponding slot.
 ## Examples
 
 ``` r
+
 rel_df <- data.frame(
     id1 = c("1", "2", "3"),
     id2 = c("2", "3", "4"),

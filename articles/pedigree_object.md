@@ -117,6 +117,7 @@ corresponding named list, the columns are renamed for them to be used
 correctly. The renaming is done as follow
 
 ``` r
+
 rel_df <- data.frame(
     indId1 = c("110", "204"),
     indId2 = c("112", "205"),
@@ -152,6 +153,7 @@ be aggregated to the id of each individual and separated by an ’’\_’’ to
 ensure the uniqueness of the individuals identifiers.
 
 ``` r
+
 library(Pedixplorer)
 data("sampleped")
 cols <- c("sex", "id", "avail")
@@ -167,6 +169,7 @@ summary(sampleped[cols])
     ##  Max.   :3.000                      Max.   :1.0000
 
 ``` r
+
 pedi <- Pedigree(sampleped)
 summary(as.data.frame(ped(pedi))[cols])
 ```
@@ -183,6 +186,7 @@ normalised dataframe is gave back to the user with errors column added
 describing the encountered problems.
 
 ``` r
+
 rel_wrong <- rel_df
 rel_wrong$code[2] <- "A"
 df <- Pedigree(sampleped, rel_wrong)
@@ -192,6 +196,7 @@ df <- Pedigree(sampleped, rel_wrong)
     ## is the normalised relationship informations with the identified problems
 
 ``` r
+
 print(df)
 ```
 
@@ -330,6 +335,7 @@ The `mcols()` accessors is the one you should use to add more
 informations to your individuals.
 
 ``` r
+
 pedi <- Pedigree(sampleped)
 mcols(pedi)
 ```
@@ -350,6 +356,7 @@ mcols(pedi)
     ## 55          1         0          NA              1          1
 
 ``` r
+
 ## Add new columns as a threshold if identifiers of individuals superior
 ## to a given threshold for example
 mcols(pedi)$idth <- ifelse(as.numeric(
@@ -384,6 +391,7 @@ With this new S4 object comes multiple methods to ease the use of it:
 - [`useful_inds()`](https://louislenezet.github.io/Pedixplorer/reference/useful_inds.md)
 
 ``` r
+
 ## We can change the family name based on an other column
 pedi <- upd_famid(pedi, mcols(pedi)$idth)
 
@@ -400,6 +408,7 @@ plot(ped_a, cex = 0.5)
 plot](pedigree_object_files/figure-html/pedigree_methods-1.png)
 
 ``` r
+
 ## Do a summary
 summary(ped_a)
 ```
@@ -411,6 +420,7 @@ summary(ped_a)
     ## [1] "Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse"
 
 ``` r
+
 ## Coerce it to a list
 as.list(ped_a)[[1]][1:3]
 ```
@@ -437,6 +447,7 @@ as.list(ped_a)[[1]][1:3]
     ## [37] NA      "A_136" "A_138" "A_138" "A_138"
 
 ``` r
+
 ## Shrink it to keep only the necessary information
 lst1_s <- shrink(ped_a, max_bits = 10)
 plot(lst1_s$pedObj, cex = 0.5)
@@ -446,6 +457,7 @@ plot(lst1_s$pedObj, cex = 0.5)
 plot](pedigree_object_files/figure-html/pedigree_methods-2.png)
 
 ``` r
+
 ## Compute the kinship individuals matrix
 adopted(ped(ped_a)) <- FALSE # Set adopted to FALSE
 kinship(ped_a)[1:10, 1:10]
@@ -468,6 +480,7 @@ kinship(ped_a)[1:10, 1:10]
     ## A_110 .    .    0.25 0.25 .   .   .   .   .    0.50
 
 ``` r
+
 ## Get the useful individuals
 ped_a <- is_informative(ped_a, informative = "AvAf", col_aff = "affection")
 ped_a <- useful_inds(ped_a)
@@ -479,6 +492,7 @@ as.data.frame(ped(ped_a))["useful"][1:10, ]
 ## Session information
 
 ``` r
+
 sessionInfo()
 ```
 
@@ -508,30 +522,30 @@ sessionInfo()
     ## [1] Pedixplorer_1.7.1 BiocStyle_2.32.1 
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.57            
-    ##  [4] bslib_0.10.0          ggplot2_4.0.2         shinyjs_2.1.1        
+    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.58            
+    ##  [4] bslib_0.11.0          ggplot2_4.0.3         shinyjs_2.1.1        
     ##  [7] htmlwidgets_1.6.4     lattice_0.22-9        quadprog_1.5-8       
-    ## [10] vctrs_0.7.2           tools_4.4.3           generics_0.1.4       
+    ## [10] vctrs_0.7.3           tools_4.4.3           generics_0.1.4       
     ## [13] stats4_4.4.3          tibble_3.3.1          pkgconfig_2.0.3      
-    ## [16] Matrix_1.7-5          data.table_1.18.2.1   RColorBrewer_1.1-3   
-    ## [19] S7_0.2.1              desc_1.4.3            S4Vectors_0.42.1     
-    ## [22] readxl_1.4.5          lifecycle_1.0.5       stringr_1.6.0        
+    ## [16] Matrix_1.7-5          data.table_1.18.4     RColorBrewer_1.1-3   
+    ## [19] S7_0.2.2              desc_1.4.3            S4Vectors_0.42.1     
+    ## [22] readxl_1.5.0          lifecycle_1.0.5       stringr_1.6.0        
     ## [25] shinytoastr_2.2.0     compiler_4.4.3        farver_2.1.2         
     ## [28] textshaping_1.0.5     httpuv_1.6.17         shinyWidgets_0.9.1   
     ## [31] htmltools_0.5.9       sass_0.4.10           yaml_2.3.12          
-    ## [34] lazyeval_0.2.2        plotly_4.12.0         later_1.4.8          
+    ## [34] lazyeval_0.2.3        plotly_4.12.0         later_1.4.8          
     ## [37] pillar_1.11.1         pkgdown_2.2.0         jquerylib_0.1.4      
     ## [40] tidyr_1.3.2           DT_0.34.0             cachem_1.1.0         
     ## [43] mime_0.13             tidyselect_1.2.1      digest_0.6.39        
-    ## [46] stringi_1.8.7         colourpicker_1.3.0    dplyr_1.2.0          
-    ## [49] purrr_1.2.1           bookdown_0.46         fastmap_1.2.0        
-    ## [52] grid_4.4.3            cli_3.6.5             magrittr_2.0.4       
+    ## [46] stringi_1.8.7         colourpicker_1.3.0    dplyr_1.2.1          
+    ## [49] purrr_1.2.2           bookdown_0.47         fastmap_1.2.0        
+    ## [52] grid_4.4.3            cli_3.6.6             magrittr_2.0.5       
     ## [55] withr_3.0.2           scales_1.4.0          promises_1.5.0       
-    ## [58] rmarkdown_2.31        httr_1.4.8            igraph_2.2.2         
+    ## [58] rmarkdown_2.31        httr_1.4.8            igraph_2.3.2         
     ## [61] otel_0.2.0            cellranger_1.1.0      ragg_1.5.2           
     ## [64] shiny_1.13.0          evaluate_1.0.5        knitr_1.51           
     ## [67] shinycssloaders_1.1.0 miniUI_0.1.2          viridisLite_0.4.3    
-    ## [70] rlang_1.1.7           Rcpp_1.1.1            xtable_1.8-8         
-    ## [73] glue_1.8.0            shinyhelper_0.3.2     BiocManager_1.30.27  
+    ## [70] rlang_1.2.0           Rcpp_1.1.1-1.1        xtable_1.8-8         
+    ## [73] glue_1.8.1            shinyhelper_0.3.2     BiocManager_1.30.27  
     ## [76] BiocGenerics_0.50.0   jsonlite_2.0.0        R6_2.6.1             
-    ## [79] plyr_1.8.9            systemfonts_1.3.2     fs_2.0.1
+    ## [79] plyr_1.8.9            systemfonts_1.3.2     fs_2.1.0

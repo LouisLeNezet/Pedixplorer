@@ -54,6 +54,7 @@ subfamilies. Singleton subjects give a zero for family number.
 ## Examples
 
 ``` r
+
 make_famid(
     c("A", "B", "C", "D", "E", "F"),
     c("C", "D", "0", "0", "0", "0"),

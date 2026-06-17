@@ -1,6 +1,7 @@
 # Pedigree alignment details
 
 ``` r
+
 library(Pedixplorer)
 ```
 
@@ -63,6 +64,7 @@ The hints consist of a list with two components.
     triple marriages can start to get interesting.
 
 ``` r
+
 id    <- c("A", "B", "C", "D", "E", "F", "G", "J", "I", "H")
 dadid <- c("0", "0", "0", "A", "C", "C", "A", "F", "F", "F")
 momid <- c("0", "0", "0", "B", "B", "B", "E", "G", "G", "G")
@@ -79,6 +81,7 @@ plot(pedi, align_parents = FALSE, title = "1) Without reordering")
 ![Hints usage](pedigree_alignment_files/figure-html/hint_usage-1.png)
 
 ``` r
+
 # Second pedigree with reordering
 hints(pedi) <- auto_hint(pedi, align_parents = FALSE)
 # Reorder siblings in opposite order
@@ -160,6 +163,7 @@ is a set of vectors and matrices:
 - \\fam\\ matrix, link upward to my parents, or 0 if no link.
 
 ``` r
+
 # A simple Pedigree to illustrate autohint's code
 test1 <- data.frame(id = 1:11,
     sex = c("m", "f")[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1)],
@@ -182,6 +186,7 @@ plot(temp2, title = "Before auto_hint")
 pedigree](pedigree_alignment_files/figure-html/auto_hint1-1.png)
 
 ``` r
+
 plot(ped1, title = "After auto_hint")
 ```
 
@@ -242,6 +247,7 @@ matrix. In this particular case the final element could be a 1 or a 2,
 since both are connected to their parents.
 
 ``` r
+
 #
 # The second, more complex test Pedigree
 #
@@ -271,6 +277,7 @@ plot(ped2a, title = "Before auto_hint")
 pedigree](pedigree_alignment_files/figure-html/align2-1.png)
 
 ``` r
+
 plot(ped2, title = "After auto_hint")
 ```
 
@@ -629,6 +636,7 @@ final point must be \\\le\\ the max width.
 ## Session information
 
 ``` r
+
 sessionInfo()
 ```
 
@@ -658,30 +666,30 @@ sessionInfo()
     ## [1] Pedixplorer_1.7.1 BiocStyle_2.32.1 
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.57            
-    ##  [4] bslib_0.10.0          ggplot2_4.0.2         shinyjs_2.1.1        
+    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.58            
+    ##  [4] bslib_0.11.0          ggplot2_4.0.3         shinyjs_2.1.1        
     ##  [7] htmlwidgets_1.6.4     lattice_0.22-9        quadprog_1.5-8       
-    ## [10] vctrs_0.7.2           tools_4.4.3           generics_0.1.4       
+    ## [10] vctrs_0.7.3           tools_4.4.3           generics_0.1.4       
     ## [13] stats4_4.4.3          tibble_3.3.1          pkgconfig_2.0.3      
-    ## [16] Matrix_1.7-5          data.table_1.18.2.1   RColorBrewer_1.1-3   
-    ## [19] S7_0.2.1              desc_1.4.3            S4Vectors_0.42.1     
-    ## [22] readxl_1.4.5          lifecycle_1.0.5       stringr_1.6.0        
+    ## [16] Matrix_1.7-5          data.table_1.18.4     RColorBrewer_1.1-3   
+    ## [19] S7_0.2.2              desc_1.4.3            S4Vectors_0.42.1     
+    ## [22] readxl_1.5.0          lifecycle_1.0.5       stringr_1.6.0        
     ## [25] shinytoastr_2.2.0     compiler_4.4.3        farver_2.1.2         
     ## [28] textshaping_1.0.5     httpuv_1.6.17         shinyWidgets_0.9.1   
     ## [31] htmltools_0.5.9       sass_0.4.10           yaml_2.3.12          
-    ## [34] lazyeval_0.2.2        plotly_4.12.0         later_1.4.8          
+    ## [34] lazyeval_0.2.3        plotly_4.12.0         later_1.4.8          
     ## [37] pillar_1.11.1         pkgdown_2.2.0         jquerylib_0.1.4      
     ## [40] tidyr_1.3.2           DT_0.34.0             cachem_1.1.0         
     ## [43] mime_0.13             tidyselect_1.2.1      digest_0.6.39        
-    ## [46] stringi_1.8.7         colourpicker_1.3.0    dplyr_1.2.0          
-    ## [49] purrr_1.2.1           bookdown_0.46         fastmap_1.2.0        
-    ## [52] grid_4.4.3            cli_3.6.5             magrittr_2.0.4       
+    ## [46] stringi_1.8.7         colourpicker_1.3.0    dplyr_1.2.1          
+    ## [49] purrr_1.2.2           bookdown_0.47         fastmap_1.2.0        
+    ## [52] grid_4.4.3            cli_3.6.6             magrittr_2.0.5       
     ## [55] withr_3.0.2           scales_1.4.0          promises_1.5.0       
-    ## [58] rmarkdown_2.31        httr_1.4.8            igraph_2.2.2         
+    ## [58] rmarkdown_2.31        httr_1.4.8            igraph_2.3.2         
     ## [61] otel_0.2.0            cellranger_1.1.0      ragg_1.5.2           
     ## [64] shiny_1.13.0          evaluate_1.0.5        knitr_1.51           
     ## [67] shinycssloaders_1.1.0 miniUI_0.1.2          viridisLite_0.4.3    
-    ## [70] rlang_1.1.7           Rcpp_1.1.1            xtable_1.8-8         
-    ## [73] glue_1.8.0            shinyhelper_0.3.2     BiocManager_1.30.27  
+    ## [70] rlang_1.2.0           Rcpp_1.1.1-1.1        xtable_1.8-8         
+    ## [73] glue_1.8.1            shinyhelper_0.3.2     BiocManager_1.30.27  
     ## [76] BiocGenerics_0.50.0   jsonlite_2.0.0        R6_2.6.1             
-    ## [79] plyr_1.8.9            systemfonts_1.3.2     fs_2.0.1
+    ## [79] plyr_1.8.9            systemfonts_1.3.2     fs_2.1.0

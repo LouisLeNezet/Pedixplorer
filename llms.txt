@@ -1,7 +1,7 @@
 # `Pedixplorer`: a Bioconductor package to create, filter and draw pedigree
 
-|                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                                                                                              |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------:|
+|  |  |
+|----|:--:|
 | This is the new version of [**kinship2**](https://github.com/mayoverse/kinship2) package. Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a function to computes the kinship matrix from a Pedigree object, and pedigree plotting routines that adhere to many of the standards for genetics counselors. | ![](https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png) |
 
 > Try today the [**Pedixplorer shiny
@@ -19,6 +19,7 @@ mamba activate env_pedixplorer
 ### In R from Github
 
 ``` r
+
 if (!require("remotes", quietly = TRUE))
     install.packages("remotes")
 
@@ -30,6 +31,7 @@ remotes::install_github("louislenezet/Pedixplorer",
 ### In R from [Bioconductor](https://www.bioconductor.org/packages/Pedixplorer)
 
 ``` r
+
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
@@ -88,8 +90,8 @@ and Y chromosomes.
 
 ### The `ped_shiny()` Function
 
-|                                                                                                                                                                                                                                                                                                                                                                                                                                            |                                                                                             |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------:|
+|  |  |
+|----|:--:|
 | To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You’ll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at [**pedixplorer.univ-rennes**](https://pedixplorer.univ-rennes.fr/). | ![](https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png) |
 
 ### Other Notable Functions
@@ -114,6 +116,7 @@ Here is a simple example that show how to represent a complex pedigree
 with a lot of different information.
 
 ``` r
+
 library(Pedixplorer)
 library(dplyr)
 data("sampleped")
@@ -173,6 +176,7 @@ Pedigree](https://louislenezet.github.io/assets/img/pedixplorer/pedigree_interac
 To view documentation start R and enter:
 
 ``` r
+
 library(Pedixplorer)
 help(package="Pedixplorer")
 

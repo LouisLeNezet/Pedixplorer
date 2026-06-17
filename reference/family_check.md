@@ -92,6 +92,7 @@ the number of subjects as entries.
 ## Examples
 
 ``` r
+
 # use 2 samplepeds
 data(sampleped)
 pedAll <- Pedigree(sampleped)

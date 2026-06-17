@@ -542,6 +542,7 @@ column names of the data.frame.
 ## Examples
 
 ``` r
+
 Pedigree(
     obj = c("1", "2", "3", "4", "5", "6"),
     dadid = c("4", "4", "6", "0", "0", "0"),

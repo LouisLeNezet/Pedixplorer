@@ -38,6 +38,7 @@ The `Pedixplorer` package is available on
 and can be installed with the following command:
 
 ``` r
+
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
@@ -47,6 +48,7 @@ BiocManager::install("Pedixplorer")
 The package can then be loaded with the following command:
 
 ``` r
+
 library(plotly)
 ```
 
@@ -68,6 +70,7 @@ library(plotly)
     ##     layout
 
 ``` r
+
 library(dplyr)
 ```
 
@@ -83,6 +86,7 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
+
 library(Pedixplorer)
 ```
 
@@ -138,6 +142,7 @@ individuals separated by an underscore to create a unique id for each
 individual in the `Pedigree` object.
 
 ``` r
+
 data("sampleped")
 print(sampleped[1:10, ])
 ```
@@ -166,6 +171,7 @@ print(sampleped[1:10, ])
     ## 10      NA           NA      NA                               NA
 
 ``` r
+
 pedi <- Pedigree(sampleped[c(3, 4, 10, 35, 36), ])
 print(pedi)
 ```
@@ -216,6 +222,7 @@ of the pedigree. The summary method prints a short summary of the
 pedigree. Finally the plot method displays the pedigree.
 
 ``` r
+
 pedi <- Pedigree(sampleped)
 print(famid(ped(pedi)))
 ```
@@ -225,6 +232,7 @@ print(famid(ped(pedi)))
     ## [49] "2" "2" "2" "2" "2" "2" "2"
 
 ``` r
+
 ped1 <- pedi[famid(ped(pedi)) == "1"]
 summary(ped1)
 ```
@@ -236,6 +244,7 @@ summary(ped1)
     ## [1] "Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse"
 
 ``` r
+
 plot(ped1, cex = 0.7)
 ```
 
@@ -246,6 +255,7 @@ plot(ped1, cex = 0.7)
 You can add a title and a legend to the plot with the following command:
 
 ``` r
+
 plot(
     ped1, title = "Pedigree 1",
     legend = TRUE, leg_loc = c(0.45, 0.9, 0.8, 1),
@@ -264,6 +274,7 @@ A shiny application is available to create, interact and plot pedigrees.
 To launch the application, use the following command:
 
 ``` r
+
 ped_shiny()
 ```
 
@@ -298,6 +309,7 @@ delete the specified subject (in this case, *209*). Reassign this code
 to *datped22* to drop the specified subject entirely.
 
 ``` r
+
 datped2 <- sampleped[sampleped$famid == 2, ]
 datped2[datped2$id %in% 203, "sex"] <- 2
 datped2 <- datped2[-which(datped2$id %in% 209), ]
@@ -313,6 +325,7 @@ function to adjust the `sex` value to match either `momid` or `dadid`.
 will also add back in any deleted subjects, further fixing the Pedigree.
 
 ``` r
+
 tryout <- try({
     ped2 <- Pedigree(datped2)
 })
@@ -322,6 +335,7 @@ tryout <- try({
     ##   invalid class "Ped" object: dadid values '2_209' should be in '2_201', '2_202', '2_203', '2_204', '2_205'...
 
 ``` r
+
 fixped2 <- with(datped2, fix_parents(id, dadid, momid, sex))
 fixped2
 ```
@@ -343,6 +357,7 @@ fixped2
     ## 14 209  <NA>  <NA>   male     1
 
 ``` r
+
 ped2 <- Pedigree(fixped2)
 plot(ped2)
 ```
@@ -378,6 +393,7 @@ package](https://CRAN.R-project.org/package=Matrix/), which is stored
 efficiently to avoid repeating elements.
 
 ``` r
+
 kin2 <- kinship(ped2)
 kin2[1:9, 1:9]
 ```
@@ -410,6 +426,7 @@ the two families, where the row and columns names are the ids of the
 subject.
 
 ``` r
+
 pedi <- Pedigree(sampleped)
 adopted(ped(pedi)) <- FALSE # Remove adoption status
 kin_all <- kinship(pedi)
@@ -429,6 +446,7 @@ kin_all[1:9, 1:9]
     ## 1_109  0.25  0.25   .     .     .     .     .     .    0.50
 
 ``` r
+
 kin_all[40:43, 40:43]
 ```
 
@@ -440,6 +458,7 @@ kin_all[40:43, 40:43]
     ## 2_202  .     .      .     0.5
 
 ``` r
+
 kin_all[42:46, 42:46]
 ```
 
@@ -464,6 +483,7 @@ and *126* in *ped1*. We check it by looking at the kinship matrix for
 these pairs, which are correctly at *0.5*.
 
 ``` r
+
 data("relped")
 relped
 ```
@@ -479,6 +499,7 @@ relped
     ## 8     2 212 213    3
 
 ``` r
+
 pedi <- Pedigree(sampleped, relped)
 adopted(ped(pedi)) <- FALSE # Remove adoption status
 kin_all <- kinship(pedi)
@@ -493,6 +514,7 @@ kin_all[24:27, 24:27]
     ## 1_127 0.0625 0.1250 0.1250 0.5000
 
 ``` r
+
 kin_all[46:50, 46:50]
 ```
 
@@ -523,6 +545,7 @@ indicator, so we create one to indicate that the first generation of
 used to cross out the individuals in the Pedigree plot.
 
 ``` r
+
 df2 <- sampleped[sampleped$famid == 2, ]
 names(df2)
 ```
@@ -533,6 +556,7 @@ names(df2)
     ## [19] "deceased"
 
 ``` r
+
 df2$deceased <- c(1, 1, rep(0, 12))
 ped2 <- Pedigree(df2)
 summary(deceased(ped(ped2)))
@@ -542,6 +566,7 @@ summary(deceased(ped(ped2)))
     ## logical      12       2
 
 ``` r
+
 plot(ped2)
 ```
 
@@ -559,6 +584,7 @@ As space permits, more lines and characters per line can be made using
 the a {/em } character to indicate a new line.
 
 ``` r
+
 mcols(ped2)$Names <- c(
     "John\nDalton", "Linda", "Jack", "Rachel", "Joe", "Deb",
     "Lucy", "Ken", "Barb", "Mike", "Matt",
@@ -582,6 +608,7 @@ is therefore divided into two equal parts and shaded differently to
 indicate the two affected indicators.
 
 ``` r
+
 mcols(ped2)$bald <- as.factor(c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1))
 ped2 <- generate_colors(ped2, col_aff = "bald", add_to_scale = TRUE)
 # Increase down margin for the legend
@@ -596,6 +623,7 @@ plot(
 affections](Pedixplorer_files/figure-html/two_affection-1.png)
 
 ``` r
+
 # Reset graphical parameter
 par(op)
 ```
@@ -626,6 +654,7 @@ additional line connecting the diverging lines, while twins of unknown
 zygosity have a question mark.
 
 ``` r
+
 ## create twin relationships
 data("relped")
 rel(ped2) <- Rel(relped[relped$famid == 2, ])
@@ -651,6 +680,7 @@ subjects *195* and *196*. This results in subjects *201* and *202* being
 first cousins, and therefore inbred.
 
 ``` r
+
 indid <- 195:202
 dadid <- c(NA, NA, NA, 196, 196, NA, 197, 199)
 momid <- c(NA, NA, NA, 195, 195, NA, 198, 200)
@@ -676,6 +706,7 @@ earlier and add a new spouse relationship between the individuals *212*
 and *211* we get the following plot.
 
 ``` r
+
 ## create twin relationships
 rel_df2 <- data.frame(
     id1 = "211",
@@ -706,6 +737,7 @@ excludes subject *113* from the plot. The basic plot of *ped1* is shown
 in the figure below.
 
 ``` r
+
 df1 <- sampleped[sampleped$famid == 1, ]
 relate1 <- data.frame(
     id1 = 113,
@@ -729,6 +761,7 @@ duplicate subjects, as Figure~\\\ref{reordPed1}\\ no longer has subject
 *110* duplicated.
 
 ``` r
+
 df1reord <- df1[c(35:41, 1:34), ]
 ped1reord <- Pedigree(df1reord, relate1)
 plot(ped1reord, cex = 0.7)
@@ -752,6 +785,7 @@ patterns used for the filling and the bordering of the plot.
 To do so you can do as follow:
 
 ``` r
+
 scales(ped1)
 ```
 
@@ -769,6 +803,7 @@ scales(ped1)
     ## 3         avail  avail_mods    0 Non Available  black
 
 ``` r
+
 # Remove proband and asymptomatic status as they need to be
 # affected and unaffected respectively for the new status
 proband(ped(ped1)) <- FALSE
@@ -789,6 +824,7 @@ plot(ped1, cex = 0.7)
 colors](Pedixplorer_files/figure-html/generate_colors-1.png)
 
 ``` r
+
 # To modify a given scale you can do as follow
 fill(ped1)
 ```
@@ -813,6 +849,7 @@ fill(ped1)
     ## 8    NA
 
 ``` r
+
 fill(ped1)$fill[4] <- "#970b6d"
 fill(ped1)$density[5] <- 30
 fill(ped1)$angle[5] <- 45
@@ -839,6 +876,7 @@ The `label_dist` argument can be used to change the order of the labels
 plotted.
 
 ``` r
+
 # Reset the affection status
 ped1 <- generate_colors(
     ped1, col_aff = "num",
@@ -865,6 +903,7 @@ object. To combine the legend and the pedigree plot, you can use the
 function as shown below.
 
 ``` r
+
 library(cowplot)
 ```
 
@@ -876,6 +915,7 @@ library(cowplot)
     ##     get_title
 
 ``` r
+
 plot_lst <- plot(
     ped1, ggplot_gen = TRUE, legend = TRUE,
     leg_cex = 0.8, leg_symbolsize = 0.1,
@@ -899,6 +939,7 @@ The plot can be made interactive by setting the `ggplot_gen` argument to
 make the plot interactive.
 
 ``` r
+
 plot_list <- plot(
     ped1,
     symbolsize = 0.8, # Reduce the symbole size
@@ -915,6 +956,7 @@ plot_list <- plot(
 ```
 
 ``` r
+
 plotly::ggplotly(
     plot_list$ggplot,
     tooltip = "text"
@@ -934,6 +976,7 @@ used to construct a new `Pedigree` object. This is possible with the
 as shown below.
 
 ``` r
+
 dfped2 <- as.data.frame(ped(ped2))
 dfped2
 ```
@@ -979,6 +1022,7 @@ function is used as follow and return the same `Pedigree` object but
 with the `useful` column updated in the `Ped` object :
 
 ``` r
+
 data(sampleped)
 ped1 <- Pedigree(sampleped)
 ped1 <- is_informative(ped1, informative = c("1_110", "1_120"))
@@ -992,6 +1036,7 @@ print(useful(ped(ped1)))
     ## [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 
 ``` r
+
 ped_filtered <- ped1[useful(ped(ped1))]
 plot(ped_filtered)
 ```
@@ -1009,6 +1054,7 @@ relationship between subjects *210* and *211*, as indicated by `id1` and
 `id2`.
 
 ``` r
+
 ped2_rm210 <- ped2[-10]
 rel(ped2_rm210)
 ```
@@ -1018,6 +1064,7 @@ rel(ped2_rm210)
     ##  <character> <character> <c("ordered", "factor")> <character> <numeric>
 
 ``` r
+
 rel(ped2)
 ```
 
@@ -1037,6 +1084,7 @@ the pedigree by a vector of subject ids. We check the trimming by
 looking at the `id` vector and the `Rel` object.
 
 ``` r
+
 ped2_trim210 <- subset(ped2, "2_210", keep = FALSE)
 id(ped(ped2_trim210))
 ```
@@ -1045,6 +1093,7 @@ id(ped(ped2_trim210))
     ## [13] "2_214"
 
 ``` r
+
 rel(ped2_trim210)
 ```
 
@@ -1056,6 +1105,7 @@ rel(ped2_trim210)
     ## 1           2_211       2_212                   Spouse           2      <NA>
 
 ``` r
+
 ped2_trim_more <- subset(ped2_trim210, c("2_212", "2_214"), keep = FALSE)
 id(ped(ped2_trim_more))
 ```
@@ -1063,6 +1113,7 @@ id(ped(ped2_trim_more))
     ##  [1] "2_201" "2_202" "2_203" "2_204" "2_205" "2_206" "2_207" "2_208" "2_209" "2_211" "2_213"
 
 ``` r
+
 rel(ped2_trim_more)
 ```
 
@@ -1090,6 +1141,7 @@ to extract the shrunken `Pedigree` object from the
 result, and plot it.
 
 ``` r
+
 set.seed(200)
 shrink1_b30 <- shrink(ped1, max_bits = 30)
 print(shrink1_b30[c(2:8)])
@@ -1125,6 +1177,7 @@ print(shrink1_b30[c(2:8)])
     ## [1] 29
 
 ``` r
+
 plot(shrink1_b30$pedObj)
 ```
 
@@ -1139,6 +1192,7 @@ subjects about who to remove, the method randomly chooses one of them.
 With this seed setting, the method removes subjects *140* then *141*.
 
 ``` r
+
 set.seed(10)
 shrink1_b25 <- shrink(ped1, max_bits = 25)
 print(shrink1_b25[c(2:8)])
@@ -1174,6 +1228,7 @@ print(shrink1_b25[c(2:8)])
     ## [1] 28
 
 ``` r
+
 plot(shrink1_b25$pedObj)
 ```
 
@@ -1194,6 +1249,7 @@ randomly chooses from the set. We show two sets of subject ids that are
 selected by the routine and discuss below.
 
 ``` r
+
 ped2 <- Pedigree(df2)
 set.seed(10)
 set1 <- unrelated(ped2)
@@ -1203,6 +1259,7 @@ set1
     ## [1] "2_203" "2_206"
 
 ``` r
+
 set2 <- unrelated(ped2)
 set2
 ```
@@ -1220,6 +1277,7 @@ must include subject *203* and one of the these subjects: *201*, *204*,
 *Pedigree 2* subset to those with availability status of *1*.
 
 ``` r
+
 kin2 <- kinship(ped2)
 is_avail <- id(ped(ped2))[avail(ped(ped2))]
 kin2
@@ -1246,6 +1304,7 @@ kin2
     ## 2_214 0.125 0.125 .    0.125 0.125 0.125 0.125 0.250 0.25 0.0625 0.0625 0.2500 0.2500 0.5000
 
 ``` r
+
 kin2[is_avail, is_avail]
 ```
 
@@ -1263,6 +1322,7 @@ kin2[is_avail, is_avail]
 ## Session information
 
 ``` r
+
 sessionInfo()
 ```
 
@@ -1287,27 +1347,27 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] cowplot_1.2.0     Pedixplorer_1.7.1 dplyr_1.2.0       plotly_4.12.0     ggplot2_4.0.2    
+    ## [1] cowplot_1.2.0     Pedixplorer_1.7.1 dplyr_1.2.1       plotly_4.12.0     ggplot2_4.0.3    
     ## [6] BiocStyle_2.32.1 
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.57             bslib_0.10.0         
+    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.58             bslib_0.11.0         
     ##  [5] shinyjs_2.1.1         htmlwidgets_1.6.4     lattice_0.22-9        crosstalk_1.2.2      
-    ##  [9] quadprog_1.5-8        vctrs_0.7.2           tools_4.4.3           generics_0.1.4       
+    ##  [9] quadprog_1.5-8        vctrs_0.7.3           tools_4.4.3           generics_0.1.4       
     ## [13] stats4_4.4.3          tibble_3.3.1          pkgconfig_2.0.3       Matrix_1.7-5         
-    ## [17] data.table_1.18.2.1   RColorBrewer_1.1-3    S7_0.2.1              desc_1.4.3           
-    ## [21] S4Vectors_0.42.1      readxl_1.4.5          lifecycle_1.0.5       stringr_1.6.0        
+    ## [17] data.table_1.18.4     RColorBrewer_1.1-3    S7_0.2.2              desc_1.4.3           
+    ## [21] S4Vectors_0.42.1      readxl_1.5.0          lifecycle_1.0.5       stringr_1.6.0        
     ## [25] shinytoastr_2.2.0     compiler_4.4.3        farver_2.1.2          textshaping_1.0.5    
     ## [29] httpuv_1.6.17         shinyWidgets_0.9.1    htmltools_0.5.9       sass_0.4.10          
-    ## [33] yaml_2.3.12           lazyeval_0.2.2        pillar_1.11.1         pkgdown_2.2.0        
+    ## [33] yaml_2.3.12           lazyeval_0.2.3        pillar_1.11.1         pkgdown_2.2.0        
     ## [37] later_1.4.8           jquerylib_0.1.4       tidyr_1.3.2           DT_0.34.0            
     ## [41] cachem_1.1.0          mime_0.13             tidyselect_1.2.1      digest_0.6.39        
-    ## [45] stringi_1.8.7         colourpicker_1.3.0    purrr_1.2.1           bookdown_0.46        
-    ## [49] labeling_0.4.3        fastmap_1.2.0         grid_4.4.3            cli_3.6.5            
-    ## [53] magrittr_2.0.4        withr_3.0.2           scales_1.4.0          promises_1.5.0       
-    ## [57] rmarkdown_2.31        httr_1.4.8            igraph_2.2.2          otel_0.2.0           
+    ## [45] stringi_1.8.7         colourpicker_1.3.0    purrr_1.2.2           bookdown_0.47        
+    ## [49] labeling_0.4.3        fastmap_1.2.0         grid_4.4.3            cli_3.6.6            
+    ## [53] magrittr_2.0.5        withr_3.0.2           scales_1.4.0          promises_1.5.0       
+    ## [57] rmarkdown_2.31        httr_1.4.8            igraph_2.3.2          otel_0.2.0           
     ## [61] cellranger_1.1.0      ragg_1.5.2            shiny_1.13.0          evaluate_1.0.5       
     ## [65] knitr_1.51            shinycssloaders_1.1.0 miniUI_0.1.2          viridisLite_0.4.3    
-    ## [69] rlang_1.1.7           Rcpp_1.1.1            xtable_1.8-8          glue_1.8.0           
+    ## [69] rlang_1.2.0           Rcpp_1.1.1-1.1        xtable_1.8-8          glue_1.8.1           
     ## [73] shinyhelper_0.3.2     BiocManager_1.30.27   BiocGenerics_0.50.0   jsonlite_2.0.0       
-    ## [77] R6_2.6.1              plyr_1.8.9            systemfonts_1.3.2     fs_2.0.1
+    ## [77] R6_2.6.1              plyr_1.8.9            systemfonts_1.3.2     fs_2.1.0

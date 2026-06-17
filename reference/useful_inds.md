@@ -93,6 +93,7 @@ usefulness of the individual.
 ## Examples
 
 ``` r
+
 data(sampleped)
 ped1 <- Pedigree(sampleped[sampleped$famid == "1",])
 ped1 <- is_informative(ped1, informative = "AvAf", col_aff = "affection")

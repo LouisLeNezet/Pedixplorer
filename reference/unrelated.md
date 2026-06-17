@@ -53,6 +53,7 @@ Dan Schaid and Shannon McDonnell updated by Jason Sinnwell
 ## Examples
 
 ``` r
+
 data(sampleped)
 fam1 <- sampleped[sampleped$famid == 1, -16]
 ped1 <- Pedigree(fam1)

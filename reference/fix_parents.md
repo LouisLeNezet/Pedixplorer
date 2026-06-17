@@ -102,6 +102,7 @@ Jason Sinnwell
 ## Examples
 
 ``` r
+
 test1char <- data.frame(
     id = paste('fam', 101:111, sep = ''),
     sex = c('male', 'female')[c(1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1)],

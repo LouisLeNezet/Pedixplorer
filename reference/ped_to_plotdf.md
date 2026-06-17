@@ -182,6 +182,7 @@ to plot the graph.
 ## Examples
 
 ``` r
+
 data(sampleped)
 ped1 <- Pedigree(sampleped[sampleped$famid == 1,])
 plot_df <- ped_to_plotdf(ped1)

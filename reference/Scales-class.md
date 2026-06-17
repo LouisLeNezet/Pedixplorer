@@ -146,6 +146,7 @@ A Scales object.
 ## Examples
 
 ``` r
+
 Scales(
     fill = data.frame(
         order = 1,

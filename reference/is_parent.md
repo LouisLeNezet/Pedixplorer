@@ -42,6 +42,7 @@ individual is a parent and FALSE otherwise
 ## Examples
 
 ``` r
+
 is_parent(c("1", "2", "3", "4"), c("3", "3", NA, NA), c("4", "4", NA, NA))
 #> [1] FALSE FALSE  TRUE  TRUE
 

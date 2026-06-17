@@ -166,6 +166,7 @@ functions respectively for the filling and the border.
 ## Examples
 
 ``` r
+
 generate_colors(
     c("A", "B", "A", "B", NA, "A", "B", "A", "B", NA),
     c(1, 0, 1, 0, NA, 1, 0, 1, 0, NA),

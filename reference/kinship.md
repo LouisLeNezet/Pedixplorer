@@ -109,6 +109,7 @@ Springer-Verlag, New York, 1997.
 ## Examples
 
 ``` r
+
 kinship(c("A", "B", "C", "D", "E"), c("C", "D", "0", "0", "0"),
     c("E", "E", "0", "0", "0"), sex = c(1, 2, 1, 2, 1))
 #> 5 x 5 sparse Matrix of class "dsCMatrix"
