@@ -132,9 +132,10 @@ jobs:
           BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = FALSE, update = FALSE)
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
+          BiocManager::install("BiocCheck", ask = FALSE, update = FALSE)
           install.packages(
-            c("rcmdcheck", "BiocCheck", "covr"),
-            repos = c(RSPM = "${{ matrix.config.rspm }}", BiocManager::repositories()),
+            c("rcmdcheck", "covr"),
+            repos = c(RSPM = "${{ matrix.config.rspm }}"),
             lib = '${{ env.R_LIBS_USER }}'
           )
         shell: Rscript {0}
