@@ -378,9 +378,10 @@ setMethod("show", signature(object = "Pedigree"), function(object) {
 #' @rdname Pedigree-class
 #' @usage NULL
 setMethod("summary", signature(object = "Pedigree"), function(object) {
-    cat("Pedigree object with \n")
-    print(summary(ped(object)))
-    print(summary(rel(object)))
+    list(
+        pedigree_summary = summary(ped(object)),
+        relationship_summary = summary(rel(object))
+    )
 })
 
 #' @section Generics:

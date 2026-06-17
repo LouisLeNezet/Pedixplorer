@@ -40,9 +40,9 @@ which may of either maternal or paternal origin.
 $$
 \begin{align}
     K(i,j) &= P(\mbox{$g$ maternal}) * K(m(i), j) + 
-                P(\mbox{$g$ paternal}) * K(f(i), j) \label{recur0} \\
-            &= 1/2 K(m(i), j) + 1/2 K(f(i), j) \label{recur1} \\
-    K(i,i) &= 1/2(1 + K(m(i), f(i))) \label{self} 
+                P(\mbox{$g$ paternal}) * K(f(i), j) \\
+            &= \frac{1}{2} K(m(i), j) + \frac{1}{2} K(f(i), j) \\
+    K(i,i) &= \frac{1}{2}(1 + K(m(i), f(i))) 
 \end{align}
 $$
 
@@ -231,7 +231,7 @@ Finally, remove the rows that are identical.
 The result is a set of all pairs of observations in the matrix that
 correspond to monozygotic pairs.
 
-```{r, kinship_twins, fig.alt = "Monozygotic twins"}
+```{r, kinship_twins, fig.alt = "Monozygotic twins", fig.align = 'center'}
 df <- data.frame(
     id = c(1, 2, 3, 4, 5, 6, 7, 8),
     dadid = c(4, 4, 4, NA, 4, 4, 4, NA),

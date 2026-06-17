@@ -8,10 +8,9 @@ draw_text(
   x,
   y,
   label,
-  p = NULL,
   ggplot_gen = FALSE,
-  cex = 1,
-  col = NULL,
+  cex = par("cex"),
+  col = par("col"),
   adjx = 0.5,
   adjy = 0.5,
   tips = NULL
@@ -23,8 +22,6 @@ draw_text(
 \item{y}{y coordinates}
 
 \item{label}{Text to be displayed}
-
-\item{p}{ggplot object}
 
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 

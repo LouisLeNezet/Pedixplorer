@@ -39,14 +39,26 @@ family_sel_ui <- function(id) {
 #' @importFrom stats setNames
 family_sel_server <- function(
     id, pedi,
-    fam_var = NULL, fam_sel = NULL, title = "Family selection"
+    fam_var = NULL, fam_sel = NULL, title = "Family selection",
+    help_text = NULL, help_title = "Family selection",
+    help_colour = "grey", help_type = "inline"
 ) {
     stopifnot(shiny::is.reactive(pedi))
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
+        ns <- session$ns
         # Create the title ----------------------------------------------------
         output$title_fam <- renderUI({
-            h3(title)
+            if (!is.null(help_text)) {
+                h3(title) |>
+                    shinyhelper::helper(
+                        type = help_type,
+                        title = help_title,
+                        content = help_text,
+                        colour = help_colour
+                    )
+            } else {
+                h3(title)
+            }
         })
 
         # Get all columns for family identification ---------------------------
@@ -58,15 +70,15 @@ family_sel_server <- function(
                 "id", "dadid", "momid",
                 "fatherid", "motherid"
             )
-            col_all <- colnames(mcols(pedi()))
+            ped_df <- as.data.frame(ped(pedi()))
+            col_all <- colnames(ped_df)
             col_av <- setdiff(col_all, col_no)
             col_sel <- c()
             for (col in col_av) {
-                if (any(!is.na(mcols(pedi())[col]))) {
+                if (any(!is.na(ped_df[col]))) {
                     col_sel <- c(col_sel, col)
                 }
             }
-            col_sel
             stats::setNames(col_sel, col_sel)
         })
 

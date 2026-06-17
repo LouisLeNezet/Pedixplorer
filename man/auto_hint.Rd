@@ -5,7 +5,15 @@
 \alias{auto_hint,Pedigree-method}
 \title{Initial hint for a Pedigree alignment}
 \usage{
-\S4method{auto_hint}{Pedigree}(obj, hints = NULL, packed = TRUE, align = FALSE, reset = FALSE)
+\S4method{auto_hint}{Pedigree}(
+  obj,
+  hints = NULL,
+  packed = TRUE,
+  align = FALSE,
+  reset = FALSE,
+  align_parents = TRUE,
+  force = FALSE
+)
 }
 \arguments{
 \item{obj}{A Pedigree object}
@@ -28,6 +36,16 @@ If \code{TRUE}, the default is \code{c(1.5, 2)}, or if numeric the routine
 
 \item{reset}{If \code{TRUE}, then even if  the Ped object has Hints, reset
 them to the initial values.}
+
+\item{align_parents}{If \code{align_parents = TRUE}, go one step further
+and try to make both parents of each child have the same depth.
+(This is not always possible).
+It helps the drawing program by lining up pedigrees that
+'join in the middle' via a marriage.}
+
+\item{force}{If \code{force = TRUE}, the function will return the depth minus
+\code{min(depth)} if \code{depth} reach a state with no founders
+is not possible.}
 }
 \value{
 The initial \linkS4class{Hints} object.

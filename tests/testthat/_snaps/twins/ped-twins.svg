@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<line x1='232.14' y1='69.20' x2='516.56' y2='69.20' style='stroke-width: 0.75;' />
+<line x1='69.33' y1='465.47' x2='374.40' y2='434.58' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='465.47' x2='374.40' y2='434.58' style='stroke-width: 0.75;' />
+<line x1='679.47' y1='465.47' x2='374.40' y2='434.58' style='stroke-width: 0.75;' />
+<line x1='221.86' y1='450.03' x2='374.40' y2='450.03' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='450.03' x2='526.94' y2='450.03' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='434.58' x2='374.40' y2='434.58' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='434.58' x2='374.40' y2='324.85' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='324.85' x2='374.40' y2='178.94' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='178.94' x2='374.40' y2='69.20' style='stroke-width: 0.75;' />
+<polygon points='211.58,59.04 211.58,79.61 232.15,79.61 232.15,59.04 ' style='stroke-width: 0.75; stroke: #BEBEBE; fill: #BEBEBE;' />
+<polygon points='59.04,465.47 59.04,486.04 79.61,486.04 79.61,465.47 ' style='stroke-width: 0.75; stroke: #BEBEBE; fill: #BEBEBE;' />
+<polygon points='537.22,69.32 537.14,70.64 536.89,71.93 536.47,73.18 535.90,74.37 535.18,75.48 534.33,76.48 533.35,77.37 532.27,78.12 531.10,78.73 529.86,79.18 528.58,79.48 527.27,79.60 525.95,79.56 524.65,79.35 523.38,78.98 522.18,78.44 521.05,77.76 520.02,76.94 519.11,75.99 518.32,74.94 517.67,73.79 517.18,72.57 516.84,71.29 516.67,69.98 516.67,68.67 516.84,67.36 517.18,66.08 517.67,64.86 518.32,63.71 519.11,62.66 520.02,61.71 521.05,60.89 522.18,60.21 523.38,59.67 524.65,59.30 525.95,59.09 527.27,59.05 528.58,59.17 529.86,59.47 531.10,59.92 532.27,60.53 533.35,61.28 534.33,62.17 535.18,63.17 535.90,64.28 536.47,65.47 536.89,66.72 537.14,68.01 537.22,69.32 ' style='stroke-width: 0.75; stroke: #BEBEBE; fill: #BEBEBE;' />
+<polygon points='364.11,465.47 364.11,486.04 384.69,486.04 384.69,465.47 ' style='stroke-width: 0.75; stroke: #BEBEBE; fill: #BEBEBE;' />
+<polygon points='669.19,465.47 669.19,486.04 689.76,486.04 689.76,465.47 ' style='stroke-width: 0.75; stroke: #BEBEBE; fill: #BEBEBE;' />
+<text x='221.86' y='104.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>1</text>
+<text x='69.33' y='510.72' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>3</text>
+<text x='526.94' y='104.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
+<text x='374.40' y='510.72' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>4</text>
+<text x='679.47' y='510.72' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>5</text>
+</g>
+</svg>

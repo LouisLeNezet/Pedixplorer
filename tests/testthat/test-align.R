@@ -103,6 +103,17 @@ test_that("besthint works", {
     expect_snapshot(plist)
 })
 
+test_that("compute_stress works", {
+    data("sampleped")
+    pedi <- Pedigree(sampleped)
+    pedi1 <- pedi[famid(ped(pedi)) == "1"]
+    set.seed(123)
+    newhint <- auto_hint(pedi1)
+    expect_equal(round(compute_stress(pedi1, newhint), 0), 2121)
+    expect_equal(round(compute_stress(pedi1, NULL)), 2121)
+})
+
+
 test_that("Alignment with spouse", {
     data(sampleped)
     df1 <- sampleped[sampleped$famid == 1, ]

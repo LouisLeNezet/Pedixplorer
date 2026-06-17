@@ -4,7 +4,12 @@
 \alias{norm_rel}
 \title{Normalise a Rel object dataframe}
 \usage{
-norm_rel(rel_df, na_strings = c("NA", ""), missid = NA_character_)
+norm_rel(
+  rel_df,
+  multi_code = "error",
+  na_strings = c("NA", ""),
+  missid = c(NA_character_, "0")
+)
 }
 \arguments{
 \item{rel_df}{A data.frame with the special relationships between
@@ -25,6 +30,10 @@ The code values are:
 The value relation code recognized by the function are the one defined
 by the \code{\link[=rel_code_to_factor]{rel_code_to_factor()}} function.}
 
+\item{multi_code}{How to handle multiple relationship codes in the same group
+If "error", an error is thrown. If "warn", a warning is thrown and the
+relationship code is set to twins of unknow zigosity. Default is "error".}
+
 \item{na_strings}{Vector of strings to be considered as NA values.}
 
 \item{missid}{A character vector with the missing values identifiers.
@@ -44,6 +53,8 @@ The \code{famid} column, if provided, will be merged to the
 \code{\link[=upd_famid]{upd_famid()}} function.
 The \code{code} column will be transformed with the
 \code{\link[=rel_code_to_factor]{rel_code_to_factor()}}.
+Missing relationship for set of twins will be completed
+using \code{\link[=complete_twins]{complete_twins()}}.
 Multiple test are done and errors are checked.
 
 A number of checks are done to ensure the dataframe is correct:

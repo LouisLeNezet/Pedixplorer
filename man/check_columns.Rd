@@ -13,7 +13,8 @@ check_columns(
   cols_used_init = FALSE,
   cols_to_use_init = FALSE,
   cols_used_del = FALSE,
-  verbose = FALSE
+  verbose = FALSE,
+  init_with = NA_character_
 )
 }
 \arguments{

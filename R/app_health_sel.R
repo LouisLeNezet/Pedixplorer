@@ -44,16 +44,14 @@ health_sel_ui <- function(id) {
 #' @keywords internal
 #' @importFrom shiny is.reactive NS moduleServer req reactive sliderInput
 #' @importFrom shiny h5 checkboxInput selectInput htmlOutput renderUI
-#' @importFrom shinyWidgets pickerInput
 #' @importFrom stats setNames
 health_sel_server <- function(
     id, pedi, var = NULL, as_num = NULL, mods_aff = NULL,
     threshold = NULL, sup_threshold = NULL
 ) {
     stopifnot(shiny::is.reactive(pedi))
-    ns <- shiny::NS(id)
     shiny::moduleServer(id, function(input, output, session) {
-
+        ns <- session$ns
         # Health variable selector --------------------------------------------
         output$health_var_selector <- shiny::renderUI({
             if (is.null(pedi())) {
@@ -131,6 +129,7 @@ health_sel_server <- function(
                         "No value found for", input$health_var_sel
                     ))
                 } else {
+                    step <- 10 ^ (round(log(max_h, 10)) - 1) / 2
                     shiny::sliderInput(
                         ns("health_threshold_val"),
                         label = shiny::h5(paste(
@@ -141,6 +140,7 @@ health_sel_server <- function(
                         sep = "'",
                         min = min_h,
                         max = max_h,
+                        step = step,
                         value = ifelse(
                             is.null(threshold),
                             (max_h + min_h) / 2,
@@ -158,11 +158,10 @@ health_sel_server <- function(
                 var_to_use <- as.list(stats::setNames(
                     health_var_lev, health_var_lev
                 ))
-                shinyWidgets::pickerInput(
+                shiny::selectInput(
                     ns("health_aff_mods"),
                     label = "Selection of affected modalities",
                     choices = var_to_use,
-                    options = list(`actions-box` = TRUE),
                     multiple = TRUE, selected = ifelse(
                         is.null(mods_aff), health_var_lev, mods_aff
                     )

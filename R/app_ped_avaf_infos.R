@@ -67,8 +67,8 @@ family_infos_table <- function(pedi, col_val = NA) {
         mcols(pedi)[[unique(aff$column_mods)]],
         useNA = "always",
         dnn = c("Availability", "Affected")
-    ) %>%
-        as.data.frame() %>%
+    ) |>
+        as.data.frame() |>
         tidyr::spread("Availability", "Freq")
     colnames(df) <- c("Affected", "TRUE", "FALSE", "NA")
     df$mods <- aff$labels[match(
@@ -81,7 +81,7 @@ family_infos_table <- function(pedi, col_val = NA) {
             x <- replace(x, is.na(x), "NA")
         }
     )
-    return(df[cols])
+    df[cols]
 }
 
 
@@ -128,7 +128,7 @@ ped_avaf_infos_server <- function(
 ) {
     stopifnot(shiny::is.reactive(pedi))
     shiny::moduleServer(id, function(input, output, session) {
-        ns <- shiny::NS(id)
+        ns <- session$ns
         # Create the title ----------------------------------------------------
         output$title_infos <- shiny::renderUI({
             shiny::h3(title)
@@ -146,7 +146,10 @@ ped_avaf_infos_server <- function(
         })
 
         output$family_info_table_ui <- shiny::renderUI({
-            DT::dataTableOutput(ns("family_info_table_dt"), height = height)
+            DT::dataTableOutput(
+                ns("family_info_table_dt"),
+                height = height
+            )
         })
 
         # Display the family information table --------------------------------
@@ -169,7 +172,7 @@ ped_avaf_infos_server <- function(
                         )
                     ), dom = "t"
                 ),
-                fillContainer = TRUE
+                fillContainer = FALSE
             )
         })
         # Display the title ---------------------------------------------------

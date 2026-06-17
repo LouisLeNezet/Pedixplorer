@@ -20,8 +20,11 @@
   id_lab = "id",
   label = NULL,
   precision = 4,
-  lwd = par("lwd"),
+  lwd = 1,
   tips = NULL,
+  ggplot_gen = FALSE,
+  label_dist = c(1, 3, 5),
+  label_cex = c(1, 0.7, 1),
   ...
 )
 }
@@ -79,11 +82,21 @@ corresponding to the value of the column given.}
 \item{precision}{The number of significatif numbers to round the
 solution to.}
 
-\item{lwd}{default=par("lwd"). Controls the line width of the
+\item{lwd}{default=1. Controls the line width of the
 segments, arcs and polygons.}
 
 \item{tips}{A character vector of the column names of the data frame to
 use as tooltips. If \code{NULL}, no tooltips are added.}
+
+\item{ggplot_gen}{If \code{TRUE}, the function will use the
+\code{ggplot2} package to generate the plot.}
+
+\item{label_dist}{A numeric vector of length 3 giving the distance
+between the id, date and label text and the bottom of the box.
+This value is multiplied by the obtained \code{labh} value.}
+
+\item{label_cex}{A numeric vector of length 3 giving the cex of the id,
+date and label text. This value is multiplied by the \code{cex} argument}
 }
 \value{
 A list containing the data frame and the user coordinates.

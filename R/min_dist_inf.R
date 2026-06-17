@@ -1,6 +1,3 @@
-#' @importFrom dplyr %>%
-NULL
-
 #' Minimum distance to the informative individuals
 #'
 #' @description Compute the minimum distance between the informative
@@ -12,10 +9,13 @@ NULL
 #'
 #' \eqn{minDist = log2(1 / \max(kinship))}
 #'
-#' Therefore, the minimum distance is 0 when the maximum kinship is 1 and
-#' is infinite when the maximum kinship is 0. For siblings, the kinship value
-#' is 0.5 and the minimum distance is 1. Each time the kinship degree is divided
-#' by 2, the minimum distance is increased by 1.
+#' Therefore, the minimum distance is 1 when the maximum kinship is 0.5
+#' (i.e. same individual) and is infinite when the maximum kinship is 0
+#' (i.e. not related).
+#'
+#' For siblings, the kinship value is 0.25 and the minimum distance is 2.
+#' Each time the kinship degree is divided by 2, the minimum distance is
+#' increased by 1.
 #'
 #'
 #' @param ... Additional arguments
@@ -65,7 +65,7 @@ setMethod("min_dist_inf", "character", function(obj,
     }
     # For all individuals, compute kinship degree
     mat <- as.matrix(kinship(id, dadid, momid, sex))
-    sub <- mat[, colnames(mat) %in% id_inf] %>%
+    sub <- mat[, colnames(mat) %in% id_inf] |>
         as.data.frame()
 
     kin <- log2(1 / apply(sub, 1, max))

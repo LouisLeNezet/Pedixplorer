@@ -7,7 +7,6 @@
 draw_polygon(
   x,
   y,
-  p = NULL,
   ggplot_gen = FALSE,
   fill = "grey",
   border = "black",
@@ -21,8 +20,6 @@ draw_polygon(
 \item{x}{x coordinates}
 
 \item{y}{y coordinates}
-
-\item{p}{ggplot object}
 
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 

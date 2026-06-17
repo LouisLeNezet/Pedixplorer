@@ -2,50 +2,123 @@
 % Please edit documentation in R/app_plot_ped.R
 \name{plot_ped_ui}
 \alias{plot_ped_ui}
+\alias{app_plot_fct}
 \alias{plot_ped_server}
 \alias{plot_ped_demo}
-\title{Shiny module to generate pedigree graph.}
+\title{Internal function to generate the plot}
 \usage{
 plot_ped_ui(id)
+
+app_plot_fct(
+  pedi,
+  cex = 1,
+  plot_par = list(),
+  interactive = FALSE,
+  mytitle = "My Pedigree",
+  precision = 2,
+  lwd = 1,
+  aff_mark = TRUE,
+  label = NULL,
+  symbolsize = 1,
+  force = TRUE,
+  mytips = NULL,
+  align_parents = TRUE
+)
 
 plot_ped_server(
   id,
   pedi,
-  title = NA,
+  my_title = NA,
   precision = 2,
-  max_ind = 500,
-  tips = NULL,
-  lwd = par("lwd")
+  my_tips = NULL,
+  plot_lwd = 1,
+  width = "80\%",
+  height = "400px",
+  plot_cex = 1,
+  symbolsize = 1,
+  force = TRUE,
+  plot_par = list(),
+  is_interactive = FALSE,
+  aff_mark = TRUE,
+  label = NULL,
+  computebest = FALSE,
+  tolerance = 5,
+  align_parents = TRUE,
+  timeout = 60
 )
 
-plot_ped_demo(pedi, precision = 2, max_ind = 500, tips = NULL)
+plot_ped_demo(pedi = NULL, precision = 4, interactive = FALSE)
 }
 \arguments{
 \item{id}{A string.}
 
 \item{pedi}{A reactive pedigree object.}
 
-\item{title}{A string to name the plot.}
+\item{cex}{A numeric to set the size of the text.}
+
+\item{plot_par}{A list of parameters to pass to the plot
+function.}
+
+\item{interactive}{A boolean to set if the plot is interactive.}
+
+\item{mytitle}{A string to set the title of the plot.}
 
 \item{precision}{An integer to set the precision of the plot.}
 
-\item{max_ind}{An integer to set the maximum number of individuals to plot.}
-
-\item{tips}{A character vector of the column names of the data frame to use
-as tooltips. If NULL, no tooltips are added.}
-
 \item{lwd}{A numeric to set the line width of the plot.}
+
+\item{aff_mark}{A boolean to set if the affected individuals
+should be marked.}
+
+\item{label}{A string to set the label of the plot.}
+
+\item{symbolsize}{A numeric to set the size of the symbols.}
+
+\item{force}{A boolean to set if the plot should be forced.}
+
+\item{mytips}{A character vector of the column names of the data frame
+to use as tooltips. If NULL, no tooltips are added.}
+
+\item{my_title}{A string to name the plot.}
+
+\item{my_tips}{A character vector of the column names of the data frame
+to use as tooltips. If NULL, no tooltips are added.}
+
+\item{plot_lwd}{A numeric to set the line width of the plot.}
+
+\item{width}{A numeric to set the width of the plot.}
+
+\item{height}{A numeric to set the height of the plot.}
+
+\item{plot_cex}{A numeric to set the size of the text.}
+
+\item{is_interactive}{A boolean to set if the plot is interactive.}
 }
 \value{
+A function or a plotly object.
+
 A reactive ggplot or the pedigree object.
 }
 \description{
+This function is used by the Shiny module to generate the plot.
+If the \code{interactive} argument is set to TRUE, it generates an interactive
+plot using \code{plotly}. If it is set to FALSE, it generates a static
+plot function.
+
 This module allows to plot a pedigree object. The plot can be interactive.
 The function is composed of two parts: the UI and the server.
 The UI is called with the function \code{plot_ped_ui()} and the server
 with the function \code{plot_ped_server()}.
 }
 \examples{
+data("sampleped")
+pedi <- Pedigree(sampleped[sampleped$famid == "1", ])
+Pedixplorer:::app_plot_fct(
+   pedi, cex = 1, plot_par = list(),
+   interactive = FALSE,
+   mytitle = "My Pedigree",
+   precision = 2, lwd = 1
+)
 if (interactive()) {
     data("sampleped")
     pedi <- shiny::reactive({

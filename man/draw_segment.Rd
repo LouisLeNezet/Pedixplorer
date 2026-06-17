@@ -9,7 +9,6 @@ draw_segment(
   y0,
   x1,
   y1,
-  p = NULL,
   ggplot_gen = FALSE,
   col = par("fg"),
   lwd = par("lwd"),
@@ -24,8 +23,6 @@ draw_segment(
 \item{x1}{x coordinate of the second point}
 
 \item{y1}{y coordinate of the second point}
-
-\item{p}{ggplot object}
 
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 

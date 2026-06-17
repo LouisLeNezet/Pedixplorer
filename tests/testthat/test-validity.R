@@ -295,7 +295,7 @@ test_that("is_valid_rel throw errors", {
     data("relped")
     reli <- Rel(relped)
 
-    reli@id2[1] <- "1_140"
+    reli@id1[1] <- "1_140"
     reli@id1[2] <- "1_140"
     reli@id2[2] <- "1_139"
     reli@id1[3] <- "2_204"

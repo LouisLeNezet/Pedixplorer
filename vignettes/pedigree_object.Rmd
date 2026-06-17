@@ -54,7 +54,7 @@ It accepts the following input
     A character or factor variable can also be supplied containing
     the above; the string may be truncated and of arbitrary case.
     - `fertility` Optional, will be transformed to an ordered factor using the
-    [fertility_to_factor()] function.
+    `fertility_to_factor()` function.
     `infertile_choice_na`, `infertile`, `fertile`
     The following values are recognized:
         - character() or factor() : "fertile", "infertile", "steril",
@@ -62,7 +62,7 @@ It accepts the following input
         - numeric() : 1 = "fertile", 0 = "infertile"
         - logical() : `TRUE` = "fertile", `FALSE` = "infertile"
     - `miscarriage` Optional, will be transformed to an factor using the
-    [miscarriage_to_factor()] function.
+    `miscarriage_to_factor()` function.
     `TOP`, `SAB`, `ECT`, `FALSE`
     The following values are recognized:
         - character() or factor() : "spontaneous", "spontaenous abortion",
@@ -114,12 +114,12 @@ variable turn out to be backwards for this case, in particular a memory
 of the original level set when subscripting is done.
 
 However, due to the awful decision early on in S to automatically turn every
-character into a factor --- unless you stood at the door with a club to
-head the package off --- most users have become ingrained to the idea of
+character into a factor, unless you stood at the door with a club to
+head the package off, most users have become ingrained to the idea of
 using them for every character variable.
 
 (I encourage you to set the global option `stringsAsFactors = FALSE` to turn
-off autoconversion -- it will measurably improve your R experience).
+off autoconversion, it will measurably improve your R experience).
 
 Therefore, to avoid unnecessary hassle for our users 
 the code will accept a factor as input for the id variables, but
@@ -324,7 +324,7 @@ With this new S4 object comes multiple methods to ease the use of it:
 - `unrelated()`
 - `useful_inds()`
 
-```{r, pedigree_methods, fig.alt = "Pedigree plot"}
+```{r, pedigree_methods, fig.alt = "Pedigree plot", fig.align = 'center'}
 ## We can change the family name based on an other column
 pedi <- upd_famid(pedi, mcols(pedi)$idth)
 

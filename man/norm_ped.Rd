@@ -7,7 +7,7 @@
 norm_ped(
   ped_df,
   na_strings = c("NA", ""),
-  missid = NA_character_,
+  missid = c(NA_character_, "0"),
   try_num = FALSE,
   cols_used_del = FALSE,
   date_pattern = "\%Y-\%m-\%d"

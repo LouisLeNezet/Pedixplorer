@@ -11,11 +11,11 @@ plot_download_ui(id)
 plot_download_server(
   id,
   my_plot,
+  plot_class,
   filename = "saveplot",
   label = "Download",
   width = 500,
-  height = 500,
-  ext = "png"
+  height = 500
 )
 
 plot_download_demo()
@@ -23,7 +23,10 @@ plot_download_demo()
 \arguments{
 \item{id}{A string.}
 
-\item{my_plot}{Reactive object containing the plot.}
+\item{my_plot}{Reactive object containing the plot or the plot function.}
+
+\item{plot_class}{A string to define the class of the plot
+("ggplot", "htmlwidget", "plotly", "grob" or "function").}
 
 \item{filename}{A string to name the file.}
 
@@ -32,8 +35,6 @@ plot_download_demo()
 \item{width}{A numeric to set the width of the plot.}
 
 \item{height}{A numeric to set the height of the plot.}
-
-\item{ext}{A string to set the extension of the file.}
 }
 \value{
 A shiny module to export a plot.

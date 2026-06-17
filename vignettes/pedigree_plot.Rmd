@@ -13,6 +13,14 @@ vignette: |
     %\VignetteEngine{knitr::rmarkdown}
 ---
 
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    fig.dim = c(8, 4),
+    fig.align = "center"
+)
+```
+
 Introduction
 ==============
 
@@ -77,13 +85,14 @@ Our constraints then are
 
 1. $(box height + label height) \times maxlev \le height$ : the boxes and
     labels have to fit vertically
-2. $(box height) \times (maxlev + (maxlev-1)/2) \le height$ : at least 1/2
-    a box of space between each row of boxes
+    \frac{(p_1 + p_2)}{2}
+2. $(box height) \times (maxlev + \frac{(maxlev-1)}{2}) \le height$ :
+    at least 1/2 a box of space between each row of boxes
 3. $(box width) \le stemp1$ in inches 
 4. $(box width) \le 0.8$ unit in user coordinates, otherwise they appear 
     to touch
-5. User coordinates go from $min(xrange)- 1/2 box width$ to 
-    $max(xrange) + 1/2 box width$.
+5. User coordinates go from $min(xrange)- \frac{box width}{2}$ to 
+    $max(xrange) + \frac{box width}{2}$.
 6. the box is square (in inches)
 
 The first 3 of these are easy. The fourth comes into play only for very packed
@@ -148,7 +157,8 @@ types <- c(
 )
 df <- plot_df <- data.frame(
     x0 = c(1, 3, 5, 7), y0 = 1,
-    type = types, fill = c("red", "blue", "green", "yellow"),
+    type = types,
+    fill = c("red", "blue", "green", "yellow"),
     border = "black",
     angle = c(NA, 90, 0, 45),
     density = c(NA, 10, 20, 40)

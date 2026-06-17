@@ -159,7 +159,7 @@ setMethod("align", "Pedigree",
             }, silent = TRUE)
             if ("try-error" %in% class(hints)) {
                 hints <- Hints(horder = stats::setNames(
-                    seq_len(length(ped(obj))), id(ped(obj))
+                    seq_along(ped(obj)), id(ped(obj))
                 ))
             }
         }

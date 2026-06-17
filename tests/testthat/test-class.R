@@ -112,8 +112,8 @@ test_that("Rel class works", {
     rel0 <- new("Rel")
     expect_s4_class(rel0, "Rel")
     expect_equal(length(rel0), 0)
-    expect_equal(length(as.list(rel0)), 4)
-    expect_equal(dim(as.data.frame(rel0)), c(0, 4))
+    expect_equal(length(as.list(rel0)), 5)
+    expect_equal(dim(as.data.frame(rel0)), c(0, 5))
     rel2 <- Rel(
         obj = c("ID5", "ID4"),
         id2 = c("ID3", "ID2"),
@@ -122,8 +122,8 @@ test_that("Rel class works", {
     mcols(rel2) <- list("A" = c(1, 2))
     expect_s4_class(rel2, "Rel")
     expect_equal(length(rel2), 2)
-    expect_equal(length(as.list(rel2)), 5)
-    expect_equal(dim(as.data.frame(rel2)), c(2, 5))
+    expect_equal(length(as.list(rel2)), 6)
+    expect_equal(dim(as.data.frame(rel2)), c(2, 6))
     expect_snapshot(rel2)
 
     expect_error(rel4 <- c(rel2, rel2))
@@ -137,13 +137,13 @@ test_that("Rel class works", {
     rel3 <- Rel(
         obj = c("ID6", "ID2", "ID4"),
         id2 = c("ID3", "ID3", "ID1"),
-        code = c(1, 2, 3),
+        code = c(1, 1, 3),
     )
-    expect_equal(dim(as.data.frame(c(rel3, rel2))), c(5, 5))
+    expect_equal(dim(as.data.frame(c(rel3, rel2))), c(6, 6))
 
     expect_equal(length(subset(rel3, "ID6")), 0)
     expect_equal(length(subset(rel3, c("ID2", "ID3"))), 1)
-    expect_equal(length(subset(rel3, c("ID2", "ID3", "ID6"))), 2)
+    expect_equal(length(subset(rel3, c("ID2", "ID3", "ID6"))), 3)
 
 })
 

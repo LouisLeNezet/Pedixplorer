@@ -125,9 +125,11 @@ na_to_length <- function(x, temp, value) {
 #' @export
 #' @include utils.R
 #' @usage NULL
-setGeneric("Ped", signature = "obj", function(obj, ...) {
-    standardGeneric("Ped")
-})
+setGeneric(
+    "Ped", signature = "obj", function(obj, ...) { # nolint: object_name_linter
+        standardGeneric("Ped")
+    }
+)
 
 #' @rdname Ped-class
 #' @examples
@@ -223,7 +225,7 @@ setMethod("Ped", "character_OR_integer",
         consultand = NA, proband = NA,
         affected = NA, carrier = NA, asymptomatic = NA,
         adopted = NA, dateofbirth = NA, dateofdeath = NA,
-        missid = NA_character_,
+        missid = c(NA_character_, "0"),
         useful = NA, isinf = NA, kin = NA_real_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
@@ -314,15 +316,18 @@ setMethod("Ped", "missing",
 #' - character() or factor() : "MZ twin", "DZ twin", "UZ twin", "Spouse" with
 #' of without space between the words. The case is not important.
 #' - numeric() : 1 = "MZ twin", 2 = "DZ twin", 3 = "UZ twin", 4 = "Spouse"
+#' @param group A numeric vector with the set number for twins.
 #' @inheritParams Ped
 #'
 #' @return A Rel object.
 #' @rdname Rel-class
 #' @export
 #' @usage NULL
-setGeneric("Rel", signature = "obj", function(obj, ...) {
-    standardGeneric("Rel")
-})
+setGeneric(
+    "Rel", signature = "obj", function(obj, ...) { # nolint: object_name_linter
+        standardGeneric("Rel")
+    }
+)
 
 #' @rdname Rel-class
 #' @export
@@ -331,7 +336,7 @@ setGeneric("Rel", signature = "obj", function(obj, ...) {
 #' rel_df <- data.frame(
 #'     id1 = c("1", "2", "3"),
 #'     id2 = c("2", "3", "4"),
-#'     code = c(1, 2, 3)
+#'     code = c(1, 1, 4)
 #' )
 #' Rel(rel_df)
 setMethod("Rel", "data.frame",
@@ -344,7 +349,8 @@ setMethod("Rel", "data.frame",
         )
 
         with(df, Rel(
-            obj = id1, id2 = id2, code = code, famid = as.character(famid)
+            obj = id1, id2 = id2, code = code,
+            famid = as.character(famid)
         ))
     }
 )
@@ -356,11 +362,11 @@ setMethod("Rel", "data.frame",
 #' Rel(
 #'     obj = c("1", "2", "3"),
 #'     id2 = c("2", "3", "4"),
-#'     code = c(1, 2, 3)
+#'     code = c(1, 1, 4)
 #' )
 setMethod("Rel", "character_OR_integer",
     function(
-        obj, id2, code, famid = NA_character_
+        obj, id2, code, famid = NA_character_, group = NA_character_
     ) {
         famid <- na_to_length(famid, obj, NA_character_)
         id1 <- as.character(obj)
@@ -373,11 +379,14 @@ setMethod("Rel", "character_OR_integer",
         id2o <- pmax(id1, id2)
 
         code <- rel_code_to_factor(code)
+        df <- data.frame(id1 = id1o, id2 = id2o, code = code, famid = famid) |>
+            complete_twins()
 
-        rel <- new(
+        rel <- with(df, new(
             "Rel",
-            id1 = id1o, id2 = id2o, code = code, famid = famid
-        )
+            id1 = id1, id2 = id2, code = code,
+            famid = as.character(famid), group = group
+        ))
         upd_famid(rel)
     }
 )
@@ -417,9 +426,11 @@ setMethod("Rel", "missing",
 #' @return A Hints object.
 #' @rdname Hints-class
 #' @export
-setGeneric("Hints", function(horder, spouse) {
-    standardGeneric("Hints")
-})
+setGeneric(
+    "Hints", function(horder, spouse) { # nolint: object_name_linter
+        standardGeneric("Hints")
+    }
+)
 
 #' @rdname Hints-class
 #' @usage NULL
@@ -453,13 +464,14 @@ setMethod("Hints",
                 "but doesn't contains horder or spouse slot"
             )
         }
-        if ("horder" %in% names(horder)) {
-            horder <- horder$horder
+        hord_old <- horder
+        if ("horder" %in% names(hord_old)) {
+            horder <- hord_old$horder
         } else {
             horder <- NULL
         }
-        if ("spouse" %in% names(horder)) {
-            spouse <- horder$spouse
+        if ("spouse" %in% names(hord_old)) {
+            spouse <- hord_old$spouse
         } else {
             spouse <- NULL
         }
@@ -493,6 +505,30 @@ setMethod("Hints",
         )
         spouse$anchor <- anchor_to_factor(spouse$anchor)
         new("Hints", horder = horder, spouse = spouse)
+    }
+)
+
+#' @rdname Hints-class
+#' @export
+#' @examples
+#'
+#' Hints(
+#'     horder = c("1" = 1, "2" = 2, "3" = 3),
+#'     spouse = data.frame(
+#'         idl = c("1", "2"),
+#'         idr = c("2", "3"),
+#'         anchor = c(1, 2)
+#'     )
+#' )
+setMethod("Hints",
+    signature(horder = "missing_OR_NULL", spouse = "data.frame"),
+    function(horder, spouse) {
+        spouse <- check_columns(
+            spouse, c("idl", "idr", "anchor"), NULL, NULL,
+            cols_to_use_init = TRUE
+        )
+        spouse$anchor <- anchor_to_factor(spouse$anchor)
+        new("Hints", horder = numeric(), spouse = spouse)
     }
 )
 
@@ -572,9 +608,11 @@ setMethod("Hints",
 #' @seealso [generate_colors()]
 #' @rdname Scales-class
 #' @export
-setGeneric("Scales", function(fill, border) {
-    standardGeneric("Scales")
-})
+setGeneric(
+    "Scales", function(fill, border) { # nolint: object_name_linter
+        standardGeneric("Scales")
+    }
+)
 
 #' @rdname Scales-class
 #' @export
@@ -755,8 +793,11 @@ setMethod("Scales",
 #' [Ped()]
 #' [Rel()]
 #' [Scales()]
-setGeneric("Pedigree", signature = "obj",
-    function(obj, ...) standardGeneric("Pedigree")
+setGeneric(
+    "Pedigree", signature = "obj", # nolint: object_name_linter
+    function(obj, ...) {
+        standardGeneric("Pedigree")
+    }
 )
 
 #' @export
@@ -797,8 +838,8 @@ setMethod("Pedigree", "character_OR_integer", function(
     proband = NULL, affections = NULL, carrier = NULL,
     asymptomatic = NULL, adopted = NULL,
     dateofbirth = NULL, dateofdeath = NULL, rel_df = NULL,
-    missid = NA_character_, col_aff = "affection", date_pattern = "%Y-%m-%d",
-    normalize = TRUE, ...
+    missid = c(NA_character_, "0"), col_aff = "affection",
+    date_pattern = "%Y-%m-%d", normalize = TRUE, ...
 ) {
     n <- length(obj)
     ## Code transferred from noweb to markdown vignette.
@@ -1005,7 +1046,7 @@ setMethod("Pedigree", "data.frame",  function(
         spouse = NULL
     ),
     normalize = TRUE,
-    missid = NA_character_,
+    missid = c(NA_character_, "0"),
     col_aff = "affection",
     date_pattern = "%Y-%m-%d",
     na_strings = c("NA", "N/A", "None", "none", "null", "NULL"),
@@ -1047,7 +1088,7 @@ setMethod("Pedigree", "data.frame",  function(
             rep(names(cols_ren_ped), lengths(cols_ren_ped)),
             unlist(cols_ren_ped)
         )
-        ped_df <- ped_df %>%
+        ped_df <- ped_df |>
             dplyr::rename_with(
                 ~ cols_mapping[.x],
                 .cols = names(cols_mapping)[
@@ -1062,7 +1103,7 @@ setMethod("Pedigree", "data.frame",  function(
             rep(names(cols_ren_rel), lengths(cols_ren_rel)),
             unlist(cols_ren_rel)
         )
-        rel_df <- rel_df %>%
+        rel_df <- rel_df |>
             dplyr::rename_with(
                 ~ cols_mapping[.x],
                 .cols = names(cols_mapping)[
@@ -1143,7 +1184,7 @@ setMethod("Pedigree", "data.frame",  function(
     } else {
         validObject(pedi)
     }
-    return(pedi)
+    pedi
 }
 )
 

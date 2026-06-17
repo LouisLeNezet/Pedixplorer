@@ -251,9 +251,6 @@
       NULL
       <environment: R_EmptyEnv>
       
-      $catch.script.errors
-      [1] FALSE
-      
       $check.bounds
       [1] FALSE
       
@@ -324,9 +321,6 @@
       
       $digits
       [1] 4
-      
-      $dplyr.show_progress
-      [1] TRUE
       
       $echo
       [1] TRUE
@@ -470,9 +464,8 @@
       $prompt
       [1] "> "
       
-      $repos
-          CRAN 
-      "@CRAN@" 
+      $rlang_backtrace_on_warning_report
+      [1] "full"
       
       $rlang_backtrace_on_error_report
       [1] "full"
@@ -499,9 +492,6 @@
       [1] 120000
       
       $show.coef.Pvalues
-      [1] TRUE
-      
-      $show.error.messages
       [1] TRUE
       
       $show.signif.stars

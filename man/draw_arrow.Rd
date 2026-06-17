@@ -9,11 +9,10 @@ draw_arrow(
   y0,
   x1,
   y1,
-  p = NULL,
   ggplot_gen = FALSE,
   lwd = par("lwd"),
-  lty = 1,
-  col = "black"
+  lty = par("lty"),
+  col = par("col")
 )
 }
 \arguments{
@@ -24,8 +23,6 @@ draw_arrow(
 \item{x1}{x coordinate of the second point}
 
 \item{y1}{y coordinate of the second point}
-
-\item{p}{ggplot object}
 
 \item{ggplot_gen}{If TRUE add the segments to the ggplot object}
 

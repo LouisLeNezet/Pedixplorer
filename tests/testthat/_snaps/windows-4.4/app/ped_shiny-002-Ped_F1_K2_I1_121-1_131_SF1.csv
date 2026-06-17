@@ -1,0 +1,9 @@
+"";"id";"dadid";"momid";"famid";"sex";"fertility";"miscarriage";"deceased";"avail";"evaluated";"consultand";"proband";"affected";"carrier";"asymptomatic";"adopted";"dateofbirth";"dateofdeath";"useful";"kin";"isinf";"num_child_tot";"num_child_dir";"num_child_ind";"affection";"num";"error";"affection_mods";"avail_mods"
+"1_103";"1_103";NA;NA;"1";"male";"fertile";"FALSE";NA;FALSE;FALSE;FALSE;FALSE;NA;NA;NA;FALSE;"1975-08-14";NA;TRUE;3;FALSE;1;1;0;1;2;NA;1;0
+"1_104";"1_104";NA;NA;"1";"female";"fertile";"FALSE";NA;FALSE;FALSE;FALSE;FALSE;NA;NA;NA;FALSE;NA;NA;TRUE;3;FALSE;1;1;0;0;4;NA;0;0
+"1_109";"1_109";NA;NA;"1";"female";"fertile";"FALSE";NA;TRUE;FALSE;TRUE;FALSE;NA;NA;TRUE;FALSE;NA;NA;TRUE;2;FALSE;4;4;0;0;3;NA;0;1
+"1_110";"1_110";"1_103";"1_104";"1";"male";"fertile";"FALSE";NA;TRUE;TRUE;FALSE;FALSE;NA;NA;NA;FALSE;NA;NA;TRUE;2;FALSE;4;4;0;1;2;NA;1;1
+"1_121";"1_121";"1_110";"1_109";"1";"unknown";"fertile";"FALSE";NA;FALSE;FALSE;FALSE;FALSE;NA;NA;NA;TRUE;NA;NA;TRUE;1;TRUE;0;0;0;NA;1;NA;NA;0
+"1_122";"1_122";"1_110";"1_109";"1";"female";"fertile";"TOP";NA;FALSE;FALSE;FALSE;FALSE;NA;NA;NA;FALSE;NA;NA;TRUE;2;FALSE;0;0;0;0;2;NA;0;0
+"1_123";"1_123";"1_110";"1_109";"1";"female";"fertile";"FALSE";NA;FALSE;FALSE;FALSE;FALSE;NA;NA;NA;FALSE;NA;NA;TRUE;2;FALSE;0;0;0;0;0;NA;0;0
+"1_124";"1_124";"1_110";"1_109";"1";"male";"fertile";"FALSE";NA;TRUE;FALSE;FALSE;FALSE;NA;NA;NA;FALSE;"2006-07-28";NA;TRUE;2;FALSE;0;0;0;1;NA;NA;1;1
