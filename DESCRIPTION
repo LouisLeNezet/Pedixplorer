@@ -46,9 +46,9 @@ Description: Routines to handle family data with a Pedigree object. The initial
     compact layouts without intervention. Recent additions include utilities to
     trim the Pedigree object with various criteria, and kinship for the X
     chromosome.
-License: Artistic-2.0
+License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 

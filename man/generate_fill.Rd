@@ -63,7 +63,7 @@ containing affection status to compute the filling color.
 }
 \details{
 The colors will be set using the
-\code{\link[grDevices:colorRamp]{grDevices::colorRampPalette()}} function
+\code{\link[grDevices:colorRampPalette]{grDevices::colorRampPalette()}} function
 with the colors given as parameters.
 
 The colors will be set as follow:
@@ -77,7 +77,7 @@ first color of the \strong{colors_unaff} vector.
 \item If \strong{values} isn't numeric:
 Each levels of the affected \strong{values} vector will get
 it's own color from the \strong{colors_aff} vector using the
-\code{\link[grDevices:colorRamp]{grDevices::colorRampPalette()}} and
+\code{\link[grDevices:colorRampPalette]{grDevices::colorRampPalette()}} and
 the same will be done for the unaffected individuals using the
 \strong{colors_unaff}.
 \item If \strong{values} is numeric:
