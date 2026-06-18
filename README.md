@@ -10,15 +10,17 @@
   [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/bioconductor-pedixplorer/README.html)
 <!-- badges: end -->
 
-<div style="display:flex; align-items:center; gap:1rem;">
-  <div style="flex:3;">
+<table>
+  <tr>
+    <td style="width:75%; vertical-align:middle;">
     This is the new version of <a href="https://github.com/mayoverse/kinship2"><strong>kinship2</strong></a> package. Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a function to computes the kinship matrix from a Pedigree object, and pedigree plotting routines that adhere to many of the standards for genetics counselors.
-  </div>
-  <div style="flex:1; text-align:center;">
-    <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png"
-         style="max-height:200px;" />
-  </div>
-</div>
+    </td>
+    <td style="width:25%; text-align:center; vertical-align:middle;">
+      <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png"
+           style="max-height:200px;" />
+    </td>
+  </tr>
+</table>
 
 > Try today the [**Pedixplorer shiny app**](https://pedixplorer.univ-rennes.fr/) to easily use the package.
 
