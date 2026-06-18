@@ -164,8 +164,8 @@ Pedixplorer:::app_plot_fct(
 #>         title = mytitle, tips = mytips, precision = precision, 
 #>         lwd = lwd, align_parents = align_parents)
 #> }
-#> <bytecode: 0x562a986bdcd0>
-#> <environment: 0x562a986badf0>
+#> <bytecode: 0x55b5b604c838>
+#> <environment: 0x55b5b60499c8>
 if (interactive()) {
     data("sampleped")
     pedi <- shiny::reactive({
