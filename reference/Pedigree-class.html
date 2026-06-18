@@ -45,7 +45,7 @@ Rel object.
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,8 +65,9 @@ Rel object.
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.7.1</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Latest main release : Version 1.6.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.9.2</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Latest main release : Version 1.8.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.4.0">Previous stable release : Version 1.6.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.4.0">Previous stable release : Version 1.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.2.0">Previous stable release : Version 1.2.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.0.0">Previous stable release : Version 1.0.0</a></li>
@@ -91,7 +92,7 @@ Rel object.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Pedigree object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/upd_website/R/AllClass.R" class="external-link"><code>R/AllClass.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/upd_website/R/AllConstructor.R" class="external-link"><code>R/AllConstructor.R</code></a>, <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/upd_website/R/AllAccessors.R" class="external-link"><code>R/AllAccessors.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>Pedigree-class.Rd</code></div>
     </div>
 
@@ -186,8 +187,65 @@ See <code><a href="Ped-class.html">Ped()</a></code> for more informations.</p></
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Arguments passed on to <code><a href="generate_colors.html">generate_colors</a></code></p><dl><dt><code></code></dt>
-<dd></dd>
+<dd><p>Arguments passed on to <code><a href="generate_colors.html">generate_colors</a></code></p><dl><dt><code>add_to_scale</code></dt>
+<dd><p>Boolean defining if the scales need to be added to the
+existing scales or if they need to replace the existing scales.</p></dd>
+
+    <dt><code>reset</code></dt>
+<dd><p>If <code>TRUE</code> the scale of the specified column will be reset if
+already present.</p></dd>
+
+    <dt><code>col_avail</code></dt>
+<dd><p>A character vector with the name of the column to be used
+for the availability status.</p></dd>
+
+    <dt><code>is_num</code></dt>
+<dd><p>Boolean defining if the values need to be considered as
+numeric.</p></dd>
+
+    <dt><code>keep_full_scale</code></dt>
+<dd><p>Boolean defining if the affection values need to
+be set as a scale. If <code>values</code> is numeric the filling scale will be
+calculated based on the values and the number of breaks given.
+If <code>values</code> isn't numeric then each levels will get it's own color</p></dd>
+
+    <dt><code>breaks</code></dt>
+<dd><p>Number of breaks to use when using full scale with numeric
+values. The same number of breaks will be done for values from affected
+individuals and unaffected individuals.</p></dd>
+
+    <dt><code>colors_aff</code></dt>
+<dd><p>Set of increasing colors to use for the filling of the
+affected individuls.</p></dd>
+
+    <dt><code>colors_unaff</code></dt>
+<dd><p>Set of increasing colors to use for the filling of the
+unaffected individuls.</p></dd>
+
+    <dt><code>colors_na</code></dt>
+<dd><p>Color to use for individuals with no informations.</p></dd>
+
+    <dt><code>colors_avail</code></dt>
+<dd><p>Set of 2 colors to use for the box's border of an
+individual. The first color will be used for available individual
+(<code>avail == 1</code>) and the second for the unavailable individual
+(<code>avail == 0</code>).</p></dd>
+
+    <dt><code>mods_aff</code></dt>
+<dd><p>Vector of modality to consider as affected in the case
+where the <code>values</code> is a factor.</p></dd>
+
+    <dt><code>threshold</code></dt>
+<dd><p>Numeric value separating the affected and healthy subject
+in the case where the <code>values</code> is numeric.</p></dd>
+
+    <dt><code>sup_thres_aff</code></dt>
+<dd><p>Boolean defining if the affected individual are above
+the threshold or not.
+If <code>TRUE</code>, the individuals will be considered affected
+if the value of <code>values</code> is stricly above the <code>threshold</code>.
+If <code>FALSE</code>, the individuals will be considered affected if the
+value is stricly under the <code>threshold</code>.</p></dd>
 
 
 </dl></dd>

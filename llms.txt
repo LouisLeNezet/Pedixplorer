@@ -1,8 +1,13 @@
 # `Pedixplorer`: a Bioconductor package to create, filter and draw pedigree
 
-|  |  |
-|----|:--:|
-| This is the new version of [**kinship2**](https://github.com/mayoverse/kinship2) package. Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a function to computes the kinship matrix from a Pedigree object, and pedigree plotting routines that adhere to many of the standards for genetics counselors. | ![](https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png) |
+``` R
+This is the new version of <a href="https://github.com/mayoverse/kinship2"><strong>kinship2</strong></a> package. Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a function to computes the kinship matrix from a Pedigree object, and pedigree plotting routines that adhere to many of the standards for genetics counselors.
+```
+
+``` R
+<img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png"
+     style="max-height:200px;" />
+```
 
 > Try today the [**Pedixplorer shiny
 > app**](https://pedixplorer.univ-rennes.fr/) to easily use the package.

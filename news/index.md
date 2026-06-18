@@ -1,5 +1,16 @@
 # Changelog
 
+## Changes in v1.9.2
+
+- Update website releases
+- Fix News and Readme
+
+## Changes in v1.9.1
+
+- Update licence to GPLv3
+- Fix contributing guidelines
+- Update to `Roxygen2` 8.0.0
+
 ## Changes in v1.7.1
 
 - Fix slices in
