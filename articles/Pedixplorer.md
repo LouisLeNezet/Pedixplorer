@@ -1323,7 +1323,6 @@ kin2[is_avail, is_avail]
 
 ``` r
 
-options(old_opt)
 sessionInfo()
 ```
 
@@ -1336,12 +1335,10 @@ sessionInfo()
     ## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
     ## 
     ## locale:
-    ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-    ##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-    ##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
-    ##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
-    ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-    ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+    ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8       
+    ##  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+    ##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
+    ## [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
     ## 
     ## time zone: UTC
     ## tzcode source: system (glibc)
@@ -1350,34 +1347,27 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] cowplot_1.2.0     Pedixplorer_1.9.1 dplyr_1.2.1       plotly_4.12.0    
-    ## [5] ggplot2_4.0.3     BiocStyle_2.32.1 
+    ## [1] cowplot_1.2.0     Pedixplorer_1.8.0 dplyr_1.2.1       plotly_4.12.0     ggplot2_4.0.3    
+    ## [6] BiocStyle_2.32.1 
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.58            
-    ##  [4] bslib_0.11.0          shinyjs_2.1.1         htmlwidgets_1.6.4    
-    ##  [7] lattice_0.22-9        crosstalk_1.2.2       quadprog_1.5-8       
-    ## [10] vctrs_0.7.3           tools_4.4.3           generics_0.1.4       
-    ## [13] stats4_4.4.3          tibble_3.3.1          pkgconfig_2.0.3      
-    ## [16] Matrix_1.7-5          data.table_1.18.4     RColorBrewer_1.1-3   
-    ## [19] S7_0.2.2              desc_1.4.3            S4Vectors_0.42.1     
-    ## [22] readxl_1.5.0          lifecycle_1.0.5       stringr_1.6.0        
-    ## [25] shinytoastr_2.2.0     compiler_4.4.3        farver_2.1.2         
-    ## [28] textshaping_1.0.5     httpuv_1.6.17         shinyWidgets_0.9.1   
-    ## [31] htmltools_0.5.9       sass_0.4.10           yaml_2.3.12          
-    ## [34] lazyeval_0.2.3        pillar_1.11.1         pkgdown_2.2.0        
-    ## [37] later_1.4.8           jquerylib_0.1.4       tidyr_1.3.2          
-    ## [40] DT_0.34.0             cachem_1.1.0          mime_0.13            
-    ## [43] tidyselect_1.2.1      digest_0.6.39         stringi_1.8.7        
-    ## [46] colourpicker_1.3.0    purrr_1.2.2           bookdown_0.47        
-    ## [49] labeling_0.4.3        fastmap_1.2.0         grid_4.4.3           
-    ## [52] cli_3.6.6             magrittr_2.0.5        withr_3.0.2          
-    ## [55] scales_1.4.0          promises_1.5.0        rmarkdown_2.31       
-    ## [58] httr_1.4.8            igraph_2.3.2          otel_0.2.0           
-    ## [61] cellranger_1.1.0      ragg_1.5.2            shiny_1.13.0         
-    ## [64] evaluate_1.0.5        knitr_1.51            shinycssloaders_1.1.0
-    ## [67] miniUI_0.1.2          viridisLite_0.4.3     rlang_1.2.0          
-    ## [70] Rcpp_1.1.1-1.1        xtable_1.8-8          glue_1.8.1           
-    ## [73] shinyhelper_0.3.2     BiocManager_1.30.27   BiocGenerics_0.50.0  
-    ## [76] jsonlite_2.0.0        R6_2.6.1              plyr_1.8.9           
-    ## [79] systemfonts_1.3.2     fs_2.1.0
+    ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.58             bslib_0.11.0         
+    ##  [5] shinyjs_2.1.1         htmlwidgets_1.6.4     lattice_0.22-9        crosstalk_1.2.2      
+    ##  [9] quadprog_1.5-8        vctrs_0.7.3           tools_4.4.3           generics_0.1.4       
+    ## [13] stats4_4.4.3          tibble_3.3.1          pkgconfig_2.0.3       Matrix_1.7-5         
+    ## [17] data.table_1.18.4     RColorBrewer_1.1-3    S7_0.2.2              desc_1.4.3           
+    ## [21] S4Vectors_0.42.1      readxl_1.5.0          lifecycle_1.0.5       stringr_1.6.0        
+    ## [25] shinytoastr_2.2.0     compiler_4.4.3        farver_2.1.2          textshaping_1.0.5    
+    ## [29] httpuv_1.6.17         shinyWidgets_0.9.1    htmltools_0.5.9       sass_0.4.10          
+    ## [33] yaml_2.3.12           lazyeval_0.2.3        pillar_1.11.1         pkgdown_2.2.0        
+    ## [37] later_1.4.8           jquerylib_0.1.4       tidyr_1.3.2           DT_0.34.0            
+    ## [41] cachem_1.1.0          mime_0.13             tidyselect_1.2.1      digest_0.6.39        
+    ## [45] stringi_1.8.7         colourpicker_1.3.0    purrr_1.2.2           bookdown_0.47        
+    ## [49] labeling_0.4.3        fastmap_1.2.0         grid_4.4.3            cli_3.6.6            
+    ## [53] magrittr_2.0.5        withr_3.0.2           scales_1.4.0          promises_1.5.0       
+    ## [57] rmarkdown_2.31        httr_1.4.8            igraph_2.3.2          otel_0.2.0           
+    ## [61] cellranger_1.1.0      ragg_1.5.2            shiny_1.13.0          evaluate_1.0.5       
+    ## [65] knitr_1.51            shinycssloaders_1.1.0 miniUI_0.1.2          viridisLite_0.4.3    
+    ## [69] rlang_1.2.0           Rcpp_1.1.1-1.1        xtable_1.8-8          glue_1.8.1           
+    ## [73] shinyhelper_0.3.2     BiocManager_1.30.27   BiocGenerics_0.50.0   jsonlite_2.0.0       
+    ## [77] R6_2.6.1              plyr_1.8.9            systemfonts_1.3.2     fs_2.1.0

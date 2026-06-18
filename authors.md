@@ -16,7 +16,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/LouisLeNezet/Pedixplorer/blob/devel/inst/CITATION)
+[`inst/CITATION`](https://github.com/LouisLeNezet/Pedixplorer/blob/main/inst/CITATION)
 
 Le Nézet L, Sinnwell J, Letko A, André C, Quignon P (2025).
 “Pedixplorer: a Bioconductor package to streamline pedigree design and

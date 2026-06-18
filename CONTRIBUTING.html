@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.8.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Pedixplorer: Contributing Guidelines</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/.github/CONTRIBUTING.md" class="external-link"><code>.github/CONTRIBUTING.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/main/.github/CONTRIBUTING.md" class="external-link"><code>.github/CONTRIBUTING.md</code></a></small>
     </div>
 
 <div id="pedixplorer-contributing-guidelines" class="section level1">
@@ -80,8 +80,8 @@
 <div class="section level2">
 <h2 id="tests">Tests<a class="anchor" aria-label="anchor" href="#tests"></a></h2>
 <p>You have the option to test your changes locally by running the unittests. Execute all the tests with the following command:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">check</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">devtools::check()</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">rcmdcheck</span></span></code></pre></div>
 <p>When you create a pull request with changes, <a href="https://github.com/features/actions" class="external-link">GitHub Actions</a> will run automatic tests. Typically, pull-requests are only fully reviewed when these tests are passing, though of course we can help out before then.</p>
 </div>
 <div class="section level2">
@@ -92,16 +92,24 @@
 <li>Open a pull-request from <code>patch</code> to <code>main</code>/<code>master</code> with the changes.</li>
 </ul></div>
 <div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a></h2>
+<p>For further information/help, please consult the R nf-core/utils vignettes and don’t hesitate to get in touch on the nf-core Slack <a href="https://nfcore.slack.com/channels/nf-core-r-utils" class="external-link">#nf-core-r-utils</a> channel (<a href="https://nf-co.re/join/slack" class="external-link">join our Slack here</a>).</p>
+</div>
+<div class="section level2">
 <h2 id="package-contribution-conventions">Package contribution conventions<a class="anchor" aria-label="anchor" href="#package-contribution-conventions"></a></h2>
-<p>To make the <code>Pedixplorer</code> code and processing logic more understandable for new contributors and to ensure quality, we semi-standardise the way the code and other contributions are written.</p>
+<p>To make the <code>R nf-core/utils</code> code and processing logic more understandable for new contributors and to ensure quality, we semi-standardise the way the code and other contributions are written.</p>
 <div class="section level3">
 <h3 id="adding-a-new-function">Adding a new function<a class="anchor" aria-label="anchor" href="#adding-a-new-function"></a></h3>
 <p>If you wish to contribute a new function, please use the following coding standards:</p>
 <ol style="list-style-type: decimal"><li>Use snake_case</li>
 <li>Lint the code</li>
-<li>Add documentation and example through <code>Roxygen2</code> syntax</li>
+<li>Add documentation and example through Roxygen2 syntax</li>
 <li>Add a unittest and aim for a full coverage</li>
 </ol></div>
+<div class="section level3">
+<h3 id="images-and-figures">Images and figures<a class="anchor" aria-label="anchor" href="#images-and-figures"></a></h3>
+<p>For overview images and other documents we follow the nf-core <a href="https://nf-co.re/developers/design_guidelines" class="external-link">style guidelines and examples</a>.</p>
+</div>
 </div>
 </div>
 

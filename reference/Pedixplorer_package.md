@@ -67,9 +67,6 @@ Useful links:
 
 Authors:
 
-- Louis Le Nezet <louislenezet@gmail.com>
-  ([ORCID](https://orcid.org/0009-0000-0202-2703)) \[contributor\]
-
 - Jason Sinnwell <sinnwell.jason@mayo.edu>
 
 - Terry Therneau
