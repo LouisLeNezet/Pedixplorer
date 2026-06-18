@@ -108,9 +108,42 @@ with the individuals informations.
 See \code{\link[=Ped]{Ped()}} for more informations.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=generate_colors]{generate_colors}}
+  Arguments passed on to \code{\link{generate_colors}}
   \describe{
-    \item{\code{}}{}
+    \item{\code{add_to_scale}}{Boolean defining if the scales need to be added to the
+existing scales or if they need to replace the existing scales.}
+    \item{\code{reset}}{If \code{TRUE} the scale of the specified column will be reset if
+already present.}
+    \item{\code{col_avail}}{A character vector with the name of the column to be used
+for the availability status.}
+    \item{\code{is_num}}{Boolean defining if the values need to be considered as
+numeric.}
+    \item{\code{keep_full_scale}}{Boolean defining if the affection values need to
+be set as a scale. If \code{values} is numeric the filling scale will be
+calculated based on the values and the number of breaks given.
+If \code{values} isn't numeric then each levels will get it's own color}
+    \item{\code{breaks}}{Number of breaks to use when using full scale with numeric
+values. The same number of breaks will be done for values from affected
+individuals and unaffected individuals.}
+    \item{\code{colors_aff}}{Set of increasing colors to use for the filling of the
+affected individuls.}
+    \item{\code{colors_unaff}}{Set of increasing colors to use for the filling of the
+unaffected individuls.}
+    \item{\code{colors_na}}{Color to use for individuals with no informations.}
+    \item{\code{colors_avail}}{Set of 2 colors to use for the box's border of an
+individual. The first color will be used for available individual
+(\code{avail == 1}) and the second for the unavailable individual
+(\code{avail == 0}).}
+    \item{\code{mods_aff}}{Vector of modality to consider as affected in the case
+where the \code{values} is a factor.}
+    \item{\code{threshold}}{Numeric value separating the affected and healthy subject
+in the case where the \code{values} is numeric.}
+    \item{\code{sup_thres_aff}}{Boolean defining if the affected individual are above
+the threshold or not.
+If \code{TRUE}, the individuals will be considered affected
+if the value of \code{values} is stricly above the \code{threshold}.
+If \code{FALSE}, the individuals will be considered affected if the
+value is stricly under the \code{threshold}.}
   }}
 
 \item{dadid}{A vector containing for each subject, the identifiers of the

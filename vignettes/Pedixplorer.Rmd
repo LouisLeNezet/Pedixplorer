@@ -19,7 +19,7 @@ editor_options:
 ---
 
 ```{r width_control, echo = FALSE}
-options(width = 100)
+old_opt <- options(width = 100)
 ```
 
 # Introduction
@@ -758,5 +758,6 @@ kin2[is_avail, is_avail]
 # Session information
 
 ```{r}
+options(old_opt)
 sessionInfo()
 ```

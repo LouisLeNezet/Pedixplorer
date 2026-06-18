@@ -48,13 +48,13 @@ It helps the drawing program by lining up pedigrees that
 is not possible.}
 }
 \value{
-The initial \linkS4class{Hints} object.
+The initial \link[=Hints-class]{Hints} object.
 }
 \description{
 Compute an initial guess for the alignment of a Pedigree
 }
 \details{
-A Pedigree structure can contain a \linkS4class{Hints} object which helps to
+A Pedigree structure can contain a \link[=Hints-class]{Hints} object which helps to
 reorder the Pedigree (e.g. left-to-right order of children within family) so
 as to plot with minimal distortion. This routine is used to create an
 initial version of the hints. They can then be modified if desired.
@@ -81,7 +81,7 @@ Pedixplorer:::auto_hint(pedi)
 \seealso{
 \code{\link[=align]{align()}}, \code{\link[=best_hint]{best_hint()}}
 
-\linkS4class{Hints}
+\link[=Hints-class]{Hints}
 }
 \keyword{alignment,}
 \keyword{auto_hint}

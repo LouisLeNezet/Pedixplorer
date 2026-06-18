@@ -77,6 +77,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Louis Le Nezet \email{louislenezet@gmail.com} (\href{https://orcid.org/0009-0000-0202-2703}{ORCID}) [contributor]
   \item Jason Sinnwell \email{sinnwell.jason@mayo.edu}
   \item Terry Therneau
 }

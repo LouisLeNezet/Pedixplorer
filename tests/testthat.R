@@ -29,7 +29,7 @@ Sys.setenv(
 print(Sys.getenv("CHROMOTE_CHROME"))
 
 ## Set up the environment
-options(
+old_opt <- options(
     shiny.testmode = TRUE,
     shinytest2.load_timeout = 120000,
     shiny.fullstacktrace = TRUE,
@@ -76,3 +76,4 @@ test_check("Pedixplorer")
 
 dev.off()
 par(op)
+options(old_opt)

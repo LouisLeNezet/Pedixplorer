@@ -152,6 +152,6 @@ tryCatch(
 }
 \seealso{
 \code{\link[=Ped]{Ped()}}
-\linkS4class{Ped}
+\link[=Ped-class]{Ped}
 \code{\link[=Pedigree]{Pedigree()}}
 }
