@@ -1,0 +1,24 @@
+name: env_pedixplorer
+channels:
+  - conda-forge
+  - bioconda
+  - anaconda
+  - r
+  - defaults
+dependencies:
+  - bioconda::bioconductor-pedixplorer=1.6.0
+  - conda-forge::r-base=4.5
+  - conda-forge::r-devtools=2.5
+  - conda-forge::r-gridextra
+  - conda-forge::r-testthat>3.3.0
+  - conda-forge::r-vdiffr
+  - conda-forge::r-rmarkdown
+  - bioconda::bioconductor-biocstyle
+  - conda-forge::r-knitr
+  - conda-forge::r-withr
+  - conda-forge::r-qpdf
+  - conda-forge::r-r.devices
+  - conda-forge::r-usethis
+  - conda-forge::r-rlang
+  - conda-forge::r-magick
+  - conda-forge::r-cowplot

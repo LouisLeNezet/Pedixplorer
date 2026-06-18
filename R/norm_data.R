@@ -442,7 +442,7 @@ norm_rel <- function(
         ] <- "code-not-recognise"
 
         #### Check for id errors #### Set ids as characters
-        rel_df <- rel_df %>%
+        rel_df <- rel_df |>
             dplyr::mutate(dplyr::across(c("id1", "id2", "famid"), as.character))
 
         rel_df <- dplyr::mutate_at(rel_df, c("id1", "id2", "famid"),

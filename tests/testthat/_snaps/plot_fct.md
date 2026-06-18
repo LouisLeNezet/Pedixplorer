@@ -88,10 +88,10 @@
       82                  aff_mark 15.0100000 4.066      NA     NA         text black
       83                  aff_mark 14.0000000 3.066      NA     NA         text black
       84                  aff_mark 15.0000000 3.066      NA     NA         text black
-      85                 infertile  2.0000000 3.132  2.0000 3.1720     segments black
-      86                 infertile  8.0100000 4.132  8.0100 4.1720     segments black
-      87                 infertile  1.7460000 3.172  2.2540 3.1720     segments black
-      88                 infertile  7.7560000 4.172  8.2640 4.1720     segments black
+      85                 infertile  2.0000000 3.132  2.0000 3.1710     segments black
+      86                 infertile  8.0100000 4.132  8.0100 4.1710     segments black
+      87                 infertile  1.7460000 3.171  2.2540 3.1710     segments black
+      88                 infertile  7.7560000 4.171  8.2640 4.1710     segments black
       89                 infertile  1.6820000 3.185  2.3180 3.1850     segments black
       90                   ECT-TOP  0.6820000 4.132  1.3180 4.0000     segments black
       91                   ECT-TOP 13.6900000 4.132 14.3300 4.0000     segments black

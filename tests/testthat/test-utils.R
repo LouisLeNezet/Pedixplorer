@@ -241,10 +241,10 @@ test_that("complete_twins", {
 })
 
 test_that("rescale works", {
-    rescale(c(1, 2, 3, 4, 5), to = c(0, 1)) %>%
+    rescale(c(1, 2, 3, 4, 5), to = c(0, 1)) |>
         expect_equal(c(0, 0.25, 0.5, 0.75, 1))
-    rescale(c(1, 2, 3, 4, 5), to = c(10, 20)) %>%
+    rescale(c(1, 2, 3, 4, 5), to = c(10, 20)) |>
         expect_equal(c(10, 12.5, 15, 17.5, 20))
-    rescale(c(1, 2, 3, 4, 5), to = c(0, 100)) %>%
+    rescale(c(1, 2, 3, 4, 5), to = c(0, 100)) |>
         expect_equal(c(0, 25, 50, 75, 100))
 })

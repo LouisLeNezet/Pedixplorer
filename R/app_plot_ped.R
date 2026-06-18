@@ -222,14 +222,14 @@ plot_ped_server <- function(
                     ns("plotly_output"),
                     width = width(),
                     height = height()
-                ) %>%
+                ) |>
                     shinycssloaders::withSpinner(color = "#8aca25")
             } else {
                 shiny::plotOutput(
                     ns("plot_output"),
                     width = width(),
                     height = height()
-                ) %>%
+                ) |>
                     shinycssloaders::withSpinner(color = "#8aca25")
             }
         })

@@ -243,8 +243,8 @@ exclude_unavail_founders <- function(
     n_new <- length(id)
     n_trimmed <- n_old - n_new
 
-    return(list(
+    list(
         n_trimmed = n_trimmed, id_trimmed = id_trimmed,
         id = id, dadid = dadid, momid = momid
-    ))
+    )
 }

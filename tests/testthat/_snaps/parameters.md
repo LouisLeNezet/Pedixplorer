@@ -322,9 +322,6 @@
       $digits
       [1] 4
       
-      $dplyr.show_progress
-      [1] TRUE
-      
       $echo
       [1] TRUE
       

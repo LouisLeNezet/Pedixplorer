@@ -16,10 +16,12 @@ test_that("read_data works", {
         testthat::test_path(),
         "/testdata/other_test_wrong_sep.txt"
     )
-    expect_error(
-        safe_read_table(df_path, sep = "\t", header = TRUE),
-        "file contains rows with inconsistent separator count"
-    )
+    expect_error({
+        withCallingHandlers(
+            safe_read_table(df_path, sep = "\t", header = TRUE),
+            warning = function(w) invokeRestart("muffleWarning")
+        )
+    }, "file contains rows with inconsistent separator count")
 
     df_path <- paste0(
         testthat::test_path(),

@@ -75,19 +75,19 @@ hexSticker::sticker(
 sticker <- image_read("inst/figures/icon_Pedixplorer.png")
 
 # Remove the white background while keeping the full border
-sticker_transp <- sticker %>%
+sticker_transp <- sticker |>
     image_fill(
         color = "transparent", refcolor = "white",
         fuzz = 4, point = "+100+100"
-    ) %>%
+    ) |>
     image_fill(
         color = "transparent", refcolor = "white",
         fuzz = 4, point = "+1600+1800"
-    ) %>%
+    ) |>
     image_fill(
         color = "transparent", refcolor = "white",
         fuzz = 4, point = "+1600+100"
-    ) %>%
+    ) |>
     image_fill(
         color = "transparent", refcolor = "white",
         fuzz = 4, point = "+100+1800"

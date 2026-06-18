@@ -1,6 +1,3 @@
-#' @importFrom dplyr %>%
-NULL
-
 #' Minimum distance to the informative individuals
 #'
 #' @description Compute the minimum distance between the informative
@@ -68,7 +65,7 @@ setMethod("min_dist_inf", "character", function(obj,
     }
     # For all individuals, compute kinship degree
     mat <- as.matrix(kinship(id, dadid, momid, sex))
-    sub <- mat[, colnames(mat) %in% id_inf] %>%
+    sub <- mat[, colnames(mat) %in% id_inf] |>
         as.data.frame()
 
     kin <- log2(1 / apply(sub, 1, max))

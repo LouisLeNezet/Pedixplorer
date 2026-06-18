@@ -125,9 +125,11 @@ na_to_length <- function(x, temp, value) {
 #' @export
 #' @include utils.R
 #' @usage NULL
-setGeneric("Ped", signature = "obj", function(obj, ...) {
-    standardGeneric("Ped")
-})
+setGeneric(
+    "Ped", signature = "obj", function(obj, ...) { # nolint: object_name_linter
+        standardGeneric("Ped")
+    }
+)
 
 #' @rdname Ped-class
 #' @examples
@@ -321,9 +323,11 @@ setMethod("Ped", "missing",
 #' @rdname Rel-class
 #' @export
 #' @usage NULL
-setGeneric("Rel", signature = "obj", function(obj, ...) {
-    standardGeneric("Rel")
-})
+setGeneric(
+    "Rel", signature = "obj", function(obj, ...) { # nolint: object_name_linter
+        standardGeneric("Rel")
+    }
+)
 
 #' @rdname Rel-class
 #' @export
@@ -375,7 +379,7 @@ setMethod("Rel", "character_OR_integer",
         id2o <- pmax(id1, id2)
 
         code <- rel_code_to_factor(code)
-        df <- data.frame(id1 = id1o, id2 = id2o, code = code, famid = famid) %>%
+        df <- data.frame(id1 = id1o, id2 = id2o, code = code, famid = famid) |>
             complete_twins()
 
         rel <- with(df, new(
@@ -422,9 +426,11 @@ setMethod("Rel", "missing",
 #' @return A Hints object.
 #' @rdname Hints-class
 #' @export
-setGeneric("Hints", function(horder, spouse) {
-    standardGeneric("Hints")
-})
+setGeneric(
+    "Hints", function(horder, spouse) { # nolint: object_name_linter
+        standardGeneric("Hints")
+    }
+)
 
 #' @rdname Hints-class
 #' @usage NULL
@@ -602,9 +608,11 @@ setMethod("Hints",
 #' @seealso [generate_colors()]
 #' @rdname Scales-class
 #' @export
-setGeneric("Scales", function(fill, border) {
-    standardGeneric("Scales")
-})
+setGeneric(
+    "Scales", function(fill, border) { # nolint: object_name_linter
+        standardGeneric("Scales")
+    }
+)
 
 #' @rdname Scales-class
 #' @export
@@ -785,8 +793,11 @@ setMethod("Scales",
 #' [Ped()]
 #' [Rel()]
 #' [Scales()]
-setGeneric("Pedigree", signature = "obj",
-    function(obj, ...) standardGeneric("Pedigree")
+setGeneric(
+    "Pedigree", signature = "obj", # nolint: object_name_linter
+    function(obj, ...) {
+        standardGeneric("Pedigree")
+    }
 )
 
 #' @export
@@ -1077,7 +1088,7 @@ setMethod("Pedigree", "data.frame",  function(
             rep(names(cols_ren_ped), lengths(cols_ren_ped)),
             unlist(cols_ren_ped)
         )
-        ped_df <- ped_df %>%
+        ped_df <- ped_df |>
             dplyr::rename_with(
                 ~ cols_mapping[.x],
                 .cols = names(cols_mapping)[
@@ -1092,7 +1103,7 @@ setMethod("Pedigree", "data.frame",  function(
             rep(names(cols_ren_rel), lengths(cols_ren_rel)),
             unlist(cols_ren_rel)
         )
-        rel_df <- rel_df %>%
+        rel_df <- rel_df |>
             dplyr::rename_with(
                 ~ cols_mapping[.x],
                 .cols = names(cols_mapping)[
@@ -1173,7 +1184,7 @@ setMethod("Pedigree", "data.frame",  function(
     } else {
         validObject(pedi)
     }
-    return(pedi)
+    pedi
 }
 )
 
