@@ -1,4 +1,9 @@
-## Changes in v1.7.2
+## Changes in v1.9.2
+
+- Update website releases
+- Fix News and Readme
+
+## Changes in v1.9.1
 
 - Update licence to GPLv3
 - Fix contributing guidelines

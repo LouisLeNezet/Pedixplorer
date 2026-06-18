@@ -12,11 +12,12 @@
 
 <table>
   <tr>
-    <td style="width:75%; vertical-align:center;">
-      This is the new version of <a href="https://github.com/mayoverse/kinship2"><strong>kinship2</strong></a> package. Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a function to computes the kinship matrix from a Pedigree object, and pedigree plotting routines that adhere to many of the standards for genetics counselors.
+    <td style="width:75%; vertical-align:middle;">
+    This is the new version of <a href="https://github.com/mayoverse/kinship2"><strong>kinship2</strong></a> package. Initially a set of functions to view pedigrees while developing models that use kinship matrices, the functions were useful enough to put into a package of its own. It has now an S4 class for pedigrees, a function to computes the kinship matrix from a Pedigree object, and pedigree plotting routines that adhere to many of the standards for genetics counselors.
     </td>
-    <td style="width:25%; text-align:center; vertical-align:center;">
-      <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png" style="max-height:200px;" />
+    <td style="width:25%; text-align:center; vertical-align:middle;">
+      <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/icon_Pedixplorer.png"
+           style="max-height:200px;" />
     </td>
   </tr>
 </table>
@@ -96,10 +97,10 @@ chromosomes.
 
 <table>
   <tr>
-    <td style="width:70%; vertical-align:center;">
+    <td style="width:70%; vertical-align:middle;">
       To help anyone to easily use all the main functions of the package a shiny app has been created, allowing you to import your data, normalise it, select the family and filter the resulting `Pedigree` object before visualising it. You'll also be able to download the resulting data and plot. The application is also available on a Virtual Machine accessible at <a href="https://pedixplorer.univ-rennes.fr/"><strong>pedixplorer.univ-rennes</strong></a>.
     </td>
-    <td style="width:30%; text-align:center; vertical-align:center;">
+    <td style="width:30%; text-align:center; vertical-align:middle;">
       <img src="https://github.com/LouisLeNezet/Pedixplorer/raw/devel/inst/figures/ShinyAppDiagram.png" />
     </td>
   </tr>
