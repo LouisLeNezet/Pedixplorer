@@ -1,6 +1,6 @@
 Package: Pedixplorer
 Version: 1.9.1
-Date: 2025-08-26
+Date: 2026-06-17
 Title: Pedigree Functions
 Authors@R: c(
     person("Louis", "Le Nezet", email="louislenezet@gmail.com",
