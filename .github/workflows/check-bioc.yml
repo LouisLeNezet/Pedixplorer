@@ -91,13 +91,13 @@ jobs:
       - name: Set R library home
         shell: bash
         run: |
-          echo "R_LIBS_USER=${RUNNER_TEMP}/Library" >> "$GITHUB_ENV"
+          echo "R_LIBS_USER_DIR=${RUNNER_TEMP}/Library" >> "$GITHUB_ENV"
           mkdir -p "${RUNNER_TEMP}/Library"
           chmod -R u+rwX "${RUNNER_TEMP}/Library"
 
       - name: Query dependencies
         run: |
-          install.packages('remotes', lib = Sys.getenv("R_LIBS_USER"))
+          install.packages('remotes', lib = Sys.getenv("R_LIBS_USER_DIR"))
           saveRDS(
             remotes::dev_package_deps(dependencies = TRUE),
             ".github/depends.Rds",
@@ -116,12 +116,12 @@ jobs:
       - name: Install BiocManager
         run: |
           message(paste('****', Sys.time(), 'installing BiocManager ****'))
-          remotes::install_cran("BiocManager", lib = Sys.getenv("R_LIBS_USER"))
+          remotes::install_cran("BiocManager", lib = Sys.getenv("R_LIBS_USER_DIR"))
         shell: Rscript {0}
 
       - name: Set BiocVersion & install check packages
         run: |
-          lib <- Sys.getenv("R_LIBS_USER")
+          lib <- Sys.getenv("R_LIBS_USER_DIR")
           dir.create(lib, recursive = TRUE, showWarnings = FALSE)
 
           # Install BiocManager from CRAN first
@@ -174,7 +174,7 @@ jobs:
           remotes::install_local(
             dependencies = TRUE,
             build_vignettes = FALSE, upgrade = TRUE,
-            lib = Sys.getenv("R_LIBS_USER")
+            lib = Sys.getenv("R_LIBS_USER_DIR")
           )
         continue-on-error: true
         shell: Rscript {0}
@@ -191,7 +191,7 @@ jobs:
           remotes::install_local(
             dependencies = TRUE,
             build_vignettes = TRUE, upgrade = TRUE, force = TRUE,
-            lib = Sys.getenv("R_LIBS_USER")
+            lib = Sys.getenv("R_LIBS_USER_DIR")
           )
         shell: Rscript {0}
 
