@@ -121,6 +121,18 @@ jobs:
       - name: Set BiocVersion & install check packages
         run: |
           lib <- Sys.getenv("R_LIBS_USER")
+          dir.create(lib, recursive = TRUE, showWarnings = FALSE)
+
+          # Install BiocManager from CRAN first
+          cran <- Sys.getenv("RSPM")
+
+          install.packages(
+            "BiocManager",
+            repos = cran,
+            lib = lib
+          )
+
+          # Configure Bioconductor and CRAN repositories
           repos <- BiocManager::repositories()
           if (Sys.info()[["sysname"]] == "Linux") {
             repos["CRAN"] <- Sys.getenv("RSPM")
