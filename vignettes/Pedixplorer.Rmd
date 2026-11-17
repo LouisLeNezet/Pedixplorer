@@ -208,7 +208,7 @@ plot(ped2)
 If the fix is straightforward (changing one sex value based on either
 being a mother or father), `fix_parents()` will resolve the issue. If
 the issue is more complicated, say if *203* is coded to be both a father
-and a mother `fix_parents()` will not know which one is correct and
+and a mother, `fix_parents()` will not know which one is correct and
 therefore the issue will not be resolved.
 
 # Kinship
@@ -218,7 +218,7 @@ that can be used in mixed effect models. A kinship coefficient is the
 probability that a randomly selected allele from two people at a given
 locus will be identical by descent (IBD), assuming all founder alleles
 are independent. For example, we each have two alleles per autosomal
-marker so sampling two alleles with replacement from our own DNA has
+marker, so sampling two alleles with replacement from our own DNA has
 only $p=0.50$ probability of getting the same allele twice.
 
 ## Kinship for Pedigree object
@@ -291,7 +291,7 @@ information to the `Pedigree` object.
 
 The example below shows how to specify a `deceased` indicator.
 The `sampleped` data does not include such an\
-indicator so we create one to indicate that the first generation of
+indicator, so we create one to indicate that the first generation of
 *ped2*, subjects *1* and *2*, are deceased. The `deceased` indicator is
 used to cross out the individuals in the Pedigree plot.
 

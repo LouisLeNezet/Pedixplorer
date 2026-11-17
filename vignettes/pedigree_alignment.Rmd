@@ -62,7 +62,7 @@ Pedigree. It consists of 3 parts:
 - The left to right order in which founders should be processed.
 - The order in which siblings should be listed within a family.
 - For selected spouse pairs, who is on the left/right, and which of the
-two should be the anchor i.e., determine where the marriage is plotted.
+two should be the anchor, i.e., determine where the marriage is plotted.
 
 The default starting values for all of these are simple: founders are 
 processed in the order in which they appear in the data set, 
@@ -85,8 +85,8 @@ used to order the female founders and to order siblings within
 family. For subjects not part of either of these the value can be 
 arbitrary.
 2. A 3 column matrix of spouse pairs, each row indicates the
-left-hand member of the pair the right-hand member and which of the two
-is the anchor i.e., directly connected to their parent.
+left-hand member of the pair, the right-hand member, and which of the two
+is the anchor, i.e., directly connected to their parent.
 Double and triple marriages can start to get interesting.
 
 ```{r hint_usage, fig.alt="Hints usage"}
@@ -130,7 +130,7 @@ to figure that out.
 
 The first thing to be done is to check on twins. They increase the complexity,
 since twins need to move together.
-The `rel(ped, "code")` object is a factor so first turn that into numeric.
+The `rel(ped, "code")` object is a factor, so first turn that into numeric.
 We create 3 vectors:
 
 - $twinrel$ is a matrix containing pairs of twins and
@@ -172,7 +172,7 @@ reordered.
 The result coming back from `align()` is a set of vectors and
 matrices:
 
-- $n$ vector number of entries per level
+- $n$ vector, number of entries per level
 - $nid$ matrix, one row per level, numeric id of the subject plotted here
 - $spouse$ integer matrix, one row per level, subject directly to my
 right is my spouse (1), a double marriage (2), or neither (0).
@@ -341,7 +341,7 @@ to value of `(2,2)` for the $anchor$ variable. The proper addition to
 the $sptemp$ matrix in this case will be two rows,
 `(spouse_left, spouse_middle, 1)` indicating that `spouse_left`
 should be plotted left of `spouse_middle` with the first partner
-as the anchor and a second row `(spouse_middle, spouse_right, 2)`.
+as the anchor, and a second row `(spouse_middle, spouse_right, 2)`.
 This will cause the common spouse to be plotted in the middle.
 
 
@@ -353,7 +353,7 @@ The top level routine for alignment has 5 arguments
 - $ped$ a Pedigree. In the case of
 multiple families we loop over each family separately.
 - $packed$ do we allow branches of the tree to overlap?
-If FALSE the drawing is much easier but final drawing can
+If FALSE the drawing is much easier, but final drawing can
 take up a huge amount of space.
 - $width$ the minimum width for a packed Pedigree. This
 affects only small pedigrees, since the minimum possible
@@ -367,7 +367,7 @@ is invoked.
 The result coming back from align is a set of vectors and
 matrices:
 
-- $n$ vector number of entries per level
+- $n$ vector, number of entries per level
 - $nid$ matrix, one row per level, numeric id of the subject plotted
 here
 - $pos$ the horizontal position for plotting
@@ -382,12 +382,12 @@ subject id (ignoring the actual id label).
 
 - Check that everyone has either two parents or none (a singleton confuses us).
 - Verify that the hints are correct.
-- The relation data frame, if present, has a factor convert to numeric.
+- The relation data frame, if present and as a factor, convert to numeric.
 - Create the $spouselist$ array. This has 4 columns
     - Husband index (4 = 4th person in the Pedigree structure)
     - Wife index
     - Plot order: 1 = husband left, 2 = wife left
-    - Anchor: 1 = left member 2 = right member 0 = not yet determined
+    - Anchor: 1 = left member, 2 = right member, 0 = not yet determined
 
 As the routine proceeds a spousal pair can be encountered
 multiple times; we take them out of this list when the "connected"
@@ -418,7 +418,7 @@ into a single one
 
 Call [alignped1] sequentially with each founder pair and merge the
 results.
-A founder pair is a married pair neither of which has a father.
+A founder pair is a married pair, neither of which has a father.
 
 
 ## Align - finish
@@ -465,7 +465,7 @@ We only go down the Pedigree, not up.
 Input arguments are
 
 - $nid$ the numeric id of the subject in question
-- $dad$ points to the row of the father 0=no father in Pedigree
+- $dad$ points to the row of the father, 0=no father in Pedigree
 - $mom$ points to the row of the mother
 - $level$ the plotting depth of each subject
 - $horder$ orders the kids within a sibship
@@ -474,7 +474,7 @@ Input arguments are
     - col 1 = Pedigree index of the husband
     - col 2 = Pedigree index of the wife
     - col 3 = 1 : plot husband to the left, 2 = wife to the left
-    - col 4 = 1 : left member is rooted here, 2 = right member 0 = either
+    - col 4 = 1 : left member is rooted here, 2 = right member, 0 = either
 
 The return argument is a set of matrices as described in 
 section [align], along with the spouselist matrix.
@@ -537,7 +537,7 @@ children were found.
 The second, and most common, is when the tree below is
 wider than the tree here, in which case we add the
 data from this level onto theirs.
-The third is when below is narrower for instance an
+The third is when below is narrower, for instance an
 only child.
 
 alignped2
