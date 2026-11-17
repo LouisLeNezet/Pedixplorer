@@ -423,7 +423,7 @@ rel_df2 <- data.frame(
     code = 4,
     famid = "2"
 )
-new_rel <- c(rel(ped2), with(rel_df2, Rel(id1, id2, code, famid)))
+new_rel <- c(Pedixplorer::rel(ped2), with(rel_df2, Rel(id1, id2, code, famid)))
 rel(ped2) <- upd_famid(new_rel)
 plot(ped2)
 ```

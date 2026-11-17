@@ -6,8 +6,8 @@ channels:
   - r
   - defaults
 dependencies:
-  - bioconda::bioconductor-pedixplorer=1.6.0
-  - conda-forge::r-base=4.5
+  - bioconda::bioconductor-pedixplorer=1.8.0
+  - conda-forge::r-base=4.6
   - conda-forge::r-devtools=2.5
   - conda-forge::r-gridextra
   - conda-forge::r-testthat>3.3.0
