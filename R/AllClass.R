@@ -145,7 +145,6 @@ setClass("Ped",
     )
 )
 
-#' @importFrom S4Vectors parallel_slot_names
 setMethod("parallel_slot_names", "Ped",
     function(x) {
         c(

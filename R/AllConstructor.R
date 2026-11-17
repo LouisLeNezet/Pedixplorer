@@ -800,6 +800,106 @@ setGeneric(
     }
 )
 
+#' Check lengths of pedigree inputs
+#'
+#' Checks that each non-`NULL` input in a named list has the same length
+#' as the individual identifier vector.
+#'
+#' @param id Character or integer vector of individual identifiers.
+#' @param values Named list of input vectors to check. The names are used
+#'   in the error message if a length does not match.
+#'
+#' @return `NULL` invisibly if all lengths match; otherwise, raises an error.
+#' @noRd
+.check_lengths <- function(id, values) {
+    n <- length(id)
+
+    for (name in names(values)) {
+        value <- values[[name]]
+        if (!is.null(value) && length(value) != n) {
+            stop("Mismatched lengths, id and ", name)
+        }
+    }
+}
+
+#' Add non-missing optional columns
+#'
+#' Adds each named vector to a data frame when it contains at least one
+#' non-missing value. Vectors containing only missing values are omitted.
+#'
+#' @param data Data frame to which columns may be added.
+#' @param values Named list of optional column vectors.
+#'
+#' @return The data frame, with applicable columns added.
+#' @noRd
+.add_if_nonmissing <- function(data, values) {
+    for (name in names(values)) {
+        value <- values[[name]]
+        if (any(!is.na(value))) {
+            data[[name]] <- value
+        }
+    }
+    data
+}
+
+#' Add affection data to a pedigree data frame
+#'
+#' Adds affection information to a pedigree data frame. A `NULL` value
+#' creates a missing-valued column named by `col_aff`. Vectors are added
+#' under that name; data frames and matrices are added as columns, with
+#' `col_aff` used to name matrix columns when they have no column names.
+#'
+#' @param data Data frame containing the pedigree data.
+#' @param affections `NULL`, a vector, data frame, or matrix of affection
+#'   values.
+#' @param col_aff Character vector of affection column names.
+#'
+#' @return A list with components `data` (the updated data frame) and
+#'   `col_aff` (the resulting affection column names).
+#' @noRd
+.add_affections <- function(data, affections, col_aff) {
+    if (is.null(affections)) {
+        data[col_aff] <- NA
+        return(list(data = data, col_aff = col_aff))
+    }
+
+    if (!any(!is.na(affections))) {
+        return(list(data = data, col_aff = col_aff))
+    }
+
+    if (is.vector(affections)) {
+        data[col_aff] <- affections
+        return(list(data = data, col_aff = col_aff))
+    }
+
+    if (is.data.frame(affections)) {
+        data <- cbind(data, affections)
+        return(list(data = data, col_aff = colnames(affections)))
+    }
+
+    if (is.matrix(affections)) {
+        affections <- as.data.frame(affections)
+
+        if (is.null(colnames(affections))) {
+            if (length(col_aff) != ncol(affections)) {
+                stop(
+                    "The length of col_aff should be equal to ",
+                    "the number of columns of affections"
+                )
+            }
+            colnames(affections) <- col_aff
+        }
+
+        data <- cbind(data, affections)
+        return(list(data = data, col_aff = colnames(affections)))
+    }
+
+    stop(
+        "Affections must be a vector or a data.frame, got: ",
+        class(affections)
+    )
+}
+
 #' @export
 #' @rdname Pedigree-class
 #' @param affections A logical vector with the affections status of the
@@ -841,61 +941,20 @@ setMethod("Pedigree", "character_OR_integer", function(
     missid = c(NA_character_, "0"), col_aff = "affection",
     date_pattern = "%Y-%m-%d", normalize = TRUE, ...
 ) {
-    n <- length(obj)
     ## Code transferred from noweb to markdown vignette.
     ## Sections from the noweb/vignettes are noted here with
     ## Doc: Error and Data Checks
     ## Doc: Errors1
-    if (length(momid) != n) stop("Mismatched lengths, id and momid")
-    if (length(dadid) != n) stop("Mismatched lengths, id and momid")
-    if (length(sex) != n) stop("Mismatched lengths, id and sex")
-    if (length(fertility) != n & !is.null(fertility)) {
-        stop("Mismatched lengths, id and fertility")
-    }
-
-    if (length(miscarriage) != n & !is.null(miscarriage)) {
-        stop("Mismatched lengths, id and miscarriage")
-    }
-
-    if (length(deceased) != n & !is.null(deceased)) {
-        stop("Mismatched lengths, id and deceased")
-    }
-
-    if (length(avail) != n & !is.null(avail)) {
-        stop("Mismatched lengths, id and avail")
-    }
-
-    if (length(evaluated) != n & !is.null(evaluated)) {
-        stop("Mismatched lengths, id and evaluated")
-    }
-
-    if (length(consultand) != n & !is.null(consultand)) {
-        stop("Mismatched lengths, id and consultand")
-    }
-
-    if (length(proband) != n & !is.null(proband)) {
-        stop("Mismatched lengths, id and proband")
-    }
-
-    if (length(carrier) != n & !is.null(carrier)) {
-        stop("Mismatched lengths, id and carrier")
-    }
-
-    if (length(asymptomatic) != n & !is.null(asymptomatic)) {
-        stop("Mismatched lengths, id and asymptomatic")
-    }
-
-    if (length(adopted) != n & !is.null(adopted)) {
-        stop("Mismatched lengths, id and adopted")
-    }
-
-    if (length(dateofbirth) != n & !is.null(dateofbirth)) {
-        stop("Mismatched lengths, id and dateofbirth")
-    }
-
-    if (length(dateofdeath) != n & !is.null(dateofdeath)) {
-        stop("Mismatched lengths, id and dateofdeath")
-    }
+    optional <- list(
+        dadid = dadid, momid = momid, sex = sex,
+        fertility = fertility, miscarriage = miscarriage,
+        deceased = deceased, avail = avail,
+        evaluated = evaluated, consultand = consultand,
+        proband = proband, carrier = carrier,
+        asymptomatic = asymptomatic, adopted = adopted,
+        dateofbirth = dateofbirth, dateofdeath = dateofdeath
+    )
+    .check_lengths(obj, optional)
 
     ped_df <- data.frame(
         famid = famid,
@@ -905,69 +964,25 @@ setMethod("Pedigree", "character_OR_integer", function(
         sex = sex
     )
 
-    if (is.null(affections)) {
-        ped_df[col_aff] <- NA
-    } else if (any(!is.na(affections))) {
-        if (is.vector(affections)) {
-            ped_df[col_aff] <- affections
-        } else if (is.data.frame(affections)) {
-            ped_df <- cbind(ped_df, affections)
-            col_aff <- colnames(affections)
-        } else if (is.matrix(affections)) {
-            affections <- as.data.frame(affections)
-            if (is.null(colnames(affections))) {
-                if (length(col_aff) != ncol(affections)) {
-                    stop(
-                        "The length of col_aff should be equal to ",
-                        "the number of columns of affections"
-                    )
-                }
-                colnames(affections) <- col_aff
-            }
-            ped_df <- cbind(ped_df, affections)
-            col_aff <- colnames(affections)
-        } else {
-            stop("Affections must be a vector or a data.frame, got: ",
-                class(affections)
-            )
-        }
-    }
-    if (any(!is.na(fertility))) {
-        ped_df$fertility <- fertility
-    }
-    if (any(!is.na(miscarriage))) {
-        ped_df$miscarriage <- miscarriage
-    }
-    if (any(!is.na(deceased))) {
-        ped_df$deceased <- deceased
-    }
-    if (any(!is.na(avail))) {
-        ped_df$avail <- avail
-    }
-    if (any(!is.na(evaluated))) {
-        ped_df$evaluated <- evaluated
-    }
-    if (any(!is.na(consultand))) {
-        ped_df$consultand <- consultand
-    }
-    if (any(!is.na(proband))) {
-        ped_df$proband <- proband
-    }
-    if (any(!is.na(carrier))) {
-        ped_df$carrier <- carrier
-    }
-    if (any(!is.na(asymptomatic))) {
-        ped_df$asymptomatic <- asymptomatic
-    }
-    if (any(!is.na(adopted))) {
-        ped_df$adopted <- adopted
-    }
-    if (any(!is.na(dateofbirth))) {
-        ped_df$dateofbirth <- dateofbirth
-    }
-    if (any(!is.na(dateofdeath))) {
-        ped_df$dateofdeath <- dateofdeath
-    }
+    affection_result <- .add_affections(ped_df, affections, col_aff)
+    ped_df <- affection_result$data
+    col_aff <- affection_result$col_aff
+
+    ped_df <- .add_if_nonmissing(ped_df, list(
+        fertility = fertility,
+        miscarriage = miscarriage,
+        deceased = deceased,
+        avail = avail,
+        evaluated = evaluated,
+        consultand = consultand,
+        proband = proband,
+        carrier = carrier,
+        asymptomatic = asymptomatic,
+        adopted = adopted,
+        dateofbirth = dateofbirth,
+        dateofdeath = dateofdeath
+    ))
+
     if (is.null(rel_df)) {
         rel_df <- data.frame(
             id1 = character(),

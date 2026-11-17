@@ -349,13 +349,13 @@ ped_server <- function(
         ped_aff <- shiny::reactive({
             shiny::req(lst_fam())
             shiny::req(lst_health())
-            if (is.null(lst_fam()) |
-                    is.null(lst_health()) |
+            if (is.null(lst_fam()) ||
+                    is.null(lst_health()) ||
                     is.null(input$health_full_scale)
             ) {
                 return(NULL)
             }
-            if (lst_health()$as_num &
+            if (lst_health()$as_num &&
                     is.null(lst_health()$threshold)
             ) {
                 return(NULL)

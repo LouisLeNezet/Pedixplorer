@@ -134,7 +134,7 @@ corresponding named list, the columns are renamed for them to be used
 correctly.
 The renaming is done as follow
 
-```{r, column_renaming}
+```{r column_renaming}
 rel_df <- data.frame(
     indId1 = c("110", "204"),
     indId2 = c("112", "205"),
@@ -165,7 +165,7 @@ right way. If a `famid` column is present in the dataframe, then it will
 be aggregated to the id of each individual and separated by an ''_'' to
 ensure the uniqueness of the individuals identifiers.
 
-```{r, normalisation}
+```{r normalisation}
 library(Pedixplorer)
 data("sampleped")
 cols <- c("sex", "id", "avail")
@@ -180,7 +180,7 @@ If any error is detected after the normalisation process, then the normalised
 dataframe is gave back to the user with errors column added describing the
 encountered problems.
 
-```{r, rel_df_errors}
+```{r rel_df_errors}
 rel_wrong <- rel_df
 rel_wrong$code[2] <- "A"
 df <- Pedigree(sampleped, rel_wrong)
@@ -290,7 +290,7 @@ correponding slot of the object
 The `mcols()` accessors is the one you should use to add more
 informations to your individuals.
 
-```{r, mcols}
+```{r mcols}
 pedi <- Pedigree(sampleped)
 mcols(pedi)
 ## Add new columns as a threshold if identifiers of individuals superior
@@ -324,7 +324,7 @@ With this new S4 object comes multiple methods to ease the use of it:
 - `unrelated()`
 - `useful_inds()`
 
-```{r, pedigree_methods, fig.alt = "Pedigree plot", fig.align = 'center'}
+```{r pedigree_methods, fig.alt = "Pedigree plot", fig.align = 'center'}
 ## We can change the family name based on an other column
 pedi <- upd_famid(pedi, mcols(pedi)$idth)
 
@@ -357,6 +357,6 @@ as.data.frame(ped(ped_a))["useful"][1:10, ]
 Session information
 ===================
 
-```{r}
+```{r session_info}
 sessionInfo()
 ```

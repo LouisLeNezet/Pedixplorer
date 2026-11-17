@@ -1,5 +1,5 @@
 Package: Pedixplorer
-Version: 1.9.2
+Version: 1.9.3
 Date: 2026-06-17
 Title: Pedigree Functions
 Authors@R: c(
@@ -10,7 +10,7 @@ Authors@R: c(
 	person("Daniel", "Schaid", role="ctb"),
 	person("Elizabeth", "Atkinson", role="ctb"))
 Depends: 
-	R (>= 4.4.0)
+	R (>= 4.5.0)
 Imports: 
     graphics,
     stats,
@@ -48,7 +48,6 @@ Description: Routines to handle family data with a Pedigree object. The initial
     chromosome.
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 8.0.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Suggests: 
@@ -132,3 +131,4 @@ Collate:
     'unrelated.R'
     'useful_inds.R'
 LazyData: false
+Config/roxygen2/version: 8.1.0

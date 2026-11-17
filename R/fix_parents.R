@@ -78,7 +78,7 @@ setMethod("fix_parents", "character", function(
         stop("Mismatched lengths, id and sex")
     }
 
-    if (length(famid) != n & length(famid) > 0) {
+    if (length(famid) != n && length(famid) > 0) {
         stop("Mismatched lengths, id and sex")
     }
 
@@ -197,7 +197,7 @@ setMethod("fix_parents", "data.frame", function(
     )
     df_old <- df
     if (!is.null(filter)) {
-        if (is.logical(filter) & length(filter) == nrow(df)) {
+        if (is.logical(filter) && length(filter) == nrow(df)) {
             df <- df[filter, ]
         } else {
             stop(

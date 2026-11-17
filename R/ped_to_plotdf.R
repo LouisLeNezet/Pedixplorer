@@ -99,7 +99,7 @@ setMethod("ped_to_plotdf", "Pedigree", function(
     if (length(label_cex) != 3) {
         stop("label_cex must be a vector of length 3")
     }
-    if (any(!is.numeric(label_cex)) | any(label_cex < 0)) {
+    if (any(!is.numeric(label_cex)) || any(label_cex < 0)) {
         stop("label_cex must be a numeric vector with positive values")
     }
 

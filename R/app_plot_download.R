@@ -138,7 +138,7 @@ plot_download_server <- function(
                             width = input$width, height = input$height
                         )
                     } else if (
-                        "htmlwidget" %in% opt$class |
+                        "htmlwidget" %in% opt$class ||
                             "plotly" %in% opt$class
                     ) {
                         shinytoastr::toastr_error(

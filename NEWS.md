@@ -1,3 +1,9 @@
+## Changes in v1.9.3
+
+- Fix vignette failing in R.universe
+- Fix linting and reduce complexity
+- Fix duplicated imports
+
 ## Changes in v1.9.2
 
 - Update website releases
