@@ -245,7 +245,7 @@ data.frame
 #>     }
 #>     value
 #> }
-#> <bytecode: 0x57a889deeed0>
+#> <bytecode: 0x59437583a618>
 #> <environment: namespace:base>
 df <- data.frame(
     ColN1 = c(1, 2), ColN2 = 4,
