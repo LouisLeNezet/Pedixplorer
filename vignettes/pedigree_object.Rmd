@@ -17,7 +17,7 @@ Introduction
 ===============
 
 The pedigree routines came out of a simple need -- to quickly draw a
-Pedigree structure on the screen, within r that was "good enough" to
+Pedigree structure on the screen, within R, that was "good enough" to
 help with debugging the actual routines of interest, which were those for
 fitting mixed effecs Cox models to large family data. As such the routine
 had compactness and automation as primary goals; complete annotation
@@ -108,13 +108,13 @@ individuals and the matrix of the spouse.
 Note that a factor variable is not listed as one of the choices for the
 subject identifier. This is on purpose. Factors
 were designed to accomodate character strings whose values came from a limited
-class -- things like race or gender and are not appropriate for a subject
+class -- things like race or gender, and are not appropriate for a subject
 identifier. All of their special properties as compared to a character
 variable turn out to be backwards for this case, in particular a memory
 of the original level set when subscripting is done.
 
-However due to the awful decision early on in S to automatically turn every
-character into a factor unless you stood at the door with a club to
+However, due to the awful decision early on in S to automatically turn every
+character into a factor, unless you stood at the door with a club to
 head the package off, most users have become ingrained to the idea of
 using them for every character variable.
 
@@ -235,7 +235,7 @@ The minimal slots needed are :
 - `scales` a Scales object with two slots :
     - `fill` a dataframe describing which modalities in which columns
     correspond to an affected individuals.
-    Plotting information such as colour angle and density are also provided
+    Plotting information such as colour, angle and density are also provided
     - `border` a dataframe describing which modalities in which columns to
     use to plot the border of the plot elements.
 - `hints` a Hints object with two slots :
