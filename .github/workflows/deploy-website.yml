@@ -61,11 +61,7 @@ jobs:
 
       - name: Query dependencies
         run: |
-          repos <- BiocManager::repositories()
-          repos["CRAN"] <- Sys.getenv("RSPM")
-
-          install.packages("remotes", repos = repos)
-
+          install.packages('remotes', lib = Sys.getenv("R_LIBS_USER"))
           saveRDS(
             remotes::dev_package_deps(dependencies = TRUE),
             ".github/depends.Rds",
@@ -86,19 +82,18 @@ jobs:
         run: |
           repos <- BiocManager::repositories()
           repos["CRAN"] <- Sys.getenv("RSPM")
+          options(repos = repos)
 
           BiocManager::install(
             version = "3.22",
             ask = FALSE,
             update = FALSE,
             force = FALSE,
-            lib = Sys.getenv("R_LIBS_USER"),
-            repos = repos
+            lib = Sys.getenv("R_LIBS_USER")
           )
 
           install.packages(
             "pkgdown",
-            repos = repos,
             lib = Sys.getenv("R_LIBS_USER")
           )
         shell: Rscript {0}
@@ -107,10 +102,10 @@ jobs:
         run: |
           repos <- BiocManager::repositories()
           repos["CRAN"] <- Sys.getenv("RSPM")
+          options(repos = repos)
 
           remotes::install_local(
             dependencies = TRUE,
-            repos = repos,
             build_vignettes = FALSE,
             upgrade = "never",
             lib = Sys.getenv("R_LIBS_USER")
@@ -122,10 +117,10 @@ jobs:
         run: |
           repos <- BiocManager::repositories()
           repos["CRAN"] <- Sys.getenv("RSPM")
+          options(repos = repos)
 
           remotes::install_local(
             dependencies = TRUE,
-            repos = repos,
             build_vignettes = TRUE,
             upgrade = "never",
             lib = Sys.getenv("R_LIBS_USER")

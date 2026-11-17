@@ -122,28 +122,26 @@ jobs:
         run: |
           lib <- Sys.getenv("R_LIBS_USER")
           repos <- BiocManager::repositories()
-
           if (Sys.info()[["sysname"]] == "Linux") {
             repos["CRAN"] <- Sys.getenv("RSPM")
           }
+          options(repos = repos)
+
           BiocManager::install(
             version = "${{ matrix.config.bioc }}",
             ask = FALSE, force = FALSE, update = FALSE,
-            lib = lib,
-            repos = repos
+            lib = lib
           )
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           BiocManager::install(
             "BiocCheck",
             ask = FALSE, update = FALSE,
-            lib = lib,
-            repos = repos
+            lib = lib
           )
 
           install.packages(
             c("rcmdcheck", "covr"),
-            repos = repos,
             lib = lib
           )
         shell: Rscript {0}
@@ -159,9 +157,9 @@ jobs:
           if (Sys.info()[["sysname"]] == "Linux") {
             repos["CRAN"] <- Sys.getenv("RSPM")
           }
+          options(repos = repos)
           remotes::install_local(
             dependencies = TRUE,
-            repos = repos,
             build_vignettes = FALSE, upgrade = TRUE,
             lib = Sys.getenv("R_LIBS_USER")
           )
@@ -176,9 +174,9 @@ jobs:
           if (Sys.info()[["sysname"]] == "Linux") {
             repos["CRAN"] <- Sys.getenv("RSPM")
           }
+          options(repos = repos)
           remotes::install_local(
             dependencies = TRUE,
-            repos = repos,
             build_vignettes = TRUE, upgrade = TRUE, force = TRUE,
             lib = Sys.getenv("R_LIBS_USER")
           )
