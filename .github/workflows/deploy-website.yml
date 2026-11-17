@@ -29,7 +29,6 @@ jobs:
           - { os: ubuntu-latest, r: '4.5', bioc: '3.22', cont: "bioconductor/bioconductor_docker:RELEASE_3_22", rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest" }
 
     env:
-      R_LIBS_USER: ${{ runner.temp }}/Library
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       NOT_CRAN: true
@@ -43,10 +42,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       
-      - name: Set R Library home
-        run: |
-          mkdir -p "$R_LIBS_USER"
+      - name: Set R library home
         shell: bash
+        run: |
+          echo "R_LIBS_USER=${RUNNER_TEMP}/Library" >> "$GITHUB_ENV"
+          mkdir -p "${RUNNER_TEMP}/Library"
 
       ## R is already included in the Bioconductor docker images
       - name: Setup R from r-lib
