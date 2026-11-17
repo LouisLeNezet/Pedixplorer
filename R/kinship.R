@@ -209,7 +209,7 @@ setMethod("kinship", "Pedigree",
                         id(ped(tped)),
                         nomatch = NA
                     )
-                    if (any(is.na(id1x)) | any(is.na(id2x))) {
+                    if (any(is.na(id1x)) || any(is.na(id2x))) {
                         stop("All individuals in relationship matrix ",
                             "should be present in the pedigree informations"
                         )

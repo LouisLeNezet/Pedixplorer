@@ -113,7 +113,7 @@ setMethod("is_informative", "character_OR_integer",
 setMethod("is_informative", "Ped", function(
     obj, informative = "AvAf", reset = FALSE
 ) {
-    if (!reset & any(!is.na(isinf(obj)))) {
+    if (!reset && any(!is.na(isinf(obj)))) {
         warning(
             "The isinf slot already has values in the Ped object",
             " and reset is set to FALSE"

@@ -102,7 +102,7 @@ setMethod("min_dist_inf", "Ped", function(
     obj, reset = FALSE
 ) {
 
-    if (!reset & any(!is.na(kin(obj)))) {
+    if (!reset && any(!is.na(kin(obj)))) {
         stop(
             "The kin slot already has values in the ",
             "Ped object and reset is set to FALSE"

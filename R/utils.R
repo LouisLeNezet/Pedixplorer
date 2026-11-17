@@ -236,7 +236,7 @@ setMethod("is_parent", "character_OR_integer",
         # determine subjects who are parents assume input of
         # dadid/momid indices, not ids
 
-        if (length(obj) != length(dadid) | length(obj) != length(momid)) {
+        if (length(obj) != length(dadid) || length(obj) != length(momid)) {
             stop("The length of the vectors are not the same")
         }
 

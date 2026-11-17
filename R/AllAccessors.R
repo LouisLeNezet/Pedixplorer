@@ -1,7 +1,7 @@
 #### S4 Accessors ####
 #' @include AllConstructor.R
 #' @include AllClass.R
-#' @importFrom S4Vectors mcols
+#' @importFrom S4Vectors mcols mcols<-
 NULL
 
 #### S4 Ped Accessors ####
@@ -1235,7 +1235,6 @@ setMethod(
 #' This function is a wrapper around `mcols(ped(x))`.
 #' @rdname Pedigree-class
 #' @usage NULL
-#' @importFrom S4Vectors 'mcols'
 #' @export
 setMethod(
     "mcols",
@@ -1250,7 +1249,6 @@ setMethod(
 #' This function is a wrapper around `mcols(ped(x)) <- value`.
 #' @rdname Pedigree-class
 #' @usage NULL
-#' @importFrom S4Vectors 'mcols<-'
 #' @export
 setMethod(
     "mcols<-",
