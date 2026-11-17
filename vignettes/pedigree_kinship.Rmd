@@ -105,7 +105,7 @@ a for loop containing operations on single rows/columns.
 
 At one point below we use a vectorized version. It looks like the snippet below
 
-```{r, kinship_algo, eval=FALSE}
+```{r kinship_algo, eval=FALSE}
 for (g in 1:max(depth)) {
     indx <- which(depth == g)
     kmat[indx, ] <- (kmat[mother[indx], ] + kmat[father[indx], ]) / 2
@@ -179,7 +179,7 @@ If all of the subject ids are unique, across all families, the final
 matrix is labeled with the subject id, otherwise it is labeled with
 family/subject.
 
-```{r, kinship}
+```{r kinship}
 library(Pedixplorer)
 data(sampleped)
 pedi <- Pedigree(sampleped[, -16]) # Remove adoption field
@@ -231,7 +231,7 @@ Finally, remove the rows that are identical.
 The result is a set of all pairs of observations in the matrix that
 correspond to monozygotic pairs.
 
-```{r, kinship_twins, fig.alt = "Monozygotic twins", fig.align = 'center'}
+```{r kinship_twins, fig.alt = "Monozygotic twins", fig.align = 'center'}
 df <- data.frame(
     id = c(1, 2, 3, 4, 5, 6, 7, 8),
     dadid = c(4, 4, 4, NA, 4, 4, 4, NA),
@@ -252,6 +252,6 @@ kinship(pedi)[twins, twins]
 Session information
 ===================
 
-```{r}
+```{r session_info}
 sessionInfo()
 ```
