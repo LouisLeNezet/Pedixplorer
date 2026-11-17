@@ -101,11 +101,11 @@ shrink(ped1, max_bits = 12)
 #> 1_106           1_106        <NA>        <NA>           1    female   fertile
 #> 1_109           1_109        <NA>        <NA>           1    female   fertile
 #> ...               ...         ...         ...         ...       ...       ...
+#> 1_116           1_116       1_105       1_106           1    female   fertile
 #> 1_118           1_118       1_105       1_106           1    female   fertile
 #> 1_119           1_119       1_105       1_106           1      male   fertile
 #> 1_124           1_124       1_110       1_109           1      male   fertile
 #> 1_127           1_127       1_114       1_115           1      male   fertile
-#> 1_128           1_128       1_114       1_115           1      male   fertile
 #>           miscarriage  deceased     avail evaluated consultand   proband
 #> col_class    <factor> <logical> <logical> <logical>  <logical> <logical>
 #> 1_103           FALSE      <NA>     FALSE     FALSE      FALSE     FALSE
@@ -114,11 +114,11 @@ shrink(ped1, max_bits = 12)
 #> 1_106           FALSE      <NA>     FALSE     FALSE      FALSE     FALSE
 #> 1_109           FALSE      <NA>      TRUE     FALSE       TRUE     FALSE
 #> ...               ...       ...       ...       ...        ...       ...
+#> 1_116           FALSE      <NA>      TRUE     FALSE      FALSE     FALSE
 #> 1_118           FALSE      <NA>      TRUE     FALSE      FALSE     FALSE
 #> 1_119           FALSE      <NA>      TRUE     FALSE      FALSE     FALSE
 #> 1_124           FALSE      <NA>      TRUE     FALSE      FALSE     FALSE
 #> 1_127           FALSE      <NA>      TRUE     FALSE      FALSE     FALSE
-#> 1_128           FALSE      <NA>      TRUE     FALSE      FALSE     FALSE
 #>            affected   carrier asymptomatic   adopted dateofbirth dateofdeath
 #> col_class <logical> <logical>    <logical> <logical> <character> <character>
 #> 1_103          TRUE      <NA>         <NA>     FALSE  1975-08-14        <NA>
@@ -127,24 +127,24 @@ shrink(ped1, max_bits = 12)
 #> 1_106          <NA>      <NA>         <NA>     FALSE        <NA>        <NA>
 #> 1_109         FALSE      <NA>         TRUE     FALSE        <NA>        <NA>
 #> ...             ...       ...          ...       ...         ...         ...
+#> 1_116          TRUE      <NA>         <NA>     FALSE        <NA>        <NA>
 #> 1_118          TRUE      <NA>         <NA>     FALSE        <NA>        <NA>
 #> 1_119          TRUE      <NA>         <NA>     FALSE        <NA>        <NA>
 #> 1_124          TRUE      <NA>         <NA>     FALSE  2006-07-28        <NA>
 #> 1_127          TRUE      <NA>         <NA>     FALSE        <NA>        <NA>
-#> 1_128          TRUE      <NA>         <NA>     FALSE        <NA>        <NA>
 #>              useful       kin     isinf num_child_tot num_child_dir
 #> col_class <logical> <numeric> <logical>     <numeric>     <numeric>
 #> 1_103          <NA>      <NA>      <NA>             2             2
 #> 1_104          <NA>      <NA>      <NA>             2             2
-#> 1_105          <NA>      <NA>      <NA>             3             3
-#> 1_106          <NA>      <NA>      <NA>             3             3
+#> 1_105          <NA>      <NA>      <NA>             4             4
+#> 1_106          <NA>      <NA>      <NA>             4             4
 #> 1_109          <NA>      <NA>      <NA>             1             1
 #> ...             ...       ...       ...           ...           ...
+#> 1_116          <NA>      <NA>      <NA>             0             0
 #> 1_118          <NA>      <NA>      <NA>             0             0
 #> 1_119          <NA>      <NA>      <NA>             0             0
 #> 1_124          <NA>      <NA>      <NA>             0             0
 #> 1_127          <NA>      <NA>      <NA>             0             0
-#> 1_128          <NA>      <NA>      <NA>             0             0
 #>           num_child_ind |   affection         num       error affection_mods
 #> col_class     <numeric>   <character> <character> <character>    <character>
 #> 1_103                 0             1           2        <NA>              1
@@ -153,11 +153,11 @@ shrink(ped1, max_bits = 12)
 #> 1_106                 0          <NA>           1        <NA>             NA
 #> 1_109                 0             0           3        <NA>              0
 #> ...                 ...           ...         ...         ...            ...
+#> 1_116                 0             1           1        <NA>              1
 #> 1_118                 0             1           2        <NA>              1
 #> 1_119                 0             1           6        <NA>              1
 #> 1_124                 0             1        <NA>        <NA>              1
 #> 1_127                 0             1           5        <NA>              1
-#> 1_128                 0             1           3        <NA>              1
 #>            avail_mods
 #> col_class <character>
 #> 1_103               0
@@ -166,19 +166,19 @@ shrink(ped1, max_bits = 12)
 #> 1_106               0
 #> 1_109               1
 #> ...               ...
+#> 1_116               1
 #> 1_118               1
 #> 1_119               1
 #> 1_124               1
 #> 1_127               1
-#> 1_128               1
 #> Rel object with 0 relationshipswith 0 MZ twin, 0 DZ twin, 0 UZ twin, 0 Spouse:
 #>          id1         id2                     code       famid     group
 #>  <character> <character> <c("ordered", "factor")> <character> <numeric>
 #> 
 #> $id_trim
 #>  [1] "1_101" "1_102" "1_107" "1_108" "1_111" "1_113" "1_121" "1_122" "1_123"
-#> [10] "1_131" "1_132" "1_134" "1_139" "1_126" "1_125" "1_133" "1_140" "1_141"
-#> [19] "1_130" "1_129" "1_116"
+#> [10] "1_131" "1_132" "1_134" "1_139" "1_126" "1_125" "1_141" "1_140" "1_133"
+#> [19] "1_129" "1_130" "1_128"
 #> 
 #> $id_lst
 #> $id_lst$unavail
@@ -186,11 +186,11 @@ shrink(ped1, max_bits = 12)
 #> [10] "1_131" "1_132" "1_134" "1_139"
 #> 
 #> $id_lst$affect
-#> [1] "1_126" "1_125" "1_133" "1_140" "1_141" "1_130" "1_129" "1_116"
+#> [1] "1_126" "1_125" "1_141" "1_140" "1_133" "1_129" "1_130" "1_128"
 #> 
 #> 
 #> $bit_size
-#>  [1] 46 29 27 23 21 19 15 14 13 11
+#>  [1] 46 29 27 23 21 17 15 14 13 11
 #> 
 #> $avail
 #>  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE

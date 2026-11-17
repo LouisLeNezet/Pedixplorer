@@ -115,7 +115,7 @@ find_avail_affected(pedi, affstatus = 1)
 #> 1_104          <NA>      <NA>      <NA>             3             3
 #> 1_105          <NA>      <NA>      <NA>             4             4
 #> 1_106          <NA>      <NA>      <NA>             4             4
-#> 1_109          <NA>      <NA>      <NA>             0             0
+#> 1_109          <NA>      <NA>      <NA>             1             1
 #> ...             ...       ...       ...           ...           ...
 #> 2_208          <NA>      <NA>      <NA>             2             2
 #> 2_209          <NA>      <NA>      <NA>             2             2
@@ -151,12 +151,12 @@ find_avail_affected(pedi, affstatus = 1)
 #> 
 #> $new_avail
 #>  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
-#> [13]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
-#> [25] FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE
+#> [13]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+#> [25] FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE
 #> [37]  TRUE  TRUE
 #> 
 #> $id_trimmed
-#> [1] "1_124"
+#> [1] "2_206"
 #> 
 #> $is_trimmed
 #> [1] TRUE

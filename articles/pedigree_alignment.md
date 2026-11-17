@@ -375,7 +375,6 @@ a subject id (ignoring the actual id label).
 - Check that everyone has either two parents or none (a singleton
   confuses us).
 - Verify that the hints are correct.
-- The relation data frame, if present, has a factor, convert to numeric.
 - Create the \\spouselist\\ array. This has 4 columns
   - Husband index (4 = 4th person in the Pedigree structure)
   - Wife index
@@ -640,13 +639,13 @@ final point must be \\\le\\ the max width.
 sessionInfo()
 ```
 
-    ## R version 4.4.3 (2025-02-28)
+    ## R version 4.5.2 (2025-10-31)
     ## Platform: x86_64-pc-linux-gnu
-    ## Running under: Ubuntu 22.04.4 LTS
+    ## Running under: Ubuntu 24.04.3 LTS
     ## 
     ## Matrix products: default
     ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-    ## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
+    ## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
     ## 
     ## locale:
     ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -663,33 +662,33 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] Pedixplorer_1.9.2 BiocStyle_2.32.1 
+    ## [1] Pedixplorer_1.9.3 BiocStyle_2.38.0 
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] shinyjqui_0.4.1       gtable_0.3.6          xfun_0.62            
-    ##  [4] bslib_0.12.0          ggplot2_4.0.4         shinyjs_2.1.1        
-    ##  [7] htmlwidgets_1.6.4     lattice_0.23-1        quadprog_1.5-8       
-    ## [10] vctrs_0.7.3           tools_4.4.3           generics_0.1.4       
-    ## [13] stats4_4.4.3          tibble_3.3.1          pkgconfig_2.0.3      
-    ## [16] Matrix_1.7-6          data.table_1.18.6.1   RColorBrewer_1.1-3   
-    ## [19] S7_0.2.2              desc_1.4.3            S4Vectors_0.42.1     
+    ##  [4] bslib_0.9.0           ggplot2_4.0.4         shinyjs_2.1.1        
+    ##  [7] htmlwidgets_1.6.4     lattice_0.22-7        quadprog_1.5-8       
+    ## [10] vctrs_0.7.3           tools_4.5.2           generics_0.1.4       
+    ## [13] stats4_4.5.2          tibble_3.3.0          pkgconfig_2.0.3      
+    ## [16] Matrix_1.7-4          data.table_1.18.6.1   RColorBrewer_1.1-3   
+    ## [19] S7_0.2.2              desc_1.4.3            S4Vectors_0.48.1     
     ## [22] readxl_1.6.0          lifecycle_1.0.5       stringr_1.6.0        
-    ## [25] shinytoastr_2.2.0     compiler_4.4.3        farver_2.1.2         
-    ## [28] textshaping_1.0.5     httpuv_1.6.17         shinyWidgets_0.9.1   
-    ## [31] htmltools_0.5.9       sass_0.4.10           yaml_2.3.12          
-    ## [34] plotly_4.12.1         later_1.4.8           pillar_1.11.1        
+    ## [25] shinytoastr_2.2.0     compiler_4.5.2        farver_2.1.2         
+    ## [28] textshaping_1.0.4     httpuv_1.6.16         shinyWidgets_0.9.1   
+    ## [31] htmltools_0.5.8.1     sass_0.4.10           yaml_2.3.11          
+    ## [34] plotly_4.12.1         later_1.4.4           pillar_1.11.1        
     ## [37] pkgdown_2.2.1         jquerylib_0.1.4       tidyr_1.3.2          
     ## [40] DT_0.34.0             cachem_1.1.0          mime_0.13            
-    ## [43] tidyselect_1.2.1      digest_0.6.39         stringi_1.8.9        
-    ## [46] colourpicker_1.3.0    dplyr_1.2.1           purrr_1.2.2          
-    ## [49] bookdown_0.48         fastmap_1.2.0         grid_4.4.3           
-    ## [52] cli_3.6.6             magrittr_2.0.5        withr_3.0.3          
-    ## [55] scales_1.4.0          promises_1.5.0        rmarkdown_2.32       
-    ## [58] httr_1.4.9            igraph_2.3.4          otel_0.3.0           
-    ## [61] cellranger_1.1.0      ragg_1.5.2            shiny_1.14.0         
-    ## [64] evaluate_1.0.5        knitr_1.52            shinycssloaders_1.1.0
+    ## [43] tidyselect_1.2.1      digest_0.6.39         stringi_1.8.7        
+    ## [46] colourpicker_1.3.0    dplyr_1.2.1           purrr_1.2.0          
+    ## [49] bookdown_0.48         fastmap_1.2.0         grid_4.5.2           
+    ## [52] cli_3.6.5             magrittr_2.0.4        withr_3.0.2          
+    ## [55] scales_1.4.0          promises_1.5.0        rmarkdown_2.30       
+    ## [58] httr_1.4.9            igraph_2.3.4          otel_0.2.0           
+    ## [61] cellranger_1.1.0      ragg_1.5.0            shiny_1.11.1         
+    ## [64] evaluate_1.0.5        knitr_1.50            shinycssloaders_1.1.0
     ## [67] miniUI_0.1.2          viridisLite_0.4.3     rlang_1.3.0          
-    ## [70] Rcpp_1.1.2            xtable_1.8-8          glue_1.8.1           
-    ## [73] shinyhelper_0.3.2     BiocManager_1.30.27   BiocGenerics_0.50.0  
+    ## [70] Rcpp_1.1.0            xtable_1.8-4          glue_1.8.0           
+    ## [73] shinyhelper_0.3.2     BiocManager_1.30.27   BiocGenerics_0.56.0  
     ## [76] jsonlite_2.0.0        R6_2.6.1              plyr_1.8.9           
-    ## [79] systemfonts_1.3.3     fs_2.1.0
+    ## [79] systemfonts_1.3.1     fs_1.6.6

@@ -58,7 +58,7 @@ data(sampleped)
 fam1 <- sampleped[sampleped$famid == 1, -16]
 ped1 <- Pedigree(fam1)
 unrelated(ped1)
-#> [1] "1_109" "1_113" "1_118" "1_141"
+#> [1] "1_109" "1_113" "1_129" "1_141"
 ## some possible vectors
 ## [1] '110' '113' '133' '109'
 ## [1] '113' '118' '141' '109'

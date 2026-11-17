@@ -103,8 +103,8 @@ summary(leg_df$df)
 #>  Class :character   1st Qu.:1.000   1st Qu.:0.8333   1st Qu.: NA  
 #>  Mode  :character   Median :3.104   Median :2.1670   Median : NA  
 #>                     Mean   :2.723   Mean   :1.9376   Mean   :NaN  
-#>                     3rd Qu.:4.258   3rd Qu.:2.8752   3rd Qu.: NA  
-#>                     Max.   :5.258   Max.   :4.0000   Max.   : NA  
+#>                     3rd Qu.:4.257   3rd Qu.:2.8752   3rd Qu.: NA  
+#>                     Max.   :5.257   Max.   :4.0000   Max.   : NA  
 #>                                                      NA's   :24   
 #>        y1          type               fill              border         
 #>  Min.   : NA   Length:24          Length:24          Length:24         

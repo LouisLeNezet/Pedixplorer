@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.10/font.css" rel="stylesheet"><link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet"><link href="../deps/Roboto_Slab-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Rescale continuous vector to have specified minimum and maximum — rescale"><meta name="description" content="Rescale continuous vector to have specified minimum and maximum"><meta property="og:description" content="Rescale continuous vector to have specified minimum and maximum"></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.10/font.css" rel="stylesheet"><link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet"><link href="../deps/Roboto_Slab-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Rescale continuous vector to have specified minimum and maximum — rescale"><meta name="description" content="Rescale continuous vector to have specified minimum and maximum"><meta property="og:description" content="Rescale continuous vector to have specified minimum and maximum"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Pedixplorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.9.2</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/devel/bioc/html/Pedixplorer.html">Latest devel release : Version 1.9.3</a></li>
     <li><a class="external-link dropdown-item" href="https://www.bioconductor.org/packages/release/bioc/html/Pedixplorer.html">Latest main release : Version 1.8.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.4.0">Previous stable release : Version 1.6.0</a></li>
     <li><a class="external-link dropdown-item" href="https://github.com/LouisLeNezet/Pedixplorer/releases/tag/v1.4.0">Previous stable release : Version 1.4.0</a></li>
@@ -60,7 +60,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Rescale continuous vector to have specified minimum and maximum</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/fix_vignette/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LouisLeNezet/Pedixplorer/blob/devel/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
       <div class="d-none name"><code>rescale.Rd</code></div>
     </div>
 
@@ -121,15 +121,15 @@ rescaled to the range specified by <code>to</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [91] 0.90909091 0.91919192 0.92929293 0.93939394 0.94949495 0.95959596</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [97] 0.96969697 0.97979798 0.98989899 1.00000000</span>
 <span class="r-in"><span><span class="fu">rescale</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.37256665 0.98419514 0.26958502 0.67447864 0.73382229 0.17168265</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.98939778 0.74028613 0.02106965 0.52005368 0.69265871 0.68508392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.00000000 0.20253867 0.28098545 0.63079380 0.46670415 0.41787229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] 0.70371672 0.95608491 0.15540515 0.19351020 0.67633640 0.48736223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] 0.63622771 0.65561838 0.06753001 0.76538158 0.76962829 1.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 0.97895593 0.37306843 0.44811278 0.29600496 0.14950314 0.52147223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] 0.48193369 0.77966894 0.18025145 0.71097422 0.03542097 0.33661546</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43] 0.82749766 0.25283218 0.56156826 0.31734703 0.58889325 0.16705650</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] 0.95523796 0.53283969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.37282849 1.00000000 0.33815482 0.94674106 0.20260212 0.01534343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.13056722 0.85216453 0.19959931 0.19671058 0.02290267 0.94415266</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.23193952 0.77760868 0.27601397 0.87350916 0.28365965 0.98358799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] 0.58294365 0.75525638 0.83353243 0.75898216 0.40732675 0.12319827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] 0.06495714 0.65025751 0.59532494 0.65128862 0.31781986 0.97946521</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 0.71050715 0.87073336 0.98334205 0.20510865 0.65895598 0.37913129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] 0.02956123 0.61049911 0.59173372 0.39672639 0.85617849 0.50951228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] 0.97928121 0.00000000 0.66803132 0.36051388 0.91691557 0.67264164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] 0.65958938 0.75208401</span>
 <span class="r-in"><span><span class="fu">rescale</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NaN</span>
 </code></pre></div>
