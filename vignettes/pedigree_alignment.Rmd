@@ -382,7 +382,6 @@ subject id (ignoring the actual id label).
 
 - Check that everyone has either two parents or none (a singleton confuses us).
 - Verify that the hints are correct.
-- The relation data frame, if present and as a factor, convert to numeric.
 - Create the $spouselist$ array. This has 4 columns
     - Husband index (4 = 4th person in the Pedigree structure)
     - Wife index
